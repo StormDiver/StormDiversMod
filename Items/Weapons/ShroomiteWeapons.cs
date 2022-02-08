@@ -1,0 +1,342 @@
+﻿using System;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using StormDiversMod.Buffs;
+using static Terraria.ModLoader.ModContent;
+using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Creative;
+using StormDiversMod.Projectiles;
+using Terraria.DataStructures;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Basefiles;
+
+
+namespace StormDiversMod.Items.Weapons
+{
+    public class ShroomiteSharpshooter : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shroomite Sharpshooter");
+            Tooltip.SetDefault("33% Chance not to consume Ammo\nBuilds up accuracy over several seconds, dealing extra damage at full accuracy\nRight Click to zoom out");
+            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+         
+
+            HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
+            {
+                Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
+                Color = () => new Color(255, 255, 255, 50) * 0.7f
+            });
+        }
+        public override void SetDefaults()
+        {
+            
+            Item.width = 50;
+            Item.height = 22;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 8, 0, 0);
+            Item.rare = ItemRarityID.Yellow;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            
+            Item.useTurn = false;
+            Item.autoReuse = true;
+
+            Item.DamageType = DamageClass.Ranged;
+
+            //Item.UseSound = SoundID.Item40;
+
+            Item.damage = 65;
+            Item.crit = 16;
+            Item.knockBack = 2f;
+       
+            Item.shoot = ProjectileID.Bullet;
+            Item.shootSpeed = 15f;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useAmmo = AmmoID.Bullet;
+
+            Item.noMelee = true; 
+        }
+
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-8, 0);
+        }
+
+        int accuracy = 15; //The amount of spread
+        int resetaccuracy = 15; //How long to not fire for the accuracy to reset
+        public override void HoldItem(Player player)
+        {
+            player.scope = true;
+            if (resetaccuracy == 0) //Resets accuracy when not firing
+            {
+                accuracy = 15;
+               
+            }
+            resetaccuracy--;
+        }
+
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+           
+            if (accuracy > 0)//Increases accuracy every shot
+            {
+                accuracy -= 1;
+
+            }
+
+            resetaccuracy = 15; //Prevents the accuracy from reseting while firing
+
+            {
+                {
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
+                    if (accuracy == 0)//When at full accuracy damage and knockback of the projectile is increased by 10%
+                    {
+                        if (type == ProjectileID.Bullet)
+                            {
+                                type = ProjectileID.BulletHighVelocity;
+                            }
+                        Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, (int)(damage * 1.15f), knockback * 2, player.whoAmI);
+                        SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40, 1, 0.5f);
+
+                    }
+                    else
+                    {
+                        Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                        SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
+
+                    }
+
+                    //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
+                }
+            }
+
+            return false;
+
+        }
+
+
+        public override bool CanConsumeAmmo(Player player)
+        {
+            return Main.rand.NextFloat() >= .33f;
+        }
+
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.ShroomiteBar, 14)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+           
+        }
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/ShroomiteSharpshooter_Glow");
+
+            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
+                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+        }
+    }
+    //_______________________________________________________________________________
+    public class ShroomiteFury : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shroomite Fury");
+            Tooltip.SetDefault("Shoots out two super bouncy piercing arrows each shot");
+            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
+            {
+                Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
+                Color = () => new Color(255, 255, 255, 50) * 0.7f
+            });
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 20;
+            Item.height = 46;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 8, 0, 0);
+            Item.rare = ItemRarityID.Yellow;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
+            Item.useTurn = false;
+            Item.autoReuse = true;
+
+            Item.DamageType = DamageClass.Ranged;
+
+            Item.UseSound = SoundID.Item5;
+
+            Item.damage = 72;
+            //Item.crit = 4;
+            Item.knockBack = 5f;
+
+            Item.shoot = ProjectileID.WoodenArrowFriendly;
+
+            Item.shootSpeed = 16f;
+
+            Item.useAmmo = AmmoID.Arrow;
+
+
+            Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-5, 0);
+        }
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            
+
+            for (int i = 0; i < 2; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
+                float scale = 1f - (Main.rand.NextFloat() * .2f);
+                perturbedSpeed = perturbedSpeed * scale;
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<ShroomBowArrowProj>(), damage, knockback, player.whoAmI);
+            }
+ 
+            return true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.ShroomiteBar, 14)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/ShroomiteFury_Glow");
+
+            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
+                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+        }
+    }
+    //__________________________________________________________________________________________________________
+    public class ShroomiteLauncher : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shroomite Launcher");
+            Tooltip.SetDefault("Fires Shroomite Rockets which explode into mushrooms\nRight click to fire Shroomite Grenades");
+            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
+            {
+                Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
+                Color = () => new Color(255, 255, 255, 50) * 0.7f
+            });
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 40;
+            Item.height = 24;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 8, 0, 0);
+            Item.rare = ItemRarityID.Yellow;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 35;
+            Item.useAnimation = 35;
+            Item.useTurn = false;
+            Item.autoReuse = true;
+
+            Item.DamageType = DamageClass.Ranged;
+
+            Item.shoot = ProjectileID.RocketI;
+            Item.useAmmo = AmmoID.Rocket;
+            // Item.UseSound = SoundID.Item92;
+            Item.damage = 47;
+            //Item.crit = 4;
+            Item.knockBack = 6f;
+            Item.shootSpeed = 10f;
+
+            Item.noMelee = true; //Does the weapon itself inflict damage?
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-10, 0);
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool CanUseItem(Player player)
+        {
+
+            if (player.altFunctionUse == 2)
+            {
+                Item.autoReuse = true;
+
+            }
+            else
+            {
+                Item.autoReuse = true;
+
+            }
+
+            return true;
+        }
+
+        //int gren = 0;
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            
+            //gren++;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+            if (player.altFunctionUse == 2)
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.8f, perturbedSpeed.Y * 0.8f), ModContent.ProjectileType<ShroomGrenProj>(), damage, knockback, player.whoAmI);
+                SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 61);
+            }
+            else
+            {
+
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<ShroomRocketProj>(), damage, knockback, player.whoAmI);
+
+                SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 92);
+            }
+
+            return false;
+        }
+
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.ShroomiteBar, 14)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+        }
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/ShroomiteLauncher_Glow");
+
+            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
+                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+        }
+    }
+}

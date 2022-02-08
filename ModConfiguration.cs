@@ -1,0 +1,49 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.Serialization;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
+using Terraria.ModLoader.Config.UI;
+using Terraria.UI;
+
+
+namespace StormDiversMod
+{
+    public class Configurations : ModConfig //configuration settings
+    {
+        public override ConfigScope Mode => ConfigScope.ServerSide;
+
+        /*[Label("Disable Frost and Arid ore Generation")]
+        // Similar to Label, this sets the tooltip. Tooltips are useful for slightly longer and more detailed explanations of config options.
+        [Tooltip("This will prevent the 2 ores in this mod from generating, but they will still drop from NPCs and crates, Requires a Reload")]
+        // ReloadRequired hints that if this value is changed, a reload is required for the mod to properly work. 
+        // Failure to properly use ReloadRequired will cause many, many problems including ID desync.
+        [ReloadRequired] //Not really needed, but keep it to stop people for finding exploits 
+        public bool PreventOreSpawn { get; set; }*/
+
+        [Label("Prevent modded pillar enemies from spawning")]
+        [Tooltip("This will prevent the new pillar enemies in this mod from spawning")]
+        //[ReloadRequired] //No reload required as it just changes the spawn chance and doesn't disable the enemy itself
+        public bool PreventPillarEnemies { get; set; }
+
+        [Label("Disable buffed Derplings")]
+        [Tooltip("This will prevent Derplings from gaining massively increased stats post-plantera")]
+        //[ReloadRequired] //No reload required as it just changes the spawn chance and doesn't disable the enemy itself
+        public bool PreventBuffedDerps { get; set; }
+
+        [Label("Revert modded throwing weapons to throwing class")]
+        [Tooltip("This will make all weapons in the mod that were previously throwing deal thrown damage")]
+        [ReloadRequired] //Yes
+        public bool ThrowingTryhards { get; set; }
+    }
+}

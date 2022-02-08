@@ -1,0 +1,4 @@
+displayName = [c/22DD97:Storm Diver's Additions Mod]
+author = Storm Diver
+version = 2.0
+homepage = https://discord.gg/VJvf2HkxtA

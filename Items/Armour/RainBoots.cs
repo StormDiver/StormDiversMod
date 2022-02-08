@@ -1,0 +1,70 @@
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
+using StormDiversMod.Buffs;
+using StormDiversMod.Basefiles;
+using Terraria.Localization;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Creative;
+
+
+namespace StormDiversMod.Items.Armour
+{
+    [AutoloadEquip(EquipType.Legs)]
+    public class RainBoots : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Rain Boots");
+            //Tooltip.SetDefault("Rain");
+            ArmorIDs.Legs.Sets.OverridesLegs[Item.legSlot] = false;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.rare = ItemRarityID.White;
+            Item.defense = 1;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            
+        }
+
+        public override void ArmorSetShadows(Player player)
+        {
+            
+        }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return head.type == ItemID.RainHat && body.type == ItemID.RainCoat;
+
+        }
+
+        public override void UpdateArmorSet(Player player)
+        {
+                if (Main.raining)
+                {
+
+                    player.AddBuff(ModContent.BuffType<RainBuff>(), 2);
+                }
+                player.setBonus = "50% increased Movement Speed while raining";
+     
+        }
+    
+      
+       
+    }
+
+   
+
+}
