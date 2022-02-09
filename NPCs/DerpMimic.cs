@@ -101,7 +101,7 @@ namespace StormDiversMod.NPCs
 
 
 
-            if (Framing.GetTileSafely(tilePos.X, tilePos.Y).type == TileID.Asphalt)//When on asphalt 
+            if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
             {
                 moveatspeed = 16 + (distanceX / 50);
                 if ((NPC.velocity.X > 5 || NPC.velocity.X < -5) && NPC.velocity.Y == 0)

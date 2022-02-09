@@ -6,7 +6,7 @@ This mod includes:
 
 -Over 100 new unique weapons across all classes
 -Over 20 new accessories, including new expert exclusive ones
--9 new armour sets with unique set bonuses
+-10 new armour sets with unique set bonuses
 -Many new ammos including unique ammo for certain weapons
 -Multiple new tools
 -New bars and other crafting materials

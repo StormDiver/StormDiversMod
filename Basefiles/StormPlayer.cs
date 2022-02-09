@@ -290,7 +290,7 @@ namespace StormDiversMod.Basefiles
             //Detect if player is in Temple and immediatly summon up to 8 Guardians
             int xtilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
             int ytilepos = (int)(Player.position.Y + (float)(Player.height / 2)) / 16;
-            if (Main.tile[xtilepos, ytilepos].wall == WallID.LihzahrdBrickUnsafe)
+            if (Main.tile[xtilepos, ytilepos].WallType == WallID.LihzahrdBrickUnsafe)
             {
 
                 if (!NPC.downedPlantBoss && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 8)
@@ -414,13 +414,13 @@ namespace StormDiversMod.Basefiles
                 //int xboottilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
                 //int yboottilepos = (int)(Player.Bottom.Y / 16);
 
-                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).type == TileID.Asphalt)//When on asphalt 
+                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
                 {
 
                     Player.maxRunSpeed = (5f);
                     Player.runAcceleration *= 2f;
                 }
-                else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).type != TileID.Asphalt)//When on asphalt 
+                else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt)//When on asphalt 
                 {
                     Player.maxRunSpeed = (9f);
                     Player.runAcceleration *= 3f;
@@ -603,7 +603,7 @@ namespace StormDiversMod.Basefiles
                 int xcursor = (int)(Main.MouseWorld.X / 16);
                 int ycursor = (int)(Main.MouseWorld.Y / 16);
                 Tile tile = Main.tile[xcursor, ycursor];
-                if ((tile != null && !tile.IsActive || !Main.tileSolid[tile.type]) && !Player.HasBuff(ModContent.BuffType<TwilightDebuff>())) //Checks if mouse is in valid postion
+                if ((tile != null && !tile.HasTile || !Main.tileSolid[tile.TileType]) && !Player.HasBuff(ModContent.BuffType<TwilightDebuff>())) //Checks if mouse is in valid postion
                 {
                     if (((distanceX < -xWarplimit || distanceX > xWarplimit || distanceY < -yWarplimit || distanceY > yWarplimit) && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) ||
                         (distanceX > -xWarplimit && distanceX < xWarplimit && distanceY > -yWarplimit && distanceY < yWarplimit)) //If there is no line of sight and cursor is past limit, don't allow teleport to prevent gettign stuck in blocks

@@ -167,7 +167,7 @@ namespace StormDiversMod.Items.Weapons
             if (player.altFunctionUse == 2)
             {
 
-                Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 5f;
+                Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 10f;
                 if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
                 {
                     position += muzzleOffset;
@@ -176,7 +176,7 @@ namespace StormDiversMod.Items.Weapons
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y) * 2.5f;
                 for (int i = 0; i < 2; i++)
                 {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj2>(), damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj2>(), damage * 2, knockback, player.whoAmI);
                 }
                 SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 92, 1, 0.5f);
 
@@ -199,7 +199,7 @@ namespace StormDiversMod.Items.Weapons
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15));
                     float scale = 1f - (Main.rand.NextFloat() * .2f);
                     perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj>(), damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj>(), damage, knockback, player.whoAmI);
 
                 }
                 SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 92);

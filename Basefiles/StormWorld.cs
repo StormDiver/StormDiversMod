@@ -106,7 +106,7 @@ namespace StormDiversMod.Basefiles
                 int ChestMossyRepCount = 0;
 
 
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 10 * 36) //Look in Tiles_21 for the tile, start from 0
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36) //Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -138,7 +138,7 @@ namespace StormDiversMod.Basefiles
                 int ChestTwilightPetCount = 0;
 
 
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 2 * 36) //Look in Tiles_21 for the tile, start from 0
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 2 * 36) //Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -175,7 +175,7 @@ namespace StormDiversMod.Basefiles
                 int[] ChestHeart = { ItemType<Items.Accessory.HeartJar>() };
                 int ChestHeartCount = 0;
 
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 4 * 36)//Look in Tiles_21 for the tile, start from 0
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 4 * 36)//Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -200,7 +200,7 @@ namespace StormDiversMod.Basefiles
                 //For the Webstaff in Web chests
                 int[] ChestWeb = { ItemType<WebStaff>() };
                 int ChestWebCount = 0;
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 15 * 36)//Look in Tiles_21 for the tile, start from 0
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 15 * 36)//Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -232,7 +232,7 @@ namespace StormDiversMod.Basefiles
                 int[] ChestGraniteMage = { ItemType<GraniteStaff>() };
                 int ChestGraniteMageCount = 0;
 
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 50 * 36)//Look in Tiles_21 for the tile, start from 0
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 50 * 36)//Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -275,7 +275,7 @@ namespace StormDiversMod.Basefiles
                 int ChestMarbleMeleeCount = 0;
                 int[] ChestMarbleMage = { ItemType<GladiatorStaff>() };
                 int ChestMarbleMageCount = 0;
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 51 * 36)//Look in Tiles_21 for the tile, start from 0
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 51 * 36)//Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -314,7 +314,7 @@ namespace StormDiversMod.Basefiles
                 int ChestMushroomMeleeCount = 0;
                 int[] ChestMushroomMage = { ItemType<MushroomStaff>() };
                 int ChestMushroomMageCount = 0;
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 32 * 36)//Look in Tiles_21 for the tile, start from 0
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 32 * 36)//Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
