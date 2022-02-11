@@ -18,7 +18,6 @@ namespace StormDiversMod.Items.Accessory
         {
             DisplayName.SetDefault("Insulated Cuffs");
             Tooltip.SetDefault("All weapons have a chance to inflict frostburn upon attacked enemies\n'Redirect the coldness into your foes'");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             Item.canBePlacedInVanityRegardlessOfConditions = true;
 

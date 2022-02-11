@@ -19,7 +19,6 @@ namespace StormDiversMod.Items.Weapons
 		{
 			DisplayName.SetDefault("Blazing Star"); 
 			Tooltip.SetDefault("Spins around with the force of a star\nKnocks enemies in the direction you're facing\nHas a chance to reflect basic projectiles when spun");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 100;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
          
         }
@@ -93,7 +92,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Vortex Launcher");
             Tooltip.SetDefault("Fires out a barrage of vortex rockets\nRight click to fire a single faster, fully accurate, and more damaging rocket");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 100;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -173,7 +171,7 @@ namespace StormDiversMod.Items.Weapons
                     position += muzzleOffset;
                 }
 
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y) * 2.5f;
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y);
                 for (int i = 0; i < 2; i++)
                 {
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj2>(), damage * 2, knockback, player.whoAmI);
@@ -256,7 +254,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Nebula Storm");
             Tooltip.SetDefault("Summons nebula flame blasts that explode into many homing bolts");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 100;
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -355,7 +352,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Star Invader Staff");
             Tooltip.SetDefault("Summons a floating Stardust Sentry that launches mini Flow Invaders that home into enemies\nRight click to target a specific enemy");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 100;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

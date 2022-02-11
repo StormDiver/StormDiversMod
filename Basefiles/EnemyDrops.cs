@@ -132,12 +132,19 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
-            if ((NPC.downedBoss1) && (npc.type == NPCID.Drippler || npc.type == NPCID.BloodZombie))
+            if ((NPC.downedBoss2))
             {
-                if (Main.rand.Next(2) == 0)
+                if (npc.type == NPCID.Drippler || npc.type == NPCID.BloodZombie)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.BloodDrop>());
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.BloodDrop>());
 
+                    }
+                }
+                if (npc.type == NPCID.ZombieMerman || npc.type == NPCID.EyeballFlyingFish)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.BloodDrop>(), Main.rand.Next(2, 4));
                 }
             }
             if (Main.rand.Next(5000) < 1)

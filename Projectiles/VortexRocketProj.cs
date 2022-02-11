@@ -118,13 +118,23 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 50; i++)
             {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
-                dust.noGravity = true;
-                dust.scale = 2f;
 
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
+                dust.noGravity = true;
+                dust.scale = 2.5f;
+                dust.velocity *= 4f;
+                dust.fadeIn = 1f;
+
+            }
+            for (int i = 0; i < 50; i++)
+            {
+
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229);
+                dust.noGravity = true;
+
+                dust.scale = 2f;
+                dust.velocity *= 4f;
+                dust.fadeIn = 1.5f;
 
             }
             for (int i = 0; i < 80; i++)
@@ -134,10 +144,9 @@ namespace StormDiversMod.Projectiles
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 229, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-                dust.scale = 2f;
-                dust.fadeIn = 1f;
-
+                dust.scale = 1.5f;
             }
+
 
             Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
             Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
@@ -210,7 +219,7 @@ namespace StormDiversMod.Projectiles
             DrawOriginOffsetY = 0;
 
 
-            Projectile.extraUpdates = 1;
+            Projectile.extraUpdates = 3;
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
@@ -282,27 +291,35 @@ namespace StormDiversMod.Projectiles
             
             Projectile.alpha = 255;
 
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 50; i++)
             {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
-                dust.noGravity = true;
-                dust.scale = 2f;
 
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
+                dust.noGravity = true;
+                dust.scale = 2.5f;
+                dust.velocity *= 5f;
+                dust.fadeIn = 1f;
 
             }
-            for (int i = 0; i < 120; i++)
+            for (int i = 0; i < 50; i++)
+            {
+
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229);
+                dust.noGravity = true;
+
+                dust.scale = 2f;
+                dust.velocity *= 5f;
+                dust.fadeIn = 1.5f;
+
+            }
+            for (int i = 0; i < 80; i++)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 229, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-                dust.scale = 2f;
-                dust.fadeIn = 2f;
-
+                dust.scale = 1.5f;
             }
 
             Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);

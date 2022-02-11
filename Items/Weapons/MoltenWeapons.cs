@@ -195,7 +195,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Magma Blast");
             Tooltip.SetDefault("Summons an orb of lava that splashes on impact");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -266,7 +265,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Magma Orb Staff");
             Tooltip.SetDefault("Summons a magma orb sentry that launches bouncing fireballs at enemies\nRight click to target a specific enemy");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             //Item.staff[Item.type] = true;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;

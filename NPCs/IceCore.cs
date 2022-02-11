@@ -72,7 +72,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundSnow,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("This frozen creature lurks in the underground ice biomes, waiting for an unsuspecting adventurer to rain down sharp icicles. ")
+				new FlavorTextBestiaryInfoElement("This frozen creature lurks in the underground ice biome, waiting for an unsuspecting adventurer to rain down sharp icicles. ")
             });
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -87,7 +87,7 @@ namespace StormDiversMod.NPCs
             if (!NPC.AnyNPCs(ModContent.NPCType<IceCore>()) && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneSnow && Main.hardMode)
             {
                 {
-                    return SpawnCondition.Cavern.Chance * 0.04f;
+                    return SpawnCondition.Cavern.Chance * 0.05f;
                 }
             }
             
@@ -160,7 +160,7 @@ namespace StormDiversMod.NPCs
                     phasetime++;
 
 
-                    if (shoottime >= 12 && (NPC.position.Y < player.position.Y - 100))//fires the projectiles
+                    if (shoottime >= 15 && (NPC.position.Y < player.position.Y - 100))//fires the projectiles
                     {
 
                         int damage = 15; 
@@ -354,6 +354,8 @@ namespace StormDiversMod.NPCs
 
             isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.IceOre>(), 1, 12, 18));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.IceOre>(), 1, 10, 15));
+
+            npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Accessory.FrostAccess>(), 3, 2));
 
             npcLoot.Add(ItemDropRule.Common(ItemID.FrostCore, 1));
 

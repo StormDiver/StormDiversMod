@@ -76,6 +76,7 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Derpling Rifle");
             Tooltip.SetDefault("I know it looks cruel, but it had to be done\nFour round burst, only the first shot consumes ammo");
+
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -150,6 +151,7 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Derpling Scepter");
             Tooltip.SetDefault("Rapidly fires out magical Derpling Shell Shards\nHas a small chance to fire out a larger shard that homes and explodes into smaller shards");
             Item.staff[Item.type] = true;
+
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -224,6 +226,7 @@ namespace StormDiversMod.Items.Weapons
             Tooltip.SetDefault("Summons a buffed baby Derpling to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
+
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

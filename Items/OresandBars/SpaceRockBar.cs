@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.OresandBars
         {
             DisplayName.SetDefault("Asteroid Bar");
             Tooltip.SetDefault("Radiating with energy");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 79;
+            ItemID.Sets.SortingPriorityMaterials[Item.type] = 94;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 
         }

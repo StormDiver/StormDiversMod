@@ -17,7 +17,6 @@ namespace StormDiversMod.Items.Weapons
 		{
 			DisplayName.SetDefault("Blizzard Baton"); 
 			Tooltip.SetDefault("Spins with the power of a small blizzard\nKnocks enemies in the direction you're facing and inflicts CryoBurn");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -65,7 +64,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Frost Frizbee");
             Tooltip.SetDefault("Throws out a frizbee that shatters on impact");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -117,7 +115,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Frost Launcher");
             Tooltip.SetDefault("Fires out impact-exploding grenades that inflict CryoBurn\nRequires Prototype Grenades, purchase more from the Demolitionist");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -188,7 +185,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Cryofreezer");
             Tooltip.SetDefault("Fires out frozen gas which inflicts CryoBurn\nUses gel for ammo");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

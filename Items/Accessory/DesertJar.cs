@@ -16,7 +16,6 @@ namespace StormDiversMod.Items.Accessory
         {
             DisplayName.SetDefault("Pharaoh's Urn");
             Tooltip.SetDefault("Leaves behind a damaging trail of sand when moving fast enough\nDamaging enemies creates a small sand blast around you");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -66,11 +65,11 @@ namespace StormDiversMod.Items.Accessory
        
         public override void AddRecipes()
         {
-            CreateRecipe()
+            /*CreateRecipe()
             .AddIngredient(ModContent.ItemType<Items.OresandBars.DesertBar>(), 10)
             .AddIngredient(ItemID.AncientBattleArmorMaterial, 2)
             .AddTile(TileID.MythrilAnvil)
-            .Register();
+            .Register();*/
           
         }
     }

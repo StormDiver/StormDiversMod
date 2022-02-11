@@ -18,7 +18,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Tidal Wave");
             Tooltip.SetDefault("Summons an orb of water that splashes on impact");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

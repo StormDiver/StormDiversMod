@@ -14,7 +14,6 @@ namespace StormDiversMod.Items.Ammo
         {
             DisplayName.SetDefault("Forbidden Bullet");
             Tooltip.SetDefault("Has a chance to spilt into two mid-flight");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }

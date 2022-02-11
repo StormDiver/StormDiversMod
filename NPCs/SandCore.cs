@@ -38,7 +38,7 @@ namespace StormDiversMod.NPCs
             NPC.defense = 12;
             NPC.lifeMax = 1000;
             NPC.noGravity = true;
-            NPC.noTileCollide = false;
+            NPC.noTileCollide = true;
 
 
             NPC.HitSound = SoundID.NPCHit7;
@@ -136,15 +136,16 @@ namespace StormDiversMod.NPCs
             }
            
                 NPC.rotation = NPC.velocity.X / 50;
+           
 
             if (distance <= 300f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 shoottime++;
-                movespeed = 1.5f;
+                movespeed = 1f;
                 shootduration++;
                 sounddelay++;
                
-                if (shoottime >= 4 && !player.dead && shootduration < 300)//fires the projectiles
+                if (shoottime >= 5 && !player.dead && shootduration < 300)//fires the projectiles
                 {
                     attacking = true;
 
@@ -153,7 +154,7 @@ namespace StormDiversMod.NPCs
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.SandCoreProj>();
 
                     float projectileSpeed = 3f;
-                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X + -player.velocity.X, player.Center.Y + -player.velocity.X) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
@@ -189,7 +190,7 @@ namespace StormDiversMod.NPCs
             {
                 shoottime = 0;
                 attacking = false;
-                movespeed = 3f;
+                movespeed = 1.5f;
 
             }
 
@@ -280,6 +281,7 @@ namespace StormDiversMod.NPCs
 
             isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.DesertOre>(), 1, 12, 18));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.DesertOre>(), 1, 10, 15));
+            npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Accessory.DesertJar>(), 3, 2));
 
             npcLoot.Add(ItemDropRule.Common(ItemID.AncientBattleArmorMaterial, 1));
 

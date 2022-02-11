@@ -18,7 +18,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Selenian Blades");
             Tooltip.SetDefault("Can be thrown out and spin in place upon striking an enemy");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -222,7 +221,6 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Predictor Brain");
             Tooltip.SetDefault("Summons projectiles that charge towards the cursor");
 
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 71;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -325,7 +323,6 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Stargazer Core");
             Tooltip.SetDefault("Summons a floating Stardust Portal that fires piercing projectiles at nearby enemies in bursts\nRight click to target a specific enemy");
 
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 71;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

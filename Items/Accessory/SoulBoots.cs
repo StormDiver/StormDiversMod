@@ -21,7 +21,6 @@ namespace StormDiversMod.Items.Accessory
             Tooltip.SetDefault("Greatly increases movement speed and acceleration, and allows flight\n'Speed throughout the day and the night'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(10, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 67;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ShoesLayer.RegisterData(Item.shoeSlot, new DrawLayerData()
             {

@@ -25,7 +25,6 @@ namespace StormDiversMod.Items.Accessory
         {
             DisplayName.SetDefault("Launcher Attachment");
             Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

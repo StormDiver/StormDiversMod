@@ -202,7 +202,6 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 30;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 67;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {

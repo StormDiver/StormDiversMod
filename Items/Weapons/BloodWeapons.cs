@@ -17,9 +17,10 @@ namespace StormDiversMod.Items.Weapons
 			DisplayName.SetDefault("Bloody Blade"); 
 			Tooltip.SetDefault("Shoots out a trail of blood every other swing");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
         }
 
-		public override void SetDefaults() 
+        public override void SetDefaults() 
 		{
 			Item.damage = 20;
 
@@ -85,7 +86,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Heart Piercer");
             Tooltip.SetDefault("Great for stabbing in a hurry");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
     
@@ -145,7 +145,6 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 25;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 67;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

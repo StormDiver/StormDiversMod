@@ -25,6 +25,7 @@ namespace StormDiversMod.Basefiles
         public static bool eocMessage; //For the message when the eoc is defeated
         public static bool mechMessage; //For the message when a mech boss is defeated
         public static bool golemMessage; //For the message when the Golem is defeated
+        public static bool bloodMessage; //For the message when the evuil boss is defeated
 
 
         public override void OnWorldLoad()
@@ -34,6 +35,7 @@ namespace StormDiversMod.Basefiles
             eocMessage = false;
             mechMessage = false;
             golemMessage = false;
+            bloodMessage = false;
         }
         public override void OnWorldUnload()
         {
@@ -41,6 +43,7 @@ namespace StormDiversMod.Basefiles
             eocMessage = false;
             mechMessage = false;
             golemMessage = false;
+            bloodMessage = false;
         }
         public override void SaveWorldData(TagCompound tag)
         {
@@ -60,7 +63,10 @@ namespace StormDiversMod.Basefiles
             {
                 tag["golemMessage"] = true;
             }
-            
+            if (bloodMessage)
+            {
+                tag["bloodMessage"] = true;
+            }
         }
         public override void LoadWorldData(TagCompound tag)
         {
@@ -68,7 +74,7 @@ namespace StormDiversMod.Basefiles
             eocMessage = tag.ContainsKey("eocMessage");
             mechMessage = tag.ContainsKey("mechMessage");
             golemMessage = tag.ContainsKey("golemMessage");
-
+            bloodMessage = tag.ContainsKey("bloodMessage");
 
         }
 
@@ -80,6 +86,8 @@ namespace StormDiversMod.Basefiles
             flags[5] = eocMessage;
             flags[6] = mechMessage;
             flags[7] = golemMessage;
+            flags[8] = bloodMessage;
+
             writer.Write(flags);
         }
         public override void NetReceive(BinaryReader reader)
@@ -90,7 +98,7 @@ namespace StormDiversMod.Basefiles
             eocMessage = flags[5];
             mechMessage = flags[6];
             golemMessage = flags[7];
-
+            bloodMessage = flags[8];
         }
 
         public override void PostWorldGen()
@@ -381,6 +389,12 @@ namespace StormDiversMod.Basefiles
             {
                 Main.NewText("Sentient asteroids have entered the atmosphere", 179, 151, 238);
                 golemMessage = true;
+            }
+            if (NPC.downedBoss2 && !bloodMessage)
+            {
+                Main.NewText("Essences of the blood moon begin to drop", 233, 70, 70);
+
+                bloodMessage = true;
             }
             //To spawn the ores
             /*if (SpawnIceOre && !IceSpawned)

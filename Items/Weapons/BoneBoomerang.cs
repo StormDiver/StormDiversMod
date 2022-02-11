@@ -16,7 +16,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Femurang");
             Tooltip.SetDefault("3 can be thrown out at a time\n'What, you thought this was Humerus?'");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
     

@@ -81,7 +81,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Jungle Tree Staff");
             Tooltip.SetDefault("Summons a jungle tree that launches out a bunch of thorn balls");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             //Item.staff[Item.type] = true;

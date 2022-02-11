@@ -18,7 +18,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Duck Fracture");
             Tooltip.SetDefault("Fires out mini ducks to attack your foes\n'May be prone to quacking'");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 100;
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -91,7 +90,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Duck Quackture");
             Tooltip.SetDefault("Summons a bunch of ducks enhanced by lunar energy\n'Incredibly prone to quacking'");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 100;
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

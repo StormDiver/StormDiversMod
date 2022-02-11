@@ -30,7 +30,6 @@ namespace StormDiversMod.Items.Accessory
             Tooltip.SetDefault("Mana usage is negated when under the effects of mana sickness\nIncreases maximum mana by 40");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 93;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

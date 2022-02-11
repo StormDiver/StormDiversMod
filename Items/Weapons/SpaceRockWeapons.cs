@@ -19,7 +19,6 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Asteroid Globe");
             Tooltip.SetDefault("Summons a floating asteroid fragment at the cursor's location that explodes into smaller fragments");
             
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 71;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -169,7 +168,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Asteroid Blaster");
             Tooltip.SetDefault("50% Chance not to consume Ammo\nFires out 2 bullets per shot");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

@@ -17,8 +17,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Beetle Gauntlet");
-            Tooltip.SetDefault("Critical striking an enemy with a melee weapon causes mini beetles to burst out of them and swarm nearby enemies\n15% increased melee speed and increases melee knockback");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 67;
+            Tooltip.SetDefault("Critical striking an enemy with a melee weapon causes mini beetles to burst out of them and swarm nearby enemies\nIncreases melee knockback\n12% increased melee speed\nEnables auto swing for melee weapons\nIncreases the size of melee weapons");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -36,8 +35,10 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<StormPlayer>().beetleFist = true;
-            player.meleeSpeed += 0.15f;
+            player.meleeSpeed += 0.12f;
+            player.autoReuseGlove = true;
             player.kbGlove = true;
+            player.meleeScaleGlove = true;
         }
 
 

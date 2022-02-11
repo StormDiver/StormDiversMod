@@ -14,7 +14,6 @@ namespace StormDiversMod.Items.Ammo
         {
             DisplayName.SetDefault("Frost Bullet");
             Tooltip.SetDefault("Can pierce through walls, but scatters when doing so");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }

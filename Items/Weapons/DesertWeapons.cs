@@ -17,7 +17,6 @@ namespace StormDiversMod.Items.Weapons
 		{
 			DisplayName.SetDefault("Forbidden Pike"); 
 			Tooltip.SetDefault("Unleash the power of the forbidden sands");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -76,7 +75,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Forbidden Fury");
             Tooltip.SetDefault("Converts all arrows to Forbidden arrows that rain down the heat of the Desert");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -139,7 +137,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Forbidden Storm");
             Tooltip.SetDefault("Summons the Forbidden sands");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -205,7 +202,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Forbidden Staff");
             Tooltip.SetDefault("Summons a floating Forbidden Sentry that blasts sand in all directions");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             //Item.staff[Item.type] = true;

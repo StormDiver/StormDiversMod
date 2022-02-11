@@ -18,7 +18,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Lunatic Spear of Fire");
             Tooltip.SetDefault("Striking an enemy summons a bunch of fireballs");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -229,6 +228,7 @@ namespace StormDiversMod.Items.Weapons
             Item.staff[Item.type] = true;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
+
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()

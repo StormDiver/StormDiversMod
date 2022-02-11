@@ -14,7 +14,6 @@ namespace StormDiversMod.Items.Tools
         {
             DisplayName.SetDefault("Compressed Air Can");
             Tooltip.SetDefault("Fires out a blast of air that blows enemies away and clears cobwebs");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
         }
         public override void SetDefaults()

@@ -22,7 +22,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Shroomite Sharpshooter");
             Tooltip.SetDefault("33% Chance not to consume Ammo\nBuilds up accuracy over several seconds, dealing extra damage at full accuracy\nRight Click to zoom out");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
          
 
@@ -151,7 +150,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Shroomite Fury");
             Tooltip.SetDefault("Shoots out two super bouncy piercing arrows each shot");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -232,7 +230,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Shroomite Launcher");
             Tooltip.SetDefault("Fires Shroomite Rockets which explode into mushrooms\nRight click to fire Shroomite Grenades");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()

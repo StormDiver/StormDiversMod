@@ -28,15 +28,14 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 14;
             Projectile.light = 0.3f;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.timeLeft = 180;
             //aiType = ProjectileID.Bullet;
             Projectile.aiStyle = 0;
             Projectile.scale = 1f;
             Projectile.tileCollide = true;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            //Projectile.usesLocalNPCImmunity = true;
+            //Projectile.localNPCHitCooldown = 10;
             //drawOffsetX = 2;
             //drawOriginOffsetY = -10;
         }

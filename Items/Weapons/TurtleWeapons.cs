@@ -17,7 +17,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Giant Turtle Shell");
             Tooltip.SetDefault("Toss the shells back at your foes\nGrants extra defense while attacking enemies");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 67;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -67,7 +66,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Turtle Pike");
             Tooltip.SetDefault("Grants extra defense while attacking enemies");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 67;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -133,7 +131,6 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 25;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 67;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

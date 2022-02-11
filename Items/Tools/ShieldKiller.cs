@@ -16,7 +16,6 @@ namespace StormDiversMod.Items.Tools
         {
             DisplayName.SetDefault("Celestial Globe");
             Tooltip.SetDefault("Removes the shields from all active pillars");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 93;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 

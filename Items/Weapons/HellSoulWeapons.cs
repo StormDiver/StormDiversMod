@@ -105,7 +105,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("HellSoul Rifle");
             Tooltip.SetDefault("Converts regular bullets into soul bullets that pierce and inflict soulburn\nRight Click to zoom out");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -296,7 +295,6 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("HellSoul Flare");
             Tooltip.SetDefault("Summons multiple soul flames that charge towards the cursor");
 
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 71;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {

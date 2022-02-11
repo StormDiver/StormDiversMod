@@ -31,7 +31,6 @@ namespace StormDiversMod.Items.Accessory
             Tooltip.SetDefault("Some enemies will drop a super heart when hit below half life\nEnemies that drop the heart lose life rapidly\nIncreases maximum health by 20");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 93;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

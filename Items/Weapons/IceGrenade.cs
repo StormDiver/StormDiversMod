@@ -17,7 +17,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Ice Grenade");
             Tooltip.SetDefault("Inflicts frostburn on enemies");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 70;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
         }
         public override void SetDefaults()

@@ -16,7 +16,6 @@ namespace StormDiversMod.Items.Accessory
         {
             DisplayName.SetDefault("Frozen Heart");
             Tooltip.SetDefault("Multiple frost spikes explode out of you when taking more than 1 damage\nIncreases critical strike chance and movement speed for 6 seconds afterwards");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -39,15 +38,13 @@ namespace StormDiversMod.Items.Accessory
             
         }
 
-    
-
         public override void AddRecipes()
         {
-            CreateRecipe()
+           /* CreateRecipe()
             .AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 10)
             .AddIngredient(ItemID.FrostCore, 2)
             .AddTile(TileID.MythrilAnvil)
-            .Register();
+            .Register();*/
            
         }
        

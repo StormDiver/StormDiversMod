@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Projectiles;
+using Terraria.GameContent.Creative;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -16,6 +17,8 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Arid Sandblast Staff");
             Tooltip.SetDefault("Creates an explosive blast of sand at the cursor's location");
             Item.staff[Item.type] = true;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
 
         }
         public override void SetDefaults()
@@ -97,6 +100,8 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Arid Knives");
             Tooltip.SetDefault("Throw out serveral knives at once that pierce after spinning");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
 
         }
         public override void SetDefaults()
@@ -152,7 +157,8 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Arid Sandblaster");
             Tooltip.SetDefault("Fires out a stream of burning sand\nUses gel for ammo");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
         }
         public override void SetDefaults()
         {

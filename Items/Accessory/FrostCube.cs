@@ -22,7 +22,6 @@ namespace StormDiversMod.Items.Accessory
             Tooltip.SetDefault("Increases your max number of minions and sentries by 1\nIncreases whip range by 10%");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 92;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

@@ -17,7 +17,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Space Saucer Staff");
             Tooltip.SetDefault("Summons a floating saucer that rains down lasers upon enemies");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -184,7 +183,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Space Spear");
             Tooltip.SetDefault("Striking an enemy summons 2 meteor fragments from the sky");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

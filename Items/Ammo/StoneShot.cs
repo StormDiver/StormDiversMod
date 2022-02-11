@@ -44,10 +44,10 @@ namespace StormDiversMod.Items.Ammo
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
 
-           Recipe recipe2 = Mod.CreateRecipe(ItemID.StoneBlock, 333);
-            recipe2.AddIngredient(ModContent.ItemType<StoneShot>(), 111);
-            recipe2.AddTile(TileID.WorkBenches);
-            recipe2.Register();
+            recipe = Mod.CreateRecipe(ItemID.StoneBlock, 333);
+            recipe.AddIngredient(ModContent.ItemType<StoneShot>(), 111);
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.Register();
 
             
 

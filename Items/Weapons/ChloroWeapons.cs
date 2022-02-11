@@ -19,6 +19,7 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Chlorophyte Dart Shotgun");
             Tooltip.SetDefault("Fires out a burst of darts\nMerges Crystal Darts into a single much more damaging dart");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
         }
         public override void SetDefaults()
         {

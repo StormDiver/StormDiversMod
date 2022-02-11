@@ -18,7 +18,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Spectre Dagger");
             Tooltip.SetDefault("Summons magical controllable daggers\nMaximum of 5 can be controlled at any time");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 93;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -94,7 +93,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Spectre Scepter");
             Tooltip.SetDefault("Rapidly fires mini Spectre skulls that speed up rapidly\nDeals more damage the faster the skulls travels");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 93;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -165,7 +163,6 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Spectre Orbiter");
             Tooltip.SetDefault("Summons spectre orbs that orbit around you at varying distances\nRight click to launch any orbs at their maximum orbital distance towards the cursor");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 93;
 
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
