@@ -191,13 +191,12 @@ namespace StormDiversMod.Projectiles
 
 
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 60; i++)
             {
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 3f);
                 Main.dust[dustIndex].noGravity = true;
                 Main.dust[dustIndex].velocity *= 4f;
-                dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 2f);
-                Main.dust[dustIndex].velocity *= 3f;
+                
             }
             for (int i = 0; i < 50; i++)
             {

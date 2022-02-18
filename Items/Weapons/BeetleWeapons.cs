@@ -154,8 +154,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 20;
             Item.height = 26;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 4, 0, 0);
             Item.rare = ItemRarityID.Yellow;

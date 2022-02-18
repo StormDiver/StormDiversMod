@@ -44,6 +44,7 @@ namespace StormDiversMod.Basefiles
                 }
 
             }
+           
             if (Main.hardMode) //Frost and Arid Shard
             {
 
@@ -93,6 +94,7 @@ namespace StormDiversMod.Basefiles
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Tools.MoonlingSummoner>());
                 }
             }
+
             /*if (npc.type == NPCID.CultistBoss) //Cultist Treasurebag, new method works now
             {
                 if (Main.expertMode) 
@@ -103,6 +105,25 @@ namespace StormDiversMod.Basefiles
                 }
             }*/
             //Items with drop requirements-------------------------------------------------------------------------------
+
+            if (npc.type == NPCID.IceBat || npc.type == NPCID.SnowFlinx || npc.type == NPCID.SpikedIceSlime || npc.type == NPCID.UndeadViking)
+            {
+                if (Main.rand.Next(100) == 0)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<IceStaff>());
+                }
+            }
+            if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion|| npc.type == NPCID.GiantFlyingAntlion)
+            {
+                if (Main.rand.Next(100) == 0)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<SandstoneGun>());
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.MusketBall, Main.rand.Next(60, 100));
+
+                }
+            }
+
+
             if ((NPC.downedMechBossAny && !NPC.downedMoonlord) && (npc.type == NPCID.Duck || npc.type == NPCID.Duck2 || npc.type == NPCID.DuckWhite || npc.type == NPCID.DuckWhite2))
             {
 
@@ -189,6 +210,40 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
+
+            if (npc.type == NPCID.GoblinSummoner)
+            {
+                int shadowchoice = Main.rand.Next(3);
+                {
+                    if (shadowchoice == 0)
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameBMask>());
+                        if (Main.expertMode)
+                        {
+                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameGreaves>());
+
+                        }
+                    }
+                    else if (shadowchoice == 1)
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameChestplate>());
+                        if (Main.expertMode)
+                        {
+                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameBMask>());
+
+                        }
+                    }
+                    else
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameGreaves>());
+                        if (Main.expertMode)
+                        {
+                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameChestplate>());
+
+                        }
+                    }
+                }
+            }
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -196,6 +251,7 @@ namespace StormDiversMod.Basefiles
             LeadingConditionRule plantDead = new LeadingConditionRule(new Conditions.DownedPlantera());
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule isExpert = new LeadingConditionRule(new Conditions.IsExpert());
+
 
             //Weapons-----------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.Skeleton || npc.type == NPCID.MisassembledSkeleton || npc.type == NPCID.PantlessSkeleton || npc.type == NPCID.HeadacheSkeleton)
@@ -273,6 +329,11 @@ namespace StormDiversMod.Basefiles
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WebStaff>(), 50));
 
             }
+            if (npc.type == NPCID.Gnome)
+            {
+                npcLoot.Add(ItemDropRule.OneFromOptions(2, ModContent.ItemType<WoodPointyStick>(), ModContent.ItemType<WoodCrossbow>(), ModContent.ItemType<WoodNecklace>()));
+
+            }
             //Accessories--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.Derpling)
             {
@@ -304,7 +365,13 @@ namespace StormDiversMod.Basefiles
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Armour.RainBoots>(), 20));
 
             }
-          //Rest in old code because :shrug:
+
+            /*if (npc.type == NPCID.GoblinSummoner)
+            {
+                npcLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Items.Armour.ShadowFlameBMask>(), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>(), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>()));
+                isExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Items.Armour.ShadowFlameBMask>(), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>(), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>()));
+            }*/
+            //Rest in old code because :shrug:
 
 
             //Materials -----------------------------------------------------------------------------------------------------------------------------------------------------------------

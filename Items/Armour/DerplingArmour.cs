@@ -13,12 +13,12 @@ namespace StormDiversMod.Items.Armour
     [AutoloadEquip(EquipType.Head)]
     public class DerplingBMask : ModItem
     {
-        //melee
+        
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Derpling Mask");
-            Tooltip.SetDefault("16% increased melee damage\n6% increased melee critical strike chance\n15% increased melee speed");
+            Tooltip.SetDefault("10% increased damage\n5% increased critical strike chance\nReduces damage taken by 6%");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -29,15 +29,15 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Lime;
-            Item.defense = 30;
+            Item.defense = 20;
         }
 
         public override void UpdateEquip(Player player)
         {
 
-            player.GetDamage(DamageClass.Melee) += 0.16f;
-            player.GetCritChance(DamageClass.Melee) += 6;
-            player.meleeSpeed += 0.15f;
+            player.GetDamage(DamageClass.Generic) += 0.10f;
+            player.GetCritChance(DamageClass.Generic) += 5;
+            player.endurance += 0.06f;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Greatly increases jump, ascent, and max falling speed, and grants immunity to fall damage\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
+            player.setBonus = "Greatly increases jump, ascent, and max falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
 
             player.GetModPlayer<StormPlayer>().derpJump = true;
 
@@ -87,95 +87,19 @@ namespace StormDiversMod.Items.Armour
 
 
     }
-    //______________________________________________________________________________________
-    [AutoloadEquip(EquipType.Head)]
-    public class DerplingBHelmet : ModItem
-    {
-        //ranged
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            DisplayName.SetDefault("Derpling Helmet");
-            Tooltip.SetDefault("12% increased ranged damage\n10% increased ranged critical strike chance\n20% chance not to consume ammo");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 18;
-            Item.height = 18;
-            Item.value = Item.sellPrice(0, 5, 0, 0);
-                     Item.rare = ItemRarityID.Lime;
-            Item.defense = 15;
-        }
-
-        public override void UpdateEquip(Player player)
-        {
-
-            player.GetDamage(DamageClass.Ranged) += 0.12f;
-            player.GetCritChance(DamageClass.Ranged) += 10;
-            player.ammoCost80 = true;
-        }
-
-        public override void ArmorSetShadows(Player player)
-        {
-            if (player.velocity.Y == 0)
-            {
-                player.armorEffectDrawShadow = false;
-            }
-            else
-            {
-                player.armorEffectDrawShadow = true;
-
-            }
-            if (player.HasBuff(ModContent.BuffType<Buffs.DerpBuff>()))
-            {
-                player.armorEffectDrawOutlines = true;
-                
-            }
-            else
-            {
-                player.armorEffectDrawOutlines = false;
-            }
-        }
-
-        public override bool IsArmorSet(Item head, Item body, Item legs)
-        {
-            return body.type == ItemType<DerplingBreastplate>() && legs.type == ItemType<DerplingGreaves>();
-        }
-
-        public override void UpdateArmorSet(Player player)
-        {
-            player.setBonus = "Greatly increases jump, ascent, and max falling speed, and grants immunity to fall damage\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
-
-            player.GetModPlayer<StormPlayer>().derpJump = true;
-         
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-           .AddIngredient(ItemID.ChlorophyteBar, 10)
-           .AddIngredient(ModContent.ItemType<Items.Materials.DerplingShell>(), 5)
-           .AddTile(TileID.MythrilAnvil)
-           .Register();
-
-        }
-
-        
-    }
+    
 
     //__________________________________________________________________________________________________________________________
 
     [AutoloadEquip(EquipType.Head)]
     public class DerplingBHeadgear : ModItem
     {
-        //magic
+        
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Derpling Headgear");
-            Tooltip.SetDefault("14% increased magic damage\n7% increased magic critical strike chance\nIncreases maximum mana by 80");
+            Tooltip.SetDefault("5% increased damage\n12% increased critical strike chance\nIncreases maximum movement speed");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -186,15 +110,16 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Lime;
-            Item.defense = 10;
+            Item.defense = 16;
         }
 
         public override void UpdateEquip(Player player)
         {
+            player.GetDamage(DamageClass.Generic) += 0.05f;
 
-            player.GetDamage(DamageClass.Magic) += 0.14f;
-            player.GetCritChance(DamageClass.Magic) += 7;
-            player.statManaMax2 += 80;
+
+            player.GetCritChance(DamageClass.Generic) += 12;
+            player.maxRunSpeed += 2;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -226,7 +151,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Greatly increases jump, ascent, and max falling speed, and grants immunity to fall damage\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
+            player.setBonus = "Greatly increases jump, ascent, and max falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
 
             player.GetModPlayer<StormPlayer>().derpJump = true;
 
@@ -243,88 +168,7 @@ namespace StormDiversMod.Items.Armour
 
 
     }
-    //______________________________________________________________________________________
-    [AutoloadEquip(EquipType.Head)]
-    public class DerplingBCrown : ModItem
-    {
-        //summon
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            DisplayName.SetDefault("Derpling Crown");
-            Tooltip.SetDefault("17% increased summoner damage\nIncreases your max number of minions by 1");
-            ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 18;
-            Item.height = 18;
-            Item.value = Item.sellPrice(0, 5, 0, 0);
-            Item.rare = ItemRarityID.Lime;
-            Item.defense = 4;
-        }
-
-        public override void UpdateEquip(Player player)
-        {
-
-            player.maxMinions += 1;
-            player.GetDamage(DamageClass.Summon) += 0.17f;
-
-        }
-
-        public override void ArmorSetShadows(Player player)
-        {
-            if (player.velocity.Y == 0)
-            {
-                player.armorEffectDrawShadow = false;
-            }
-            else
-            {
-                player.armorEffectDrawShadow = true;
-
-            }
-            if (player.HasBuff(ModContent.BuffType<Buffs.DerpBuff>()))
-            {
-                player.armorEffectDrawOutlines = true;
-
-            }
-            else
-            {
-                player.armorEffectDrawOutlines = false;
-            }
-        }
-
-        public override bool IsArmorSet(Item head, Item body, Item legs)
-        {
-            return body.type == ItemType<DerplingBreastplate>() && legs.type == ItemType<DerplingGreaves>();
-        }
-
-        public override void UpdateArmorSet(Player player)
-        {
-            player.setBonus = "Greatly increases jump, ascent, and max falling speed, and grants immunity to fall damage\nCreates a large shockwave upon jumping that launches nearby enemies into the air\nIncreases your max number of minions by 2";
-
-            player.maxMinions += 2;
-
-            player.GetModPlayer<StormPlayer>().derpJump = true;
-
-
-        }
-        
-       
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.ChlorophyteBar, 10)
-            .AddIngredient(ModContent.ItemType<Items.Materials.DerplingShell>(), 5)
-            .AddTile(TileID.MythrilAnvil)
-            .Register();
-        }
-    }
-
+   
     //___________________________________________________________________________________________________________________________
     [AutoloadEquip(EquipType.Body)]
     
@@ -375,7 +219,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Derpling Greaves");
-            Tooltip.SetDefault("6% increased damage and critical strike chance\n25% increased movement speed");
+            Tooltip.SetDefault("6% increased damage and critical strike chance\nGrants immunity to fall damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -393,8 +237,7 @@ namespace StormDiversMod.Items.Armour
 
             player.GetDamage(DamageClass.Generic) += 0.06f;
             player.GetCritChance(DamageClass.Generic) += 6;
-            player.moveSpeed += 0.25f;
-
+            player.noFallDmg = true;
         }
         public override void AddRecipes()
         {
@@ -408,5 +251,85 @@ namespace StormDiversMod.Items.Armour
 
        
     }
-   
+    //_________________________
+    //______________________________________________________________________________________
+    //[AutoloadEquip(EquipType.Head)]
+    public class DerplingBHelmet : ModItem
+    {
+        //ranged
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Derpling Helmet");
+            Tooltip.SetDefault("Unused, can be crafted into the Derpling Mask or Headgear");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.rare = ItemRarityID.Lime;
+            Item.defense = 0;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+
+            /* player.GetDamage(DamageClass.Ranged) += 0.12f;
+             player.GetCritChance(DamageClass.Ranged) += 10;
+             player.ammoCost80 = true;*/
+        }
+
+        public override void ArmorSetShadows(Player player)
+        {
+            if (player.velocity.Y == 0)
+            {
+                player.armorEffectDrawShadow = false;
+            }
+            else
+            {
+                player.armorEffectDrawShadow = true;
+
+            }
+            if (player.HasBuff(ModContent.BuffType<Buffs.DerpBuff>()))
+            {
+                player.armorEffectDrawOutlines = true;
+
+            }
+            else
+            {
+                player.armorEffectDrawOutlines = false;
+            }
+        }
+
+        /*public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == ItemType<DerplingBreastplate>() && legs.type == ItemType<DerplingGreaves>();
+        }*/
+
+        public override void UpdateArmorSet(Player player)
+        {
+
+        }
+        public override void AddRecipes()
+        {
+            /*CreateRecipe()
+           .AddIngredient(ItemID.ChlorophyteBar, 10)
+           .AddIngredient(ModContent.ItemType<Items.Materials.DerplingShell>(), 5)
+           .AddTile(TileID.MythrilAnvil)
+           .Register();*/
+            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<DerplingBMask>(), 1);
+            recipe.AddIngredient(this, 1);
+            recipe.Register();
+
+            recipe = Mod.CreateRecipe(ModContent.ItemType<DerplingBHeadgear>(), 1);
+            recipe.AddIngredient(this, 1);
+            recipe.Register();
+        }
+
+
+    }
 }

@@ -109,6 +109,112 @@ namespace StormDiversMod.Basefiles
             {
                 Chest chest = Main.chest[chestIndex];
 
+                //For the wooden surface chests
+                int[] ChestWoodStick = { ItemType<WoodPointyStick>() };
+                int ChestWoodStickCount = 0;
+
+                int[] ChestWoodBow = { ItemType<WoodCrossbow>() };
+                int ChestWoodBowCount = 0;
+
+                int[] ChestWoodNeck = { ItemType<Items.Accessory.WoodNecklace>() };
+                int ChestWoodNeckCount = 0;
+
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 0 * 36) //Look in Tiles_21 for the tile, start from 0
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                    {
+                        if (chest.item[inventoryIndex].type == ItemID.None)
+                        {
+                            if (WorldGen.genRand.NextBool(2))
+                            {
+                                int choice = Main.rand.Next(3);
+
+                                //if (WorldGen.genRand.NextBool(2))
+                                if (choice == 0)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestWoodStick));
+                                    ChestWoodStickCount = (ChestWoodStickCount + 1) % ChestWoodStick.Length;
+                                }
+                                else if (choice == 1)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestWoodBow));
+                                    ChestWoodBowCount = (ChestWoodBowCount + 1) % ChestWoodBow.Length;
+                                }
+                                else
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestWoodNeck));
+                                    ChestWoodNeckCount = (ChestWoodNeckCount + 1) % ChestWoodNeck.Length;
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+
+                }
+
+                //For the Icicle Saff in Frozen Chest
+                int[] ChestIceStaff = { ItemType<IceStaff>() };
+                int ChestIceStaffCount = 0;
+
+
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 11 * 36) //Look in Tiles_21 for the tile, start from 0
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                    {
+                        if (chest.item[inventoryIndex].type == ItemID.None)
+                        {
+                            if (WorldGen.genRand.NextBool(4))
+                            {
+
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestIceStaff));
+                                ChestIceStaffCount = (ChestIceStaffCount + 1) % ChestIceStaff.Length;
+
+                            }
+
+                            break;
+                        }
+                    }
+
+                }
+
+
+                //For Underground desert chests
+                int[] ChestAncientGun = { ItemType<SandstoneGun>() };
+                int ChestAncientGunCount = 0;
+
+                int[] ChestAncientGunAmmo = { ItemID.MusketBall };
+                int ChestAncientGunAmmoCount = 0;
+
+
+
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36) //Look in Tiles_467 for the tile, start from 0
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                    {
+                        if (chest.item[inventoryIndex].type == ItemID.None)
+                        {
+
+                            if (WorldGen.genRand.NextBool(4)) //4
+                            {
+
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestAncientGun));
+                                ChestAncientGunCount = (ChestAncientGunCount + 1) % ChestAncientGun.Length;
+                                inventoryIndex++;
+
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestAncientGunAmmo));
+                                chest.item[inventoryIndex].stack = WorldGen.genRand.Next(60, 100);
+                                ChestAncientGunAmmoCount = (ChestAncientGunAmmoCount + 1) % ChestAncientGunAmmo.Length;
+
+                            }
+                         
+
+                            break;
+                        }
+                    }
+
+                }
+
                 //For the Mossy Repeater in Jungle Chest
                 int[] ChestMossyRep = { ItemType<MossRepeater>() };
                 int ChestMossyRepCount = 0;
@@ -161,7 +267,7 @@ namespace StormDiversMod.Basefiles
                                 inventoryIndex++;
 
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestLauncherAmmo));
-                                chest.item[inventoryIndex].stack = WorldGen.genRand.Next(52, 80);
+                                chest.item[inventoryIndex].stack = WorldGen.genRand.Next(75, 120);
                                 ChestLauncherAmmoCount = (ChestLauncherAmmoCount + 1) % ChestLauncherAmmo.Length;
                                 inventoryIndex++;
 
@@ -256,7 +362,7 @@ namespace StormDiversMod.Basefiles
                                 inventoryIndex++;
 
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGraniteAmmo));
-                                chest.item[inventoryIndex].stack = WorldGen.genRand.Next(35, 60);
+                                chest.item[inventoryIndex].stack = WorldGen.genRand.Next(60, 100);
                                 ChestGraniteCountAmmo = (ChestGraniteCountAmmo + 1) % ChestGraniteAmmo.Length;
 
                             }

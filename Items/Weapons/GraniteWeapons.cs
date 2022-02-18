@@ -39,13 +39,13 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             
             Item.useTurn = false;
-            Item.autoReuse = false;
+            Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Ranged;
 
             Item.UseSound = SoundID.Item40;
 
-            Item.damage = 16;
+            Item.damage = 17;
             
             Item.knockBack = 2f;
        
@@ -131,10 +131,10 @@ namespace StormDiversMod.Items.Weapons
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useTurn = false;
-            Item.autoReuse = false;
+            Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 7;
+            Item.mana = 6;
             Item.UseSound = SoundID.Item8;
 
             Item.damage = 14;
@@ -212,13 +212,13 @@ namespace StormDiversMod.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 14;
+            Item.damage = 13;
             //Item.crit = 0;
             Item.DamageType = DamageClass.Melee;
             Item.width = 20;
             Item.height = 26;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 50, 0, 0);
             Item.rare = ItemRarityID.Blue;

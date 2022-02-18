@@ -93,14 +93,14 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 32;
             Item.useAnimation = 32;
-            Item.useTurn = true;
+            Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Ranged;
 
             Item.UseSound = SoundID.Item5;
 
-            Item.damage = 15;
+            Item.damage = 16;
             //Item.crit = 4;
             Item.knockBack = 3f;
 
@@ -160,10 +160,10 @@ namespace StormDiversMod.Items.Weapons
             Item.useTime = 25;
             Item.useAnimation = 25;
             Item.useTurn = false;
-            Item.autoReuse = false;
+            Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 8;
+            Item.mana = 5;
             Item.UseSound = SoundID.Item8;
 
             Item.damage = 20;

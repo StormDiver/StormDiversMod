@@ -540,6 +540,14 @@ namespace StormDiversMod.Basefiles
         {
             var player = Main.player[projectile.owner];
 
+            if (player.GetModPlayer<StormPlayer>().shadowflameSet == true)
+            {
+                if (npc.HasBuff(BuffID.ShadowFlame))
+                {
+                    damage += 5;
+                }
+            }
+
             if (crit)
             {
                 if (player.GetModPlayer<StormPlayer>().aridCritChest == true)
@@ -562,6 +570,13 @@ namespace StormDiversMod.Basefiles
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
+            if (player.GetModPlayer<StormPlayer>().shadowflameSet == true)
+            {
+                if (npc.HasBuff(BuffID.ShadowFlame))
+                {
+                    damage += 5;
+                }
+            }
             if (crit) 
             {
                 if (player.GetModPlayer<StormPlayer>().aridCritChest == true)

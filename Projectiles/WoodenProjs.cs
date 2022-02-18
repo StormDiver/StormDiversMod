@@ -11,12 +11,12 @@ using Terraria.Enums;
 
 namespace StormDiversMod.Projectiles
 {
-    public class MoltenDaggerProj : ModProjectile
+    public class WoodPointyStickProj : ModProjectile
     {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Molten Dagger");
+            DisplayName.SetDefault("Pointy Stick");
 
         }
         public override void SetDefaults()
@@ -26,17 +26,20 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.scale = 1.2f;
+            Projectile.scale = 1f;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ownerHitCheck = true; // Prevents hits through tiles. Most melee weapons that use projectiles have this
-            Projectile.extraUpdates = 1; // Update 1+extraUpdates times per tick
+            Projectile.extraUpdates = 0; // Update 1+extraUpdates times per tick
             Projectile.timeLeft = 360; // This value does not matter since we manually kill it earlier, it just has to be higher than the duration we use in AI
             Projectile.hide = true; // Important when used alongside player.heldProj. "Hidden" projectiles have special draw conditions
-        }
-        public const int FadeInDuration = 7;
-        public const int FadeOutDuration = 4;
 
-        public const int TotalDuration = 16;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+        }
+        public const int FadeInDuration = 5;
+        public const int FadeOutDuration = 5;
+
+        public const int TotalDuration = 20;
 
         // The "width" of the blade
         public float CollisionWidth => 10f * Projectile.scale;
@@ -81,8 +84,8 @@ namespace StormDiversMod.Projectiles
         private void SetVisualOffsets()
         {
             // 32 is the sprite size (here both width and height equal)
-            const int HalfSpriteWidth = 36 / 2;
-            const int HalfSpriteHeight = 36 / 2;
+            const int HalfSpriteWidth = 40 / 2;
+            const int HalfSpriteHeight = 40 / 2;
 
             int HalfProjWidth = Projectile.width / 2;
             int HalfProjHeight = Projectile.height / 2;
@@ -112,18 +115,11 @@ namespace StormDiversMod.Projectiles
         {
             
             Vector2 start = Projectile.Center;
-            Vector2 end = start + Projectile.velocity * 6f;
+            Vector2 end = start + Projectile.velocity * 8f;
             float collisionPoint = 0f; // Don't need that variable, but required as parameter
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, CollisionWidth, ref collisionPoint);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<SuperBurnDebuff>(), 300);
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<SuperBurnDebuff>(), 300);
-        }
+       
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 
@@ -137,5 +133,73 @@ namespace StormDiversMod.Projectiles
         }
    
     }
-    
+    //_______________________________________________
+    public class WoodenBoltProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("CrossBow Bolt");
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 7;
+            Projectile.height = 7;
+            Projectile.aiStyle = 0;
+            Projectile.friendly = true;
+            Projectile.timeLeft = 180;
+            Projectile.penetrate = 3;
+            Projectile.arrow = true;
+            Projectile.tileCollide = true;
+            Projectile.knockBack = 0f;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.arrow = true;
+            Projectile.extraUpdates = 2;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+
+            DrawOffsetX = -7;
+            DrawOriginOffsetY = 0;
+        }
+
+        public override void AI()
+        {
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+
+            if (Main.rand.Next(2) == 0) // the chance
+            {
+                Dust dust;
+                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                Vector2 position = Projectile.position;
+                dust = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, 3, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+                dust.noGravity = true;
+
+            }
+        }
+
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            Projectile.damage = (Projectile.damage * 9) / 10;
+            for (int i = 0; i < 5; i++)
+            {
+
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 3, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+            }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+
+            //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
+            for (int i = 0; i < 10; i++)
+            {
+
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 3);
+            }
+            SoundEngine.PlaySound(SoundID.Grass, (int)Projectile.position.X, (int)Projectile.position.Y);
+        }
+
+    }
 }

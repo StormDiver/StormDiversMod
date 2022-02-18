@@ -1,0 +1,117 @@
+using System;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Creative;
+using StormDiversMod.Projectiles;
+using Terraria.DataStructures;
+using StormDiversMod.Basefiles;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace StormDiversMod.Items.Weapons
+{
+	public class WoodPointyStick : ModItem
+	{
+		public override void SetStaticDefaults() 
+		{
+			DisplayName.SetDefault("Pointy Wooden Stick"); 
+			Tooltip.SetDefault("'Poke it with a stick'");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+          
+        }
+
+		public override void SetDefaults() 
+		{
+			Item.damage = 12;
+            Item.crit = 0;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
+			Item.useStyle = ItemUseStyleID.Rapier;
+            Item.value = Item.sellPrice(0, 0, 0, 50);
+            Item.rare = ItemRarityID.White;
+            Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+            Item.noUseGraphic = true;
+            Item.noMelee = true;
+            Item.knockBack = 3;
+            Item.scale = 1f;
+            Item.shoot = ModContent.ProjectileType<Projectiles.WoodPointyStickProj>();
+            Item.shootSpeed = 2.2f;
+        }
+        public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+           
+        }
+       /* public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 300);
+        }
+        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        {
+            target.AddBuff(ModContent.BuffType < Buffs.SuperBurnDebuff>(), 300);
+        }*/
+       
+        public override void AddRecipes()
+        {
+        
+        }
+       
+    }
+    //_______________________________________________________________________________
+    //_______________________________________________________________________________________________
+    public class WoodCrossbow : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Wooden Crossbow");
+            Tooltip.SetDefault("Converts arrows into piercing crossbow bolts\n'Slow but powerful'");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 20;
+            Item.height = 34;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 0, 0, 50);
+            Item.rare = ItemRarityID.White;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 50;
+            Item.useAnimation = 50;
+            Item.useTurn = false;
+            Item.autoReuse = true;
+            Item.DamageType = DamageClass.Ranged;
+            //Item.UseSound = SoundID.Item5;
+            Item.damage = 18;
+            Item.knockBack = 2f;
+            Item.shoot = ModContent.ProjectileType<Projectiles.WoodenBoltProj>();
+            Item.shootSpeed = 5f;
+            Item.useAmmo = AmmoID.Arrow;
+
+            Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(2, -4);
+        }
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.WoodenBoltProj>(), damage, knockback, player.whoAmI);
+            SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 5, 1, 0.2f);
+
+            return false;
+        }
+
+        public override void AddRecipes()
+        {
+          
+
+        }
+    }
+}

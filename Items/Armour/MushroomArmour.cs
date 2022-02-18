@@ -92,7 +92,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Shroom Chestplate");
-            Tooltip.SetDefault("Increases ranged damage by a flat 1");
+            Tooltip.SetDefault("Increases ranged damage by 1");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
 

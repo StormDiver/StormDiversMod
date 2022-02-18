@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.OresandBars
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Bar");
-            Tooltip.SetDefault("Used in the creation of forbidden armour and weapons");
+            Tooltip.SetDefault("Used in the creation of forbidden armor and weapons");
             ItemID.Sets.SortingPriorityMaterials[Item.type] = 80;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 

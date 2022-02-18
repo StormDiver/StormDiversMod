@@ -33,8 +33,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
 			Item.height = 50;
-			Item.useTime = 27;
-			Item.useAnimation = 27;
+			Item.useTime = 22;
+			Item.useAnimation = 22;
 
 			Item.useStyle = ItemUseStyleID.Swing;  
             Item.value = Item.sellPrice(0, 2, 0, 0);
@@ -91,7 +91,7 @@ namespace StormDiversMod.Items.Weapons
                 type = ModContent.ProjectileType<Projectiles.SwordDarkProj>();
                 for (int i = 0; i < 1; i++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(12)); // This defines the projectiles random spread . 10 degree spread.
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6)); // This defines the projectiles random spread . 10 degree spread.
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), type, damage, knockback, player.whoAmI);
                 }
                 SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 73);
@@ -103,7 +103,7 @@ namespace StormDiversMod.Items.Weapons
                 type = ModContent.ProjectileType<Projectiles.SwordLightProj>();
                 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(2)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.5f, perturbedSpeed.Y * 1.5f), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.5f, perturbedSpeed.Y * 1.5f), type, (int)(damage * 1.6f), knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 9, 1, -0.5f);
                 SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 1);
 

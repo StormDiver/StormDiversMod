@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.OresandBars
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost Bar");
-            Tooltip.SetDefault("Used in the creation of frozen armour and weapons");
+            Tooltip.SetDefault("Used in the creation of frozen armor and weapons");
             ItemID.Sets.SortingPriorityMaterials[Item.type] = 80;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 

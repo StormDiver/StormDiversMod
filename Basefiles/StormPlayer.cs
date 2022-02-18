@@ -24,24 +24,7 @@ using Terraria.Audio;
 
 namespace StormDiversMod.Basefiles
 {
-    public class NoRoD : GlobalItem
-    {
-        /*public override bool CanUseItem(Item item, Player player) //use this to disable the RoD if you want 
-        {
-            if (item.type == ItemID.RodofDiscord)
-            {
-                if (Player.HasBuff(ModContent.BuffType<TwilightDebuff")))
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            return true;
-        }*/
-    }
+   
     public class StormPlayer : ModPlayer
     {
         //Bools activated from Armours and accessories
@@ -144,6 +127,11 @@ namespace StormDiversMod.Basefiles
 
         public bool soulBoots; //Player has Soul Striders equipped;
 
+        public bool woodNecklace; //Player has the wooden necklace equipped
+
+        public bool shadowflameSet; //Player has the Shadowflame armoru equipped
+
+
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the SPooky Core has fired its flames or not
@@ -227,6 +215,8 @@ namespace StormDiversMod.Basefiles
             aridCritChest = false;
             aridCritSet = false;
             soulBoots = false;
+            woodNecklace = false;
+            shadowflameSet = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -282,6 +272,10 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
+        public override void ModifyWeaponCrit(Item item, ref int crit)
+        {
+          
+        }
         public override void PostUpdateEquips() //Updates every frame
         {
 
@@ -293,7 +287,7 @@ namespace StormDiversMod.Basefiles
             if (Main.tile[xtilepos, ytilepos].WallType == WallID.LihzahrdBrickUnsafe)
             {
 
-                if (!NPC.downedPlantBoss && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 8)
+                if (!NPC.downedPlantBoss && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 12)
                 {
                     templeWarning++;
                     if (templeWarning == 1 && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))
@@ -303,7 +297,7 @@ namespace StormDiversMod.Basefiles
 
                     if (templeWarning >= 300)
                     {
-                        if (Main.rand.Next(60) == 0)
+                        if (Main.rand.Next(30) == 0)
                         {
                             NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
                         }
@@ -315,7 +309,15 @@ namespace StormDiversMod.Basefiles
                 templeWarning = 0;
             }
 
+            if (woodNecklace)
+            {
+                if (Player.ZoneForest)
+                {
 
+                    Player.AddBuff(ModContent.BuffType<WoodenBuff>(), 2);
+
+                }              
+            }
 
             //Reduces ints if they are above 0======================
 
@@ -977,7 +979,6 @@ namespace StormDiversMod.Basefiles
             if (derpJump)
             {
                 Player.jumpSpeedBoost += 4.5f;
-                Player.noFallDmg = true;
 
                 Player.autoJump = true;
                 Player.maxFallSpeed *= 1.5f;
@@ -1257,7 +1258,7 @@ namespace StormDiversMod.Basefiles
             {
 
 
-                if ((attackdmg >= 90 && Main.expertMode))
+                if ((attackdmg >= 90 && Main.expertMode) && !Player.HasBuff(ModContent.BuffType<CelestialBuff>()))
                 {
 
 
@@ -1269,7 +1270,7 @@ namespace StormDiversMod.Basefiles
                     }
 
                 }
-                if (attackdmg >= 60 && !Main.expertMode)
+                if (attackdmg >= 60 && !Main.expertMode && !Player.HasBuff(ModContent.BuffType<CelestialBuff>()))
                 {
                     //if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff")))
                     {
@@ -1450,6 +1451,27 @@ namespace StormDiversMod.Basefiles
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
         {
+            if (shadowflameSet)
+            {
+                
+                if (proj.aiStyle == 165)
+                {
+                    if (!target.buffImmune[BuffID.ShadowFlame])
+                    {
+                        target.AddBuff(BuffID.ShadowFlame, 180);
+
+                        for (int i = 0; i < 40; i++)
+                        {
+                            var dust = Dust.NewDustDirect(target.position, target.width, target.height, 65);
+                            dust.scale = 1.5f;
+                            dust.velocity *= 2f;
+                            dust.noGravity = true;
+                        }
+                    }
+                }
+            }
+
+
             if (heartSteal) //For the Jar of hearts
             {
                 if (!target.SpawnedFromStatue && target.life <= (target.lifeMax * 0.50f) && !target.boss && !target.friendly && target.lifeMax > 5 && !target.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
@@ -1574,7 +1596,21 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
-        
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (woodNecklace && Player.ZoneForest)
+            {
+                damage -= 2;
+            }
+
+            /*if (damage >= Player.statLife && Player.statLife > 1)
+            {
+                damage = Player.statLife - 1;
+                SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122);
+
+            }*/
+            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
+        }
         public override void OnHitByNPC(NPC npc, int damage, bool crit) //Hit by melee only
         {
 
@@ -1686,5 +1722,24 @@ namespace StormDiversMod.Basefiles
 
 
         }
+       
+    }
+    public class Itemchanges : GlobalItem
+    {
+        /*public override bool CanUseItem(Item item, Player player) //use this to disable the RoD if you want 
+        {
+            if (item.type == ItemID.RodofDiscord)
+            {
+                if (Player.HasBuff(ModContent.BuffType<TwilightDebuff")))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return true;
+        }*/
     }
 }

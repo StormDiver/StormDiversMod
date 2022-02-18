@@ -21,32 +21,20 @@ namespace StormDiversMod.Basefiles
 
         public override void OpenVanillaBag(string context, Player player, int arg)
         {
-            if (context == "bossBag" && arg == ItemID.BossBagBetsy)
+            if (context == "bossBag" && arg == ItemID.BossBagBetsy) //besty Treasure bag
             {
                 player.QuickSpawnItem(ItemType<Items.Accessory.FlameCore>(), Main.rand.Next(1, 1));
             }
-            /*if (context == "bossBag" && arg == ItemID.MoonLordBossBag)
-            {
-                if (Main.rand.Next(100) < 15)
-                {
-                    player.QuickSpawnItem(ItemType<QuackStaffSuper>(), Main.rand.Next(1, 1));
-                }
-            }*/
-            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+          
+            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3) //Any mech boss treasure bag post 3 mechs
             {
                 if (context == "bossBag" && arg == ItemID.SkeletronPrimeBossBag || arg == ItemID.TwinsBossBag || arg == ItemID.DestroyerBossBag)
                 {
                     player.QuickSpawnItem(ItemType<Items.Accessory.PrimeAccess>(), Main.rand.Next(1, 1));
                 }
             }
-            /*if (context == "bossBag" && arg == ItemID.GolemBossBag)
-            {
-                if (Main.rand.Next(100) < 15)
-                {
-                    player.QuickSpawnItem(ItemType<Weapons.LizardFlame>(), Main.rand.Next(1, 1));
-                }
-            }*/
-            if (context == "bossBag" && arg == ItemID.CultistBossBag)
+           
+            if (context == "bossBag" && arg == ItemID.CultistBossBag) //Cultist treasure bag
             {
                 player.QuickSpawnItem(ItemType<Items.Accessory.LunaticHood>(), Main.rand.Next(1, 1));
 
@@ -88,7 +76,7 @@ namespace StormDiversMod.Basefiles
                 }
 
             }*/
-            if (context == "lockBox")
+            if (context == "lockBox") //proto launcher
             {
                 if (Main.rand.Next(100) < 20)
                 {
@@ -100,77 +88,80 @@ namespace StormDiversMod.Basefiles
                     player.QuickSpawnItem(ItemType<TwilightPetItem>(), Main.rand.Next(1, 1));
                 }
             }
+            if (context == "crate" && (arg == ItemID.WoodenCrate || arg == ItemID.WoodenCrateHard)) //Wooden items
+            {
+                if (Main.rand.Next(100) < 8)
+                {
+                    int choice = Main.rand.Next(3);
 
+                    //if (WorldGen.genRand.NextBool(2))
+                    if (choice == 0)
+                    {
+                        player.QuickSpawnItem(ItemType<WoodPointyStick>());
 
-            if (context == "crate" && arg == ItemID.WoodenCrate)
+                    }
+                    else if (choice == 1)
+                    {
+                        player.QuickSpawnItem(ItemType<WoodCrossbow>());
+
+                    }
+                    else
+                    {
+                        player.QuickSpawnItem(ItemType<Items.Accessory.WoodNecklace>());
+
+                    }
+                }
+            }
+            if (context == "crate" && (arg == ItemID.FrozenCrate || arg == ItemID.FrozenCrateHard)) //Icicle Staff
+            {
+                if (Main.rand.Next(100) < 10)
+                {
+                    
+                    player.QuickSpawnItem(ItemType<IceStaff>());
+
+                }
+            }
+            if (context == "crate" && (arg == ItemID.JungleFishingCrate || arg == ItemID.JungleFishingCrateHard)) //Mossy repeater
+            {
+                if (Main.rand.Next(100) < 10)
+                {
+
+                    player.QuickSpawnItem(ItemType<MossRepeater>());
+
+                }
+            }
+            if (context == "crate" && (arg == ItemID.OasisCrate || arg == ItemID.OasisCrateHard)) //Ancient Revolver
+            {
+                if (Main.rand.Next(100) < 10)
+                {
+
+                    player.QuickSpawnItem(ItemType<SandstoneGun>());
+                    player.QuickSpawnItem(ItemID.MusketBall, Main.rand.Next(60, 100));
+                }
+            }
+            if (context == "crate" && arg == ItemID.FrozenCrateHard) //Ice bars
             {
                 if (Main.hardMode)
                 {
-                    // if (Main.player[Player.FindClosest(player.position, player.width, player.height)].ZoneSnow && Main.hardMode)
-
-                    if (Main.rand.Next(100) < 7)
+                    if (Main.rand.Next(100) < 15)
                     {
-                        player.QuickSpawnItem(ItemType<IceOre>(), Main.rand.Next(8, 16));
-                    }
-                }
-                if (Main.hardMode)
-                    //if (Main.player[Player.FindClosest(player.position, player.width, player.height)].ZoneDesert && Main.hardMode)
-                {
-                    if (Main.rand.Next(100) < 7)
-                    {
-                        player.QuickSpawnItem(ItemType<DesertOre>(), Main.rand.Next(8, 16));
-                    }
-                }
-                if (Main.hardMode)
-                {
-                    if (Main.rand.Next(100) < 5)
-                    {
-                        player.QuickSpawnItem(ItemType<IceBar>(), Main.rand.Next(1, 4));
-                    }
-                }
-                if (Main.hardMode)
-                {
-                    if (Main.rand.Next(100) < 5)
-                    {
-                        player.QuickSpawnItem(ItemType<DesertBar>(), Main.rand.Next(1, 4));
+                        player.QuickSpawnItem(ItemType<IceBar>(), Main.rand.Next(1, 10));
                     }
                 }
             }
 
-            if (context == "crate" && arg == ItemID.IronCrate)
+            if (context == "crate" && arg == ItemID.OasisCrateHard) //Forbidden Bars
             {
+              
                 if (Main.hardMode)
                 {
-                    if (Main.rand.Next(100) < 7)
+                    if (Main.rand.Next(100) < 15)
                     {
-                        player.QuickSpawnItem(ItemType<IceBar>(), Main.rand.Next(5, 10));
-                    }
-                }
-                if (Main.hardMode)
-                {
-                    if (Main.rand.Next(100) < 7)
-                    {
-                        player.QuickSpawnItem(ItemType<DesertBar>(), Main.rand.Next(5, 10));
+                        player.QuickSpawnItem(ItemType<DesertBar>(), Main.rand.Next(1, 10));
                     }
                 }
             }
-            if (context == "crate" && arg == ItemID.GoldenCrate)
-            {
-                if (Main.hardMode)
-                {
-                    if (Main.rand.Next(100) < 10)
-                    {
-                        player.QuickSpawnItem(ItemType<IceBar>(), Main.rand.Next(10, 14));
-                    }
-                }
-                if (Main.hardMode)
-                {
-                    if (Main.rand.Next(100) < 10)
-                    {
-                        player.QuickSpawnItem(ItemType<DesertBar>(), Main.rand.Next(10, 14));
-                    }
-                }
-            }
+           
         }
 
 

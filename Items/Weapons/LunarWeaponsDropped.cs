@@ -36,7 +36,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 14;
             Item.noUseGraphic = true;
             Item.useStyle = ItemUseStyleID.Swing;  
-            Item.knockBack = 8;
+            Item.knockBack = 2;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Red;
             Item.shootSpeed = 20f;

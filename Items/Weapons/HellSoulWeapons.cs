@@ -103,8 +103,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Rifle");
-            Tooltip.SetDefault("Converts regular bullets into soul bullets that pierce and inflict soulburn\nRight Click to zoom out");
+            DisplayName.SetDefault("The HellBlaster");
+            Tooltip.SetDefault("Fires out a blast of bullets alongside a piercing soul bullet");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -128,15 +128,15 @@ namespace StormDiversMod.Items.Weapons
 
             Item.DamageType = DamageClass.Ranged;
 
-            //Item.UseSound = SoundID.Item40;
-
-            Item.damage = 66;
-            Item.knockBack = 3f;
+            Item.UseSound = SoundID.Item38;
+            
+            Item.damage = 30;
+            Item.knockBack = 6f;
 
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 16f;
-            Item.useTime = 19;
-            Item.useAnimation = 19;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useAmmo = AmmoID.Bullet;
 
             Item.noMelee = true;
@@ -145,35 +145,26 @@ namespace StormDiversMod.Items.Weapons
     
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-8, 0);
+            return new Vector2(0, 0);
         }
-        public override void HoldItem(Player player)
-        {
-            player.scope = true;
-        }
+       
         public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 18;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 1;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
-            if (type == ProjectileID.Bullet)
+          
+            int numberProjectiles = 4; //This defines how many projectiles to shot.
+            for (int i = 0; i < numberProjectiles; i++)
             {
-                type = ModContent.ProjectileType<Projectiles.HellSoulRifleProj>();
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 8);
-
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15)); // This defines the projectiles random spread . 10 degree spread.
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
             }
-            else
-            {
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 40);
 
-            }
-            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
-            //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X * 1.5f, velocity.Y * 1.5f), ModContent.ProjectileType<Projectiles.HellSoulRifleProj>(), damage, knockback, player.whoAmI);
 
 
             return false;

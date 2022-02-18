@@ -334,8 +334,8 @@ namespace StormDiversMod.Projectiles
             Projectile.knockBack = 0;
            
             Projectile.aiStyle = -1;
-            /*Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;*/
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
 
         }
 

@@ -604,4 +604,39 @@ namespace StormDiversMod.Buffs
 
         }
     }
+
+    public class GunBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Marksmanship");
+            Description.SetDefault("15% increased bullet damage");
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.bulletDamage *= 1.15f;
+
+        }
+    }
+
+    public class WoodenBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Forest Empowerment");
+            Description.SetDefault("Reduces damage taken by 2");
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+            if (Main.rand.Next(6) == 0)
+            {
+                int dust = Dust.NewDust(player.position, player.width, player.height, 3, -player.velocity.X, -player.velocity.Y, 100, default, 1.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 0.5f;
+            }
+        }
+    }
 }

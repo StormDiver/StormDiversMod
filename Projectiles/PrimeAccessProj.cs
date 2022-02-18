@@ -141,7 +141,7 @@ namespace StormDiversMod.Projectiles
         public override void AI(Projectile projectile)
         {
             var player = Main.player[projectile.owner];
-
+            
 
             if (player.GetModPlayer<StormPlayer>().primeSpin == true)
 

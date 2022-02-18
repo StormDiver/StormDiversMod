@@ -6,12 +6,12 @@ This mod includes:
 
 -Over 100 new unique weapons across all classes
 -Over 20 new accessories, including new expert exclusive ones
--10 new armour sets with unique set bonuses
+-11 new armour sets with unique set bonuses
 -Many new ammos including unique ammo for certain weapons
 -Multiple new tools
 -New bars and other crafting materials
 -A bunch of different buffs and debuffs inflicted from a range of sources
--9 new potions
+-10 new potions
 -5 new Vanity sets and a speical vanity mask
 -3 new pets
 -23 new enemies across the game

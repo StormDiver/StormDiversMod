@@ -10,6 +10,49 @@ using Terraria.GameContent.Creative;
 
 namespace StormDiversMod.Items.Potions
 {
+    public class GunPotion : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Marksmanship Potion");
+            Tooltip.SetDefault("15% increased bullet damage");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 16;
+            Item.height = 30;
+            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useAnimation = 15;
+            Item.useTime = 15;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item3;
+            Item.maxStack = 99;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.buffType = BuffType<Buffs.GunBuff>(); //Specify an existing buff to be applied when used.
+            Item.buffTime = 18000; //The amount of time the buff declared in Item.buffType will last in ticks. 5400 / 60 is 90, so this buff will last 90 seconds.
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<GunPotion>(), 1);
+            recipe.AddIngredient(ItemID.BottledWater);
+            recipe.AddIngredient(ItemID.Lens);
+            recipe.AddIngredient(ItemID.Blinkroot);
+            recipe.AddIngredient(ItemID.Moonglow);
+            recipe.AddTile(TileID.Bottles);
+            recipe.Register();
+
+
+
+
+        }
+    }
+    //____________________________________________________
     public class BloodPotion : ModItem
     {
         public override void SetStaticDefaults()

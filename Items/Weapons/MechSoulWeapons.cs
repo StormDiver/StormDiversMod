@@ -21,7 +21,7 @@ namespace StormDiversMod.Items.Weapons
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Vaporiser");
+            DisplayName.SetDefault("The Vaporizer");
             Tooltip.SetDefault("Fires out 8 spikes upon impacting an enemy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()

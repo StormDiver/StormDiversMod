@@ -107,6 +107,7 @@ namespace StormDiversMod.Projectiles
     //______________________________________________________________________________________________________________________
     public class GraniteSpearProj : ModProjectile
     {
+        //unused
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Granite Spear");
@@ -198,7 +199,7 @@ namespace StormDiversMod.Projectiles
     //___________________________________
     public class GraniteSpearProj2 : ModProjectile
     {
-
+        //unused
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Granite Spear Orb");
@@ -352,6 +353,7 @@ namespace StormDiversMod.Projectiles
         }
 
     }
+    //_______________________________________________________
     public class GraniteYoyoProj : ModProjectile
     {
 
@@ -362,7 +364,7 @@ namespace StormDiversMod.Projectiles
 
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 160f;
 
-            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 11f;
+            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 12.5f;
 
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
