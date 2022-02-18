@@ -358,7 +358,11 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(int hitDirection, double damage)
         {
-
+            if (Main.netMode == NetmodeID.Server)
+            {
+                // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                return;
+            }
             for (int i = 0; i < 2; i++)
             {
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 173);

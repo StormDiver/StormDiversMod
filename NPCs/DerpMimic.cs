@@ -277,6 +277,11 @@ namespace StormDiversMod.NPCs
 
         public override void HitEffect(int hitDirection, double damage)
         {
+            if (Main.netMode == NetmodeID.Server)
+            {
+                // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                return;
+            }
             //attacking make it hostile
             if (!attackmode)
             {

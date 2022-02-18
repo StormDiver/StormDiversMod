@@ -174,31 +174,32 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                         float distanceY = player.Center.Y - projectile.Center.Y;
                         float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
-
-                        if (distance <= 100 && !reflected)
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-
-                            int choice = Main.rand.Next(2);
-                            if (choice == 0)
+                            if (distance <= 100 && !reflected)
                             {
-                                SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 56);
-                                //Projectile.Kill();
-                                projectile.velocity.X *= -1f;
+
+                                int choice = Main.rand.Next(2);
+                                if (choice == 0)
+                                {
+                                    SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 56);
+                                    //Projectile.Kill();
+                                    projectile.velocity.X *= -1f;
 
 
-                                projectile.velocity.Y *= -1f;
+                                    projectile.velocity.Y *= -1f;
 
-                                projectile.friendly = true;
-                                projectile.hostile = false;
+                                    projectile.friendly = true;
+                                    projectile.hostile = false;
 
-                                projectile.damage *= 4;
-                                reflected = true;
+                                    projectile.damage *= 4;
+                                    reflected = true;
+                                }
+                                else
+                                {
+                                    reflected = true;
+                                }
                             }
-                            else
-                            {
-                                reflected = true;
-                            }
-
 
                         }
                     }

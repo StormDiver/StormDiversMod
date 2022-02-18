@@ -292,7 +292,14 @@ namespace StormDiversMod.Basefiles
                     templeWarning++;
                     if (templeWarning == 1 && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))
                     {
-                        Main.NewText("The ancient temple defenses begin to wake up!!!", 204, 101, 22);
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The ancient temple defenses begin to wake up!!!"), new Color(204, 101, 22));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText("The ancient temple defenses begin to wake up!!!", 204, 101, 22);
+                        }
                     }
 
                     if (templeWarning >= 300)

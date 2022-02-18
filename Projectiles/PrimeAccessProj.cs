@@ -171,21 +171,23 @@ namespace StormDiversMod.Projectiles
                         float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
                         { }
-                        if (distance >= 140 && distance <= 160 && !projCheck)
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            int choice = Main.rand.Next(7);
-                            if (choice == 0)
+                            if (distance >= 140 && distance <= 160 && !projCheck)
                             {
-                                projCheck = true;
-                                SoundEngine.PlaySound(SoundID.NPCHit, (int)projectile.position.X, (int)projectile.position.Y, 4);
-                                projectile.Kill();
+                                int choice = Main.rand.Next(7);
+                                if (choice == 0)
+                                {
+                                    projCheck = true;
+                                    SoundEngine.PlaySound(SoundID.NPCHit, (int)projectile.position.X, (int)projectile.position.Y, 4);
+                                    projectile.Kill();
 
+                                }
+                                else
+                                {
+                                    projCheck = true;
+                                }
                             }
-                            else  
-                            {
-                                projCheck = true;
-                            }
-                            
                         }
                     }
                 }

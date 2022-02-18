@@ -75,7 +75,12 @@ namespace StormDiversMod.NPCs
        
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            NPC.life -= 9999;
+            if (Main.netMode == NetmodeID.Server)
+            {
+                // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                return;
+            }
+            NPC.life = 0;
             SoundEngine.PlaySound(SoundID.NPCKilled, (int)NPC.Center.X, (int)NPC.Center.Y, 7);
             for (int i = 0; i < 10; i++)
             {
@@ -101,6 +106,11 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(int hitDirection, double damage)
         {
+            if (Main.netMode == NetmodeID.Server)
+            {
+                // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                return;
+            }
             for (int i = 0; i < 2; i++)
             {
                 Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));

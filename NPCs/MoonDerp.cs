@@ -28,7 +28,7 @@ namespace StormDiversMod.NPCs
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 4;
-
+            NPCID.Sets.MPAllowedEnemies[Type] = true;
 
         }
         public override void SetDefaults()
@@ -42,7 +42,7 @@ namespace StormDiversMod.NPCs
 
             NPC.defense = 60;
             NPC.lifeMax = 30000;
-
+            NPC.aiStyle = -1;
 
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit56;
@@ -87,9 +87,9 @@ namespace StormDiversMod.NPCs
         int timetoshootspeed = 10; //How rapid it fires
         float movespeed = 8f; //Speed of the npc
 
-        float xpostion = 0; // The picked x postion
-        float ypostion = -150f;
-        int poschoice; 
+        float xpostion; // The picked x postion
+        float ypostion;
+        public int poschoice = 1; 
         public override void AI()
         {
             NPC.buffImmune[BuffID.Confused] = true;
@@ -98,6 +98,31 @@ namespace StormDiversMod.NPCs
             NPC.spriteDirection = NPC.direction;
 
             Player player = Main.player[NPC.target]; //Code to move towards player
+             if (poschoice == 1) //Top 
+                {
+                    xpostion = 0f;
+                    ypostion = -150f;
+                }
+                else if (poschoice == 2) // left
+                {
+                    xpostion = -200f;
+                    ypostion = 0;
+                }
+                else if (poschoice == 3) //  right
+                {
+                    xpostion = 200f;
+                    ypostion = 0f;
+                }
+                else if (poschoice == 4) //Bottom 
+                {
+                    xpostion = 0f;
+                    ypostion = 150f;
+                }
+                else if (poschoice == 5) //On top of player
+                {
+                    xpostion = 0f;
+                    ypostion = -20f;
+                }
             NPC.TargetClosest();
             Vector2 moveTo = player.Center;
             Vector2 move = moveTo - NPC.Center + new Vector2(xpostion, ypostion); //Postion around player
@@ -108,35 +133,12 @@ namespace StormDiversMod.NPCs
             }
             NPC.velocity = move;
             //The 5 positions it can be in after firing
-            if (poschoice == 1) //Top 
-            {
-                xpostion = 0f;
-                ypostion = -150f;
-            }
-            else if (poschoice == 2) // left
-            {
-                xpostion = -200f;
-                ypostion = 0;
-            }
-            else if (poschoice == 3) //  right
-            {
-                xpostion = 200f;
-                ypostion = 0f;
-            }
-            else if (poschoice == 4) //Bottom 
-            {
-                xpostion = 0f;
-                ypostion = 150f;
-            }
-            else if (poschoice == 5) //On top of player
-            {
-                xpostion = 0f;
-                ypostion = -20f;
-            }
-
+            
+               
+            
 
             NPC.rotation = NPC.velocity.X / 12 ;
-            NPC.velocity.Y *= 0.96f;
+            //NPC.velocity.Y *= 0.96f;
 
             Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
@@ -160,9 +162,6 @@ namespace StormDiversMod.NPCs
                     shootspeed++;
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Top.Y)) * projectileSpeed;
 
-                    
-
-
                     if (shootspeed == timetoshootspeed)
                     {
                         
@@ -182,8 +181,11 @@ namespace StormDiversMod.NPCs
                     }
                     if (shoottime >= (timetoshoot + 20))
                     {
-                        poschoice = Main.rand.Next(1, 6); //Picks one of the 5 random postions after each shot
-
+                        if (Main.netMode == 0) // Only works in Single Player for now
+                        {
+                            poschoice = Main.rand.Next(1, 6); //Picks one of the 5 random postions after each shot
+                        }
+                       
                         //xpostion *= -1f;
                         //ypostion *= -1f;
                         shoottime = 0;
@@ -208,29 +210,7 @@ namespace StormDiversMod.NPCs
                     SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 103);
                     eyetime = 0;
                 }
-                if (NPC.life < NPC.lifeMax * 0.5f && halflife3 == false) //Entering phase 2--------------------------------------------------------------------------------------
-                {
-                    SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 101);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
-                    
-                    for (int i = 0; i < 20; i++)
-                    {
-                        var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 156);
-                        
-                    }
-                    
-                   //NPC.damage = NPC.damage / 10 * 14;  //Would be 40% extra damage but too OP
-                   NPC.defense = 50;
-                   timetoshoot = 90;
-                   timetoshootspeed = 6;
-                    NPC.velocity *= 0;
-                    movespeed += 3;
                 
-                   halflife3 = true;
-                }
             }
             else
             {
@@ -244,6 +224,36 @@ namespace StormDiversMod.NPCs
                 {
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 156);
                 }
+            }
+            if (NPC.life < NPC.lifeMax * 0.5f && halflife3 == false) //Entering phase 2--------------------------------------------------------------------------------------
+            {
+                NPC.defense = 50;
+                timetoshoot = 90;
+                timetoshootspeed = 6;
+                NPC.velocity *= 0;
+                movespeed += 3;
+
+                halflife3 = true;
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                    return;
+                }
+
+                SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 101);
+                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
+                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
+                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);
+                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
+
+                    for (int i = 0; i < 20; i++)
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 156);
+
+                    }
+                
+                //NPC.damage = NPC.damage / 10 * 14;  //Would be 40% extra damage but too OP
+            
             }
         }
         int npcframe = 0;
@@ -285,6 +295,11 @@ namespace StormDiversMod.NPCs
         int choice;
         public override void HitEffect(int hitDirection, double damage)
         {
+            if (Main.netMode == NetmodeID.Server)
+            {
+                // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                return;
+            }
             for (int i = 0; i < 2; i++)
             {
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y - 10), 20, 20, 265);

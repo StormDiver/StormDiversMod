@@ -275,6 +275,12 @@ namespace StormDiversMod.NPCs
             firerate = -30;
          
             damaged = true;
+
+            if (Main.netMode == NetmodeID.Server)
+            {
+                // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                return;
+            }
             for (int i = 0; i < 20; i++)
             {
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X, NPC.Center.Y), 0, 0, 0);

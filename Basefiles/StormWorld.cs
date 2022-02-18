@@ -474,32 +474,68 @@ namespace StormDiversMod.Basefiles
             //For the messages when a boss is defeated
             if (NPC.downedPlantBoss && !planteraMessage)
             {
-                Main.NewText("The Derplings begin to shed their shells", 47, 86, 146);
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The Derplings begin to shed their shells"), new Color(47, 86, 146));
 
-                Main.NewText("The ancient temple defenses have greatly weakened", 204, 101, 22);
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The ancient temple defenses have greatly weakened"), new Color(204, 101, 22));
 
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText("The Derplings begin to shed their shells", 47, 86, 146);
+
+                    Main.NewText("The ancient temple defenses have greatly weakened", 204, 101, 22);
+                }
                 planteraMessage = true;
             }
             if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && !mechMessage)
             {
-                Main.NewText("Fiery souls infect those trapped in the underworld", 224, 141, 255);
-
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Fiery souls infect those trapped in the underworld"), new Color(224, 141, 255));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText("Fiery souls infect those trapped in the underworld", 224, 141, 255);
+                }
                 mechMessage = true;
             }
             if (NPC.downedBoss1 && !eocMessage)
             {
-                Main.NewText("A stronger life force radiates from the minor underground biomes", 96, 211, 255);
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("A stronger life force radiates from the minor underground biomes"), new Color(96, 211, 255));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+
+                    Main.NewText("A stronger life force radiates from the minor underground biomes", 96, 211, 255);
+                }
                 eocMessage = true;
             }
             if (NPC.downedGolemBoss && !golemMessage)
             {
-                Main.NewText("Sentient asteroids have entered the atmosphere", 179, 151, 238);
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Sentient asteroids have entered the atmosphere"), new Color(179, 151, 238));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText("Sentient asteroids have entered the atmosphere", 179, 151, 238);
+                }
                 golemMessage = true;
             }
             if (NPC.downedBoss2 && !bloodMessage)
             {
-                Main.NewText("Essences of the blood moon begin to drop", 233, 70, 70);
-
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Essences of the blood moon begin to drop"), new Color(233, 70, 70));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText("Essences of the blood moon begin to drop", 233, 70, 70);
+                }
                 bloodMessage = true;
             }
             //To spawn the ores

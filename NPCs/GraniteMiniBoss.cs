@@ -185,6 +185,12 @@ namespace StormDiversMod.NPCs
         public override void HitEffect(int hitDirection, double damage)
         {
             shoottime = 60;
+            if (Main.netMode == NetmodeID.Server)
+            {
+                // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                return;
+            }
+            
 
             for (int i = 0; i < 3; i++)
             {

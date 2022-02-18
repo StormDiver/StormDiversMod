@@ -123,7 +123,7 @@ namespace StormDiversMod.NPCs
             float distanceY = player.Center.Y - NPC.Center.Y;
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             
-                xpostion = 150 * -player.direction;
+            xpostion = 150 * -player.direction;
             if ((distanceX <= 600f && distanceX >= -600f) && (distanceY <= 200f && distanceY >= -200f))
             {
                 if (shoottime >= 50)
@@ -220,6 +220,12 @@ namespace StormDiversMod.NPCs
             shooting = false;
             NPC.velocity.X = 0f;
             NPC.velocity.Y = 0f;
+
+            if (Main.netMode == NetmodeID.Server)
+            {
+                // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
+                return;
+            }
             for (int i = 0; i < 3; i++)
             {
                 Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
