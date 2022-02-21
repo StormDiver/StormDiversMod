@@ -106,22 +106,24 @@ namespace StormDiversMod.Items.Pets
             {
                 Projectile.timeLeft = 2;
             }
-           /* if (dustime >= 5 && !Projectile.tileCollide)
-                
+            /* if (dustime >= 5 && !Projectile.tileCollide)
+
+             {
+                 int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 19);
+                 Main.dust[dust].velocity *= -1f;
+                 dustime = 0;
+             }*/
+            if (!Main.dedServ)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 19);
-                Main.dust[dust].velocity *= -1f;
-                dustime = 0;
-            }*/
-           if (Main.rand.Next(15) == 0)
-            {
+                if (Main.rand.Next(15) == 0)
                 {
+                    {
+                        var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 124);
 
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 124);
+                        dust.scale = 0.5f;
+                        dust.velocity *= 0;
 
-                    dust.scale = 0.5f;
-                    dust.velocity *= 0;
-
+                    }
                 }
             }
 

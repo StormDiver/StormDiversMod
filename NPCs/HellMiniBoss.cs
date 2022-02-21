@@ -400,8 +400,8 @@ namespace StormDiversMod.NPCs
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule isExpert = new LeadingConditionRule(new Conditions.IsExpert());
 
-            isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 12, 16));
-            notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 10, 14));
+            isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 15, 24));
+            notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 12, 20));
 
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);

@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Accessory
         {
             
             DisplayName.SetDefault("Enchanted Mushroom");
-            Tooltip.SetDefault("Empowers you with more defense and increases damage dealt when losing health");
+            Tooltip.SetDefault("Increases damage dealt and reduces damage taken when losing health");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -68,7 +68,6 @@ namespace StormDiversMod.Items.Accessory
             
             if (player.statLife >= player.statLifeMax2 * .75f)
             {
-                Item.defense = 2;
                 /*player.allDamage += 0.02f;
                 dustchance = 16;*/
                 player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
@@ -80,7 +79,6 @@ namespace StormDiversMod.Items.Accessory
             }
             else if (player.statLife >= player.statLifeMax2 * .5f && player.statLife < player.statLifeMax2 * .75f)
             {
-                Item.defense = 5;
 
                 player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
                 player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
@@ -90,18 +88,16 @@ namespace StormDiversMod.Items.Accessory
             }
             else if (player.statLife >= player.statLifeMax2 * .25f && player.statLife < player.statLifeMax2 * .5f)
             {
-                Item.defense = 10;
 
                 player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
                 player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
                 player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
 
-                player.AddBuff(ModContent.BuffType<Buffs.MushBuff3>(), 3);
+                player.AddBuff(ModContent.BuffType<Buffs.MushBuff3>(), 2);
 
             }
             else 
             {
-                Item.defense = 16;
 
                 player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
                 player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());

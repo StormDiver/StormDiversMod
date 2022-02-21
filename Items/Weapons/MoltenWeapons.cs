@@ -128,6 +128,7 @@ namespace StormDiversMod.Items.Weapons
         {
 
         }
+       
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(5, 0);

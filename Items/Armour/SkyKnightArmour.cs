@@ -20,7 +20,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Star Warrior Visage");
-            Tooltip.SetDefault("Increases your max number of sentries by 1\n2% increased damage");
+            Tooltip.SetDefault("5% increased damage");
             ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -35,13 +35,14 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Green;
-            Item.defense = 6;
+            Item.defense = 4;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.02f;
-            player.maxTurrets += 1;
+            player.GetDamage(DamageClass.Generic) += 0.05f;
+
+       
         }
 
         public override void ArmorSetShadows(Player player)
@@ -96,7 +97,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Star Warrior Platemail");
-            Tooltip.SetDefault("5% increased damage");
+            Tooltip.SetDefault("Increases your max number of sentries by 1\n3% increased damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
 
@@ -108,14 +109,13 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5;
+            Item.defense = 6;
         }
 
         public override void UpdateEquip(Player player)
         {
-
-            player.GetDamage(DamageClass.Generic) += 0.05f;
-
+            player.GetDamage(DamageClass.Generic) += 0.03f;
+            player.maxTurrets += 1;
         }
         public override void AddRecipes()
         {
@@ -143,7 +143,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Star Warrior Greaves");
-            Tooltip.SetDefault("Increases your max number of sentries by 1\n3% increased damage");
+            Tooltip.SetDefault("Increases your max number of sentries by 1\n2% increased damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
@@ -157,7 +157,7 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1 ,0, 0);
             Item.rare = ItemRarityID.Green;
-            Item.defense = 4;
+            Item.defense = 5;
         }
 
         public override void UpdateEquip(Player player)
@@ -165,7 +165,7 @@ namespace StormDiversMod.Items.Armour
 
             player.maxTurrets += 1;
 
-            player.GetDamage(DamageClass.Generic) += 0.03f;
+            player.GetDamage(DamageClass.Generic) += 0.02f;
 
         }
         public override void AddRecipes()

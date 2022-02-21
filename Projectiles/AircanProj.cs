@@ -26,7 +26,7 @@ namespace StormDiversMod.Projectiles
             Projectile.penetrate = -1;
             Projectile.timeLeft = 40;
             Projectile.extraUpdates = 1;
-            Projectile.knockBack = 8f;
+            //Projectile.knockBack = 8f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
         }

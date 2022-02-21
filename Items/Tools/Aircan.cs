@@ -15,6 +15,7 @@ namespace StormDiversMod.Items.Tools
             DisplayName.SetDefault("Compressed Air Can");
             Tooltip.SetDefault("Fires out a blast of air that blows enemies away and clears cobwebs");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            
         }
         public override void SetDefaults()
         {
@@ -32,9 +33,9 @@ namespace StormDiversMod.Items.Tools
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item13;
 
-            Item.damage = 3;
+            Item.damage = 5;
             
-            Item.knockBack = 3;
+            Item.knockBack = 16;
             Item.shoot = ModContent.ProjectileType<Projectiles.AircanProj>();
             
             Item.shootSpeed = 7f;
@@ -45,7 +46,7 @@ namespace StormDiversMod.Items.Tools
         }
         public override void HoldItem(Player player)
         {
-            player.armorPenetration = 20;
+            //player.armorPenetration = 0;
         }
         public override Vector2? HoldoutOffset()
         {
@@ -62,7 +63,7 @@ namespace StormDiversMod.Items.Tools
             for (int i = 0; i < 2; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback * 10, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
 
             }
 

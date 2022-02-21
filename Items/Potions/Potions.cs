@@ -47,9 +47,6 @@ namespace StormDiversMod.Items.Potions
             recipe.AddTile(TileID.Bottles);
             recipe.Register();
 
-
-
-
         }
     }
     //____________________________________________________
@@ -99,10 +96,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Reservation Potion");
-            Tooltip.SetDefault("Grants a 75% chance not to consume ammo");
+            DisplayName.SetDefault("Shroomite Ammo Power Potion");
+            Tooltip.SetDefault("Increases ammo damage by 10%");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
-
         }
 
         public override void SetDefaults()
@@ -167,7 +163,7 @@ namespace StormDiversMod.Items.Potions
 
             Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<SpectrePotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
-            recipe.AddIngredient(ItemID.Ectoplasm, 3);
+            recipe.AddIngredient(ItemID.Ectoplasm, 2);
             recipe.AddIngredient(ItemID.Waterleaf, 2);
             recipe.AddTile(TileID.Bottles);
             recipe.Register();
@@ -232,7 +228,7 @@ namespace StormDiversMod.Items.Potions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spooky Curse Potion");
-            Tooltip.SetDefault("Increases Summon damage and knockback by 10%");
+            Tooltip.SetDefault("Increases Summon damage and whip speed by 10%");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
 
         }

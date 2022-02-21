@@ -34,10 +34,10 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 8;
+            Item.mana = 7;
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 17;
+            Item.damage = 10;
             //Item.crit = 4;
             Item.knockBack = 1f;
 
@@ -78,20 +78,20 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blade of the sea");
+            DisplayName.SetDefault("Blade of the Sea");
             Tooltip.SetDefault("Fires out a blast of water each swing");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 17;
+            Item.damage = 15;
 
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 38;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Swing;  
             Item.value = Item.sellPrice(0, 0, 20, 0);
             Item.rare = ItemRarityID.Blue;
@@ -109,7 +109,7 @@ namespace StormDiversMod.Items.Weapons
             
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(4)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, (int)(damage * 0.8f), knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, (int)(damage * 0.7f), knockback, player.whoAmI);
             }
             SoundEngine.PlaySound(SoundID.Splash, (int)player.Center.X, (int)player.Center.Y, 1);
 
@@ -163,8 +163,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 20, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 9;
-            Item.useAnimation = 9;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
             Item.useTurn = false;
             Item.autoReuse = false;
 
@@ -174,7 +174,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAmmo = ItemType<Ammo.OceanShard>();
             Item.UseSound = SoundID.Item85;
 
-            Item.damage = 10;
+            Item.damage = 8;
             //Item.crit = 0;
             Item.knockBack = 1f;
 

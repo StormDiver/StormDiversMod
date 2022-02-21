@@ -35,7 +35,7 @@ namespace StormDiversMod.Projectiles.Minions
 			}
 		}
 	}
-	
+
 
 	//_______________________________________________________________________
 	public class HellSoulMinionProj : ModProjectile
@@ -86,7 +86,7 @@ namespace StormDiversMod.Projectiles.Minions
 		{
 			Player player = Main.player[Projectile.owner];
 
-		
+
 			// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
 			if (player.dead || !player.active)
 			{
@@ -96,7 +96,7 @@ namespace StormDiversMod.Projectiles.Minions
 			{
 				Projectile.timeLeft = 2;
 			}
-		
+
 			Vector2 idlePosition = player.Center;
 			idlePosition.Y -= 48f; // Go up 48 coordinates (three tiles from the center of the player)
 
@@ -133,7 +133,7 @@ namespace StormDiversMod.Projectiles.Minions
 					else Projectile.velocity.Y += overlapVelocity;
 				}
 			}
-		
+
 			// Starting search distance
 			Vector2 targetCenter = Projectile.position;
 			bool foundTarget = false;
@@ -178,9 +178,9 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 
-			
+
 			Projectile.friendly = foundTarget;
-			
+
 
 			// Default movement parameters (here for attacking)
 			float speed = 8f;
@@ -207,18 +207,20 @@ namespace StormDiversMod.Projectiles.Minions
 					distance = 3f / distance;
 					shootToX *= distance * 7;
 					shootToY *= distance * 7;*/
-					
+
 				}
 				if (shootime > 60 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
 				{
-
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
-
-					for (int i = 0; i < 10; i++)
+					if (!Main.dedServ)
 					{
-						var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
-						dust.scale = 1.5f;
-						dust.velocity *= 2;
+						Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+
+						for (int i = 0; i < 10; i++)
+						{
+							var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
+							dust.scale = 1.5f;
+							dust.velocity *= 2;
+						}
 					}
 					shootime = 0;
 				}
@@ -254,8 +256,8 @@ namespace StormDiversMod.Projectiles.Minions
 					Projectile.velocity.Y = -0.05f;
 				}
 			}
-	
-		
+
+
 			// So it will lean slightly towards the direction it's moving
 			Projectile.rotation = Projectile.velocity.X * 0.05f;
 
@@ -272,37 +274,41 @@ namespace StormDiversMod.Projectiles.Minions
 			}
 
 			// Some visuals here
-			Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
-			if (Main.rand.Next(8) == 0)
+			if (!Main.dedServ)
 			{
+				Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
+				if (Main.rand.Next(8) == 0)
+				{
 
-				var dust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.Top.Y), Projectile.width, Projectile.height / 2, 135, 0, -2);
-				dust2.scale = 1f;
-				dust2.noGravity = true;
+					var dust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.Top.Y), Projectile.width, Projectile.height / 2, 135, 0, -2);
+					dust2.scale = 1f;
+					dust2.noGravity = true;
 
-			}
-			if (Main.rand.Next(6) == 0)
-			{
+				}
+				if (Main.rand.Next(6) == 0)
+				{
 
-				var dust3 = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 8, Projectile.Bottom.Y - 10), 16, 6, 173, 0, 5);
-				dust3.noGravity = true;
+					var dust3 = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 8, Projectile.Bottom.Y - 10), 16, 6, 173, 0, 5);
+					dust3.noGravity = true;
 
+				}
 			}
 		}
 		public override void Kill(int timeLeft)
 		{
 			if (Projectile.owner == Main.myPlayer)
 			{
-
-				SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
-
-				for (int i = 0; i < 25; i++)
+				if (!Main.dedServ)
 				{
-					var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
-					dust.scale = 1;
-					dust.velocity *= 2;
-				}
+					SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
 
+					for (int i = 0; i < 25; i++)
+					{
+						var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
+						dust.scale = 1;
+						dust.velocity *= 2;
+					}
+				}
 			}
 		}
 	}

@@ -190,20 +190,26 @@ namespace StormDiversMod.Items.Pets
             if (distance > 100 && Projectile.velocity.Y < 5) //Change aniamtion and speed and faster dust
             {
                 //if (Projectile.velocity.Y < 5)
+                if (!Main.dedServ)
                 {
-                    Dust dust;
-                    Vector2 position = (new Vector2(Projectile.Center.X - (7 * Projectile.spriteDirection) - 4, Projectile.Center.Y - 3));
-                    dust = Terraria.Dust.NewDustDirect(position, 0, 0, 206, -Projectile.spriteDirection * 3f, 3, 0, new Color(255, 255, 255), 1f);
+                    {
+                        Dust dust;
+                        Vector2 position = (new Vector2(Projectile.Center.X - (7 * Projectile.spriteDirection) - 4, Projectile.Center.Y - 3));
+                        dust = Terraria.Dust.NewDustDirect(position, 0, 0, 206, -Projectile.spriteDirection * 3f, 3, 0, new Color(255, 255, 255), 1f);
+                    }
                 }
                 animatefast = true;
             }
             else
             {
-                if (Main.rand.Next(6) == 0)
+                if (!Main.dedServ)
                 {
-                    Dust dust;
-                    Vector2 position = (new Vector2(Projectile.Center.X - (7 * Projectile.spriteDirection) - 4, Projectile.Center.Y - 3));
-                    dust = Terraria.Dust.NewDustDirect(position, 0, 0, 206, -Projectile.spriteDirection * 2f, 2, 0, new Color(255, 255, 255), 1f);
+                    if (Main.rand.Next(6) == 0)
+                    {
+                        Dust dust;
+                        Vector2 position = (new Vector2(Projectile.Center.X - (7 * Projectile.spriteDirection) - 4, Projectile.Center.Y - 3));
+                        dust = Terraria.Dust.NewDustDirect(position, 0, 0, 206, -Projectile.spriteDirection * 2f, 2, 0, new Color(255, 255, 255), 1f);
+                    }
                 }
                 animatefast = false;
             }
@@ -242,13 +248,16 @@ namespace StormDiversMod.Items.Pets
         }
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 30; i++) //Dust post-teleport
+            if (!Main.dedServ)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 206);
-                dust.scale = 1.1f;
-                dust.velocity *= 2;
-                dust.noGravity = true;
+                for (int i = 0; i < 30; i++) //Dust post-teleport
+                {
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 206);
+                    dust.scale = 1.1f;
+                    dust.velocity *= 2;
+                    dust.noGravity = true;
 
+                }
             }
         }
 

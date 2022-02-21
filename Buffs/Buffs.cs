@@ -75,7 +75,7 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shroomite Enhancement");
-            Description.SetDefault("75% Chance not to consume ammo");
+            Description.SetDefault("Increases ammo damage by 10%");
         }
         // code in StormPlayer.cs
     }
@@ -120,13 +120,13 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spooky Enhancement");
-            Description.SetDefault("Increases Minion damage and knockback by 10%");
+            Description.SetDefault("Increases Minion damage and whip speed by 10%");
         }
         public override void Update(Player player, ref int buffIndex)
         {
 
             player.GetDamage(DamageClass.Summon) += 0.1f;
-            player.minionKB += 0.1f;
+            player.whipUseTimeMultiplier *= 0.9f;
         }
     }
     //_______________________________________________________________________________
@@ -422,14 +422,12 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shroom Power");
-            Description.SetDefault("Increases damage by 2%");
+            Description.SetDefault("Increases damage dealt and reduces damage taken by 1");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) += 0.02f;
-
 
             if (Main.rand.Next(16) == 0)
             {
@@ -446,13 +444,12 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shroom Power");
-            Description.SetDefault("Increases damage by 5%");
+            Description.SetDefault("Increases damage dealt and reduces damage taken by 2");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) += 0.05f;
 
             if (Main.rand.Next(8) == 0)
             {
@@ -469,13 +466,12 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shroom Power");
-            Description.SetDefault("Increases damage by 10%");
+            Description.SetDefault("Increases damage dealt and reduces damage taken by 4");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) += 0.1f;
 
             if (Main.rand.Next(4) == 0)
             {
@@ -492,13 +488,12 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shroom Power");
-            Description.SetDefault("Increases damage by 16%");
+            Description.SetDefault("Increases damage dealt and reduces damage taken by 6");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) += 0.16f;
 
             if (Main.rand.Next(2) == 0)
             {

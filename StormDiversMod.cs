@@ -102,6 +102,22 @@ namespace StormDiversMod
 
            });
             RecipeGroup.RegisterGroup("StormDiversMod:T3HMBars", group);
+
+            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tombstone", new int[]
+          {
+                ItemID.Tombstone,
+                ItemID.GraveMarker,
+                ItemID.CrossGraveMarker,
+                ItemID.Headstone,
+                ItemID.Gravestone,
+                ItemID.Obelisk,
+                ItemID.RichGravestone1,
+                ItemID.RichGravestone2,
+                ItemID.RichGravestone3,
+                ItemID.RichGravestone4,
+                ItemID.RichGravestone5,
+          });
+            RecipeGroup.RegisterGroup("StormDiversMod:Tombstones", group);
         }
     }
 }

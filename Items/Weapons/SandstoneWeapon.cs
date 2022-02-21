@@ -33,7 +33,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 34;
             Item.reuseDelay = 60;
             Item.useTurn = false;
-            Item.autoReuse = false;
+            Item.autoReuse = true;
             //Item.UseSound = SoundID.Item41;
             Item.DamageType = DamageClass.Ranged;
 

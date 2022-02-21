@@ -104,7 +104,7 @@ namespace StormDiversMod.NPCs
                 
             {
 
-                if (shoottime >= 300)
+                if (shoottime >= 240)
                 {
                     float projectileSpeed = 1f; // The speed of your projectile (in pixels per second).
                     int damage = 15; // The damage your projectile deals. normal x2, expert x4
@@ -146,7 +146,7 @@ namespace StormDiversMod.NPCs
             }
             else
             {
-                shoottime = 160;
+                shoottime = 180;
 
 
             }
@@ -178,7 +178,7 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(int hitDirection, double damage)
         {
-            shoottime = 160;
+            shoottime = 180;
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers

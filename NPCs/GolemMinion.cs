@@ -162,10 +162,11 @@ namespace StormDiversMod.NPCs
                 }
                 if (shoottime >= 80)//fires the projectiles
                 {
-
-                    xpostion = Main.rand.NextFloat(150f, -150f);
-                    ypostion = Main.rand.NextFloat(-50f, -200f);
-
+                    if (Main.netMode == 0) // Only works in Single Player for now
+                    {
+                        xpostion = Main.rand.NextFloat(150f, -150f);
+                        ypostion = Main.rand.NextFloat(-50f, -200f);
+                    }
 
                     float projectileSpeed = 10f; // The speed of your projectile (in pixels per second).
                     int damage = 35; // The damage your projectile deals. normal x2, expert x4

@@ -266,9 +266,49 @@ namespace StormDiversMod.Basefiles
         {
             if (mushChestplate)
             {
-                if (item.CountsAsClass(DamageClass.Ranged))
+                if (item.CountsAsClass(DamageClass.Ranged) && item.ammo == 0)
                 {
                     flat += 1;
+                }
+            }
+            if (Player.HasBuff(BuffType<ShroomiteBuff>()))//If the player has the shroomite potion then 50% chance not to consume ammo
+            {
+                if (item.CountsAsClass(DamageClass.Ranged) && item.ammo != 0)
+                {
+                    damage *= 1.1f;
+                    if (damage <= 10)
+                    {
+                        flat += 1;
+                    }
+
+                }
+            }
+            //for Enchanted Mushroom
+            if (item.ammo == 0)
+            {
+                if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff1>()))
+                {
+
+                    flat += 1;
+
+                }
+                else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff2>()))
+                {
+
+                    flat += 2;
+
+                }
+                else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff3>()))
+                {
+
+                    flat += 4;
+
+                }
+                else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
+                {
+
+                    flat += 6;
+
                 }
             }
         }
@@ -415,6 +455,7 @@ namespace StormDiversMod.Basefiles
                     Main.dust[dust].velocity.Y -= 0.5f;
                 }
             }
+            
             //For Soul Striders============================================================
             var tilePos = Player.Bottom.ToTileCoordinates16();
             if (soulBoots)
@@ -555,7 +596,7 @@ namespace StormDiversMod.Basefiles
 
                 }
 
-                if (santankcharge <= -30) //Reset trigger once all missile are fired (negative creates a recharge delay, delay is 1 = 3, so 30 = 90 frames, plus the 10 * 3 (30frame) delay for the first charge (120 frames, 2 seconds))
+                if (santankcharge <= -10) //Reset trigger once all missile are fired (negative creates a recharge delay, delay is 1 = 3, so 10 = 30 frames, plus the 10 * 3 (30frame) delay for the first charge (60 frames, 1 second))
                 {
                     santanktrigger = false;
 
@@ -594,7 +635,7 @@ namespace StormDiversMod.Basefiles
             }
             if (!santankSet) //Reset values if armour is removed
             {
-                santankcharge = -30;
+                santankcharge = -10;
                 santankmissleup = 0;
                 santanktrigger = false;
             }
@@ -818,6 +859,7 @@ namespace StormDiversMod.Basefiles
             //For the Heavy Boots===========================
             if (bootFall)
             {
+                Player.rocketBoots = 1;
 
                 if (Player.controlDown && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
@@ -1269,7 +1311,7 @@ namespace StormDiversMod.Basefiles
                 {
 
 
-                    //if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff")))
+                    if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff>()))
                     {
                         SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122);
                         Player.AddBuff(ModContent.BuffType<CelestialBuff>(), (int)(attackdmg * 4f));
@@ -1279,7 +1321,7 @@ namespace StormDiversMod.Basefiles
                 }
                 if (attackdmg >= 60 && !Main.expertMode && !Player.HasBuff(ModContent.BuffType<CelestialBuff>()))
                 {
-                    //if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff")))
+                    if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff>()))
                     {
                         SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122);
                         Player.AddBuff(ModContent.BuffType<CelestialBuff>(), (int)(attackdmg * 4f));
@@ -1609,7 +1651,26 @@ namespace StormDiversMod.Basefiles
             {
                 damage -= 2;
             }
+            //for Enchanted Mushroom
+            if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff1>()))
+            {
+                damage -= 1;
+            }
+            else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff2>()))
+            {
+                damage -= 2;
 
+            }
+            else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff3>()))
+            {
+                damage -= 4;
+
+            }
+            else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
+            {
+                damage -= 6;
+
+            }
             /*if (damage >= Player.statLife && Player.statLife > 1)
             {
                 damage = Player.statLife - 1;
@@ -1715,7 +1776,7 @@ namespace StormDiversMod.Basefiles
         
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
-
+            /*
             {
                 if (Player.HasBuff(BuffType<ShroomiteBuff>()) && Main.rand.Next(100) <= 75)//If the player has the shroomite potion then 50% chance not to consume ammo
                 {
@@ -1726,8 +1787,8 @@ namespace StormDiversMod.Basefiles
                     return true;
                 }
             }
-
-
+            */
+            return true;
         }
        
     }

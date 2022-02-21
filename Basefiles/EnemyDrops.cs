@@ -36,9 +36,17 @@ namespace StormDiversMod.Basefiles
                     if (!npc.friendly && npc.lifeMax > 5 && npc.type != NPCID.TheHungry && npc.type != NPCID.TheHungryII)
 
                     {
-                        if (Main.rand.Next(1) == 0)
+                        if (Main.rand.Next(3) == 0)
                         {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.SoulFire>());
+                            if (Main.expertMode)
+                            {
+                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.SoulFire>(), Main.rand.Next(1, 3));
+                            }
+                            else
+                            {
+                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.SoulFire>());
+
+                            }
                         }
                     }
                 }
@@ -53,7 +61,7 @@ namespace StormDiversMod.Basefiles
                     if (!npc.friendly && npc.lifeMax > 5)
 
                     {
-                        if (Main.rand.Next(1) == 0)
+                        if (Main.rand.Next(2) == 0)
                         {
                             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(3, 5));
                         }
@@ -66,7 +74,7 @@ namespace StormDiversMod.Basefiles
                     if (!npc.friendly && npc.lifeMax > 5)
 
                     {
-                        if (Main.rand.Next(1) == 0)
+                        if (Main.rand.Next(2) == 0)
                         {
                             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.DesertOre>(), Main.rand.Next(3, 5));
                         }
@@ -338,7 +346,7 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.Derpling)
             {
 
-                plantDead.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 100, 50));
+                plantDead.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 75, 50));
 
             }
             if (npc.type == NPCID.CursedSkull)

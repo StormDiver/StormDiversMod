@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Accessory
             {
 
                 dropdust++;
-                if (dropdust == 2)
+                if (dropdust == 4)
                 {
 
                     //float speedX = 0f;

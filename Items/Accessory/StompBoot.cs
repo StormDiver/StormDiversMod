@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heavy Boots");
-            Tooltip.SetDefault("Hold DOWN to fall faster and create a shockwave upon hitting the ground\nWhile falling faster you will damage any enemy you fall on\n'What did you think would happen if you attached an Anvil to a pair of boots?'");
+            Tooltip.SetDefault("Allows flight\nHold DOWN to fall faster and create a shockwave upon hitting the ground\nWhile falling faster you will damage any enemy you fall on\n'What did you think would happen if you attached an Anvil to a pair of boots?'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -60,7 +60,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heavy Horseshoe Boots");
-            Tooltip.SetDefault("Hold DOWN to fall faster and create a shockwave upon hitting the ground\nWhile falling faster you will damage any enemy you fall on\nNegates fall damage");
+            Tooltip.SetDefault("Allows flight and negates fall damage\nHold DOWN to fall faster and create a shockwave upon hitting the ground\nWhile falling faster you will damage any enemy you fall on");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

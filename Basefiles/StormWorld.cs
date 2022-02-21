@@ -469,10 +469,45 @@ namespace StormDiversMod.Basefiles
         }
         public override void PreUpdateWorld()
         {
-           
-        
             //For the messages when a boss is defeated
-            if (NPC.downedPlantBoss && !planteraMessage)
+            if (NPC.downedBoss1 && !eocMessage) //EoC
+            {
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("A stronger life force radiates from the minor underground biomes"), new Color(96, 211, 255));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+
+                    Main.NewText("A stronger life force radiates from the minor underground biomes", 96, 211, 255);
+                }
+                eocMessage = true;
+            }
+            if (NPC.downedBoss2 && !bloodMessage) //Eow/BoC
+            {
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Essences of the blood moon begin to drop"), new Color(233, 70, 70));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText("Essences of the blood moon begin to drop", 233, 70, 70);
+                }
+                bloodMessage = true;
+            }
+            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && !mechMessage) //Mech
+            {
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Fiery souls infect those trapped in the underworld"), new Color(224, 141, 255));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText("Fiery souls infect those trapped in the underworld", 224, 141, 255);
+                }
+                mechMessage = true;
+            }
+            if (NPC.downedPlantBoss && !planteraMessage) //Plant
             {
                 if (Main.netMode == 2) // Server
                 {
@@ -488,33 +523,9 @@ namespace StormDiversMod.Basefiles
                     Main.NewText("The ancient temple defenses have greatly weakened", 204, 101, 22);
                 }
                 planteraMessage = true;
-            }
-            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && !mechMessage)
-            {
-                if (Main.netMode == 2) // Server
-                {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Fiery souls infect those trapped in the underworld"), new Color(224, 141, 255));
-                }
-                else if (Main.netMode == 0) // Single Player
-                {
-                    Main.NewText("Fiery souls infect those trapped in the underworld", 224, 141, 255);
-                }
-                mechMessage = true;
-            }
-            if (NPC.downedBoss1 && !eocMessage)
-            {
-                if (Main.netMode == 2) // Server
-                {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("A stronger life force radiates from the minor underground biomes"), new Color(96, 211, 255));
-                }
-                else if (Main.netMode == 0) // Single Player
-                {
-
-                    Main.NewText("A stronger life force radiates from the minor underground biomes", 96, 211, 255);
-                }
-                eocMessage = true;
-            }
-            if (NPC.downedGolemBoss && !golemMessage)
+            }        
+           
+            if (NPC.downedGolemBoss && !golemMessage) //Golem
             {
                 if (Main.netMode == 2) // Server
                 {
@@ -526,18 +537,7 @@ namespace StormDiversMod.Basefiles
                 }
                 golemMessage = true;
             }
-            if (NPC.downedBoss2 && !bloodMessage)
-            {
-                if (Main.netMode == 2) // Server
-                {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Essences of the blood moon begin to drop"), new Color(233, 70, 70));
-                }
-                else if (Main.netMode == 0) // Single Player
-                {
-                    Main.NewText("Essences of the blood moon begin to drop", 233, 70, 70);
-                }
-                bloodMessage = true;
-            }
+            
             //To spawn the ores
             /*if (SpawnIceOre && !IceSpawned)
             {

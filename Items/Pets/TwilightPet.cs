@@ -134,9 +134,10 @@ namespace StormDiversMod.Items.Pets
         {
 
             Player player = Main.player[Projectile.owner];
-
-            Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.3f / 255f, (255 - Projectile.alpha) * 0f / 255f, (255 - Projectile.alpha) * 0.3f / 255f); //light
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.3f / 255f, (255 - Projectile.alpha) * 0f / 255f, (255 - Projectile.alpha) * 0.3f / 255f); //light
+            }
             StormPlayer modPlayer = player.GetModPlayer<StormPlayer>();
             if (!player.active)
             {
@@ -196,9 +197,27 @@ namespace StormDiversMod.Items.Pets
 
                 if (teleport) //Post teleport
                 {
-                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 8, 2f, 0.5f);
+                    if (!Main.dedServ)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 8, 2f, 0.5f);
 
-                    for (int i = 0; i < 30; i++) //Dust post-teleport
+                        for (int i = 0; i < 30; i++) //Dust post-teleport
+                        {
+                            var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
+                            dust.scale = 1.1f;
+                            dust.velocity *= 2;
+                            dust.noGravity = true;
+
+                        }
+                    }
+                    teleport = false;
+                }
+            }
+            else //teleports if too far away from player
+            {
+                if (!Main.dedServ)
+                {
+                    for (int i = 0; i < 30; i++) //Dust pre-teleport
                     {
                         var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
                         dust.scale = 1.1f;
@@ -206,20 +225,7 @@ namespace StormDiversMod.Items.Pets
                         dust.noGravity = true;
 
                     }
-                    teleport = false;
                 }
-            }
-            else //teleports if too far away from player
-            {
-                for (int i = 0; i < 30; i++) //Dust pre-teleport
-                {
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
-                    dust.scale = 1.1f;
-                    dust.velocity *= 2;
-                    dust.noGravity = true;
-
-                }
-
                 teleanimation = true;
                 Projectile.frame = 4;
 
@@ -229,17 +235,19 @@ namespace StormDiversMod.Items.Pets
                
             }
             //dust
-            if (Main.rand.Next(4) == 0)
+            if (!Main.dedServ)
             {
-                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y + 6), 10, 6, 58, 0, 3);
-                dust.scale = 1f;
-                dust.velocity.X *= 0.5f;
-                dust.fadeIn = 0.5f;
-                dust.noGravity = true;
-                dust.noLight = true;
-            }
+                if (Main.rand.Next(4) == 0)
+                {
+                    var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y + 6), 10, 6, 58, 0, 3);
+                    dust.scale = 1f;
+                    dust.velocity.X *= 0.5f;
+                    dust.fadeIn = 0.5f;
+                    dust.noGravity = true;
+                    dust.noLight = true;
+                }
 
-         
+            }
 
 
             AnimateProjectile();
@@ -281,13 +289,16 @@ namespace StormDiversMod.Items.Pets
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 30; i++) //Dust post-teleport
+            if (!Main.dedServ)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
-                dust.scale = 1.1f;
-                dust.velocity *= 2;
-                dust.noGravity = true;
+                for (int i = 0; i < 30; i++) //Dust post-teleport
+                {
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
+                    dust.scale = 1.1f;
+                    dust.velocity *= 2;
+                    dust.noGravity = true;
 
+                }
             }
         }
         /*public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)//Doesn't work >:(

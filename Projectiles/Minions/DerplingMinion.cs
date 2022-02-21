@@ -111,12 +111,14 @@ namespace StormDiversMod.Projectiles.Minions
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            
-            for (int i = 0; i < 2; i++)
+            if (!Main.dedServ)
             {
+                for (int i = 0; i < 2; i++)
+                {
 
 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68);
+                }
             }
             //NPC.immuneTime = 10;
         }
@@ -124,14 +126,16 @@ namespace StormDiversMod.Projectiles.Minions
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
-                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 22);
-                for (int i = 0; i < 15; i++)
+                if (!Main.dedServ)
                 {
+                    Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+                    SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 22);
+                    for (int i = 0; i < 15; i++)
+                    {
 
 
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68);
+                        var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68);
+                    }
                 }
             }
         }

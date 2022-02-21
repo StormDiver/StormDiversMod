@@ -373,16 +373,16 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 24;
+            Projectile.height = 24;
 
             Projectile.aiStyle = 1;
             Projectile.light = 0.1f;
 
             Projectile.friendly = true;
            
-            Projectile.timeLeft = 120;
-            Projectile.penetrate = -1;
+            Projectile.timeLeft = 90;
+            Projectile.penetrate = 1;
 
 
             Projectile.tileCollide = true;

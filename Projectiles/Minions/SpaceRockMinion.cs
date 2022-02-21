@@ -111,15 +111,18 @@ namespace StormDiversMod.Projectiles.Minions
             {
                 dustspeed = 5;
             }
-            if (Main.rand.Next(dustspeed) == 0)     //this defines how many dust to spawn
+            if (!Main.dedServ)
             {
+                if (Main.rand.Next(dustspeed) == 0)     //this defines how many dust to spawn
+                {
 
-                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
-                //int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
-                dust2.noGravity = true;
-                dust2.scale = 1.5f;
-                dust2.velocity *= 1;
+                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
+                    //int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
+                    dust2.noGravity = true;
+                    dust2.scale = 1.5f;
+                    dust2.velocity *= 1;
 
+                }
             }
      
             int frameSpeed = 20;
@@ -140,37 +143,42 @@ namespace StormDiversMod.Projectiles.Minions
 
             //Projectile.velocity.X *= 0.5f;
             //Projectile.velocity.Y *= 0.5f;
-            for (int i = 0; i < 20; i++)
+            if (!Main.dedServ)
             {
-
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1.5f);
-                dust.noGravity = true;
-            }
-            if (projspeed >= 90)
-            {
-                if (Main.rand.Next(2) == 0)
+                for (int i = 0; i < 20; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Right.X + 200, target.Center.Y - 200), new Vector2(-15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
 
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1.5f);
+                    dust.noGravity = true;
                 }
-                else
+                if (projspeed >= 90)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Right.X - 200, target.Center.Y - 200), new Vector2(15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Right.X + 200, target.Center.Y - 200), new Vector2(-15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
 
+                    }
+                    else
+                    {
+                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Right.X - 200, target.Center.Y - 200), new Vector2(15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
+
+                    }
+                    projspeed = 0;
                 }
-                projspeed = 0;
             }
         }
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 5; i++)
+            if (!Main.dedServ)
             {
+                for (int i = 0; i < 5; i++)
+                {
 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 0.5f);
-                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1f);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 0.5f);
+                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1f);
+                }
+                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62, 0.5f, 0.2f);
             }
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62, 0.5f, 0.2f);
-
         }
         public override Color? GetAlpha(Color lightColor)
         {

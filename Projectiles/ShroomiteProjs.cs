@@ -165,7 +165,7 @@ namespace StormDiversMod.Projectiles
                 int speedX = 0;
                 int speedY = 0;
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 1.25), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
                 spwmushroom = 8;
             }
            /* trail++;
@@ -727,7 +727,7 @@ namespace StormDiversMod.Projectiles
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 15;
             Projectile.timeLeft = 300;
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;

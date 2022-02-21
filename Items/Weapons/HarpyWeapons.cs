@@ -75,8 +75,8 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-          .AddRecipeGroup("StormDiversMod:EvilMaterial", 10)
-          .AddIngredient(ItemID.Feather, 7)
+          .AddRecipeGroup("StormDiversMod:EvilBars", 10)
+          .AddIngredient(ItemID.Feather, 6)
           .AddTile(TileID.Anvils)
           .Register();         
 
@@ -143,8 +143,8 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddRecipeGroup("StormDiversMod:EvilMaterial", 10)
-           .AddIngredient(ItemID.Feather, 7)
+           .AddRecipeGroup("StormDiversMod:EvilBars", 10)
+           .AddIngredient(ItemID.Feather, 6)
            .AddTile(TileID.Anvils)
            .Register();
 
@@ -165,7 +165,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 15;
+            Item.damage = 14;
             //Item.crit = 0;
             Item.DamageType = DamageClass.Melee;
             Item.width = 20;
@@ -204,8 +204,8 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-          .AddRecipeGroup("StormDiversMod:EvilMaterial", 10)
-          .AddIngredient(ItemID.Feather, 7)
+          .AddRecipeGroup("StormDiversMod:EvilBars", 10)
+          .AddIngredient(ItemID.Feather, 6)
           .AddTile(TileID.Anvils)
           .Register();
 

@@ -242,6 +242,12 @@ namespace StormDiversMod.NPCs
 
             }
         }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+           
+            npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Materials.SoulFire>(), 3, 2));          
+
+        }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 
         {

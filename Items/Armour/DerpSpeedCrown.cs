@@ -69,7 +69,7 @@ namespace StormDiversMod.Items.Armour
             CreateRecipe()
             .AddRecipeGroup("StormDiversMod:GoldBars", 15)
             .AddIngredient(ItemID.Ruby, 1)
-            .AddIngredient(ItemID.Feather, 10)
+            .AddIngredient(ItemID.Feather, 5)
             .AddTile(TileID.Anvils)
             .Register();
         }

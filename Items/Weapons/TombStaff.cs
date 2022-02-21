@@ -34,12 +34,13 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = false;
             Item.autoReuse = true;
 
-            Item.DamageType = DamageClass.Magic; Item.mana = 10;
+            Item.DamageType = DamageClass.Magic; 
+            Item.mana = 10;
             Item.UseSound = SoundID.Item8;
 
-            Item.damage = 24;
+            Item.damage = 17;
          
-            Item.knockBack = 10f;
+            Item.knockBack = 4f;
 
             Item.shoot = ModContent.ProjectileType<TombProj>();
 
@@ -70,8 +71,8 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ItemID.Tombstone, 5)
-           .AddRecipeGroup("StormDiversMod:EvilBars", 20)   
+           .AddRecipeGroup("StormDiversMod:Tombstones", 5)
+           .AddRecipeGroup("StormDiversMod:EvilMaterial", 20)   
            .AddTile(TileID.Anvils)
            .Register();
            

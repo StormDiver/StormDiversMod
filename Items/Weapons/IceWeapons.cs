@@ -60,11 +60,11 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ItemID.Grenade, 10)
-            .AddIngredient(ItemID.IceTorch, 1)
-            .AddTile(TileID.Anvils)
-            .Register();
+            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<IceGrenade>(), 10);
+            recipe.AddIngredient(ItemID.Grenade, 10);
+            recipe.AddIngredient(ItemID.IceTorch, 1);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
 
         }
     }
