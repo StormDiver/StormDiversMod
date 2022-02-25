@@ -135,13 +135,13 @@ namespace StormDiversMod.NPCs
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             if (!Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
-                movespeed = 1f;
+                movespeed = 1.5f;
                 ypos = 0;
                 NPC.noTileCollide = true;
             }
             else
             {
-                movespeed = 2;
+                movespeed = 2.5f;
                 ypos = -150;
                 NPC.noTileCollide = false;
 
@@ -359,9 +359,7 @@ namespace StormDiversMod.NPCs
             isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.IceOre>(), 1, 12, 18));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.IceOre>(), 1, 10, 15));
 
-            npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Accessory.FrostAccess>(), 3, 2));
-
-            npcLoot.Add(ItemDropRule.Common(ItemID.FrostCore, 1));
+            npcLoot.Add(ItemDropRule.OneFromOptionsWithNumerator(3, 2, ModContent.ItemType<Items.Accessory.FrostAccess>(), ItemID.FrostCore));
 
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);

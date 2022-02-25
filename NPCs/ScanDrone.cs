@@ -24,6 +24,8 @@ namespace StormDiversMod.NPCs
                                                  // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
+            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+
         }
         public override void SetDefaults()
         {

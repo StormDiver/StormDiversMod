@@ -91,10 +91,84 @@ namespace StormDiversMod.Basefiles
             ultrafrostDebuff = false;
             spookedDebuff = false;
         }
-        public override void AI(NPC npc)
 
+        public override void SetStaticDefaults()
         {
+          
+        }
 
+        int shieldtime = 5;
+       
+
+        public override void AI(NPC npc)
+        {
+            var player = Main.LocalPlayer;
+
+            if (NPC.ShieldStrengthTowerVortex == 0 && NPC.ShieldStrengthTowerSolar == 0 && NPC.ShieldStrengthTowerNebula == 0 && NPC.ShieldStrengthTowerStardust == 0 && shieldtime > 0)
+            {
+                shieldtime--;
+            }
+            else if (NPC.ShieldStrengthTowerVortex > 0 || NPC.ShieldStrengthTowerSolar > 0 || NPC.ShieldStrengthTowerNebula > 0 || NPC.ShieldStrengthTowerStardust > 0)
+            {
+                shieldtime = 5;
+            }
+           
+            if (player.HeldItem.type == ModContent.ItemType<Items.Tools.ShieldKiller>() && player.itemAnimation == player.itemAnimationMax -1)
+            {
+                if (shieldtime > 0)
+                {
+                    if (npc.type == NPCID.LunarTowerVortex)
+                    {
+
+                        for (int i = 0; i < 150; i++)
+                        {
+                            float speedY = -20f;
+
+                            Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                            int dust2 = Dust.NewDust(npc.Center, 0, 0, 110, perturbedSpeed.X, perturbedSpeed.Y, 150, default, 2.5f);
+                            Main.dust[dust2].noGravity = true;
+                        }
+                    }
+
+                    if (npc.type == NPCID.LunarTowerSolar)
+                    {
+                        for (int i = 0; i < 150; i++)
+                        {
+                            float speedY = -20f;
+
+                            Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                            int dust2 = Dust.NewDust(npc.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y, 150, default, 2.5f);
+                            Main.dust[dust2].noGravity = true;
+                        }
+                    }
+                    if (npc.type == NPCID.LunarTowerNebula)
+                    {
+                        for (int i = 0; i < 150; i++)
+                        {
+                            float speedY = -20f;
+
+                            Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                            int dust2 = Dust.NewDust(npc.Center, 0, 0, 112, perturbedSpeed.X, perturbedSpeed.Y, 150, default, 2.5f);
+                            Main.dust[dust2].noGravity = true;
+                        }
+                    }
+                    if (npc.type == NPCID.LunarTowerStardust)
+                    {
+                        for (int i = 0; i < 150; i++)
+                        {
+                            float speedY = -20f;
+
+                            Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                            int dust2 = Dust.NewDust(npc.Center, 0, 0, 111, perturbedSpeed.X, perturbedSpeed.Y, 150, default, 2.5f);
+                            Main.dust[dust2].noGravity = true;
+                        }
+                    }
+                }
+            }
             if (spookedDebuff)
             {
 
@@ -168,8 +242,9 @@ namespace StormDiversMod.Basefiles
             {
                 npc.buffImmune[(BuffType<BeetleDebuff>())] = true;
             }
+
         }
-        
+
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
             if (bloodDebuff)

@@ -16,7 +16,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Space Saucer Staff");
-            Tooltip.SetDefault("Summons a floating saucer that rains down lasers upon enemies");
+            Tooltip.SetDefault("Summons a floating saucer that fires lasers at enemies below\nRight click to target a specific enemy");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -36,22 +36,19 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = false;
             Item.autoReuse = true;
 
-
             Item.DamageType = DamageClass.Summon;
             Item.sentry = true;
             Item.mana = 10;
             Item.UseSound = SoundID.Item60;
 
-            Item.damage = 20;
+            Item.damage = 28;
             //Item.crit = 4;
             Item.knockBack = 1f;
 
             Item.shoot = ModContent.ProjectileType<MeteorSentryProj>();
 
             //Item.shootSpeed = 3.5f;
-            
-           
-
+ 
             Item.noMelee = true; 
         }
         public override bool CanUseItem(Player player)

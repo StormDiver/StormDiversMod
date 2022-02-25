@@ -91,14 +91,22 @@ namespace StormDiversMod.NPCs
                 return SpawnCondition.JungleTemple.Chance * 0f;
             }
         }
-        int shoottime = 0;
-
         bool shooting;
-        float xpostion = 0f; // The picked x postion
-        float ypostion = -150;
+     
+        bool spawn = true;
 
         public override void AI()
         {
+            //NPC.ai[0] = Xpos
+            //NPC.ai[1] = Ypos
+            // NPC.ai[2] = Shoottime
+            if (spawn)
+            {
+                
+                    NPC.ai[0] = 0;
+                    NPC.ai[1] = -150;
+                
+            }
             NPC.buffImmune[BuffID.Confused] = true;
 
             NPC.noTileCollide = true;
@@ -112,7 +120,7 @@ namespace StormDiversMod.NPCs
             if ((player.ZoneJungle && player.ZoneRockLayerHeight) || NPC.downedPlantBoss)
             {
                 Vector2 moveTo = player.Center;
-                Vector2 move = moveTo - NPC.Center + new Vector2(xpostion, ypostion);
+                Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]);
                 float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
                 float movespeed = 5f; //Speed of the npc
 
@@ -140,9 +148,9 @@ namespace StormDiversMod.NPCs
 
             if (distance <= 700f)
             {
-                shoottime++;
+                NPC.ai[2]++;
 
-                if (shoottime >= 60)//starts the shooting animation
+                if (NPC.ai[2] >= 60)//starts the shooting animation
                 {
                     //NPC.velocity.X = 0;
                     NPC.velocity.Y *= 0.98f;
@@ -160,49 +168,45 @@ namespace StormDiversMod.NPCs
                 {
                     shooting = false;
                 }
-                if (shoottime >= 80)//fires the projectiles
+                if (NPC.ai[2] >= 80)//fires the projectiles
                 {
-                    if (Main.netMode == 0) // Only works in Single Player for now
+                    spawn = false;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        xpostion = Main.rand.NextFloat(150f, -150f);
-                        ypostion = Main.rand.NextFloat(-50f, -200f);
+                        NPC.ai[0] = Main.rand.NextFloat(150f, -150f);
+                        NPC.ai[1] = Main.rand.NextFloat(-50f, -200f);
                     }
 
                     float projectileSpeed = 10f; // The speed of your projectile (in pixels per second).
                     int damage = 35; // The damage your projectile deals. normal x2, expert x4
                     float knockBack = 3;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.GolemMinionProj>();
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 33);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 33);
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-
-                    
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-
-                           
-                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(12));
-                            float scale = 1f - (Main.rand.NextFloat() * .2f);
-                            perturbedSpeed = perturbedSpeed * scale;
+                   
+                        Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(12));
+                        float scale = 1f - (Main.rand.NextFloat() * .2f);
+                        perturbedSpeed = perturbedSpeed * scale;
                         Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                    }
 
-                           
-                        }
-                    
 
-                    shoottime = 0;
+                    NPC.ai[2] = 0;
                     shooting = false;
 
                 }
             }
             else
             {
-                shoottime = 30;
+                NPC.ai[2] = 30;
                 shooting = false;
-                xpostion = 0f;
-                ypostion = -200f;
+                NPC.ai[0] = 0f;
+                NPC.ai[1] = -200f;
             }
             if (Main.rand.Next(4) == 0)
             {

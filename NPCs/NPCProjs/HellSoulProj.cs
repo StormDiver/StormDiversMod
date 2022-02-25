@@ -78,7 +78,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                 }
             }
-            if (hometime >= homerandom && hometime <= homerandom + 30)
+            if (hometime >= homerandom && hometime <= homerandom + 45)
             {
                 for (int i = 0; i < 200; i++)
                 {
@@ -97,8 +97,8 @@ namespace StormDiversMod.NPCs.NPCProjs
                         distance = 0.5f / distance;
 
                         //Multiply the distance by a multiplier proj faster
-                        shootToX *= distance * 7.5f;
-                        shootToY *= distance * 7.5f;
+                        shootToX *= distance * 5f;
+                        shootToY *= distance * 5f;
 
                         //Set the velocities to the shoot values
                         Projectile.velocity.X = shootToX;

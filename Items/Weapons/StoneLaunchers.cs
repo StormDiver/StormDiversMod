@@ -171,7 +171,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 30;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 72;
+            Item.damage = 75;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneSuperProj>();
@@ -245,11 +245,11 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 20, 0, 0);
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 90;
+            Item.damage = 120;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneSuperProj>();

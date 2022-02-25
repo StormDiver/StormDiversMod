@@ -20,9 +20,9 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fallen Warrior"); // Automatic from .lang files
-                                                 // make sure to set this for your modNPCs.
-           
+            DisplayName.SetDefault("Fallen Warrior");
+            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+
         }
         public override void SetDefaults()
         {

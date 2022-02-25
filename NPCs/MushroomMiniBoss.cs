@@ -23,6 +23,7 @@ namespace StormDiversMod.NPCs
             DisplayName.SetDefault("Angry Mushroom"); // Automatic from .lang files
                                                       // make sure to set this for your modnpcs.
             Main.npcFrameCount[NPC.type] = 5;
+            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
         }
         public override void SetDefaults()
@@ -38,7 +39,7 @@ namespace StormDiversMod.NPCs
             NPC.damage = 30;
             
             NPC.defense = 5;
-            NPC.lifeMax = 175;
+            NPC.lifeMax = 150;
             
             NPC.rarity = 2;
             

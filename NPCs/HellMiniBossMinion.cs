@@ -20,9 +20,9 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Cauldron Servant"); // Automatic from .lang files
-                                                             // make sure to set this for your modnpcs.
-           
+            DisplayName.SetDefault("Soul Cauldron Servant"); 
+            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+
         }
         public override void SetDefaults()
         {

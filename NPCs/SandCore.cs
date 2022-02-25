@@ -81,13 +81,13 @@ namespace StormDiversMod.NPCs
             if (!NPC.AnyNPCs(ModContent.NPCType<SandCore>()) && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneUndergroundDesert && Main.hardMode)
             {
                 {
-                    return SpawnCondition.Cavern.Chance * 0.1f;
+                    return SpawnCondition.DesertCave.Chance * 0.03f;
                 }
             }
             
             else
             {
-                return SpawnCondition.Cavern.Chance * 0f;
+                return SpawnCondition.DesertCave.Chance * 0f;
             }
         }
         int shoottime = 0;
@@ -248,6 +248,8 @@ namespace StormDiversMod.NPCs
             attacking = false;
             shootduration = 0;
             sounddelay = 0;
+            NPC.velocity.X = 0f;
+            NPC.velocity.Y = 0f;
 
             if (Main.netMode == NetmodeID.Server)
             {
@@ -286,9 +288,8 @@ namespace StormDiversMod.NPCs
 
             isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.DesertOre>(), 1, 12, 18));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.DesertOre>(), 1, 10, 15));
-            npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Accessory.DesertJar>(), 3, 2));
 
-            npcLoot.Add(ItemDropRule.Common(ItemID.AncientBattleArmorMaterial, 1));
+            npcLoot.Add(ItemDropRule.OneFromOptionsWithNumerator(3, 2, ModContent.ItemType<Items.Accessory.DesertJar>(), ItemID.AncientBattleArmorMaterial));
 
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);

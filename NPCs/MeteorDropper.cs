@@ -20,9 +20,9 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Bomber"); // Automatic from .lang files
-                                                 // make sure to set this for your modnpcs.
-           
+            DisplayName.SetDefault("Meteor Bomber"); 
+            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+
         }
         public override void SetDefaults()
         {

@@ -1,4 +1,4 @@
-Storm Diver's Additions Mod is a smallish content mod, that adds content throughout the entire game where it seemed that something was missing, along with unique items thrown in here and there
+Storm Diver’s Additions mod is a returning mod from Tmodloader 1.3 that strives to add quality additions throughout areas of the game where content seems lacking, along with unique items thrown in here and there. With over 160,000 downloads on the 1.3 Tmodloader this mod is fairly popular, and has finally been brought to Tmod 1.4
 
 There's over 200 total modded items for you to discover; including weapons, accessories, ammo, tools, armour, vanity sets, enemies, and more. Many are crafted with vanilla items, but some have their own modded ingredients added to the recipes.
 
@@ -19,5 +19,7 @@ This mod includes:
 -A way to remove the shields from the pillars prematurely 
 -New recipes for certain uncraftable vanilla items
 
+Join the Discord server here: https://discord.gg/VJvf2HkxtA
+Check out the Mod wiki here: https://terrariamods.fandom.com/wiki/Storm_Diver%27s_Additions_Mod
 
 Credit to Hyperkatmanders for updating some of the sprites and providing balance suggestions

@@ -52,7 +52,6 @@ namespace StormDiversMod.NPCs
             NPC.rarity = 5;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.MoonDerpBannerItem>();
-           
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -87,72 +86,79 @@ namespace StormDiversMod.NPCs
         int timetoshootspeed = 10; //How rapid it fires
         float movespeed = 8f; //Speed of the npc
 
-        float xpostion; // The picked x postion
-        float ypostion;
+        
         public int poschoice = 1; 
         public override void AI()
         {
+            //NPC.ai[0] = Xpos
+            //NPC.ai[1] = Ypos
+            // NPC.ai[2] = Pos choice
+            // NPC.ai[3] = Shoottime
             NPC.buffImmune[BuffID.Confused] = true;
 
 
             NPC.spriteDirection = NPC.direction;
 
             Player player = Main.player[NPC.target]; //Code to move towards player
-             if (poschoice == 1) //Top 
-                {
-                    xpostion = 0f;
-                    ypostion = -150f;
-                }
-                else if (poschoice == 2) // left
-                {
-                    xpostion = -200f;
-                    ypostion = 0;
-                }
-                else if (poschoice == 3) //  right
-                {
-                    xpostion = 200f;
-                    ypostion = 0f;
-                }
-                else if (poschoice == 4) //Bottom 
-                {
-                    xpostion = 0f;
-                    ypostion = 150f;
-                }
-                else if (poschoice == 5) //On top of player
-                {
-                    xpostion = 0f;
-                    ypostion = -20f;
-                }
-            NPC.TargetClosest();
-            Vector2 moveTo = player.Center;
-            Vector2 move = moveTo - NPC.Center + new Vector2(xpostion, ypostion); //Postion around player
-            float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
-            if (magnitude > movespeed)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                move *= movespeed / magnitude;
+                if (NPC.ai[2] == 0) //Top 
+                {
+                    NPC.ai[0] = 0f;
+                    NPC.ai[1] = -150f;
+                }
+                else if (NPC.ai[2] == 1) // left
+                {
+                    NPC.ai[0] = -200f;
+                    NPC.ai[1] = 0;
+                }
+                else if (NPC.ai[2] == 2) //  right
+                {
+                    NPC.ai[0] = 200f;
+                    NPC.ai[1] = 0f;
+                }
+                else if (NPC.ai[2] == 3) //Bottom 
+                {
+                    NPC.ai[0] = 0f;
+                    NPC.ai[1] = 150f;
+                }
+                else if (NPC.ai[2] == 4) //On top of player
+                {
+                    NPC.ai[0] = 0f;
+                    NPC.ai[1] = -20f;
+                }
             }
-            NPC.velocity = move;
-            //The 5 positions it can be in after firing
+            NPC.TargetClosest();
+                Vector2 moveTo = player.Center;
+                Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]); //Postion around player
+                float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+                if (magnitude > movespeed)
+                {
+                    move *= movespeed / magnitude;
+                }
+                NPC.velocity = move;
+                //The 5 positions it can be in after firing
             
                
             
 
             NPC.rotation = NPC.velocity.X / 12 ;
             //NPC.velocity.Y *= 0.96f;
+            
+                Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
+                float distanceX = player.Center.X - NPC.Center.X;
+                float distanceY = player.Center.Y - NPC.Center.Y;
+                float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-            if (player.dead)
-            {
-                NPC.velocity.Y = -8;
-            }
+                if (player.dead)
+                {
+                    NPC.velocity.Y = -8;
+                }
             if (distance <= 1000f) //&& Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height)
             {
-                shoottime++;
-               
-                if (shoottime >= timetoshoot)
+                NPC.ai[3]++;
+
+                if (NPC.ai[3] >= timetoshoot)
                 {
                     float projectileSpeed = 13f; // The speed of your projectile (in pixels per second).
                     int damage = 40; // The damage your projectile deals. normal x2, expert x4
@@ -164,7 +170,7 @@ namespace StormDiversMod.NPCs
 
                     if (shootspeed == timetoshootspeed)
                     {
-                        
+
                         for (int i = 0; i < 1; i++)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -174,24 +180,25 @@ namespace StormDiversMod.NPCs
                                 float scale = 1f - (Main.rand.NextFloat() * .3f);
                                 perturbedSpeed = perturbedSpeed * scale;
                                 Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+
+                                SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 124);
                             }
-                            SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 124);
                         }
                         shootspeed = 0;
                     }
-                    if (shoottime >= (timetoshoot + 20))
+                    if (NPC.ai[3] == (timetoshoot + 20))
                     {
-                        if (Main.netMode == 0) // Only works in Single Player for now
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            poschoice = Main.rand.Next(1, 6); //Picks one of the 5 random postions after each shot
+                            NPC.ai[2] = Main.rand.Next(0, 5); //Picks one of the 5 random postions after each shot
+
                         }
-                       
                         //xpostion *= -1f;
                         //ypostion *= -1f;
-                        shoottime = 0;
+                        NPC.ai[3] = 0;
                         shootspeed = 0;
                     }
-                    
+
                 }
                 if (halflife3 && Main.expertMode)
                 {
@@ -201,20 +208,22 @@ namespace StormDiversMod.NPCs
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                   
+
                         Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(-3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
                         Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
 
-                    }
 
-                    SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 103);
+
+                        SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 103);
+                    }
                     eyetime = 0;
                 }
-                
+
             }
+
             else
             {
-                shoottime = 40;
+                NPC.ai[3] = 40;
                 shootspeed = 0;
                 eyetime = 100;
             }
@@ -375,14 +384,8 @@ namespace StormDiversMod.NPCs
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);
 
-                    npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.FragmentSolar, ItemID.FragmentVortex, ItemID.FragmentNebula, ItemID.FragmentStardust));
-                
-
-            
-
-           
-            
-
+            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.FragmentSolar, ItemID.FragmentVortex, ItemID.FragmentNebula, ItemID.FragmentStardust));
+ 
         }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 

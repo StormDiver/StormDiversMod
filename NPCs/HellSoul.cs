@@ -23,6 +23,7 @@ namespace StormDiversMod.NPCs
             DisplayName.SetDefault("Heartless Soul");
             Main.npcFrameCount[NPC.type] = 5;
 
+            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
         }
         public override void SetDefaults()
@@ -39,12 +40,12 @@ namespace StormDiversMod.NPCs
             NPC.damage = 35;
             NPC.lavaImmune = true;
             NPC.defense = 12;
-            NPC.lifeMax = 150;
+            NPC.lifeMax = 180;
             NPC.noGravity = true;
            
             NPC.rarity = 1;
 
-
+            NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0.7f;
@@ -80,7 +81,7 @@ namespace StormDiversMod.NPCs
         {
 
            
-                return SpawnCondition.Underworld.Chance * 0.07f;
+                return SpawnCondition.Underworld.Chance * 0.06f;
            
 
         }
@@ -102,13 +103,13 @@ namespace StormDiversMod.NPCs
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
-            if (distance <= 1000f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            bool lineofsight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
+            if ((distance <= 1000f && lineofsight)|| (distance <= 300f && !lineofsight))
             {
                 if (shoottime >= 250)//starts the casting animation
                 {
                     //NPC.velocity.X = 0;
-                    NPC.velocity.Y *= 0.95f;
+                    NPC.velocity.Y *= 0f;
                     NPC.velocity.X *= 0.8f;
 
 

@@ -47,6 +47,8 @@ namespace StormDiversMod.Projectiles
         int spawntime;
         bool floatup = true;
         int floattime;
+        NPC target;
+
         public override void AI()
         {
             if (opacity > 0)
@@ -81,19 +83,37 @@ namespace StormDiversMod.Projectiles
                     Main.dust[dustIndex].noGravity = true;
                 }
             }
+
+            Player player = Main.player[Projectile.owner];
+
             //Getting the npc to fire at
             if (spawntime >= 30)
             {
                 for (int i = 0; i < 200; i++)
                 {
-                    NPC target = Main.npc[i];
-                    target.TargetClosest(true);
-
-                    float distanceX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                    float distanceY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
-
-                    if (((distanceX >= -75f && distanceX <= 75f) && (distanceY >= 0f && distanceY <= 750f)) && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                    if (player.HasMinionAttackTargetNPC)
                     {
+                        target = Main.npc[player.MinionAttackTargetNPC];
+                    }
+                    else
+                    {
+                        target = Main.npc[i];
+
+                    }
+                    //Getting the shooting trajectory
+                    float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
+                    float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
+                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+                    //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
+                    //If the distance between the projectile and the live target is active
+
+                    float distanceX = target.position.X + ((float)target.width * 0.5f) - Projectile.Center.X;
+                    float distanceY = target.position.Y + ((float)target.height * 0.5f) - Projectile.Center.Y;
+
+                    if (((distanceX >= -500f && distanceX <= 500f) && (distanceY >= 0f && distanceY <= 650f)) && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                    {
+                        target.TargetClosest(true);
+
                         /*if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
                         {
                             int dust2 = Dust.NewDust(new Vector2(Projectile.position.X + 19, Projectile.Bottom.Y - 10), 20, 4, 0, 0, 3, 0, default, 1f);
@@ -102,19 +122,28 @@ namespace StormDiversMod.Projectiles
                         if (Main.rand.Next(3) == 0)
                         {
                             Dust dust;
-                            dust = Terraria.Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Bottom.Y - 5), 112, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+                            dust = Terraria.Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Bottom.Y - 5), 62, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
                             dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
 
                             dust.noGravity = true;
                             dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.4f;
                         }
 
-                        float xpos = (Main.rand.NextFloat(-10, 10));
+                        //float xpos = (Main.rand.NextFloat(-10, 10));
 
-                        if (shoottime > 15)
+                        if (shoottime > 60)
                         {
 
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + xpos, Projectile.Bottom.Y - 10), new Vector2(xpos / 15, 8), ModContent.ProjectileType<MeteorSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            //Dividing the factor of 2f which is the desired velocity by distance
+                            distance = 2f / distance;
+
+                            //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
+                            shootToX *= distance * 10f;
+                            shootToY *= distance * 10f;
+
+                               Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
+
+                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Bottom.Y - 10), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<MeteorSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 12);
 
                             shoottime = 0;

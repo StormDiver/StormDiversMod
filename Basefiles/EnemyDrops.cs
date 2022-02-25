@@ -63,7 +63,15 @@ namespace StormDiversMod.Basefiles
                     {
                         if (Main.rand.Next(2) == 0)
                         {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(3, 5));
+                            if (Main.expertMode)
+                            {
+                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(3, 5));
+                            }
+                            else
+                            {
+                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(2, 5));
+
+                            }
                         }
 
                     }
@@ -76,7 +84,15 @@ namespace StormDiversMod.Basefiles
                     {
                         if (Main.rand.Next(2) == 0)
                         {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.DesertOre>(), Main.rand.Next(3, 5));
+                            if (Main.expertMode)
+                            {
+                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.DesertOre>(), Main.rand.Next(3, 5));
+                            }
+                            else
+                            {
+                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.DesertOre>(), Main.rand.Next(2, 5));
+
+                            }
                         }
                     }
                 }

@@ -19,9 +19,10 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Surged Granite Core"); // Automatic from .lang files
-                                                 // make sure to set this for your modnpcs.
-            
+            DisplayName.SetDefault("Surged Granite Core"); 
+                                                           
+            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+
         }
         public override void SetDefaults()
         {

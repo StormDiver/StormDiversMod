@@ -27,8 +27,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
 			Item.height = 50;
-			Item.useTime = 16;
-			Item.useAnimation = 16;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Swing;  
             Item.value = Item.sellPrice(0, 5, 0, 0);
                      Item.rare = ItemRarityID.Lime;
@@ -38,6 +38,7 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType < Projectiles.DerpMeleeProj>();
             Item.shootSpeed = 15f;
+            Item.scale = 1.2f;
         }
         int weaponattack = 2;
         public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

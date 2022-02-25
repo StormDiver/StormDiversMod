@@ -114,7 +114,7 @@ namespace StormDiversMod.Projectiles
                 //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
                 //If the distance between the projectile and the live target is active
 
-                if (distance < 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy)
+                if (distance < 750f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy)
                 {
 
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
@@ -122,12 +122,12 @@ namespace StormDiversMod.Projectiles
                         target.TargetClosest(true);
 
                         
-                        if (shoottime > 90)
+                        if (shoottime > 75)
                         {
                             animate = true;
 
                             //Dividing the factor of 2f which is the desired velocity by distance
-                            distance = 1.6f / distance;
+                            distance = 2f / distance;
 
                             //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
                             shootToX *= distance * 5f;

@@ -474,12 +474,12 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.netMode == 2) // Server
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("A stronger life force radiates from the minor underground biomes"), new Color(96, 211, 255));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("A stronger life force radiates from the minor underground biomes!"), new Color(96, 211, 255));
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
 
-                    Main.NewText("A stronger life force radiates from the minor underground biomes", 96, 211, 255);
+                    Main.NewText("A stronger life force radiates from the minor underground biomes!", 96, 211, 255);
                 }
                 eocMessage = true;
             }
@@ -487,11 +487,11 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.netMode == 2) // Server
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Essences of the blood moon begin to drop"), new Color(233, 70, 70));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Essences of the blood moon begin to drop."), new Color(233, 70, 70));
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
-                    Main.NewText("Essences of the blood moon begin to drop", 233, 70, 70);
+                    Main.NewText("Essences of the blood moon begin to drop.", 233, 70, 70);
                 }
                 bloodMessage = true;
             }
@@ -499,11 +499,11 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.netMode == 2) // Server
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Fiery souls infect those trapped in the underworld"), new Color(224, 141, 255));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Fiery souls infect those trapped in the underworld."), new Color(224, 141, 255));
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
-                    Main.NewText("Fiery souls infect those trapped in the underworld", 224, 141, 255);
+                    Main.NewText("Fiery souls infect those trapped in the underworld.", 224, 141, 255);
                 }
                 mechMessage = true;
             }
@@ -511,16 +511,16 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.netMode == 2) // Server
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The Derplings begin to shed their shells"), new Color(47, 86, 146));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The Derplings begin to shed their shells."), new Color(47, 86, 146));
 
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The ancient temple defenses have greatly weakened"), new Color(204, 101, 22));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The ancient temple defenses have greatly weakened!"), new Color(204, 101, 22));
 
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
-                    Main.NewText("The Derplings begin to shed their shells", 47, 86, 146);
+                    Main.NewText("The Derplings begin to shed their shells.", 47, 86, 146);
 
-                    Main.NewText("The ancient temple defenses have greatly weakened", 204, 101, 22);
+                    Main.NewText("The ancient temple defenses have greatly weakened!", 204, 101, 22);
                 }
                 planteraMessage = true;
             }        
@@ -529,11 +529,11 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.netMode == 2) // Server
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Sentient asteroids have entered the atmosphere"), new Color(179, 151, 238));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Sentient asteroids have entered the atmosphere!"), new Color(179, 151, 238));
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
-                    Main.NewText("Sentient asteroids have entered the atmosphere", 179, 151, 238);
+                    Main.NewText("Sentient asteroids have entered the atmosphere!", 179, 151, 238);
                 }
                 golemMessage = true;
             }

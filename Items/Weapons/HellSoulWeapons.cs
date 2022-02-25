@@ -240,7 +240,7 @@ namespace StormDiversMod.Items.Weapons
             if (weaponattack <= 0)
             {
       
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.2f), knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 8);
                 weaponattack = 2;
             }
