@@ -9,7 +9,7 @@ using StormDiversMod.Items.Weapons;
 
 namespace StormDiversMod.Basefiles
 {
-
+    //Credit to Qwerty3.14
     public class BladeImmunePlayer : ModPlayer
     {
         NPC justHit = null;
