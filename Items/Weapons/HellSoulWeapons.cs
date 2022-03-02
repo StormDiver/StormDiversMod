@@ -61,7 +61,7 @@ namespace StormDiversMod.Items.Weapons
             return new Vector2(-5, 0);
         }
         int shootarrow;
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             shootarrow++;
@@ -148,7 +148,7 @@ namespace StormDiversMod.Items.Weapons
             return new Vector2(0, 0);
         }
        
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 1;
@@ -233,7 +233,7 @@ namespace StormDiversMod.Items.Weapons
             }
         }
         int weaponattack = 2;
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             weaponattack--;
@@ -321,7 +321,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
             int speedX = 0;
@@ -399,7 +399,7 @@ namespace StormDiversMod.Items.Weapons
             Item.buffType = ModContent.BuffType<Projectiles.Minions.HellSoulMinionBuff>();
             Item.shoot = ModContent.ProjectileType<Projectiles.Minions.HellSoulMinionProj>();
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 
             // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies

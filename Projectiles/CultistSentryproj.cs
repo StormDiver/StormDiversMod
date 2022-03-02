@@ -151,28 +151,28 @@ namespace StormDiversMod.Projectiles
                                 dust.noGravity = true;
 
                             }
-
-                            Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
-
-                            //Projectile.NewProjectile(Projectile.Center.X, Projectile.Top.Y + 14, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("MagmaSentryProj2"), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-                            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
-
                             
+                                Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
 
-                            Vector2 rotation = -Projectile.Center + target.Center;
-                            float ai = Main.rand.Next(100);
-                            Vector2 speed = Vector2.Normalize(rotation) * 10;
-                            int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ProjectileID.CultistBossLightningOrbArc, Projectile.damage, .5f, Projectile.owner, rotation.ToRotation(), ai);
+                                //Projectile.NewProjectile(Projectile.Center.X, Projectile.Top.Y + 14, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("MagmaSentryProj2"), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
+                                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
 
-                            Main.projectile[projID].hostile = false;
-                            Main.projectile[projID].friendly = true;
-                            Main.projectile[projID].penetrate = 10;
-                            Main.projectile[projID].usesLocalNPCImmunity = true;
-                            Main.projectile[projID].localNPCHitCooldown = -1;
-                            Main.projectile[projID].scale = 0.75f;
-                            Main.projectile[projID].timeLeft = 180;
-                            Main.projectile[projID].DamageType = DamageClass.Summon;
 
+
+                                Vector2 rotation = -Projectile.Center + target.Center;
+                                float ai = Main.rand.Next(100);
+                                Vector2 speed = Vector2.Normalize(rotation) * 10;
+                                int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ProjectileID.CultistBossLightningOrbArc, Projectile.damage, .5f, Projectile.owner, rotation.ToRotation(), ai);
+
+                                Main.projectile[projID].hostile = false;
+                                Main.projectile[projID].friendly = true;
+                                Main.projectile[projID].penetrate = 10;
+                                Main.projectile[projID].usesLocalNPCImmunity = true;
+                                Main.projectile[projID].localNPCHitCooldown = -1;
+                                Main.projectile[projID].scale = 0.75f;
+                                Main.projectile[projID].timeLeft = 180;
+                                Main.projectile[projID].DamageType = DamageClass.Summon;
+                            
 
 
                             shoottime = 0;

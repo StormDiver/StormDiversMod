@@ -15,6 +15,7 @@ using StormDiversMod.Items.Ammo;
 using StormDiversMod.Items.Accessory;
 using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
+using Terraria.ObjectData;
 
 namespace StormDiversMod.Basefiles
 {
@@ -40,11 +41,12 @@ namespace StormDiversMod.Basefiles
                         {
                             if (Main.expertMode)
                             {
-                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.SoulFire>(), Main.rand.Next(1, 3));
-                            }
+                                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>(), Main.rand.Next(1, 3));
+
+                            } 
                             else
                             {
-                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.SoulFire>());
+                                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>());
 
                             }
                         }
@@ -65,11 +67,11 @@ namespace StormDiversMod.Basefiles
                         {
                             if (Main.expertMode)
                             {
-                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(3, 5));
+                                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(3, 5));
                             }
                             else
                             {
-                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(2, 5));
+                                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(2, 5));
 
                             }
                         }
@@ -86,11 +88,11 @@ namespace StormDiversMod.Basefiles
                         {
                             if (Main.expertMode)
                             {
-                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.DesertOre>(), Main.rand.Next(3, 5));
+                                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.DesertOre>(), Main.rand.Next(3, 5));
                             }
                             else
                             {
-                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.DesertOre>(), Main.rand.Next(2, 5));
+                                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.DesertOre>(), Main.rand.Next(2, 5));
 
                             }
                         }
@@ -106,7 +108,7 @@ namespace StormDiversMod.Basefiles
                 {
                     if (Main.rand.Next(150) == 0)
                     {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Pets.TwilightPetItem>());
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Pets.TwilightPetItem>());
                     }
 
                 }
@@ -115,7 +117,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(100) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Tools.MoonlingSummoner>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.MoonlingSummoner>());
                 }
             }
 
@@ -124,7 +126,7 @@ namespace StormDiversMod.Basefiles
                 if (Main.expertMode) 
                 {
 
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.CultistBossBag);
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.CultistBossBag);
 
                 }
             }*/
@@ -134,15 +136,15 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(100) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<IceStaff>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<IceStaff>());
                 }
             }
             if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion|| npc.type == NPCID.GiantFlyingAntlion)
             {
                 if (Main.rand.Next(100) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<SandstoneGun>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.MusketBall, Main.rand.Next(60, 100));
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<SandstoneGun>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.MusketBall, Main.rand.Next(60, 100));
 
                 }
             }
@@ -153,7 +155,7 @@ namespace StormDiversMod.Basefiles
 
                 if (Main.rand.Next(25) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<QuackStaff>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<QuackStaff>());
                 }
 
 
@@ -164,8 +166,8 @@ namespace StormDiversMod.Basefiles
                 if (Main.rand.Next(100) < 2)
 
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Weapons.StickyLauncher>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Ammo.StickyBomb>(), Main.rand.Next(50, 101));
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Weapons.StickyLauncher>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Ammo.StickyBomb>(), Main.rand.Next(50, 101));
 
                 }
             }
@@ -173,7 +175,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(50) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<HeartJar>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<HeartJar>());
                 }
             }
 
@@ -183,54 +185,54 @@ namespace StormDiversMod.Basefiles
                 {
                     if (Main.rand.Next(2) == 0)
                     {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.BloodDrop>());
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.BloodDrop>());
 
                     }
                 }
                 if (npc.type == NPCID.ZombieMerman || npc.type == NPCID.EyeballFlyingFish)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Materials.BloodDrop>(), Main.rand.Next(2, 4));
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.BloodDrop>(), Main.rand.Next(2, 4));
                 }
             }
             if (Main.rand.Next(5000) < 1)
 
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<ThePainMask>());
+                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<ThePainMask>());
             }
             if (npc.type == NPCID.VortexRifleman)
             {
                 if (Main.rand.Next(100) < 2)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.StormDiverBMask>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.StormDiverBody>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.StormDiverLegs>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StormDiverBMask>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StormDiverBody>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StormDiverLegs>());
                 }
             }
             if (npc.type == NPCID.SolarSolenian)
             {
                 if (Main.rand.Next(100) < 2)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.SelenianBMask>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.SelenianBody>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.SelenianLegs>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.SelenianBMask>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.SelenianBody>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.SelenianLegs>());
                 }
             }
             if (npc.type == NPCID.NebulaSoldier)
             {
                 if (Main.rand.Next(100) < 2)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.PredictorBMask>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.PredictorBody>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.PredictorLegs>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.PredictorBMask>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.PredictorBody>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.PredictorLegs>());
                 }
             }
             if (npc.type == NPCID.StardustSoldier)
             {
                 if (Main.rand.Next(100) < 2)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.StargazerBMask>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.StargazerBody>());
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Vanitysets.StargazerLegs>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StargazerBMask>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StargazerBody>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StargazerLegs>());
                 }
             }
 
@@ -241,28 +243,28 @@ namespace StormDiversMod.Basefiles
                 {
                     if (shadowchoice == 0)
                     {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameBMask>());
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameBMask>());
                         if (Main.expertMode)
                         {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameGreaves>());
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>());
 
                         }
                     }
                     else if (shadowchoice == 1)
                     {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameChestplate>());
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>());
                         if (Main.expertMode)
                         {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameBMask>());
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameBMask>());
 
                         }
                     }
                     else
                     {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameGreaves>());
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>());
                         if (Main.expertMode)
                         {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<Items.Armour.ShadowFlameChestplate>());
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>());
 
                         }
                     }

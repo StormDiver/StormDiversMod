@@ -97,7 +97,6 @@ namespace StormDiversMod.NPCs
             NPC.buffImmune[BuffID.Confused] = true;
 
 
-            NPC.spriteDirection = NPC.direction;
 
             Player player = Main.player[NPC.target]; //Code to move towards player
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -128,6 +127,19 @@ namespace StormDiversMod.NPCs
                     NPC.ai[1] = -20f;
                 }
             }
+            if (player.position.X > NPC.position.X)
+            {
+                NPC.spriteDirection = 1;
+                NPC.direction = 1;
+            }
+            else
+            {
+                NPC.spriteDirection = -1;
+                NPC.direction = -1;
+
+            }
+            //NPC.spriteDirection = NPC.direction;
+
             NPC.TargetClosest();
                 Vector2 moveTo = player.Center;
                 Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]); //Postion around player
@@ -179,14 +191,14 @@ namespace StormDiversMod.NPCs
                                                                                                                                         // If you want to randomize the speed to stagger the projectiles
                                 float scale = 1f - (Main.rand.NextFloat() * .3f);
                                 perturbedSpeed = perturbedSpeed * scale;
-                                Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
 
                                 SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 124);
                             }
                         }
                         shootspeed = 0;
                     }
-                    if (NPC.ai[3] == (timetoshoot + 20))
+                    if (NPC.ai[3] >= (timetoshoot + 20))
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -209,8 +221,8 @@ namespace StormDiversMod.NPCs
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
 
-                        Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(-3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
-                        Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
+                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(-3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
+                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
 
 
 
@@ -241,6 +253,7 @@ namespace StormDiversMod.NPCs
                 timetoshootspeed = 6;
                 NPC.velocity *= 0;
                 movespeed += 3;
+                NPC.ai[3] = 0;
 
                 halflife3 = true;
                 if (Main.netMode == NetmodeID.Server)
@@ -269,7 +282,7 @@ namespace StormDiversMod.NPCs
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.spriteDirection = NPC.direction;
+            //NPC.spriteDirection = NPC.direction;
 
             if (halflife3)
             {
@@ -366,10 +379,14 @@ namespace StormDiversMod.NPCs
                         fragdrop = ItemID.FragmentNebula;
                     }
                     
-                        Item.NewItem((int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, fragdrop);
+                        Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, fragdrop);
                     
                    
                 }
+            }
+            for (int i = 0; i < 5; i++) //Drops random fragments until the total is reached
+            {
+                Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, ItemID.Heart);
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -380,7 +397,6 @@ namespace StormDiversMod.NPCs
             isExpert.OnSuccess(ItemDropRule.Common(ItemID.LunarOre, 1, 15, 22));
             notExpert.OnSuccess(ItemDropRule.Common(ItemID.LunarOre, 1, 12, 18));
 
-            npcLoot.Add(ItemDropRule.Common(ItemID.Heart, 1, 3, 6));
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);
 

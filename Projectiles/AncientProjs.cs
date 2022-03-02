@@ -417,7 +417,11 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 50; i++)
             {
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 55);
+                float speedY = -2f;
+
+                Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 55, perturbedSpeed.X, perturbedSpeed.Y);
+
                 dust.noGravity = true;
                 dust.scale = 1.5f;
                 dust.velocity *= 4f;

@@ -192,7 +192,7 @@ namespace StormDiversMod.NPCs
                     //ypos = (Main.rand.NextFloat(-180, -150));
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X + xprojpos, NPC.Bottom.Y - 5), new Vector2(xprojpos / 15, 8), type, damage, knockBack);
+                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X + xprojpos, NPC.Bottom.Y - 5), new Vector2(xprojpos / 15, 8), type, damage, knockBack);
                     }
 
                     SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 20);

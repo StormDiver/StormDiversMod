@@ -128,7 +128,7 @@ namespace StormDiversMod.NPCs
                                                                                                                                      // If you want to randomize the speed to stagger the projectiles
                             float scale = 1f - (Main.rand.NextFloat() * .3f);
                             perturbedSpeed = perturbedSpeed * scale;
-                            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                         }
                     }
 
@@ -207,8 +207,8 @@ namespace StormDiversMod.NPCs
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule isExpert = new LeadingConditionRule(new Conditions.IsExpert());
 
-            isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SpaceRock>(), 1, 1, 5));
-            notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SpaceRock>(), 1, 1, 4));
+            isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SpaceRock>(), 1, 1, 4));
+            notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SpaceRock>(), 1, 1, 3));
 
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);

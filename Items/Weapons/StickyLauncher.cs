@@ -63,7 +63,7 @@ namespace StormDiversMod.Items.Weapons
 
             return true;
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {          
             float shootToX = Main.MouseWorld.X - player.Center.X;
             float shootToY = Main.MouseWorld.Y - player.Center.Y;

@@ -104,8 +104,8 @@ namespace StormDiversMod.NPCs
                     SoundEngine.PlaySound(SoundID.NPCHit, (int)NPC.Center.X, (int)NPC.Center.Y, 5);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        NPC.NewNPC((int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
-                        
+                        //NPC.NewNPC((int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
+                        NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
                         for (int i = 0; i < 30; i++)
                         {
                             Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
@@ -156,7 +156,7 @@ namespace StormDiversMod.NPCs
                 }
                 if (NPC.ShieldStrengthTowerStardust > 0)
                 {
-                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
+                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
                 }
                 
             }

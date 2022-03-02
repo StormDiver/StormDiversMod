@@ -93,13 +93,23 @@ namespace StormDiversMod.NPCs
             float distanceY = player.Center.Y - NPC.Center.Y;
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             feartime ++;
-            NPC.spriteDirection = NPC.direction;
+            //NPC.spriteDirection = NPC.direction;
 
             int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
             int ytilepos = (int)(NPC.Bottom.Y / 16) + 0;
             var tilePos = NPC.Bottom.ToTileCoordinates16();
 
+            if (player.position.X > NPC.position.X)
+            {
+                NPC.spriteDirection = 1;
+                NPC.direction = 1;
+            }
+            else
+            {
+                NPC.spriteDirection = -1;
+                NPC.direction = -1;
 
+            }
 
             if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
             {

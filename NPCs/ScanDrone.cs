@@ -119,7 +119,17 @@ namespace StormDiversMod.NPCs
             {
                 NPC.velocity.Y = -10;
             }
+            if (player.position.X > NPC.position.X)
+            {
+                NPC.spriteDirection = 1;
+                NPC.direction = 1;
+            }
+            else
+            {
+                NPC.spriteDirection = -1;
+                NPC.direction = -1;
 
+            }
             Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
@@ -170,7 +180,7 @@ namespace StormDiversMod.NPCs
                                                                                                                                     // If you want to randomize the speed to stagger the projectiles
                             float scale = 1f - (Main.rand.NextFloat() * .3f);
                             perturbedSpeed = perturbedSpeed * scale;
-                            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                         }
                     }
                     //xpostion *= -1;
@@ -189,7 +199,7 @@ namespace StormDiversMod.NPCs
         int npcframe = 0;
         public override void FindFrame(int frameHeight)
         {
-            NPC.spriteDirection = NPC.direction;
+            //NPC.spriteDirection = NPC.direction;
             if (shooting)
             {
                 NPC.frame.Y = 4 * frameHeight; //Picks frame 4 when shooting
@@ -249,7 +259,7 @@ namespace StormDiversMod.NPCs
                 //NPC.ShieldStrengthTowerVortex = (int)MathHelper.Clamp(NPC.ShieldStrengthTowerVortex - 1, 0f, NPC.ShieldStrengthTowerMax);
                 if (NPC.ShieldStrengthTowerVortex > 0)
                 {
-                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
+                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
                 }
 
             }

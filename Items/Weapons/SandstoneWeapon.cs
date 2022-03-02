@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Weapons
         }
 
         //int secondfire = 0;
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 41);

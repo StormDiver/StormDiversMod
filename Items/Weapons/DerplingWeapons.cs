@@ -41,7 +41,7 @@ namespace StormDiversMod.Items.Weapons
             Item.scale = 1.2f;
         }
         int weaponattack = 2;
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
             weaponattack--;
@@ -117,7 +117,7 @@ namespace StormDiversMod.Items.Weapons
         }
 
         //int secondfire = 0;
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
@@ -178,7 +178,7 @@ namespace StormDiversMod.Items.Weapons
             Item.noMelee = true; //Does the weapon itself inflict damage?
 
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 30f;
@@ -264,7 +264,7 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(8, 8);
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 
             player.AddBuff(Item.buffType, 2);

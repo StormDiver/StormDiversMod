@@ -64,7 +64,7 @@ namespace StormDiversMod.Items.Weapons
         }
         int dusttype;
         float dustscale;
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             position = Main.MouseWorld;

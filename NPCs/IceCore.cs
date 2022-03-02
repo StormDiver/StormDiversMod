@@ -176,7 +176,7 @@ namespace StormDiversMod.NPCs
                             Vector2 perturbedSpeed = new Vector2(0, 10).RotatedByRandom(MathHelper.ToRadians(12));
                             float scale = 1f - (Main.rand.NextFloat() * .2f);
                             perturbedSpeed = perturbedSpeed * scale;
-                            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X + Main.rand.NextFloat(-30f, 30f), NPC.Center.Y + Main.rand.NextFloat(-30f, 30f)), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X + Main.rand.NextFloat(-30f, 30f), NPC.Center.Y + Main.rand.NextFloat(-30f, 30f)), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                         }
 
 
@@ -228,7 +228,7 @@ namespace StormDiversMod.NPCs
                                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                                 perturbedSpeed = perturbedSpeed * scale;
                                 //Projectile.NewProjectile(player.Center.X, player.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FrostAccessProj"), 50, 3f, player.whoAmI);
-                                Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
 
 
                             }

@@ -30,7 +30,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<BabyDerpBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<BabyDerpBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -72,7 +72,7 @@ namespace StormDiversMod.NPCs.Banners
 
             public override void KillMultiTile(int i, int j, int frameX, int frameY)
             {
-                Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<VineDerpBannerItem>());//this defines what to drop when this tile is destroyed
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<VineDerpBannerItem>());//this defines what to drop when this tile is destroyed
             }
 
             public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -107,7 +107,7 @@ namespace StormDiversMod.NPCs.Banners
 
             public override void KillMultiTile(int i, int j, int frameX, int frameY)
             {
-                Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<ScanDroneBannerItem>());//this defines what to drop when this tile is destroyed
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<ScanDroneBannerItem>());//this defines what to drop when this tile is destroyed
             }
 
             public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -142,7 +142,7 @@ namespace StormDiversMod.NPCs.Banners
 
             public override void KillMultiTile(int i, int j, int frameX, int frameY)
             {
-                Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<StormDerpBannerItem>());//this defines what to drop when this tile is destroyed
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<StormDerpBannerItem>());//this defines what to drop when this tile is destroyed
             }
 
             public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -177,7 +177,7 @@ namespace StormDiversMod.NPCs.Banners
 
             public override void KillMultiTile(int i, int j, int frameX, int frameY)
             {
-                Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<VortCannonBannerItem>());//this defines what to drop when this tile is destroyed
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<VortCannonBannerItem>());//this defines what to drop when this tile is destroyed
             }
 
             public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -212,7 +212,7 @@ namespace StormDiversMod.NPCs.Banners
 
             public override void KillMultiTile(int i, int j, int frameX, int frameY)
             {
-                Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<NebulaDerpBannerItem>());//this defines what to drop when this tile is destroyed
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<NebulaDerpBannerItem>());//this defines what to drop when this tile is destroyed
             }
     
             public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -247,7 +247,7 @@ namespace StormDiversMod.NPCs.Banners
 
             public override void KillMultiTile(int i, int j, int frameX, int frameY)
             {
-                Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<StardustDerpBannerItem>());//this defines what to drop when this tile is destroyed
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<StardustDerpBannerItem>());//this defines what to drop when this tile is destroyed
             }
 
             public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -282,7 +282,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<SolarDerpBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SolarDerpBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -317,7 +317,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<MoonDerpBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<MoonDerpBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -352,7 +352,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<SpaceRockHeadBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SpaceRockHeadBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -387,7 +387,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<SpaceRockHeadLargeBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SpaceRockHeadLargeBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -422,7 +422,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<GladiatorMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<GladiatorMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -456,7 +456,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<GraniteMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<GraniteMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -491,7 +491,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<HellSoulBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<HellSoulBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -526,7 +526,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<MushroomMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<MushroomMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -561,7 +561,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<GolemMinionBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<GolemMinionBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -596,7 +596,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<HellMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<HellMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -631,7 +631,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<IceCoreBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<IceCoreBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -666,7 +666,7 @@ namespace StormDiversMod.NPCs.Banners
     
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<SandCoreBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SandCoreBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -701,7 +701,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<MeteorDropperBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<MeteorDropperBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -737,7 +737,7 @@ namespace StormDiversMod.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<GolemSentryBannerItem>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<GolemSentryBannerItem>());//this defines what to drop when this tile is destroyed
         }
 
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players

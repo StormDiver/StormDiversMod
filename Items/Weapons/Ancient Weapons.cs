@@ -60,7 +60,7 @@ namespace StormDiversMod.Items.Weapons
                 return false;
             }
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
             Main.projectile[index].originalDamage = Item.damage;
@@ -127,7 +127,7 @@ namespace StormDiversMod.Items.Weapons
             
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int numberProjectiles = 3 + Main.rand.Next(2); ; //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)

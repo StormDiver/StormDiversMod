@@ -147,8 +147,8 @@ namespace StormDiversMod.NPCs
                         {
                             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0)); 
                           
-                            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.TopLeft.Y), new Vector2(-3, -6), type, damage, knockBack);
-                            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), new Vector2(NPC.Center.X, NPC.TopRight.Y), new Vector2(+3, -6), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.TopLeft.Y), new Vector2(-3, -6), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.TopRight.Y), new Vector2(+3, -6), type, damage, knockBack);
 
                         }
                     }

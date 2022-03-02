@@ -93,7 +93,7 @@ namespace StormDiversMod.Items.Weapons
             return player.ownedProjectileCounts[Item.shoot] < 3;
 
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 1);
@@ -148,7 +148,7 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(0, 0);
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
           
             for (int i = 0; i < 1; i++)

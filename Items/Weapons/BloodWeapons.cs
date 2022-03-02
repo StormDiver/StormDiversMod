@@ -52,7 +52,7 @@ namespace StormDiversMod.Items.Weapons
             }
         }
         int weaponattack = 2;
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             weaponattack--;
@@ -116,7 +116,7 @@ namespace StormDiversMod.Items.Weapons
             // Ensures no more than one spear can be thrown out, use this when using autoReuse
             return player.ownedProjectileCounts[Item.shoot] < 1;
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
          
                 SoundEngine.PlaySound(SoundID.NPCHit, (int)player.position.X, (int)player.position.Y, 9);
@@ -172,7 +172,7 @@ namespace StormDiversMod.Items.Weapons
         }
 
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {    
             
             return true;

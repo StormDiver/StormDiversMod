@@ -21,7 +21,6 @@ namespace StormDiversMod.Items.Accessory
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
 
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -49,7 +48,8 @@ namespace StormDiversMod.Items.Accessory
             
             Item.accessory = true;
             Item.maxStack = 1;
-            
+            Item.canBePlacedInVanityRegardlessOfConditions = true;
+
         }
         //int dustchance;
         public override void UpdateEquip(Player player)

@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Weapons
 
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 1);
@@ -150,7 +150,7 @@ namespace StormDiversMod.Items.Weapons
             }
             return base.CanUseItem(player);
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             if (player.altFunctionUse == 2)
@@ -257,7 +257,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
             //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
@@ -362,7 +362,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 
             int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);

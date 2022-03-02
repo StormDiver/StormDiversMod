@@ -475,7 +475,6 @@ namespace StormDiversMod.Basefiles
                     Player.maxRunSpeed = (9f);
                     Player.runAcceleration *= 3f;
                 }
-
                 Player.rocketBoots = 2;
                 Player.moveSpeed = 1;
                 if (Player.moveSpeed > 1)
@@ -592,7 +591,7 @@ namespace StormDiversMod.Basefiles
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(50));
                     float scale = 1f - (Main.rand.NextFloat() * .1f);
                     perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
 
                 }
 
@@ -1058,11 +1057,11 @@ namespace StormDiversMod.Basefiles
                         dust2.velocity *= 2;
                     }
 
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
 
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
 
                     derplinglaunchcooldown = 60;
                 }
@@ -1097,7 +1096,7 @@ namespace StormDiversMod.Basefiles
 
                 if (!skysentry)
                 {
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<SkyKnightSentryProj>(), 0, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<SkyKnightSentryProj>(), 0, 0, Player.whoAmI);
 
                     skysentry = true;
 
@@ -1140,12 +1139,12 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(2) == 0)
                 {
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X - 100, victim.Center.Y - 100), new Vector2(12, 12), ModContent.ProjectileType<MagicMushArmourProj>(), mushdamage, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X - 100, victim.Center.Y - 100), new Vector2(12, 12), ModContent.ProjectileType<MagicMushArmourProj>(), mushdamage, 0, Player.whoAmI);
 
                 }
                 else
                 {
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X + 100, victim.Center.Y - 100), new Vector2(-12, 12), ModContent.ProjectileType<MagicMushArmourProj>(), mushdamage, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X + 100, victim.Center.Y - 100), new Vector2(-12, 12), ModContent.ProjectileType<MagicMushArmourProj>(), mushdamage, 0, Player.whoAmI);
 
                 }
 
@@ -1158,14 +1157,14 @@ namespace StormDiversMod.Basefiles
 
             if (spaceRockOffence && Player.HasBuff(ModContent.BuffType<SpaceRockOffence>()))
             {
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X - 0, victim.Center.Y - 350), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned directly above and goes straight down
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X - 0, victim.Center.Y - 350), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned directly above and goes straight down
 
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X - 50, victim.Center.Y - 450), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned slightly left and moves straight down
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X + 50, victim.Center.Y - 450), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned slightly right and moves straight down
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X - 150, victim.Center.Y - 500), new Vector2(2 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned to the left and moves left
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X + 150, victim.Center.Y - 500), new Vector2(-2 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned to the right and moves right
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X - 200, victim.Center.Y - 450), new Vector2(4 + offenceveloX, 6f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned further to the left and moves right
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(victim.Center.X + 200, victim.Center.Y - 450), new Vector2(-4 + offenceveloX, 6f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned further to the right and moves left
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X - 50, victim.Center.Y - 450), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned slightly left and moves straight down
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X + 50, victim.Center.Y - 450), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned slightly right and moves straight down
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X - 150, victim.Center.Y - 500), new Vector2(2 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned to the left and moves left
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X + 150, victim.Center.Y - 500), new Vector2(-2 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned to the right and moves right
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X - 200, victim.Center.Y - 450), new Vector2(4 + offenceveloX, 6f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned further to the left and moves right
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(victim.Center.X + 200, victim.Center.Y - 450), new Vector2(-4 + offenceveloX, 6f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned further to the right and moves left
 
 
                 for (int i = 0; i < 30; i++)
@@ -1209,7 +1208,7 @@ namespace StormDiversMod.Basefiles
                             Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                             float scale = 1f - (Main.rand.NextFloat() * .5f);
                             perturbedSpeed = perturbedSpeed * scale;
-                            Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
+                            Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
                             bloodtime = 300;
                         }
                     }
@@ -1276,14 +1275,14 @@ namespace StormDiversMod.Basefiles
 
             if (spaceRockDefence && Player.HasBuff(ModContent.BuffType<SpaceRockDefence>()) && damage >= 2)
             {
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X + 0, Player.Top.Y - 350), new Vector2(0 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and goes straight down
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X + 0, Player.Top.Y - 350), new Vector2(0 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and goes straight down
 
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X - 0, Player.Top.Y - 400), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and moves slighly left
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X + 0, Player.Top.Y - 400), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and moves slightly right
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X - 60, Player.Top.Y - 450), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned to the left and moves  left
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X + 60, Player.Top.Y - 450), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned to the right and moves  right
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X - 120, Player.Top.Y - 500), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI);  //Summoned far to the left and moves left
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(Player.Center.X + 120, Player.Top.Y - 500), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned far to the right and moves right
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X - 0, Player.Top.Y - 400), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and moves slighly left
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X + 0, Player.Top.Y - 400), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and moves slightly right
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X - 60, Player.Top.Y - 450), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned to the left and moves  left
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X + 60, Player.Top.Y - 450), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned to the right and moves  right
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X - 120, Player.Top.Y - 500), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI);  //Summoned far to the left and moves left
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X + 120, Player.Top.Y - 500), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned far to the right and moves right
 
 
                 for (int i = 0; i < 30; i++)
@@ -1374,7 +1373,8 @@ namespace StormDiversMod.Basefiles
                     {
                         if (Main.rand.Next(6) == 0) //1 in 6 chance to have the debuff applied and drop a heart
                         {
-                            Item.NewItem((int)target.Center.X, (int)target.Center.Y, target.width, target.height, ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                            
+                            Item.NewItem(new EntitySource_Loot(target), new Vector2(target.Center.X, target.Center.Y), new Vector2(target.width, target.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
                             SoundEngine.PlaySound(SoundID.NPCKilled, (int)target.Center.X, (int)target.Center.Y, 7);
                             for (int i = 0; i < 15; i++)
                             {
@@ -1411,7 +1411,7 @@ namespace StormDiversMod.Basefiles
 
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(100)); // This defines the projectiles random spread . 10 degree spread.
 
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), 75, 0, Player.whoAmI);
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), 75, 0, Player.whoAmI);
 
                 for (int i = 0; i < 20; i++)
                 {
@@ -1492,7 +1492,7 @@ namespace StormDiversMod.Basefiles
                 {
                     target.immune[AridProj] = 5;
 
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), damage, 1, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), damage, 1, Player.whoAmI);
                 }
             }
         }
@@ -1530,7 +1530,7 @@ namespace StormDiversMod.Basefiles
                     {
                         if (Main.rand.Next(7) == 0) //1 in 7 chance to have the debuff applied and drop a heart
                         {
-                            Item.NewItem((int)target.Center.X, (int)target.Center.Y, target.width, target.height, ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                            Item.NewItem(new EntitySource_Loot(target), new Vector2(target.Center.X, target.Center.Y), new Vector2(target.width, target.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
 
 
                             SoundEngine.PlaySound(SoundID.NPCKilled, (int)target.Center.X, (int)target.Center.Y, 7);
@@ -1559,7 +1559,7 @@ namespace StormDiversMod.Basefiles
                 float speedY = -8f;
 
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(100)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), 65, 0, Player.whoAmI);
+                Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), 65, 0, Player.whoAmI);
 
 
                 for (int i = 0; i < 20; i++)
@@ -1641,7 +1641,7 @@ namespace StormDiversMod.Basefiles
                 {
                     target.immune[AridProj] = 5;
 
-                    Projectile.NewProjectile(Player.GetProjectileSource_Item(null), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 1, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 1, Player.whoAmI);
                 }
             }
         }

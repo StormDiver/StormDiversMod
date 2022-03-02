@@ -23,25 +23,26 @@ namespace StormDiversMod.Basefiles
         {
             if (context == "bossBag" && arg == ItemID.BossBagBetsy) //besty Treasure bag
             {
-                player.QuickSpawnItem(ItemType<Items.Accessory.FlameCore>(), Main.rand.Next(1, 1));
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<Items.Accessory.FlameCore>(), Main.rand.Next(1, 1));
+
             }
           
             if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3) //Any mech boss treasure bag post 3 mechs
             {
                 if (context == "bossBag" && arg == ItemID.SkeletronPrimeBossBag || arg == ItemID.TwinsBossBag || arg == ItemID.DestroyerBossBag)
                 {
-                    player.QuickSpawnItem(ItemType<Items.Accessory.PrimeAccess>(), Main.rand.Next(1, 1));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<Items.Accessory.PrimeAccess>(), Main.rand.Next(1, 1));
                 }
             }
            
             if (context == "bossBag" && arg == ItemID.CultistBossBag) //Cultist treasure bag
             {
-                player.QuickSpawnItem(ItemType<Items.Accessory.LunaticHood>(), Main.rand.Next(1, 1));
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<Items.Accessory.LunaticHood>(), Main.rand.Next(1, 1));
 
                 if (Main.rand.Next(100) < 5)
 
                 {
-                    player.QuickSpawnItem(ItemType<CultistLazor>(), Main.rand.Next(1, 1));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<CultistLazor>(), Main.rand.Next(1, 1));
                    
 
                 }
@@ -49,19 +50,19 @@ namespace StormDiversMod.Basefiles
 
                 if (choice == 0)
                 {
-                    player.QuickSpawnItem(ItemType<CultistBow>(), Main.rand.Next(1, 1));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<CultistBow>(), Main.rand.Next(1, 1));
                 }
                 if (choice == 1)
                 {
-                    player.QuickSpawnItem(ItemType<CultistSpear>(), Main.rand.Next(1, 1));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<CultistSpear>(), Main.rand.Next(1, 1));
                 }
                 if (choice == 2)
                 {
-                    player.QuickSpawnItem(ItemType<CultistTome>(), Main.rand.Next(1, 1));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<CultistTome>(), Main.rand.Next(1, 1));
                 }
                 if (choice == 3)
                 {
-                    player.QuickSpawnItem(ItemType<CultistStaff>(), Main.rand.Next(1, 1));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<CultistStaff>(), Main.rand.Next(1, 1));
 
                 }
             }
@@ -80,12 +81,12 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(100) < 20)
                 {
-                    player.QuickSpawnItem(ItemType<ProtoLauncher>(), Main.rand.Next(1, 1));
-                    player.QuickSpawnItem(ItemType<Items.Ammo.ProtoGrenade>(), Main.rand.Next(52, 80));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<ProtoLauncher>(), Main.rand.Next(1, 1));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<Items.Ammo.ProtoGrenade>(), Main.rand.Next(52, 80));
                 }
                 if (Main.rand.Next(100) < 20)
                 {
-                    player.QuickSpawnItem(ItemType<TwilightPetItem>(), Main.rand.Next(1, 1));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<TwilightPetItem>(), Main.rand.Next(1, 1));
                 }
             }
             if (context == "crate" && (arg == ItemID.WoodenCrate || arg == ItemID.WoodenCrateHard)) //Wooden items
@@ -97,17 +98,17 @@ namespace StormDiversMod.Basefiles
                     //if (WorldGen.genRand.NextBool(2))
                     if (choice == 0)
                     {
-                        player.QuickSpawnItem(ItemType<WoodPointyStick>());
+                        player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<WoodPointyStick>());
 
                     }
                     else if (choice == 1)
                     {
-                        player.QuickSpawnItem(ItemType<WoodCrossbow>());
+                        player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<WoodCrossbow>());
 
                     }
                     else
                     {
-                        player.QuickSpawnItem(ItemType<Items.Accessory.WoodNecklace>());
+                        player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<Items.Accessory.WoodNecklace>());
 
                     }
                 }
@@ -117,7 +118,7 @@ namespace StormDiversMod.Basefiles
                 if (Main.rand.Next(100) < 10)
                 {
                     
-                    player.QuickSpawnItem(ItemType<IceStaff>());
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<IceStaff>());
 
                 }
             }
@@ -126,7 +127,7 @@ namespace StormDiversMod.Basefiles
                 if (Main.rand.Next(100) < 10)
                 {
 
-                    player.QuickSpawnItem(ItemType<MossRepeater>());
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<MossRepeater>());
 
                 }
             }
@@ -135,8 +136,8 @@ namespace StormDiversMod.Basefiles
                 if (Main.rand.Next(100) < 10)
                 {
 
-                    player.QuickSpawnItem(ItemType<SandstoneGun>());
-                    player.QuickSpawnItem(ItemID.MusketBall, Main.rand.Next(60, 100));
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<SandstoneGun>());
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemID.MusketBall, Main.rand.Next(60, 100));
                 }
             }
             if (context == "crate" && arg == ItemID.FrozenCrateHard) //Ice bars
@@ -145,7 +146,7 @@ namespace StormDiversMod.Basefiles
                 {
                     if (Main.rand.Next(100) < 15)
                     {
-                        player.QuickSpawnItem(ItemType<IceBar>(), Main.rand.Next(1, 10));
+                        player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<IceBar>(), Main.rand.Next(1, 10));
                     }
                 }
             }
@@ -157,7 +158,7 @@ namespace StormDiversMod.Basefiles
                 {
                     if (Main.rand.Next(100) < 15)
                     {
-                        player.QuickSpawnItem(ItemType<DesertBar>(), Main.rand.Next(1, 10));
+                        player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<DesertBar>(), Main.rand.Next(1, 10));
                     }
                 }
             }
