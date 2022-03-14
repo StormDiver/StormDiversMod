@@ -274,6 +274,8 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Golden Flow Invader");
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -382,11 +384,7 @@ namespace StormDiversMod.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
-
-            Projectile.Kill();
-
-            
+ 
         }
         
       
@@ -447,6 +445,8 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Fast Golden Flow Invader");
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {

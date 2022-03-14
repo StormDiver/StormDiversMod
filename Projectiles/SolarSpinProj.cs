@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
         {
             DisplayName.SetDefault("Solar Spinner");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
         }
         public override void SetDefaults()
         {
@@ -28,6 +28,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.tileCollide = false; 
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Melee;
+            Projectile.extraUpdates = 1;
             //Projectile.scale = 1.2f;
 
 
@@ -41,7 +42,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
 
             for (int i = 0; i < 10; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(target.position, target.width, target.height, 6);
                 dust.scale = 2f;
                 dust.noGravity = true;
@@ -49,9 +50,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             }
 
         }
-        // float hitbox = 300;
-        //bool hitboxup;
-        //bool hitboxdown;
+       
 
         public override void AI()
         {
@@ -62,7 +61,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             if (Projectile.soundDelay <= 0)
             {
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 116);    
-                Projectile.soundDelay = 45;    
+                Projectile.soundDelay = 60;    
             }
             //-----------------------------------------------How the projectile works---------------------------------------------------------------------
             Player player = Main.player[Projectile.owner];
@@ -77,9 +76,9 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.Center = player.MountedCenter;
             Projectile.position.X += player.width / 2 * player.direction;
             
-            Projectile.spriteDirection = player.direction;
+            //Projectile.spriteDirection = player.direction;
             
-            Projectile.rotation += 0.2f * player.direction; //this is the projectile rotation/spinning speed
+            Projectile.rotation += 0.15f * player.direction; //this is the projectile rotation/spinning speed
            
             player.heldProj = Projectile.whoAmI;
             player.itemTime = 2;
@@ -91,34 +90,13 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Main.dust[dust].scale = 2f;
             Main.dust[dust].noGravity = true;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 7;
-           /* if (hitbox == 300)
-            {
-                hitboxup = false;
-                hitboxdown = true;
-            }
-            if (hitbox == 270)
-            {
-                hitboxup = true;
-                hitboxdown = false;
-            }
-            if (hitboxup == true)
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    hitbox++;
-                }
-            }
-            if (hitboxdown == true)
-            {
-                hitbox--;
-            }
-            Projectile.width = (int)hitbox;
-            Projectile.height = (int)hitbox;*/
+            Projectile.localNPCHitCooldown = 14;
         }
-        public override bool PreDraw(ref Color lightColor)
+        public override void PostDraw(Color lightColor)
         {
             Main.instance.LoadProjectile(Projectile.type);
+            var player = Main.player[Projectile.owner];
+
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
             Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
@@ -128,6 +106,12 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+
+           
 
             return true;
 
@@ -155,56 +139,57 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             //var projreflect = Main.projectile[mod.ProjectileType("SelenianBladeProj")];
 
             //if (Main.LocalPlayer.HasBuff(BuffType<SelenianBuff>()))
-            if (player.itemAnimation > 1 && Main.mouseLeft && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarSolarSpin>())
+            if (projectile.aiStyle != 20)
             {
-
-                if (projectile.hostile)
+                if (player.itemAnimation > 1 && Main.mouseLeft && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarSolarSpin>())
                 {
-                    if (
-                        projectile.aiStyle == 0 ||
-                        projectile.aiStyle == 1 ||
-                        projectile.aiStyle == 2
 
-
-                        )
+                    if (projectile.hostile)
                     {
-                        //Player player = Main.player[npc.target];
+                        if (
+                            projectile.aiStyle == 0 ||
+                            projectile.aiStyle == 1 ||
+                            projectile.aiStyle == 2
 
-                        float distanceX = player.Center.X - projectile.Center.X;
-                        float distanceY = player.Center.Y - projectile.Center.Y;
-                        float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                            )
                         {
-                            if (distance <= 100 && !reflected)
+                            //Player player = Main.player[npc.target];
+
+                            float distanceX = player.Center.X - projectile.Center.X;
+                            float distanceY = player.Center.Y - projectile.Center.Y;
+                            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-
-                                int choice = Main.rand.Next(2);
-                                if (choice == 0)
+                                if (distance <= 100 && !reflected)
                                 {
-                                    SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 56);
-                                    //Projectile.Kill();
-                                    projectile.velocity.X *= -1f;
+
+                                    int choice = Main.rand.Next(2);
+                                    if (choice == 0)
+                                    {
+                                        SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 56);
+                                        //Projectile.Kill();
+                                        projectile.velocity.X *= -1f;
 
 
-                                    projectile.velocity.Y *= -1f;
+                                        projectile.velocity.Y *= -1f;
 
-                                    projectile.friendly = true;
-                                    projectile.hostile = false;
+                                        projectile.friendly = true;
+                                        projectile.hostile = false;
 
-                                    projectile.damage *= 4;
-                                    reflected = true;
+                                        projectile.damage *= 4;
+                                        reflected = true;
+                                    }
+                                    else
+                                    {
+                                        reflected = true;
+                                    }
                                 }
-                                else
-                                {
-                                    reflected = true;
-                                }
+
                             }
-
                         }
                     }
                 }
-
                 
             }
         }

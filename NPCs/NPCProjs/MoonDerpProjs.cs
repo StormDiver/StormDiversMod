@@ -174,16 +174,10 @@ namespace StormDiversMod.NPCs.NPCProjs
             DrawOriginOffsetY = 0;
         }
 
-
-
-        int hometime;
         public override void AI()
         {
 
-
-            hometime++;
-
-
+            Projectile.ai[0]++;
 
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -195,7 +189,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
            
-            if (hometime >= 180)
+            if (Projectile.ai[0] >= 180)
             {
 
                 for (int i = 0; i < 100; i++)
@@ -209,7 +203,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                     float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
 
                     //If the distance between the live targeted npc and the Projectile is less than 480 pixels
-                    if (distance < 1200f && target.active && hometime >= 120)
+                    if (distance < 1200f && target.active && Projectile.ai[0] >= 120)
                     {
 
                         distance = 0.5f / distance;
@@ -254,7 +248,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             for (int i = 0; i < 40; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
                 int dust2 = Dust.NewDust(Projectile.Center - Projectile.velocity, Projectile.width, Projectile.height, 229, 0f, 0f, 200, default, 1.2f);
                 Main.dust[dust2].velocity *= -5f;
                 Main.dust[dust2].noGravity = true;

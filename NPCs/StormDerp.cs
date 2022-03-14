@@ -117,7 +117,7 @@ namespace StormDiversMod.NPCs
                                                                                                                                     // If you want to randomize the speed to stagger the projectiles
                             float scale = 1f - (Main.rand.NextFloat() * .3f);
                             perturbedSpeed = perturbedSpeed * scale;
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X + Main.rand.Next(-20, 20), NPC.Top.Y + 20), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                         }
                     }
 
@@ -138,9 +138,9 @@ namespace StormDiversMod.NPCs
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
                 return;
             }
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y - 10), 20, 20, 229);
                 dust.scale = 0.5f;
             }
@@ -153,9 +153,8 @@ namespace StormDiversMod.NPCs
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormDerpGore4").Type, 1f);
 
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 50; i++)
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 229);
                 }
                 if (NPC.ShieldStrengthTowerVortex > 0)

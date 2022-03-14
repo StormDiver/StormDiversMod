@@ -190,7 +190,7 @@ namespace StormDiversMod.Projectiles
             damagetime++;
             Projectile.width = 22;
             Projectile.height = 22;
-
+            Projectile.penetrate = 1;
             AnimateProjectile();
 
            
@@ -213,8 +213,7 @@ namespace StormDiversMod.Projectiles
         {
            
             SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, 6, 0.5f, 1);
-            
-            Projectile.Kill();
+       
         }
 
         public override void Kill(int timeLeft)

@@ -564,6 +564,58 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             Item.placeStyle = 0;
         }
     }
+    public class FrozenEyeBannerItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Frozen Eyefish Banner");
+            Tooltip.SetDefault("Nearby players get a bonus against: Frozen Eyefish");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 10;
+            Item.height = 24;
+            Item.maxStack = 99;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = ModContent.TileType<FrozenEyeBannerPlace>();  //This defines what type of tile this Item will place
+            Item.placeStyle = 0;
+        }
+    }
+    public class FrozenSoulBannerItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Frozen Spirit Banner");
+            Tooltip.SetDefault("Nearby players get a bonus against: Frozen Spirit");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 10;
+            Item.height = 24;
+            Item.maxStack = 99;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = ModContent.TileType<FrozenSoulBannerPlace>();  //This defines what type of tile this Item will place
+            Item.placeStyle = 0;
+        }
+    }
 }
 
 ////then add this to the custom npc you want to drop the banner and in public override void SetDefaults()

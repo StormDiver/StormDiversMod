@@ -33,34 +33,13 @@ namespace StormDiversMod.Items.Accessory
         }
 
 
-        int dropdust = 0;
         
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<StormPlayer>().desertJar = true;
 
             
-            if ((player.velocity.X > 3.5f || player.velocity.X < -3.5f) || (player.velocity.Y > 3.5f || player.velocity.Y < -3.5f))
-            {
-
-                dropdust++;
-                if (dropdust == 4)
-                {
-
-                    //float speedX = 0f;
-                    //float speedY = 0f;
-                    //Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(180));
-                    //float scale = 1f - (Main.rand.NextFloat() * .5f);
-                    //perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(player.GetProjectileSource_Accessory(null), new Vector2(player.Center.X, player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.DesertJarProj>(), 35, 0, player.whoAmI);
-                        dropdust = 0;
-
-                        //Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 13);
-                    
-                }
-               
-               
-            }
+            
         }
        
         public override void AddRecipes()

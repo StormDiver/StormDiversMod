@@ -503,10 +503,10 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 135, npc.velocity.X * 1.2f, npc.velocity.Y * 1.2f, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    int dust = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 135, npc.velocity.X * 1.2f, npc.velocity.Y * 1.2f, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
 
-                    int dust2 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 135, npc.velocity.X, npc.velocity.Y, 130, default, .3f);
+                    int dust2 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 135, npc.velocity.X, npc.velocity.Y, 130, default, 1f);
                     Main.dust[dust].velocity *= 0.5f;
                 }
 
@@ -526,7 +526,6 @@ namespace StormDiversMod.Basefiles
                     }
                 }*/
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
                     var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, 95);
                     dust.noGravity = true;
 
@@ -709,18 +708,7 @@ namespace StormDiversMod.Basefiles
 
                         break;
                 }
-                switch (type)
-                {
-                    case NPCID.Demolitionist:
-
-
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Tools.FastDrill>());
-                        nextSlot++;
-
-
-
-                        break;
-                }
+               
                 switch (type)
                 {
                     case NPCID.Demolitionist:

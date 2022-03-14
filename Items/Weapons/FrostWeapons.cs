@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.Weapons
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 38;
+			Item.damage = 40;
 
             Item.DamageType = DamageClass.Melee;
             Item.width = 50;
@@ -69,7 +69,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetDefaults()
         {
 
-            Item.damage = 44;
+            Item.damage = 45;
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 38;
@@ -136,7 +136,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAmmo = ItemType<Ammo.ProtoGrenade>();
             Item.UseSound = SoundID.Item61;
 
-            Item.damage = 40;
+            Item.damage = 45;
             //Item.crit = 4;
             Item.knockBack = 3f;
             Item.shootSpeed = 10f;

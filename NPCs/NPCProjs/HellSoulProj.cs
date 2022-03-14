@@ -52,23 +52,21 @@ namespace StormDiversMod.NPCs.NPCProjs
 
 
         readonly int homerandom = Main.rand.Next(180, 300);
-        int hometime;
         public override void AI()
         {
             var dust3 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0);
             dust3.noGravity = true;
-            hometime++;
-
+            Projectile.ai[0]++;
 
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
-            if (hometime <= homerandom)
+            if (Projectile.ai[0] <= homerandom)
             {
                 Projectile.velocity.X *= 0.98f;
                 Projectile.velocity.Y *= 0.98f;
             }
 
-            if (hometime == homerandom)
+            if (Projectile.ai[0] == homerandom)
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -78,7 +76,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                 }
             }
-            if (hometime >= homerandom && hometime <= homerandom + 45)
+            if (Projectile.ai[0] >= homerandom && Projectile.ai[0] <= homerandom + 45)
             {
                 for (int i = 0; i < 200; i++)
                 {

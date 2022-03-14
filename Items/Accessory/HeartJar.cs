@@ -57,4 +57,47 @@ namespace StormDiversMod.Items.Accessory
        
          
     }
+    public class HeartJarPS : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Philosopher's Heart");
+            Tooltip.SetDefault("Reduces the cooldown of healing potions by 25%\nSome enemies will drop a super heart when hit below half life\nEnemies that drop the heart lose life rapidly\nIncreases maximum health by 20");
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 22;
+            Item.height = 26;
+
+            Item.value = Item.sellPrice(0, 2, 50, 0);
+            Item.rare = ItemRarityID.LightRed;
+
+            Item.accessory = true;
+            Item.canBePlacedInVanityRegardlessOfConditions = true;
+
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<StormPlayer>().heartSteal = true;
+            player.statLifeMax2 += 20;
+            player.pStone = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<HeartJar>(), 1)
+            .AddIngredient(ItemID.PhilosophersStone, 1)
+            .AddTile(TileID.TinkerersWorkbench)
+            .Register();
+
+        }
+
+    }
 }

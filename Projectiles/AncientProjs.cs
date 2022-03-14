@@ -177,7 +177,7 @@ namespace StormDiversMod.Projectiles
         {
 
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-            if (Projectile.timeLeft == 32)
+            if (Projectile.timeLeft == 15)
             {
                 Projectile.penetrate = 3;
 

@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Fire Arrow");
+            DisplayName.SetDefault("Hellsoul Arrow");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -100,8 +100,6 @@ namespace StormDiversMod.Projectiles
 
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
 
-
-            Projectile.Kill();
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
         {
@@ -155,7 +153,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Fire Bullet");
+            DisplayName.SetDefault("Hellsoul Bullet");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -262,7 +260,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Fire Blade");
+            DisplayName.SetDefault("Hellsoul Blade");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -370,7 +368,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Fire Flare");
+            DisplayName.SetDefault("Hellsoul Flare");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -446,8 +444,6 @@ namespace StormDiversMod.Projectiles
 
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
 
-
-            Projectile.Kill();
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
         {
@@ -496,7 +492,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Fire Flare");
+            DisplayName.SetDefault("Hellsoul Flare");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -601,7 +597,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Fire Soul");
+            DisplayName.SetDefault("Hellsoul Soul");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -674,7 +670,7 @@ namespace StormDiversMod.Projectiles
                 if (target)
                 {
                     AdjustMagnitude(ref move);
-                    Projectile.velocity = (15 * Projectile.velocity + move) / 16f;
+                    Projectile.velocity = (15 * Projectile.velocity + move) / 15f;
                     AdjustMagnitude(ref Projectile.velocity);
                 }
             }
@@ -686,7 +682,7 @@ namespace StormDiversMod.Projectiles
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
                 if (magnitude > 10f)
                 {
-                    vector *= 15f / magnitude;
+                    vector *= 11f / magnitude;
                 }
             }
         }
@@ -707,7 +703,6 @@ namespace StormDiversMod.Projectiles
 
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
 
-            Projectile.Kill();
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
         {

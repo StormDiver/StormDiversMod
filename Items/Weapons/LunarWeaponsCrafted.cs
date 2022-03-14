@@ -17,10 +17,10 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Blazing Star"); 
+			DisplayName.SetDefault("Blazing Polestar"); 
 			Tooltip.SetDefault("Spins around with the force of a star\nKnocks enemies in the direction you're facing\nHas a chance to reflect basic projectiles when spun");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-         
+        
         }
 
 		public override void SetDefaults() 
@@ -29,7 +29,7 @@ namespace StormDiversMod.Items.Weapons
             Item.crit = 0;
             Item.DamageType = DamageClass.Melee;
             Item.width = 70;
-			Item.height = 82;
+			Item.height = 40;
 			Item.useTime = 10;
 			Item.useAnimation = 10;
 			Item.useStyle = 100;
@@ -60,7 +60,11 @@ namespace StormDiversMod.Items.Weapons
              .Register();
          
         }
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+        /*public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/LunarSolarSpin");
 
@@ -82,7 +86,7 @@ namespace StormDiversMod.Items.Weapons
                SpriteEffects.None,
                0f
            );
-        }
+        }*/
     }
     //________________________________________________________________
     

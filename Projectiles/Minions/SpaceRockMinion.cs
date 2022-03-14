@@ -39,30 +39,24 @@ namespace StormDiversMod.Projectiles.Minions
     }
     
 
-    //CCOPY Spazmini MINION AI
     public class SpaceRockMinionProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Asteroid Minion");
-            // Sets the amount of frames this minion has on its spritesheet
             Main.projFrames[Projectile.type] = 4;
-            // This is necessary for right-click targeting
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
-
-            // These below are needed for a minion
-            // Denotes that this Projectile is a pet or minion
             Main.projPet[Projectile.type] = true;
-            // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 
-
-            Projectile.DamageType = DamageClass.Summon;
+          
 
         }
 
         public sealed override void SetDefaults()
         {
+            Projectile.width = 22;
+            Projectile.height = 22;
             // Only controls if it deals damage to enemies on contact (more on that later)
             Projectile.friendly = true;
             // Only determines the damage type
@@ -71,9 +65,11 @@ namespace StormDiversMod.Projectiles.Minions
             Projectile.minionSlots = 1f;
             // Needed so the minion doesn't despawn on collision with enemies or tiles
             Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.tileCollide = false;
 
-            Projectile.CloneDefaults(388);
-            AIType = 388;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 15;
         }
         public override bool MinionContactDamage()
         {
@@ -81,10 +77,17 @@ namespace StormDiversMod.Projectiles.Minions
         }
         int dustspeed;
         int projspeed;
+        int frameSpeed = 20;
+
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
+     
         public override void AI()
         {
-            projspeed++;
-            Projectile.minionSlots = 1f;
+
             Player player = Main.player[Projectile.owner];
             // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
             if (player.dead || !player.active)
@@ -95,29 +98,174 @@ namespace StormDiversMod.Projectiles.Minions
             {
                 Projectile.timeLeft = 2;
             }
-            Projectile.width = 38;
-            Projectile.height = 22;
-            Projectile.Opacity = 1;
-            DrawOffsetX = 0;
-            DrawOriginOffsetY = 0;
+
+            Vector2 idlePosition = player.Center;
+            idlePosition.Y -= 0f; // On player
+
+            // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
+            // The index is Projectile.minionPos
+            float minionPositionOffsetX = (10 + Projectile.minionPos * 20) * -player.direction;
+            idlePosition.X += minionPositionOffsetX; // Go behind the player
 
 
-           
-            if (Projectile.velocity.X > 6 || Projectile.velocity.X < -6 || Projectile.velocity.Y > 6 || Projectile.velocity.Y < -6)
+            // Teleport to player if distance is too big
+            Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
+            float distanceToIdlePosition = vectorToIdlePosition.Length();
+            if (Main.myPlayer == player.whoAmI && distanceToIdlePosition > 2000f)
+            {
+                // Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the Projectile,
+                // and then set netUpdate to true
+                Projectile.position = idlePosition;
+                Projectile.velocity *= 0.1f;
+                Projectile.netUpdate = true;
+            }
+
+            // If your minion is flying, you want to do this independently of any conditions
+            float overlapVelocity = 0.01f;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                // Fix overlap with other minions
+                Projectile other = Main.projectile[i];
+                if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+                {
+                    if (Projectile.position.X < other.position.X) Projectile.velocity.X -= overlapVelocity;
+                    else Projectile.velocity.X += overlapVelocity;
+
+                    if (Projectile.position.Y < other.position.Y) Projectile.velocity.Y -= overlapVelocity;
+                    else Projectile.velocity.Y += overlapVelocity;
+                }
+            }
+
+            // Starting search distance
+            Vector2 targetCenter = Projectile.position;
+            bool foundTarget = false;
+
+            // This code is required if your minion weapon has the targeting feature
+            if (player.HasMinionAttackTargetNPC)
+            {
+                NPC npc = Main.npc[player.MinionAttackTargetNPC];
+                float between = Vector2.Distance(npc.Center, Projectile.Center);
+                // Reasonable distance away so it doesn't target across multiple screens
+                if (between < 2000f)
+                {
+                    targetCenter = npc.Center + new Vector2(0, -0);
+                    foundTarget = true;
+                }
+            }
+            if (!foundTarget)
+            {
+                // This code is required either way, used for finding a target
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
+                    if (npc.CanBeChasedBy())
+                    {
+                        float npcDistance = Vector2.Distance(npc.Center, Projectile.Center);
+                        bool closest = Vector2.Distance(Projectile.Center, targetCenter) > npcDistance;
+
+                        if (closest || !foundTarget)
+                        {
+                            // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
+                            // The number depends on various parameters seen in the movement code below. Test different ones out until it works alright
+                            bool closeThroughWall = npcDistance < 500f;
+                            bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
+
+                            if ((lineOfSight || closeThroughWall) && npcDistance < 1000)
+                            {
+                                targetCenter = npc.Center + new Vector2(0, 0);
+                                foundTarget = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            Projectile.friendly = foundTarget;
+
+
+            // Default movement parameters (here for attacking)
+            float speed = 25f;
+            float inertia = 5f;
+
+            if (foundTarget)
+            {
+                
+                // Minion has a target: attack (here, fly towards the enemy)
+                if (Vector2.Distance(Projectile.Center, targetCenter) > 150f)
+                {
+                    // The immediate range around the target (so it doesn't latch onto it when close)
+                    Vector2 direction = targetCenter - Projectile.Center;
+                    direction.Normalize();
+                    direction *= speed;
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+
+
+                }
+                else
+                {
+                    Projectile.velocity *= 1.02f; //Small little boost so that it doesn't slow down
+                }
+            }
+            else
+            {
+
+                // Minion doesn't have a target: return to player and idle
+                if (distanceToIdlePosition > 300f)
+                {
+
+                    // Speed up the minion if it's away from the player
+                    speed = 15f;
+                    inertia = 60f;
+                }
+                else
+                {
+
+                    // Slow down the minion if closer to the player
+                    speed = 5f;
+                    inertia = 80f;
+                }
+                if (distanceToIdlePosition > 10f)
+                {
+                    // The immediate range around the player (when it passively floats about)
+
+                    // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
+                    vectorToIdlePosition.Normalize();
+                    vectorToIdlePosition *= speed;
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                }
+                else if (Projectile.velocity == Vector2.Zero)
+                {
+                    // If there is a case where it's not moving at all, give it a little "poke"
+                    Projectile.velocity.X = -0.15f;
+                    Projectile.velocity.Y = -0.05f;
+                }
+            }
+
+
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+
+
+            projspeed++;
+     
+            if (Projectile.velocity.X > 7 || Projectile.velocity.X < -7 || Projectile.velocity.Y > 7 || Projectile.velocity.Y < -7)
             {
                 dustspeed = 1;
+                frameSpeed = 5;
             }
             else
             {
                 dustspeed = 5;
+                frameSpeed = 10;
+
             }
             if (!Main.dedServ)
             {
+
                 if (Main.rand.Next(dustspeed) == 0)     //this defines how many dust to spawn
                 {
 
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
-                    //int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
                     dust2.noGravity = true;
                     dust2.scale = 1.5f;
                     dust2.velocity *= 1;
@@ -125,7 +273,6 @@ namespace StormDiversMod.Projectiles.Minions
                 }
             }
      
-            int frameSpeed = 20;
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= frameSpeed)
             {
@@ -139,10 +286,7 @@ namespace StormDiversMod.Projectiles.Minions
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            //NPC.immuneTime = 10;
 
-            //Projectile.velocity.X *= 0.5f;
-            //Projectile.velocity.Y *= 0.5f;
             if (!Main.dedServ)
             {
                 for (int i = 0; i < 20; i++)
@@ -171,10 +315,10 @@ namespace StormDiversMod.Projectiles.Minions
         {
             if (!Main.dedServ)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 15; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 0.5f);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 1f);
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1f);
                 }
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62, 0.5f, 0.2f);
@@ -184,6 +328,8 @@ namespace StormDiversMod.Projectiles.Minions
         {
             return Color.White;
         }
+       
+       
     }
     //__________________________________________________________________________________________________________________________________________________
     public class SpaceRockMinionProj2 : ModProjectile
@@ -191,7 +337,7 @@ namespace StormDiversMod.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Asteroid Minion Fragment");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
 

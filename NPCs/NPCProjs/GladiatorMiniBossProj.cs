@@ -33,10 +33,10 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.hostile = true;
         }
 
-        int speedup = 0;
         public override void AI()
         {
-            if (speedup == 1)
+            Projectile.ai[0]++;
+            if (Projectile.ai[0] == 1)
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -56,8 +56,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.height, Projectile.width, 57, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
             dust.noGravity = true;
 
-            speedup++;
-            if (speedup <= 80)
+            if (Projectile.ai[0] <= 80)
             {
                 Projectile.velocity.X *= 1.04f;
                 Projectile.velocity.Y *= 1.04f;

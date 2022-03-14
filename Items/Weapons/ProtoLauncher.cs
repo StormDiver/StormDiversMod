@@ -57,8 +57,7 @@ namespace StormDiversMod.Items.Weapons
  
             for (int i = 0; i < 1; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10)); 
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 61);
 
             }
@@ -66,6 +65,10 @@ namespace StormDiversMod.Items.Weapons
            
             
             return false;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
         }
         public override void AddRecipes()
         {

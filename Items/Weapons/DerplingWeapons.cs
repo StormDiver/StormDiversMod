@@ -122,12 +122,16 @@ namespace StormDiversMod.Items.Weapons
            
             SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(4));
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             }
 
             return false;
 
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(4));
         }
         public override bool CanConsumeAmmo(Player player)
         {
@@ -244,7 +248,7 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
             // Item.UseSound = SoundID.Item43;
 
-            Item.damage = 32;
+            Item.damage = 30;
             Item.knockBack = 3.5f;
             Item.UseSound = SoundID.Item43;
 

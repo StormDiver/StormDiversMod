@@ -91,7 +91,7 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 3; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y - 10), 20, 20, 3);
                
 
@@ -104,10 +104,10 @@ namespace StormDiversMod.NPCs
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("VineDerpGore4").Type, 1f);
 
                 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 30; i++)
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 3);
+                    dust.scale = 1.5f;
                 }
             }
         }

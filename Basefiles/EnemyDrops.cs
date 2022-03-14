@@ -199,6 +199,14 @@ namespace StormDiversMod.Basefiles
             {
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<ThePainMask>());
             }
+            if (npc.boss)
+            {
+                if (Main.rand.Next(50) < 1)
+
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<TheClaymanMask>());
+                }
+            }
             if (npc.type == NPCID.VortexRifleman)
             {
                 if (Main.rand.Next(100) < 2)
@@ -286,7 +294,11 @@ namespace StormDiversMod.Basefiles
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BoneBoomerang>(), 100));
 
             }
-            
+            if (npc.type == NPCID.UndeadMiner)
+            {
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Tools.FastDrill>(), 20, 16));
+
+            }
             if (npc.type == NPCID.SolarSolenian)
             {
 
@@ -358,6 +370,24 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.Gnome)
             {
                 npcLoot.Add(ItemDropRule.OneFromOptions(2, ModContent.ItemType<WoodPointyStick>(), ModContent.ItemType<WoodCrossbow>(), ModContent.ItemType<WoodNecklace>()));
+
+            }
+            if (npc.type == NPCID.GoblinShark || npc.type == NPCID.BloodEelHead)
+            {
+
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BloodyRifle>(), 8, 6));
+
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.BloodDrop>(), 1, 3, 5));
+
+            }
+            if (npc.type == NPCID.BloodNautilus)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.BloodDrop>(), 1, 4, 6));
+
+            }
+            if (npc.type == NPCID.WyvernHead)
+            {
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<WyvernBow>(), 5, 4));
 
             }
             //Accessories--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -458,6 +488,11 @@ namespace StormDiversMod.Basefiles
 
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tools.Quack>(), 25));
 
+            }
+            //EoC
+            if (npc.type == NPCID.EyeofCthulhu)
+            {
+                notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<EyeSword>(), ModContent.ItemType<EyeGun>(), ModContent.ItemType<EyeStaff>(), ModContent.ItemType<EyeMinion>()));
             }
             //Cultist boss----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.CultistBoss)

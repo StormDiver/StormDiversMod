@@ -66,7 +66,6 @@ namespace StormDiversMod.Items.Tools
                 for (int i = 0; i < 50; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
                     int dust2 = Dust.NewDust(new Vector2(player.Center.X - 5, player.Top.Y), 10, 10, 229, 0f, 0f, 200, default, 0.8f);
                     Main.dust[dust2].velocity *= 2f;
                     Main.dust[dust2].noGravity = true;

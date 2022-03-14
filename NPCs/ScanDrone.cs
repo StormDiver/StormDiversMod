@@ -22,7 +22,7 @@ namespace StormDiversMod.NPCs
         {
             DisplayName.SetDefault("ScanDrone"); // Automatic from .lang files
                                                  // make sure to set this for your modnpcs.
-            NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
@@ -240,7 +240,7 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 3; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 229);
                 dust.scale = 0.5f;
 
@@ -253,7 +253,7 @@ namespace StormDiversMod.NPCs
                 
                 for (int i = 0; i < 10; i++)
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                     
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 229);
                 }
                 //NPC.ShieldStrengthTowerVortex = (int)MathHelper.Clamp(NPC.ShieldStrengthTowerVortex - 1, 0f, NPC.ShieldStrengthTowerMax);

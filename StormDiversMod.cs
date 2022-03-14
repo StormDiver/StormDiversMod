@@ -75,7 +75,8 @@ namespace StormDiversMod
             {
                 ItemID.HermesBoots,
                 ItemID.FlurryBoots,
-                ItemID.SailfishBoots
+                ItemID.SailfishBoots,
+                ItemID.SandBoots
             });
             RecipeGroup.RegisterGroup("StormDiversMod:RunBoots", group);
 
@@ -118,6 +119,16 @@ namespace StormDiversMod
                 ItemID.RichGravestone5,
           });
             RecipeGroup.RegisterGroup("StormDiversMod:Tombstones", group);
+
+
+            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Mech Soul", new int[]
+           {
+                ItemID.SoulofMight,
+                ItemID.SoulofSight,
+                ItemID.SoulofFright,
+
+           });
+            RecipeGroup.RegisterGroup("StormDiversMod:MechSoul", group);
         }
     }
 }

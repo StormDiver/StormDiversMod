@@ -468,7 +468,7 @@ namespace StormDiversMod.Projectiles
         //bool bloodspray = true;
         public override void AI()
         {
-
+            var player = Main.player[Projectile.owner];
 
             if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
             {
@@ -500,6 +500,74 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 13);
 
             Projectile.Kill();
+            return false;
+        }
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust;
+                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                Vector2 position = Projectile.position;
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+
+            }
+        }
+    }
+    //____________________________________________________________________________________________
+    public class BloodBootProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Blood Boot Trail");
+        }
+        public override void SetDefaults()
+        {
+
+            Projectile.width = 40;
+            Projectile.height = 10;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.ignoreWater = true;
+            Projectile.DamageType = DamageClass.Generic;
+
+            Projectile.penetrate = 4;
+            Projectile.timeLeft = 120;
+            Projectile.knockBack = 1f;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 15;
+        }
+        //bool bloodspray = true;
+        public override void AI()
+        {
+
+
+            if (Main.rand.Next(3) == 0) 
+            {
+                Dust dust;
+                Vector2 position = Projectile.position;
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1.5f)];
+                dust.noGravity = true;
+            }
+
+
+            if (Main.rand.Next(2) == 0) 
+            {
+                Dust dust;
+                Vector2 position = Projectile.position;
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 5f, 0, new Color(255, 255, 255), 1f)];
+                dust.velocity *= 0;
+
+            }
+
+
+            return;
+        }
+
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+
             return false;
         }
         public override void Kill(int timeLeft)

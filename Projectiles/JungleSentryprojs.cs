@@ -207,6 +207,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Jungle Thorn ball");
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {

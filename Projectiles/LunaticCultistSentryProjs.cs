@@ -368,7 +368,6 @@ namespace StormDiversMod.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-          Projectile.Kill();
 
             
         }

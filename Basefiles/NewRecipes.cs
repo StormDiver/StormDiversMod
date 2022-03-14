@@ -171,8 +171,45 @@ namespace StormDiversMod.Basefiles
             recipe10.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 8);
             recipe10.AddTile(TileID.Anvils);
             recipe10.Register();
+
+            //hardmode Blood moon items
+            Recipe recipe11 = Mod.CreateRecipe(ItemID.DripplerFlail, 1);
+            recipe11.AddIngredient(ItemID.HallowedBar, 10);
+            recipe11.AddIngredient(ItemID.SoulofMight, 10);
+            recipe11.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 8);
+            recipe11.AddTile(TileID.MythrilAnvil);
+            recipe11.Register();
+
+            recipe11 = Mod.CreateRecipe(ModContent.ItemType<Items.Weapons.BloodyRifle>(), 1);
+            recipe11.AddIngredient(ItemID.HallowedBar, 10);
+            recipe11.AddIngredient(ItemID.SoulofSight, 10);
+            recipe11.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 8);
+            recipe11.AddTile(TileID.MythrilAnvil);
+            recipe11.Register();
+
+            recipe11 = Mod.CreateRecipe(ItemID.SharpTears, 1);
+            recipe11.AddIngredient(ItemID.HallowedBar, 10);
+            recipe11.AddIngredient(ItemID.SoulofFright, 10);
+            recipe11.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 8);
+            recipe11.AddTile(TileID.MythrilAnvil);
+            recipe11.Register();
+
+            recipe11 = Mod.CreateRecipe(ItemID.BloodHamaxe, 1);
+            recipe11.AddIngredient(ItemID.HallowedBar, 10);
+            recipe11.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 8);
+            recipe11.AddTile(TileID.MythrilAnvil);
+            recipe11.Register();
+
+            recipe11 = Mod.CreateRecipe(ItemID.SanguineStaff, 1);
+            recipe11.AddIngredient(ItemID.HallowedBar, 10);
+            recipe11.AddIngredient(ItemID.SoulofMight, 5);
+            recipe11.AddIngredient(ItemID.SoulofSight, 5);
+            recipe11.AddIngredient(ItemID.SoulofFright, 5);
+            recipe11.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 10);
+            recipe11.AddTile(TileID.MythrilAnvil);
+            recipe11.Register();
         }
-       
+
     }
     public class VanillaShops : GlobalNPC
     {

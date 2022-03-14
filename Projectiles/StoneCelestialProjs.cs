@@ -63,7 +63,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
             }
         }
@@ -74,7 +74,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
             }
         }
@@ -134,7 +134,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                     
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
                 }
 
@@ -214,7 +214,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -227,7 +227,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
             }
         }
@@ -248,7 +248,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 3; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                     
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
                 }
 
@@ -307,7 +307,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
             }
             int numberProjectiles = 5 + Main.rand.Next(3); //This defines how many projectiles to shot.
@@ -328,7 +328,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
             }
         }
@@ -384,7 +384,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                     
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
                 }
 
@@ -466,7 +466,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -479,7 +479,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
             }
         }
@@ -500,7 +500,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 3; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                     
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
                 }
 
@@ -562,7 +562,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
             }
         }
@@ -573,7 +573,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
             }
         }
@@ -630,7 +630,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                     
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
                 }
 
@@ -712,7 +712,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -725,7 +725,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
             }
         }
@@ -746,7 +746,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 3; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                     
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
                 }
 
@@ -824,7 +824,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
             }
         }
@@ -835,7 +835,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
             }
         }
@@ -891,7 +891,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                     
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
                 }
 
@@ -973,7 +973,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
             }
         }
@@ -984,7 +984,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                 
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -1007,7 +1007,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 3; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(5, 5));
+                     
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
                 }
 

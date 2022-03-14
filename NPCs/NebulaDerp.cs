@@ -135,9 +135,9 @@ namespace StormDiversMod.NPCs
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
                 return;
             }
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y - 10), 20, 20, 112);
                 dust.scale = 0.5f;
             }
@@ -150,9 +150,8 @@ namespace StormDiversMod.NPCs
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore4").Type, 1f);
 
                 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 50; i++)
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 112);
                 }
                 if (NPC.ShieldStrengthTowerNebula > 0)

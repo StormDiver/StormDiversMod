@@ -99,7 +99,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Arid Knives");
-            Tooltip.SetDefault("Throw out serveral knives at once that pierce after spinning");
+            Tooltip.SetDefault("Throw out several knives that pierce after spinning");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 

@@ -85,6 +85,9 @@ namespace StormDiversMod.Basefiles
 
         public bool desertJar; //Player has the Pharoh's Urn equipped
 
+        public bool frostJar; //Player has the Frozen Urn equipped, just used to change the desert projs into frost
+
+
         public bool graniteBuff; //Player has the granite accessory equipped
 
         public bool spaceRockOffence; //Player has the Space armour with helmet equipped
@@ -127,9 +130,14 @@ namespace StormDiversMod.Basefiles
 
         public bool soulBoots; //Player has Soul Striders equipped;
 
+        public bool bloodBoots; //Player has Blood Treads equipped;
+
+
         public bool woodNecklace; //Player has the wooden necklace equipped
 
         public bool shadowflameSet; //Player has the Shadowflame armoru equipped
+
+        public bool coralEmblem; //Player has coral Emblem equipped
 
 
         //Ints and Bools activated from this file
@@ -165,6 +173,9 @@ namespace StormDiversMod.Basefiles
         public int templeWarning; //Warning until Temple Guardians spawn
         public int beetlecooldown; //Cooldown until more beetles can be summoned
         public int soundDelay; //Cooldown for boot sound
+        public int dropdust; //Cooldown for urn dust
+        public int coraldrop; //Cooldown for coral emblem drops
+
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             boulderDB = false;
@@ -194,6 +205,7 @@ namespace StormDiversMod.Basefiles
             BloodOrb = false;
             SpectreSkull = false;
             desertJar = false;
+            frostJar = false;
             graniteBuff = false;
             spaceRockOffence = false;
             spaceRockDefence = false;
@@ -215,8 +227,10 @@ namespace StormDiversMod.Basefiles
             aridCritChest = false;
             aridCritSet = false;
             soulBoots = false;
+            bloodBoots = false;
             woodNecklace = false;
             shadowflameSet = false;
+            coralEmblem = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -243,7 +257,8 @@ namespace StormDiversMod.Basefiles
             lunaticsentry = false;
             templeWarning = 0;
             skulltime = 0;
-            beetlecooldown = 0;
+            dropdust = 0;
+            coraldrop = 0;
         }
         public override bool PreItemCheck()
         {
@@ -366,7 +381,7 @@ namespace StormDiversMod.Basefiles
                 }              
             }
 
-            //Reduces ints if they are above 0======================
+            //Reduces ints if they are above 0====================== and not in the equip field
 
             if (bloodtime > 0)
             {
@@ -377,10 +392,7 @@ namespace StormDiversMod.Basefiles
                 Player.AddBuff(ModContent.BuffType<BloodBurstBuff>(), 2);
 
             }
-            if (beetlecooldown > 0)
-            {
-                beetlecooldown--;
-            }
+     
             if (hellblazetime > 0)
             {
                 hellblazetime--;
@@ -445,7 +457,7 @@ namespace StormDiversMod.Basefiles
 
             }
 
-            if (beetlecooldown == 0 && beetleFist && Player.HeldItem.CountsAsClass(DamageClass.Melee))
+            if (beetleFist && Player.HeldItem.CountsAsClass(DamageClass.Melee))
             {
                 if (Main.rand.Next(10) == 0)
                 {
@@ -455,76 +467,154 @@ namespace StormDiversMod.Basefiles
                     Main.dust[dust].velocity.Y -= 0.5f;
                 }
             }
-            
-            //For Soul Striders============================================================
-            var tilePos = Player.Bottom.ToTileCoordinates16();
-            if (soulBoots)
+            //For Spectre Skull/Flower
+            if (SpectreSkull)
             {
-             
+                if (Main.LocalPlayer.HasBuff(BuffID.ManaSickness))
+                {
+
+                    Player.manaCost *= 0f;
+
+                    Dust dust;
+                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                    Vector2 position = Main.LocalPlayer.position;
+                    dust = Main.dust[Terraria.Dust.NewDust(position, Player.width, Player.height, 15, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                    dust.noGravity = true;
+                }
+            }
+            //For Soul/Blood Striders============================================================
+            var tilePos = Player.Bottom.ToTileCoordinates16();
+            if (soulBoots || bloodBoots)
+            {
+
                 //int xboottilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
                 //int yboottilepos = (int)(Player.Bottom.Y / 16);
 
+                //SPEEDS!
                 if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
                 {
-
-                    Player.maxRunSpeed = (5f);
-                    Player.runAcceleration *= 2f;
+                    if (soulBoots)
+                    {
+                        Player.maxRunSpeed = (5f);
+                        Player.runAcceleration *= 2f;
+                    }
+                    else if (bloodBoots)
+                    {
+                        Player.maxRunSpeed = (3.5f);
+                        Player.runAcceleration *= 1.5f;
+                    }
                 }
                 else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt)//When on asphalt 
                 {
-                    Player.maxRunSpeed = (9f);
-                    Player.runAcceleration *= 3f;
+                    if (soulBoots)
+                    {
+                        Player.maxRunSpeed = (9f);
+                        Player.runAcceleration *= 3f;
+                    }
+                    else if (bloodBoots)
+                    {
+                        Player.maxRunSpeed = (6.2f);
+                        Player.runAcceleration *= 1.75f;
+                    }
                 }
-                Player.rocketBoots = 2;
+                if (soulBoots)
+                {
+                    Player.vanityRocketBoots = 2;
+                    Player.rocketBoots = 1;
+                    //Player.socialShadowRocketBoots = true;
+                }
                 Player.moveSpeed = 1;
                 if (Player.moveSpeed > 1)
                 {
                     Player.moveSpeed = 1;
 
                 }
-                if ((Player.velocity.X > 5 || Player.velocity.X < -5) && (Player.velocity.Y == 0) && (Player.controlLeft || Player.controlRight) && !Player.mount.Active)
+                //dusts and projs
+                if (soulBoots)
                 {
-                    if (Main.dayTime)
+                    if ((Player.velocity.X > 5 || Player.velocity.X < -5) && (Player.velocity.Y == 0) && (Player.controlLeft || Player.controlRight) && !Player.mount.Active)
                     {
+
+                        if (Main.dayTime)
+                        {
+                            if (Main.rand.Next(1) == 0)
+                            {
+                                Dust dust;
+                                dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 58, 0, -1);
+                                //dust.noGravity = true;
+                                dust.scale = 1.25f;
+                            }
+                        }
+                        else
+                        {
+                            if (Main.rand.Next(1) == 0)
+                            {
+                                Dust dust;
+                                dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 27, 0, -1);
+                                //dust.noGravity = true;
+                                dust.scale = 1.25f;
+                            }
+                        }
                         if (Main.rand.Next(1) == 0)
                         {
-                            Dust dust;
-                            dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 58, 0, -1);
-                            //dust.noGravity = true;
-                            dust.scale = 1.25f;
+
+
+                            int dustSmoke = Dust.NewDust(new Vector2(Player.Center.X - 4, Player.Bottom.Y - 5), 5, 5, 31, 0f, -2f, 0, default, 1f);
+                            Main.dust[dustSmoke].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustSmoke].fadeIn = 3f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustSmoke].noGravity = true;
+                            Main.dust[dustSmoke].velocity *= 0.1f;
+                        }
+                        if (!bloodBoots)//If wearing blood boots sound comes from that one
+                        {
+                            soundDelay++;
+
+                            if (soundDelay >= 6)
+                            {
+
+                                SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);
+                                soundDelay = 0;
+                            }
                         }
                     }
-                    else
+
+                }
+                if (bloodBoots)
+                {
+                    if ((Player.velocity.X > 4 || Player.velocity.X < -4) && (Player.velocity.Y == 0) && (Player.controlLeft || Player.controlRight) && !Player.mount.Active)
                     {
-                        if (Main.rand.Next(1) == 0)
+                        if (Main.rand.Next(3) == 0)
                         {
                             Dust dust;
-                            dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 27, 0, -1);
+                            dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 5, 0, -1);
                             //dust.noGravity = true;
                             dust.scale = 1.25f;
+
+
+                        }
+                        if (!soulBoots)//If wearing soul boots dust comes from that one
+                        {
+                            if (Main.rand.Next(1) == 0)
+                            {
+                                int dustSmoke = Dust.NewDust(new Vector2(Player.Center.X - 4, Player.Bottom.Y - 5), 5, 5, 31, 0f, -2f, 0, default, 1f);
+                                Main.dust[dustSmoke].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                                Main.dust[dustSmoke].fadeIn = 2f + (float)Main.rand.Next(5) * 0.1f;
+                                Main.dust[dustSmoke].noGravity = true;
+                                Main.dust[dustSmoke].velocity *= 0.1f;
+                            }
+                        }
+                        soundDelay++;
+
+                        if (soundDelay >= 6)
+                        {
+
+                            int projID = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X, Player.Bottom.Y -4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
+                            
+                                SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);
+                            
+                            soundDelay = 0;
                         }
                     }
-                    if (Main.rand.Next(1) == 0)
-                    {
-
-
-                        int dustSmoke = Dust.NewDust(new Vector2(Player.Center.X, Player.Bottom.Y - 5), 5, 5, 31, 0f, -2f, 0, default, 1f);
-                        Main.dust[dustSmoke].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
-                        Main.dust[dustSmoke].fadeIn = 3f + (float)Main.rand.Next(5) * 0.1f;
-                        Main.dust[dustSmoke].noGravity = true;
-                        Main.dust[dustSmoke].velocity *= 0.1f;
-                    }
-
-                    soundDelay++;
-                    if (soundDelay >= 6)
-                    {
-                        SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);
-                        soundDelay = 0;
-                    }
-
-
-
-
                 }
             }
 
@@ -831,7 +921,31 @@ namespace StormDiversMod.Basefiles
                 }
 
             }
+            //for Pharoh Urn
+            if (desertJar)
+            {
+                if ((Player.velocity.X > 3.5f || Player.velocity.X < -3.5f) || (Player.velocity.Y > 3.5f || Player.velocity.Y < -3.5f))
+                {
 
+                    dropdust++;
+                    if (dropdust == 4)
+                    {
+
+                        //float speedX = 0f;
+                        //float speedY = 0f;
+                        //Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(180));
+                        //float scale = 1f - (Main.rand.NextFloat() * .5f);
+                        //perturbedSpeed = perturbedSpeed * scale;
+                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.DesertJarProj>(), 35, 0, Player.whoAmI);
+                        dropdust = 0;
+
+                        //Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 13);
+
+                    }
+
+
+                }
+            }
 
             //For the Mechanical Spikes===========================
             if (primeSpin)
@@ -932,6 +1046,53 @@ namespace StormDiversMod.Basefiles
             if (!bootFall)
             {
                 falling = false;
+            }
+            //For Coral Emblem
+            if (coralEmblem)
+            {
+                if (Player.HeldItem.damage >= 1) //If the player is holding a weapon and usetime cooldown is above 1
+                {
+                    coraldrop++;
+
+                    if (coraldrop >= 60 && Player.itemTime == Player.HeldItem.useTime - 1)
+                    {
+                        for (int index = 0; index < 1; ++index)
+                        {
+                            Vector2 vector2_1 = new Vector2((float)((double)Player.position.X + (double)Player.width * 0.5 + (double)(Main.rand.Next(50) * -Player.direction) + ((double)Main.mouseX + (double)Main.screenPosition.X - (double)Player.position.X)), (float)((double)Player.position.Y + (double)Player.height * 0.5 - 600.0));   //this defines the projectile width, direction and position
+                            vector2_1.X = (float)(((double)vector2_1.X + (double)Player.Center.X) / 2.0) + (float)Main.rand.Next(-50, 51); //Spawn Spread
+                            vector2_1.Y -= (float)(100 * index);
+                            float num12 = (float)Main.mouseX + Main.screenPosition.X - vector2_1.X;
+                            float num13 = (float)Main.mouseY + Main.screenPosition.Y - vector2_1.Y;
+                            if ((double)num13 < 0.0) num13 *= -1f;
+                            if ((double)num13 < 20.0) num13 = 20f;
+                            float num14 = (float)Math.Sqrt((double)num12 * (double)num12 + (double)num13 * (double)num13);
+                            float num15 = 10 / num14;
+                            float num16 = num12 * num15;
+                            float num17 = num13 * num15;
+                            float SpeedX = num16 + (float)Main.rand.Next(-2, 2) * 0.05f;  //this defines the projectile X position speed and randomnes
+                            float SpeedY = num17 + (float)Main.rand.Next(-2, 2) * 0.05f;  //this defines the projectile Y position speed and randomnes
+                            int projID = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), ModContent.ProjectileType<OceanSpellProj>(), 25, 0.5f, Main.myPlayer, 0.0f, (float)Main.rand.Next(5));
+
+                            Main.projectile[projID].aiStyle = 0;
+                            Main.projectile[projID].DamageType = DamageClass.Generic;
+
+                            SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 21);
+                            for (int i = 0; i < 35; i++)
+                            {
+
+                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 33, 0, -3);
+                                dust.velocity *= 2;
+                                //dust.noGravity = true;
+                                dust.scale = 1.5f;
+                            }
+                        }
+                        coraldrop = 0;
+                    }
+                }
+            }
+            else
+            {
+                coraldrop = 0;
             }
             // For the Shroomite Launcher Accessory
             if (shroomaccess)
@@ -1218,7 +1379,7 @@ namespace StormDiversMod.Basefiles
             //For the Desert urn
             if (desertJar)
             {
-
+                
                 if (desertdusttime < 1 && !Player.dead)
                 {
 
@@ -1233,8 +1394,15 @@ namespace StormDiversMod.Basefiles
                         float speedX = -1f;
                         float speedY = 0f;
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles)));
-                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSpellProj>(), 15, 0, Player.whoAmI);
+                        if (!frostJar)
+                        {
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSpellProj>(), 15, 0, Player.whoAmI);
+                        }
+                        else
+                        {
+                            Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Frostthrowerproj>(), 15, 0, Player.whoAmI);
 
+                        }
                         desertdusttime = 240;
 
                     }
@@ -1443,7 +1611,7 @@ namespace StormDiversMod.Basefiles
             //for the Beetle Gauntlet
             if (beetleFist)
             {
-                if (!Player.dead && beetlecooldown == 0 && crit)
+                if (!Player.dead && crit)
                 {
 
                     SoundEngine.PlaySound(SoundID.Zombie, (int)target.Center.X, (int)target.Center.Y, 50, 2, -0.5f);
@@ -1481,7 +1649,6 @@ namespace StormDiversMod.Basefiles
 
                     }
 
-                    beetlecooldown = 10;
 
                 }
 
@@ -1552,7 +1719,7 @@ namespace StormDiversMod.Basefiles
             }
             //For the Soul Fire armour setbonus with projectiles ======================
 
-            if (hellSoulSet && hellblazetime == 0 && !proj.CountsAsClass(DamageClass.Generic))
+            if (hellSoulSet && hellblazetime == 0 && proj.type != ModContent.ProjectileType<HellSoulArmourProj>())
             {
 
                 float speedX = 0f;
@@ -1593,7 +1760,7 @@ namespace StormDiversMod.Basefiles
             if (beetleFist)
             {
 
-                if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && beetlecooldown == 0 && crit)
+                if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
                 {
                     SoundEngine.PlaySound(SoundID.Zombie, (int)target.Center.X, (int)target.Center.Y, 50, 2, -0.5f);
 
@@ -1630,7 +1797,6 @@ namespace StormDiversMod.Basefiles
 
                     }
 
-                    beetlecooldown = 10;
 
                 }
                 

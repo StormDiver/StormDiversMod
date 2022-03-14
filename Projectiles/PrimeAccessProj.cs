@@ -141,51 +141,53 @@ namespace StormDiversMod.Projectiles
         public override void AI(Projectile projectile)
         {
             var player = Main.player[projectile.owner];
-            
 
-            if (player.GetModPlayer<StormPlayer>().primeSpin == true)
-
+            if (projectile.aiStyle != 20)
             {
+                if (player.GetModPlayer<StormPlayer>().primeSpin == true)
 
-                if (projectile.hostile)
                 {
-                    if (projectile.type != ProjectileID.PhantasmalDeathray &&
-                        projectile.type != ProjectileID.SaucerDeathray &&
-                        projectile.type != ProjectileID.CultistRitual &&
-                        projectile.type != ProjectileID.CultistBossIceMist &&
-                        projectile.type != ProjectileID.CultistBossLightningOrb &&
-                        projectile.type != ProjectileID.VortexVortexPortal &&
-                        projectile.type != ProjectileID.VortexVortexLightning &&
-                        projectile.type != ProjectileID.Sharknado &&
-                        projectile.type != ProjectileID.SharknadoBolt &&
-                        projectile.type != ProjectileID.Cthulunado &&
-                        projectile.aiStyle != 10 &&
-                        projectile.aiStyle != 17 &&
-                        projectile.aiStyle != -1
-                        )
+
+                    if (projectile.hostile)
                     {
-                        //Player player = Main.player[npc.target];
-
-                        float distanceX = player.Center.X - projectile.Center.X;
-                        float distanceY = player.Center.Y - projectile.Center.Y;
-                        float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
-                        { }
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (projectile.type != ProjectileID.PhantasmalDeathray &&
+                            projectile.type != ProjectileID.SaucerDeathray &&
+                            projectile.type != ProjectileID.CultistRitual &&
+                            projectile.type != ProjectileID.CultistBossIceMist &&
+                            projectile.type != ProjectileID.CultistBossLightningOrb &&
+                            projectile.type != ProjectileID.VortexVortexPortal &&
+                            projectile.type != ProjectileID.VortexVortexLightning &&
+                            projectile.type != ProjectileID.Sharknado &&
+                            projectile.type != ProjectileID.SharknadoBolt &&
+                            projectile.type != ProjectileID.Cthulunado &&
+                            projectile.aiStyle != 10 &&
+                            projectile.aiStyle != 17 &&
+                            projectile.aiStyle != -1
+                            )
                         {
-                            if (distance >= 140 && distance <= 160 && !projCheck)
-                            {
-                                int choice = Main.rand.Next(7);
-                                if (choice == 0)
-                                {
-                                    projCheck = true;
-                                    SoundEngine.PlaySound(SoundID.NPCHit, (int)projectile.position.X, (int)projectile.position.Y, 4);
-                                    projectile.Kill();
+                            //Player player = Main.player[npc.target];
 
-                                }
-                                else
+                            float distanceX = player.Center.X - projectile.Center.X;
+                            float distanceY = player.Center.Y - projectile.Center.Y;
+                            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+
+                            { }
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                if (distance >= 140 && distance <= 160 && !projCheck)
                                 {
-                                    projCheck = true;
+                                    int choice = Main.rand.Next(7);
+                                    if (choice == 0)
+                                    {
+                                        projCheck = true;
+                                        SoundEngine.PlaySound(SoundID.NPCHit, (int)projectile.position.X, (int)projectile.position.Y, 4);
+                                        projectile.Kill();
+
+                                    }
+                                    else
+                                    {
+                                        projCheck = true;
+                                    }
                                 }
                             }
                         }

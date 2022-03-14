@@ -211,7 +211,7 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 3; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 173);
                 dust.scale = 0.5f;
 

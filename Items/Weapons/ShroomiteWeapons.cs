@@ -93,20 +93,20 @@ namespace StormDiversMod.Items.Weapons
 
             {
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
+                    //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
                     if (accuracy == 0)//When at full accuracy damage and knockback of the projectile is increased by 10%
                     {
                         if (type == ProjectileID.Bullet)
                             {
                                 type = ProjectileID.BulletHighVelocity;
                             }
-                        Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, (int)(damage * 1.15f), knockback * 2, player.whoAmI);
+                        Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.15f), knockback * 2, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40, 1, 0.5f);
 
                     }
                     else
                     {
-                        Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                        Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
 
                     }
@@ -118,7 +118,10 @@ namespace StormDiversMod.Items.Weapons
             return false;
 
         }
-
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(accuracy));
+        }
 
         public override bool CanConsumeAmmo(Player player)
         {

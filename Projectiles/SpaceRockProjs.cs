@@ -26,7 +26,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             Projectile.hostile = false;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
             Projectile.timeLeft = 60;
             Projectile.extraUpdates = 2;
             Projectile.scale = 1f;
@@ -81,7 +81,6 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Projectile.Kill();
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

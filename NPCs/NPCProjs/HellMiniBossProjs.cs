@@ -52,13 +52,11 @@ namespace StormDiversMod.NPCs.NPCProjs
             DrawOriginOffsetY = 0;
         }
 
-        int speedup;
         public override void AI()
         {
+            Projectile.ai[0]++;
 
-
-            speedup++;
-            if (speedup <= 20)
+            if (Projectile.ai[0] <= 20)
             {
                 Projectile.velocity.X *= 1.06f;
                 Projectile.velocity.Y *= 1.06f;
@@ -180,12 +178,10 @@ namespace StormDiversMod.NPCs.NPCProjs
 
 
 
-        int hometime;
         public override void AI()
         {
 
-
-            hometime++;
+            Projectile.ai[0]++;
 
             Projectile.rotation = Projectile.velocity.X / 20;
 
@@ -199,7 +195,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             //Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
            
-            if (hometime >= 30 && hometime <= 180)
+            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 180)
             {
 
                 for (int i = 0; i < 100; i++)

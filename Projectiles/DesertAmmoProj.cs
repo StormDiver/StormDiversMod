@@ -58,7 +58,7 @@ namespace StormDiversMod.Projectiles
                     for (int i = 0; i < 10; i++)
                     {
 
-                        Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                         
                         var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 10);
                         dust2.noGravity = true;
                     }
@@ -84,7 +84,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 54);
                 dust2.noGravity = true;
             }
@@ -158,7 +158,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 54);
                 dust2.noGravity = true;
             }
@@ -267,7 +267,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 54);
                 dust2.noGravity = true;
             }

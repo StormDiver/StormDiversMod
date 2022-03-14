@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
+using StormDiversMod.Basefiles;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -21,6 +22,12 @@ namespace StormDiversMod.Items.Weapons
             Tooltip.SetDefault("Summons damaging souls around the cursor");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
+            {
+                Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
+                Color = () => new Color(255, 255, 255, 50) * 0.7f
+            });
         }
         public override void SetDefaults()
         {
@@ -30,8 +37,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 12;
-            Item.useAnimation = 12;
+            Item.useTime = 10;
+            Item.useAnimation = 30;
             Item.useTurn = false;
             //Item.channel = true;
             Item.DamageType = DamageClass.Magic;
@@ -46,7 +53,7 @@ namespace StormDiversMod.Items.Weapons
             
             Item.shootSpeed = 1f;
 
-            Item.mana = 8;
+            Item.mana = 14;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -152,9 +159,13 @@ namespace StormDiversMod.Items.Weapons
             .Register();
 
         }
-        public override Color? GetAlpha(Color lightColor)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            return Color.White;
+
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/SoulStaff_Glow");
+
+            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
+                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
 
     }

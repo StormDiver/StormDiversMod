@@ -218,7 +218,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 50; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 187);
                 dust2.noGravity = true;
             }
@@ -231,6 +231,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost Stream");
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {

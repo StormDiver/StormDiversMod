@@ -86,7 +86,7 @@ namespace StormDiversMod.NPCs
             SoundEngine.PlaySound(SoundID.NPCKilled, (int)NPC.Center.X, (int)NPC.Center.Y, 7);
             for (int i = 0; i < 10; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X, NPC.Center.Y), 5, 5, 111);
             }
             
@@ -115,7 +115,7 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 2; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 111);
                 dust.scale = 0.5f;
             }
@@ -127,7 +127,7 @@ namespace StormDiversMod.NPCs
                 
                 for (int i = 0; i < 10; i++)
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                     
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 111);
                 }
             }

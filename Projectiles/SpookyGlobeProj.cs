@@ -124,8 +124,6 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 600);
 
 
-            Projectile.Kill();
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

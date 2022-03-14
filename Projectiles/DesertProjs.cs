@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Projectiles
 {
@@ -27,13 +28,14 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 600;
            
             Projectile.tileCollide = true;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 3;
             Projectile.DamageType = DamageClass.Ranged;           
             Projectile.arrow = true;
             AIType = ProjectileID.WoodenArrowFriendly;
-            
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+
         }
-        int dropdust = 10;
         public override void AI()
         {
             if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
@@ -44,13 +46,11 @@ namespace StormDiversMod.Projectiles
                 
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
             }
-            dropdust--;
             if ((Projectile.velocity.X >= 3 || Projectile.velocity.X <= -3))
-                if (Main.rand.Next(13) == 0)
+                if (Main.rand.Next(12) == 0)
                 {
               
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 3), ModContent.ProjectileType<DesertArrowDust>(), (int)(Projectile.damage * 0.7), Projectile.knockBack, Projectile.owner);
-                    dropdust = 10;
+                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 2.5f), ModContent.ProjectileType<DesertArrowDust>(), (int)(Projectile.damage * 0.7), Projectile.knockBack, Projectile.owner);
             }
 
         }
@@ -60,6 +60,8 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
+            Projectile.damage = (Projectile.damage * 8) / 10;
+
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
 
@@ -75,8 +77,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 138);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 10);
             }
 
         }
@@ -399,13 +400,16 @@ namespace StormDiversMod.Projectiles
         }
 
         public override void AI()
-        { 
+        {
+
             Projectile.velocity.X = 0;
             Projectile.velocity.Y = 0;
             Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            var player = Main.player[Projectile.owner];
 
-            if (Projectile.ai[0] > 0f)  //this defines where the flames starts
+            if (player.GetModPlayer<StormPlayer>().frostJar == false) //Will change to frost if the player has the Frozen jar
             {
+
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
@@ -417,18 +421,47 @@ namespace StormDiversMod.Projectiles
             }
             else
             {
-                Projectile.ai[0] += 1f;
+
+                if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 2.5f;
+                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
+                }
             }
+
             return;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
+            var player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<StormPlayer>().frostJar == false)
+            {
+                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
+            }
+            else
+            {
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+
+            }
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
 
         {
+            var player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<StormPlayer>().frostJar == false)
+            {
+                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
+            }
+            else
+            {
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+
+            }
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)

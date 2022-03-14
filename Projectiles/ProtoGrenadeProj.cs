@@ -207,7 +207,6 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 5; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-10, -10), Main.rand.NextFloat(10, 10));
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
                 }
 

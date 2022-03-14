@@ -103,19 +103,6 @@ namespace StormDiversMod.Projectiles
 
         }
     
-        /*public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            
-            Player player = Main.player[Projectile.owner];
-           
-                player.AddBuff(mod.BuffType("TurtleBuff"), 120);
-
-            
-            if (Main.rand.Next(4) == 0)
-            {
-                target.AddBuff(mod.BuffType("TurtleDebuff"), 300);
-            }
-        }*/
 
     }
     //________________________________________________________________________________________________________________
@@ -224,7 +211,6 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-10, -10), Main.rand.NextFloat(10, 10));
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 186);
                 dust.noGravity = true;
             }
@@ -276,7 +262,6 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-10, -10), Main.rand.NextFloat(10, 10));
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 186);
                 dust.noGravity = true;
             }
@@ -293,7 +278,6 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 25; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-20, -20), Main.rand.NextFloat(20, 20));
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 186);
                 }
 
@@ -453,7 +437,6 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 7; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-10, -10), Main.rand.NextFloat(10, 10));
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 186);
 
                     dust.noGravity = true;
@@ -492,7 +475,7 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 12;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
-            //Projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee;
             Projectile.timeLeft = 300;
 
             Projectile.scale = 1f;
@@ -600,7 +583,6 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<Buffs.BeetleDebuff>(), 180);
                 //Main.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 50);
             }
-            Projectile.Kill();
         }
 
         public override void Kill(int timeLeft)
@@ -612,7 +594,6 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 3; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-10, -10), Main.rand.NextFloat(10, 10));
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 186);
 
                     dust.noGravity = true;

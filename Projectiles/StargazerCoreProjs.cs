@@ -199,6 +199,8 @@ namespace StormDiversMod.Projectiles
             DisplayName.SetDefault("Stargazer Laser");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {

@@ -382,7 +382,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 45;
+            Item.damage = 50;
             Item.knockBack = 3f;
             Item.mana = 10;
             Item.width = 32;

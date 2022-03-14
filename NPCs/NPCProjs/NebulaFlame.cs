@@ -30,12 +30,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void AI()
         {
             Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-            if (Projectile.timeLeft > 125)
-            {
-                Projectile.timeLeft = 125;
-            }
-            if (Projectile.ai[0] > 0.1f)  //this defines where the flames starts
-            {
+          
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 27, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
@@ -45,11 +40,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                     Main.dust[dust2].noGravity = true;
                     Main.dust[dust2].velocity *= -1f;
                 }
-            }
-            else
-            {
-                Projectile.ai[0] += 1f;
-            }
+           
             return;
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)

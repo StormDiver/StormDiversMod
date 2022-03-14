@@ -74,14 +74,16 @@ namespace StormDiversMod.Items.Weapons
 
             for (int i = 0; i < 1; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5)); 
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
 
             }
 
             return false;
         }
-
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+        }
         public override bool CanConsumeAmmo(Player player)
         {
             return Main.rand.NextFloat() >= .5f;

@@ -307,8 +307,8 @@ namespace StormDiversMod.Projectiles
         public override void SetDefaults()
         {
 
-            Projectile.width = 28;
-            Projectile.height = 28;
+            Projectile.width = 34;
+            Projectile.height = 34;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Melee;
@@ -475,53 +475,53 @@ namespace StormDiversMod.Projectiles
            
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            
            
+
             // This custom OnTileCollide code makes the projectile bounce off tiles at 1/5th the original speed, and plays sound and spawns dust if the projectile was going fast enough.
-           /* bool shouldMakeSound = false;
+            /* bool shouldMakeSound = false;
 
-            if (oldVelocity.X != Projectile.velocity.X)
-            {
-                if (Math.Abs(oldVelocity.X) > 4f)
-                {
-                    shouldMakeSound = true;
-                }
+             if (oldVelocity.X != Projectile.velocity.X)
+             {
+                 if (Math.Abs(oldVelocity.X) > 4f)
+                 {
+                     shouldMakeSound = true;
+                 }
 
-                Projectile.position.X += Projectile.velocity.X;
-                Projectile.velocity.X = -oldVelocity.X * 0.2f;
-            }
+                 Projectile.position.X += Projectile.velocity.X;
+                 Projectile.velocity.X = -oldVelocity.X * 0.2f;
+             }
 
-            if (oldVelocity.Y != Projectile.velocity.Y)
-            {
-                if (Math.Abs(oldVelocity.Y) > 4f)
-                {
-                    shouldMakeSound = true;
-                }
+             if (oldVelocity.Y != Projectile.velocity.Y)
+             {
+                 if (Math.Abs(oldVelocity.Y) > 4f)
+                 {
+                     shouldMakeSound = true;
+                 }
 
-                Projectile.position.Y += Projectile.velocity.Y;
-                Projectile.velocity.Y = -oldVelocity.Y * 0.2f;
-            }
+                 Projectile.position.Y += Projectile.velocity.Y;
+                 Projectile.velocity.Y = -oldVelocity.Y * 0.2f;
+             }
 
-            // ai[0] == 1 is used in AI to represent that the projectile has hit a tile since spawning
-            Projectile.ai[0] = 1f;
+             // ai[0] == 1 is used in AI to represent that the projectile has hit a tile since spawning
+             Projectile.ai[0] = 1f;
 
-            if (shouldMakeSound)
-            {
-                // if we should play the sound..
-                Projectile.netUpdate = true;
-                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                // Play the sound
-                SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y);
-            }
-           */
+             if (shouldMakeSound)
+             {
+                 // if we should play the sound..
+                 Projectile.netUpdate = true;
+                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+                 // Play the sound
+                 SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y);
+             }
+            */
             return true;
         }
         public override bool PreDraw(ref Color lightColor)
         {
             
-            /*var player = Main.player[Projectile.owner];
+           /* var player = Main.player[Projectile.owner];
 
-            Vector2 mountedCenter = player.MountedCenter;
+            Vector2 mountedCenter = player.MountedCenter + new Vector2(4 * player.direction, 6);
             Texture2D chainTexture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/DestroyerFlailChain");
 
             var drawPosition = Projectile.Center;
@@ -556,8 +556,8 @@ namespace StormDiversMod.Projectiles
                 // Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section
                 Color color = Lighting.GetColor((int)drawPosition.X / 16, (int)(drawPosition.Y / 16f));
                 Main.EntitySpriteDraw(chainTexture, drawPosition - Main.screenPosition, null, color, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0);
-            }*/
-
+            }
+           */
             return true;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -869,7 +869,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 5);
             }
         }

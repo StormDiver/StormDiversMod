@@ -60,7 +60,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                     
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
                 }
                 if (Projectile.owner == Main.myPlayer)
@@ -94,7 +94,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
                 //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 60);
             }
@@ -109,7 +109,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
                 dust.noGravity = true;
             }
@@ -125,7 +125,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
             }*/
 
@@ -181,7 +181,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
                 
             }

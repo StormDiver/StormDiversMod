@@ -188,7 +188,7 @@ namespace StormDiversMod.NPCs
 
             for (int i = 0; i < 3; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y - 10), 20, 20, 5);
                 dust.alpha = 150;
             }
@@ -197,7 +197,7 @@ namespace StormDiversMod.NPCs
                 
                 for (int i = 0; i < 10; i++)
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                     
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 5);
                     dust.alpha = 150;
                 }

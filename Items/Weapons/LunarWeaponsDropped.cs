@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 2;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Red;
-            Item.shootSpeed = 20f;
+            Item.shootSpeed = 17f;
             Item.shoot = ModContent.ProjectileType<Projectiles.SelenianBladeProj>();
             Item.UseSound = SoundID.Item7;
             Item.autoReuse = true;

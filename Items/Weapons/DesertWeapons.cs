@@ -27,8 +27,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
 			Item.height = 50;
-			Item.useTime = 26;
-			Item.useAnimation = 26;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.Pink;
@@ -74,7 +74,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Fury");
-            Tooltip.SetDefault("Converts all arrows to Forbidden arrows that rain down the heat of the Desert");
+            Tooltip.SetDefault("Converts all arrows to Ancient Forbidden arrows that rain down the heat of the Desert");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -85,8 +85,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.Pink;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 28;
-            Item.useAnimation = 28;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
             Item.useTurn = false;
             Item.autoReuse = true;
 

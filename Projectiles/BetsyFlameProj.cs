@@ -104,7 +104,6 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
 
 
-            Projectile.Kill();
         }
 
         public override void Kill(int timeLeft)

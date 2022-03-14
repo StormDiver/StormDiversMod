@@ -133,7 +133,7 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 3; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 6);
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
@@ -148,9 +148,9 @@ namespace StormDiversMod.NPCs
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore4").Type, 1f);
 
                
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 30; i++)
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
+                     
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 6);
                 }
 

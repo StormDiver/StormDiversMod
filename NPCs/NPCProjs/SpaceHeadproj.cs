@@ -36,7 +36,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.localNPCHitCooldown = 10;
            
         }
-        int charge = 0;
         public override bool? CanDamage() => false;
 
        
@@ -47,10 +46,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.velocity.Y *= 0.9f;
             rotate += 1;
             Projectile.rotation = rotate * 0.1f;
-  
 
 
-            charge++;
+            Projectile.ai[0]++;
             if (Main.rand.Next(7) == 0)     //this defines how many dust to spawn
             {
 
@@ -67,7 +65,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 0, default, 0.5f);
             }
 
-            if (charge == 60)
+            if (Projectile.ai[0] == 60)
             {
                
                
@@ -117,7 +115,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 27);
                 dust.noGravity = true;
             }
@@ -133,7 +131,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
             }*/
 

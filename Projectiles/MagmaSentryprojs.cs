@@ -206,6 +206,7 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Magma Fire Orb");
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
 
         }
         public override void SetDefaults()

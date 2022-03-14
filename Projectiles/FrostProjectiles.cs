@@ -168,6 +168,7 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ownerHitCheck = true;
+            Projectile.extraUpdates = 1;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -194,7 +195,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.soundDelay <= 0)
             {
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 7);
-                Projectile.soundDelay = 45;
+                Projectile.soundDelay = 60;
             }
 
             Player player = Main.player[Projectile.owner];
@@ -209,7 +210,7 @@ namespace StormDiversMod.Projectiles
             Projectile.Center = player.MountedCenter;
             Projectile.position.X += player.width / 2 * player.direction;
             Projectile.spriteDirection = player.direction;
-            Projectile.rotation += 0.2f * player.direction;
+            Projectile.rotation += 0.15f * player.direction;
             /* if (Projectile.rotation > MathHelper.TwoPi)
              {
                  Projectile.rotation -= MathHelper.TwoPi;
@@ -525,7 +526,6 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-10, -10), Main.rand.NextFloat(10, 10));
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 135);
                 }
 

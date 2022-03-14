@@ -210,18 +210,18 @@ namespace StormDiversMod.Items.Armour
         {
             var player = Main.player[projectile.owner];
 
-            if (player.GetModPlayer<StormPlayer>().shadowflameSet == true)
+            /*if (player.GetModPlayer<StormPlayer>().shadowflameSet == true)
             {
                 if (projectile.aiStyle == 165)
                 {
-                   /* if (Main.rand.Next(4) == 0)
+                    if (Main.rand.Next(4) == 0)
                     {
                         var dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 65, 0, -3);
                         dust.scale = 1.3f;
                         dust.noGravity = true;
-                    }*/
+                    }
                 }
-            }
+            }*/
 
         }
     }

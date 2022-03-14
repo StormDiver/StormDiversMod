@@ -267,7 +267,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 36;
             Item.autoReuse = true;
 
-            Item.damage = 38;
+            Item.damage = 45;
             Item.knockBack = 2f;
             Item.UseSound = SoundID.Item43;
 

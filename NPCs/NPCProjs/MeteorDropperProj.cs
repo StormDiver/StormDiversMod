@@ -87,14 +87,6 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void Kill(int timeLeft)
         {
 
-/*
-
-            for (int i = 0; i < 10; i++)
-            {
-
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
-            }*/
 
         }
         

@@ -137,6 +137,7 @@ namespace StormDiversMod.Projectiles.Minions
 			// Starting search distance
 			Vector2 targetCenter = Projectile.position;
 			bool foundTarget = false;
+			Vector2 targetNPC = Projectile.position; //Shooting at enemy
 
 			// This code is required if your minion weapon has the targeting feature
 			if (player.HasMinionAttackTargetNPC)
@@ -147,6 +148,8 @@ namespace StormDiversMod.Projectiles.Minions
 				if (between < 2000f)
 				{
 					targetCenter = npc.Center + new Vector2(0, -120);
+					targetNPC = npc.Center + new Vector2(0, 0);
+
 					foundTarget = true;
 				}
 			}
@@ -171,6 +174,8 @@ namespace StormDiversMod.Projectiles.Minions
 							if ((lineOfSight || closeThroughWall) && npcDistance < 750)
 							{
 								targetCenter = npc.Center + new Vector2(0, -120);
+								targetNPC = npc.Center + new Vector2(0, 0);
+
 								foundTarget = true;
 							}
 						}
@@ -183,14 +188,17 @@ namespace StormDiversMod.Projectiles.Minions
 
 
 			// Default movement parameters (here for attacking)
-			float speed = 8f;
+			float speed = 12f;
 			float inertia = 50f;
 
 			if (foundTarget)
 			{
-				shootime++;
+				if (Collision.CanHit(Projectile.Center, 0, 0, targetNPC, 0, 0))
+				{
+					shootime++;
+				}
 				// Minion has a target: attack (here, fly towards the enemy)
-				if (Vector2.Distance(Projectile.Center, targetCenter) > 50f)
+				if (Vector2.Distance(Projectile.Center, targetCenter) > 30f)
 				{
 					// The immediate range around the target (so it doesn't latch onto it when close)
 					Vector2 direction = targetCenter - Projectile.Center;
@@ -198,22 +206,24 @@ namespace StormDiversMod.Projectiles.Minions
 					direction *= speed;
 					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
 
-					/*float shootToX = Main.MouseWorld.X - Projectile.Center.X;
-					float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
-					float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-					bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
-
-
-					distance = 3f / distance;
-					shootToX *= distance * 7;
-					shootToY *= distance * 7;*/
-
+					
 				}
-				if (shootime > 60 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
+				//Getting the shooting trajectory
+				float shootToX = targetNPC.X - Projectile.Center.X;
+				float shootToY = targetNPC.Y - Projectile.Center.Y;
+				float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+
+				if (shootime > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
 				{
 					if (!Main.dedServ)
 					{
-						Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+						distance = 1.6f / distance;
+
+						//Multiplying the shoot trajectory with distance times a multiplier if you so choose to
+						shootToX *= distance * 9f;
+						shootToY *= distance * 9f;
+
+						Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
 
 						for (int i = 0; i < 10; i++)
 						{
@@ -333,14 +343,11 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.light = 0.4f;
 			Projectile.scale = 1f;
 			Projectile.aiStyle = 0;
-			//drawOffsetX = -9;
-			//drawOriginOffsetY = -9;
-			//Projectile.DamageType = DamageClass.Summon;
+		
+			Projectile.DamageType = DamageClass.Summon;
 		
 		}
-		int homein = 0;
-		Vector2 newMove;
-
+	
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
@@ -352,63 +359,10 @@ namespace StormDiversMod.Projectiles.Minions
 			dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 173, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f, 0, new Color(255, 255, 255), 1f)];
 			dust.noGravity = true;
 			dust.scale = 0.8f;
-			homein++;
-			Player player = Main.player[Projectile.owner];
-			if (homein < 10)
-			{
-				if (Projectile.localAI[0] == 0f)
-				{
-					AdjustMagnitude(ref Projectile.velocity);
-					Projectile.localAI[0] = 1f;
-				}
-				Vector2 move = Vector2.Zero;
-				float distance = 1000f;
-				bool target = false;
-
-				for (int k = 0; k < 200; k++)
-				{
-					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
-					{
-						if (player.HasMinionAttackTargetNPC)
-						{
-
-							newMove = Main.npc[player.MinionAttackTargetNPC].Center - Projectile.Center;
-						}
-						else
-						{
-							newMove = Main.npc[k].Center - Projectile.Center;
-						}
-
-
-						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-						if (distanceTo < distance)
-						{
-							move = newMove;
-							distance = distanceTo;
-							target = true;
-						}
-
-					}
-				}
-				if (target)
-				{
-					AdjustMagnitude(ref move);
-					Projectile.velocity = (20 * Projectile.velocity + move) / 20f;
-					AdjustMagnitude(ref Projectile.velocity);
-				}
-			}
+	
+			
 		}
-		private void AdjustMagnitude(ref Vector2 vector)
-		{
-			if (homein < 10)
-			{
-				float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-				if (magnitude > 40f)
-				{
-					vector *= 40f / magnitude;
-				}
-			}
-		}
+	
 		
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -416,7 +370,6 @@ namespace StormDiversMod.Projectiles.Minions
 
 			target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 120);
 
-			Projectile.Kill();
 		}
 		public override void OnHitPvp(Player target, int damage, bool crit)
 		{
@@ -449,7 +402,15 @@ namespace StormDiversMod.Projectiles.Minions
 				Projectile.frameCounter = 0;
 			}
 		}
-		
+
+		public override Color? GetAlpha(Color lightColor)
+		{
+
+			Color color = Color.White;
+			color.A = 150;
+			return color;
+
+		}
 
 	}
 }

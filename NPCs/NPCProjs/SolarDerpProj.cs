@@ -82,7 +82,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             for (int i = 0; i < 10; i++)
             {
 
-                Vector2 vel = new Vector2(Main.rand.NextFloat(4, 4), Main.rand.NextFloat(-4, -4));
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 244);
                 //Main.PlaySound(SoundID.NPCHit, (int)Projectile.Center.X, (int)Projectile.Center.Y, 3);
             }

@@ -37,10 +37,9 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 34;
             Item.value = Item.sellPrice(0, 3, 0, 0);
             Item.rare = ItemRarityID.Pink;
-            Item.crit = 4;
            
             Item.knockBack = 6f;
-            Item.damage = 65;
+            Item.damage = 70;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item1;
             Item.DamageType = DamageClass.Melee;

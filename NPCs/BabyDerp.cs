@@ -9,9 +9,10 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.NPCs.Banners;
 using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
+using Terraria.Audio;
+
 
 namespace StormDiversMod.NPCs
-
 {
     public class BabyDerp : ModNPC
     {
@@ -35,8 +36,8 @@ namespace StormDiversMod.NPCs
             NPC.defense = 5;
             NPC.lifeMax = 100;
             
-            NPC.HitSound = SoundID.NPCHit22;
-            NPC.DeathSound = SoundID.NPCDeath25;
+            //NPC.HitSound = SoundID.NPCHit22;
+            //NPC.DeathSound = SoundID.NPCDeath25;
             NPC.knockBackResist = 1f;
             NPC.value = Item.buyPrice(0, 0, 0, 1);
 
@@ -77,6 +78,13 @@ namespace StormDiversMod.NPCs
     
         public override void HitEffect(int hitDirection, double damage)
         {
+            SoundEngine.PlaySound(SoundID.NPCHit, (int)NPC.Center.X, (int)NPC.Center.Y, 22, 1, 0.4f);
+            if (NPC.life <= 0)          //this make so when the NPC has 0 life(dead) he will spawn this
+            {
+                SoundEngine.PlaySound(SoundID.NPCKilled, (int)NPC.Center.X, (int)NPC.Center.Y, 25, 1, 0.5f);
+
+            }
+
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
@@ -84,20 +92,18 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 3; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 68);
                 dust.scale = 0.5f;
             }
+
             if (NPC.life <= 0)          //this make so when the NPC has 0 life(dead) he will spawn this
             {
-
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("BabyDerpGore1").Type, 1f);   
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("BabyDerpGore2").Type, 1f);   
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("BabyDerpGore3").Type, 1f);   
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("BabyDerpGore4").Type, 1f);  
                 for (int i = 0; i < 10; i++)
                 {
-                    Vector2 vel = new Vector2(Main.rand.NextFloat(-2, -2), Main.rand.NextFloat(2, 2));
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 68);
                 }
             }

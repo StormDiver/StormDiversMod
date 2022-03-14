@@ -264,7 +264,6 @@ namespace StormDiversMod.NPCs
 
             for (int i = 0; i < 2; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(-5, -5), Main.rand.NextFloat(10, 10));
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 25);
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) they will spawn this

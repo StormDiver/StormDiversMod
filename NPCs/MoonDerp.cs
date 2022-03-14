@@ -78,7 +78,6 @@ namespace StormDiversMod.NPCs
             return SpawnCondition.Sky.Chance * 0f;
         }
 
-        int shoottime = 0; // Counts up to shoot the bolts
         int shootspeed = 0; // TIem between the 2 shots
         int eyetime = 0; // Counts up to fire the Eyes
         bool halflife3 = false; //When below half health enter second phase
@@ -132,14 +131,16 @@ namespace StormDiversMod.NPCs
                 NPC.spriteDirection = 1;
                 NPC.direction = 1;
             }
-            else
+            else if (player.position.X < NPC.position.X)
             {
                 NPC.spriteDirection = -1;
                 NPC.direction = -1;
 
             }
-            //NPC.spriteDirection = NPC.direction;
-
+            else
+            {
+                NPC.spriteDirection = NPC.direction;
+            }
             NPC.TargetClosest();
                 Vector2 moveTo = player.Center;
                 Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]); //Postion around player
@@ -335,12 +336,15 @@ namespace StormDiversMod.NPCs
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
                 Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore5").Type, 1f);
                 choice = Main.rand.Next(4);
-                
-                    for (int i = 0; i < 10; i++)
+
+                for (int i = 0; i < 25; i++)
                 {
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 265);
                 }
-
+                for (int i = 0; i < 25; i++)
+                {
+                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 229);
+                }
 
 
             }

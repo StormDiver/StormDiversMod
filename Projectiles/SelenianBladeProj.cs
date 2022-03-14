@@ -81,7 +81,7 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(BuffID.Daybreak, 300);
             for (int i = 0; i < 10; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(target.position, target.width, target.height, 6);
                 dust.scale = 2f;
                 dust.noGravity = true;
@@ -99,7 +99,7 @@ namespace StormDiversMod.Projectiles
             //Main.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 2);
             for (int i = 0; i < 10; i++)
             {
-                Vector2 vel = new Vector2(Main.rand.NextFloat(20, 20), Main.rand.NextFloat(-20, -20));
+                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
                 dust.scale = 2f;
                 dust.noGravity = true;
