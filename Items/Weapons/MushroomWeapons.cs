@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shrooword");
-            Tooltip.SetDefault("Fires out a spinning mushroom each spin\n'There's not mushroom to stand around'");
+            Tooltip.SetDefault("Summons a spinning mushroom onto attacked enemies\n'There's not mushroom to stand around'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -54,7 +54,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
+            //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
 
             return false;
         }
@@ -70,7 +70,8 @@ namespace StormDiversMod.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-           
+            Projectile.NewProjectile(null, new Vector2(player.Center.X + (50 * -player.direction), player.Center.Y - 100), new Vector2(-30 * -player.direction, 25), ProjectileID.Mushroom, (int)(damage * 0.66f), 1, player.whoAmI);
+            
         }
         public override void OnHitPvp(Player player, Player target, int damage, bool crit)
         {

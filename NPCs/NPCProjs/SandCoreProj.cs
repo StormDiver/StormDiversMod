@@ -22,7 +22,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.hostile = true;
             Projectile.ignoreWater = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 120;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;

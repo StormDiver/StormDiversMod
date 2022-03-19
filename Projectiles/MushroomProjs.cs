@@ -156,8 +156,16 @@ namespace StormDiversMod.Projectiles
 
                      
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 113);
-                    dust.velocity *= 0.5f;
+                    dust.velocity *= 0.3f;
 
+                }
+                for (int i = 0; i < 15; i++)
+                {
+
+                    int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1f);
+                    Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dustIndex].noGravity = true;
                 }
                 SoundEngine.PlaySound(SoundID.Item, Projectile.position, 8);
 
@@ -204,7 +212,7 @@ namespace StormDiversMod.Projectiles
                 {
 
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 113);
-                    dust.velocity *= 0.1f;
+                    dust.velocity *= 0.3f;
                 }
                 for (int i = 0; i < 15; i++)
                 {

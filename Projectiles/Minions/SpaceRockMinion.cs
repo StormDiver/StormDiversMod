@@ -44,7 +44,7 @@ namespace StormDiversMod.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Asteroid Minion");
-            Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
@@ -76,8 +76,6 @@ namespace StormDiversMod.Projectiles.Minions
             return true;
         }
         int dustspeed;
-        int projspeed;
-        int frameSpeed = 20;
 
         public override bool? CanCutTiles()
         {
@@ -104,7 +102,7 @@ namespace StormDiversMod.Projectiles.Minions
 
             // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
             // The index is Projectile.minionPos
-            float minionPositionOffsetX = (10 + Projectile.minionPos * 20) * -player.direction;
+            float minionPositionOffsetX = (25 + Projectile.minionPos * 20) * -player.direction;
             idlePosition.X += minionPositionOffsetX; // Go behind the player
 
 
@@ -187,12 +185,15 @@ namespace StormDiversMod.Projectiles.Minions
             // Default movement parameters (here for attacking)
             float speed = 25f;
             float inertia = 5f;
-
+            if (Projectile.ai[0] <= 6)
+            {
+                Projectile.ai[0] += 1; //Fix issue where minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
+            }
             if (foundTarget)
             {
                 
                 // Minion has a target: attack (here, fly towards the enemy)
-                if (Vector2.Distance(Projectile.Center, targetCenter) > 150f)
+                if (Vector2.Distance(Projectile.Center, targetCenter) > 150f || Projectile.ai[0] <= 5)
                 {
                     // The immediate range around the target (so it doesn't latch onto it when close)
                     Vector2 direction = targetCenter - Projectile.Center;
@@ -204,7 +205,10 @@ namespace StormDiversMod.Projectiles.Minions
                 }
                 else
                 {
-                    Projectile.velocity *= 1.02f; //Small little boost so that it doesn't slow down
+                   
+                        Projectile.velocity *= 1.02f; //Small little boost so that it doesn't slow down
+                    
+                 
                 }
             }
             else
@@ -243,46 +247,63 @@ namespace StormDiversMod.Projectiles.Minions
             }
 
 
-            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
+            Projectile.ai[1]++;
+            Projectile.localAI[0]++;
 
-            projspeed++;
-     
-            if (Projectile.velocity.X > 7 || Projectile.velocity.X < -7 || Projectile.velocity.Y > 7 || Projectile.velocity.Y < -7)
+            if (Projectile.velocity.X > 7 || Projectile.velocity.X < -7 || Projectile.velocity.Y > 7 || Projectile.velocity.Y < -7) //When moving fast, ie. charging, face direction moving and have tail
             {
                 dustspeed = 1;
-                frameSpeed = 5;
-            }
-            else
-            {
-                dustspeed = 5;
-                frameSpeed = 10;
 
+                Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+
+                Projectile.frameCounter++;
+               
+                if (Projectile.frameCounter >= 8)
+                {
+                    Projectile.frameCounter = 0;
+                    Projectile.frame++;
+                    
+                }
+                if (Projectile.frame <= 3 || Projectile.frame >= 8)
+                {
+                    Projectile.frame = 4;
+                }
+            }
+            else //when moving slow, spin and have no tail
+            {
+                dustspeed = 10;
+
+                Projectile.rotation = Projectile.localAI[0] * 0.5f;
+               
+                Projectile.frameCounter++;
+                if (Projectile.frameCounter >= 8)
+                {
+                    Projectile.frameCounter = 0;
+                    Projectile.frame++;
+                  
+                }
+                if (Projectile.frame >= 4)
+                {
+                    Projectile.frame = 0;
+                }
             }
             if (!Main.dedServ)
             {
 
                 if (Main.rand.Next(dustspeed) == 0)     //this defines how many dust to spawn
                 {
-
-                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
-                    dust2.noGravity = true;
-                    dust2.scale = 1.5f;
-                    dust2.velocity *= 1;
-
+                    for (int i = 0; i < 2; i++)
+                    {
+                        var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
+                        dust2.noGravity = true;
+                        dust2.scale = 1.5f;
+                        dust2.velocity *= 1;
+                    }
                 }
             }
      
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= frameSpeed)
-            {
-                Projectile.frameCounter = 0;
-                Projectile.frame++;
-                if (Projectile.frame >= Main.projFrames[Projectile.type])
-                {
-                    Projectile.frame = 0;
-                }
-            }
+           
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -295,7 +316,7 @@ namespace StormDiversMod.Projectiles.Minions
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1.5f);
                     dust.noGravity = true;
                 }
-                if (projspeed >= 90)
+                if (Projectile.ai[1] >= 90)
                 {
                     if (Main.rand.Next(2) == 0)
                     {
@@ -307,7 +328,7 @@ namespace StormDiversMod.Projectiles.Minions
                         Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Right.X - 200, target.Center.Y - 200), new Vector2(15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
 
                     }
-                    projspeed = 0;
+                    Projectile.ai[1] = 0;
                 }
             }
         }

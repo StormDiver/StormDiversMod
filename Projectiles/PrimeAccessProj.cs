@@ -18,6 +18,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Skull Spinner");
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
         }
 
         public override void SetDefaults()
@@ -121,14 +123,30 @@ namespace StormDiversMod.Projectiles
 
             }
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+
+            Texture2D texture2 = TextureAssets.Projectile[Projectile.type].Value;
+
+            Vector2 drawOrigin = new Vector2(texture2.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture2, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            }
+            return true;
+        }
         public override void PostDraw(Color lightColor)
         {
-          
+
+
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/PrimeAccessProj_Glow");
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
 
-
+           
         }
     }
     public class PrimeAccessAI : GlobalProjectile

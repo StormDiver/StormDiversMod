@@ -47,7 +47,7 @@ namespace StormDiversMod.NPCs
             NPC.DeathSound = SoundID.NPCDeath44;
             NPC.knockBackResist = 0.6f;
             NPC.value = Item.buyPrice(0, 0, 50, 0);
-
+            NPC.gfxOffY = -2;
            Banner = NPC.type;
            BannerItem = ModContent.ItemType<Banners.GraniteMiniBossBannerItem>();
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)

@@ -14,7 +14,7 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Sword of Cthulhu"); 
+			DisplayName.SetDefault("Eye Sored"); 
 			Tooltip.SetDefault("Launches a bouncing eyeball every other swing");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

@@ -43,7 +43,7 @@ namespace StormDiversMod.Projectiles.Minions
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Servant of Cthulhu Minion");
-			Main.projFrames[Projectile.type] = 3;
+			Main.projFrames[Projectile.type] = 6;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
 			Main.projPet[Projectile.type] = true;
@@ -83,6 +83,7 @@ namespace StormDiversMod.Projectiles.Minions
 		{
 			return true;
 		}
+		bool mouthopen;
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
@@ -186,12 +187,16 @@ namespace StormDiversMod.Projectiles.Minions
 			// Default movement parameters (here for attacking)
 			float speed = 16f;
 			float inertia = 25f;
-
+			if (Projectile.ai[0] <= 6)
+			{
+				Projectile.ai[0] += 1; //Fix issue where minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
+			}
 			if (foundTarget)
 			{
+				mouthopen = true;
 				//speed *= 1.5f;
 				// Minion has a target: attack (here, fly towards the enemy)
-				if (Vector2.Distance(Projectile.Center, targetCenter) > 80f)
+				if (Vector2.Distance(Projectile.Center, targetCenter) > 80f || Projectile.ai[0] <= 5)
 				{
 					// The immediate range around the target (so it doesn't latch onto it when close)
 					Vector2 direction = targetCenter - Projectile.Center;
@@ -204,11 +209,12 @@ namespace StormDiversMod.Projectiles.Minions
 				else
 				{
 					Projectile.velocity *= 1.02f;
+					
 				}
 			}
 			else
 			{
-
+				mouthopen = false;
 				// Minion doesn't have a target: return to player and idle
 				if (distanceToIdlePosition > 300f)
 				{
@@ -243,18 +249,34 @@ namespace StormDiversMod.Projectiles.Minions
 
 
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-
-			Projectile.frameCounter++;
-			if (Projectile.frameCounter >= 8)
+			if (mouthopen)
 			{
-				Projectile.frameCounter = 0;
-				Projectile.frame++;
-				if (Projectile.frame >= Main.projFrames[Projectile.type])
+				Projectile.frameCounter++;
+				if (Projectile.frameCounter >= 8)
+				{
+					Projectile.frameCounter = 0;
+					Projectile.frame++;
+
+				}
+				if (Projectile.frame <= 2 || Projectile.frame >= 6)
+				{
+					Projectile.frame = 3;
+				}
+			}
+			else
+            {
+				Projectile.frameCounter++;
+				if (Projectile.frameCounter >= 8)
+				{
+					Projectile.frameCounter = 0;
+					Projectile.frame++;
+
+				}
+				if (Projectile.frame >= 3)
 				{
 					Projectile.frame = 0;
 				}
 			}
-
 			// Some visuals here
 			if (!Main.dedServ)
 			{

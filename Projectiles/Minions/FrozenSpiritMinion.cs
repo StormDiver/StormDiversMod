@@ -81,7 +81,6 @@ namespace StormDiversMod.Projectiles.Minions
 		{
 			return false;
 		}
-		int shootime;
 		int xpos = 0;
 		bool moveright = true;
 		public override void AI()
@@ -211,15 +210,19 @@ namespace StormDiversMod.Projectiles.Minions
 			// Default movement parameters (here for attacking)
 			float speed = 11f;
 			float inertia = 65f;
-
+			if (Projectile.ai[0] <= 6)
+			{
+				Projectile.ai[0] += 1; //Fix issue where minion would not moveif summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
+			}
 			if (foundTarget)
 			{
 				if (Collision.CanHit(Projectile.Center, 0, 0, targetNPC, 0, 0))
 				{
-					shootime++;
+					Projectile.ai[1]++;
+					
 				}
 				// Minion has a target: attack (here, fly towards the enemy)
-				if (Vector2.Distance(Projectile.Center, targetCenter) > 50f)
+				if (Vector2.Distance(Projectile.Center, targetCenter) > 50f || Projectile.ai[0] <= 5)
 				{
 					// The immediate range around the target (so it doesn't latch onto it when close)
 					Vector2 direction = targetCenter - Projectile.Center;
@@ -236,7 +239,7 @@ namespace StormDiversMod.Projectiles.Minions
 				float shootToY = targetNPC.Y - Projectile.Center.Y;
 				float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
 
-				if (shootime > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 550f)
+				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 550f)
 				{
 					if (!Main.dedServ)
 					{
@@ -247,7 +250,7 @@ namespace StormDiversMod.Projectiles.Minions
 							dust.noGravity = true;
 						}
 
-						if (shootime > 60)
+						if (Projectile.ai[1] > 60)
 						{
 							distance = 1.6f / distance;
 
@@ -276,7 +279,7 @@ namespace StormDiversMod.Projectiles.Minions
 								int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 111, perturbedSpeed.X, perturbedSpeed.Y, 0, default, 1f);
 								Main.dust[dust2].noGravity = true;
 							}
-							shootime = 0;
+							Projectile.ai[1] = 0;
 
 						}
 					}

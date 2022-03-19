@@ -34,7 +34,7 @@ namespace StormDiversMod.NPCs
 
             NPC.aiStyle = 22;
 
-            AIType = NPCID.Ghost;
+            AIType = NPCID.Wraith;
             
             NPC.damage = 50;
             NPC.lavaImmune = true;
@@ -112,7 +112,7 @@ namespace StormDiversMod.NPCs
             if ((distance <= 1000f && lineofsight) || (distance <= 300f && !lineofsight))
             {
                 
-                if (shoottime >= 150)//fires the projectiles
+                if (shoottime >= 210)//fires the projectiles
                 {
 
                     float projectileSpeed = 8f; // The speed of your projectile (in pixels per second).
@@ -120,7 +120,7 @@ namespace StormDiversMod.NPCs
                     float knockBack = 2;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.FrozenSoulProj>();
 
-                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X + player.velocity.X * 10, player.Center.Y + player.velocity.X * 10) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
 
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -200,13 +200,13 @@ namespace StormDiversMod.NPCs
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
 
-            target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 600);
+            target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 300);
 
 
         }
         public override void HitEffect(int hitDirection, double damage)
         {
-            shoottime = 80;
+            //shoottime = 80;
             shooting = false;
             if (Main.netMode == NetmodeID.Server)
             {

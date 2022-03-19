@@ -21,7 +21,7 @@ namespace StormDiversMod.NPCs
         {
             DisplayName.SetDefault("Frozen Eyefish"); 
                                                            
-            NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+            //NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
         }
         public override void SetDefaults()
@@ -45,6 +45,8 @@ namespace StormDiversMod.NPCs
             NPC.DeathSound = SoundID.NPCDeath7;
             NPC.knockBackResist = 0.7f;
             NPC.value = Item.buyPrice(0, 0, 10, 0);
+
+            NPC.gfxOffY = -2;
 
            Banner = NPC.type;
            BannerItem = ModContent.ItemType<Banners.FrozenEyeBannerItem>();
@@ -72,7 +74,7 @@ namespace StormDiversMod.NPCs
 
             if (Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneSnow && Main.raining)
             {
-                return SpawnCondition.Overworld.Chance * 0.2f;
+                return SpawnCondition.Overworld.Chance * 0.25f;
             }
             else
             {
@@ -108,7 +110,7 @@ namespace StormDiversMod.NPCs
             if (distance  <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 
-                if (shoottime >= 160)
+                if (shoottime >= 130 + Main.rand.Next(60))
                 {
                     float projectileSpeed = 8f; // The speed of your projectile (in pixels per second).
                     int damage = 10; // The damage your projectile deals.
@@ -195,9 +197,10 @@ namespace StormDiversMod.NPCs
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            
-               
-            
+
+            target.AddBuff(BuffID.Chilled, 300);
+
+
         }
         public override void HitEffect(int hitDirection, double damage)
         {

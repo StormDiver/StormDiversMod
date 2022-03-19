@@ -88,7 +88,6 @@ namespace StormDiversMod.Projectiles.Minions
             return true;
         }
 		bool grounded;
-		float xdistance;
 		bool jump = false;
 		public override void AI()
 		{
@@ -103,7 +102,6 @@ namespace StormDiversMod.Projectiles.Minions
 				Projectile.timeLeft = 2;
 			}
 
-			xdistance = Projectile.Center.X - player.Center.X;
 			Vector2 idlePosition = player.Center;
 
 			// If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
@@ -227,7 +225,10 @@ namespace StormDiversMod.Projectiles.Minions
 			// Default movement parameters (here for attacking)
 			float speed = 15f;
 			float inertia = 20f;
-
+			if (Projectile.ai[0] <= 6)
+			{
+				Projectile.ai[0] += 1; //Fix issue where minion would not moveif summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
+			}
 			if (foundTarget)
 			{
 				if (grounded && Projectile.velocity.Y == 0)
@@ -237,7 +238,7 @@ namespace StormDiversMod.Projectiles.Minions
 				grounded = false; //Attacking always puts them in flight mode because :pain:
 
 				// Minion has a target: attack (here, fly towards the enemy)
-				if (Vector2.Distance(Projectile.Center, targetCenter) > 30f)
+				if (Vector2.Distance(Projectile.Center, targetCenter) > 30f || Projectile.ai[0] <= 5)
 				{
 					// The immediate range around the target (so it doesn't latch onto it when close)
 					Vector2 direction = targetCenter - Projectile.Center;
@@ -356,10 +357,11 @@ namespace StormDiversMod.Projectiles.Minions
 				{
 					Projectile.frameCounter = 0;
 					Projectile.frame++;
-					if (Projectile.frame <= 3 || Projectile.frame >= 8)
-					{
-						Projectile.frame = 4;
-					}
+					
+				}
+				if (Projectile.frame <= 3 || Projectile.frame >= 8)
+				{
+					Projectile.frame = 4;
 				}
 			}
 			else if (grounded) //On ground
@@ -370,10 +372,11 @@ namespace StormDiversMod.Projectiles.Minions
 					{
 						Projectile.frameCounter = 0;
 						Projectile.frame++;
-						if (Projectile.frame >= 2)
-						{
-							Projectile.frame = 0;
-						}
+						
+					}
+					if (Projectile.frame >= 2)
+					{
+						Projectile.frame = 0;
 					}
 				}
                 else //Jumping

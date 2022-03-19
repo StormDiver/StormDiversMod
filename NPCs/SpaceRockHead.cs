@@ -46,8 +46,9 @@ namespace StormDiversMod.NPCs
             NPC.DeathSound = SoundID.NPCDeath43;
             NPC.knockBackResist = 0.1f;
             NPC.value = Item.buyPrice(0, 0, 20, 0);
+            NPC.gfxOffY = -2;
 
-           Banner = NPC.type;
+            Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.SpaceRockHeadBannerItem>();
 
            

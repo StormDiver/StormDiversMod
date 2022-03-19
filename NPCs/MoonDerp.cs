@@ -126,7 +126,7 @@ namespace StormDiversMod.NPCs
                     NPC.ai[1] = -20f;
                 }
             }
-            if (player.position.X > NPC.position.X)
+            /*if (player.position.X > NPC.position.X)
             {
                 NPC.spriteDirection = 1;
                 NPC.direction = 1;
@@ -137,7 +137,7 @@ namespace StormDiversMod.NPCs
                 NPC.direction = -1;
 
             }
-            else
+            else*/
             {
                 NPC.spriteDirection = NPC.direction;
             }
@@ -150,7 +150,6 @@ namespace StormDiversMod.NPCs
                     move *= movespeed / magnitude;
                 }
                 NPC.velocity = move;
-                //The 5 positions it can be in after firing
             
                
             

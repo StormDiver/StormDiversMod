@@ -81,7 +81,6 @@ namespace StormDiversMod.Projectiles.Minions
 		{
 			return false;
 		}
-		int shootime;
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
@@ -190,15 +189,18 @@ namespace StormDiversMod.Projectiles.Minions
 			// Default movement parameters (here for attacking)
 			float speed = 12f;
 			float inertia = 50f;
-
+			if (Projectile.ai[0] <= 6)
+			{
+				Projectile.ai[0] += 1; //Fix issue where minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
+			}
 			if (foundTarget)
 			{
 				if (Collision.CanHit(Projectile.Center, 0, 0, targetNPC, 0, 0))
 				{
-					shootime++;
+					Projectile.ai[1]++; //Shoottime
 				}
 				// Minion has a target: attack (here, fly towards the enemy)
-				if (Vector2.Distance(Projectile.Center, targetCenter) > 30f)
+				if (Vector2.Distance(Projectile.Center, targetCenter) > 30f || Projectile.ai[0] <= 5)
 				{
 					// The immediate range around the target (so it doesn't latch onto it when close)
 					Vector2 direction = targetCenter - Projectile.Center;
@@ -213,7 +215,7 @@ namespace StormDiversMod.Projectiles.Minions
 				float shootToY = targetNPC.Y - Projectile.Center.Y;
 				float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
 
-				if (shootime > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
+				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
 				{
 					if (!Main.dedServ)
 					{
@@ -232,8 +234,9 @@ namespace StormDiversMod.Projectiles.Minions
 							dust.velocity *= 2;
 						}
 					}
-					shootime = 0;
+					Projectile.ai[1] = 0;
 				}
+				
 			}
 			else
 			{
@@ -277,12 +280,12 @@ namespace StormDiversMod.Projectiles.Minions
 			{
 				Projectile.frameCounter = 0;
 				Projectile.frame++;
-				if (Projectile.frame >= Main.projFrames[Projectile.type])
-				{
-					Projectile.frame = 0;
-				}
+				
 			}
-
+			if (Projectile.frame >= Main.projFrames[Projectile.type])
+			{
+				Projectile.frame = 0;
+			}
 			// Some visuals here
 			if (!Main.dedServ)
 			{

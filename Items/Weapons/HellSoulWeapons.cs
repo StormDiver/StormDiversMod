@@ -193,7 +193,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("HellSoul Blade");
-            Tooltip.SetDefault("Fires out a soul beam every other swing");
+            Tooltip.SetDefault("Fires out a spread of soul beams every third swing");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -219,7 +219,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = false;
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType<Projectiles.HellSoulSwordProj>();
-            Item.shootSpeed = 20f;
+            Item.shootSpeed = 10f;
             
             
         }
@@ -232,17 +232,23 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-        int weaponattack = 2;
+        int weaponattack = 3;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
             weaponattack--;
             if (weaponattack <= 0)
             {
-      
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.2f), knockback, player.whoAmI);
+                float numberProjectiles = 4;
+                float rotation = MathHelper.ToRadians(15);
+                for (int j = 0; j < numberProjectiles; j++)
+                {
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                    int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.66f), knockback, player.whoAmI);
+                }
+                //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.2f), knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 8);
-                weaponattack = 2;
+                weaponattack = 3;
             }
             return false;
         }

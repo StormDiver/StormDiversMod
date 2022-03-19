@@ -103,9 +103,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.height = 30;
             Projectile.friendly = false;
             Projectile.hostile = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 45 + +Main.rand.Next(30);
+            Projectile.timeLeft = 45 + Main.rand.Next(30);
             Projectile.aiStyle = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -130,6 +130,34 @@ namespace StormDiversMod.NPCs.NPCProjs
                     dust.velocity *= 2;
                 }
             }
+            Projectile.ai[1]++;
+
+            if (Projectile.ai[1] >= 10)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    for (int i = 0; i < 15; i++)
+                    {
+
+                        var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 135);
+                        dust.velocity *= 2;
+                    }
+                    float numberProjectiles = 6;
+                    float rotation = MathHelper.ToRadians(180);
+                    for (int j = 0; j < numberProjectiles; j++)
+                    {
+
+                        Vector2 perturbedSpeed = new Vector2(0, 2.5f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                        int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
+                        Main.projectile[projID].tileCollide = false;
+                        Main.projectile[projID].timeLeft = 30;
+
+
+                    }
+                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27, 1, 0.5f);
+                }
+                Projectile.ai[1] = 0;
+            }
         }
 
 
@@ -140,7 +168,6 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 180);
-            Projectile.Kill();
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -157,12 +184,12 @@ namespace StormDiversMod.NPCs.NPCProjs
                 //SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 56, 0.5f);
 
 
-                float numberProjectiles = 6;
+                float numberProjectiles = 8;
                 float rotation = MathHelper.ToRadians(180);
                 for (int j = 0; j < numberProjectiles; j++)
                 {
                   
-                    Vector2 perturbedSpeed = new Vector2(0, 6).RotatedBy(MathHelper.Lerp(-rotation -Main.rand.Next(10), rotation + Main.rand.Next(10), j / (numberProjectiles)));
+                    Vector2 perturbedSpeed = new Vector2(0, 7).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
                     int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
                     Main.projectile[projID].tileCollide = false;
                     Main.projectile[projID].timeLeft = 60;

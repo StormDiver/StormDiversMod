@@ -268,9 +268,9 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 10;
             Projectile.height = 10;
             Projectile.friendly = true;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 45;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
 
