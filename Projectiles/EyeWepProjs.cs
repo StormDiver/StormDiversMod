@@ -158,23 +158,25 @@ namespace StormDiversMod.Projectiles
             {
 
                 NPC target = Main.npc[i];
-
-                float shootToX = Main.MouseWorld.X - Projectile.Center.X;
-                float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
-
-                distance = 3f / distance;
-                shootToX *= distance * 3;
-                shootToY *= distance * 3;
-
-                if (distance < 500f && lineOfSight)
+                if (Projectile.owner == Main.myPlayer)
                 {
-                    target.TargetClosest(true);
-                    Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
+                    float shootToX = Main.MouseWorld.X - Projectile.Center.X;
+                    float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
+                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+                    bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
 
-                    Projectile.velocity.X = perturbedSpeed.X;
-                    Projectile.velocity.Y = perturbedSpeed.Y;
+                    distance = 3f / distance;
+                    shootToX *= distance * 3;
+                    shootToY *= distance * 3;
+
+                    if (distance < 500f && lineOfSight)
+                    {
+                        target.TargetClosest(true);
+                        Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
+
+                        Projectile.velocity.X = perturbedSpeed.X;
+                        Projectile.velocity.Y = perturbedSpeed.Y;
+                    }
                 }
                 else
                 {

@@ -24,7 +24,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 16;
             Item.height = 30;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.useTurn = true;
@@ -64,7 +64,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 16;
             Item.height = 30;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.useTurn = true;
@@ -105,7 +105,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 12;
             Item.height = 32;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.useTurn = true;
@@ -145,7 +145,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 20;
             Item.height = 32;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.useTurn = true;
@@ -196,7 +196,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 20;
             Item.height = 30;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.useTurn = true;
@@ -237,7 +237,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 12;
             Item.height = 32;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.useTurn = true;

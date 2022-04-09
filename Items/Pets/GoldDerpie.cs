@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Creative;
-
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Items.Pets
 {
@@ -33,7 +33,13 @@ namespace StormDiversMod.Items.Pets
             Item.buffType = BuffType<GoldDerpieBuff>();
             Item.rare = ItemRarityID.Yellow;
         }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+        
+            player.AddBuff(Item.buffType, 2); // The item applies the buff, the buff spawns the projectile
 
+            return false;
+        }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {

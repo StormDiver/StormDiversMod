@@ -107,18 +107,19 @@ namespace StormDiversMod.NPCs
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y + 10), new Vector2(0, -2.5f), type, damage, knockBack);
+                            if (Main.rand.NextFloat() < 1f)
+                            {
+                                Dust dust;
+                                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                                Vector2 position = NPC.position;
+                                dust = Main.dust[Terraria.Dust.NewDust(position, NPC.width, NPC.height, 27, 0f, 0f, 0, new Color(255, 255, 255), 1.5f)];
+                                dust.noGravity = true;
+                            }
                         }
                         SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 34);
                         firerate = 0;
 
-                        if (Main.rand.NextFloat() < 1f)
-                        {
-                            Dust dust;
-                            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                            Vector2 position = NPC.position;
-                            dust = Main.dust[Terraria.Dust.NewDust(position, NPC.width, NPC.height, 27, 0f, 0f, 0, new Color(255, 255, 255), 1.5f)];
-                            dust.noGravity = true;
-                        }
+                        
                     }
 
                    

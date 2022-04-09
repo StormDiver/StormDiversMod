@@ -245,26 +245,24 @@ namespace StormDiversMod.Projectiles
             if (player.controlUseTile && lineOfSight && distime >= orbittime) //will fire projectile once it reaches maximum orbit and has a line of sight with the player
             {
 
-
-                //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 30);
-               
-                //for (int i = 0; i < 10; i++)
+                if (Projectile.owner == Main.myPlayer)
                 {
-                    //target = Main.MouseWorld;
-                    //target.TargetClosest(true);
-                    float shootToX = Main.MouseWorld.X - Projectile.Center.X;
-                    float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                    bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
+                    {
+                        //target = Main.MouseWorld;
+                        //target.TargetClosest(true);
+                        float shootToX = Main.MouseWorld.X - Projectile.Center.X;
+                        float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
+                        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+                        bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
 
 
-                    distance = 3f / distance;
-                    shootToX *= distance * 8;
-                    shootToY *= distance * 8;
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SpectreStaffSpinProj2>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack + 2, Projectile.owner);
-                    Projectile.Kill();
+                        distance = 3f / distance;
+                        shootToX *= distance * 8;
+                        shootToY *= distance * 8;
+                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SpectreStaffSpinProj2>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack + 2, Projectile.owner);
+                        Projectile.Kill();
+                    }
                 }
-
         }
     }
         
@@ -482,24 +480,25 @@ namespace StormDiversMod.Projectiles
             bool target = false;
             for (int k = 0; k < 200; k++)
             {
-                //if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
-                if (player.controlUseItem && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SpectreDagger>() && !player.dead)
+                if (Projectile.owner == Main.myPlayer)
                 {
-                    if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
+                    if (player.controlUseItem && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SpectreDagger>() && !player.dead)
                     {
-                        
-
-                        Projectile.timeLeft = 120;
-                        Vector2 newMove = Main.MouseWorld - Projectile.Center;
-                        float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-                        if (distanceTo < distance)
+                        if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
                         {
-                            move = newMove;
-                            distance = distanceTo;
-                            target = true;
+
+
+                            Projectile.timeLeft = 120;
+                            Vector2 newMove = Main.MouseWorld - Projectile.Center;
+                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                            if (distanceTo < distance)
+                            {
+                                move = newMove;
+                                distance = distanceTo;
+                                target = true;
+                            }
                         }
                     }
-                    
                 }
                 
                 

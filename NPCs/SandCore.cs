@@ -81,7 +81,7 @@ namespace StormDiversMod.NPCs
             if (!NPC.AnyNPCs(ModContent.NPCType<SandCore>()) && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneUndergroundDesert && Main.hardMode)
             {
                 {
-                    return SpawnCondition.DesertCave.Chance * 0.03f;
+                    return SpawnCondition.DesertCave.Chance * 0.015f;
                 }
             }
             

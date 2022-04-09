@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.crit = 4;
             Item.knockBack = 1.5f;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.IceSentryProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.SentryProjs.IceSentryProj > ();
 
             //Item.shootSpeed = 3.5f;
             

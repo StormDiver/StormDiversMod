@@ -34,7 +34,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 1.5f;
        
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.SpaceRockDrillSawProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.SpaceRockDrillSawProj>();
             Item.shootSpeed = 45f;
             Item.pick = 210;
             Item.axe = 30;
@@ -88,7 +88,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 6f;
 
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.SpaceRockJackhammerProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.SpaceRockJackhammerProj>();
             Item.shootSpeed = 35f;
             Item.hammer = 100;
             Item.tileBoost = 1;

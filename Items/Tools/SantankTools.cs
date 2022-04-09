@@ -34,7 +34,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 3f;
            
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.SantankDrillProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.SantankDrillProj>();
             Item.shootSpeed = 40f;
             Item.pick = 205;
             Item.tileBoost = 0;
@@ -91,7 +91,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 5f;
           
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType < Projectiles.SantankSawProj>();
+            Item.shoot = ModContent.ProjectileType < Projectiles.ToolsProjs.SantankSawProj>();
             Item.shootSpeed = 55f;
             Item.axe = 27;
             Item.tileBoost = 0;
@@ -146,7 +146,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 7f;
 
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.SantankJackhamProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.SantankJackhamProj>();
             Item.shootSpeed = 40f;
             Item.hammer = 100;
             Item.tileBoost = 0;

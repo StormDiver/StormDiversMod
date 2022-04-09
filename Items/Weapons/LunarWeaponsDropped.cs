@@ -354,7 +354,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.crit = 4;
             Item.knockBack = 1f;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.StargazerCoreProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.SentryProjs.StargazerCoreProj>();
 
             Item.shootSpeed = 0f;
 

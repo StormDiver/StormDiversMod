@@ -38,7 +38,6 @@ namespace StormDiversMod.Projectiles.Minions
     }
     
 
-    //CCOPY SLIME MINION AI
     public class DerplingMinionProj : ModProjectile
     {
         public override void SetStaticDefaults()

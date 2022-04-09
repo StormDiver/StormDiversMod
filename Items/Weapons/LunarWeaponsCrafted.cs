@@ -380,7 +380,7 @@ namespace StormDiversMod.Items.Weapons
             Item.mana = 10;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.StardustSentryProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.SentryProjs.StardustSentryProj>();
             Item.DamageType = DamageClass.Summon;
             Item.sentry = true;
             Item.noMelee = true;

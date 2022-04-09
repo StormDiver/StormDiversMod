@@ -48,6 +48,8 @@ namespace StormDiversMod.Basefiles
 
         public bool twilightPet; //The player has the Twilight Light Pet
 
+        public bool stormBossPet; //The player has the Scandrone Pet
+
 
         public bool turtled; //The Player has the turtled Buff
 
@@ -135,9 +137,11 @@ namespace StormDiversMod.Basefiles
 
         public bool woodNecklace; //Player has the wooden necklace equipped
 
-        public bool shadowflameSet; //Player has the Shadowflame armoru equipped
+        public bool shadowflameSet; //Player has the Shadowflame armour equipped
 
         public bool coralEmblem; //Player has coral Emblem equipped
+
+        public bool stormBossAccess; //Player has the Storm Coil equipped
 
 
         //Ints and Bools activated from this file
@@ -175,6 +179,7 @@ namespace StormDiversMod.Basefiles
         public int soundDelay; //Cooldown for boot sound
         public int dropdust; //Cooldown for urn dust
         public int coraldrop; //Cooldown for coral emblem drops
+        public bool stormBossProj; // wheter the projectile for the storm coil has been spawned
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -188,6 +193,7 @@ namespace StormDiversMod.Basefiles
             goldDerpie = false;
             stormHelmet = false;
             twilightPet = false;
+            stormBossPet = false;
             shroombuff = false;
             flameCore = false;
             frostSpike = false;
@@ -231,6 +237,7 @@ namespace StormDiversMod.Basefiles
             woodNecklace = false;
             shadowflameSet = false;
             coralEmblem = false;
+            stormBossAccess = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -259,6 +266,7 @@ namespace StormDiversMod.Basefiles
             skulltime = 0;
             dropdust = 0;
             coraldrop = 0;
+            stormBossProj = false;
         }
         public override bool PreItemCheck()
         {
@@ -286,7 +294,7 @@ namespace StormDiversMod.Basefiles
                     flat += 1;
                 }
             }
-            if (Player.HasBuff(BuffType<ShroomiteBuff>()))//If the player has the shroomite potion then 50% chance not to consume ammo
+            if (Player.HasBuff(BuffType<ShroomiteBuff>()))//If the player has the shroomite potion then 10% increase ammo damage
             {
                 if (item.CountsAsClass(DamageClass.Ranged) && item.ammo != 0)
                 {
@@ -336,32 +344,36 @@ namespace StormDiversMod.Basefiles
 
            
 
-            //Detect if player is in Temple and immediatly summon up to 8 Guardians
-            int xtilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
-            int ytilepos = (int)(Player.position.Y + (float)(Player.height / 2)) / 16;
-            if (Main.tile[xtilepos, ytilepos].WallType == WallID.LihzahrdBrickUnsafe)
+            //Detect if player is in Temple and immediatly summon up to 12 Guardians
+            
+            if (Player.ZoneJungle && Player.ZoneRockLayerHeight && !NPC.downedPlantBoss) //This code is onyl active when certain cirteia is met, sadly the zonelizardtemple doesn't work
             {
+                int xtilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
+                int ytilepos = (int)(Player.position.Y + (float)(Player.height / 2)) / 16;
 
-                if (!NPC.downedPlantBoss && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 12)
+                if (Main.tile[xtilepos, ytilepos].WallType == WallID.LihzahrdBrickUnsafe)
                 {
-                    templeWarning++;
-                    if (templeWarning == 1 && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))
+                    if (NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 12)
                     {
-                        if (Main.netMode == 2) // Server
+                        templeWarning++;
+                        if (templeWarning == 1 && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))
                         {
-                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The ancient temple defenses begin to wake up!!!"), new Color(204, 101, 22));
+                            if (Main.netMode == 2) // Server
+                            {
+                                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The ancient temple defenses begin to wake up!!!"), new Color(204, 101, 22));
+                            }
+                            else if (Main.netMode == 0) // Single Player
+                            {
+                                Main.NewText("The ancient temple defenses begin to wake up!!!", 204, 101, 22);
+                            }
                         }
-                        else if (Main.netMode == 0) // Single Player
-                        {
-                            Main.NewText("The ancient temple defenses begin to wake up!!!", 204, 101, 22);
-                        }
-                    }
 
-                    if (templeWarning >= 300)
-                    {
-                        if (Main.rand.Next(30) == 0)
+                        if (templeWarning >= 300)
                         {
-                            NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
+                            if (Main.rand.Next(30) == 0)
+                            {
+                                NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
+                            }
                         }
                     }
                 }
@@ -504,7 +516,7 @@ namespace StormDiversMod.Basefiles
                         Player.runAcceleration *= 1.5f;
                     }
                 }
-                else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt)//When on asphalt 
+                else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt)//When not on asphalt 
                 {
                     if (soulBoots)
                     {
@@ -1250,6 +1262,30 @@ namespace StormDiversMod.Basefiles
             {
                 celestialspin = false;
             }
+            //For the Storm Coil projectile
+            if (stormBossAccess)
+            {
+                if (!stormBossProj)
+                {
+                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<StormAccessProj>(), 65, 1, Player.whoAmI);
+                    for (int i = 0; i < 30; i++)
+                    {
+                        float speedY = -3f;
+
+                        Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        int dust2 = Dust.NewDust(Player.Center, 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 0.75f);
+                        Main.dust[dust2].noGravity = true;
+                    }
+                    SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122, 0.5f);
+
+                    stormBossProj = true;
+                }
+            }
+            if (!stormBossAccess)
+            {
+                stormBossProj = false;
+            }
             //For the Sky Knight set
             if (skyKnightSet)
             {
@@ -1257,7 +1293,7 @@ namespace StormDiversMod.Basefiles
 
                 if (!skysentry)
                 {
-                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<SkyKnightSentryProj>(), 0, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SentryProjs.SkyKnightSentryProj > (), 0, 0, Player.whoAmI);
 
                     skysentry = true;
 
@@ -1276,10 +1312,8 @@ namespace StormDiversMod.Basefiles
 
                 if (!lunaticsentry)
                 {
-                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X - 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
-                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X + 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
-
-
+                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X - 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SentryProjs.LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X + 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SentryProjs.LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
 
                     lunaticsentry = true;
 
@@ -1386,12 +1420,12 @@ namespace StormDiversMod.Basefiles
                     SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 20);
 
 
-                    float numberProjectiles = 6 + Main.rand.Next(0);
+                    float numberProjectiles = 8 + Main.rand.Next(0);
                     float rotation = MathHelper.ToRadians(180);
                     //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
                     for (int i = 0; i < numberProjectiles; i++)
                     {
-                        float speedX = -1f;
+                        float speedX = -1.5f;
                         float speedY = 0f;
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles)));
                         if (!frostJar)
@@ -1530,6 +1564,9 @@ namespace StormDiversMod.Basefiles
 
         }
         //===================================Other hooks======================================
+
+        int AridProj = ModContent.ProjectileType<AncientArmourProj>();
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
         {
             if (heartSteal) //For the Jar of hearts 
@@ -1662,8 +1699,11 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), damage, 1, Player.whoAmI);
                 }
             }
+
+           
         }
-        int AridProj = ModContent.ProjectileType<AncientArmourProj>();
+        int StormProj = ModContent.ProjectileType<Projectiles.StormLightningProj>();
+
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
         {
@@ -1810,6 +1850,11 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 1, Player.whoAmI);
                 }
             }
+            /*if (proj.type == ModContent.ProjectileType<Projectiles.StormLightningProj>())
+            {
+                target.immune[StormProj] = 5;
+
+            }*/
         }
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {

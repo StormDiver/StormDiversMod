@@ -121,19 +121,20 @@ namespace StormDiversMod.NPCs
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
 
+                    
+                        
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        NPC.velocity.X = velocity.X * -0.2f;
-                        NPC.velocity.Y = velocity.Y * -0.2f;
-
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(7));
 
                         Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
-                  
+                        NPC.velocity.X = velocity.X * -0.2f;
+                        NPC.velocity.Y = velocity.Y * -0.2f;
+                        NPC.netUpdate = true;
 
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 30);
 
                     }
+                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 30);
 
                     for (int i = 0; i < 20; i++)
                     {

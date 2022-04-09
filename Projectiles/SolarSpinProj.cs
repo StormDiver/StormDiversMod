@@ -159,8 +159,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                             float distanceY = player.Center.Y - projectile.Center.Y;
                             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {
+                           
                                 if (distance <= 100 && !reflected)
                                 {
 
@@ -186,7 +185,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                                     }
                                 }
 
-                            }
+                            
                         }
                     }
                 }

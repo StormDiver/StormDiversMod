@@ -28,31 +28,23 @@ namespace StormDiversMod.Basefiles
         public override void OnKill(NPC npc) //Used for items that don't work with the new method
         {
             //Zone Drops----------------------------------------------------------------------------------------------------------------------
-            if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3) //HellSoul Flame
+
+            if ((Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUnderworldHeight) && (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                && (!npc.friendly && npc.lifeMax > 5 && (npc.type != NPCID.TheHungry || npc.type != NPCID.TheHungryII))) //Hellsoul flames
             {
-                if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUnderworldHeight)
+                if (Main.rand.Next(3) == 0)
                 {
-
-
-                    if (!npc.friendly && npc.lifeMax > 5 && npc.type != NPCID.TheHungry && npc.type != NPCID.TheHungryII)
-
+                    if (Main.expertMode)
                     {
-                        if (Main.rand.Next(3) == 0)
-                        {
-                            if (Main.expertMode)
-                            {
-                                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>(), Main.rand.Next(1, 3));
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>(), Main.rand.Next(1, 3));
 
-                            } 
-                            else
-                            {
-                                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>());
+                    }
+                    else
+                    {
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>());
 
-                            }
-                        }
                     }
                 }
-
             }
            
             if (Main.hardMode) //Frost and Arid Shard
@@ -118,6 +110,13 @@ namespace StormDiversMod.Basefiles
                 if (Main.rand.Next(100) == 0)
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.MoonlingSummoner>());
+                }
+            }
+            if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && Main.IsItStorming && StormWorld.stormBossDown == false) //StormBoss Summoner
+            {
+                if (Main.rand.Next(25) == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.StormBossSummoner>());
                 }
             }
 
@@ -493,6 +492,8 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.EyeofCthulhu)
             {
                 notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<EyeSword>(), ModContent.ItemType<EyeGun>(), ModContent.ItemType<EyeStaff>(), ModContent.ItemType<EyeMinion>()));
+                notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Tools.EyeHook>(), 4));
+
             }
             //Cultist boss----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.CultistBoss)

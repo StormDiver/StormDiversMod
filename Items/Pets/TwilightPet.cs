@@ -11,7 +11,7 @@ using StormDiversMod.Basefiles;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
-
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Items.Pets
 {
@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Pets
 
         public override void SetDefaults()
         {
-            Item.useStyle = 3;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item2;
             Item.useAnimation = 20;
             Item.useTime = 20;
@@ -45,7 +45,15 @@ namespace StormDiversMod.Items.Pets
             Item.rare = ItemRarityID.Orange;
 
         }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
 
+
+            player.AddBuff(Item.buffType, 2); // The item applies the buff, the buff spawns the projectile
+
+            return false;
+
+        }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {

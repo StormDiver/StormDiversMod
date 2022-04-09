@@ -55,6 +55,13 @@ namespace StormDiversMod.Basefiles
                     player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<EyeMinion>(), Main.rand.Next(1, 1));
 
                 }
+                if (Main.rand.Next(100) < 4)
+
+                {
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(arg), ItemType<Items.Tools.EyeHook>(), Main.rand.Next(1, 1));
+
+
+                }
             }
 
             if (context == "bossBag" && arg == ItemID.CultistBossBag) //Cultist treasure bag

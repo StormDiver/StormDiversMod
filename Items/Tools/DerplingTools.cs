@@ -34,7 +34,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 1f;
            
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.DerpDrillProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.DerpDrillProj>();
             Item.shootSpeed = 30f;
             Item.pick = 200;
             Item.tileBoost = 0;
@@ -85,7 +85,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 4.6f;
           
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.DerpChainProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.DerpChainProj>();
             Item.shootSpeed = 40f;
             Item.axe = 24;
             Item.tileBoost = 0;
@@ -134,7 +134,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 5.2f;
 
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.DerpJackProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.DerpJackProj>();
             Item.shootSpeed = 35f;
             Item.hammer = 100;
             Item.tileBoost = 0;

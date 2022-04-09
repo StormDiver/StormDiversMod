@@ -27,6 +27,8 @@ namespace StormDiversMod.Basefiles
         public static bool golemMessage; //For the message when the Golem is defeated
         public static bool bloodMessage; //For the message when the evuil boss is defeated
 
+        public static bool stormBossDown; //when the Storm Boss is defeated
+
 
         public override void OnWorldLoad()
         {
@@ -36,6 +38,8 @@ namespace StormDiversMod.Basefiles
             mechMessage = false;
             golemMessage = false;
             bloodMessage = false;
+
+            stormBossDown = false;
         }
         public override void OnWorldUnload()
         {
@@ -44,6 +48,9 @@ namespace StormDiversMod.Basefiles
             mechMessage = false;
             golemMessage = false;
             bloodMessage = false;
+
+            stormBossDown = false;
+
         }
         public override void SaveWorldData(TagCompound tag)
         {
@@ -67,6 +74,11 @@ namespace StormDiversMod.Basefiles
             {
                 tag["bloodMessage"] = true;
             }
+
+            if (stormBossDown)
+            {
+                tag["stormBossDown"] = true;
+            }
         }
         public override void LoadWorldData(TagCompound tag)
         {
@@ -75,6 +87,8 @@ namespace StormDiversMod.Basefiles
             mechMessage = tag.ContainsKey("mechMessage");
             golemMessage = tag.ContainsKey("golemMessage");
             bloodMessage = tag.ContainsKey("bloodMessage");
+
+            stormBossDown = tag.ContainsKey("stormBossDown");
 
         }
 
@@ -88,6 +102,9 @@ namespace StormDiversMod.Basefiles
             flags[7] = golemMessage;
             flags[8] = bloodMessage;
 
+            flags[9] = stormBossDown;
+
+
             writer.Write(flags);
         }
         public override void NetReceive(BinaryReader reader)
@@ -99,6 +116,8 @@ namespace StormDiversMod.Basefiles
             mechMessage = flags[6];
             golemMessage = flags[7];
             bloodMessage = flags[8];
+
+            stormBossDown = flags[9];
         }
 
         public override void PostWorldGen()

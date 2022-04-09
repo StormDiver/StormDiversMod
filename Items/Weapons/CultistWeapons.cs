@@ -259,7 +259,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.knockBack = 1f;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.CultistSentryProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.SentryProjs.CultistSentryProj>();
 
             Item.shootSpeed = 1f;
 

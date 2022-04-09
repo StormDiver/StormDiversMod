@@ -175,6 +175,8 @@ namespace StormDiversMod.NPCs
                     {
                         NPC.ai[0] = Main.rand.NextFloat(150f, -150f);
                         NPC.ai[1] = Main.rand.NextFloat(-50f, -200f);
+                        NPC.netUpdate = true;
+
                     }
 
                     float projectileSpeed = 10f; // The speed of your projectile (in pixels per second).
@@ -183,17 +185,17 @@ namespace StormDiversMod.NPCs
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.GolemMinionProj>();
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 33);
 
-                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
-                    new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
+                        new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-                   
+
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(12));
                         float scale = 1f - (Main.rand.NextFloat() * .2f);
                         perturbedSpeed = perturbedSpeed * scale;
                         Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                     }
+                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 33);
 
 
                     NPC.ai[2] = 0;

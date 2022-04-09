@@ -154,8 +154,9 @@ namespace StormDiversMod.NPCs.NPCProjs
 
 
                     }
-                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27, 1, 0.5f);
                 }
+                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27, 1, 0.5f);
+
                 Projectile.ai[1] = 0;
             }
         }
@@ -177,10 +178,10 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void Kill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27, 1, -0.5f);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27, 1, -0.5f);
                 //SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 56, 0.5f);
 
 

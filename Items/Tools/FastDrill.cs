@@ -34,7 +34,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 1f;
            
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.FastDrillProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.FastDrillProj>();
             Item.shootSpeed = 27f;
             Item.pick = 55;
             Item.tileBoost = -1;
@@ -73,7 +73,7 @@ namespace StormDiversMod.Items.Tools
             Item.rare = ItemRarityID.Orange;
             Item.knockBack = 1f;
             Item.useTurn = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.FastDrill2Proj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.FastDrill2Proj>();
             Item.shootSpeed = 36f;
             Item.pick = 100;
             Item.tileBoost = 0;

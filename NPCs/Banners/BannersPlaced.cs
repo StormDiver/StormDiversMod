@@ -816,6 +816,7 @@ namespace StormDiversMod.NPCs.Banners
             {
 
                 Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.FrozenSoul>()] = true;
+                
 
             }
         }

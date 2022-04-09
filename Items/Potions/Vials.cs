@@ -24,7 +24,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 20;
             Item.height = 26;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
@@ -84,7 +84,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 20;
             Item.height = 30;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
@@ -127,7 +127,7 @@ namespace StormDiversMod.Items.Potions
             Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<DoubleHealingPotion>(), 3);
             recipe.AddIngredient(ItemID.GreaterHealingPotion, 3);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 1);
-            recipe.AddIngredient(ItemID.LifeFruit, 2);
+            recipe.AddIngredient(ItemID.LifeFruit, 1);
             recipe.AddTile(TileID.Bottles);
             recipe.Register();
 
@@ -149,7 +149,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 24;
             Item.height = 24;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
@@ -192,7 +192,7 @@ namespace StormDiversMod.Items.Potions
         {
             Item.width = 24;
             Item.height = 24;
-            Item.useStyle = ItemUseStyleID.DrinkOld;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;

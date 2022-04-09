@@ -45,7 +45,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.crit = 4;
             Item.knockBack = 1f;
 
-            Item.shoot = ModContent.ProjectileType<MeteorSentryProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.SentryProjs.MeteorSentryProj > ();
 
             //Item.shootSpeed = 3.5f;
  

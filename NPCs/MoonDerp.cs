@@ -104,26 +104,32 @@ namespace StormDiversMod.NPCs
                 {
                     NPC.ai[0] = 0f;
                     NPC.ai[1] = -150f;
+                    
+
                 }
                 else if (NPC.ai[2] == 1) // left
                 {
                     NPC.ai[0] = -200f;
                     NPC.ai[1] = 0;
+
                 }
                 else if (NPC.ai[2] == 2) //  right
                 {
                     NPC.ai[0] = 200f;
                     NPC.ai[1] = 0f;
+
                 }
                 else if (NPC.ai[2] == 3) //Bottom 
                 {
                     NPC.ai[0] = 0f;
                     NPC.ai[1] = 150f;
+
                 }
                 else if (NPC.ai[2] == 4) //On top of player
                 {
                     NPC.ai[0] = 0f;
                     NPC.ai[1] = -20f;
+
                 }
             }
             /*if (player.position.X > NPC.position.X)
@@ -193,8 +199,9 @@ namespace StormDiversMod.NPCs
                                 perturbedSpeed = perturbedSpeed * scale;
                                 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
 
-                                SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 124);
+                                
                             }
+                            SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 124);
                         }
                         shootspeed = 0;
                     }
@@ -203,7 +210,7 @@ namespace StormDiversMod.NPCs
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             NPC.ai[2] = Main.rand.Next(0, 5); //Picks one of the 5 random postions after each shot
-
+                            NPC.netUpdate = true;
                         }
                         //xpostion *= -1f;
                         //ypostion *= -1f;
@@ -224,10 +231,9 @@ namespace StormDiversMod.NPCs
                         Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(-3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
                         Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
 
-
-
-                        SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 103);
                     }
+                    SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 103);
+
                     eyetime = 0;
                 }
 

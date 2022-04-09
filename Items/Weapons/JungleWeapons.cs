@@ -108,7 +108,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.crit = 4;
             Item.knockBack = 1.5f;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.JungleSentryProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.SentryProjs.JungleSentryProj>();
 
             //Item.shootSpeed = 3.5f;
 

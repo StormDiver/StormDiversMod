@@ -30,6 +30,10 @@ namespace StormDiversMod
         // Failure to properly use ReloadRequired will cause many, many problems including ID desync.
         [ReloadRequired] //Not really needed, but keep it to stop people for finding exploits 
         public bool PreventOreSpawn { get; set; }*/
+        [Label("Overloaded Scandrone acts as a Plantera Alternative")]
+        [Tooltip("This will make defeating Overloaded Scandrone activate everything that defeating the Plantera would")]
+        //[ReloadRequired] //No reload required as it just prevents a single bool being activated
+        public bool StormBossSkipsPlant { get; set; }
 
         [Label("Prevent modded pillar enemies from spawning")]
         [Tooltip("This will prevent the new pillar enemies in this mod from spawning")]

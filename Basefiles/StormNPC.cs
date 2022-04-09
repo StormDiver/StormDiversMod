@@ -610,6 +610,7 @@ namespace StormDiversMod.Basefiles
             }
 
         }
+
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             var player = Main.player[projectile.owner];
@@ -641,6 +642,7 @@ namespace StormDiversMod.Basefiles
                 crit = false;
 
             }
+          
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
@@ -684,6 +686,7 @@ namespace StormDiversMod.Basefiles
                     NPC.immuneTime = 10;
                 }
             }*/
+          
         }
         public override void HitEffect(NPC npc, int hitDirection, double damage)
         {

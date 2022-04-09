@@ -36,7 +36,7 @@ namespace StormDiversMod.Items.Tools
             Item.damage = 5;
             
             Item.knockBack = 16;
-            Item.shoot = ModContent.ProjectileType<Projectiles.AircanProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.AircanProj>();
             
             Item.shootSpeed = 7f;
 

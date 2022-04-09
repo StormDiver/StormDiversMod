@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("HellSoul Bow");
-            Tooltip.SetDefault("Fires out a homing soul arrow every other shot");
+            Tooltip.SetDefault("Fires out a homing soul arrow every shot");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -60,21 +60,16 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(-5, 0);
         }
-        int shootarrow;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
-            shootarrow++;
-            if (shootarrow >= 2)
-            {
                 SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 8);
 
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(20));
                     float scale = 1f - (Main.rand.NextFloat() * .5f);
                     perturbedSpeed = perturbedSpeed * scale;
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulBowProj>(), damage, knockback, player.whoAmI);
-                shootarrow = 0;
-            }
+             
             
             return true;
         }
@@ -130,13 +125,13 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item38;
             
-            Item.damage = 30;
+            Item.damage = 28;
             Item.knockBack = 6f;
 
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 16f;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 34;
+            Item.useAnimation = 34;
             Item.useAmmo = AmmoID.Bullet;
 
             Item.noMelee = true;
