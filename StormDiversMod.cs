@@ -20,36 +20,38 @@ namespace StormDiversMod
 {
 	public class StormDiversMod : Mod
 	{
-
         public override void PostSetupContent() //For boss checklist
         {
-            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-            if (bossChecklist != null)
+            if (ModLoader.HasMod("BossChecklist"))//DON'T FORGET THIS!!!!!!!
             {
-                bossChecklist.Call
-                    (
-                    "AddBoss",          
-                    this, // Mod
-                    "Overloaded Scandrone",
-                     ModContent.NPCType<NPCs.StormBoss>(),
-                     11.5f,
-                    (Func<bool>)(() => StormWorld.stormBossDown),
+                Mod bossChecklist = ModLoader.GetMod("BossChecklist");
+                if (bossChecklist != null)
+                {
+                    bossChecklist.Call
+                        (
+                        "AddBoss",
+                        this, // Mod
+                        "Overloaded Scandrone",
+                         ModContent.NPCType<NPCs.StormBoss>(),
+                         11.5f,
+                        (Func<bool>)(() => StormWorld.stormBossDown),
 
-                    () => true,
-                    
-                    new List<int> { ModContent.ItemType<Items.BossTrophy.StormBossTrophy>(), ModContent.ItemType<Items.BossTrophy.StormBossRelic>(), ModContent.ItemType<Items.Pets.StormBossPetItem>(),
+                        () => true,
+
+                        new List<int> { ModContent.ItemType<Items.BossTrophy.StormBossTrophy>(), ModContent.ItemType<Items.BossTrophy.StormBossRelic>(), ModContent.ItemType<Items.Pets.StormBossPetItem>(),
                          ModContent.ItemType<Items.BossTrophy.StormBossBag>(), ModContent.ItemType<Items.Accessory.StormCoil>(),
-                         
+
                         ModContent.ItemType<Items.Weapons.StormKnife>(), ModContent.ItemType<Items.Weapons.StormLauncher>(), ModContent.ItemType<Items.Weapons.StormStaff>(), ModContent.ItemType<Items.Weapons.StormSentryStaff>(),
                         ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>(), ModContent.ItemType<Items.Tools.StormHook>(), ModContent.ItemType<Items.Accessory.StormWings>(),ItemID.TempleKey},
 
-                    ModContent.ItemType<Items.Tools.StormBossSummoner>(),
-                    "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
-                    "Despawn message",
-                    //(spriteBatch, rect, color) => { spriteBatch.Draw(texture: ("StormDiversMod/NPCs/StormBoss_Image"), position: rect.Center, color: color); }
-                    ("StormDiversMod/NPCs/StormBoss_Image")
-                    );
-                // Additional bosses here
+                        ModContent.ItemType<Items.Tools.StormBossSummoner>(),
+                        "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
+                        "Despawn message",
+                        //(spriteBatch, rect, color) => { spriteBatch.Draw(texture: ("StormDiversMod/NPCs/StormBoss_Image"), position: rect.Center, color: color); }
+                        ("StormDiversMod/NPCs/StormBoss_Image")
+                        );
+                    // Additional bosses here
+                }
             }
         }
 
