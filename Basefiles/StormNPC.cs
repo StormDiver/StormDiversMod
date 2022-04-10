@@ -738,7 +738,18 @@ namespace StormDiversMod.Basefiles
 
                         break;
                 }
-               
+                switch (type)
+                {
+                    case NPCID.Demolitionist:
+
+                        if (!GetInstance<Configurations>().StormBossSkipsPlant && Main.LocalPlayer.HasItem(ModContent.ItemType<StormLauncher>()))
+                        {
+                            shop.item[nextSlot].SetDefaults(ItemID.RocketI);
+                            nextSlot++;
+                        }
+
+                        break;
+                }
                 switch (type)
                 {
                     case NPCID.Merchant:

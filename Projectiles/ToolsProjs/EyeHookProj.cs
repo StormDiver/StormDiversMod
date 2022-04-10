@@ -93,7 +93,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 		// Amethyst Hook is 300, Static Hook is 600.
 		public override float GrappleRange()
 		{
-			return 512f;
+			return 528f;
 		}
 
 		public override void NumGrappleHooks(Player player, ref int numHooks)
@@ -109,7 +109,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
 		public override void GrapplePullSpeed(Player player, ref float speed)
 		{
-			speed = 8; // How fast you get pulled to the grappling hook projectile's landing position
+			speed = 10; // How fast you get pulled to the grappling hook projectile's landing position
 		}
 
 		// Adjusts the position that the player will be pulled towards. This will make them hang 50 pixels away from the tile being grappled.

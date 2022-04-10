@@ -64,7 +64,7 @@ namespace StormDiversMod.Items.BossTrophy
 			{
 				player.QuickSpawnItem(source, ItemType<StormLauncher>(), Main.rand.Next(1, 1));
 				//player.QuickSpawnItem(source, ItemType<Items.Ammo.ProtoGrenade>(), Main.rand.Next(50, 100));
-				player.QuickSpawnItem(source, ItemID.RocketI, Main.rand.Next(50, 100));
+				player.QuickSpawnItem(source, ItemID.RocketI, Main.rand.Next(150, 200));
 
 			}
 			if (choice == 2)

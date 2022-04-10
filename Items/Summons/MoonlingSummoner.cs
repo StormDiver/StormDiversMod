@@ -10,7 +10,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 
 
-namespace StormDiversMod.Items.Tools
+namespace StormDiversMod.Items.Summons
 {
     public class MoonlingSummoner : ModItem
     {

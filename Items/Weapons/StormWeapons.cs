@@ -10,6 +10,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Basefiles;
 using static Terraria.ModLoader.ModContent;
+using System.Collections.Generic;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -70,7 +71,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Overloaded Lightning Launcher");
-            Tooltip.SetDefault("Fires out overloaded grenades that explode into a lightning blast");
+            Tooltip.SetDefault("Fires out overloaded grenades that explode into a lightning blast\nUses regular rockets as ammo");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -78,8 +79,22 @@ namespace StormDiversMod.Items.Weapons
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (!GetInstance<Configurations>().StormBossSkipsPlant)
+                {
+                    if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                    {
+                        line.text = "Uses regular rockets as ammo, purchase more from the Demolitionist"; //If not set as a plantera alt you need to get rockets somehow
+                    }
+                }
+            }
+        }
         public override void SetDefaults()
         {
+
             Item.width = 40;
             Item.height = 26;
             Item.maxStack = 1;
@@ -93,10 +108,10 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Ranged;
-            Item.shoot = ModContent.ProjectileType<Projectiles.StormGrenadeProj>();
+            Item.shoot = ProjectileID.RocketI;
             //Item.useAmmo = ItemType<Ammo.ProtoGrenade>();
             Item.useAmmo = AmmoID.Rocket;
-
+            
             Item.UseSound = SoundID.Item92;
 
             Item.damage = 34;
@@ -111,6 +126,7 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(0, 0);
         }
+        int aiTime = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 35f;
@@ -118,11 +134,22 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            for (int i = 0; i < 1; i++)
+
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
+            if (type == ProjectileID.RocketI || type == ProjectileID.RocketII)//ai 0
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.StormGrenadeProj>(), damage, knockback, player.whoAmI);
+                aiTime = 0;
             }
+            else if (type == ProjectileID.RocketIII || type == ProjectileID.RocketIV)//ai 1
+            {
+                aiTime = 1;
+            }
+            else if (type == ProjectileID.MiniNukeGrenadeI || type == ProjectileID.MiniNukeGrenadeII || type == ProjectileID.ClusterRocketI || type == ProjectileID.ClusterRocketII) //ai 2 (Doesn't work)               
+            {
+                aiTime = 2;
+            }
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.StormGrenadeProj>(), damage, knockback, player.whoAmI, 0, aiTime);
+
 
             return false;
         }

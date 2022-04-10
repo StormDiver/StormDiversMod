@@ -18,7 +18,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Items.Weapons;
 using StormDiversMod.Items.Pets;
 
-namespace StormDiversMod.Items.Tools
+namespace StormDiversMod.Items.Summons
 {
     public class StormBossSummoner : ModItem
     {

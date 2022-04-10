@@ -395,17 +395,19 @@ namespace StormDiversMod.Projectiles
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
 		}
-
+		int extraTime = 50;
+		float lightningSpeed = 1.4f;
+		int dustYspeed = 10;
 		public override void AI()
 		{
-			Projectile.ai[1]++;
+			Projectile.localAI[1]++;
 			if (Main.rand.Next(1) == 0)
 			{
 				var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 226);
 				dust.noGravity = true;
 				dust.scale = 0.75f;
 			}
-			if (Projectile.ai[1] >= 10)
+			if (Projectile.localAI[1] >= 10)
 			{
 				for (int i = 0; i < 20; i++)
 				{
@@ -417,10 +419,30 @@ namespace StormDiversMod.Projectiles
 					Main.dust[dust2].noGravity = true;
 				}
 
-				Projectile.ai[1] = 0;
+				Projectile.localAI[1] = 0;
+			}
+
+			if (Projectile.ai[1] == 0) //Rockets I/II/Liquids
+			{
+				extraTime = 50;
+				lightningSpeed = 1.4f;
+				dustYspeed = 10;
+			}
+			else if (Projectile.ai[1] == 1) //Rocket III/IV
+			{
+				extraTime = 0;
+				lightningSpeed = 1.75f;
+				dustYspeed = 13;
+
+			}
+			else if (Projectile.ai[1] == 2) //Mini Nukes/ Cluster
+			{
+				extraTime = -50;
+				lightningSpeed = 2.0f;
+				dustYspeed = 16;
+
 			}
 		}
-
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
@@ -433,6 +455,7 @@ namespace StormDiversMod.Projectiles
 			Projectile.Kill();
 			return true;
 		}
+		
 		public override void Kill(int timeLeft)
 		{
 			if (Projectile.owner == Main.myPlayer)
@@ -440,10 +463,13 @@ namespace StormDiversMod.Projectiles
 				SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
 				float numberProjectiles = 12;
 				float rotation = MathHelper.ToRadians(180);
+
+			
+
 				for (int j = 0; j < numberProjectiles; j++) //Lightning is just for visuals
 				{
 
-					Vector2 perturbedSpeed = new Vector2(0, 1.4f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+					Vector2 perturbedSpeed = new Vector2(0, lightningSpeed).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
 
 					float ai = Main.rand.Next(100);
 					int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
@@ -453,18 +479,20 @@ namespace StormDiversMod.Projectiles
 					Main.projectile[projID].scale = 0.75f;
 					Main.projectile[projID].DamageType = DamageClass.Ranged;
 				}
+
+				
 				//Invisible expanding projectile deals damage
 				int projID2 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
-						ModContent.ProjectileType<StormExplosionProj>(), Projectile.damage, .5f, Projectile.owner, 50); //add 50 onto the timer so proejctile is smaller
+						ModContent.ProjectileType<StormExplosionProj>(), Projectile.damage, .5f, Projectile.owner, extraTime); //add 50 onto the timer for rocket I, 0 for rocket III, and -50 for Mini nukes
 
 				Main.projectile[projID2].extraUpdates = 2;
 				Main.projectile[projID2].DamageType = DamageClass.Ranged;
 
 				for (int i = 0; i < 50; i++)
 				{
-					float speedY = -10f;
+				
 
-					Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+					Vector2 dustspeed = new Vector2(0, dustYspeed).RotatedByRandom(MathHelper.ToRadians(360));
 
 					int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 1.5f);
 					Main.dust[dust2].noGravity = true;
@@ -766,7 +794,7 @@ namespace StormDiversMod.Projectiles
 			Projectile.position.Y -= 4f;
 			Projectile.ai[0] += 8;
 			//Projectile.scale += 0.1f;
-			if (Projectile.ai[0] > 250)//kill when timer is reached, when fired from launcher granedes timer starts at 50
+			if (Projectile.ai[0] > 250)//kill when timer is reached, when fired from launcher granedes timer starts at 50/0/-50
             {
                 Projectile.Kill();
             }

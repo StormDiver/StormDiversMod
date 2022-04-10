@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.Accessory
             Tooltip.SetDefault("Allows flight and slow fall\nHold UP to ascend faster");
             //Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 6));
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(160, 8, 1);
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(160, 6.5f, 1.5f);
 
             WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
             {
@@ -52,10 +52,10 @@ namespace StormDiversMod.Items.Accessory
                     var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
                     dust.scale = 2f;
                 }
+                player.wingTime -= 0.33f;
 
             }
-            
-
+  
 
         }
 
@@ -63,14 +63,14 @@ namespace StormDiversMod.Items.Accessory
         { 
             if (player.controlUp)
             {
-                ascentWhenRising = 0.25f;
-                maxAscentMultiplier = 2.5f;
+                ascentWhenRising = 0.2f;
+                maxAscentMultiplier = 2.3f;
 
             }
             else
             {
-                ascentWhenRising = 0.15f;
-                maxAscentMultiplier = 1.75f;
+                ascentWhenRising = 0.12f;
+                maxAscentMultiplier = 1.5f;
             
             }
             ascentWhenFalling = 1f;

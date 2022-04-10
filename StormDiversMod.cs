@@ -44,7 +44,7 @@ namespace StormDiversMod
                         ModContent.ItemType<Items.Weapons.StormKnife>(), ModContent.ItemType<Items.Weapons.StormLauncher>(), ModContent.ItemType<Items.Weapons.StormStaff>(), ModContent.ItemType<Items.Weapons.StormSentryStaff>(),
                         ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>(), ModContent.ItemType<Items.Tools.StormHook>(), ModContent.ItemType<Items.Accessory.StormWings>(),ItemID.TempleKey},
 
-                        ModContent.ItemType<Items.Tools.StormBossSummoner>(),
+                        ModContent.ItemType<Items.Summons.StormBossSummoner>(),
                         "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
                         "Despawn message",
                         //(spriteBatch, rect, color) => { spriteBatch.Draw(texture: ("StormDiversMod/NPCs/StormBoss_Image"), position: rect.Center, color: color); }

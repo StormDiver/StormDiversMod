@@ -21,9 +21,9 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Asteroid Wings");
-            Tooltip.SetDefault("Allows flight and slow fall\nHas a fast horizontal acceleration");
+            Tooltip.SetDefault("Allows flight and slow fall\nHas a fast horizontal movement and acceleration");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(210, 9, 3);
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(190, 8.5f, 2.2f);
             WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Wings")
@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Accessory
                 ascentWhenFalling = 2f;
                 ascentWhenRising = 0.3f;
                 maxCanAscendMultiplier = 1f;
-                maxAscentMultiplier = 2f;
+                maxAscentMultiplier = 2.2f;
                 constantAscend = 0.15f;
         }
       
