@@ -28,8 +28,8 @@ namespace StormDiversMod.Items.Weapons
             Item.rare = ItemRarityID.Pink;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 6;
-            Item.useAnimation = 18;
-            Item.reuseDelay = 16;
+            Item.useAnimation = 15;
+            Item.reuseDelay = 19;
             Item.useTurn = false;
             Item.autoReuse = true;
 

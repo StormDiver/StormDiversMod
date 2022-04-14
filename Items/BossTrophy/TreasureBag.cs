@@ -79,11 +79,11 @@ namespace StormDiversMod.Items.BossTrophy
 			player.QuickSpawnItem(source, ModContent.ItemType<Items.Accessory.StormCoil>());
 
 			//misc drops
-			if (Main.rand.NextBool(4))
+			if (Main.rand.NextBool(3))
 			{
 				player.QuickSpawnItem(source, ModContent.ItemType<Items.Tools.StormHook>());
 			}
-			if (Main.rand.NextBool(4))
+			if (Main.rand.NextBool(3))
 			{
 				player.QuickSpawnItem(source, ModContent.ItemType<Items.Accessory.StormWings>());
 			}

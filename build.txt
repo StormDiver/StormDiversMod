@@ -1,4 +1,4 @@
 displayName = [c/22DD97:Storm Diver's Additions Mod]
 author = Storm Diver
-version = 2.2.0.2
+version = 2.2.0.3
 homepage = https://discord.gg/VJvf2HkxtA

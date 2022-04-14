@@ -50,7 +50,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         
         public override void AI()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 float x2 = Projectile.Center.X - Projectile.velocity.X / 10f * (float)i;
                 float y2 = Projectile.Center.Y - Projectile.velocity.Y / 10f * (float)i;
@@ -924,18 +924,18 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 Projectile.velocity *= 0;
             }
-            if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 66) //Aim indicator
+            if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 72) //Aim indicator
             {
                 
 
                     Dust dust;
                     dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(shootToX * 2f + Projectile.velocity.X, shootToY * 2f + Projectile.velocity.Y), 0, new Color(255, 255, 255), 2f);
                     dust.noGravity = true;
-                    dust.velocity *= 2;
+                    dust.velocity *= 1.5f;
                 
 
             }
-            if (Projectile.ai[0] == 70) //Fire lightning
+            if (Projectile.ai[0] == 72) //Fire lightning
             {
                
                     for (int j = 0; j < 50; j++)
@@ -967,7 +967,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
 
             }
-            if (Projectile.ai[0] >= 80)//Fade out and kill
+            if (Projectile.ai[0] >= 82)//Fade out and kill
             {
                 Projectile.alpha += 5;
                 if (Projectile.scale >= 0)

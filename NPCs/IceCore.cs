@@ -96,12 +96,11 @@ namespace StormDiversMod.NPCs
                 return SpawnCondition.Cavern.Chance * 0f;
             }
         }
-        int shoottime = 0;
-        int phasetime = 0;
-        bool phase1 = true;
-        bool phase2;
+        
+      
         float ypos = -150;
         float movespeed = 3f; //Speed of the npc
+        bool staggered;
 
         public override void AI()
         {
@@ -135,32 +134,44 @@ namespace StormDiversMod.NPCs
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             if (!Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
-                movespeed = 1.5f;
-                ypos = 0;
-                NPC.noTileCollide = true;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    movespeed = 1.5f;
+                    ypos = 0;
+                    NPC.noTileCollide = true;
+                    NPC.netUpdate = true;
+
+                }
             }
             else
             {
-                movespeed = 2.5f;
-                ypos = -150;
-                NPC.noTileCollide = false;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (!staggered)
+                    {
+                        movespeed = 2.5f;
+                    }
+                    ypos = -150;
+                    NPC.noTileCollide = false;
+                    NPC.netUpdate = true;
+
+                }
 
             }
             if (player.dead)
             {
                 NPC.velocity.Y = -0.5f;
             }
-            if (phase1)
+            if (NPC.ai[3] == 0)//phase
             {
                 NPC.rotation = NPC.velocity.X / 50;
 
                 if (distance <= 500f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
                 {
-                    shoottime++;
-                    phasetime++;
+                    NPC.ai[0]++; //shootime
+                    NPC.ai[1]++; //phasetime
 
-
-                    if (shoottime >= 15 && (NPC.position.Y < player.position.Y - 100))//fires the projectiles
+                    if (NPC.ai[0] >= 15 && (NPC.position.Y < player.position.Y - 100))//fires the projectiles
                     {
 
                         int damage = 15; 
@@ -180,35 +191,36 @@ namespace StormDiversMod.NPCs
                         }
 
 
-                        shoottime = 0;
+                        NPC.ai[0] = 0;
 
                     }
                 }
                 else
                 {
-                    shoottime = 0;
+                    NPC.ai[0] = 0;
                    
                 }
 
-                if (phasetime >= 360) //Phase 1 to 2
+                if (NPC.ai[1] >= 360 && Main.netMode != NetmodeID.MultiplayerClient) //Phase 1 to 2
                 {
-                    shoottime = 0;
+                    NPC.ai[0] = 0;
+                    NPC.ai[1] = 0;
+                    NPC.ai[3] = 1;
+                    NPC.netUpdate = true;
 
-                    phase2 = true;
-                    phase1 = false;
-                    phasetime = 0;
+
                 }
             }
-            if (phase2)
+            if (NPC.ai[3] == 1)//phase
             {
                 NPC.rotation += (float)NPC.direction * -0.5f;
                 NPC.velocity.X *= 0.5f;
                 NPC.velocity.Y *= 0.5f;
-                phasetime++;
+                NPC.ai[1]++;//Phasetime
                 if (distance <= 500f)
                 {
-                    shoottime++;
-                    if (shoottime >= 80 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+                    NPC.ai[0]++; //shootime
+                    if (NPC.ai[0] >= 80 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
                     {
                         SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 30);
 
@@ -242,19 +254,17 @@ namespace StormDiversMod.NPCs
                                 dust.noGravity = true;
                             }
                         }
-                        shoottime = 0;
+                        NPC.ai[0] = 0;
                     }
                 }
                     
-                if (phasetime >= 250) //Phase 2 to 1
-                {
-                    
+                if (NPC.ai[1] >= 250 && Main.netMode != NetmodeID.MultiplayerClient) //Phase 2 to 1
+                {                  
+                    NPC.ai[0] = 0;                  
+                    NPC.ai[1] = 0;
+                    NPC.ai[3] = 0;
+                    NPC.netUpdate = true;
 
-                    shoottime = 0;
-
-                    phase2 = false;
-                    phase1 = true;
-                    phasetime = 0;
                 }
             }
 
@@ -262,6 +272,22 @@ namespace StormDiversMod.NPCs
             {
                 var dust3 = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Bottom.Y - 10), 10, 20, 135, 0, 10);
                 dust3.noGravity = true;
+            }
+
+            if (staggered)//when hit greatly slowdown
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    NPC.ai[2]++;
+
+                    movespeed = 0.4f;
+                    NPC.netUpdate = true;
+                }
+            }
+            if (NPC.ai[2] > 15)
+            {
+                staggered = false;
+                NPC.ai[2] = 0;
             }
             /*if (NPC.collideX)
             {
@@ -276,7 +302,7 @@ namespace StormDiversMod.NPCs
         public override void FindFrame(int frameHeight)
         {
           
-            if (phase1)
+            if (NPC.ai[3] == 0)
             {
                 NPC.frame.Y = npcframe * frameHeight;
                 NPC.frameCounter++;
@@ -290,7 +316,7 @@ namespace StormDiversMod.NPCs
                     npcframe = 0;
                 }
             }
-            if (phase2)
+            if (NPC.ai[3] == 2)
             {
                 NPC.frame.Y = npcframe * frameHeight;
                 NPC.frameCounter++;
@@ -313,13 +339,15 @@ namespace StormDiversMod.NPCs
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (phase1)
+            staggered = true;
+
+            if (NPC.ai[3] == 0)
             {
-                shoottime = -10;
+                NPC.ai[0] = -5;
             }
-            if (phase2)
+            if (NPC.ai[3] == 1)
             {
-                shoottime = 50;
+                NPC.ai[0] = 60;
             }
             if (Main.netMode == NetmodeID.Server)
             {

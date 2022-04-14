@@ -90,10 +90,8 @@ namespace StormDiversMod.NPCs
         }
         int shoottime = 0;
         int phasetime; //How long to remain in a phase
-        bool phase1 = true; //FIrts phase, shoots regular souls
-        bool phase2; //Summons homing souls
-        bool phase3; //Summons 2-3 minions
-
+       
+        int phase = 0; //0 = phase 1, 1 = phase 2, 2 = phase 3
 
         public override void AI()
         {
@@ -114,7 +112,7 @@ namespace StormDiversMod.NPCs
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-            if (phase1) //phase1 _________________________________________________________________________________________________________________________
+            if (phase == 0) //phase1 _________________________________________________________________________________________________________________________
             {
                 NPC.defense = 15;
 
@@ -176,16 +174,16 @@ namespace StormDiversMod.NPCs
                     dust2.noGravity = true;
 
                 }
-                if (phasetime >= 400) //Phase 1 to 2
+                if (phasetime >= 400 && Main.netMode != NetmodeID.MultiplayerClient) //Phase 1 to 2
                 {
                     shoottime = 0;
-
-                    phase2 = true;
-                    phase1 = false;
+                    
                     phasetime = 0;
+                    phase = 1;
+                    NPC.netUpdate = true;
                 }
             }
-            if (phase2) //Phase2_________________________________________________________________________________________________________________________
+            if (phase == 1) //Phase2_________________________________________________________________________________________________________________________
             {
                 phasetime++;
                 shoottime++;
@@ -241,16 +239,23 @@ namespace StormDiversMod.NPCs
                     dust2.noGravity = true;
 
                 }
-                if (phasetime >= 500) //Phase 2 to 3
+                if (phasetime >= 500 && Main.netMode != NetmodeID.MultiplayerClient) //Phase 2 to 3, or back to 0 if too many minions are summoned
                 {
                     shoottime = 0;
-
-                    phase3 = true;
-                    phase2 = false;
                     phasetime = 0;
+                    if (NPC.CountNPCS(ModContent.NPCType<HellMiniBossMinion>()) < 9)
+                    {
+                        phase = 2;
+                    }
+                    else
+                    {
+                        phase = 0;
+                    }
+                    NPC.netUpdate = true;
+
                 }
             }
-            if (phase3) //summons minions _________________________________________________________________________________________________________________________
+            if (phase == 2) //summons minions _________________________________________________________________________________________________________________________
             {
                 phasetime++;
                 shoottime++;
@@ -290,22 +295,21 @@ namespace StormDiversMod.NPCs
                     dust2.scale = 1.5f;
                 }
 
-                if (phasetime >= 210) //Phase 3 to 1
+                if (phasetime >= 210 && Main.netMode != NetmodeID.MultiplayerClient) //Phase 3 to 1
                 {
                     shoottime = 0;
-
-                    phase1 = true;
-                    phase3 = false;
                     phasetime = 0;
+                    phase = 0;
+                    NPC.netUpdate = true;
                 }
             }
-            if (player.dead)
+            if (player.dead && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                phase1 = true;
-                phase2 = false;
-                phase3 = false;
+                phase = 0;
                 shoottime = 0;
                 phasetime = 0;
+                NPC.netUpdate = true;
+
             }
 
             if (Main.rand.Next(2) == 0)
@@ -320,7 +324,7 @@ namespace StormDiversMod.NPCs
         int npcframe = 0;
         public override void FindFrame(int frameHeight)
         {
-            if (phase1 || phase2)
+            if (phase != 2)
             {
                 NPC.frame.Y = npcframe * frameHeight;
                 NPC.frameCounter++;
@@ -333,9 +337,8 @@ namespace StormDiversMod.NPCs
                 {
                     npcframe = 0;
                 }
-            }
-           
-            if (phase3)
+            }          
+            else
             {
                 NPC.frame.Y = npcframe * frameHeight;
                 NPC.frameCounter++;

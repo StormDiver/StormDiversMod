@@ -11,7 +11,6 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Basefiles;
 
-
 namespace StormDiversMod.Items.Vanitysets
 {
     [AutoloadEquip(EquipType.Head)]
@@ -28,7 +27,7 @@ namespace StormDiversMod.Items.Vanitysets
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
             });
 
-            ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
+            //ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
         }
         public override void SetDefaults()
         {
@@ -40,7 +39,7 @@ namespace StormDiversMod.Items.Vanitysets
             
         }
       
-      
+     
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Vanitysets/BossMaskStormBoss_Glow");

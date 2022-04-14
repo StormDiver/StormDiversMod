@@ -81,8 +81,8 @@ namespace StormDiversMod.Items.Weapons
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 10;
-            Item.useAnimation = 20;
-            Item.reuseDelay = 30;
+            Item.useAnimation = 15;
+            Item.reuseDelay = 35;
             Item.useTurn = false;
             Item.autoReuse = true;
             //Item.UseSound = SoundID.Item11;

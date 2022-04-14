@@ -90,8 +90,8 @@ namespace StormDiversMod.Items.Weapons
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 4;
-            Item.useAnimation = 16;
-            Item.reuseDelay = 13;
+            Item.useAnimation = 14;
+            Item.reuseDelay = 15;
             Item.useTurn = false;
             Item.autoReuse = true;
             //Item.UseSound = SoundID.Item38;

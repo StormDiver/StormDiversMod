@@ -243,8 +243,8 @@ namespace StormDiversMod.Projectiles
 
             DrawOffsetX = 5;
             DrawOriginOffsetY = 0;
-
             
+
         }
 
         public override void AI()
@@ -252,15 +252,17 @@ namespace StormDiversMod.Projectiles
             int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.9f);
             Main.dust[dust].noGravity = true;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 8;
+            Projectile.localNPCHitCooldown = 7;
             Player player = Main.player[Projectile.owner];
-            if (Main.rand.Next(16) == 0)
+            if (Main.rand.Next(14) == 0)
             {
                 
                     Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedByRandom(MathHelper.ToRadians(25));
                     float scale = 1f - (Main.rand.NextFloat() * .3f);
                     perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2((perturbedSpeed.X * 0.22f), (float)(perturbedSpeed.Y * 0.22f)), ProjectileID.MolotovFire, (int)(Projectile.damage * 0.4f), 0, Projectile.owner);
+                int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2((perturbedSpeed.X * 0.28f), (float)(perturbedSpeed.Y * 0.28f)), ProjectileID.MolotovFire, (int)(Projectile.damage * 0.4f), 0, Projectile.owner);
+                Main.projectile[projID].usesLocalNPCImmunity = true;
+                Main.projectile[projID].localNPCHitCooldown = 10;
             }
 
            

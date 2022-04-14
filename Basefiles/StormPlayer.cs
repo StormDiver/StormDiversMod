@@ -503,7 +503,7 @@ namespace StormDiversMod.Basefiles
                 //int yboottilepos = (int)(Player.Bottom.Y / 16);
 
                 //SPEEDS!
-                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
+                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt || Player.velocity.Y != 0)//When on asphalt 
                 {
                     if (soulBoots)
                     {
@@ -516,7 +516,7 @@ namespace StormDiversMod.Basefiles
                         Player.runAcceleration *= 1.5f;
                     }
                 }
-                else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt)//When not on asphalt 
+                else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt && Player.velocity.Y == 0)//When not on asphalt 
                 {
                     if (soulBoots)
                     {

@@ -38,7 +38,7 @@ namespace StormDiversMod.NPCs
             NPC.defense = 12;
             NPC.lifeMax = 1000;
             NPC.noGravity = true;
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
 
 
             NPC.HitSound = SoundID.NPCHit7;
@@ -81,7 +81,7 @@ namespace StormDiversMod.NPCs
             if (!NPC.AnyNPCs(ModContent.NPCType<SandCore>()) && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneUndergroundDesert && Main.hardMode)
             {
                 {
-                    return SpawnCondition.DesertCave.Chance * 0.015f;
+                    return SpawnCondition.DesertCave.Chance * 0.01f;
                 }
             }
             
@@ -90,13 +90,12 @@ namespace StormDiversMod.NPCs
                 return SpawnCondition.DesertCave.Chance * 0f;
             }
         }
-        int shoottime = 0;
-        int shootduration;
         bool attacking;
         int sounddelay;
         //float ypos = -150;
         float movespeed = 3f; //Speed of the npc
-
+        bool staggered;
+        int ypos = -150;
         public override void AI()
         {
             NPC.buffImmune[BuffID.OnFire] = true;
@@ -111,7 +110,7 @@ namespace StormDiversMod.NPCs
             Player player = Main.player[NPC.target];
             NPC.TargetClosest();
             Vector2 moveTo = player.Center;
-            Vector2 move = moveTo - NPC.Center + new Vector2(0, 0);
+            Vector2 move = moveTo - NPC.Center + new Vector2(0, ypos);
             float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
 
             if (magnitude > movespeed)
@@ -136,16 +135,42 @@ namespace StormDiversMod.NPCs
             }
            
                 NPC.rotation = NPC.velocity.X / 50;
-           
-
-            if (distance <= 300f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            //NPC.ai[2] = staggertime;
+            if (Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
-                shoottime++;
-                movespeed = 1f;
-                shootduration++;
-                sounddelay++;
-               
-                if (shoottime >= 5 && !player.dead && shootduration < 300)//fires the projectiles
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    ypos = -75;
+                    NPC.netUpdate = true;
+
+                }
+            }
+            else
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    ypos = 0;
+                    NPC.netUpdate = true;
+
+                }
+            }
+            if (distance <= 300f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && !staggered)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (!staggered)
+                    {
+                        movespeed = 0.8f;
+                    }
+                    NPC.netUpdate = true;
+                }
+
+                NPC.ai[0]++;//shootime          
+                NPC.ai[1]++;//shootduration
+
+                sounddelay ++;
+
+                if (NPC.ai[0] >= 5 && !player.dead && NPC.ai[1] < 120)//fires the projectiles
                 {
                     attacking = true;
 
@@ -165,36 +190,55 @@ namespace StormDiversMod.NPCs
                     }
 
 
-                    shoottime = 0;
+                    NPC.ai[0] = 0;
 
                 }
 
-                if (sounddelay > 10 && shootduration < 300)
+                if (sounddelay > 10 && NPC.ai[1] < 240)
                 {
                     SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 34, 1, 0.25f);
                     sounddelay = 0;
                 }
-                if (shootduration > 150) // shoots for 2.5 seconds
+                if (NPC.ai[1] > 120) // shoots for 2 seconds
                 {
                     attacking = false;
                     sounddelay = 0;
-                    shoottime = 0;
+                    NPC.ai[0] = 0;
 
                 }
-                if (shootduration > 300) // pauses for 2.5
+                if (NPC.ai[1] > 300) // pauses for 3
                 {
-                    shootduration = 0;
+                    NPC.ai[1] = 0;
                 }
             }
             else
             {
-                shoottime = 0;
+                NPC.ai[0] = 0;
                 attacking = false;
-                movespeed = 1.5f;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    movespeed = 1.5f;
+                    NPC.netUpdate = true;
+
+                }
 
             }
 
-
+            if (staggered)//when hit greatly slowdown
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    NPC.ai[2]++;
+                    
+                    movespeed = 0.2f;
+                    NPC.netUpdate = true;
+                }
+            }
+            if (NPC.ai[2] > 30)
+            {
+                staggered = false;
+                NPC.ai[2] = 0;
+            }
             if (Main.rand.Next(4) == 0) //Dust effects
             {
                 var dust3 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Bottom.Y - 15), NPC.width, 20, 10, 0, 10);
@@ -243,13 +287,12 @@ namespace StormDiversMod.NPCs
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            
-            shoottime = -20;
+
+            NPC.ai[0] -= 30;
             attacking = false;
-            shootduration = 0;
+            NPC.ai[1] = 0;
             sounddelay = 0;
-            NPC.velocity.X = 0f;
-            NPC.velocity.Y = 0f;
+            staggered = true;
 
             if (Main.netMode == NetmodeID.Server)
             {
