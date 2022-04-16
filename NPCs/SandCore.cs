@@ -140,19 +140,29 @@ namespace StormDiversMod.NPCs
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
+                    NPC.noTileCollide = false;
                     ypos = -75;
                     NPC.netUpdate = true;
 
                 }
             }
-            else
-            {
+            int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
+            int ytilepos = (int)(NPC.position.Y + (float)(NPC.height / 2)) / 16;
+            Tile tile = Main.tile[xtilepos, ytilepos];
+            if (distance > 600) //if far away pass through tiles
+            { 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
+                    NPC.noTileCollide = true;
+
                     ypos = 0;
                     NPC.netUpdate = true;
 
                 }
+            }
+            else if ((!Main.tileSolid[tile.TileType]) && distance <=600) //If close and not already inside of tiles no longer pass through tiles
+            {
+                NPC.noTileCollide = false;
             }
             if (distance <= 300f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && !staggered)
             {

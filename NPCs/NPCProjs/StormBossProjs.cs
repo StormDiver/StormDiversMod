@@ -926,14 +926,13 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 72) //Aim indicator
             {
-                
-
+                if (!Main.dedServ)
+                {
                     Dust dust;
                     dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(shootToX * 2f + Projectile.velocity.X, shootToY * 2f + Projectile.velocity.Y), 0, new Color(255, 255, 255), 2f);
                     dust.noGravity = true;
                     dust.velocity *= 1.5f;
-                
-
+                }
             }
             if (Projectile.ai[0] == 72) //Fire lightning
             {
@@ -948,22 +947,22 @@ namespace StormDiversMod.NPCs.NPCProjs
                         Main.dust[dust2].noGravity = true;
                     }
 
-                if (Main.netMode == 0)//Single player lighting 
-                { 
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
                     float ai = Main.rand.Next(25);
                     int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX * 1.15f, shootToY * 1.15f),
-                    ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, 0, rotation.ToRotation(), ai);
+                    ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
                     Main.projectile[projID].scale = 1f;
                     Main.projectile[projID].tileCollide = false;
                 }
-                else if (Main.netMode == 2)//server, just fire normal projectile as lightning doesn't want to work 
+                /*else if (Main.netMode == 2)//server, just fire normal projectile as lightning doesn't want to work 
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX * 2f, shootToY * 2f),
                                ModContent.ProjectileType<NPCs.NPCProjs.StormBossBolt>(), Projectile.damage, .5f);
                     }
-                }
+                }*/
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
 
             }

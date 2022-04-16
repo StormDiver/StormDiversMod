@@ -138,11 +138,13 @@ namespace StormDiversMod.NPCs
             //NPC.localAI[0] = Y postion
 
             //========================================
-
+            if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
+            {
+                NPC.TargetClosest();
+            }
             Player player = Main.player[NPC.target]; //Code to move towards player
             //Main movement, xpos and ypos change per attack, code ignroed when charging
 
-            NPC.TargetClosest(true);
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (!charge && !player.dead)
@@ -168,15 +170,45 @@ namespace StormDiversMod.NPCs
             distanceY = player.Center.Y - NPC.Center.Y;
             distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
-            if (distance > 2000 && !player.dead && NPC.ai[3] != 0)//Speed up if too far away
+            if (distance > 2000 && !player.dead && NPC.ai[3] != 0 && Main.netMode != NetmodeID.MultiplayerClient)//Speed up if too far away
             {
+
                 movespeed *= 1.03f;
+                NPC.netUpdate = true;
+
                 //NPC.position.X = player.position.X;
                 //NPC.position.Y = player.position.Y - 150;
             }
             if (distance > 10000 && NPC.ai[3] != 0)// Despawn if too far away
             {
                 NPC.active = false;
+            }
+            if (charge) //melee damage while charging
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (!Main.expertMode)
+                    {
+                        NPC.damage = 100;
+                    }
+                    if (Main.expertMode && !Main.masterMode)
+                    {
+                        NPC.damage = 150;
+                    }
+                    if (Main.masterMode)
+                    {
+                        NPC.damage = 200;
+                    }
+                    NPC.netUpdate = true;
+                }
+            }
+            else
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    NPC.damage = 0;
+                    NPC.netUpdate = true;
+                }
             }
             //____________________________________________________________________________________________________________________________________
             if (!player.dead)
@@ -255,7 +287,7 @@ namespace StormDiversMod.NPCs
                 }
                 
                 NPC.rotation = (float)Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 0f;
-                NPC.despawnEncouraged = true;
+                NPC.EncourageDespawn(60);
 
                 NPC.localAI[1]++;
                 if (NPC.localAI[1] > 180)
@@ -270,6 +302,7 @@ namespace StormDiversMod.NPCs
 
             if (!halflife && NPC.life < NPC.lifeMax / 2) //Below half health new attack
             {
+                NPC.ai[0] = 0;//rest cooldown for attacks
                 SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0, 1, +0.5f);
                 //if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -377,7 +410,6 @@ namespace StormDiversMod.NPCs
                         projdamage = 30; // 60 on normal
                     }
 
-                    NPC.damage = 0; //No damage unless charging
                     animateclaws = true;
                     //phasetime++;
                     NPC.localAI[0]++; //Only count to next phase when not charging
@@ -439,6 +471,14 @@ namespace StormDiversMod.NPCs
                     NPC.ai[2] = 0;
                     if (distance > 500) //Travelling towards player
                     {
+                        if (NPC.position.X < player.position.X)
+                        {
+                            rotateright = true; //Spins one way
+                        }
+                        else
+                        {
+                            rotateright = false; //Spins the other
+                        }
                         if (rotateright) //Reset Rotation depedning on side
                         {
                             rotation = 180; 
@@ -453,19 +493,14 @@ namespace StormDiversMod.NPCs
                             NPC.netUpdate = true;
                         }
 
-                        if (NPC.position.X < player.position.X)
-                        {
-                            rotateright = true; //Spins one way
-                        }
-                        else
-                        {
-                            rotateright = false; //Spins the other
-                        }
-
                     }
                     else //Oribiting player
-                    {                       
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
                             movespeed = 7.5f;
+                            NPC.netUpdate = true;
+                        }
                         //Factors for calculations
                         double deg = (rotation);
                         double rad = deg * (Math.PI / 180);
@@ -506,19 +541,6 @@ namespace StormDiversMod.NPCs
                         projdamage = 40; // 80 on normal
                     }
 
-                    if (!Main.expertMode)//damage while charging
-                    {
-                        NPC.damage = 100;
-                    }
-                    if (Main.expertMode && !Main.masterMode)
-                    {
-                        NPC.damage = 150;
-                    }
-                    if (Main.masterMode)
-                    {
-                        NPC.damage = 200;
-                    }
-
                     NPC.rotation = (float)Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 0f;
                     animateclaws = false;
 
@@ -529,10 +551,8 @@ namespace StormDiversMod.NPCs
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * 2;
                     //if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-
                         var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 229);
                         dust.noGravity = true;
-
                     }
                     if (NPC.ai[2] == 1)//Start Dash
                     {
@@ -541,8 +561,6 @@ namespace StormDiversMod.NPCs
                             NPC.velocity.X = velocity.X;
                             NPC.velocity.Y = velocity.Y;
                             rotation += 180; //New target is opposite where charged
-
-
                             NPC.netUpdate = true;
                         }
                         SoundEngine.PlaySound(SoundID.NPCHit, (int)NPC.Center.X, (int)NPC.Center.Y, 53, 1, -0.5f);
@@ -618,7 +636,6 @@ namespace StormDiversMod.NPCs
                 {
                     projdamage = 35; // 70 on normal
                 }
-                NPC.damage = 0;
                 NPC.localAI[0]++;
                 animateclaws = false;
 
@@ -641,7 +658,11 @@ namespace StormDiversMod.NPCs
                         NPC.netUpdate = true;
                     }
                 }
-                movespeed = 25;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    movespeed = 25;
+                    NPC.netUpdate = true;
+                }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     if (rotateright)//Move depending on picked side
@@ -702,8 +723,6 @@ namespace StormDiversMod.NPCs
                 {
                     projdamage = 25; // 100 On expert (150 on master)
 
-                    NPC.damage = 0;
-
                     animateclaws = true;
 
                     NPC.rotation = NPC.localAI[0] / 3;
@@ -711,11 +730,12 @@ namespace StormDiversMod.NPCs
                     NPC.ai[0]++;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
+                        movespeed = 15;
                         NPC.localAI[2] = 0;
                         NPC.localAI[3] = -250;
                         NPC.netUpdate = true;
                     }
-                    movespeed = 15;
+                    
 
                     if ((NPC.ai[0] >= 90 || (halflife && NPC.ai[0] >= 75)) && NPC.localAI[0] <= 300)//One extra portal below half life
                     {
@@ -772,7 +792,6 @@ namespace StormDiversMod.NPCs
                     projdamage = 30; // 60 on normal
                 }
 
-                NPC.damage = 0; //No contact damage
                 NPC.localAI[0]++;
                 animateclaws = true;
 
@@ -835,30 +854,26 @@ namespace StormDiversMod.NPCs
 
                         float projectileSpeed = 7f; // The speed of your projectile (in pixels per second).
 
-                        Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
-                        Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-                        if (Main.netMode == 0) // Single player fire lightning
+                        
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            
-                            {
-                                Vector2 rotation = -NPC.Center + player.Center;
+                            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
+                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                            Vector2 rotation = -NPC.Center + player.Center;
 
-                                float ai = Main.rand.Next(100);
-                                int projID = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, 0),
-                                    ModContent.ProjectileType<NPCs.NPCProjs.StormBossLightning>(), projdamage, .5f, 0, rotation.ToRotation(), ai);
-                                Main.projectile[projID].scale = 1;
-                            }
-                            
-
+                            float ai = Main.rand.Next(100);
+                            int projID = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, 0),
+                                ModContent.ProjectileType<NPCs.NPCProjs.StormBossLightning>(), projdamage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
+                            Main.projectile[projID].scale = 1;
                         }
-                        else if (Main.netMode == 2)//server, just fire normal projectile as lightning doesn't want to work 
+                        /*else if (Main.netMode == 2)//server, just fire normal projectile as lightning doesn't want to work 
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 int projID = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X * 2, 0),
                                        ModContent.ProjectileType<NPCs.NPCProjs.StormBossBolt>(), projdamage, .5f);
                             }
-                        }
+                        }*/
                     }
                     SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 122, 1, 0.5f);
 
@@ -894,18 +909,7 @@ namespace StormDiversMod.NPCs
                     {
                         projdamage = 45; // 90 on normal
                     }
-                    if (!Main.expertMode)
-                    {
-                        NPC.damage = 100;
-                    }
-                    if (Main.expertMode && !Main.masterMode)
-                    {
-                        NPC.damage = 150;
-                    }
-                    if (Main.masterMode)
-                    {
-                        NPC.damage = 200;
-                    }
+                
                     animateclaws = false;
                     if (!lowlife)//don't change attack on last phase
                     {
@@ -945,7 +949,7 @@ namespace StormDiversMod.NPCs
                             NPC.netUpdate = true;
                         }
                     }
-                    if (NPC.ai[2] > 60) //Rest dash
+                    if (NPC.ai[2] > 60) //Reset dash
                     {
                         NPC.ai[2] = 0;
                     }

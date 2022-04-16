@@ -31,6 +31,19 @@ namespace StormDiversMod.Items.Summons
 
 
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.text = line.text + "\nMay experience issues on multiplayer!\nFor the best experience fight the boss on single player!"; //If not set as a plantera alt you need to get rockets somehow
+                    }
+                }
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 20;
