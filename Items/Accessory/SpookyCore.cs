@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spooky Emblem");
-            Tooltip.SetDefault("Inflict fear upon nearby enemies\nHas a greater range the lower on health you are");
+            Tooltip.SetDefault("Creates an aura of fear around you that affects enemies\nHas a greater range the lower on health you are");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

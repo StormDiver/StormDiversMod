@@ -343,7 +343,7 @@ namespace StormDiversMod.Projectiles
 
             if (Projectile.owner == Main.myPlayer)
             {
-                int numberProjectiles = 8 + Main.rand.Next(3);
+                int numberProjectiles = 6 + Main.rand.Next(3);
                 for (int i = 0; i < numberProjectiles; i++)
                 {
 
@@ -352,10 +352,10 @@ namespace StormDiversMod.Projectiles
                     // Rebound at 40% to 70% speed, plus a random amount between -8 and 8
                     //float speedX = -Projectile.velocity.X * Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-16f, 16f);
                     //float speedY = -Projectile.velocity.Y * Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-16f, 16f);
-                    Vector2 perturbedSpeed = new Vector2(0, -20).RotatedByRandom(MathHelper.ToRadians(360));
+                    Vector2 perturbedSpeed = new Vector2(0, -12).RotatedByRandom(MathHelper.ToRadians(360));
 
                     Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
-                        ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), Projectile.knockBack, Projectile.owner);
+                        ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), 1, Projectile.owner);
                 }
             }
         }
@@ -467,14 +467,14 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.owner == Main.myPlayer)
             {
-                int numberProjectiles = 8 + Main.rand.Next(3);
+                int numberProjectiles = 6 + Main.rand.Next(3);
                 for (int i = 0; i < numberProjectiles; i++)
                 {
                     
-                    Vector2 perturbedSpeed = new Vector2(0, -16).RotatedByRandom(MathHelper.ToRadians(360));
+                    Vector2 perturbedSpeed = new Vector2(0, -12).RotatedByRandom(MathHelper.ToRadians(360));
 
                     Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
-                        ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), Projectile.knockBack, Projectile.owner);
+                        ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), 1, Projectile.owner);
                 }
             }
         }
@@ -509,9 +509,22 @@ namespace StormDiversMod.Projectiles
             Projectile.tileCollide = false;
 
         }
+        int damagetime;
         public override void AI()
         {
             Projectile.penetrate = 1;
+            damagetime++;
+        }
+        public override bool? CanDamage()
+        {
+            if (damagetime < 8)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

@@ -219,7 +219,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Predictor Brain");
-            Tooltip.SetDefault("Summons projectiles that charge towards the cursor");
+            Tooltip.SetDefault("Summons nebula projectiles that charge towards the cursor");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -245,7 +245,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item8;
 
-            Item.damage = 70;
+            Item.damage = 78;
             //Item.crit = 4;
             Item.knockBack = 1f;
 

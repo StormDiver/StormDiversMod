@@ -134,7 +134,7 @@ namespace StormDiversMod.Items.Summons
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ItemID.FallenStar, 10)
+           .AddIngredient(ItemID.FallenStar, 5)
            .AddIngredient(ItemID.SoulofMight, 1)
            .AddIngredient(ItemID.SoulofSight, 1)
            .AddIngredient(ItemID.SoulofFright, 1)

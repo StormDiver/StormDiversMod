@@ -196,7 +196,6 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<NebulaDebuff>(), 450);
         }
         
         public override bool OnTileCollide(Vector2 oldVelocity)

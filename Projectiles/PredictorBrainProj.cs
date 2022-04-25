@@ -205,7 +205,6 @@ namespace StormDiversMod.Projectiles
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f, 130, default, 0.5f);
 
             }
-            target.AddBuff(ModContent.BuffType<NebulaDebuff>(), 180);
 
         }
 

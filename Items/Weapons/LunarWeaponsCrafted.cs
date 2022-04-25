@@ -257,7 +257,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nebula Storm");
-            Tooltip.SetDefault("Summons nebula flame blasts that explode into many homing bolts");
+            Tooltip.SetDefault("Summons nebula projectiles that explode into many homing bolts");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -283,7 +283,7 @@ namespace StormDiversMod.Items.Weapons
             Item.mana = 12;
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 75;
+            Item.damage = 84;
             //Item.crit = 4;
             Item.knockBack = 1f;
 

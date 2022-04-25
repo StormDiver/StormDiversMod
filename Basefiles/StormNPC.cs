@@ -169,15 +169,16 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }
-            if (spookedDebuff)
-            {
-
-
-            }
+         
             if (beetled && !npc.boss)
             {
                 npc.velocity.X *= 0.92f;
                 npc.velocity.Y *= 0.92f;
+
+            }
+            if (spookedDebuff && !npc.boss)
+            {
+                npc.velocity.X *= 0.94f;
 
             }
             //speen________________________________________________
@@ -250,9 +251,7 @@ namespace StormDiversMod.Basefiles
             if (bloodDebuff)
             {
                 npc.lifeRegen -= 12;
-
                 damage = 2;
-
             }
             if (heartDebuff)
             {
@@ -263,23 +262,42 @@ namespace StormDiversMod.Basefiles
             }
             if (superburnDebuff)
             {
-                npc.lifeRegen -= 30;
-
-                damage = 5;
+                if (npc.HasBuff(BuffID.Oiled))
+                {
+                    npc.lifeRegen -= 80;
+                    damage = 10;
+                }
+                else
+                {
+                    npc.lifeRegen -= 30;
+                    damage = 5;
+                }
             }
             if (sandBurn)
             {
-                npc.lifeRegen -= 50;
-
-                damage = 5;
-
+                if (npc.HasBuff(BuffID.Oiled))
+                {
+                    npc.lifeRegen -= 100;
+                    damage = 12;
+                }
+                else
+                {
+                    npc.lifeRegen -= 50;
+                    damage = 5;
+                }
             }
             if (superFrost)
             {
-                npc.lifeRegen -= 50;
-
-                damage = 5;
-
+                if (npc.HasBuff(BuffID.Oiled))
+                {
+                    npc.lifeRegen -= 100;
+                    damage = 12;
+                }
+                else
+                {
+                    npc.lifeRegen -= 50;
+                    damage = 5;
+                }
             }
             if (darknessDebuff)
             {
@@ -290,9 +308,16 @@ namespace StormDiversMod.Basefiles
             }
             if (hellSoulFire)
             {
-                npc.lifeRegen -= 80;
-
-                damage = 10;
+                if (npc.HasBuff(BuffID.Oiled))
+                {
+                    npc.lifeRegen -= 130;
+                    damage = 15;
+                }
+                else
+                {
+                    npc.lifeRegen -= 80;
+                    damage = 10;
+                }
             }
             if (boulderDB)
             {
@@ -303,15 +328,31 @@ namespace StormDiversMod.Basefiles
             }
             if (ultraburnDebuff)
             {
-                npc.lifeRegen -= 100;
-                damage = 10;
+                if (npc.HasBuff(BuffID.Oiled))
+                {
+                    npc.lifeRegen -= 150;
+                    damage = 15;
+                }
+                else
+                {
+                    npc.lifeRegen -= 100;
+                    damage = 10;
+                }
             }
             if (ultrafrostDebuff)
             {
-                npc.lifeRegen -= 100;
-                damage = 10;
+                if (npc.HasBuff(BuffID.Oiled))
+                {
+                    npc.lifeRegen -= 150;
+                    damage = 15;
+                }
+                else
+                {
+                    npc.lifeRegen -= 100;
+                    damage = 10;
+                }
             }
-            if (spectreDebuff)
+            if (spectreDebuff) //unused
             {
                 npc.lifeRegen -= 120;
 
@@ -327,7 +368,7 @@ namespace StormDiversMod.Basefiles
 
             }
 
-            if (nebula)
+            if (nebula) //unused
             {
                 npc.lifeRegen -= 180;
                 damage = 20;
@@ -335,8 +376,9 @@ namespace StormDiversMod.Basefiles
 
             if (spookedDebuff)
             {
-                npc.lifeRegen -= 200;
-                damage = 20;
+                npc.lifeRegen -= 500;
+                damage = 250;
+              
             }
             if (lunarBoulderDB)
             {

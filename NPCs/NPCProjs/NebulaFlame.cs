@@ -45,9 +45,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            
-                target.AddBuff(ModContent.BuffType<Buffs.NebulaDebuff>(), 300);
-            
+                        
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

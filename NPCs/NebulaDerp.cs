@@ -95,7 +95,7 @@ namespace StormDiversMod.NPCs
                 //if (shoottime >= 120 )
                 {
                    // float projectileSpeed = 5f; // The speed of your projectile (in pixels per second).
-                    int damage = 25; // The damage your projectile deals.
+                    int damage = 30; // The damage your projectile deals.
                     float knockBack = 3;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.NebulaFlame>();
                     

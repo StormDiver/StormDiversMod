@@ -162,7 +162,7 @@ namespace StormDiversMod.Basefiles
 
             if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton)
             {
-                if (Main.rand.Next(100) < 2)
+                if (Main.rand.Next(100) < 5)
 
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Weapons.StickyLauncher>());
@@ -466,8 +466,8 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.SantaNK1)
             {
 
-                isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 5, 8));
-                notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 4, 6));
+                isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 8, 12));
+                notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 6, 10));
 
 
 

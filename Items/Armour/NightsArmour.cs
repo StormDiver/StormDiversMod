@@ -122,7 +122,7 @@ namespace StormDiversMod.Items.Armour
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Twilight Robe");
-            Tooltip.SetDefault("6% increased damage\nSlighlty increases player acceleration");
+            Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlighlty increases player acceleration");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
 
@@ -145,6 +145,8 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Generic) += 0.06f;
+            player.GetCritChance(DamageClass.Generic) += 3;
+
             player.runAcceleration += 0.1f;
             //player.lifeRegen += 1;
         }
@@ -176,7 +178,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Twilight Leggings");
-            Tooltip.SetDefault("2% increased damage and critical strike chance\nSlightly increases jump speed and height");
+            Tooltip.SetDefault("3% increased damage\n2% increased critical strike chance\nSlightly increases jump speed and height");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
@@ -196,7 +198,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.02f;
+            player.GetDamage(DamageClass.Generic) += 0.03f;
             player.GetCritChance(DamageClass.Generic) += 2;
             player.jumpSpeedBoost += 0.75f;
            

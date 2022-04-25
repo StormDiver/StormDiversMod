@@ -689,12 +689,14 @@ namespace StormDiversMod.Basefiles
 
                     float speedX = 0f;
                     float speedY = -8f;
-                    int damage = (int)(125 * Player.GetDamage(DamageClass.Ranged));
-                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(50));
-                    float scale = 1f - (Main.rand.NextFloat() * .1f);
-                    perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
-
+                    int damage = (int)(80 * Player.GetDamage(DamageClass.Ranged));
+                    for (int i = 0; i < 2; i++) //2 rockets per charge
+                    {
+                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(50));
+                        float scale = 1f - (Main.rand.NextFloat() * .1f);
+                        perturbedSpeed = perturbedSpeed * scale;
+                        Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
+                    }
                 }
 
                 if (santankcharge <= -10) //Reset trigger once all missile are fired (negative creates a recharge delay, delay is 1 = 3, so 10 = 30 frames, plus the 10 * 3 (30frame) delay for the first charge (60 frames, 1 second))
@@ -766,7 +768,7 @@ namespace StormDiversMod.Basefiles
                         if (StormDiversMod.ArmourSpecialHotkey.JustPressed) //Activates when player presses button
                         {
                             Player.AddBuff(BuffID.Obstructed, 10); //Hopefully this covers up the janky teleport :thePain:
-                            Player.AddBuff(ModContent.BuffType<TwilightDebuff>(), 720);
+                            Player.AddBuff(ModContent.BuffType<TwilightDebuff>(), 480);
 
                             Player.grappling[0] = -1; //Remove grapple hooks
                             Player.grapCount = 0;
@@ -881,18 +883,32 @@ namespace StormDiversMod.Basefiles
             //For Spooky Core======================
             if (spooked)
             {
-                float distancehealth = 350 + ((Player.statLifeMax2 - Player.statLife) / 2);
-                if (distancehealth > 650)
+                float distancehealth = 600 + ((Player.statLifeMax2 - Player.statLife) / 2);
+                if (distancehealth > 1000)
                 {
-                    distancehealth = 650;
+                    distancehealth = 1000;
                 }
                 if (Main.rand.Next(5) == 0)
                 {
-                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, 0, -3);
+                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, 0, -2);
                     dust.noGravity = true;
-                    dust.scale = 1f;
+                    dust.scale = 0.8f;
                 }
-
+                //circle of dust
+                for (int i = 0; i < 10; i++)
+                {
+                    double deg = Main.rand.Next(0, 360); //The degrees
+                    double rad = deg * (Math.PI / 180); //Convert degrees to radians
+                    double dist = distancehealth; //Distance away from the player
+                    float dustx = Player.Center.X - (int)(Math.Cos(rad) * dist);
+                    float dusty = Player.Center.Y - (int)(Math.Sin(rad) * dist);
+                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Player.position, Player.width, Player.height))//no dust unless lien of sight
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 259, 0, 0);
+                        dust.noGravity = true;
+                        dust.scale = 1.25f;
+                    }
+                }
                 for (int i = 0; i < 200; i++)
                 {
                     NPC target = Main.npc[i];
@@ -909,12 +925,13 @@ namespace StormDiversMod.Basefiles
                     if (distance < distancehealth && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Player.Center, 0, 0, target.Center, 0, 0))
                     {
                         if (!target.buffImmune[(BuffType<SpookedDebuff>())])
-                        {
+                        {                          
+                            /*
                             distance = 1.6f / distance;
 
                             //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                            shootToX *= distance * (12f + (distancehealth / 50));
-                            shootToY *= distance * (12f + (distancehealth / 50));
+                            shootToX *= distance * (10f + (distancehealth / 50));
+                            shootToY *= distance * (10f + (distancehealth / 50));
                             if (Main.rand.Next(4) == 0)
                             {
                                 Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(8));
@@ -922,9 +939,9 @@ namespace StormDiversMod.Basefiles
                                 var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, perturbedSpeed.X, perturbedSpeed.Y);
                                 dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
                                 dust.noGravity = true;
-                                dust.scale = 1.5f;
+                                dust.scale = 0.75f;
                             }
-
+                            */
 
                             target.AddBuff(ModContent.BuffType<SpookedDebuff>(), 2);
                         }
@@ -969,7 +986,7 @@ namespace StormDiversMod.Basefiles
                 if (skulltime == 1 || skulltime == 25 || skulltime == 49) //24 frames between spawns
                 {
 
-                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 75, 0f, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI);
 
 
                 }
@@ -1472,11 +1489,15 @@ namespace StormDiversMod.Basefiles
             }
             //For Space Armour with Mask (Defence)
             int defencedmg = 100 + (attackdmg * 2); //Boulder damage
+            if (defencedmg > 500)
+            {
+                defencedmg = 500;
+            }
             int defenceknb = 6; //Boulder Knockback
             float defenceVeloX = Player.velocity.X * 0.25f;
 
             if (spaceRockDefence && Player.HasBuff(ModContent.BuffType<SpaceRockDefence>()) && damage >= 2)
-            {
+            {           
                 Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X + 0, Player.Top.Y - 350), new Vector2(0 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and goes straight down
 
                 Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(0), new Vector2(Player.Center.X - 0, Player.Top.Y - 400), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and moves slighly left
@@ -1530,10 +1551,16 @@ namespace StormDiversMod.Basefiles
                 }
             }
             //Creates the shards for the frost core when hit ======================
+            int frostdamage = (int)((attackdmg * .75f));
+            if (frostdamage > 150)
+            {
+                frostdamage = 150;
+            }
             if (frostSpike)
             {
                 if (frosttime < 1 && damage > 1)
                 {
+                    
                     SoundEngine.PlaySound(SoundID.NPCKilled, (int)Player.position.X, (int)Player.position.Y, 56, 0.5f);
                     float numberProjectiles = 10 + Main.rand.Next(4);
                     for (int i = 0; i < numberProjectiles; i++)
@@ -1545,7 +1572,7 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(150));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrostAccessProj>(), (int)((attackdmg * .75f)), 3f, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetProjectileSource_Accessory(null), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrostAccessProj>(), frostdamage, 3f, Player.whoAmI);
 
                     }
                     for (int i = 0; i < 30; i++)

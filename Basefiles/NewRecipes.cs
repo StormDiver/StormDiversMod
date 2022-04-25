@@ -79,7 +79,7 @@ namespace StormDiversMod.Basefiles
 
             //ROD
             Recipe recipe4 = Mod.CreateRecipe(ItemID.RodofDiscord, 1);
-            recipe4.AddIngredient(ModContent.ItemType<ChaosShard>(), 12);
+            recipe4.AddIngredient(ModContent.ItemType<ChaosShard>(), 25);
             recipe4.AddIngredient(ItemID.CrystalShard, 30);
             recipe4.AddIngredient(ItemID.SoulofLight, 25);
             recipe4.AddIngredient(ItemID.HallowedBar, 20);

@@ -28,27 +28,20 @@ namespace StormDiversMod
                 if (bossChecklist != null)
                 {
                     bossChecklist.Call
-                        (
-                        "AddBoss",
-                        this, // Mod
-                        "Overloaded Scandrone",
-                         ModContent.NPCType<NPCs.StormBoss>(),
-                         11.5f,
-                        (Func<bool>)(() => StormWorld.stormBossDown),
-
-                        () => true,
-
+                        ("AddBoss", this, "Overloaded Scandrone", ModContent.NPCType<NPCs.StormBoss>(), 11.5f, (Func<bool>)(() => StormWorld.stormBossDown), () => true,
                         new List<int> { ModContent.ItemType<Items.BossTrophy.StormBossTrophy>(), ModContent.ItemType<Items.BossTrophy.StormBossRelic>(), ModContent.ItemType<Items.Pets.StormBossPetItem>(),
-                         ModContent.ItemType<Items.BossTrophy.StormBossBag>(), ModContent.ItemType<Items.Accessory.StormCoil>(),
-
+                        ModContent.ItemType<Items.BossTrophy.StormBossBag>(), ModContent.ItemType<Items.Accessory.StormCoil>(), //vanity
+                        //other
                         ModContent.ItemType<Items.Weapons.StormKnife>(), ModContent.ItemType<Items.Weapons.StormLauncher>(), ModContent.ItemType<Items.Weapons.StormStaff>(), ModContent.ItemType<Items.Weapons.StormSentryStaff>(),
                         ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>(), ModContent.ItemType<Items.Tools.StormHook>(), ModContent.ItemType<Items.Accessory.StormWings>(),ItemID.TempleKey},
 
-                        ModContent.ItemType<Items.Summons.StormBossSummoner>(),
-                        "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
-                        "Despawn message",
-                        //(spriteBatch, rect, color) => { spriteBatch.Draw(texture: ("StormDiversMod/NPCs/StormBoss_Image"), position: rect.Center, color: color); }
-                        ("StormDiversMod/NPCs/StormBoss_Image")
+                        ModContent.ItemType<Items.Summons.StormBossSummoner>(), "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
+                        "Overloaded Scandrone returns to its home planet (and didn't die on the way home",
+                        (SpriteBatch sb, Rectangle rect, Color color) => {
+                            Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/StormBoss_Image").Value;
+                            Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+                            sb.Draw(texture, centered, color);
+                        }
                         );
                     // Additional bosses here
                 }

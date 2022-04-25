@@ -35,7 +35,8 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
 
             Projectile.timeLeft = 180;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
         int timer;
         public override void AI()
@@ -96,7 +97,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.localAI[0] = 1f;
                 }
                 Vector2 move = Vector2.Zero;
-                float distance = 750f;
+                float distance = 1000f;
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {

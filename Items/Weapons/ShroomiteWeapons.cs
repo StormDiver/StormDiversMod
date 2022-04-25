@@ -67,7 +67,7 @@ namespace StormDiversMod.Items.Weapons
             return new Vector2(-8, 0);
         }
 
-        int accuracy = 15; //The amount of spread
+        float accuracy = 15; //The amount of spread
         int resetaccuracy = 15; //How long to not fire for the accuracy to reset
         public override void HoldItem(Player player)
         {
@@ -85,7 +85,7 @@ namespace StormDiversMod.Items.Weapons
            
             if (accuracy > 0)//Increases accuracy every shot
             {
-                accuracy -= 1;
+                accuracy -= 0.33f;
 
             }
 
@@ -94,7 +94,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 {
                     //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
-                    if (accuracy == 0)//When at full accuracy damage and knockback of the projectile is increased by 10%
+                    if (accuracy <= 0)//When at full accuracy damage and knockback of the projectile is increased by 10%
                     {
                         if (type == ProjectileID.Bullet)
                             {
@@ -249,8 +249,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 8, 0, 0);
             Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 35;
-            Item.useAnimation = 35;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useTurn = false;
             Item.autoReuse = true;
 
