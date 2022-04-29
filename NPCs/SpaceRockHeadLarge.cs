@@ -140,12 +140,12 @@ namespace StormDiversMod.NPCs
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore1").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore1").Type, 1f);
                 }
 
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore2").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore3").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore4").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore2").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore3").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SpaceRockHeadLargeGore4").Type, 1f);
 
                
                 for (int i = 0; i < 30; i++)

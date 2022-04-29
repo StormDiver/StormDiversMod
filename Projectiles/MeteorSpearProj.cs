@@ -103,8 +103,8 @@ namespace StormDiversMod.Projectiles
             if (!meteorrain)
             {
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 45, 0.5f, 0.5f);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Center.X - 200, target.Center.Y - 650), new Vector2(+3.5f, 10), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Center.X + 200, target.Center.Y - 650), new Vector2(-3.5f, 10), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 200, target.Center.Y - 650), new Vector2(+3.5f, 10), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 200, target.Center.Y - 650), new Vector2(-3.5f, 10), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
 
                 meteorrain = true;
             }

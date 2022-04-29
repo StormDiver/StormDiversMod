@@ -165,7 +165,7 @@ namespace StormDiversMod.Projectiles
                 int speedX = 0;
                 int speedY = 0;
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
                 spwmushroom = 8;
             }
            /* trail++;
@@ -354,7 +354,7 @@ namespace StormDiversMod.Projectiles
                     //float speedY = -Projectile.velocity.Y * Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-16f, 16f);
                     Vector2 perturbedSpeed = new Vector2(0, -12).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
                         ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), 1, Projectile.owner);
                 }
             }
@@ -473,7 +473,7 @@ namespace StormDiversMod.Projectiles
                     
                     Vector2 perturbedSpeed = new Vector2(0, -12).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
                         ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), 1, Projectile.owner);
                 }
             }

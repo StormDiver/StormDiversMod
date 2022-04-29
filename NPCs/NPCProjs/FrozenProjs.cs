@@ -148,7 +148,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                     {
 
                         Vector2 perturbedSpeed = new Vector2(0, 2.5f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                        int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
+                        int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
                         Main.projectile[projID].tileCollide = false;
                         Main.projectile[projID].timeLeft = 30;
 
@@ -191,7 +191,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 {
                   
                     Vector2 perturbedSpeed = new Vector2(0, 7).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
                     Main.projectile[projID].tileCollide = false;
                     Main.projectile[projID].timeLeft = 60;
 

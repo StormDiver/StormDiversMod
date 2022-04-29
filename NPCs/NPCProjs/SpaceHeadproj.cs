@@ -95,7 +95,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                         distance = 3f / distance;
                         shootToX *= distance * 6;
                         shootToY *= distance * 6;
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<NPCs.NPCProjs.SpaceHeadProj2>(), Projectile.damage, Projectile.knockBack);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<NPCs.NPCProjs.SpaceHeadProj2>(), Projectile.damage, Projectile.knockBack);
 
                         Projectile.Kill();
                     }

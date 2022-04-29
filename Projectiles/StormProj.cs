@@ -208,7 +208,7 @@ namespace StormDiversMod.Projectiles
 					Vector2 perturbedSpeed = new Vector2(0, 2f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
 
 					float ai = Main.rand.Next(100);
-					int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+					int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
 						ModContent.ProjectileType<StormLightningProj>(), 0, 0, Projectile.owner, perturbedSpeed.ToRotation(), ai);
 
 					Main.projectile[projID].tileCollide = false;
@@ -217,7 +217,7 @@ namespace StormDiversMod.Projectiles
 				}
 				//Invisible expanding projectile deals damage
 
-				int projID2 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
+				int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
 						ModContent.ProjectileType<StormExplosionProj>(), Projectile.damage, .5f, Projectile.owner);
 
 				Main.projectile[projID2].extraUpdates = 2;
@@ -326,7 +326,7 @@ namespace StormDiversMod.Projectiles
 
 				Vector2 rotation = -new Vector2(target.Center.X - xpos, target.Center.Y - 500) + target.Center;
 
-				int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Center.X - xpos, target.Center.Y - 500), new Vector2(xpos * 0.02f, 5),
+				int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - xpos, target.Center.Y - 500), new Vector2(xpos * 0.02f, 5),
 					ModContent.ProjectileType<Projectiles.StormLightningProj>(), damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
 				Main.projectile[projID].scale = 1;
 				Main.projectile[projID].penetrate = 2;
@@ -472,7 +472,7 @@ namespace StormDiversMod.Projectiles
 					Vector2 perturbedSpeed = new Vector2(0, lightningSpeed).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
 
 					float ai = Main.rand.Next(100);
-					int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+					int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
 						ModContent.ProjectileType<StormLightningProj>(), 0, 0, Projectile.owner, perturbedSpeed.ToRotation(), ai); 
 
 					Main.projectile[projID].tileCollide = false;
@@ -482,7 +482,7 @@ namespace StormDiversMod.Projectiles
 
 				
 				//Invisible expanding projectile deals damage
-				int projID2 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
+				int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
 						ModContent.ProjectileType<StormExplosionProj>(), Projectile.damage, .5f, Projectile.owner, extraTime); //add 50 onto the timer for rocket I, 0 for rocket III, and -50 for Mini nukes
 
 				Main.projectile[projID2].extraUpdates = 2;

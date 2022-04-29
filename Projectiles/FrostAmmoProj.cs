@@ -51,7 +51,7 @@ namespace StormDiversMod.Projectiles
                 float speedY = Projectile.velocity.Y;
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(8));
                 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X * 10, perturbedSpeed.Y * 10), ModContent.ProjectileType<FrostBulletProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X * 10, perturbedSpeed.Y * 10), ModContent.ProjectileType<FrostBulletProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             Projectile.Kill();
             return false;
@@ -254,7 +254,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-5f, 5f);
                 float speedY = Main.rand.NextFloat(-5f, 5f);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
             }
 
         }

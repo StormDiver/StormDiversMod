@@ -54,7 +54,7 @@ namespace StormDiversMod.Projectiles
                         float speedX = Main.rand.NextFloat(-6f, 6f);
                         float speedY = Main.rand.NextFloat(-6f, 6f);
 
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<ProtoGrenadeProj2>(), (int)(Projectile.damage * 0.5), 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<ProtoGrenadeProj2>(), (int)(Projectile.damage * 0.5), 0, Projectile.owner);
                     }
                     Projectile.Kill();
                 }

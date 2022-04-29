@@ -225,7 +225,7 @@ namespace StormDiversMod.Projectiles.Minions
 						shootToX *= distance * 9f;
 						shootToY *= distance * 9f;
 
-						Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
 
 						for (int i = 0; i < 10; i++)
 						{

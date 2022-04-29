@@ -187,7 +187,7 @@ namespace StormDiversMod.NPCs
                             Vector2 perturbedSpeed = new Vector2(0, 10).RotatedByRandom(MathHelper.ToRadians(12));
                             float scale = 1f - (Main.rand.NextFloat() * .2f);
                             perturbedSpeed = perturbedSpeed * scale;
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X + Main.rand.NextFloat(-30f, 30f), NPC.Center.Y + Main.rand.NextFloat(-30f, 30f)), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + Main.rand.NextFloat(-30f, 30f), NPC.Center.Y + Main.rand.NextFloat(-30f, 30f)), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                         }
 
 
@@ -240,7 +240,7 @@ namespace StormDiversMod.NPCs
                                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                                 perturbedSpeed = perturbedSpeed * scale;
                                 //Projectile.NewProjectile(player.Center.X, player.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FrostAccessProj"), 50, 3f, player.whoAmI);
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
 
 
                             }
@@ -360,12 +360,12 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) they will spawn this
             {
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore1").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore2").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore3").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore3").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore4").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore4").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore1").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore2").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore3").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore3").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore4").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("IceCoreGore4").Type, 1f);
 
 
                 for (int i = 0; i < 40; i++)

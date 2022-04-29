@@ -20,7 +20,7 @@ namespace StormDiversMod.Basefiles
         public override void AddRecipes()
         {
             //Mining armour
-            Recipe recipe = Mod.CreateRecipe(ItemID.MiningShirt, 1);
+            /*Recipe recipe = Mod.CreateRecipe(ItemID.MiningShirt, 1);
             recipe.AddIngredient(ItemID.Silk, 25);
             recipe.AddRecipeGroup("StormDiversMod:GoldOres", 35);
             recipe.AddTile(TileID.Loom);
@@ -30,7 +30,7 @@ namespace StormDiversMod.Basefiles
             recipe.AddIngredient(ItemID.Silk, 20);
             recipe.AddRecipeGroup("StormDiversMod:GoldOres", 30);
             recipe.AddTile(TileID.Loom);
-            recipe.Register();
+            recipe.Register();*/
 
             //Gladiator gear
             Recipe recipe2 = Mod.CreateRecipe(ItemID.GladiatorHelmet, 1);

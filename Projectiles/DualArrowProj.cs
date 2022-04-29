@@ -51,7 +51,7 @@ namespace StormDiversMod.Projectiles
                 if (Main.rand.Next(3) == 0)
                 {
 
-                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 5);
+                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 5, 1, 0.5f);
                     for (int i = 0; i < 10; i++)
                     {
 
@@ -68,7 +68,7 @@ namespace StormDiversMod.Projectiles
                         float speedX = Projectile.velocity.X;
                         float speedY = Projectile.velocity.Y;
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10)); // This defines the projectiles random spread . 10 degree spread.
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ProjectileID.WoodenArrowFriendly, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ProjectileID.WoodenArrowFriendly, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     }
                     Projectile.Kill();
 

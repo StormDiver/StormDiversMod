@@ -87,7 +87,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 float speedX = 4f;
                 float speedY = 0f;
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles)));
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NebulaStaffProj2>(), (int)(Projectile.damage * .8f), Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NebulaStaffProj2>(), (int)(Projectile.damage * .8f), Projectile.knockBack, Projectile.owner);
             }
 
             SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);

@@ -88,7 +88,7 @@ namespace StormDiversMod.Projectiles
                         distance = 3f / distance;
                         shootToX *= distance * 7;
                         shootToY *= distance * 7;
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<PredictorBrainProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<PredictorBrainProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     Projectile.Kill();
                     
                 }

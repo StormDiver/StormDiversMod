@@ -334,7 +334,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-5f, 5f);
                 float speedY = Main.rand.NextFloat(-5f, 5f);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
             }
             Projectile.Kill();
 
@@ -369,7 +369,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-3f, 3f);
                 float speedY = Main.rand.NextFloat(-3f, 3f);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
             }
             Projectile.Kill();
             return false;
@@ -532,8 +532,5 @@ namespace StormDiversMod.Projectiles
             }
         }
     }
-    //___________________________________________________________________________________________________________________________________
-    //___________________________________________________________________________________________________________________________________
-    //___________________________________________________________________________________________________________________________________
-
+ 
 }

@@ -15,14 +15,14 @@ namespace StormDiversMod.Items.Weapons
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Eye Sored"); 
-			Tooltip.SetDefault("Launches a bouncing eyeball every other swing");
+			Tooltip.SetDefault("Launches a bouncing eyeball every swing");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 22;
+			Item.damage = 25;
 
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
@@ -41,21 +41,13 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 3;
             Item.scale = 1.2f;
             Item.shoot = ModContent.ProjectileType<Projectiles.EyeSwordProj>();
-            Item.shootSpeed = 6f;
+            Item.shootSpeed = 7f;
         }
-        int weaponattack = 2;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            weaponattack--;
-            if (weaponattack <= 0)
-            {
-                {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X, velocity.Y + player.velocity.Y), type, damage, knockback, player.whoAmI);
-                }
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)player.position.X, (int)player.position.Y, 9);
-                weaponattack = 2;
-            }
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
+            SoundEngine.PlaySound(SoundID.NPCHit, (int)player.position.X, (int)player.position.Y, 9);
             return false;
         }
        

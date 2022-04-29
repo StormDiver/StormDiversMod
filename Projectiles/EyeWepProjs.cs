@@ -182,7 +182,7 @@ namespace StormDiversMod.Projectiles
                 {
                     if (Projectile.velocity.X != oldVelocity.X)
                     {
-                        Projectile.velocity.X = -oldVelocity.X * 1;
+                        Projectile.velocity.X = -oldVelocity.X * 2f;
                     }
                     if (Projectile.velocity.Y != oldVelocity.Y)
                     {

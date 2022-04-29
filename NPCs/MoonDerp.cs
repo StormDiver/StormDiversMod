@@ -197,7 +197,7 @@ namespace StormDiversMod.NPCs
                                                                                                                                         // If you want to randomize the speed to stagger the projectiles
                                 float scale = 1f - (Main.rand.NextFloat() * .3f);
                                 perturbedSpeed = perturbedSpeed * scale;
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
 
                                 
                             }
@@ -228,8 +228,8 @@ namespace StormDiversMod.NPCs
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
 
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(-3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(-3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
 
                     }
                     SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 103);
@@ -269,10 +269,10 @@ namespace StormDiversMod.NPCs
                 }
 
                 SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 101);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
+                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
+                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
+                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);
+                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
 
                     for (int i = 0; i < 20; i++)
                     {
@@ -335,11 +335,11 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore1").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore2").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore5").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore1").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore2").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore5").Type, 1f);
                 choice = Main.rand.Next(4);
 
                 for (int i = 0; i < 25; i++)
@@ -388,14 +388,14 @@ namespace StormDiversMod.NPCs
                         fragdrop = ItemID.FragmentNebula;
                     }
                     
-                        Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, fragdrop);
+                        Item.NewItem(NPC.GetSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, fragdrop);
                     
                    
                 }
             }
-            for (int i = 0; i < 5; i++) //Drops random fragments until the total is reached
+            for (int i = 0; i < 5; i++) 
             {
-                Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, ItemID.Heart);
+                Item.NewItem(NPC.GetSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, ItemID.Heart);
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)

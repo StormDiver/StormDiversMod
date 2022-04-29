@@ -123,7 +123,7 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Melee) += 0.04f;
-            player.meleeSpeed += 0.1f;           
+            player.GetAttackSpeed(DamageClass.Melee) += 0.1f;           
 
 
         }

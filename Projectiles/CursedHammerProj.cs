@@ -90,7 +90,7 @@ namespace StormDiversMod.Projectiles
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(90));
                     float scale = 1f - (Main.rand.NextFloat() * .5f);
                     perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<CursedHammerProj2>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<CursedHammerProj2>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
                     for (int i = 0; i < 10; i++)
                     {
 

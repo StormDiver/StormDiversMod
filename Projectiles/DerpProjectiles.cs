@@ -234,7 +234,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-7f, 7f);
                 float speedY = Main.rand.NextFloat(-7f, 7f);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<DerpMagicProj2>(), (int)(Projectile.damage * 0.75), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<DerpMagicProj2>(), (int)(Projectile.damage * 0.75), 0, Projectile.owner);
             }
         }
 

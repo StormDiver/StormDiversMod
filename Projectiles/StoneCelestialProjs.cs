@@ -115,7 +115,7 @@ namespace StormDiversMod.Projectiles
 
                     float speedX =  Main.rand.NextFloat(-12f, 12f);
                     float speedY =  Main.rand.NextFloat(-12f, 12f);
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneSolarFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneSolarFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
 
                 }
             }
@@ -147,7 +147,7 @@ namespace StormDiversMod.Projectiles
                 float speedX =  Main.rand.NextFloat(-13f, 13f);
                 float speedY =  Main.rand.NextFloat(-13f, 13f);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneSolarFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneSolarFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -317,7 +317,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-6f, 6f);
                 float speedY = Main.rand.NextFloat(-6f, 6f);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
 
             }
         }
@@ -366,7 +366,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-8f, 8f);
                     float speedY = Main.rand.NextFloat(-8f, 8f);
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
 
                 }
             }
@@ -396,7 +396,7 @@ namespace StormDiversMod.Projectiles
 
                 float speedX = Main.rand.NextFloat(-10f, 10f);
                 float speedY = Main.rand.NextFloat(-10f, 10f);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
 
              }
 
@@ -611,7 +611,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-7f, 7f);
                     float speedY = Main.rand.NextFloat(-7f, 7f);
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneNebulaFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneNebulaFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
 
                 }
             }
@@ -643,7 +643,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-9f, 9f);
                 float speedY = Main.rand.NextFloat(-9f, 9f);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneNebulaFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneNebulaFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
             }
 
 
@@ -806,7 +806,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-3f, 3f);
                     float speedY = Main.rand.NextFloat(-3f, 3f);
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
 
 
                 }
@@ -873,7 +873,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-7f, 7f);
                     float speedY = Main.rand.NextFloat(-7f, 7f);
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
                 }
             }
 
@@ -904,7 +904,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-9f, 9f);
                 float speedY = Main.rand.NextFloat(-9f, 9f);
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
             }
 
 

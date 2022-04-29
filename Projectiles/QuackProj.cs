@@ -590,7 +590,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Projectile.velocity.X * 1.2f;
                     float speedY = Projectile.velocity.Y * 1.2f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<QuackStardustMiniProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<QuackStardustMiniProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
                 Projectile.Kill();
             }

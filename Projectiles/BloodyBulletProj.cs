@@ -56,7 +56,7 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(5) == 0)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<BloodyBulletProj2>(), (int)(Projectile.damage * 0.33), 0.5f, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<BloodyBulletProj2>(), (int)(Projectile.damage * 0.33), 0.5f, Projectile.owner);
                 }
             }
 

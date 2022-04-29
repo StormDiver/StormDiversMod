@@ -76,7 +76,7 @@ namespace StormDiversMod.NPCs
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
-            if (spawnInfo.marble && !NPC.AnyNPCs(ModContent.NPCType<GladiatorMiniBoss>()) && NPC.downedBoss1)
+            if (spawnInfo.Marble && !NPC.AnyNPCs(ModContent.NPCType<GladiatorMiniBoss>()) && NPC.downedBoss1)
             {
                 return SpawnCondition.Cavern.Chance * 0.2f;
             }
@@ -126,7 +126,7 @@ namespace StormDiversMod.NPCs
 
                             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
 
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(posX, posY), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(posX, posY), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
 
                         }
                     }

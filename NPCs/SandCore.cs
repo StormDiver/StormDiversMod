@@ -196,7 +196,7 @@ namespace StormDiversMod.NPCs
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
                         float scale = 1f - (Main.rand.NextFloat() * .2f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                     }
 
 
@@ -315,12 +315,12 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) they will spawn this
             {
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore1").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore2").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore3").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore3").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore4").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore4").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore1").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore2").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore3").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore3").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore4").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore4").Type, 1f);
 
 
                 for (int i = 0; i < 40; i++)

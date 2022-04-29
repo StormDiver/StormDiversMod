@@ -31,7 +31,6 @@ namespace StormDiversMod.NPCs
             NPC.height = 24;
 
             NPC.aiStyle = 86; 
-           // aiType = NPCID.AncientCultistSquidhead;
             AnimationType = NPCID.DemonEye;
 
             NPC.damage = 100;
@@ -121,9 +120,8 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("StarDerpMiniGore1").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("StarDerpMiniGore2").Type, 1f);
-   
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StarDerpMiniGore1").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StarDerpMiniGore2").Type, 1f);  
                 
                 for (int i = 0; i < 10; i++)
                 {

@@ -142,7 +142,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     shootToX *= distance * 6f;
                     shootToY *= distance * 6f;
 
-                    int damage = (int)(80 * player.GetDamage(DamageClass.Summon));
+                    int damage = 100 + (player.maxMinions * 15); // 100 base damage, plus 15 per minion slot
                     if (shoottime > 30)
                     {
 
@@ -155,7 +155,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
 
                         Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(8));
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LunaticExpertSentryProj2>(), damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LunaticExpertSentryProj2>(), damage, Projectile.knockBack, Projectile.owner);
                         SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 77, 0.5f, 0.5f);
 
                         shoottime = 0;

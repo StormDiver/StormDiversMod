@@ -50,7 +50,7 @@ namespace StormDiversMod.Projectiles
                 if (Main.rand.Next(12) == 0)
                 {
               
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 2.5f), ModContent.ProjectileType<DesertArrowDust>(), (int)(Projectile.damage * 0.7), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 2.5f), ModContent.ProjectileType<DesertArrowDust>(), (int)(Projectile.damage * 0.7), Projectile.knockBack, Projectile.owner);
             }
 
         }

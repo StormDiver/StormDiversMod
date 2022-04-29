@@ -35,7 +35,7 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<StormPlayer>().beetleFist = true;
-            player.meleeSpeed += 0.12f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
             player.autoReuseGlove = true;
             player.kbGlove = true;
             player.meleeScaleGlove = true;

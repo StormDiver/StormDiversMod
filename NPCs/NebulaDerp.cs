@@ -106,7 +106,7 @@ namespace StormDiversMod.NPCs
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Top.Y + 10), new Vector2(0, -2.5f), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y + 10), new Vector2(0, -2.5f), type, damage, knockBack);
                             if (Main.rand.NextFloat() < 1f)
                             {
                                 Dust dust;
@@ -145,10 +145,10 @@ namespace StormDiversMod.NPCs
 
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore1").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore2").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore3").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore4").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore1").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore2").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore3").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("NebulaDerpGore4").Type, 1f);
 
                 
                 for (int i = 0; i < 50; i++)
@@ -157,7 +157,7 @@ namespace StormDiversMod.NPCs
                 }
                 if (NPC.ShieldStrengthTowerNebula > 0)
                 {
-                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
+                    Projectile.NewProjectile(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
                 }
             }
         }

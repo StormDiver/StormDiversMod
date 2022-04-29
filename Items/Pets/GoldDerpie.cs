@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Pets
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
             {
 
-                Projectile.NewProjectile(player.GetProjectileSource_Buff(buffIndex), new Vector2(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2)), new Vector2(0, 0), ProjectileType<GoldDerpie>(), 0, 0, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Buff(buffIndex), new Vector2(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2)), new Vector2(0, 0), ProjectileType<GoldDerpie>(), 0, 0, player.whoAmI);
 
             }
         }

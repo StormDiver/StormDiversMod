@@ -106,10 +106,10 @@ namespace StormDiversMod.Projectiles
             {
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 45, 0.5f, 0.5f);
 
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Center.X - distance, target.Center.Y - distance), new Vector2(+firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Center.X + distance, target.Center.Y + distance), new Vector2(-firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Center.X + distance, target.Center.Y - distance), new Vector2(-firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Center.X - distance, target.Center.Y + distance), new Vector2(+firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - distance, target.Center.Y - distance), new Vector2(+firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + distance, target.Center.Y + distance), new Vector2(-firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + distance, target.Center.Y - distance), new Vector2(-firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - distance, target.Center.Y + distance), new Vector2(+firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
 
                 fireBall = true;
             }
@@ -248,16 +248,12 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 14;
             Projectile.height = 14;
-
-
             //Projectile.light = 0.6f;
             Projectile.friendly = true;
-
            
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.aiStyle = 1;
@@ -273,11 +269,9 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
-           
+       
             return true;
         }
-
 
         public override void AI()
         {
@@ -310,7 +304,7 @@ namespace StormDiversMod.Projectiles
                 float xpos = (Main.rand.NextFloat(-200, 200));
                 float ypos = (Main.rand.NextFloat(250, 350));
 
-                int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y - ypos), new Vector2(xpos * 0.02f, 5), ProjectileID.Blizzard, (int)(Projectile.damage * 0.6f), 0, Projectile.owner);
+                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y - ypos), new Vector2(xpos * 0.02f, 5), ProjectileID.Blizzard, (int)(Projectile.damage * 0.6f), 0, Projectile.owner);
 
                 Main.projectile[projID].DamageType = DamageClass.Ranged;
 
@@ -320,8 +314,7 @@ namespace StormDiversMod.Projectiles
             }
 
         }
-
-        
+   
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;

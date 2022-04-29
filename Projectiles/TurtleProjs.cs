@@ -287,7 +287,7 @@ namespace StormDiversMod.Projectiles
 
                     Vector2 perturbedSpeed = new Vector2(0, -4).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<TurtleYoyoProj2>(), (int)(Projectile.damage * 1.25f), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<TurtleYoyoProj2>(), (int)(Projectile.damage * 1.25f), 0, Projectile.owner);
                     shoottime = 0;
                 }
             }
@@ -364,8 +364,6 @@ namespace StormDiversMod.Projectiles
 
             }
         }
-
-
 
     }
 }

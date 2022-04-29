@@ -433,7 +433,7 @@ namespace StormDiversMod.Projectiles
             if (shoottime >= 8)
             {
                
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<BloodYoyoProj2>(), (int)(Projectile.damage * .5f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<BloodYoyoProj2>(), (int)(Projectile.damage * .5f), 0, Projectile.owner);
                 shoottime = 0;
                 
             }

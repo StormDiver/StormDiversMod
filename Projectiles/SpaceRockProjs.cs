@@ -101,9 +101,9 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(180));
                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                 perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SpaceGlobeProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SpaceGlobeProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62);
+            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62, 0.5f);
             for (int i = 0; i < 30; i++)
             {
 
@@ -200,7 +200,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 0.5f);
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1f);
             }
-            SoundEngine.PlaySound(SoundID.Tink, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Tink, (int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 0.25f);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -359,7 +359,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
         public override void Kill(int timeLeft)
         {
            
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62);
+            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62, 0.5f);
             for (int i = 0; i < 30; i++)
             {
                 float speedX = -Projectile.velocity.X * Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-16f, 16f);
@@ -379,7 +379,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(180));
                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                 perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SpaceArmourProj2>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SpaceArmourProj2>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner);
             }
 
         }
@@ -469,7 +469,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 0.5f);
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1f);
             }
-            SoundEngine.PlaySound(SoundID.Tink, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Tink, (int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 0.25f);
 
         }
         public override bool PreDraw(ref Color lightColor)
@@ -586,7 +586,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, speedX, speedY, 130, default, 1.5f);
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 1f);
             }
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62, 0.5f, 0.2f);
+            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62, 0.25f, 0.2f);
 
         }
         public override bool PreDraw(ref Color lightColor)

@@ -146,9 +146,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 				distanceToPlayer = directionToPlayer.Length();
 
 				Color drawColor = Color.White;
-				
-		// Draw chain
-		Main.EntitySpriteDraw(chainTexture.Value, center - Main.screenPosition, chainTexture.Value.Bounds, drawColor, chainRotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0);
+
+				// Draw chain
+				Main.EntitySpriteDraw(chainTexture.Value, center - Main.screenPosition, chainTexture.Value.Bounds, drawColor, chainRotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0);
 			}
 			
 		

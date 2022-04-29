@@ -195,7 +195,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void HoldItem(Player player)
         {
-            player.armorPenetration = 10;
+            player.GetArmorPenetration(DamageClass.Ranged) += 10;
         }
         public override void AddRecipes()
         {

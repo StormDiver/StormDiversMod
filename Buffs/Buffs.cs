@@ -104,13 +104,8 @@ namespace StormDiversMod.Buffs
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.HeldItem.CountsAsClass(DamageClass.Melee))
-            {
-                player.armorPenetration = 25;
+                player.GetArmorPenetration(DamageClass.Melee) += 25;
             
-              
-            }
-
         }
     }
     //_______________________________________________________________________________
@@ -125,7 +120,7 @@ namespace StormDiversMod.Buffs
         {
 
             player.GetDamage(DamageClass.Summon) += 0.1f;
-            player.whipUseTimeMultiplier *= 0.9f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.1f;
         }
     }
     //_______________________________________________________________________________

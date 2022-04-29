@@ -264,7 +264,7 @@ namespace StormDiversMod.Projectiles.Minions
 							{
 
 								Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-								Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), 
+								Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), 
 									new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenSpiritMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
 							}
 							Projectile.velocity.X = shootToX * -0.18f;

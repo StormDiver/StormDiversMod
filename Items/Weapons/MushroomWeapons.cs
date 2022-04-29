@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            Projectile.NewProjectile(null, new Vector2(player.Center.X + (50 * -player.direction), player.Center.Y - 100), new Vector2(-30 * -player.direction, 25), ProjectileID.Mushroom, (int)(damage * 0.66f), 1, player.whoAmI);
+            Projectile.NewProjectile(null, new Vector2(player.Center.X + (50 * -player.direction), player.Center.Y - 100), new Vector2(-30 * -player.direction, 25), ProjectileID.Mushroom, (int)(damage * 0.75f), 1, player.whoAmI);
             
         }
         public override void OnHitPvp(Player player, Player target, int damage, bool crit)

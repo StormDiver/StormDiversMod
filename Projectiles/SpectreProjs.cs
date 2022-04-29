@@ -259,7 +259,7 @@ namespace StormDiversMod.Projectiles
                         distance = 3f / distance;
                         shootToX *= distance * 8;
                         shootToY *= distance * 8;
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SpectreStaffSpinProj2>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack + 2, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SpectreStaffSpinProj2>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack + 2, Projectile.owner);
                         Projectile.Kill();
                     }
                 }
@@ -505,7 +505,7 @@ namespace StormDiversMod.Projectiles
             }
             if (player.releaseUseItem && releasetime >= 10 || player.HeldItem.type != ModContent.ItemType<Items.Weapons.SpectreDagger>())
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Projectile.velocity.X, Projectile.velocity.Y), ModContent.ProjectileType<SpectreDaggerProj2>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Projectile.velocity.X, Projectile.velocity.Y), ModContent.ProjectileType<SpectreDaggerProj2>(), Projectile.damage, 0, Projectile.owner);
                 Projectile.Kill();
             }
             if (target)

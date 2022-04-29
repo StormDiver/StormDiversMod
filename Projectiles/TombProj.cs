@@ -69,7 +69,7 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
        
-            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Center.X - 11, target.Top.Y - 15), new Vector2(0, -3), ModContent.ProjectileType<GhostProj>(), (int)(Projectile.damage * 1f), 1, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 11, target.Top.Y - 15), new Vector2(0, -3), ModContent.ProjectileType<GhostProj>(), (int)(Projectile.damage * 1f), 1, Projectile.owner);
             for (int i = 0; i < 15; i++)
             {
 

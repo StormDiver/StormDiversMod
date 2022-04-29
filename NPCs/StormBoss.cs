@@ -323,7 +323,7 @@ namespace StormDiversMod.NPCs
 
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
+                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
 
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -458,7 +458,7 @@ namespace StormDiversMod.NPCs
                                 Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
                                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(7));
 
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
                                     ModContent.ProjectileType<NPCs.NPCProjs.StormBossBolt>(), projdamage, 1);
                             }
                             NPC.netUpdate = true;
@@ -600,7 +600,7 @@ namespace StormDiversMod.NPCs
                         }
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(Main.rand.Next(-2, 2), Main.rand.Next(-2, 2)),
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(Main.rand.Next(-2, 2), Main.rand.Next(-2, 2)),
                                 ModContent.ProjectileType<NPCs.NPCProjs.StormBossMine>(), projdamage, 1);
                         }
                         NPC.ai[0] = 0;
@@ -695,7 +695,7 @@ namespace StormDiversMod.NPCs
                     {                      
                         for (int i = 0; i < 2; i++)
                         {
-                            Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(Main.rand.Next(-5, 5), -3),
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(Main.rand.Next(-5, 5), -3),
                                    ModContent.ProjectileType<NPCs.NPCProjs.StormBossBomb>(), projdamage, 1);
                         }
                     }
@@ -762,7 +762,7 @@ namespace StormDiversMod.NPCs
                                 float positionX = player.Center.X - (int)(Math.Cos(rad) * dist);
                                 float positionY = player.Center.Y - (int)(Math.Sin(rad) * dist);
 
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(positionX, positionY), new Vector2(0, 0),
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(positionX, positionY), new Vector2(0, 0),
                                            ModContent.ProjectileType<NPCs.NPCProjs.StormBossLightningPortal>(), projdamage, 1); 
                             }
                         }
@@ -862,7 +862,7 @@ namespace StormDiversMod.NPCs
                             Vector2 rotation = -NPC.Center + player.Center;
 
                             float ai = Main.rand.Next(100);
-                            int projID = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, 0),
+                            int projID = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, 0),
                                 ModContent.ProjectileType<NPCs.NPCProjs.StormBossLightning>(), projdamage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
                             Main.projectile[projID].scale = 1;
                         }
@@ -969,7 +969,7 @@ namespace StormDiversMod.NPCs
                             int numofprojs = 1 + Main.rand.Next(2);
                             for (int i = 0; i < numofprojs; i++)
                             {
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5)),
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5)),
                                 ModContent.ProjectileType<NPCs.NPCProjs.StormBossMineLarge>(), projdamage, 1);
                             }
                         }
@@ -1104,10 +1104,10 @@ namespace StormDiversMod.NPCs
             {
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore1").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore2").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore3").Type, 1f);
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore4").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore1").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore2").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore3").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore4").Type, 1f);
                 }
                 for (int i = 0; i < 150; i++)
                 {

@@ -146,8 +146,7 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetCritChance(DamageClass.Melee) += 4;
-
-            player.meleeSpeed += 0.12f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
             player.moveSpeed += 0.12f;
            
         }

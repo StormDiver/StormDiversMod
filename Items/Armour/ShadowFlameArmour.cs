@@ -138,7 +138,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.GetDamage(DamageClass.Summon) += 0.08f;
             player.whipRangeMultiplier += 0.15f;
-            player.whipUseTimeMultiplier -= 0.15f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.15f;
             player.maxMinions += 1;
 
         }
@@ -186,7 +186,7 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Summon) += 0.08f;
-            player.whipUseTimeMultiplier -= 0.1f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.1f;
 
         }
         public override void AddRecipes()

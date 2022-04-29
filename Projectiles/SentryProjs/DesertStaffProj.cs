@@ -101,7 +101,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 float speedX = 0f;
                                 float speedY = 3.5f;
                                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertStaffProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertStaffProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             }
 
                             SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);

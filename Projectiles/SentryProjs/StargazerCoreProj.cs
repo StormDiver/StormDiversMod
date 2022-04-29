@@ -127,7 +127,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                             {
                                 Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
 
-                                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StargazerCoreProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StargazerCoreProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                                 for (int j = 0; j < 20; j++)     //this defines how many dust to spawn
                                 {
                                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);

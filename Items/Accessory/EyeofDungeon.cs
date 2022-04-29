@@ -52,7 +52,7 @@ namespace StormDiversMod.Items.Accessory
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                 perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(player.GetProjectileSource_Accessory(null), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.BoneAcProj>(), damage, 3f, player.whoAmI);
+                Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.BoneAcProj>(), damage, 3f, player.whoAmI);
 
                 
                 skulltime = 0;

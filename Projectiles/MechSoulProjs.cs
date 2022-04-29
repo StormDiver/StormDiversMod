@@ -260,7 +260,7 @@ namespace StormDiversMod.Projectiles
                     Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedByRandom(MathHelper.ToRadians(25));
                     float scale = 1f - (Main.rand.NextFloat() * .3f);
                     perturbedSpeed = perturbedSpeed * scale;
-                int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2((perturbedSpeed.X * 0.28f), (float)(perturbedSpeed.Y * 0.28f)), ProjectileID.MolotovFire, (int)(Projectile.damage * 0.4f), 0, Projectile.owner);
+                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2((perturbedSpeed.X * 0.28f), (float)(perturbedSpeed.Y * 0.28f)), ProjectileID.MolotovFire, (int)(Projectile.damage * 0.4f), 0, Projectile.owner);
                 Main.projectile[projID].usesLocalNPCImmunity = true;
                 Main.projectile[projID].localNPCHitCooldown = 10;
             }
@@ -575,7 +575,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = 0f;
                     float speedY = 11f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.3f), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.3f), Projectile.knockBack, Projectile.owner);
                 }
 
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 17, 1.5f);

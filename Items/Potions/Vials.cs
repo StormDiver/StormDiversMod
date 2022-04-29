@@ -73,9 +73,9 @@ namespace StormDiversMod.Items.Potions
         {
             foreach (TooltipLine line in tooltips)
             {
-                if (line.mod == "Terraria" && line.Name == "HealLife")
+                if (line.Mod == "Terraria" && line.Name == "HealLife")
                 {
-                    line.text = "Restores 50% of your maximum life up to 300";
+                    line.Text = "Restores 50% of your maximum life up to 300";
                 }
 
             }

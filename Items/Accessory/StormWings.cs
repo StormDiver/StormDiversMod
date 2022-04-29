@@ -45,9 +45,9 @@ namespace StormDiversMod.Items.Accessory
         
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (player.controlDown && player.controlJump && player.wingTime > 0) //slow down to hover
+            if (player.controlDown && player.controlJump && player.wingTime > 0 && player.velocity.Y != 0) //slow down to hover
             {
-                if (player.velocity.Y > 0.1f || player.velocity.Y > 0.1f)
+                if (player.velocity.Y > 0.1f)
                 {
                     player.velocity.Y *= 0.6f;
                 }
@@ -75,7 +75,7 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
-            if (player.controlDown && player.controlJump && player.wingTime > 0) //hover no vertical movement
+            if (player.controlDown && player.controlJump && player.wingTime > 0 && player.velocity.Y != 0) //hover no vertical movement
             {
                 ascentWhenFalling = 0f;
                 ascentWhenRising = 0f;

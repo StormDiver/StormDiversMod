@@ -145,7 +145,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         {
 
                             Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedBy(MathHelper.Lerp(-rotation, rotation, l / (numberProjectiles - 1)));
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
                                 ModContent.ProjectileType<StormSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
                         /*for (int l = 0; l < 3; l++)

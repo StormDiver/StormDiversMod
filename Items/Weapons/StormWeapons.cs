@@ -85,9 +85,9 @@ namespace StormDiversMod.Items.Weapons
             {
                 if (!GetInstance<Configurations>().StormBossSkipsPlant)
                 {
-                    if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                     {
-                        line.text = "Uses regular rockets as ammo, purchase more from the Demolitionist"; //If not set as a plantera alt you need to get rockets somehow
+                        line.Text = "Uses regular rockets as ammo, purchase more from the Demolitionist"; //If not set as a plantera alt you need to get rockets somehow
                     }
                 }
             }

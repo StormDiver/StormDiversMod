@@ -65,7 +65,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = "20% increased melee speed\nAttacking enemies releases damaging homing souls from them";
 
             player.GetModPlayer<StormPlayer>().hellSoulSet = true;
-            player.meleeSpeed += 0.2f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
 
         }
         public override void AddRecipes()

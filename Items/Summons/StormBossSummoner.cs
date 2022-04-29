@@ -37,9 +37,9 @@ namespace StormDiversMod.Items.Summons
             {
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.text = line.text + "\nMay experience issues on multiplayer!\nFor the best experience fight the boss on single player!"; //If not set as a plantera alt you need to get rockets somehow
+                        line.Text = line.Text + "\nMay experience issues on multiplayer!\nFor the best experience fight the boss on single player!"; //If not set as a plantera alt you need to get rockets somehow
                     }
                 }
             }

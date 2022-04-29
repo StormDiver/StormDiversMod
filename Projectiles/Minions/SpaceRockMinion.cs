@@ -320,13 +320,11 @@ namespace StormDiversMod.Projectiles.Minions
                 {
                     if (Main.rand.Next(2) == 0)
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Right.X + 200, target.Center.Y - 200), new Vector2(-15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
-
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Right.X + 200, target.Center.Y - 200), new Vector2(-15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
                     }
                     else
                     {
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(target.Right.X - 200, target.Center.Y - 200), new Vector2(15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
-
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Right.X - 200, target.Center.Y - 200), new Vector2(15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
                     }
                     Projectile.ai[1] = 0;
                 }

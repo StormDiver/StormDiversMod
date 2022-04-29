@@ -144,7 +144,7 @@ namespace StormDiversMod.NPCs
 
                                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
 
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(posX, posY), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(posX, posY), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                             }
                         }
                         NPC.velocity *= 0;
@@ -208,7 +208,7 @@ namespace StormDiversMod.NPCs
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {                       
-                                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), type, damage, knockBack);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), type, damage, knockBack);
 
                                 NPC.velocity *= 0.5f;
 
@@ -273,7 +273,7 @@ namespace StormDiversMod.NPCs
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
 
-                            NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
 
 
                             for (int i = 0; i < 30; i++)
@@ -374,10 +374,10 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) it will spawn this
             {
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore1").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore2").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore3").Type, 1f);
-                Gore.NewGore(NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore4").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore1").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore2").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore3").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore4").Type, 1f);
              
                 for (int i = 0; i < 20; i++)
                 {

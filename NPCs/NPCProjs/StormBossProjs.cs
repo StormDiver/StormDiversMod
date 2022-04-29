@@ -950,7 +950,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float ai = Main.rand.Next(25);
-                    int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX * 1.15f, shootToY * 1.15f),
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX * 1.15f, shootToY * 1.15f),
                     ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
                     Main.projectile[projID].scale = 1f;
                     Main.projectile[projID].tileCollide = false;

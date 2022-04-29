@@ -52,7 +52,7 @@ namespace StormDiversMod.Items.BossTrophy
 		{
 			// We have to replicate the expert drops from MinionBossBody here via QuickSpawnItem
 
-			var source = player.GetItemSource_OpenItem(Type);
+			var source = player.GetSource_OpenItem(Type);
 
 			int choice = Main.rand.Next(4);
 			//weapons

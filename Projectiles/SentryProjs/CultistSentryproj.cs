@@ -155,7 +155,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
 
                                 float ai = Main.rand.Next(100);
-                                int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), 
+                                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), 
 									ModContent.ProjectileType<CultistSentryProj2>(), Projectile.damage, .5f, Projectile.owner, perturbedSpeed.ToRotation(), ai);
 
                                /* Main.projectile[projID].hostile = false;
