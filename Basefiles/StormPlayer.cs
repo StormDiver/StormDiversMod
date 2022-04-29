@@ -382,7 +382,7 @@ namespace StormDiversMod.Basefiles
 
             if (woodNecklace)
             {
-                if (Player.ZoneForest)
+                if (Player.ZoneForest || Player.ZoneHallow && Player.ZoneOverworldHeight)
                 {
 
                     Player.AddBuff(ModContent.BuffType<WoodenBuff>(), 2);
@@ -1357,7 +1357,7 @@ namespace StormDiversMod.Basefiles
                 mushtime = 90;
             }
             //For the SpaceArmour with the helmet (offence)
-            int offencedmg = 125;
+            int offencedmg = 130;
             int offenceknb = 5;
             float offenceveloX = victim.velocity.X * 0.6f;
 

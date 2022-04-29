@@ -32,8 +32,8 @@ namespace StormDiversMod
                         new List<int> { ModContent.ItemType<Items.BossTrophy.StormBossTrophy>(), ModContent.ItemType<Items.BossTrophy.StormBossRelic>(), ModContent.ItemType<Items.Pets.StormBossPetItem>(),
                         ModContent.ItemType<Items.BossTrophy.StormBossBag>(), ModContent.ItemType<Items.Accessory.StormCoil>(), //vanity
                         //other
-                        ModContent.ItemType<Items.Weapons.StormKnife>(), ModContent.ItemType<Items.Weapons.StormLauncher>(), ModContent.ItemType<Items.Weapons.StormStaff>(), ModContent.ItemType<Items.Weapons.StormSentryStaff>(),
-                        ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>(), ModContent.ItemType<Items.Tools.StormHook>(), ModContent.ItemType<Items.Accessory.StormWings>(),ItemID.TempleKey},
+                        //ModContent.ItemType<Items.Weapons.StormKnife>(), ModContent.ItemType<Items.Weapons.StormLauncher>(), ModContent.ItemType<Items.Weapons.StormStaff>(), ModContent.ItemType<Items.Weapons.StormSentryStaff>(),
+                        ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>()}, //ModContent.ItemType<Items.Tools.StormHook>(), ModContent.ItemType<Items.Accessory.StormWings>(),ItemID.TempleKey},
 
                         ModContent.ItemType<Items.Summons.StormBossSummoner>(), "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
                         "Overloaded Scandrone returns to its home planet (and didn't die on the way home",

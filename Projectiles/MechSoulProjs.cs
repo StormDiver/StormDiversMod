@@ -304,7 +304,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Destroyer Flail");
+            DisplayName.SetDefault("Vaporiser Flail");
         }
         public override void SetDefaults()
         {
@@ -319,166 +319,41 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
         }
-        int shoottime = 60;
-        bool firedspike = false;
-
+        int shoottime = 0;
+        bool firedspike = false;//For hitting an enemy
+        bool stopspikes = false;//For stopped spinning
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
-
-            shoottime++;
-            if (!player.controlUseItem)
+            if (player.controlUseItem && !stopspikes)
             {
-                firedspike = true;
+                shoottime++;
             }
-            // Spawn some dust visuals
-           /* var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 100, default, 1.5f);
-            dust.noGravity = true;
-            dust.velocity /= 2f;
-
-            var player = Main.player[Projectile.owner];
-
-            if (!player.controlUseItem)
+            if (!player.controlUseItem)//When stopped spinning, can no longer fire spikes
             {
-                firedspike = true;
-
+                stopspikes = true;
             }
-            shoottime++;
-            if (shoottime == 14 && player.controlUseItem)
+            if (shoottime >= 30)//Fire spikes whule spinning
             {
-                if (!firedspike)
+                float numberProjectiles = 8;
+                float rotation = MathHelper.ToRadians(180);
+                //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
+                for (int j = 0; j < numberProjectiles; j++)
                 {
-                    float numberProjectiles = 8;
-                    float rotation = MathHelper.ToRadians(180);
-                    //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-                    for (int j = 0; j < numberProjectiles; j++)
-                    {
-                        float speedX = 0f;
-                        float speedY = 11f;
-                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner);
-                    }
-                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 17, 1.5f);
-
-                    firedspike = true;
+                    float speedX = 0f;
+                    float speedY = 11f;
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner);
                 }
 
+                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 17, 1.5f);
+
+                shoottime = 0;
             }
-            // If owner player dies, remove the flail.
-            if (player.dead)
-            {
-                Projectile.Kill();
-                return;
-            }
-
-            // This prevents the item from being able to be used again prior to this projectile dying
-            player.itemAnimation = 10;
-            player.itemTime = 10;
-
-            // Here we turn the player and projectile based on the relative positioning of the player and Projectile.
-            int newDirection = Projectile.Center.X > player.Center.X ? 1 : -1;
-            player.ChangeDir(newDirection);
-            Projectile.direction = newDirection;
-
-            var vectorToPlayer = player.MountedCenter - Projectile.Center;
-            float currentChainLength = vectorToPlayer.Length();
-
-            // Here is what various ai[] values mean in this AI code:
-            // ai[0] == 0: Just spawned/being thrown out
-            // ai[0] == 1: Flail has hit a tile or has reached maxChainLength, and is now in the swinging mode
-            // ai[1] == 1 or !Projectile.tileCollide: projectile is being forced to retract
-
-            // ai[0] == 0 means the projectile has neither hit any tiles yet or reached maxChainLength
-            if (Projectile.ai[0] == 0f)
-            {
-                // This is how far the chain would go measured in pixels
-                float maxChainLength = 1000f;
-                Projectile.tileCollide = true;
-               
-                if (currentChainLength > maxChainLength)
-                {
-                    // If we reach maxChainLength, we change behavior.
-                    Projectile.ai[0] = 1f;
-                    Projectile.netUpdate = true;
-
-                    //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-
-
-
-                }
-                else if (!player.channel)
-                {
-                    // Once player lets go of the use button, let gravity take over and let air friction slow down the projectile
-                    if (Projectile.velocity.Y < 0f)
-                        Projectile.velocity.Y *= 0.9f;
-
-                    Projectile.velocity.Y += 1f;
-                    Projectile.velocity.X *= 0.9f;
-                }
-            }
-            else if (Projectile.ai[0] == 1f)
-            {
-
-               
-                // When ai[0] == 1f, the projectile has either hit a tile or has reached maxChainLength, so now we retract the projectile
-                float elasticFactorA = 14f / player.meleeSpeed;
-                float elasticFactorB = 0.9f / player.meleeSpeed;
-                float maxStretchLength = 1100f; // This is the furthest the flail can stretch before being forced to retract. Make sure that this is a bit more than maxChainLength so you don't accidentally reach maxStretchLength on the initial throw.
-
-                if (Projectile.ai[1] == 1f)
-                    Projectile.tileCollide = false;
-
-                // If the user lets go of the use button, or if the projectile is stuck behind some tiles as the player moves away, the projectile goes into a mode where it is forced to retract and no longer collides with tiles.
-                if (!player.channel || currentChainLength > maxStretchLength || !Projectile.tileCollide)
-                {
-                    Projectile.ai[1] = 1f;
-
-                    if (Projectile.tileCollide)
-                        Projectile.netUpdate = true;
-
-                    Projectile.tileCollide = false;
-
-                    if (currentChainLength < 20f)
-                        Projectile.Kill();
-                }
-
-                if (!Projectile.tileCollide)
-                    elasticFactorB *= 2f;
-
-                int restingChainLength = 60;
-
-                // If there is tension in the chain, or if the projectile is being forced to retract, give the projectile some velocity towards the player
-                if (currentChainLength > restingChainLength || !Projectile.tileCollide)
-                {
-                    var elasticAcceleration = vectorToPlayer * elasticFactorA / currentChainLength - Projectile.velocity;
-                    elasticAcceleration *= elasticFactorB / elasticAcceleration.Length();
-                    Projectile.velocity *= 0.98f;
-                    Projectile.velocity += elasticAcceleration;
-                }
-                else
-                {
-                    // Otherwise, friction and gravity allow the projectile to rest.
-                    if (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y) < 6f)
-                    {
-                        Projectile.velocity.X *= 0.96f;
-                        Projectile.velocity.Y += 0.2f;
-                    }
-                    if (player.velocity.X == 0f)
-                        Projectile.velocity.X *= 0.96f;
-                }
-            }
-
-            // Here we set the rotation based off of the direction to the player tweaked by the velocity, giving it a little spin as the flail turns around each swing 
-            Projectile.rotation = vectorToPlayer.ToRotation() - Projectile.velocity.X * 0.1f;
-
-            // Here is where a flail like Flower Pow could spawn additional projectiles or other custom behaviors
-           */
         }
            
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-           
-
             // This custom OnTileCollide code makes the projectile bounce off tiles at 1/5th the original speed, and plays sound and spawns dust if the projectile was going fast enough.
             /* bool shouldMakeSound = false;
 
@@ -521,7 +396,7 @@ namespace StormDiversMod.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             
-           /* var player = Main.player[Projectile.owner];
+            /*var player = Main.player[Projectile.owner];
 
             Vector2 mountedCenter = player.MountedCenter + new Vector2(4 * player.direction, 6);
             Texture2D chainTexture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/DestroyerFlailChain");
@@ -558,13 +433,15 @@ namespace StormDiversMod.Projectiles
                 // Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section
                 Color color = Lighting.GetColor((int)drawPosition.X / 16, (int)(drawPosition.Y / 16f));
                 Main.EntitySpriteDraw(chainTexture, drawPosition - Main.screenPosition, null, color, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0);
-            }
-           */
+            }*/
+           
             return true;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (firedspike == true && shoottime >= 60)
+            var player = Main.player[Projectile.owner];
+
+            if (firedspike == false && !player.controlUseItem)//Create spikes once when fail is launched
             {
 
                 float numberProjectiles = 8;
@@ -575,12 +452,12 @@ namespace StormDiversMod.Projectiles
                     float speedX = 0f;
                     float speedY = 11f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.3f), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.4f), Projectile.knockBack, Projectile.owner);
                 }
 
                 SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 17, 1.5f);
 
-                shoottime = 0;
+                firedspike = true;
             }
         }
         public override void PostDraw(Color lightColor)
@@ -599,7 +476,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Destroyer Flail");
+            DisplayName.SetDefault("Destroyer Flail Unused");
         }
         public override void SetDefaults()
         {
