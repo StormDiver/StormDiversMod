@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mechanical Spikes");
-            Tooltip.SetDefault("Three spike balls will orbit you, damaging enemies within reach\nHas a small chance to destroy almost any projectile that comes near");
+            Tooltip.SetDefault("Six spike balls will orbit you, damaging enemies within reach\nHas a small chance to destroy almost any projectile that comes near");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

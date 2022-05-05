@@ -332,7 +332,15 @@ namespace StormDiversMod.Items.Weapons
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                 perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                if (player.gravDir == 1)
+                {
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                }
+                else
+                {
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+
+                }
             }
             return false;
         }

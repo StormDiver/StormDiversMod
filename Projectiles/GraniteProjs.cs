@@ -31,7 +31,7 @@ namespace StormDiversMod.Projectiles
 
             Projectile.friendly = true;
             Projectile.timeLeft = 180;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 3;
 
 
             Projectile.tileCollide = true;

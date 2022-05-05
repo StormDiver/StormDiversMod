@@ -157,33 +157,37 @@ namespace StormDiversMod.Projectiles
 
         }
         int distime = 0;
-        readonly int orbit = Main.rand.Next(1, 5); //The intial random value selected
         int orbittime = 0;
         int speed;
         bool lineOfSight;
         public override void AI()
         {
+            if (Projectile.ai[1]  == 1)
+            {
+                int orbit = Main.rand.Next(1, 5); //The intial random value selected
+                if (orbit == 1)
+                {
+                    orbittime = 60; //max distance, disttime counts up to this and when it reaches it it stops increasing
+                    speed = 8; //speed
+                }
+                else if (orbit == 2)
+                {
+                    orbittime = 140;
+                    speed = 7;
+                }
+                if (orbit == 3)
+                {
+                    orbittime = 100;
+                    speed = -8;
+                }
+                else if (orbit == 4)
+                {
+                    orbittime = 180;
+                    speed = -7;
+                }
+            }
             //picks a random direction and distance
-            if (orbit == 1)
-            {
-                orbittime = 60; //max distance, disttime counts up to this and when it reaches it it stops increasing
-                speed = 8; //speed
-            }
-            else if (orbit == 2)
-            {
-                orbittime = 140;
-                speed = 7;
-            }
-            if (orbit == 3)
-            {
-                orbittime = 100;
-                speed = -8;
-            }
-            else if (orbit == 4)
-            {
-                orbittime = 180;
-                speed = -7;
-            }
+            
 
 
             if (distime <= orbittime) //Disttime will count up making the orb orbit further out until it reaches the orbittime value

@@ -143,11 +143,13 @@ namespace StormDiversMod.Basefiles
 
         public bool stormBossAccess; //Player has the Storm Coil equipped
 
+        public bool screenshaker; //Weapons that shake the screen
+
 
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the SPooky Core has fired its flames or not
-        public int skulltime = 0; //Time for the mechanical spikes to spawn
+        public bool spikespawned; //Wheter mechanical spieks ahev been spawned
         public bool falling; //Wheter the player is falling at speed
         public int stopfall; //If the player has stopped falling
         public int bearcool; //Cooldown for the Teddy Bear
@@ -180,6 +182,7 @@ namespace StormDiversMod.Basefiles
         public int dropdust; //Cooldown for urn dust
         public int coraldrop; //Cooldown for coral emblem drops
         public bool stormBossProj; // wheter the projectile for the storm coil has been spawned
+        public int shaketimer; //How long to shake the screen for
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -238,6 +241,7 @@ namespace StormDiversMod.Basefiles
             shadowflameSet = false;
             coralEmblem = false;
             stormBossAccess = false;
+            screenshaker = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -263,10 +267,11 @@ namespace StormDiversMod.Basefiles
             santanktrigger = false;
             lunaticsentry = false;
             templeWarning = 0;
-            skulltime = 0;
+            spikespawned = false;
             dropdust = 0;
             coraldrop = 0;
             stormBossProj = false;
+            shaketimer = 0;
         }
         public override bool PreItemCheck()
         {
@@ -335,7 +340,20 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
-     
+        public override void ModifyScreenPosition()//screenshaker
+        {
+            if (screenshaker)
+            {
+                shaketimer = 10;
+                screenshaker = false;
+            }
+            if (shaketimer > 0)
+            {
+                Main.screenPosition += new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7));
+                shaketimer--;
+            }
+          
+        }
         public override void PostUpdateEquips() //Updates every frame
         {
 
@@ -445,11 +463,11 @@ namespace StormDiversMod.Basefiles
                 Player.ClearBuff(ModContent.BuffType<SpaceRockDefence>());
                 spaceBarriercooldown = 0;
             }
-            if (spaceStrikecooldown < 240) //Ditto for offence
+            if (spaceStrikecooldown < 180) //Ditto for offence
             {
                 spaceStrikecooldown++;
             }
-            if (spaceStrikecooldown == 240)
+            if (spaceStrikecooldown == 180)
             {
                 Player.AddBuff(ModContent.BuffType<SpaceRockOffence>(), 2);
 
@@ -500,16 +518,16 @@ namespace StormDiversMod.Basefiles
                 //int yboottilepos = (int)(Player.Bottom.Y / 16);
 
                 //SPEEDS!
-                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt || Player.velocity.Y != 0)//When on asphalt 
+                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
                 {
                     if (soulBoots)
                     {
-                        Player.maxRunSpeed = (5f);
+                        Player.maxRunSpeed += (3f);
                         Player.runAcceleration *= 2f;
                     }
                     else if (bloodBoots)
                     {
-                        Player.maxRunSpeed = (3.5f);
+                        Player.maxRunSpeed += (1.5f);
                         Player.runAcceleration *= 1.5f;
                     }
                 }
@@ -517,13 +535,26 @@ namespace StormDiversMod.Basefiles
                 {
                     if (soulBoots)
                     {
-                        Player.maxRunSpeed = (9f);
+                        Player.maxRunSpeed += (9f);
                         Player.runAcceleration *= 3f;
                     }
                     else if (bloodBoots)
                     {
-                        Player.maxRunSpeed = (6.2f);
+                        Player.maxRunSpeed += (6f);
                         Player.runAcceleration *= 1.75f;
+                    }
+                }
+                else if (Player.velocity.Y != 0)//When in the air
+                {
+                    if (soulBoots)
+                    {
+                        Player.maxRunSpeed += (6f);
+                        Player.runAcceleration *= 2f;
+                    }
+                    else if (bloodBoots)
+                    {
+                        Player.maxRunSpeed += (3.5f);
+                        Player.runAcceleration *= 1.5f;
                     }
                 }
                 if (soulBoots)
@@ -532,7 +563,7 @@ namespace StormDiversMod.Basefiles
                     Player.rocketBoots = 1;
                     //Player.socialShadowRocketBoots = true;
                 }
-                Player.moveSpeed = 1;
+                
                 if (Player.moveSpeed > 1)
                 {
                     Player.moveSpeed = 1;
@@ -546,29 +577,51 @@ namespace StormDiversMod.Basefiles
 
                         if (Main.dayTime)
                         {
-                            if (Main.rand.Next(1) == 0)
+                            if (Player.gravDir == 1)
                             {
                                 Dust dust;
                                 dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 58, 0, -1);
                                 //dust.noGravity = true;
                                 dust.scale = 1.25f;
                             }
+                            else
+                            {
+                                Dust dust;
+                                dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Top.Y - 6), 10, 0, 58, 0, +1);
+                                //dust.noGravity = true;
+                                dust.scale = 1.25f;
+                            }
                         }
                         else
                         {
-                            if (Main.rand.Next(1) == 0)
+                            if (Player.gravDir == 1)
                             {
                                 Dust dust;
                                 dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 27, 0, -1);
                                 //dust.noGravity = true;
                                 dust.scale = 1.25f;
                             }
+                            else
+                            {
+                                Dust dust;
+                                dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Top.Y - 6), 10, 0, 27, 0, +1);
+                                //dust.noGravity = true;
+                                dust.scale = 1.25f;
+                            }
                         }
-                        if (Main.rand.Next(1) == 0)
+                        if (Player.gravDir == 1)
                         {
 
-
                             int dustSmoke = Dust.NewDust(new Vector2(Player.Center.X - 4, Player.Bottom.Y - 5), 5, 5, 31, 0f, -2f, 0, default, 1f);
+                            Main.dust[dustSmoke].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustSmoke].fadeIn = 3f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustSmoke].noGravity = true;
+                            Main.dust[dustSmoke].velocity *= 0.1f;
+                        }
+                        else
+                        {
+
+                            int dustSmoke = Dust.NewDust(new Vector2(Player.Center.X - 4, Player.Top.Y - 5), 5, 5, 31, 0f, +2f, 0, default, 1f);
                             Main.dust[dustSmoke].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
                             Main.dust[dustSmoke].fadeIn = 3f + (float)Main.rand.Next(5) * 0.1f;
                             Main.dust[dustSmoke].noGravity = true;
@@ -594,18 +647,36 @@ namespace StormDiversMod.Basefiles
                     {
                         if (Main.rand.Next(3) == 0)
                         {
-                            Dust dust;
-                            dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 5, 0, -1);
-                            //dust.noGravity = true;
-                            dust.scale = 1.25f;
+                            if (Player.gravDir == 1)
+                            {
 
+                                Dust dust;
+                                dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Bottom.Y - 6), 10, 0, 5, 0, -1);
+                                //dust.noGravity = true;
+                                dust.scale = 1.25f;
+                            }
+                            else
+                            {
+                                Dust dust;
+                                dust = Dust.NewDustDirect(new Vector2(Player.Center.X - 5, Player.Top.Y - 6), 10, 0, 5, 0, +1);
+                                //dust.noGravity = true;
+                                dust.scale = 1.25f;
+                            }
 
                         }
                         if (!soulBoots)//If wearing soul boots dust comes from that one
                         {
-                            if (Main.rand.Next(1) == 0)
+                            if (Player.gravDir == 1)
                             {
                                 int dustSmoke = Dust.NewDust(new Vector2(Player.Center.X - 4, Player.Bottom.Y - 5), 5, 5, 31, 0f, -2f, 0, default, 1f);
+                                Main.dust[dustSmoke].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                                Main.dust[dustSmoke].fadeIn = 2f + (float)Main.rand.Next(5) * 0.1f;
+                                Main.dust[dustSmoke].noGravity = true;
+                                Main.dust[dustSmoke].velocity *= 0.1f;
+                            }
+                            else
+                            {
+                                int dustSmoke = Dust.NewDust(new Vector2(Player.Center.X - 4, Player.Top.Y - 5), 5, 5, 31, 0f, +2f, 0, default, 1f);
                                 Main.dust[dustSmoke].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
                                 Main.dust[dustSmoke].fadeIn = 2f + (float)Main.rand.Next(5) * 0.1f;
                                 Main.dust[dustSmoke].noGravity = true;
@@ -616,9 +687,18 @@ namespace StormDiversMod.Basefiles
 
                         if (soundDelay >= 6)
                         {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Bottom.Y -4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);                            
-                            SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);                          
-                            soundDelay = 0;
+                            if (Player.gravDir == 1)
+                            {
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Bottom.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
+                                SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);
+                                soundDelay = 0;
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Top.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
+                                SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);
+                                soundDelay = 0;
+                            }
                         }
                     }
                 }
@@ -653,10 +733,18 @@ namespace StormDiversMod.Basefiles
                 {
                     for (int i = 0; i < 30; i++)
                     {
-
-                        int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
-                        Main.dust[dustIndex].velocity *= 2;
-                        Main.dust[dustIndex].noGravity = true;
+                        if (Player.gravDir == 1)
+                        {
+                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
+                            Main.dust[dustIndex].velocity *= 2;
+                            Main.dust[dustIndex].noGravity = true;
+                        }
+                        else
+                        {
+                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y + 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
+                            Main.dust[dustIndex].velocity *= 2;
+                            Main.dust[dustIndex].noGravity = true;
+                        }
                     }
                     SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 61, 0.5f, 0.5f);
                 }
@@ -665,18 +753,35 @@ namespace StormDiversMod.Basefiles
                 {
                     for (int i = 0; i < 30; i++)
                     {
-
-                        int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
-                        Main.dust[dustIndex].velocity *= 2;
-                        Main.dust[dustIndex].noGravity = true;
+                        if (Player.gravDir == 1)
+                        {
+                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
+                            Main.dust[dustIndex].velocity *= 2;
+                            Main.dust[dustIndex].noGravity = true;
+                        }
+                        else
+                        {
+                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y + 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
+                            Main.dust[dustIndex].velocity *= 2;
+                            Main.dust[dustIndex].noGravity = true;
+                        }
                     }
                     for (int i = 0; i < 25; i++)
                     {
-
-                        int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 31, 0, -3, 100, default, 1f);
-                        Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                        Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                        Main.dust[dustIndex].noGravity = true;
+                        if (Player.gravDir == 1)
+                        {
+                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 31, 0, -3, 100, default, 1f);
+                            Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustIndex].noGravity = true;
+                        }
+                        else
+                        {
+                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y + 8), 0, 0, 31, 0, +3, 100, default, 1f);
+                            Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustIndex].noGravity = true;
+                        }
                     }
                     SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 92);
 
@@ -689,7 +794,15 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(50));
                         float scale = 1f - (Main.rand.NextFloat() * .1f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
+                        if (Player.gravDir == 1)
+                        {
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
+                        }
+                        else
+                        {
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y + 6), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
+
+                        }
                     }
                 }
 
@@ -773,6 +886,8 @@ namespace StormDiversMod.Basefiles
                                     Main.projectile[p].Kill();
                                 }
                             }
+
+
                             {
                                 for (int i = 0; i < 30; i++) //Dust pre-teleport
                                 {
@@ -884,9 +999,18 @@ namespace StormDiversMod.Basefiles
                 }
                 if (Main.rand.Next(5) == 0)
                 {
-                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, 0, -2);
-                    dust.noGravity = true;
-                    dust.scale = 0.8f;
+                    if (Player.gravDir == 1)
+                    {
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, 0, -2);
+                        dust.noGravity = true;
+                        dust.scale = 0.8f;
+                    }
+                    else
+                    {
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, 0, +2);
+                        dust.noGravity = true;
+                        dust.scale = 0.8f;
+                    }
                 }
                 //circle of dust
                 for (int i = 0; i < 10; i++)
@@ -973,15 +1097,20 @@ namespace StormDiversMod.Basefiles
             //For the Mechanical Spikes===========================
             if (primeSpin)
             {
-                if (!Player.dead && skulltime <= 50)
-                {
-                    skulltime++;
-                }
-                if (skulltime == 1 || skulltime == 25 || skulltime == 49) //24 frames between spawns
+               
+                if (!spikespawned) //24 frames between spawns
                 {
 
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 0);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 60);
 
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 120);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 180);
+
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 240);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 300);
+
+                    spikespawned = true;
 
                 }
 
@@ -989,7 +1118,7 @@ namespace StormDiversMod.Basefiles
             }
             if (!primeSpin)//reset timer
             {
-                skulltime = 0;
+                spikespawned = false;
             }
 
             //For the Heavy Boots===========================
@@ -1005,7 +1134,7 @@ namespace StormDiversMod.Basefiles
                     Player.maxFallSpeed *= 1.4f;
                     Player.dash = 0;
                     Player.velocity.X *= 0.75f;
-                    if (Player.velocity.Y > 12)
+                    if ((Player.velocity.Y > 12 && Player.gravDir == 1) || (Player.velocity.Y < -12 && Player.gravDir == -1))
                     {
 
 
@@ -1019,9 +1148,15 @@ namespace StormDiversMod.Basefiles
                         stomptrail++;
                         if (stomptrail > 2)
                         {
+                            if (Player.gravDir == 1)
+                            {
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.BottomRight.Y - 10), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 50, 6, Player.whoAmI);
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.TopRight.Y - 10), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 50, 6, Player.whoAmI);
 
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.BottomRight.Y - 10), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 50, 6, Player.whoAmI);
-
+                            }
                             stomptrail = 0;
                         }
 
@@ -1032,7 +1167,10 @@ namespace StormDiversMod.Basefiles
                 //For impacting the ground at speed
                 if (Player.velocity.Y == 0 && falling && Player.controlDown)
                 {
-
+                    if (!GetInstance<Configurations>().NoShake)
+                    {
+                        screenshaker = true;
+                    }
 
                     for (int i = 0; i < 30; i++)
                     {
@@ -1042,15 +1180,23 @@ namespace StormDiversMod.Basefiles
                         Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                         Main.dust[dustIndex].noGravity = true;
                     }
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                    if (Player.gravDir == 1)
+                    {
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                    }
+                    else
+                    {
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                    }
                     SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 14);
                     falling = false;
 
                 }
 
                 //If the player slows down too much then the stomp bool is cancelled
-                if (Player.velocity.Y <= 2)
+                if ((Player.velocity.Y <= 2 && Player.gravDir == 1) || (Player.velocity.Y >= -2 && Player.gravDir == -1))
                 {
 
                     stopfall++;
@@ -1185,8 +1331,16 @@ namespace StormDiversMod.Basefiles
                                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(90));
                                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                                 perturbedSpeed = perturbedSpeed * scale;
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
 
+                                if (Player.gravDir == 1)
+                                {
+                                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
+                                }
+                                else
+                                {
+                                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
+
+                                }
 
                             }
                         }
@@ -1224,10 +1378,20 @@ namespace StormDiversMod.Basefiles
 
                     for (int i = 0; i < 40; i++)
                     {
-                        float speedX = Main.rand.NextFloat(-2f, 2f);
-                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, -3, 130, default, 1.5f);
-                        dust.noGravity = true;
-                        dust.velocity *= 2;
+                        if (Player.gravDir == 1)
+                        {
+                            float speedX = Main.rand.NextFloat(-2f, 2f);
+                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, -3, 130, default, 1.5f);
+                            dust.noGravity = true;
+                            dust.velocity *= 2;
+                        }
+                        else
+                        {
+                            float speedX = Main.rand.NextFloat(-2f, 2f);
+                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, +3, 130, default, 1.5f);
+                            dust.noGravity = true;
+                            dust.velocity *= 2;
+                        }
 
                     }
                     for (int i = 0; i < 20; i++)
@@ -1244,9 +1408,16 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
 
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-
+                    if (Player.gravDir == 1)
+                    {
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                    }
+                    else
+                    {
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, +2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, +2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                    }
                     derplinglaunchcooldown = 60;
                 }
             }
@@ -1357,22 +1528,25 @@ namespace StormDiversMod.Basefiles
                 mushtime = 90;
             }
             //For the SpaceArmour with the helmet (offence)
-            int offencedmg = 130;
+            int offencedmg = 150;
             int offenceknb = 5;
             float offenceveloX = victim.velocity.X * 0.6f;
 
             if (spaceRockOffence && Player.HasBuff(ModContent.BuffType<SpaceRockOffence>()))
             {
-                Projectile.NewProjectile(null, new Vector2(victim.Center.X - 0, victim.Center.Y - 350), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned directly above and goes straight down
+                if (!GetInstance<Configurations>().NoShake)
+                {
+                    screenshaker = true;
+                }
 
-                Projectile.NewProjectile(null, new Vector2(victim.Center.X - 50, victim.Center.Y - 450), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned slightly left and moves straight down
-                Projectile.NewProjectile(null, new Vector2(victim.Center.X + 50, victim.Center.Y - 450), new Vector2(0 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned slightly right and moves straight down
-                Projectile.NewProjectile(null, new Vector2(victim.Center.X - 150, victim.Center.Y - 500), new Vector2(2 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned to the left and moves left
-                Projectile.NewProjectile(null, new Vector2(victim.Center.X + 150, victim.Center.Y - 500), new Vector2(-2 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned to the right and moves right
-                Projectile.NewProjectile(null, new Vector2(victim.Center.X - 200, victim.Center.Y - 450), new Vector2(4 + offenceveloX, 6f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned further to the left and moves right
-                Projectile.NewProjectile(null, new Vector2(victim.Center.X + 200, victim.Center.Y - 450), new Vector2(-4 + offenceveloX, 6f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned further to the right and moves left
-
-
+                Projectile.NewProjectile(null, new Vector2(victim.Center.X - 0, victim.Center.Y - 350), new Vector2(0 + offenceveloX, 10f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned directly above and goes straight down
+                Projectile.NewProjectile(null, new Vector2(victim.Center.X - 50, victim.Center.Y - 450), new Vector2(0 + offenceveloX, 10f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned slightly left and moves straight down
+                Projectile.NewProjectile(null, new Vector2(victim.Center.X + 50, victim.Center.Y - 450), new Vector2(0 + offenceveloX, 10f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned slightly right and moves straight down
+                Projectile.NewProjectile(null, new Vector2(victim.Center.X - 150, victim.Center.Y - 500), new Vector2(2 + offenceveloX, 10f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned to the left and moves left
+                Projectile.NewProjectile(null, new Vector2(victim.Center.X + 150, victim.Center.Y - 500), new Vector2(-2 + offenceveloX, 10f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned to the right and moves right
+                Projectile.NewProjectile(null, new Vector2(victim.Center.X - 200, victim.Center.Y - 450), new Vector2(4 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned further to the left and moves right
+                Projectile.NewProjectile(null, new Vector2(victim.Center.X + 200, victim.Center.Y - 450), new Vector2(-4 + offenceveloX, 8f), ModContent.ProjectileType<SpaceArmourProj>(), offencedmg, offenceknb, Player.whoAmI); //Summoned further to the right and moves left
+              
                 for (int i = 0; i < 30; i++)
                 {
 
@@ -1414,7 +1588,15 @@ namespace StormDiversMod.Basefiles
                             Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                             float scale = 1f - (Main.rand.NextFloat() * .5f);
                             perturbedSpeed = perturbedSpeed * scale;
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
+                            if (Player.gravDir == 1)
+                            {
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
+
+                            }
                             bloodtime = 300;
                         }
                     }
@@ -1491,17 +1673,20 @@ namespace StormDiversMod.Basefiles
             float defenceVeloX = Player.velocity.X * 0.25f;
 
             if (spaceRockDefence && Player.HasBuff(ModContent.BuffType<SpaceRockDefence>()) && damage >= 2)
-            {           
-                Projectile.NewProjectile(null, new Vector2(Player.Center.X + 0, Player.Top.Y - 350), new Vector2(0 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and goes straight down
+            {
+                if (!GetInstance<Configurations>().NoShake)
+                {
+                    screenshaker = true;
+                }
 
+                Projectile.NewProjectile(null, new Vector2(Player.Center.X + 0, Player.Top.Y - 350), new Vector2(0 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and goes straight down
                 Projectile.NewProjectile(null, new Vector2(Player.Center.X - 0, Player.Top.Y - 400), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and moves slighly left
                 Projectile.NewProjectile(null, new Vector2(Player.Center.X + 0, Player.Top.Y - 400), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned above and moves slightly right
                 Projectile.NewProjectile(null, new Vector2(Player.Center.X - 60, Player.Top.Y - 450), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned to the left and moves  left
                 Projectile.NewProjectile(null, new Vector2(Player.Center.X + 60, Player.Top.Y - 450), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned to the right and moves  right
                 Projectile.NewProjectile(null, new Vector2(Player.Center.X - 120, Player.Top.Y - 500), new Vector2(-1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI);  //Summoned far to the left and moves left
                 Projectile.NewProjectile(null, new Vector2(Player.Center.X + 120, Player.Top.Y - 500), new Vector2(1 + defenceVeloX, 8), ModContent.ProjectileType<SpaceArmourProj>(), defencedmg, defenceknb, Player.whoAmI); //Summoned far to the right and moves right
-
-
+     
                 for (int i = 0; i < 30; i++)
                 {
 

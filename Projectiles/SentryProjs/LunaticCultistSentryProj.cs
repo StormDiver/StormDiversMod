@@ -78,26 +78,52 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
 
             }
-            if (directionright)
+            if (directionright)//Sets one to the left and one to the right of the player
             {              
                 Projectile.position.X = player.Center.X - 80 - Projectile.width / 2;
-                Projectile.position.Y = player.Center.Y - 40 - Projectile.height / 2;
-
+ 
             }
             else
             {
                 Projectile.position.X = player.Center.X + 80 - Projectile.width / 2;
+
+            }
+            if (player.gravDir == 1) //Wil appear above the player if gravity is flipped
+            {
                 Projectile.position.Y = player.Center.Y - 40 - Projectile.height / 2;
+                Projectile.rotation = 0;
+            }
+            else
+            {
+                Projectile.position.Y = player.Center.Y + 40 - Projectile.height / 2;
+                Projectile.rotation = 3.15f;
+            }
+            if ((player.direction == 1 && player.gravDir == 1) || (player.direction == -1 && player.gravDir == -1)) //Face same direction as player
+            {
+                Projectile.spriteDirection = 1;
+
+            }
+            else
+            {
+                Projectile.spriteDirection = -1;
 
             }
 
-
             if (Main.rand.Next(3) == 0)
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Bottom.Y - 15), Projectile.width, 10, 173, 0, 5, 130, default, 1.5f);
+                if (player.gravDir == 1)
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Bottom.Y - 15), Projectile.width, 10, 173, 0, 5, 130, default, 1.5f);
 
-                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                Main.dust[dust].velocity *= 1f;
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 1f;
+                }
+                else
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Top.Y - 2), Projectile.width, 10, 173, 0, -5, 130, default, 1.5f);
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 1f;
+                }
             }
             shoottime++;
 
@@ -120,20 +146,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
                 float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
                 //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
+                //If the distance between the projectile and the live target is active         
 
-                if (player.direction == 1)
-                {
-                    Projectile.spriteDirection = 1;
-
-                }
-                else
-                {
-                    Projectile.spriteDirection = -1;
-
-                }
-
-                if (distance < 500f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (distance < 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
 
                     distance = 1.6f / distance;
@@ -142,7 +157,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     shootToX *= distance * 6f;
                     shootToY *= distance * 6f;
 
-                    int damage = 100 + (player.maxMinions * 15); // 100 base damage, plus 15 per minion slot
+                    int damage = 100 + ((player.maxMinions - 1) * 15); // 100 base damage, plus 15 per minion slot
                     if (shoottime > 30)
                     {
 

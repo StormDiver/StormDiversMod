@@ -192,7 +192,11 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
+            if (!GetInstance<Configurations>().NoShake)
+            {
+                player.GetModPlayer<StormPlayer>().screenshaker = true;
+            }
+
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 55f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -270,7 +274,10 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
+            if (!GetInstance<Configurations>().NoShake)
+            {
+                player.GetModPlayer<StormPlayer>().screenshaker = true;
+            }
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 55f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -361,5 +368,26 @@ namespace StormDiversMod.Items.Weapons
                0f
            );
         }
+    }
+    public class Bouldershake : ModPlayer
+    {
+       /* int shaketimer;
+        public override void ModifyScreenPosition()
+        {
+            if (Player.itemTime == Player.HeldItem.useTime - 1 && Player.HeldItem.type == ModContent.ItemType<Items.Weapons.StoneThrowerSuperLunar>())
+            {
+                shaketimer = 10;
+               
+            }
+            if (shaketimer > 0)
+            {
+                Main.screenPosition += new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-10, 10));
+                shaketimer--;
+            }
+            if (Player.HeldItem.type != ModContent.ItemType<Items.Weapons.StoneThrowerSuperLunar>())
+            {
+                shaketimer = 0;
+            }
+        }*/
     }
 }

@@ -39,9 +39,7 @@ namespace StormDiversMod.Items.Accessory
             //player.statLife = 1;
 
             skulltime++;
-            
-            
-
+    
             if (skulltime >=40)
             {
                 

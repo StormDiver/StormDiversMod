@@ -8,7 +8,7 @@ using StormDiversMod.Basefiles;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
-
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles
 {
@@ -19,7 +19,7 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Skull Spinner");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
 
         public override void SetDefaults()
@@ -37,10 +37,22 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
         }
-
+       
         bool lineOfSight;
+
         public override void AI()
         {
+            if (Projectile.ai[1] == 1)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+
+                    var dust2 = Dust.NewDustDirect(Projectile.Center, 0, 0, 6);
+                    dust2.velocity *= 2;
+                    dust2.scale = 1f;
+                    dust2.noGravity = true;
+                }
+            }
             var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
             dust.noGravity = true;
             Projectile.rotation += (float)Projectile.direction * -0.2f;
@@ -71,8 +83,10 @@ namespace StormDiversMod.Projectiles
                 {
 
                     var dust2 = Dust.NewDustDirect(Projectile.Center, 0, 0, 6);
-                    dust2.velocity *= 2;
-                    dust2.scale = 1.5f;
+                    dust2.velocity *= 3;
+                    dust2.scale = 2f;
+                    dust2.noGravity = true;
+
                 }
                 Projectile.Kill();
                 return;

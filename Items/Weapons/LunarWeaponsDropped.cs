@@ -268,13 +268,22 @@ namespace StormDiversMod.Items.Weapons
                  Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
              }*/
             int speedX = 0;
+
             int speedY = -10;
             for (int i = 0; i < 5; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                 perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                if (player.gravDir == 1)
+                {
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                }
+                else
+                {
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+
+                }
             }
             return false;
         }

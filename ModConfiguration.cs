@@ -42,12 +42,19 @@ namespace StormDiversMod
 
         [Label("Disable buffed Derplings")]
         [Tooltip("This will prevent Derplings from gaining massively increased stats post-plantera")]
-        //[ReloadRequired] //No reload required as it just changes the spawn chance and doesn't disable the enemy itself
+        //[ReloadRequired] //No reload required 
         public bool PreventBuffedDerps { get; set; }
 
+        [Label("Disable screen shake effects")]
+        [Tooltip("Disables the screen shake that a few items in this mod make")]
+        //[ReloadRequired] //None required
+        public bool NoShake { get; set; }
+
         [Label("Revert modded throwing weapons to throwing class")]
-        [Tooltip("This will make all weapons in the mod that were previously throwing deal thrown damage")]
+        [Tooltip("This will make all weapons in the mod that were previously throwing deal thrown damage (Requires reload)")]
         [ReloadRequired] //Yes
         public bool ThrowingTryhards { get; set; }
+
+        
     }
 }

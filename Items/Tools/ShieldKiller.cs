@@ -76,8 +76,16 @@ namespace StormDiversMod.Items.Tools
                         float speedY = -10f;
 
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                        int dust2 = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Top.Y - 6), 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y, 200, default, 1.5f);
-                        Main.dust[dust2].noGravity = true;
+                        if (player.gravDir == 1)
+                        {
+                            int dust2 = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Top.Y - 6), 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y, 200, default, 1.5f);
+                            Main.dust[dust2].noGravity = true;
+                        }
+                        else
+                        {
+                            int dust2 = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Bottom.Y - 6), 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y, 200, default, 1.5f);
+                            Main.dust[dust2].noGravity = true;
+                        }
                     }
                   
                 }
@@ -90,10 +98,21 @@ namespace StormDiversMod.Items.Tools
                         float speedY = -5f;
 
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                        int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Top.Y - 6), 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
-                        Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                        Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                        Main.dust[dustIndex].noGravity = true;
+                        if (player.gravDir == 1)
+                        {
+                            int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Top.Y - 6), 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
+                            Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustIndex].noGravity = true;
+                        }
+
+                        else
+                        {
+                            int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Bottom.Y - 6), 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
+                            Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                            Main.dust[dustIndex].noGravity = true;
+                        }
                     }
 
                     Main.NewText("There are no active shields...", 150, 75, 76);

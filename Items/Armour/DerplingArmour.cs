@@ -119,7 +119,7 @@ namespace StormDiversMod.Items.Armour
 
 
             player.GetCritChance(DamageClass.Generic) += 12;
-            player.maxRunSpeed += 2;
+            player.maxRunSpeed += 3;
         }
 
         public override void ArmorSetShadows(Player player)

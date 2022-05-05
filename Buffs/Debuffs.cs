@@ -452,10 +452,20 @@ namespace StormDiversMod.Buffs
 
             if (Main.rand.Next(4) < 2)
             {
-                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 179, 0, -3);
-                dust.scale = 1.25f;
-                dust.noGravity = true;
-                dust.velocity *= 0.75f;
+                if (player.gravDir == 1)
+                {
+                    var dust = Dust.NewDustDirect(player.position, player.width, player.height, 179, 0, -3);
+                    dust.scale = 1.25f;
+                    dust.noGravity = true;
+                    dust.velocity *= 0.75f;
+                }
+                else
+                {
+                    var dust = Dust.NewDustDirect(player.position, player.width, player.height, 179, 0, +3);
+                    dust.scale = 1.25f;
+                    dust.noGravity = true;
+                    dust.velocity *= 0.75f;
+                }
             }
             //player.GetModPlayer<StormPlayer>().hellSoulDebuff = true;
 

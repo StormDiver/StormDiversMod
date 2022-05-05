@@ -50,7 +50,7 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 2f;
        
             Item.shoot = ProjectileID.Bullet;
-            Item.shootSpeed = 8f;
+            Item.shootSpeed = 11f;
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useAmmo = AmmoID.Bullet;

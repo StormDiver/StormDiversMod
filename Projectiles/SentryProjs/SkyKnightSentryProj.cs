@@ -66,8 +66,18 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Player player = Main.player[Projectile.owner];
 
             Projectile.position.X = player.Center.X  - Projectile.width / 2;
-            Projectile.position.Y = player.Center.Y - 75 - Projectile.height / 2;
+            if (player.gravDir == 1)
+            {
+                Projectile.position.Y = player.Center.Y - 75 - Projectile.height / 2;
+                Projectile.rotation = 0;
 
+            }
+            else
+            {
+                Projectile.position.Y = player.Center.Y + 75 - Projectile.height / 2;
+                Projectile.rotation = 3.15f;
+
+            }
 
 
             Projectile.alpha = (int)0.5f;
@@ -75,10 +85,19 @@ namespace StormDiversMod.Projectiles.SentryProjs
         
             if (Main.rand.Next(3) == 0)
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 162, 0, 5, 130, default, 1.5f);
+                if (player.gravDir == 1)
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 162, 0, 5, 130, default, 1.5f);
 
-                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                Main.dust[dust].velocity *= 1f;
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 1f;
+                }
+                else
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 162, 0, -5, 130, default, 1.5f);
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 1f;
+                }
             }
             shoottime++;
             //Getting the npc to fire at
