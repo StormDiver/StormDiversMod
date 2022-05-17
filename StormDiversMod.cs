@@ -98,7 +98,6 @@ namespace StormDiversMod
             });
             RecipeGroup.RegisterGroup("StormDiversMod:EvilMaterial", group);
     
-
             group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Running Boots", new int[]
             {
                 ItemID.HermesBoots,

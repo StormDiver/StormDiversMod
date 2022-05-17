@@ -55,14 +55,21 @@ namespace StormDiversMod.Items.Weapons
          {
              return new Vector2(5, 0);
          }*/
+        float posY;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
             for (int i = 0; i < 3; i++)
             {
                 float posX = position.X + Main.rand.NextFloat(35f, -35f);
-                float posY = position.Y + Main.rand.NextFloat(10f, -40f);
-
+                if (player.gravDir == 1)
+                {
+                    posY = position.Y + Main.rand.NextFloat(10f, -40f);
+                }
+                else
+                {
+                    posY = position.Y - Main.rand.NextFloat(10f, -40f);
+                }
                 Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             }
             SoundEngine.PlaySound(SoundID.Duck, (int)player.position.X, (int)player.position.Y);
@@ -127,6 +134,7 @@ namespace StormDiversMod.Items.Weapons
          {
              return new Vector2(5, 0);
          }
+        float posY;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
@@ -152,7 +160,14 @@ namespace StormDiversMod.Items.Weapons
             }
            
                 float posX = position.X + Main.rand.NextFloat(50f, -50f);
-                float posY = position.Y + Main.rand.NextFloat(10f, -50f);
+            if (player.gravDir == 1)
+            {
+                posY = position.Y + Main.rand.NextFloat(10f, -50f);
+            }
+            else
+            {
+                posY = position.Y - Main.rand.NextFloat(10f, -50f);
+            }
             if (Collision.CanHitLine(position, 0, 0, player.Center, 0, 0))
             {
 

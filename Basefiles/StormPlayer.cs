@@ -1581,7 +1581,6 @@ namespace StormDiversMod.Basefiles
                         {
                             float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
 
-
                             float speedX = 0f;
                             float speedY = -6f;
                             int blooddamage = (int)(Player.HeldItem.damage * 0.9f);
