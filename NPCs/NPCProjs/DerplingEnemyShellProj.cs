@@ -73,7 +73,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             }
 
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 3);
+            SoundEngine.PlaySound(SoundID.NPCHit3, Projectile.Center);
 
             return false;
         }

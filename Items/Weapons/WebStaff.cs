@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Weapons
             }
             
             
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)player.Center.X, (int)player.Center.Y, 9);
+                SoundEngine.PlaySound(SoundID.NPCDeath9, player.Center);
 
                 {
 

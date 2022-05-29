@@ -138,6 +138,10 @@ namespace StormDiversMod.Items.Pets
         bool teleport;
         bool yAssend;
         bool teleanimation;
+
+       
+
+
         public override void AI()
         {
 
@@ -207,7 +211,7 @@ namespace StormDiversMod.Items.Pets
                 {
                     if (!Main.dedServ)
                     {
-                        SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 8, 2f, 0.5f);
+                        SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = 0.5f }, Projectile.Center);
 
                         for (int i = 0; i < 30; i++) //Dust post-teleport
                         {

@@ -138,7 +138,7 @@ namespace StormDiversMod.Projectiles
 				
 				Projectile.ai[0] = 0;
 				cooldown = 0;
-				SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 93, 1f, 0f);
+				SoundEngine.PlaySound(SoundID.Item93, player.Center);
 
 			}
 
@@ -160,7 +160,7 @@ namespace StormDiversMod.Projectiles
 
 							Main.dust[dustIndex].noGravity = true;
 						}
-						SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 93, 1f, 0f);
+						SoundEngine.PlaySound(SoundID.Item93, player.Center);
 
 						cooldown = 0;
 						Projectile.ai[0]++;//Go to next movement postion
@@ -199,7 +199,7 @@ namespace StormDiversMod.Projectiles
 				}
 
 
-				SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
+				SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
 				float numberProjectiles = 12;
 				float rotation = MathHelper.ToRadians(180);
 				for (int j = 0; j < numberProjectiles; j++) //Lightning is just for visuals
@@ -241,11 +241,10 @@ namespace StormDiversMod.Projectiles
 		{
 			return false;
 		}
-
 		public override void Kill(int timeLeft)
 		{
 
-			SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 122, 0.5f);
+			SoundEngine.PlaySound(SoundID.Item122 with {Volume = 0.5f}, Projectile.Center);
 			for (int i = 0; i < 30; i++)
 			{
 				float speedY = -3f;
@@ -316,7 +315,7 @@ namespace StormDiversMod.Projectiles
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 92);
+			SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
 			for (int j = 0; j < 1; j++)
 			{
@@ -336,11 +335,10 @@ namespace StormDiversMod.Projectiles
 
 			}
 		}
-
 		public override void Kill(int timeLeft)
 		{
 
-			SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.Center.X, (int)Projectile.Center.Y, 53, 1, -0.5f);
+			SoundEngine.PlaySound(SoundID.NPCHit53 with {Volume = 0.5f, Pitch = -0.5f}, Projectile.Center);
 
 			for (int i = 0; i < 20; i++)
 			{
@@ -460,7 +458,7 @@ namespace StormDiversMod.Projectiles
 		{
 			if (Projectile.owner == Main.myPlayer)
 			{
-				SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
+				SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
 				float numberProjectiles = 12;
 				float rotation = MathHelper.ToRadians(180);
 

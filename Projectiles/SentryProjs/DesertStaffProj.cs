@@ -104,7 +104,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertStaffProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             }
 
-                            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
+                            SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
                             animate = true;
                             Projectile.ai[1] = 0;
                         }

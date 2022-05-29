@@ -103,7 +103,7 @@ namespace StormDiversMod.NPCs
                     int damage = 40; // The damage your projectile deals.
                     float knockBack = 3;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.StormDerpProj>();
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 17);
+                    SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;

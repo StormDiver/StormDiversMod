@@ -441,7 +441,7 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62);
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
 
             for (int i = 0; i < 25; i++)
@@ -650,7 +650,7 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 74);
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
             Projectile.alpha = 255;
             for (int i = 0; i < 50; i++)
@@ -773,7 +773,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.velocity.Y = -oldVelocity.Y * 1.3f;
                 }
             }
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 56);
+            SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
             return false;
         }
 

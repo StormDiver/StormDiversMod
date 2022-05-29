@@ -163,7 +163,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
                 
                 for (int i = 0; i < 50; i++)
                 {
@@ -322,6 +322,8 @@ namespace StormDiversMod.Projectiles
         int shoottime = 0;
         bool firedspike = false;//For hitting an enemy
         bool stopspikes = false;//For stopped spinning
+
+
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
@@ -333,7 +335,7 @@ namespace StormDiversMod.Projectiles
             {
                 stopspikes = true;
             }
-            if (shoottime >= 30)//Fire spikes whule spinning
+            if (shoottime >= 30)//Fire spikes while spinning
             {
                 float numberProjectiles = 8;
                 float rotation = MathHelper.ToRadians(180);
@@ -343,10 +345,10 @@ namespace StormDiversMod.Projectiles
                     float speedX = 0f;
                     float speedY = 11f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 1f), 0.5f, Projectile.owner);
                 }
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 17, 1.5f);
+                SoundEngine.PlaySound(SoundID.Item17 with{Volume = 1.5f}, Projectile.Center);
 
                 shoottime = 0;
             }
@@ -452,10 +454,10 @@ namespace StormDiversMod.Projectiles
                     float speedX = 0f;
                     float speedY = 11f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.4f), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.4f), 0.5f, Projectile.owner);
                 }
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 17, 1.5f);
+                SoundEngine.PlaySound(SoundID.Item17 with{Volume = 1.5f}, Projectile.Center);
 
                 firedspike = true;
             }

@@ -110,7 +110,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
+                SoundEngine.PlaySound(SoundID.NPCDeath6 with {Volume = 0.5f}, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -217,11 +217,12 @@ namespace StormDiversMod.Projectiles
         {
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
+    
         public override void Kill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
+                SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f }, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -324,11 +325,12 @@ namespace StormDiversMod.Projectiles
         {
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
+  
         public override void Kill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
+                SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f }, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -408,7 +410,7 @@ namespace StormDiversMod.Projectiles
             {
 
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 20, 0.5f);
+                SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
                
                 //for (int i = 0; i < 10; i++)
                 if (Projectile.owner == Main.myPlayer)
@@ -554,11 +556,12 @@ namespace StormDiversMod.Projectiles
         {
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
+  
         public override void Kill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
+                SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f }, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -708,12 +711,13 @@ namespace StormDiversMod.Projectiles
         {
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
+   
         public override void Kill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
+                SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f }, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {

@@ -80,8 +80,6 @@ namespace StormDiversMod.Projectiles
             //stick = true;
         }
 
-        
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
@@ -92,7 +90,7 @@ namespace StormDiversMod.Projectiles
                 {
 
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 31);
-                    SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 0.5f, 0.2f);
+                    SoundEngine.PlaySound(SoundID.NPCDeath1 with{Volume = 0.5f, Pitch = 0.2f}, Projectile.Center);
 
 
                 }
@@ -105,7 +103,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 0.5f, 0.2f);
+                SoundEngine.PlaySound(SoundID.NPCDeath1 with{Volume = 0.5f, Pitch = 0.2f }, Projectile.Center);
                 for (int i = 0; i < 15; i++)
                 {
 

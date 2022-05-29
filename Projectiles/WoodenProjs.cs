@@ -198,7 +198,7 @@ namespace StormDiversMod.Projectiles
 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 3);
             }
-            SoundEngine.PlaySound(SoundID.Grass, (int)Projectile.position.X, (int)Projectile.position.Y);
+            SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
         }
 
     }

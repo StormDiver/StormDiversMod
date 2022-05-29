@@ -178,7 +178,7 @@ namespace StormDiversMod.NPCs
                         float knockBack = 3;
                         int type = ModContent.ProjectileType<NPCs.NPCProjs.IceCoreProj>();
 
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 30, 1, 0.25f);
+                        SoundEngine.PlaySound(SoundID.Item30 with{Volume = 0.5f, Pitch = 0.25f}, NPC.Center);
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -222,7 +222,7 @@ namespace StormDiversMod.NPCs
                     NPC.ai[0]++; //shootime
                     if (NPC.ai[0] >= 80 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
                     {
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 30);
+                        SoundEngine.PlaySound(SoundID.Item30, NPC.Center);
 
                         float numberProjectiles = 10 + Main.rand.Next(4);
                         if (Main.netMode != NetmodeID.MultiplayerClient)

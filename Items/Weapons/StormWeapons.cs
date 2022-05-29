@@ -209,13 +209,14 @@ namespace StormDiversMod.Items.Weapons
          {
              return new Vector2(5, 0);
          }*/
+        
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 
             float numberProjectiles = 3;
             float rotation = MathHelper.ToRadians(3);
 
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 53, 1, -0.5f);
+            SoundEngine.PlaySound(SoundID.NPCHit53 with {Volume = 0.5f, Pitch = -0.5f}, player.Center);
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 35f;
 
@@ -313,9 +314,10 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(0, 0);
         }
+       
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 53, 1, -0.5f);
+            SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 0.5f, Pitch= -0.5f}, player.Center);
 
             int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
             Main.projectile[index].originalDamage = Item.damage;

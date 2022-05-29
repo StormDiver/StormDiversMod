@@ -75,13 +75,14 @@ namespace StormDiversMod.NPCs
             }
             return SpawnCondition.SurfaceJungle.Chance * 0f;
         }
-    
+
+
         public override void HitEffect(int hitDirection, double damage)
         {
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)NPC.Center.X, (int)NPC.Center.Y, 22, 1, 0.4f);
+            SoundEngine.PlaySound(SoundID.NPCHit22 with {Volume = 0.7f, Pitch = 0.4f}, NPC.Center);
             if (NPC.life <= 0)          //this make so when the NPC has 0 life(dead) he will spawn this
             {
-                SoundEngine.PlaySound(SoundID.NPCKilled, (int)NPC.Center.X, (int)NPC.Center.Y, 25, 1, 0.5f);
+                SoundEngine.PlaySound(SoundID.NPCDeath25 with{Volume = 0.7f, Pitch = 0.5f}, NPC.Center);
 
             }
 

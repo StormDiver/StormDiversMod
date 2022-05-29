@@ -82,7 +82,7 @@ namespace StormDiversMod.Projectiles
 
             if (bloodspray)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 13);
+                SoundEngine.PlaySound(SoundID.NPCHit13, Projectile.Center);
             }
             bloodspray = false;
 
@@ -145,12 +145,12 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 13);
+            SoundEngine.PlaySound(SoundID.NPCHit13, Projectile.Center);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 13);
+            SoundEngine.PlaySound(SoundID.NPCHit13, Projectile.Center);
 
             Projectile.Kill();
             return false;
@@ -497,7 +497,7 @@ namespace StormDiversMod.Projectiles
       
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 13);
+            SoundEngine.PlaySound(SoundID.NPCHit13, Projectile.Center);
 
             Projectile.Kill();
             return false;

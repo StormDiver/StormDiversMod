@@ -48,6 +48,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
+
         float pitch;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -62,9 +63,10 @@ namespace StormDiversMod.Items.Weapons
             float scale = 1f - (Main.rand.NextFloat() * .4f);
             perturbedSpeed = perturbedSpeed * scale;
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+     
             pitch = scale - 1;
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 5, 1, pitch);
-            
+
+            SoundEngine.PlaySound(SoundID.Item5 with { Volume = 1f, Pitch = pitch }, position);
             return false;
         }
         
@@ -130,7 +132,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
+            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y - 33), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
             Main.projectile[index].originalDamage = Item.damage;
             return false;
 
@@ -149,9 +151,9 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.RichMahogany, 50)
-            .AddIngredient(ItemID.Vine, 15)
+            .AddIngredient(ItemID.RichMahogany, 50)          
             .AddIngredient(ItemID.JungleSpores, 10)
+            .AddIngredient(ItemID.Vine, 5)
             .AddTile(TileID.WorkBenches)
             .Register();
             

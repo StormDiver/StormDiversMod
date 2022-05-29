@@ -56,7 +56,7 @@ namespace StormDiversMod.Projectiles
             {
                
                
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 30);
+                SoundEngine.PlaySound(SoundID.Item30, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 
@@ -104,7 +104,7 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
+            SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
 
             for (int i = 0; i < 10; i++)
             {
@@ -244,7 +244,7 @@ namespace StormDiversMod.Projectiles
                 }
                 if (reflect > 0)
                 {
-                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 8);
+                    SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
                 }
                 return false;
             }
@@ -258,7 +258,7 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
+            SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             for (int i = 0; i < 30; i++)
             {
 

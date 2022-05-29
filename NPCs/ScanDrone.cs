@@ -167,7 +167,7 @@ namespace StormDiversMod.NPCs
 
 
                    // Projectile.NewProjectile(NPC.Center.X + NPC.width / 2, NPC.Center.Y + NPC.height / 2, velocity.X, velocity.Y, type, damage, knockBack, Main.myPlayer);
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 17);
+                    SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
 
                     //int numberProjectiles = 4 + Main.rand.Next(2); // 4 or 5 shots

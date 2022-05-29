@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Tools
             {
                 if (NPC.ShieldStrengthTowerVortex > 0 || NPC.ShieldStrengthTowerSolar > 0 || NPC.ShieldStrengthTowerNebula > 0 || NPC.ShieldStrengthTowerStardust > 0)
                 {
-                    SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 122);
+                    SoundEngine.PlaySound(SoundID.Item122, position);
                     //Projectile.NewProjectile(position.X, position.Y, 0, 0, 629, damage, knockBack, player.whoAmI, NPC.FindFirstNPC(422));
 
                     NPC.ShieldStrengthTowerVortex = 0;
@@ -91,7 +91,7 @@ namespace StormDiversMod.Items.Tools
                 }
                 else
                 {
-                    SoundEngine.PlaySound(SoundID.NPCKilled, (int)position.X, (int)position.Y, 6);
+                    SoundEngine.PlaySound(SoundID.NPCDeath6, position);
                     for (int i = 0; i < 50; i++)
                     {
                         float speedX = 0f;

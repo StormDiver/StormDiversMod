@@ -95,7 +95,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
 
             Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 55);
+            SoundEngine.PlaySound(SoundID.NPCDeath55, Projectile.Center);
             for (int i = 0; i < 15; i++)
             {
 
@@ -244,7 +244,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
 
             Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 43);
+            SoundEngine.PlaySound(SoundID.NPCDeath43, Projectile.Center);
             for (int i = 0; i < 40; i++)
             {
 

@@ -121,7 +121,7 @@ namespace StormDiversMod.Projectiles
             }
             if ((player.controlUseTile && player.controlDown && !unstick && stick)) //will go BOOM
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 108);
+                SoundEngine.PlaySound(SoundID.Item108, Projectile.Center);
                 Projectile.velocity.Y = -2;
                 unstick = true;
             }
@@ -133,6 +133,8 @@ namespace StormDiversMod.Projectiles
             damage /= 4;
             target.velocity.Y = -15;
         }
+
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (!unstick)
@@ -149,7 +151,7 @@ namespace StormDiversMod.Projectiles
 
 
                 }
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.Center.X, (int)Projectile.Center.Y, 1, 0.5f, 0.2f);
+                SoundEngine.PlaySound(SoundID.NPCHit1 with{Volume = 0.5f, Pitch = 0.2f}, Projectile.Center);
 
             }
             stick = true;
@@ -169,7 +171,7 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62);
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
 
 

@@ -120,7 +120,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
+            SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             for (int i = 0; i < 20; i++)
             {
 

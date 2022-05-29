@@ -30,7 +30,7 @@ namespace StormDiversMod.Items.Weapons
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 6;
-            Item.useAnimation = 34;
+            Item.useAnimation = 32;
             Item.reuseDelay = 60;
             Item.useTurn = false;
             Item.autoReuse = true;
@@ -59,7 +59,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 41);
+            SoundEngine.PlaySound(SoundID.Item41, position);
             {
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 4), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             }
@@ -71,7 +71,7 @@ namespace StormDiversMod.Items.Weapons
         {
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(7));
         }
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return !(player.itemAnimation < Item.useAnimation - 2);
 

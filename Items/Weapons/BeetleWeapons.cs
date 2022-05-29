@@ -65,7 +65,7 @@ namespace StormDiversMod.Items.Weapons
         {
            
 
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 1);
+            SoundEngine.PlaySound(SoundID.Item1, position);
            
                 return true;
             

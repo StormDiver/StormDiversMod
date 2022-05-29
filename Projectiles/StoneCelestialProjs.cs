@@ -119,7 +119,7 @@ namespace StormDiversMod.Projectiles
 
                 }
             }
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 62);
+                SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
              
                 return false;
             
@@ -130,7 +130,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 62);
+                SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 
@@ -243,7 +243,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Tink, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+                SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -370,8 +370,8 @@ namespace StormDiversMod.Projectiles
 
                 }
             }
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 62);
-            
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
+
             return false;
         }
 
@@ -380,7 +380,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 62);
+                SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 
@@ -495,7 +495,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Tink, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+                SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -616,7 +616,7 @@ namespace StormDiversMod.Projectiles
                 }
             }
 
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 62);
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
             return false;
         }
@@ -626,7 +626,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 62);
+                SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 
@@ -741,7 +741,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Tink, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+                SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -877,8 +877,8 @@ namespace StormDiversMod.Projectiles
                 }
             }
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 62);
-            
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
+
             return false;
         }
 
@@ -887,7 +887,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 62);
+                SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 
@@ -1002,7 +1002,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Tink, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+                SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
 
                 for (int i = 0; i < 3; i++)
                 {

@@ -87,7 +87,7 @@ namespace StormDiversMod.Projectiles
 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 202);
             }
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 11);
+            SoundEngine.PlaySound(SoundID.NPCHit11, Projectile.Center);
 
         }
 
@@ -151,7 +151,7 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 202);
                 
             }
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 11);
+            SoundEngine.PlaySound(SoundID.NPCHit11, Projectile.Center);
 
         }
 
@@ -168,7 +168,7 @@ namespace StormDiversMod.Projectiles
                  
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 202);
             }
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 11);
+            SoundEngine.PlaySound(SoundID.NPCHit11, Projectile.Center);
         }
        
     }
@@ -240,7 +240,7 @@ namespace StormDiversMod.Projectiles
 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 202);
             }
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 11);
+            SoundEngine.PlaySound(SoundID.NPCHit11, Projectile.Center);
         }
 
     }

@@ -222,7 +222,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 74);
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
            
                 for (int i = 0; i < 50; i++)
@@ -384,7 +384,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 74);
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
            
                 for (int i = 0; i < 100; i++)
@@ -515,7 +515,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
 
             Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 74);
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
           
                 for (int i = 0; i < 100; i++)
@@ -963,7 +963,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                                ModContent.ProjectileType<NPCs.NPCProjs.StormBossBolt>(), Projectile.damage, .5f);
                     }
                 }*/
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
+                SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
 
             }
             if (Projectile.ai[0] >= 82)//Fade out and kill

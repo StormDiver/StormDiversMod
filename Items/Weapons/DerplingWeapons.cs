@@ -53,7 +53,7 @@ namespace StormDiversMod.Items.Weapons
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(12)); // This defines the projectiles random spread . 10 degree spread.
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, (int)(damage * 0.75f), knockback, player.whoAmI);
                 }
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)player.position.X, (int)player.position.Y, 22);
+                SoundEngine.PlaySound(SoundID.NPCHit22, player.Center);
                 weaponattack = 2;
             }
             return false;
@@ -120,7 +120,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
+            SoundEngine.PlaySound(SoundID.Item40, position);
             {
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             }
@@ -133,8 +133,9 @@ namespace StormDiversMod.Items.Weapons
         {
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(4));
         }
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
+     
             return !(player.itemAnimation < Item.useAnimation - 2);
 
         }
@@ -197,7 +198,7 @@ namespace StormDiversMod.Items.Weapons
 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(18));
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.6f, perturbedSpeed.Y * 0.6f), ModContent.ProjectileType<Projectiles.DerpMagicProj>(), damage, knockback, player.whoAmI);
-                    SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 20);
+                    SoundEngine.PlaySound(SoundID.Item20, player.Center);
 
                 }
             }

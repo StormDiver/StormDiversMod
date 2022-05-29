@@ -96,7 +96,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 1);
+            SoundEngine.PlaySound(SoundID.Item1, position);
 
             return true;
         }
@@ -155,7 +155,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.FrostGrenadeProj>(), damage, knockback, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 61);
+                SoundEngine.PlaySound(SoundID.Item61, position);
 
             }
 
@@ -232,7 +232,7 @@ namespace StormDiversMod.Items.Weapons
           .Register();
 
         }
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
           
             return Main.rand.NextFloat() > .50f;

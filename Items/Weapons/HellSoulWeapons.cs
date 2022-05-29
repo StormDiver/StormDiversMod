@@ -63,7 +63,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 8);
+                SoundEngine.PlaySound(SoundID.Item8, player.Center);
 
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(20));
                     float scale = 1f - (Main.rand.NextFloat() * .5f);
@@ -242,7 +242,7 @@ namespace StormDiversMod.Items.Weapons
                     int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.66f), knockback, player.whoAmI);
                 }
                 //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.2f), knockback, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 8);
+                SoundEngine.PlaySound(SoundID.Item8, player.Center);
                 weaponattack = 3;
             }
             return false;

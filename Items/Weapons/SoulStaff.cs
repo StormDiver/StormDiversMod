@@ -43,7 +43,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.channel = true;
             Item.DamageType = DamageClass.Magic;
             Item.autoReuse = true;
-            //Item.UseSound = SoundID.Item13;
+            Item.UseSound = SoundID.Item8 with {Volume = 0.75f, Pitch = -0.2f};
 
             Item.damage = 50;
             //Item.crit = 4;
@@ -71,6 +71,7 @@ namespace StormDiversMod.Items.Weapons
         }
         int dusttype;
         float dustscale;
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
@@ -117,7 +118,7 @@ namespace StormDiversMod.Items.Weapons
             shootToX *= distance * 7;
             shootToY *= distance * 7;
             int proj = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(shootToX, shootToY), type, damage, knockback, Main.myPlayer,0 ,0);
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 8, 0.5f, 0.5f);
+            //SoundEngine.PlaySound(SoundID.Item8 with{Volume = 0.5f, Pitch = 0.5f}, position);
 
             //For the dust
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 66; 

@@ -58,7 +58,7 @@ namespace StormDiversMod.Items.Weapons
             for (int i = 0; i < 1; i++)
             {
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 61);
+                SoundEngine.PlaySound(SoundID.Item61, position);
 
             }
 

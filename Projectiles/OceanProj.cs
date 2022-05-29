@@ -75,7 +75,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 86);
+                SoundEngine.PlaySound(SoundID.Item86, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 
@@ -174,7 +174,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 85);
+                SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -251,7 +251,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 85);
+                SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
                 for (int i = 0; i < 5; i++)
                 {
 

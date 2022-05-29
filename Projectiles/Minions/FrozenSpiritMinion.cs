@@ -83,6 +83,8 @@ namespace StormDiversMod.Projectiles.Minions
 		}
 		int xpos = 0;
 		bool moveright = true;
+
+
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
@@ -270,7 +272,7 @@ namespace StormDiversMod.Projectiles.Minions
 							Projectile.velocity.X = shootToX * -0.18f;
 							Projectile.velocity.Y = shootToY * -0.18f;
 
-							SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 30, 0.5f, 0.5f);
+							SoundEngine.PlaySound(SoundID.Item30 with{Volume = 0.75f, Pitch = 0.5f}, Projectile.Center);
 
 							for (int i = 0; i < 25; i++)
 							{
@@ -360,7 +362,7 @@ namespace StormDiversMod.Projectiles.Minions
 			{
 				if (!Main.dedServ)
 				{
-					SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 7, 0.5f);
+					SoundEngine.PlaySound(SoundID.NPCDeath7 with { Volume = 0.75f}, Projectile.Center);
 
 					for (int i = 0; i < 25; i++)
 					{
@@ -430,7 +432,7 @@ namespace StormDiversMod.Projectiles.Minions
 		public override void Kill(int timeLeft)
 		{
 
-			SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
+			SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 
 			for (int i = 0; i < 5; i++)
 			{

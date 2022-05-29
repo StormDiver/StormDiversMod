@@ -118,7 +118,7 @@ namespace StormDiversMod.NPCs
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
 
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 13);
+                    SoundEngine.PlaySound(SoundID.Item13, NPC.Center);
 
 
                     for (int i = 0; i < 4; i++)

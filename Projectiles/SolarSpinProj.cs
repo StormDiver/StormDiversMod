@@ -46,7 +46,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                 var dust = Dust.NewDustDirect(target.position, target.width, target.height, 6);
                 dust.scale = 2f;
                 dust.noGravity = true;
-                SoundEngine.PlaySound(SoundID.Item, (int)target.Center.X, (int)target.Center.Y, 74);
+                SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
             }
 
         }
@@ -60,7 +60,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.soundDelay--;
             if (Projectile.soundDelay <= 0)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 116);    
+                SoundEngine.PlaySound(SoundID.Item116, Projectile.Center);    
                 Projectile.soundDelay = 60;    
             }
             //-----------------------------------------------How the projectile works---------------------------------------------------------------------
@@ -166,7 +166,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                                     int choice = Main.rand.Next(2);
                                     if (choice == 0)
                                     {
-                                        SoundEngine.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 56);
+                                        SoundEngine.PlaySound(SoundID.Item56, projectile.Center);
                                         //Projectile.Kill();
                                         projectile.velocity.X *= -1f;
 

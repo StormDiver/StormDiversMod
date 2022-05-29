@@ -9,6 +9,7 @@ using Terraria.GameContent;
 
 namespace StormDiversMod.Projectiles
 {
+
     public class BeetleSpearProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -35,6 +36,7 @@ namespace StormDiversMod.Projectiles
         }
         protected virtual float HoldoutRangeMin => 50f;
         protected virtual float HoldoutRangeMax => 175f;
+
 
         public override void AI()
         {
@@ -65,10 +67,11 @@ namespace StormDiversMod.Projectiles
             }
             bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
 
+
             if (Projectile.timeLeft == (halfDuration - 1) && lineOfSight)
             {
 
-                SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 50, 1, 1.3f);
+                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f}, Projectile.Center);
 
                 Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
 
@@ -135,6 +138,7 @@ namespace StormDiversMod.Projectiles
             // drawOriginOffsetY = 1;
         }
         int shoottime = 0;
+
         public override void AI()
         {
             Dust dust;
@@ -147,7 +151,7 @@ namespace StormDiversMod.Projectiles
             if (shoottime >= 20)
             {
 
-                SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 50, 1, 1.3f);
+                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f}, Projectile.Center);
 
                 Vector2 perturbedSpeed = new Vector2(0, -4).RotatedByRandom(MathHelper.ToRadians(360));
 
@@ -205,7 +209,7 @@ namespace StormDiversMod.Projectiles
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
 
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 7);
+            SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
 
 
             for (int i = 0; i < 10; i++)
@@ -219,7 +223,7 @@ namespace StormDiversMod.Projectiles
                 Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 50, 1, 1.3f);
+                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f}, Projectile.Center);
 
             }
         }
@@ -234,7 +238,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.Kill();
 
             }
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 3);
+            SoundEngine.PlaySound(SoundID.NPCHit3, Projectile.Center);
 
 
             if (Main.rand.Next(4) == 0)
@@ -242,7 +246,7 @@ namespace StormDiversMod.Projectiles
                 Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                SoundEngine.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 50, 1, 1.3f);
+                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f}, Projectile.Center);
 
             }
             {
@@ -272,7 +276,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 89);
+                SoundEngine.PlaySound(SoundID.Item89, Projectile.Center);
 
 
                 for (int i = 0; i < 25; i++)

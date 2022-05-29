@@ -273,6 +273,8 @@ namespace StormDiversMod.Basefiles
             stormBossProj = false;
             shaketimer = 0;
         }
+   
+        //===============================================================================================================
         public override bool PreItemCheck()
         {
             //Alt fire autouse
@@ -634,7 +636,7 @@ namespace StormDiversMod.Basefiles
                             if (soundDelay >= 6)
                             {
 
-                                SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);
+                                SoundEngine.PlaySound(SoundID.Run, Player.Center);
                                 soundDelay = 0;
                             }
                         }
@@ -690,13 +692,13 @@ namespace StormDiversMod.Basefiles
                             if (Player.gravDir == 1)
                             {
                                 Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Bottom.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
-                                SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);
+                                SoundEngine.PlaySound(SoundID.Run, Player.Center);
                                 soundDelay = 0;
                             }
                             else
                             {
                                 Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Top.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
-                                SoundEngine.PlaySound(SoundID.Run, (int)Player.Center.X, (int)Player.Center.Y);
+                                SoundEngine.PlaySound(SoundID.Run, Player.Center);
                                 soundDelay = 0;
                             }
                         }
@@ -746,7 +748,7 @@ namespace StormDiversMod.Basefiles
                             Main.dust[dustIndex].noGravity = true;
                         }
                     }
-                    SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 61, 0.5f, 0.5f);
+                    SoundEngine.PlaySound(SoundID.Item61 with { Volume = 0.5f, Pitch = 0.5f }, Player.Center);
                 }
                 else if (santanktrigger && (santankcharge == 10 || santankcharge == 20 || santankcharge == 30 || santankcharge == 40 || santankcharge == 50 || santankcharge == 60 || santankcharge == 70 || santankcharge == 80 || santankcharge == 90 || santankcharge == 100))
                 //Fires missles at these times
@@ -783,7 +785,7 @@ namespace StormDiversMod.Basefiles
                             Main.dust[dustIndex].noGravity = true;
                         }
                     }
-                    SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 92);
+                    SoundEngine.PlaySound(SoundID.Item92, Player.Center);
 
 
                     float speedX = 0f;
@@ -967,7 +969,7 @@ namespace StormDiversMod.Basefiles
                                     dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
 
                                 }
-                                SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 8, 2f, -0.5f);
+                                SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = -0.5f }, Player.Center);
 
 
 
@@ -1190,7 +1192,7 @@ namespace StormDiversMod.Basefiles
                         Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
                         Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
                     }
-                    SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 14);
+                    SoundEngine.PlaySound(SoundID.Item14, Player.Center);
                     falling = false;
 
                 }
@@ -1223,7 +1225,7 @@ namespace StormDiversMod.Basefiles
                 {
                     coraldrop++;
 
-                    if (coraldrop >= 60 && Player.itemTime == Player.HeldItem.useTime - 1)
+                    if (coraldrop >= 60 && Player.itemAnimation == 1)
                     {
                         for (int index = 0; index < 1; ++index)
                         {
@@ -1245,7 +1247,7 @@ namespace StormDiversMod.Basefiles
                             Main.projectile[projID].aiStyle = 0;
                             Main.projectile[projID].DamageType = DamageClass.Generic;
 
-                            SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 21);
+                            SoundEngine.PlaySound(SoundID.Item21, Player.Center);
                             for (int i = 0; i < 35; i++)
                             {
 
@@ -1283,7 +1285,7 @@ namespace StormDiversMod.Basefiles
                             int damage = (int)(Player.HeldItem.damage * 2f);
                             Projectile.NewProjectile(null, Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
 
-                            SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 92);
+                            SoundEngine.PlaySound(SoundID.Item92, Player.Center);
                         }
 
                     }
@@ -1316,7 +1318,7 @@ namespace StormDiversMod.Basefiles
 
                             }
 
-                            SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 34);
+                            SoundEngine.PlaySound(SoundID.Item34, Player.Center);
 
                             float numberProjectiles = 2 + Main.rand.Next(2);
 
@@ -1374,7 +1376,7 @@ namespace StormDiversMod.Basefiles
 
                     Player.ClearBuff(ModContent.BuffType<DerpBuff>());
 
-                    SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.Center.X, (int)Player.Center.Y, 22, 1.5f, -0.5f);
+                    SoundEngine.PlaySound(SoundID.NPCHit22 with { Volume = 1.5f, Pitch = -0.5f }, Player.Center);
 
                     for (int i = 0; i < 40; i++)
                     {
@@ -1459,7 +1461,7 @@ namespace StormDiversMod.Basefiles
                         int dust2 = Dust.NewDust(Player.Center, 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 0.75f);
                         Main.dust[dust2].noGravity = true;
                     }
-                    SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122, 0.5f);
+                    SoundEngine.PlaySound(SoundID.Item122 with { Volume = 0.5f }, Player.Center);
 
                     stormBossProj = true;
                 }
@@ -1557,7 +1559,7 @@ namespace StormDiversMod.Basefiles
                     dust.velocity *= 2;
 
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 45, 0.5f);
+                SoundEngine.PlaySound(SoundID.Item45 with { Volume = 0.5f}, Player.Center);
                 spaceStrikecooldown = 0;
                 Player.ClearBuff(ModContent.BuffType<SpaceRockOffence>());
 
@@ -1573,7 +1575,7 @@ namespace StormDiversMod.Basefiles
                     if (bloodtime < 1 && !Player.dead)
                     {
 
-                        SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.position.X, (int)Player.position.Y, 9);
+                        SoundEngine.PlaySound(SoundID.NPCHit9, Player.Center);
 
                         float numberProjectiles = 7 + Main.rand.Next(3);
 
@@ -1609,7 +1611,7 @@ namespace StormDiversMod.Basefiles
                 if (desertdusttime < 1 && !Player.dead)
                 {
 
-                    SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 20);
+                    SoundEngine.PlaySound(SoundID.Item20, Player.Center);
 
 
                     float numberProjectiles = 8 + Main.rand.Next(0);
@@ -1651,7 +1653,7 @@ namespace StormDiversMod.Basefiles
             if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>()) && granitebufftime == 0 && damage > 1)
             {
                 Player.AddBuff(ModContent.BuffType<GraniteAccessBuff>(), 240);
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)Player.position.X, (int)Player.position.Y, 41, 1, -0.3f);
+                SoundEngine.PlaySound(SoundID.NPCHit41 with { Volume = 1f, Pitch = -0.3f }, Player.Center);
                 for (int i = 0; i < 25; i++)
                 {
 
@@ -1695,7 +1697,7 @@ namespace StormDiversMod.Basefiles
                     dust.noGravity = true;
                     dust.velocity *= 2;
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 45, 0.5f);
+                SoundEngine.PlaySound(SoundID.Item45 with { Volume = 0.5f }, Player.Center);
 
                 spaceBarriercooldown = 0;
                 Player.ClearBuff(ModContent.BuffType<SpaceRockDefence>());
@@ -1713,7 +1715,7 @@ namespace StormDiversMod.Basefiles
 
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff>()))
                     {
-                        SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122);
+                        SoundEngine.PlaySound(SoundID.Item122, Player.Center);
                         Player.AddBuff(ModContent.BuffType<CelestialBuff>(), (int)(attackdmg * 4f));
 
                     }
@@ -1723,7 +1725,7 @@ namespace StormDiversMod.Basefiles
                 {
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff>()))
                     {
-                        SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122);
+                        SoundEngine.PlaySound(SoundID.Item122, Player.Center);
                         Player.AddBuff(ModContent.BuffType<CelestialBuff>(), (int)(attackdmg * 4f));
                     }
                 }
@@ -1739,7 +1741,7 @@ namespace StormDiversMod.Basefiles
                 if (frosttime < 1 && damage > 1)
                 {
                     
-                    SoundEngine.PlaySound(SoundID.NPCKilled, (int)Player.position.X, (int)Player.position.Y, 56, 0.5f);
+                    SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.2f, Pitch = -0.5f}, Player.Center);
                     float numberProjectiles = 10 + Main.rand.Next(4);
                     for (int i = 0; i < numberProjectiles; i++)
                     {
@@ -1770,7 +1772,6 @@ namespace StormDiversMod.Basefiles
         }
         //===================================Other hooks======================================
 
-        int AridProj = ModContent.ProjectileType<AncientArmourProj>();
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
         {
@@ -1785,7 +1786,7 @@ namespace StormDiversMod.Basefiles
                         {
                             
                             Item.NewItem(new EntitySource_Loot(target), new Vector2(target.Center.X, target.Center.Y), new Vector2(target.width, target.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
-                            SoundEngine.PlaySound(SoundID.NPCKilled, (int)target.Center.X, (int)target.Center.Y, 7);
+                            SoundEngine.PlaySound(SoundID.NPCDeath7, target.Center);
                             for (int i = 0; i < 15; i++)
                             {
                                 var dust = Dust.NewDustDirect(new Vector2(target.Center.X, target.Center.Y), 5, 5, 72);
@@ -1837,7 +1838,7 @@ namespace StormDiversMod.Basefiles
                     dust.velocity *= 3;
 
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)target.Center.X, (int)target.Center.Y, 8);
+                SoundEngine.PlaySound(SoundID.Item8, target.Center);
 
                 hellblazetime = 30;
             }
@@ -1856,7 +1857,7 @@ namespace StormDiversMod.Basefiles
                 if (!Player.dead && crit)
                 {
 
-                    SoundEngine.PlaySound(SoundID.Zombie, (int)target.Center.X, (int)target.Center.Y, 50, 2, -0.5f);
+                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f }, target.Center);
 
                     float numberProjectiles = 3 + Main.rand.Next(3);
 
@@ -1899,7 +1900,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (crit)
                 {
-                    target.immune[AridProj] = 5;
+                    target.immune[Main.myPlayer] = 4;
 
                     Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), damage, 1, Player.whoAmI);
                 }
@@ -1907,7 +1908,6 @@ namespace StormDiversMod.Basefiles
 
            
         }
-        int StormProj = ModContent.ProjectileType<Projectiles.StormLightningProj>();
 
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
@@ -1945,7 +1945,7 @@ namespace StormDiversMod.Basefiles
                             Item.NewItem(new EntitySource_Loot(target), new Vector2(target.Center.X, target.Center.Y), new Vector2(target.width, target.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
 
 
-                            SoundEngine.PlaySound(SoundID.NPCKilled, (int)target.Center.X, (int)target.Center.Y, 7);
+                            SoundEngine.PlaySound(SoundID.NPCDeath7, target.Center);
                             for (int i = 0; i < 15; i++)
                             {
                                 var dust = Dust.NewDustDirect(new Vector2(target.Center.X, target.Center.Y), 5, 5, 72);
@@ -1988,7 +1988,7 @@ namespace StormDiversMod.Basefiles
                     dust.velocity *= 3;
 
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)target.Center.X, (int)target.Center.Y, 8);
+                SoundEngine.PlaySound(SoundID.Item8, target.Center);
 
                 hellblazetime = 30;
             }
@@ -2007,7 +2007,7 @@ namespace StormDiversMod.Basefiles
 
                 if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
                 {
-                    SoundEngine.PlaySound(SoundID.Zombie, (int)target.Center.X, (int)target.Center.Y, 50, 2, -0.5f);
+                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f }, target.Center);
 
                     float numberProjectiles = 3 + Main.rand.Next(3);
 
@@ -2050,16 +2050,12 @@ namespace StormDiversMod.Basefiles
             {
                 if (crit)
                 {
-                    target.immune[AridProj] = 5;
-
+                    target.immune[Main.myPlayer] = 4;
+                 
                     Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 1, Player.whoAmI);
                 }
             }
-            /*if (proj.type == ModContent.ProjectileType<Projectiles.StormLightningProj>())
-            {
-                target.immune[StormProj] = 5;
-
-            }*/
+           
         }
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {

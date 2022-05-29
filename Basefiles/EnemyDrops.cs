@@ -112,7 +112,7 @@ namespace StormDiversMod.Basefiles
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.MoonlingSummoner>());
                 }
             }
-            if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && Main.IsItStorming && StormWorld.stormBossDown == false) //StormBoss Summoner
+            if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight && Main.IsItStorming && StormWorld.stormBossDown == false) //StormBoss Summoner
             {
                 if (Main.rand.Next(25) == 0)
                 {

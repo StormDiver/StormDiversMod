@@ -137,7 +137,7 @@ namespace StormDiversMod.NPCs
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                             }
                         }
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 74);
+                        SoundEngine.PlaySound(SoundID.Item74, NPC.Center);
                         
                         for (int i = 0; i < 10; i++)
                         {

@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Blazing Polestar"); 
+			DisplayName.SetDefault("Blazing Star"); 
 			Tooltip.SetDefault("Spins around with the force of a star\nKnocks enemies in the direction you're facing\nHas a chance to reflect basic projectiles when spun");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         
@@ -162,6 +162,7 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(-8, 0);
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
@@ -180,7 +181,7 @@ namespace StormDiversMod.Items.Weapons
                 {
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj2>(), damage * 2, knockback, player.whoAmI);
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 92, 1, 0.5f);
+                SoundEngine.PlaySound(SoundID.Item92 with{Volume = 1f, Pitch = 0.5f}, player.Center);
 
             }
             else
@@ -204,7 +205,7 @@ namespace StormDiversMod.Items.Weapons
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj>(), damage, knockback, player.whoAmI);
 
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 92);
+                SoundEngine.PlaySound(SoundID.Item92, player.Center);
 
             }
 

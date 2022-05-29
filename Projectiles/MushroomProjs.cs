@@ -167,7 +167,7 @@ namespace StormDiversMod.Projectiles
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
                 }
-                SoundEngine.PlaySound(SoundID.Item, Projectile.position, 8);
+                SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 
                 spawntime = true;
 

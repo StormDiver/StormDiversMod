@@ -138,7 +138,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         }
 
 
-                        SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 17);
+                        SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
                         float numberProjectiles = 3;
                         float rotation = MathHelper.ToRadians(5);
                         for (int l = 0; l < numberProjectiles; l++)
@@ -240,7 +240,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 122);
+            SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
             for (int i = 0; i < 50; i++)
             {
 

@@ -294,7 +294,7 @@ namespace StormDiversMod.Projectiles.Minions
 			{
 				if (!Main.dedServ)
 				{
-					SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 0.5f);
+					SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
 
 					for (int i = 0; i < 25; i++)
 					{

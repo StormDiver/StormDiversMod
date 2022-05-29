@@ -111,7 +111,7 @@ namespace StormDiversMod.Items.Weapons
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(4)); // This defines the projectiles random spread . 10 degree spread.
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, (int)(damage * 0.7f), knockback, player.whoAmI);
             }
-            SoundEngine.PlaySound(SoundID.Splash, (int)player.Center.X, (int)player.Center.Y, 1);
+            SoundEngine.PlaySound(SoundID.Splash, player.Center);
 
 
             return false;

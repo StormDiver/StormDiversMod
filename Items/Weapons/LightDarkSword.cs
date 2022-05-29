@@ -82,7 +82,8 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-     
+        
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
@@ -94,8 +95,8 @@ namespace StormDiversMod.Items.Weapons
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6)); // This defines the projectiles random spread . 10 degree spread.
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), type, damage, knockback, player.whoAmI);
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 73);
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 1);
+                SoundEngine.PlaySound(SoundID.Item73, player.Center);
+                SoundEngine.PlaySound(SoundID.Item1, player.Center);
 
             }
             else //left Click
@@ -104,8 +105,8 @@ namespace StormDiversMod.Items.Weapons
                 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(2)); // This defines the projectiles random spread . 10 degree spread.
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.5f, perturbedSpeed.Y * 1.5f), type, (int)(damage * 1.6f), knockback, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 9, 1, -0.5f);
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 1);
+                SoundEngine.PlaySound(SoundID.Item9 with{Volume = 1f, Pitch = -0.5f}, player.Center);
+                SoundEngine.PlaySound(SoundID.Item1, player.Center);
 
             }
 

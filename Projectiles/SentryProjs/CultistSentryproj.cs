@@ -47,7 +47,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             if (Projectile.alpha == 255)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 121);
+                SoundEngine.PlaySound(SoundID.Item121, Projectile.Center);
 
             }
             if (Projectile.alpha > 5)
@@ -150,7 +150,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
 
                                 //Projectile.NewProjectile(Projectile.Center.X, Projectile.Top.Y + 14, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("MagmaSentryProj2"), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-                                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 122);
+                                SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
 
 
 
@@ -202,7 +202,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 122);
+            SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
             for (int i = 0; i < 50; i++)
             {
 

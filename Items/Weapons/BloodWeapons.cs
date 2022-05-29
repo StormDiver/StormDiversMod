@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Weapons
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0)); // This defines the projectiles random spread . 10 degree spread.
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
                 }
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)player.position.X, (int)player.position.Y, 9);
+                SoundEngine.PlaySound(SoundID.NPCHit9, player.position);
                 weaponattack = 2;
             }
             return false;
@@ -119,7 +119,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
          
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)player.position.X, (int)player.position.Y, 9);
+                SoundEngine.PlaySound(SoundID.NPCHit9, player.position);
                 
             return true;
         }

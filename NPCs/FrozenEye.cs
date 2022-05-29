@@ -134,7 +134,7 @@ namespace StormDiversMod.NPCs
 
 
                     }
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 30);
+                    SoundEngine.PlaySound(SoundID.Item30, NPC.Center);
 
                     for (int i = 0; i < 20; i++)
                     {

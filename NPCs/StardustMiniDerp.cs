@@ -82,7 +82,7 @@ namespace StormDiversMod.NPCs
                 return;
             }
             NPC.life = 0;
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)NPC.Center.X, (int)NPC.Center.Y, 7);
+            SoundEngine.PlaySound(SoundID.NPCDeath7, NPC.Center);
             for (int i = 0; i < 10; i++)
             {
                  

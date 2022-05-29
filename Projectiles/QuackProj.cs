@@ -82,11 +82,10 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Duck, (int)Projectile.position.X, (int)Projectile.position.Y, 0, 0.3f, -0.6f);
+            //SoundEngine.PlaySound(SoundID.Duck with{Volume = 0.3f, Pitch = -0.6f}, Projectile.Center);
 
             for (int i = 0; i < 10; i++)
             {
@@ -199,7 +198,7 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 74);
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
             for (int i = 0; i < 35; i++)
             {
@@ -350,11 +349,11 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-
+        
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Duck, (int)Projectile.position.X, (int)Projectile.position.Y, 0, 0.3f, -0.6f);
+            //SoundEngine.PlaySound(SoundID.Duck with { Volume = 0.3f, Pitch = -0.6f }, Projectile.Center);
 
             for (int i = 0; i < 10; i++)
             {
@@ -488,11 +487,11 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-
+     
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Duck, (int)Projectile.position.X, (int)Projectile.position.Y, 0, 0.3f, -0.6f);
+            //SoundEngine.PlaySound(SoundID.Duck with { Volume = 0.3f, Pitch = -0.6f }, Projectile.Center);
 
             for (int i = 0; i < 10; i++)
             {
@@ -609,9 +608,10 @@ namespace StormDiversMod.Projectiles
 
             }
         }
+        
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            SoundEngine.PlaySound(SoundID.Duck, (int)Projectile.position.X, (int)Projectile.position.Y, 0, 0.3f, -0.6f);
+            //SoundEngine.PlaySound(SoundID.Duck with { Volume = 0.3f, Pitch = -0.6f }, Projectile.Center);
 
             for (int i = 0; i < 10; i++)
             {
@@ -702,11 +702,10 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Duck, (int)Projectile.position.X, (int)Projectile.position.Y, 0, 0.3f, -0.6f);
+            //SoundEngine.PlaySound(SoundID.Duck with { Volume = 0.3f, Pitch = -0.6f }, Projectile.Center);
 
             for (int i = 0; i < 10; i++)
             {

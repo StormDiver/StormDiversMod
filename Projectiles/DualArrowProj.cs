@@ -38,6 +38,8 @@ namespace StormDiversMod.Projectiles
             DrawOriginOffsetY = -0;
         }
         int split = 0;
+
+
         public override void AI()
         {
             /*Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
@@ -51,7 +53,7 @@ namespace StormDiversMod.Projectiles
                 if (Main.rand.Next(3) == 0)
                 {
 
-                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 5, 1, 0.5f);
+                    SoundEngine.PlaySound(SoundID.Item5 with{Volume = 1f, Pitch = -0.5f}, Projectile.Center);
                     for (int i = 0; i < 10; i++)
                     {
 

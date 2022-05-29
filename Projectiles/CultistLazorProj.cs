@@ -127,6 +127,8 @@ namespace StormDiversMod.Projectiles
         // The AI of the projectile
         bool firesound = false;
         float manachance;
+
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -157,7 +159,7 @@ namespace StormDiversMod.Projectiles
             if (IsAtMaxCharge && firesound == false)
             {
                 //Only plays once, when the laser begins to fire
-               SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 125, 1.5f, -0.3f);
+               SoundEngine.PlaySound(SoundID.Item125 with{Volume = 1.5f, Pitch = -0.3f}, Projectile.Center);
                 for (int i = 0; i < 100; i++) 
                 {
                     int dust = Dust.NewDust(pos, 0, 0, 135, Projectile.velocity.X * 2, Projectile.velocity.Y * 2, 50, default, 3f);   
@@ -173,7 +175,7 @@ namespace StormDiversMod.Projectiles
                 
                 if (Projectile.soundDelay <= 0)
                 {
-                    SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 13, 1.5f, -0.2f);
+                    SoundEngine.PlaySound(SoundID.Item13 with{Volume = 1.5f, Pitch = -0.2f}, Projectile.Center);
                     Projectile.soundDelay = 30;
                 }
                 if (player.statMana >= 0)
@@ -250,7 +252,7 @@ namespace StormDiversMod.Projectiles
                 {
                     if (Projectile.soundDelay <= 0)
                     {
-                        SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 15, 2, -0.5f);
+                        SoundEngine.PlaySound(SoundID.Item15 with{Volume = 2f, Pitch = -0.5f}, Projectile.Center);
                         Projectile.soundDelay = 15;
                     }
                 }

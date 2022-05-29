@@ -313,7 +313,7 @@ namespace StormDiversMod.Projectiles.Minions
 			{
 				if (!Main.dedServ)
 				{
-					SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
+					SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
 
 					for (int i = 0; i < 25; i++)
 					{
@@ -383,7 +383,7 @@ namespace StormDiversMod.Projectiles.Minions
 			if (Projectile.owner == Main.myPlayer)
 			{
 
-				SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6, 0.5f);
+				SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
 
 				for (int i = 0; i < 10; i++)
 				{

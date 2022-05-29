@@ -141,7 +141,7 @@ namespace StormDiversMod.NPCs
                     //int type = mod.ProjectileType("GolemMinionProj");
                     int type = ProjectileID.Fireball;
 
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 20);
+                    SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;

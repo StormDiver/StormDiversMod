@@ -682,7 +682,6 @@ namespace StormDiversMod.Basefiles
             if (projectile.type == ModContent.ProjectileType<Projectiles.AncientArmourProj>())
             {
                 crit = false;
-
             }
           
         }

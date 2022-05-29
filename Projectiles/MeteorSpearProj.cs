@@ -97,12 +97,13 @@ namespace StormDiversMod.Projectiles
         }
      
         bool meteorrain;
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 180);
             if (!meteorrain)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 45, 0.5f, 0.5f);
+                SoundEngine.PlaySound(SoundID.Item45 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 200, target.Center.Y - 650), new Vector2(+3.5f, 10), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 200, target.Center.Y - 650), new Vector2(-3.5f, 10), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
 
@@ -227,7 +228,7 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             for (int i = 0; i < 30; i++)
             {

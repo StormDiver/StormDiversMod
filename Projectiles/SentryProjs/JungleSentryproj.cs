@@ -131,7 +131,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<JungleSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             }
 
-                            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 65);
+                            SoundEngine.PlaySound(SoundID.Item65, Projectile.Center);
                             Projectile.ai[1] = 0;
                         }
                     }

@@ -49,7 +49,7 @@ namespace StormDiversMod.Projectiles
         {
 
            
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 2);
+            SoundEngine.PlaySound(SoundID.NPCHit2, Projectile.Center);
 
 
 
@@ -58,7 +58,7 @@ namespace StormDiversMod.Projectiles
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
            
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 2);
+            SoundEngine.PlaySound(SoundID.NPCHit2, Projectile.Center);
 
             return true;
         }

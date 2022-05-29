@@ -101,13 +101,12 @@ namespace StormDiversMod.Items.Weapons
                                 type = ProjectileID.BulletHighVelocity;
                             }
                         Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.15f), knockback * 2, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40, 1, 0.5f);
-
+                        SoundEngine.PlaySound(SoundID.Item40, position);
                     }
                     else
                     {
                         Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
+                        SoundEngine.PlaySound(SoundID.Item40, position);
 
                     }
 
@@ -123,7 +122,7 @@ namespace StormDiversMod.Items.Weapons
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(accuracy));
         }
 
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextFloat() >= .33f;
         }
@@ -308,7 +307,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.8f, perturbedSpeed.Y * 0.8f), ModContent.ProjectileType<ShroomGrenProj>(), damage, knockback, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 61);
+                SoundEngine.PlaySound(SoundID.Item61, position);
             }
             else
             {
@@ -316,7 +315,7 @@ namespace StormDiversMod.Items.Weapons
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<ShroomRocketProj>(), damage, knockback, player.whoAmI);
 
-                SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 92);
+                SoundEngine.PlaySound(SoundID.Item92, position);
             }
 
             return false;

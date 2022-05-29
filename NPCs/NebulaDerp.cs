@@ -116,7 +116,7 @@ namespace StormDiversMod.NPCs
                                 dust.noGravity = true;
                             }
                         }
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 34);
+                        SoundEngine.PlaySound(SoundID.Item34, NPC.Center);
                         firerate = 0;
 
                         

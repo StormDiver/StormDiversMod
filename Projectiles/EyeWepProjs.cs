@@ -71,7 +71,7 @@ namespace StormDiversMod.Projectiles
 
             if (!reflect)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 1);
+                SoundEngine.PlaySound(SoundID.NPCHit1, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 
@@ -92,7 +92,7 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 1);
+            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
 
             for (int i = 0; i < 30; i++)
             {
@@ -194,7 +194,7 @@ namespace StormDiversMod.Projectiles
             }
             if (!reflect)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 1);
+                SoundEngine.PlaySound(SoundID.NPCHit1, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 
@@ -216,7 +216,7 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 1);
+            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
 
             for (int i = 0; i < 30; i++)
             {

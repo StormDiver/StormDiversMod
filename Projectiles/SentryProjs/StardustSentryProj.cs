@@ -73,7 +73,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 2.5f;
                 }
-                SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.Center.X, (int)Projectile.Center.Y, 5);
+                SoundEngine.PlaySound(SoundID.NPCHit5, Projectile.Center);
             }
             if (Projectile.ai[0] >= 30)
             {
@@ -136,7 +136,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(60));
                                 
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StardustSentryProj2>(), Projectile.damage, 1, Main.myPlayer);
-                                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Top.Y, 8);
+                                SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 
                                 Projectile.ai[1] = 0;
                             }
@@ -210,7 +210,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 7);    
+            SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);    
 
             for (int i = 0; i < 50; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
             {
@@ -389,7 +389,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 7);
+                SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);
 
                 for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {
@@ -494,7 +494,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             Projectile.damage -= (Projectile.damage / 20);
 
-            SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 7);
+            SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);
             for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
@@ -514,7 +514,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 7);
+                SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);
                 for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width * 2, Projectile.height * 2, 135, Projectile.velocity.X, Projectile.velocity.Y, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust

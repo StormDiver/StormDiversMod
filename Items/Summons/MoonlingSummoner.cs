@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Summons
             if (player.whoAmI == Main.myPlayer)
             {
                 //Main.NewText("The Storm God has awoken!", 175, 75, 255);
-                SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+                SoundEngine.PlaySound(SoundID.Roar, player.Center);
                 for (int i = 0; i < 50; i++)
                 {
 

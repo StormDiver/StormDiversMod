@@ -76,7 +76,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void Kill(int timeLeft)
         {
            
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
+                SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -112,6 +112,8 @@ namespace StormDiversMod.NPCs.NPCProjs
             //drawOffsetX = -2;
             //drawOriginOffsetY = -2;
         }
+
+
         public override void AI()
         {
             int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0f, 0f, 100, default, 0.7f);
@@ -155,7 +157,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                     }
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27, 1, 0.5f);
+                SoundEngine.PlaySound(SoundID.Item27 with{Volume = 1f, Pitch = 0.5f}, Projectile.Center);
 
                 Projectile.ai[1] = 0;
             }
@@ -178,7 +180,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27, 1, -0.5f);
+            SoundEngine.PlaySound(SoundID.Item27 with{Volume = 1f, Pitch = 0.5f}, Projectile.Center);
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {

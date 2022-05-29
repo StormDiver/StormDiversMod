@@ -50,7 +50,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 1);
+            SoundEngine.PlaySound(SoundID.Item1, position);
 
             return true;
         }
@@ -150,6 +150,7 @@ namespace StormDiversMod.Items.Weapons
             }
             return base.CanUseItem(player);
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
@@ -165,7 +166,7 @@ namespace StormDiversMod.Items.Weapons
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10)); // This defines the projectiles random spread . 10 degree spread.
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 36, 1, 0.5f);
+                SoundEngine.PlaySound(SoundID.Item36 with{Volume = 1f, Pitch = 0.5f}, player.Center);
 
             }
             else
@@ -177,7 +178,7 @@ namespace StormDiversMod.Items.Weapons
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10)); // This defines the projectiles random spread . 10 degree spread.
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 36, 1, 0f);
+                SoundEngine.PlaySound(SoundID.Item36, player.Center);
 
             }
             return false;

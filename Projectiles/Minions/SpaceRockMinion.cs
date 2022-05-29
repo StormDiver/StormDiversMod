@@ -330,6 +330,7 @@ namespace StormDiversMod.Projectiles.Minions
                 }
             }
         }
+
         public override void Kill(int timeLeft)
         {
             if (!Main.dedServ)
@@ -340,7 +341,7 @@ namespace StormDiversMod.Projectiles.Minions
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 1f);
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1f);
                 }
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62, 0.5f, 0.2f);
+                SoundEngine.PlaySound(SoundID.Item62 with{Volume = 0.5f, Pitch = 0.2f}, Projectile.Center);
             }
         }
         public override Color? GetAlpha(Color lightColor)

@@ -57,7 +57,7 @@ namespace StormDiversMod.Projectiles
             {
 
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 34);
+                SoundEngine.PlaySound(SoundID.Item34, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -147,7 +147,7 @@ namespace StormDiversMod.Projectiles
         {
 
 
-            SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
+            SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
 
             for (int i = 0; i < 30; i++)
             {
@@ -245,7 +245,7 @@ namespace StormDiversMod.Projectiles
 
 
             
-           SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y);
+           SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             for (int i = 0; i < 20; i++)
             {
 

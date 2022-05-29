@@ -103,8 +103,7 @@ namespace StormDiversMod.Items.OresandBars
 
             DustType = 92;
             ItemDrop = ModContent.ItemType<IceOre>();
-            SoundType = SoundID.Tink;
-            SoundStyle = 1;
+            HitSound = SoundID.Tink;
             MineResist = 4f;
             MinPick = 100;
         }

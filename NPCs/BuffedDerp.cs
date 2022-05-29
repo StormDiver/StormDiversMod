@@ -82,7 +82,7 @@ namespace StormDiversMod.NPCs
                             Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                             new Vector2(npc.Center.X, npc.Center.Y)) * projectileSpeed;
 
-                            SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 50);
+                            SoundEngine.PlaySound(SoundID.Item50, npc.Center);
 
 
                             int numberProjectiles = 2 + Main.rand.Next(3);

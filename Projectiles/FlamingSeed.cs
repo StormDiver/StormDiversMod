@@ -64,12 +64,13 @@ namespace StormDiversMod.Projectiles
             Projectile.Kill();
             return true;
         }
+
         public override void Kill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
 
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 10, 1, 0.4f);
+                SoundEngine.PlaySound(SoundID.Item10 with{Volume = 1f, Pitch = 0.4f}, Projectile.Center);
                 for (int i = 0; i < 5; i++)
                 {
 

@@ -65,7 +65,7 @@ namespace StormDiversMod.Projectiles
             {
                
                
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 20);
+                SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
 

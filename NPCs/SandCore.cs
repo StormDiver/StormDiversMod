@@ -96,6 +96,8 @@ namespace StormDiversMod.NPCs
         float movespeed = 3f; //Speed of the npc
         bool staggered;
         int ypos = -150;
+
+
         public override void AI()
         {
             NPC.buffImmune[BuffID.OnFire] = true;
@@ -206,7 +208,7 @@ namespace StormDiversMod.NPCs
 
                 if (sounddelay > 10 && NPC.ai[1] < 240)
                 {
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 34, 1, 0.25f);
+                    SoundEngine.PlaySound(SoundID.Item34 with{Volume = 1f, Pitch = 0.25f}, NPC.Center);
                     sounddelay = 0;
                 }
                 if (NPC.ai[1] > 120) // shoots for 2 seconds

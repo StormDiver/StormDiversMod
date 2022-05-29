@@ -43,6 +43,10 @@ namespace StormDiversMod.Projectiles
         protected virtual float HoldoutRangeMin => 60f;
         protected virtual float HoldoutRangeMax => 180f;
 
+        bool fireBall;
+        int firespeed = 10;
+        int distance = 200;
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner]; // Since we access the owner player instance so much, it's useful to create a helper local variable for this
@@ -93,26 +97,28 @@ namespace StormDiversMod.Projectiles
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
+            if (Projectile.timeLeft < halfDuration)
+            {
+                if (!fireBall)
+                {
+                    SoundEngine.PlaySound(SoundID.Item45 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
+                    
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - distance, Projectile.Center.Y - distance), new Vector2(+firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + distance, Projectile.Center.Y - distance), new Vector2(-firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
 
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + distance, Projectile.Center.Y + distance), new Vector2(-firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - distance, Projectile.Center.Y + distance), new Vector2(+firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+
+                    fireBall = true;
+                }
+            }
 
         }
-      
-        bool fireBall;
-        int firespeed = 10;
-        int distance = 200;
+
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (!fireBall)
-            {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 45, 0.5f, 0.5f);
-
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - distance, target.Center.Y - distance), new Vector2(+firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + distance, target.Center.Y + distance), new Vector2(-firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + distance, target.Center.Y - distance), new Vector2(-firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - distance, target.Center.Y + distance), new Vector2(+firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.owner);
-
-                fireBall = true;
-            }
+          
         }
         public override void PostDraw(Color drawColor)
         {
@@ -141,9 +147,10 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 24;
             Projectile.height = 24;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 3;
             Projectile.timeLeft = 40;
             Projectile.aiStyle = 0;
+            Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.light = 0.5f;
@@ -201,7 +208,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 74, 0.5f, 0.5f);
+                SoundEngine.PlaySound(SoundID.Item74 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
 
 
                 for (int i = 0; i < 25; i++)
@@ -289,7 +296,7 @@ namespace StormDiversMod.Projectiles
         {
 
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 
             for (int i = 0; i < 20; i++)
             {
@@ -439,7 +446,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 7);
+                SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);
 
                 for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {

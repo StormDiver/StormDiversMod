@@ -36,10 +36,7 @@ namespace StormDiversMod.NPCs.NPCProjs
        
         public override void AI()
         {
-          
   
-
-
             if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
 
@@ -49,9 +46,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                 dust2.velocity *= 2;
 
             }
-          
-
-          
 
             AnimateProjectile();
 

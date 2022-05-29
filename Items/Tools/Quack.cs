@@ -41,7 +41,9 @@ namespace StormDiversMod.Items.Tools
         {
             return new Vector2(0, 0);
         }
+
         float pitch;
+
         public override bool? UseItem(Player player)
         {
             if (player.whoAmI == Main.myPlayer)
@@ -50,12 +52,15 @@ namespace StormDiversMod.Items.Tools
                 float shootToY = Main.MouseWorld.Y - player.Center.Y;
                 float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
 
+                
+
                 pitch = distance / 500 - 0.6f; //Lowest possible pitch is -0.6f;
                 if (pitch > 0.8f) //Caps the pitch at 0.8f;
                 {
                     pitch = 0.8f;
                 }
-                SoundEngine.PlaySound(SoundID.Zombie, (int)player.Center.X, (int)player.Center.Y, 12, 1, pitch);
+                //SoundEngine.PlaySound(SoundID.Zombie, (int)player.Center.X, (int)player.Center.Y, 12, 1, pitch);*/
+                SoundEngine.PlaySound(SoundID.Zombie12 with { Volume = 1f, Pitch = pitch}, player.Center);
             }
             return true;
         }

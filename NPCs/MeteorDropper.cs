@@ -195,7 +195,7 @@ namespace StormDiversMod.NPCs
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + xprojpos, NPC.Bottom.Y - 5), new Vector2(xprojpos / 15, 8), type, damage, knockBack);
                     }
 
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 20);
+                    SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
                     firerate = 0;
                 }
 

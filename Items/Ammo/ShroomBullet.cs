@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Ammo
             Item.ammo = AmmoID.Bullet;
         }
 
-        public override void OnConsumeAmmo(Player player)
+        public override void OnConsumeAmmo(Item ammo, Player player)
         {
             if (Main.rand.NextBool(10))
             {

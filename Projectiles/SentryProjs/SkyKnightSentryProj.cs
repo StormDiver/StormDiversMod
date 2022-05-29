@@ -54,7 +54,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             summontime ++;
             if (summontime <3)
             {
-                SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 9);
+                SoundEngine.PlaySound(SoundID.Item9, Projectile.Center);
 
                 for (int i = 0; i < 50; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {
@@ -139,7 +139,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SkyKnightSentryProj2>(), 40, Projectile.knockBack, Projectile.owner);
 
-                        SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 9);
+                        SoundEngine.PlaySound(SoundID.Item9, Projectile.Center);
 
                         shoottime = 0;
                         animate = true;
@@ -188,7 +188,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 7);
+            SoundEngine.PlaySound(SoundID.NPCDeath7 with { Volume = 0.6f}, Projectile.Center);
 
             for (int i = 0; i < 50; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
             {
@@ -347,7 +347,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.NPCKilled, Projectile.Center, 7);
+                SoundEngine.PlaySound(SoundID.NPCDeath7 with {Volume = 0.6f}, Projectile.Center);
 
                 for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {

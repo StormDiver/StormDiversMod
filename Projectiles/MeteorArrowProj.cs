@@ -118,7 +118,7 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(0, (int)Projectile.position.X, (int)Projectile.position.Y);
+            SoundEngine.PlaySound(SoundID.Tink with { Volume = 0.5f}, Projectile.Center);
 
             for (int i = 0; i < 10; i++)
             {

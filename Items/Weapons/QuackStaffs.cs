@@ -72,7 +72,7 @@ namespace StormDiversMod.Items.Weapons
                 }
                 Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             }
-            SoundEngine.PlaySound(SoundID.Duck, (int)player.position.X, (int)player.position.Y);
+            SoundEngine.PlaySound(SoundID.Duck, player.Center);
 
             return false;
 
@@ -135,6 +135,7 @@ namespace StormDiversMod.Items.Weapons
              return new Vector2(5, 0);
          }
         float posY;
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
@@ -172,7 +173,7 @@ namespace StormDiversMod.Items.Weapons
             {
 
                 Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Duck, (int)player.Center.X, (int)player.Center.Y, 0, 0.5f, -0.25f);
+                SoundEngine.PlaySound(SoundID.Duck with{Volume = 0.75f, Pitch = -0.25f}, player.Center);
 
             }
 

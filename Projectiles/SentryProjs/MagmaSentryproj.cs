@@ -51,7 +51,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             return true;
         }
-
         public override void AI()
         {
             //Projectile.velocity.Y = 10;
@@ -137,7 +136,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Top.Y + 14), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<MagmaSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
-                            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45, 1, 0.5f);
+                            SoundEngine.PlaySound(SoundID.Item45 with{Volume = 1f, Pitch = 0.5f}, Projectile.Center);
                             Projectile.ai[1] = 0;
                         }
                     }

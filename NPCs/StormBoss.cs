@@ -98,7 +98,7 @@ namespace StormDiversMod.NPCs
             }
             NPC.damage = (int)(NPC.damage * 0.75f);
         }
-     
+    
         float movespeed = 5f; //Speed of the npc
 
         bool rotateright = false; //What side is the player on so it can rotate in the right direction
@@ -303,7 +303,7 @@ namespace StormDiversMod.NPCs
             if (!halflife && NPC.life < NPC.lifeMax / 2) //Below half health new attack
             {
                 NPC.ai[0] = 0;//rest cooldown for attacks
-                SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0, 1, +0.5f);
+                SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
                 //if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     for (int i = 0; i < 50; i++)
@@ -319,7 +319,7 @@ namespace StormDiversMod.NPCs
             }
             if (!lowlife && NPC.life < NPC.lifeMax / 10 && Main.expertMode) //Below 10% health one attack, expert+ only
             {
-                SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 0, 1, +0.5f);
+                SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
 
                 if (Main.netMode != NetmodeID.Server)
                 {
@@ -440,7 +440,7 @@ namespace StormDiversMod.NPCs
                     if (NPC.ai[0] > 50 || (halflife && NPC.ai[0] > 40))//faster firing on half life
                     {
                         float projectileSpeed = 9f;
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 96);
+                        SoundEngine.PlaySound(SoundID.Item96, NPC.Center);
 
                         //if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -563,7 +563,7 @@ namespace StormDiversMod.NPCs
                             rotation += 180; //New target is opposite where charged
                             NPC.netUpdate = true;
                         }
-                        SoundEngine.PlaySound(SoundID.NPCHit, (int)NPC.Center.X, (int)NPC.Center.Y, 53, 1, -0.5f);
+                        SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 1f, Pitch = -0.5f }, NPC.Center);
 
                     }
                     if (NPC.ai[2] > 1 && NPC.ai[2] < 15)//Accelerate
@@ -587,7 +587,7 @@ namespace StormDiversMod.NPCs
                     if (NPC.ai[2] < 45 && NPC.ai[0] > 9 || (halflife && NPC.ai[0] > 6))//faster firing on half life
 
                     {
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 34, 1, -0.5f);
+                        SoundEngine.PlaySound(SoundID.Item34, NPC.Center);
 
                         for (int i = 0; i < 50; i++)
                         {
@@ -681,7 +681,7 @@ namespace StormDiversMod.NPCs
 
                 if (NPC.ai[0] > 12 || (halflife && NPC.ai[0] > 9))
                 {
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 95, 1, +0.2f);
+                    SoundEngine.PlaySound(SoundID.Item95 with { Volume = 1f, Pitch = 0.2f }, NPC.Center);
                     for (int i = 0; i < 50; i++)
                     {
                         float speedY = -3f;
@@ -739,7 +739,7 @@ namespace StormDiversMod.NPCs
 
                     if ((NPC.ai[0] >= 90 || (halflife && NPC.ai[0] >= 75)) && NPC.localAI[0] <= 300)//One extra portal below half life
                     {
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 121);
+                        SoundEngine.PlaySound(SoundID.Item121, NPC.Center);
                         for (int i = 0; i < 100; i++)
                         {
                             float speedY = -10f;
@@ -875,7 +875,7 @@ namespace StormDiversMod.NPCs
                             }
                         }*/
                     }
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 122, 1, 0.5f);
+                    SoundEngine.PlaySound(SoundID.Item122 with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
 
                     NPC.ai[0] = 0;
                 }
@@ -931,7 +931,7 @@ namespace StormDiversMod.NPCs
                             NPC.velocity.Y = velocity.Y;
                             NPC.netUpdate = true;
                         }
-                        SoundEngine.PlaySound(SoundID.NPCHit, (int)NPC.Center.X, (int)NPC.Center.Y, 53, 1, -0.5f);
+                        SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 1f, Pitch = -0.5f }, NPC.Center);
                     }
                     if (NPC.ai[2] > 1 && NPC.ai[2] < 8) //Accelerate
                     {
@@ -973,7 +973,7 @@ namespace StormDiversMod.NPCs
                                 ModContent.ProjectileType<NPCs.NPCProjs.StormBossMineLarge>(), projdamage, 1);
                             }
                         }
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 34, 1, 0);
+                        SoundEngine.PlaySound(SoundID.Item34, NPC.Center);
 
                         NPC.ai[0] = 0;
                     }
@@ -1128,6 +1128,11 @@ namespace StormDiversMod.NPCs
         }
         public override void OnKill()
         {
+            if (GetInstance<Configurations>().StormBossSkipsPlant)
+            {
+                Item.NewItem(NPC.GetSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, ItemID.TempleKey);
+
+            }
             if (StormWorld.stormBossDown == false)
             {
                 StormWorld.stormBossDown = true;
@@ -1148,6 +1153,7 @@ namespace StormDiversMod.NPCs
             }
            
         }
+        
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
@@ -1172,7 +1178,7 @@ namespace StormDiversMod.NPCs
             npcLoot.Add(notExpert);
 
             //Temple Key
-            npcLoot.Add(ItemDropRule.Common(ItemID.TempleKey, 1));
+            //npcLoot.Add(ItemDropRule.Common(ItemID.TempleKey, 1));
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //Glowmask

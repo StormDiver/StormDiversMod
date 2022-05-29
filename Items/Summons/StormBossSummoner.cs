@@ -35,8 +35,14 @@ namespace StormDiversMod.Items.Summons
         {
             foreach (TooltipLine line in tooltips)
             {
+                if (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3)
+                if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                {
+                    line.Text = line.Text + "\nThe Signal appears to be blocked by the souls of the mechanical machines"; //Unuseable pre mechs
+                }
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
+
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
                         line.Text = line.Text + "\nMay experience issues on multiplayer!\nFor the best experience fight the boss on single player!"; //If not set as a plantera alt you need to get rockets somehow
@@ -87,7 +93,7 @@ namespace StormDiversMod.Items.Summons
                     Main.dust[dust2].noGravity = true;
                     Main.dust[dust2].scale = 1.5f;
                 }
-                SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+                SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -135,7 +141,7 @@ namespace StormDiversMod.Items.Summons
                     Main.projectile[projID].timeLeft = 300;
                 }
             }
-            SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 122);
+            SoundEngine.PlaySound(SoundID.Item122, player.Center);
 
             return false;
         }

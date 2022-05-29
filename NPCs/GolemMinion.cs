@@ -195,7 +195,7 @@ namespace StormDiversMod.NPCs
                         perturbedSpeed = perturbedSpeed * scale;
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                     }
-                    SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 33);
+                    SoundEngine.PlaySound(SoundID.Item33, NPC.Center);
 
 
                     NPC.ai[2] = 0;

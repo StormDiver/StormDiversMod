@@ -211,7 +211,7 @@ namespace StormDiversMod.Projectiles
                                 if (choice == 0)
                                 {
                                     projCheck = true;
-                                    SoundEngine.PlaySound(SoundID.NPCHit, (int)projectile.position.X, (int)projectile.position.Y, 4);
+                                    SoundEngine.PlaySound(SoundID.NPCHit4, projectile.Center);
                                     projectile.Kill();
 
                                 }

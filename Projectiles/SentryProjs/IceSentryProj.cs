@@ -110,7 +110,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                             Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(8));
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<IceSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 20);
+                        SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
 
                             Projectile.ai[1] = 0;
                         }

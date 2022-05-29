@@ -99,11 +99,12 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(2, -4);
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.WoodenBoltProj>(), damage, knockback, player.whoAmI);
-            SoundEngine.PlaySound(SoundID.Item, (int)player.position.X, (int)player.position.Y, 5, 1, 0.2f);
+            SoundEngine.PlaySound(SoundID.Item5 with{Volume = 1f, Pitch = 0.2f}, player.Center);
 
             return false;
         }

@@ -62,7 +62,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.velocity.Y = -oldVelocity.Y *0.8f;
                 }
             }
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 56);
+            SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
             return false;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -73,7 +73,7 @@ namespace StormDiversMod.Projectiles
             Projectile.velocity.X = Projectile.velocity.X * -0.6f;
 
             Projectile.velocity.Y = Projectile.velocity.Y * -0.6f;
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 56);
+            SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
         }
        
         public override void Kill(int timeLeft)

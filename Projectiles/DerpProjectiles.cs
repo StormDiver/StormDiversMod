@@ -77,7 +77,7 @@ namespace StormDiversMod.Projectiles
 
             }
 
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 3);
+            SoundEngine.PlaySound(SoundID.NPCHit3, Projectile.Center);
 
             return false;
         }
@@ -219,7 +219,7 @@ namespace StormDiversMod.Projectiles
         {
 
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 22);
+            SoundEngine.PlaySound(SoundID.NPCHit22, Projectile.Center);
             for (int i = 0; i < 5; i++)
             {
 

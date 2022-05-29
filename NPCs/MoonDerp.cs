@@ -201,7 +201,7 @@ namespace StormDiversMod.NPCs
 
                                 
                             }
-                            SoundEngine.PlaySound(SoundID.Item, (int)NPC.position.X, (int)NPC.position.Y, 124);
+                            SoundEngine.PlaySound(SoundID.Item124, NPC.Center);
                         }
                         shootspeed = 0;
                     }
@@ -232,7 +232,7 @@ namespace StormDiversMod.NPCs
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
 
                     }
-                    SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 103);
+                    SoundEngine.PlaySound(SoundID.Zombie103, NPC.Center);
 
                     eyetime = 0;
                 }
@@ -268,7 +268,7 @@ namespace StormDiversMod.NPCs
                     return;
                 }
 
-                SoundEngine.PlaySound(SoundID.Zombie, (int)NPC.position.X, (int)NPC.position.Y, 101);
+                SoundEngine.PlaySound(SoundID.Zombie101, NPC.Center);
                     Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
                     Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
                     Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);

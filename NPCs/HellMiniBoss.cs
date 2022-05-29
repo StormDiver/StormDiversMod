@@ -132,7 +132,7 @@ namespace StormDiversMod.NPCs
                         new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
 
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 8);
+                        SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
 
 
                         for (int i = 0; i < 3; i++)
@@ -201,7 +201,7 @@ namespace StormDiversMod.NPCs
                         new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
 
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 8);
+                        SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
 
 
                         for (int i = 0; i < 1; i++)
@@ -269,7 +269,7 @@ namespace StormDiversMod.NPCs
                         int type = ModContent.NPCType<HellMiniBossMinion>();
 
 
-                        SoundEngine.PlaySound(SoundID.Item, (int)NPC.Center.X, (int)NPC.Center.Y, 8);
+                        SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
 

@@ -101,7 +101,7 @@ namespace StormDiversMod.NPCs
                     int type = ModContent.NPCType<StardustMiniDerp>();
 
 
-                    SoundEngine.PlaySound(SoundID.NPCHit, (int)NPC.Center.X, (int)NPC.Center.Y, 5);
+                    SoundEngine.PlaySound(SoundID.NPCHit5, NPC.Center);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         //NPC.NewNPC((int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);

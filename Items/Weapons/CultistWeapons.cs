@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lunatic Spear of Fire");
-            Tooltip.SetDefault("Striking an enemy summons a bunch of fireballs");
+            Tooltip.SetDefault("Summons blazing fire balls each stab");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -121,7 +121,7 @@ namespace StormDiversMod.Items.Weapons
         {
          
 
-            SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 30);
+            SoundEngine.PlaySound(SoundID.Item30, player.Center);
 
 
             int numberProjectiles = 2 + Main.rand.Next(2); ; //This defines how many projectiles to shot.

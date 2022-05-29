@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Tools
         }
         public override bool OnPickup(Player player)
         {
-            SoundEngine.PlaySound(SoundID.Grab, (int)player.position.X, (int)player.position.Y);
+            SoundEngine.PlaySound(SoundID.Grab, player.Center);
 
             player.statLife += 25;
             player.HealEffect(25, true);

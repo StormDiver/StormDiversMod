@@ -53,7 +53,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
     
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 1);
+            SoundEngine.PlaySound(SoundID.Item1, position);
            
                 return true;
             
@@ -96,7 +96,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.DamageType = DamageClass.Magic;
             Item.mana = 4;
-            Item.UseSound = SoundID.Item30;
+            Item.UseSound = SoundID.Item30 with { Volume = 0.5f};
 
             Item.damage = 14;
 

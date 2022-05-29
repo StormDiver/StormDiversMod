@@ -206,8 +206,8 @@ namespace StormDiversMod.Items.Weapons
             .Register();
 
         }
-        public override bool CanConsumeAmmo(Player player)
-        {
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {       
             return Main.rand.NextFloat() > .50f;
         }
     }

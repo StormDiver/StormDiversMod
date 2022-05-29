@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
-            SoundEngine.PlaySound(SoundID.NPCHit, (int)player.position.X, (int)player.position.Y, 9);
+            SoundEngine.PlaySound(SoundID.NPCHit9, player.Center);
             return false;
         }
        
@@ -101,15 +101,16 @@ namespace StormDiversMod.Items.Weapons
         //int secondfire = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 11);
+            SoundEngine.PlaySound(SoundID.Item11, position);
 
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 4), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             return false;
 
         }
-      
-        public override bool CanConsumeAmmo(Player player)
+
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
+          
             return !(player.itemAnimation < Item.useAnimation - 2);
 
         }

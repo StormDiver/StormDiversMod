@@ -90,10 +90,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NebulaStaffProj2>(), (int)(Projectile.damage * .8f), Projectile.knockBack, Projectile.owner);
             }
 
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
-
-
-
+            SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
 
         }
     }

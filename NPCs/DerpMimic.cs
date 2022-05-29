@@ -80,6 +80,8 @@ namespace StormDiversMod.NPCs
 
         float jumpheight; //Jumpy
         float moveatspeed; //How fast it runs
+
+
         public override void AI()
         {
             for (int k = 0; k < NPC.buffImmune.Length; k++)
@@ -142,7 +144,7 @@ namespace StormDiversMod.NPCs
                     {
                         if (!attackmode)
                         {
-                            SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 2);
+                            SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center);
                         }
                         death = false;
                         distancefear = 1000f; //increase detection range once triggered
@@ -229,11 +231,12 @@ namespace StormDiversMod.NPCs
             }
         }
         int npcframe = 0;
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (target.dead)
             {
-                SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 2, 1, -1f);
+                SoundEngine.PlaySound(SoundID.ScaryScream with{Volume = 1, Pitch = -1f}, NPC.Center);
             }
         }
         public override void FindFrame(int frameHeight)
@@ -284,7 +287,7 @@ namespace StormDiversMod.NPCs
             //attacking make it hostile
             if (!attackmode)
             {
-                SoundEngine.PlaySound(SoundID.Roar, (int)NPC.Center.X, (int)NPC.Center.Y, 2);
+                SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center);
             }
             feartime = 120; //ignore startup cooldown
             distancefear = 2000; //Grealty increase aggro range

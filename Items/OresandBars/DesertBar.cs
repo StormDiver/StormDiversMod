@@ -102,8 +102,7 @@ namespace StormDiversMod.Items.OresandBars
 
             DustType = 54;
             ItemDrop = ModContent.ItemType<Items.Materials.DesertOre>();
-            SoundType = SoundID.Tink;
-            SoundStyle = 1;
+            HitSound = SoundID.Tink;
             MineResist = 4f;
             MinPick = 100;
         }

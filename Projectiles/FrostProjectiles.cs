@@ -114,7 +114,7 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 62);
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
 
 
@@ -194,7 +194,7 @@ namespace StormDiversMod.Projectiles
             Projectile.soundDelay--;
             if (Projectile.soundDelay <= 0)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 7);
+                SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
                 Projectile.soundDelay = 60;
             }
 
@@ -306,7 +306,7 @@ namespace StormDiversMod.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
             for (int i = 0; i < 20; i++)
             {
 
@@ -352,7 +352,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
             for (int i = 0; i < 20; i++)
             {
 
@@ -521,7 +521,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
+                SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {

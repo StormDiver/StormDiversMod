@@ -84,7 +84,7 @@ namespace StormDiversMod.Items.Weapons
         {
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
         }
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextFloat() >= .5f;
         }
