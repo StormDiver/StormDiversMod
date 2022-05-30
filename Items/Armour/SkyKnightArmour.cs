@@ -63,7 +63,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = "Summons a floating star above you that launches mini homing stars at enemies";
 
 
-            player.GetModPlayer<StormPlayer>().skyKnightSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().skyKnightSet = true;
 
         }
 

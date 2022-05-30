@@ -72,7 +72,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Greatly increases jump, ascent, and max falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
 
-            player.GetModPlayer<StormPlayer>().derpJump = true;
+            player.GetModPlayer<ArmourSetBonuses>().derpJump = true;
 
         }
         public override void AddRecipes()
@@ -153,7 +153,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Greatly increases jump, ascent, and max falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
 
-            player.GetModPlayer<StormPlayer>().derpJump = true;
+            player.GetModPlayer<ArmourSetBonuses>().derpJump = true;
 
         }
         public override void AddRecipes()

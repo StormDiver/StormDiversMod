@@ -379,7 +379,7 @@ namespace StormDiversMod.Projectiles
             //Increase the counter/angle in degrees by 1 point, you can change the rate here too, but the orbit may look choppy depending on the value
             Projectile.ai[1] += 1f;
             var player = Main.player[Projectile.owner];
-            if (player.GetModPlayer<StormPlayer>().BloodOrb == false || player.dead)
+            if (player.GetModPlayer<EquipmentEffects>().BloodOrb == false || player.dead)
             {
                 Projectile.Kill();
             }

@@ -63,7 +63,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Critical hits creates an explosion from the struck enemy that damages nearby enemies";
 
-            player.GetModPlayer<StormPlayer>().aridCritSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().aridCritSet = true;
    
         }
         
@@ -105,7 +105,7 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
 
-            player.GetModPlayer<StormPlayer>().aridCritChest = true;
+            player.GetModPlayer<EquipmentEffects>().aridCritChest = true;
 
         }
         public override void AddRecipes()

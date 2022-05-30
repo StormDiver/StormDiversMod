@@ -305,6 +305,8 @@ namespace StormDiversMod.NPCs
             NPC.ai[1] = 0;
             sounddelay = 0;
             staggered = true;
+            NPC.ai[2] = 0;
+
 
             if (Main.netMode == NetmodeID.Server)
             {

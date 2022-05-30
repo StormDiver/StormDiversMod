@@ -92,7 +92,7 @@ namespace StormDiversMod.Projectiles
              
 
             }
-            if (player.GetModPlayer<StormPlayer>().lunarBarrier == false || player.dead)
+            if (player.GetModPlayer<EquipmentEffects>().lunarBarrier == false || player.dead)
 
             {
                 for (int i = 0; i < 10; i++)

@@ -57,7 +57,7 @@ namespace StormDiversMod.Items.Armour
            
 
             
-            if (player.GetModPlayer<StormPlayer>().twilightcharged == true)
+            if (player.GetModPlayer<ArmourSetBonuses>().twilightcharged == true)
             {
                 player.armorEffectDrawOutlines = true;
                 if (Main.rand.Next(4) == 0)
@@ -84,7 +84,7 @@ namespace StormDiversMod.Items.Armour
 
             //player.endurance += 0.1f;
             //player.blackBelt = true;
-            player.GetModPlayer<StormPlayer>().twilightSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().twilightSet = true;
 
         }
 

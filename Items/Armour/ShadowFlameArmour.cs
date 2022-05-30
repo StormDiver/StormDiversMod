@@ -78,7 +78,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Whips inflict shadowflame upon enemies\nEnemies inflicted with shadowflame take extra damage when hit";
 
-            player.GetModPlayer<StormPlayer>().shadowflameSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().shadowflameSet = true;
         }
 
         public override void AddRecipes()
@@ -210,7 +210,7 @@ namespace StormDiversMod.Items.Armour
         {
             var player = Main.player[projectile.owner];
 
-            /*if (player.GetModPlayer<StormPlayer>().shadowflameSet == true)
+            /*if (player.GetModPlayer<EquipmentEffects>().shadowflameSet == true)
             {
                 if (projectile.aiStyle == 165)
                 {

@@ -154,7 +154,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 AnimateProjectile();
             }
             //Projectile.ai[0] += 1f;
-            if (player.GetModPlayer<StormPlayer>().skyKnightSet == false || player.dead)
+            if (player.GetModPlayer<ArmourSetBonuses>().skyKnightSet == false || player.dead)
 
             {
                 

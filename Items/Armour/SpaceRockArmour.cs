@@ -68,7 +68,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Grants the Orbital Strike buff that causes asteroid fragments to fall upon the next attacked enemy";
             //player.AddBuff(mod.BuffType("SpaceRockOffence"), 1);
-            player.GetModPlayer<StormPlayer>().spaceRockOffence = true;
+            player.GetModPlayer<ArmourSetBonuses>().spaceRockOffence = true;
          
 
         }
@@ -149,7 +149,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Grants the Orbital Defense buff that reduces damage of the next attack by 25% while summoning damaging asteroid fragments from the sky";
            
-                player.GetModPlayer<StormPlayer>().spaceRockDefence = true;
+                player.GetModPlayer<ArmourSetBonuses>().spaceRockDefence = true;
 
         }
 

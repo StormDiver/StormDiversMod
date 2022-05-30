@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             
-                //player.GetModPlayer<StormPlayer>().frostCube = true;
+                //player.GetModPlayer<EquipmentEffects>().frostCube = true;
             
             player.maxMinions += 1;
             player.maxTurrets += 1;
@@ -66,7 +66,7 @@ namespace StormDiversMod.Items.Accessory
             var player = Main.player[projectile.owner];
             if (projectile.minion && projectile.friendly)
             {
-                if (player.GetModPlayer<StormPlayer>().frostCube == true)
+                if (player.GetModPlayer<EquipmentEffects>().frostCube == true)
                 {
 
 

@@ -20,7 +20,7 @@ using StormDiversMod.Items.Vanitysets;
 
 namespace StormDiversMod.Basefiles
 {
-    public class StormNPC : GlobalNPC
+    public class NPCEffects : GlobalNPC
     {
 
         public override bool InstancePerEntity => true;
@@ -28,7 +28,7 @@ namespace StormDiversMod.Basefiles
         public bool lunarBoulderDB;
 
         public bool superBoulderDB;
-        // npc.GetGlobalNPC<StormNPC>().boulderDB = true; in debuff.cs
+        // npc.GetGlobalNPC<NPCEffects>().boulderDB = true; in debuff.cs
         // target.AddBuff(mod.BuffType("BoulderDebuff"), 1200)
         public bool boulderDB;
 
@@ -94,11 +94,11 @@ namespace StormDiversMod.Basefiles
 
         public override void SetStaticDefaults()
         {
-          
+
         }
 
         int shieldtime = 5;
-       
+
 
         public override void AI(NPC npc)
         {
@@ -112,8 +112,8 @@ namespace StormDiversMod.Basefiles
             {
                 shieldtime = 5;
             }
-           
-            if (player.HeldItem.type == ModContent.ItemType<Items.Tools.ShieldKiller>() && player.itemAnimation == player.itemAnimationMax -1)
+
+            if (player.HeldItem.type == ModContent.ItemType<Items.Tools.ShieldKiller>() && player.itemAnimation == player.itemAnimationMax - 1)
             {
                 if (shieldtime > 0)
                 {
@@ -169,7 +169,7 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }
-         
+
             if (beetled && !npc.boss)
             {
                 npc.velocity.X *= 0.92f;
@@ -378,7 +378,7 @@ namespace StormDiversMod.Basefiles
             {
                 npc.lifeRegen -= 500;
                 damage = 250;
-              
+
             }
             if (lunarBoulderDB)
             {
@@ -657,7 +657,7 @@ namespace StormDiversMod.Basefiles
         {
             var player = Main.player[projectile.owner];
 
-            if (player.GetModPlayer<StormPlayer>().shadowflameSet == true)
+            if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
             {
                 if (npc.HasBuff(BuffID.ShadowFlame))
                 {
@@ -667,44 +667,44 @@ namespace StormDiversMod.Basefiles
 
             if (crit)
             {
-                if (player.GetModPlayer<StormPlayer>().aridCritChest == true)
+                if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
                 {
                     damage = (int)(damage * 1.1f);
                 }
-                if (player.GetModPlayer<StormPlayer>().derpEye == true)
+                if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
                 {
                     damage = (int)(damage * 1.2f);
                 }
-               
-                   
-                
+
+
+
             }
             if (projectile.type == ModContent.ProjectileType<Projectiles.AncientArmourProj>())
             {
                 crit = false;
             }
-          
+
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
-            if (player.GetModPlayer<StormPlayer>().shadowflameSet == true)
+            if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
             {
                 if (npc.HasBuff(BuffID.ShadowFlame))
                 {
                     damage += 5;
                 }
             }
-            if (crit) 
+            if (crit)
             {
-                if (player.GetModPlayer<StormPlayer>().aridCritChest == true)
+                if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
                 {
                     damage = (int)(damage * 1.1f);
                 }
-                if (player.GetModPlayer<StormPlayer>().derpEye == true)
+                if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
                 {
                     damage = (int)(damage * 1.2f);
                 }
-                
+
             }
 
         }
@@ -713,7 +713,7 @@ namespace StormDiversMod.Basefiles
         }
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
-           
+
         }
         //Ditto, but from player projectiles
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
@@ -722,131 +722,18 @@ namespace StormDiversMod.Basefiles
             /*
             if (crit)
             {
-                if (player.GetModPlayer<StormPlayer>().aridCritSet == true)
+                if (player.GetModPlayer<EquipmentEffects>().aridCritSet == true)
                 {
                     NPC.immuneTime = 10;
                 }
             }*/
-          
+
         }
         public override void HitEffect(NPC npc, int hitDirection, double damage)
         {
 
         }
-       
-        //Shops_________________________
-        public class ShopItems : GlobalNPC
-        {
-            public override void SetupShop(int type, Chest shop, ref int nextSlot)
-            {
-                switch (type)
-                {
-                    case NPCID.ArmsDealer:
 
-                        if (Main.LocalPlayer.HasItem(ModContent.ItemType<OceanGun>()))
-                        {
-                            shop.item[nextSlot].SetDefaults(ModContent.ItemType<OceanShard>());
-                            nextSlot++;
-
-                        }
-
-                        break;
-                }
-               
-                switch (type)
-                {
-                    case NPCID.Demolitionist:
-
-                        if (Main.LocalPlayer.HasItem(ModContent.ItemType<ProtoLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FrostLauncher>()))
-                        {
-                            shop.item[nextSlot].SetDefaults(ModContent.ItemType<ProtoGrenade>());
-                            nextSlot++;
-
-                        }
-
-                        break;
-                }
-                switch (type)
-                {
-                    case NPCID.Demolitionist:
-
-                        if (Main.LocalPlayer.HasItem(ModContent.ItemType<StickyLauncher>()))
-                        {
-                            shop.item[nextSlot].SetDefaults(ModContent.ItemType<StickyBomb>());
-                            nextSlot++;
-
-                        }
-
-                        break;
-                }
-                switch (type)
-                {
-                    case NPCID.Demolitionist:
-
-                        if (!GetInstance<Configurations>().StormBossSkipsPlant && Main.LocalPlayer.HasItem(ModContent.ItemType<StormLauncher>()))
-                        {
-                            shop.item[nextSlot].SetDefaults(ItemID.RocketI);
-                            nextSlot++;
-                        }
-
-                        break;
-                }
-                switch (type)
-                {
-                    case NPCID.Merchant:
-
-                        if (NPC.downedBoss1)
-                        {
-                            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Tools.Quack>());
-                            nextSlot++;
-
-                        }
-
-                        break;
-                }
-                switch (type)
-                {
-                    case NPCID.Mechanic:
-
-
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<Aircan>());
-                        nextSlot++;
-
-
-                        break;
-                }
-                switch (type)
-                {
-                    case NPCID.Steampunker:
-                        if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-                        {
-
-                            shop.item[nextSlot].SetDefaults(ModContent.ItemType<MechanicalRepeater>());
-                            nextSlot++;
-
-                        }
-
-                        break;
-                }
-                switch (type)
-                {
-                    case NPCID.Merchant:
-                        {
-                            if (Main.raining)
-                            {
-                                shop.item[nextSlot].SetDefaults(ItemID.RainHat);
-                                nextSlot++;
-                                shop.item[nextSlot].SetDefaults(ItemID.RainCoat);
-                                nextSlot++;
-                                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Armour.RainBoots>());
-                                nextSlot++;
-
-                            }
-                        }
-                        break;
-                }
-            }
-        }
     }
 
 }

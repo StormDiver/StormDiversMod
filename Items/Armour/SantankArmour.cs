@@ -68,7 +68,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Charge up to 10 homing missiles over time, pressing the 'Armor Special Ability' hotkey will fire however many are loaded"; 
 
-            player.GetModPlayer<StormPlayer>().santankSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().santankSet = true;
 
 
         }

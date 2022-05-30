@@ -76,7 +76,7 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
 
 
-            if (player.GetModPlayer<StormPlayer>().primeSpin == false || player.dead)
+            if (player.GetModPlayer<EquipmentEffects>().primeSpin == false || player.dead)
 
             {
                 for (int i = 0; i < 20; i++)
@@ -176,7 +176,7 @@ namespace StormDiversMod.Projectiles
 
             if (projectile.aiStyle != 20)
             {
-                if (player.GetModPlayer<StormPlayer>().primeSpin == true)
+                if (player.GetModPlayer<EquipmentEffects>().primeSpin == true)
 
                 {
 

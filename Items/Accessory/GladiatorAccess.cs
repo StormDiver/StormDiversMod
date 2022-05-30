@@ -37,7 +37,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<StormPlayer>().graniteBuff = true;
+            //player.GetModPlayer<EquipmentEffects>().graniteBuff = true;
             if (player.statLife >= player.statLifeMax2 * 0.75f)
             {
                 player.AddBuff(ModContent.BuffType<Buffs.GladiatorAccessBuff>(), 2);

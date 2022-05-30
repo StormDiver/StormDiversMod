@@ -340,6 +340,7 @@ namespace StormDiversMod.NPCs
         public override void HitEffect(int hitDirection, double damage)
         {
             staggered = true;
+            NPC.ai[2] = 0;
 
             if (NPC.ai[3] == 0)
             {

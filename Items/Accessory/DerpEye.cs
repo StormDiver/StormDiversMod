@@ -34,7 +34,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().derpEye = true;
+            player.GetModPlayer<EquipmentEffects>().derpEye = true;
             player.luck += 0.5f;
         }
 
@@ -45,7 +45,7 @@ namespace StormDiversMod.Items.Accessory
             {
                 var player = Main.player[projectile.owner];
 
-                if (player.GetModPlayer<StormPlayer>().derpEye == true)
+                if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
                 {
                     if (projectile.owner == Main.myPlayer && projectile.friendly && !projectile.minion && !projectile.sentry && projectile.damage > 0 && projectile.knockBack > 0)
                     {
@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Accessory
         {
             public override void OnHitNPC(Item Item, Player player, NPC target, int damage, float knockBack, bool crit) //PvE
             {
-                if (player.GetModPlayer<StormPlayer>().derpEye == true)
+                if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
                 {
                     if (!target.friendly && target.lifeMax > 5 && !target.boss && target.knockBackResist != 0f)
                     {

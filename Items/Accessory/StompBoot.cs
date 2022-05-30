@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().bootFall = true;
+            player.GetModPlayer<EquipmentEffects>().bootFall = true;
         }
        
         public override void AddRecipes()
@@ -81,7 +81,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().bootFall = true;
+            player.GetModPlayer<EquipmentEffects>().bootFall = true;
             player.noFallDmg = true;
         }
 

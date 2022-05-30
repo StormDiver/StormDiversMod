@@ -407,7 +407,7 @@ namespace StormDiversMod.Projectiles
             Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             var player = Main.player[Projectile.owner];
 
-            if (player.GetModPlayer<StormPlayer>().frostJar == false) //Will change to frost if the player has the Frozen jar
+            if (player.GetModPlayer<EquipmentEffects>().frostJar == false) //Will change to frost if the player has the Frozen jar
             {
 
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
@@ -437,7 +437,7 @@ namespace StormDiversMod.Projectiles
         {
             var player = Main.player[Projectile.owner];
 
-            if (player.GetModPlayer<StormPlayer>().frostJar == false)
+            if (player.GetModPlayer<EquipmentEffects>().frostJar == false)
             {
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
             }
@@ -453,7 +453,7 @@ namespace StormDiversMod.Projectiles
         {
             var player = Main.player[Projectile.owner];
 
-            if (player.GetModPlayer<StormPlayer>().frostJar == false)
+            if (player.GetModPlayer<EquipmentEffects>().frostJar == false)
             {
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
             }

@@ -65,7 +65,7 @@ namespace StormDiversMod.Items.Pets
         public override void Update(Player player, ref int buffIndex)
         {
             player.buffTime[buffIndex] = 18000;
-            player.GetModPlayer<StormPlayer>().goldDerpie = true;
+            player.GetModPlayer<EquipmentEffects>().goldDerpie = true;
             bool petProjectileNotSpawned = player.ownedProjectileCounts[ProjectileType<GoldDerpie>()] <= 0;
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
             {
@@ -103,7 +103,7 @@ namespace StormDiversMod.Items.Pets
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            StormPlayer modPlayer = player.GetModPlayer<StormPlayer>();
+            EquipmentEffects modPlayer = player.GetModPlayer<EquipmentEffects>();
             if (player.dead)
             {
                 modPlayer.goldDerpie = false;

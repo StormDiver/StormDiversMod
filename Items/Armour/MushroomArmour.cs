@@ -59,7 +59,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Has a chance to summon a damaging mushroom into attacked enemies";
 
-            player.GetModPlayer<StormPlayer>().mushset = true;
+            player.GetModPlayer<ArmourSetBonuses>().mushset = true;
 
         }
 
@@ -111,7 +111,7 @@ namespace StormDiversMod.Items.Armour
         {
             //player.GetDamage(DamageClass.Ranged) += 0.02f;
             //player.GetCritChance(DamageClass.Ranged) += 2;
-            player.GetModPlayer<StormPlayer>().mushChestplate = true;
+            player.GetModPlayer<EquipmentEffects>().mushChestplate = true;
 
         }
         public override void AddRecipes()

@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Accessory
         {
 
 
-            player.GetModPlayer<StormPlayer>().shroomaccess = true;
+            player.GetModPlayer<EquipmentEffects>().shroomaccess = true;
 
 
 
@@ -103,7 +103,7 @@ namespace StormDiversMod.Items.Accessory
             {
                 player.scope = true;
             }
-            player.GetModPlayer<StormPlayer>().shroomaccess = true;
+            player.GetModPlayer<EquipmentEffects>().shroomaccess = true;
             player.GetDamage(DamageClass.Ranged) += 0.1f;
             player.GetCritChance(DamageClass.Ranged) += 10;
 

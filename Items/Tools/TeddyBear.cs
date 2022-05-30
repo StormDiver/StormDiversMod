@@ -46,7 +46,7 @@ namespace StormDiversMod.Items.Tools
         }
         public override bool CanUseItem(Player player)
         {
-            if (player.GetModPlayer<StormPlayer>().bearcool > 0)
+            if (player.GetModPlayer<EquipmentEffects>().bearcool > 0)
             {
                 return false;
             }
@@ -59,10 +59,10 @@ namespace StormDiversMod.Items.Tools
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.GetModPlayer<StormPlayer>().bearcool == 0)
+                if (player.GetModPlayer<EquipmentEffects>().bearcool == 0)
                 {
                     player.AddBuff(ModContent.BuffType<Buffs.TeddyBuff>(), 300);
-                    player.GetModPlayer<StormPlayer>().bearcool = 600;
+                    player.GetModPlayer<EquipmentEffects>().bearcool = 600;
                 }
             }
             

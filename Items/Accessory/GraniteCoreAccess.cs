@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().graniteBuff = true;
+            player.GetModPlayer<EquipmentEffects>().graniteBuff = true;
             
            
         }

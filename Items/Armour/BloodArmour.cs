@@ -64,7 +64,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Multiple damaging blood orbs burst out of you upon striking an enemy with a melee weapon";
 
-            player.GetModPlayer<StormPlayer>().BloodDrop = true;
+            player.GetModPlayer<ArmourSetBonuses>().BloodDrop = true;
    
         }
         

@@ -10,7 +10,7 @@ using StormDiversMod.Basefiles;
 using StormDiversMod.Dusts;
 
 
-//buff effects for npcs are in StormNPC.cs, effects for player are in StormPlayer.cs
+//buff effects for npcs are in NPCEffects.cs, effects for player are in EquipmentEffects.cs
 namespace StormDiversMod.Buffs
 {
     public class CelestialBuff : ModBuff
@@ -29,7 +29,7 @@ namespace StormDiversMod.Buffs
            
             {
                 player.statDefense += 50;
-  
+                player.lifeRegen += 30;
                 if (particle <= 0)
                 {
                     particle = 10;
@@ -57,8 +57,6 @@ namespace StormDiversMod.Buffs
         {
             player.statDefense += 25;
 
-            player.GetModPlayer<StormPlayer>().turtled = true;
-
             if (Main.rand.Next(10) < 3)
             {
                 int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 273, player.velocity.X, player.velocity.Y, 100, default, 1f);
@@ -76,7 +74,7 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Shroomite Enhancement");
             Description.SetDefault("Increases ammo damage by 10%");
         }
-        // code in StormPlayer.cs
+        // code in EquipmentEffects.cs
     }
     //_______________________________________________________________________________
 
@@ -228,7 +226,11 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<StormPlayer>().lifeBarrier = true;
+            //player.GetModPlayer<EquipmentEffects>().lifeBarrier = true;
+
+            player.endurance += 0.25f;
+            player.noKnockback = true;
+
             if (Main.rand.Next(10) < 3)
             {
                 int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 72, player.velocity.X, player.velocity.Y, 100, default, 1f);
@@ -266,7 +268,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<StormPlayer>().BloodOrb = true;
+            player.GetModPlayer<EquipmentEffects>().BloodOrb = true;
 
          
         }

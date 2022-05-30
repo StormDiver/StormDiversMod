@@ -226,7 +226,7 @@ namespace StormDiversMod.Projectiles
 
 			}
 
-			if (player.GetModPlayer<StormPlayer>().stormBossAccess == false || player.dead)
+			if (player.GetModPlayer<EquipmentEffects>().stormBossAccess == false || player.dead)
 
 			{
 

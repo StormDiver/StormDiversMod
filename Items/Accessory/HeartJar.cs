@@ -50,7 +50,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().heartSteal = true;
+            player.GetModPlayer<EquipmentEffects>().heartSteal = true;
             player.statLifeMax2 += 20;
         }
 
@@ -84,7 +84,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().heartSteal = true;
+            player.GetModPlayer<EquipmentEffects>().heartSteal = true;
             player.statLifeMax2 += 20;
             player.pStone = true;
         }

@@ -87,7 +87,7 @@ namespace StormDiversMod.Items.Pets
         public override void Update(Player player, ref int buffIndex)
         {
             player.buffTime[buffIndex] = 18000;
-            player.GetModPlayer<StormPlayer>().twilightPet = true;
+            player.GetModPlayer<EquipmentEffects>().twilightPet = true;
             bool petProjectileNotSpawned = player.ownedProjectileCounts[ProjectileType<TwilightPetProj>()] <= 0;
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
             {
@@ -150,7 +150,7 @@ namespace StormDiversMod.Items.Pets
             {
                 Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.3f / 255f, (255 - Projectile.alpha) * 0f / 255f, (255 - Projectile.alpha) * 0.3f / 255f); //light
             }
-            StormPlayer modPlayer = player.GetModPlayer<StormPlayer>();
+            EquipmentEffects modPlayer = player.GetModPlayer<EquipmentEffects>();
             if (!player.active)
             {
                 Projectile.active = false;

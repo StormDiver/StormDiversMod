@@ -64,7 +64,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "20% increased melee speed\nAttacking enemies releases damaging homing souls from them";
 
-            player.GetModPlayer<StormPlayer>().hellSoulSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
 
         }
@@ -140,7 +140,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "25% chance not to consume ammo\nAttacking enemies releases damaging homing souls from them";
 
-            player.GetModPlayer<StormPlayer>().hellSoulSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.ammoCost75 = true;
 
         }
@@ -216,7 +216,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "18% reduced mana usage\nAttacking enemies releases damaging homing souls from them";
 
-            player.GetModPlayer<StormPlayer>().hellSoulSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.manaCost -= 0.18f;
         }
         public override void AddRecipes()
@@ -290,7 +290,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Increases maximum number of minions by 2\nAttacking enemies releases damaging homing souls from them";
 
-            player.GetModPlayer<StormPlayer>().hellSoulSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.maxMinions += 2;
         }
         public override void AddRecipes()

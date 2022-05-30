@@ -29,13 +29,13 @@ namespace StormDiversMod.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 95;
+            Item.damage = 100;
             Item.crit = 16;
             Item.DamageType = DamageClass.Melee;
             Item.width = 50;
             Item.height = 64;
-            Item.useTime = 24;
-            Item.useAnimation = 24;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Red;
@@ -66,7 +66,7 @@ namespace StormDiversMod.Items.Weapons
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
-        //Drop rate in StormNPC/ Luantic Cultist treasure bag
+        //Drop rate in NPCEffects/ Luantic Cultist treasure bag
     }
     //________________________________________________________________________________
     public class CultistBow : ModItem
@@ -137,7 +137,7 @@ namespace StormDiversMod.Items.Weapons
             return false;
 
         }
-        //Drop rate in StormNPC/ Luantic Cultist treasure bag
+        //Drop rate in NPCEffects/ Luantic Cultist treasure bag
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/CultistBow_Glow");
@@ -209,7 +209,7 @@ namespace StormDiversMod.Items.Weapons
 
            
         }
-        //Drop rate in StormNPC/ Luantic Cultist treasure bag
+        //Drop rate in NPCEffects/ Luantic Cultist treasure bag
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/CultistTome_Glow");
@@ -302,7 +302,7 @@ namespace StormDiversMod.Items.Weapons
             */
 
         }
-        //Drop rate in StormNPC/ Luantic Cultist treasure bag
+        //Drop rate in NPCEffects/ Luantic Cultist treasure bag
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/CultistStaff_Glow");

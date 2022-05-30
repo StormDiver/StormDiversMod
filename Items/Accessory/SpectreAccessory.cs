@@ -51,7 +51,7 @@ namespace StormDiversMod.Items.Accessory
         {
             player.statManaMax2 += 40;
             
-                player.GetModPlayer<StormPlayer>().SpectreSkull = true;
+                player.GetModPlayer<EquipmentEffects>().SpectreSkull = true;
             
             
 
@@ -107,7 +107,7 @@ namespace StormDiversMod.Items.Accessory
         {
             player.statManaMax2 += 40;
 
-            player.GetModPlayer<StormPlayer>().SpectreSkull = true;
+            player.GetModPlayer<EquipmentEffects>().SpectreSkull = true;
             player.manaMagnet = true;
             player.manaCost -= 0.08f;
             player.manaFlower = true;

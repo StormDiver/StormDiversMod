@@ -40,7 +40,7 @@ namespace StormDiversMod.Items.Accessory
         //int particle = 5;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {   
-            player.GetModPlayer<StormPlayer>().flameCore = true;
+            player.GetModPlayer<EquipmentEffects>().flameCore = true;
               
         }
  

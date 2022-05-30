@@ -35,7 +35,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().blueCuffs = true;
+            player.GetModPlayer<EquipmentEffects>().blueCuffs = true;
             //player.frostBurn = true;
         }
        
@@ -58,7 +58,7 @@ namespace StormDiversMod.Items.Accessory
             var player = Main.player[projectile.owner];
             if (projectile.aiStyle != 20)
             {
-                if (player.GetModPlayer<StormPlayer>().blueCuffs == true)
+                if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
                 {
                     if (projectile.owner == Main.myPlayer && projectile.friendly && !projectile.minion && !projectile.sentry && projectile.damage >= 1)
                     {
@@ -78,7 +78,7 @@ namespace StormDiversMod.Items.Accessory
         {
             var player = Main.player[projectile.owner];
 
-            if (player.GetModPlayer<StormPlayer>().blueCuffs == true)
+            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
             {
                 if (projectile.owner == Main.myPlayer && projectile.friendly)
                 {
@@ -91,7 +91,7 @@ namespace StormDiversMod.Items.Accessory
         {
             var player = Main.player[projectile.owner];
 
-            if (player.GetModPlayer<StormPlayer>().blueCuffs == true)
+            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
             {
                 if (projectile.owner == Main.myPlayer && projectile.friendly)
                 {
@@ -109,7 +109,7 @@ namespace StormDiversMod.Items.Accessory
         public override void OnHitNPC(Item Item, Player player, NPC target, int damage, float knockBack, bool crit) //PvE
         {
 
-            if (player.GetModPlayer<StormPlayer>().blueCuffs == true)
+            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
             {
                 if (Main.rand.Next(4) == 0)
                 {
@@ -120,7 +120,7 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void OnHitPvp(Item Item, Player player, Player target, int damage, bool crit) //PvP
         {
-            if (player.GetModPlayer<StormPlayer>().blueCuffs == true)
+            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
             {
                 if (Main.rand.Next(4) == 0)
                 {
@@ -131,7 +131,7 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void MeleeEffects(Item Item, Player player, Rectangle hitbox) //Dust Effects
         {
-            if (player.GetModPlayer<StormPlayer>().blueCuffs == true)
+            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
             {
                 if (Main.rand.Next(4) < 3)
                 {

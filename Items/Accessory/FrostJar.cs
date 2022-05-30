@@ -35,9 +35,9 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().frostSpike = true;
-            player.GetModPlayer<StormPlayer>().desertJar = true;
-            player.GetModPlayer<StormPlayer>().frostJar = true; //makes the desert projs turn into frost projs
+            player.GetModPlayer<EquipmentEffects>().frostSpike = true;
+            player.GetModPlayer<EquipmentEffects>().desertJar = true;
+            player.GetModPlayer<EquipmentEffects>().frostJar = true; //makes the desert projs turn into frost projs
 
         }
 

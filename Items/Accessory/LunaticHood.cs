@@ -37,7 +37,7 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             
-            player.GetModPlayer<StormPlayer>().lunaticHood = true;
+            player.GetModPlayer<EquipmentEffects>().lunaticHood = true;
            
            
         }

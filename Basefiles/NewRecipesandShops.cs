@@ -9,7 +9,11 @@ using StormDiversMod.Items.Materials;
 using StormDiversMod.Items.OresandBars;
 using StormDiversMod.Items.Armour;
 using Terraria.DataStructures;
-
+using StormDiversMod.Items.Ammo;
+using StormDiversMod.Items.Accessory;
+using StormDiversMod.Items.Tools;
+using StormDiversMod.Items.Vanitysets;
+using StormDiversMod.Items.Weapons;
 
 using static Terraria.ModLoader.ModContent;
 
@@ -211,7 +215,9 @@ namespace StormDiversMod.Basefiles
         }
 
     }
-    public class VanillaShops : GlobalNPC
+  
+    //Shops_________________________
+    public class ShopItems : GlobalNPC
     {
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
@@ -231,7 +237,113 @@ namespace StormDiversMod.Basefiles
                     }
                     break;
             }
-           
+
+            switch (type)
+            {
+                case NPCID.ArmsDealer:
+
+                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<OceanGun>()))
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<OceanShard>());
+                        nextSlot++;
+
+                    }
+
+                    break;
+            }
+
+            switch (type)
+            {
+                case NPCID.Demolitionist:
+
+                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<ProtoLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FrostLauncher>()))
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<ProtoGrenade>());
+                        nextSlot++;
+
+                    }
+
+                    break;
+            }
+            switch (type)
+            {
+                case NPCID.Demolitionist:
+
+                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<StickyLauncher>()))
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<StickyBomb>());
+                        nextSlot++;
+
+                    }
+
+                    break;
+            }
+            switch (type)
+            {
+                case NPCID.Demolitionist:
+
+                    if (!GetInstance<Configurations>().StormBossSkipsPlant && Main.LocalPlayer.HasItem(ModContent.ItemType<StormLauncher>()))
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.RocketI);
+                        nextSlot++;
+                    }
+
+                    break;
+            }
+            switch (type)
+            {
+                case NPCID.Merchant:
+
+                    if (NPC.downedBoss1)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Tools.Quack>());
+                        nextSlot++;
+
+                    }
+
+                    break;
+            }
+            switch (type)
+            {
+                case NPCID.Mechanic:
+
+
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Aircan>());
+                    nextSlot++;
+
+
+                    break;
+            }
+            switch (type)
+            {
+                case NPCID.Steampunker:
+                    if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                    {
+
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<MechanicalRepeater>());
+                        nextSlot++;
+
+                    }
+
+                    break;
+            }
+            switch (type)
+            {
+                case NPCID.Merchant:
+                    {
+                        if (Main.raining)
+                        {
+                            shop.item[nextSlot].SetDefaults(ItemID.RainHat);
+                            nextSlot++;
+                            shop.item[nextSlot].SetDefaults(ItemID.RainCoat);
+                            nextSlot++;
+                            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Armour.RainBoots>());
+                            nextSlot++;
+
+                        }
+                    }
+                    break;
+            }
         }
     }
 }

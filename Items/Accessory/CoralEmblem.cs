@@ -34,7 +34,7 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<StormPlayer>().coralEmblem = true;
+            player.GetModPlayer<EquipmentEffects>().coralEmblem = true;
         }
        
         public override void AddRecipes()

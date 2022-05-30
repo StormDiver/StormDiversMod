@@ -190,7 +190,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 AnimateProjectile();
             
             //Projectile.ai[0] += 1f;
-            if (player.GetModPlayer<StormPlayer>().lunaticHood == false || player.dead)
+            if (player.GetModPlayer<EquipmentEffects>().lunaticHood == false || player.dead)
 
             {
                 

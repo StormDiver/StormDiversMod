@@ -79,7 +79,7 @@ namespace StormDiversMod.NPCs
 
             if (!NPC.downedPlantBoss)
             {
-                //Summoning done in StormPlayer.cs
+                //Summoning done in EquipmentEffects.cs
                 return SpawnCondition.JungleTemple.Chance * 0f;
             }
             else if (NPC.downedPlantBoss && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))

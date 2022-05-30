@@ -194,7 +194,7 @@ namespace StormDiversMod.Items.Weapons
         {
             if (!GetInstance<Configurations>().NoShake)
             {
-                player.GetModPlayer<StormPlayer>().screenshaker = true;
+                player.GetModPlayer<MiscFeatures>().screenshaker = true;
             }
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 55f;
@@ -276,7 +276,7 @@ namespace StormDiversMod.Items.Weapons
         {
             if (!GetInstance<Configurations>().NoShake)
             {
-                player.GetModPlayer<StormPlayer>().screenshaker = true;
+                player.GetModPlayer<MiscFeatures>().screenshaker = true;
             }
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 55f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
