@@ -27,27 +27,27 @@ namespace StormDiversMod.Basefiles
 
     public class ArmourSetBonuses : ModPlayer
     {
-        public bool derpJump; //The player has a full set of Derpling armour equipped
+        public bool derpJump; //Derpling armour
 
-        public bool BloodDrop; //The player has a full set of hemo Armour
+        public bool BloodDrop; //Hemo Armour
 
-        public bool spaceRockOffence; //Player has the Space armour with helmet equipped
+        public bool spaceRockOffence; //Asteroid armour with helmet 
 
-        public bool spaceRockDefence; //Player has the Space armour with mask equipped
+        public bool spaceRockDefence; //Asteroid armour with mask 
 
-        public bool mushset; //Player has a set of Glowing mushroom armour equipped
+        public bool mushset; //Mushroom armour
 
-        public bool hellSoulSet; //Player has full set of SOul Fire armour eqipped
+        public bool hellSoulSet; //HellSoul armour
 
-        public bool twilightSet; //Player has full set of Twilight armour
+        public bool twilightSet; //Twilight armour
 
-        public bool skyKnightSet; //Player hasa full set of SkyKnight Armour
+        public bool skyKnightSet; //SkyKnight Armour
 
-        public bool santankSet; //Player had a full set of Santank armour
+        public bool santankSet; //Santank armour
 
-        public bool aridCritSet; //Player has full set of arid armour
+        public bool aridCritSet; //Arid armour
 
-        public bool shadowflameSet; //Player has the Shadowflame armour equipped
+        public bool shadowflameSet; //Shadowflame armour 
 
         //Ints and Bools activated from this file
 

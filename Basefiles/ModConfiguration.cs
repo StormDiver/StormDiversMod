@@ -17,7 +17,7 @@ using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
 
 
-namespace StormDiversMod
+namespace StormDiversMod.Basefiles
 {
     public class Configurations : ModConfig //configuration settings
     {

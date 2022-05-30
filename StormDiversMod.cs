@@ -18,7 +18,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod
 {
-	public class StormDiversMod : Mod
+	public class StormDiversMod : Mod //For most important things
 	{
         public override void PostSetupContent() //For boss checklist
         {

@@ -7,6 +7,7 @@ using StormDiversMod.Dusts;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Projectiles
 {
