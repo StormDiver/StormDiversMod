@@ -29,6 +29,7 @@ namespace StormDiversMod.Buffs
            
             {
                 player.statDefense += 50;
+
                 player.lifeRegen += 30;
                 if (particle <= 0)
                 {
@@ -55,7 +56,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense += 25;
+            player.statDefense += 15;
 
             if (Main.rand.Next(10) < 3)
             {
@@ -251,7 +252,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.lifeRegen += 3;
+            player.lifeRegen += 6;
             player.loveStruck = true; 
             //player.moveSpeed = 0.1f;
         }
