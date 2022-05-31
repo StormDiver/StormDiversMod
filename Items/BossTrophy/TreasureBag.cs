@@ -87,6 +87,10 @@ namespace StormDiversMod.Items.BossTrophy
 			{
 				player.QuickSpawnItem(source, ModContent.ItemType<Items.Accessory.StormWings>());
 			}
+			if (Main.rand.NextBool(10))
+			{
+				player.QuickSpawnItem(source, ModContent.ItemType<Items.Weapons.VortexiaWeapon>());
+			}
 			//mask
 			if (Main.rand.NextBool(7))
 			{

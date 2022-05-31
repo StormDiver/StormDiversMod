@@ -28,9 +28,8 @@ namespace StormDiversMod.Basefiles
         public override void OnKill(NPC npc) //Used for items that don't work with the new method
         {
             //Zone Drops----------------------------------------------------------------------------------------------------------------------
-
             if ((Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUnderworldHeight) && (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-                && (!npc.friendly && npc.lifeMax > 5 && (npc.type != NPCID.TheHungry || npc.type != NPCID.TheHungryII))) //Hellsoul flames
+                && (!npc.friendly && npc.lifeMax > 5 && npc.type != NPCID.TheHungry && npc.type != NPCID.TheHungryII)) //Hellsoul flames
             {
                 if (Main.rand.Next(3) == 0)
                 {
