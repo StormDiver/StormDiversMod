@@ -77,7 +77,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()           
-           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 14)
+           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
            .AddTile(TileID.Hellforge)
            .Register();
            
@@ -168,7 +168,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-             .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 14)
+             .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
              .AddTile(TileID.Hellforge)
              .Register();
         }
@@ -266,7 +266,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 14)
+           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
            .AddTile(TileID.Hellforge)
            .Register();
         }
@@ -353,7 +353,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-          .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 14)
+          .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
           .AddTile(TileID.Hellforge)
           .Register();
         }
@@ -422,7 +422,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 14)
+           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
            .AddTile(TileID.Hellforge)
            .Register();
 

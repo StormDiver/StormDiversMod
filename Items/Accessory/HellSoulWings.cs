@@ -82,7 +82,7 @@ namespace StormDiversMod.Items.Accessory
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 10)
             .AddIngredient(ItemID.SoulofFlight, 20)
             .AddTile(TileID.Hellforge)
             .Register();

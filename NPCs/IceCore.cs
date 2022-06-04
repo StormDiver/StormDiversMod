@@ -105,6 +105,7 @@ namespace StormDiversMod.NPCs
         public override void AI()
         {
             NPC.buffImmune[BuffID.Frostburn] = true;
+            NPC.buffImmune[BuffID.Frostburn2] = true;
             NPC.buffImmune[(BuffType<SuperFrostBurn>())] = true;
             NPC.buffImmune[(BuffType<UltraFrostDebuff>())] = true;
             NPC.buffImmune[BuffID.Confused] = true;
@@ -316,7 +317,7 @@ namespace StormDiversMod.NPCs
                     npcframe = 0;
                 }
             }
-            if (NPC.ai[3] == 2)
+            if (NPC.ai[3] == 1)
             {
                 NPC.frame.Y = npcframe * frameHeight;
                 NPC.frameCounter++;

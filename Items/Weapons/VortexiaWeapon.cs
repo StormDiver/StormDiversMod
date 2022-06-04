@@ -45,15 +45,15 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item117;
 
-            Item.damage = 60;
+            Item.damage = 52;
             //Item.crit = 4;
             Item.knockBack = 1f;
 
             Item.shoot = ModContent.ProjectileType<VortexiaProj>();
             
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 13f;
 
-            Item.mana = 16;
+            Item.mana = 15;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
             

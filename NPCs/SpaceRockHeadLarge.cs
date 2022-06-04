@@ -86,6 +86,8 @@ namespace StormDiversMod.NPCs
         {
 
             NPC.buffImmune[BuffID.OnFire] = true;
+            NPC.buffImmune[BuffID.OnFire3] = true;
+
             NPC.buffImmune[(BuffType<SuperBurnDebuff>())] = true;
             NPC.buffImmune[(BuffType<HellSoulFireDebuff>())] = true;
             NPC.buffImmune[(BuffType<UltraBurnDebuff>())] = true;

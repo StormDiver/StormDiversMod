@@ -71,7 +71,7 @@ namespace StormDiversMod.Items.Armour
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 15)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
             .AddTile(TileID.Hellforge)
             .Register();
 
@@ -147,7 +147,7 @@ namespace StormDiversMod.Items.Armour
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 15)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
             .AddTile(TileID.Hellforge)
             .Register();
 
@@ -222,7 +222,7 @@ namespace StormDiversMod.Items.Armour
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 15)
+           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
            .AddTile(TileID.Hellforge)
            .Register();
 
@@ -296,7 +296,7 @@ namespace StormDiversMod.Items.Armour
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 15)
+           .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
            .AddTile(TileID.Hellforge)
            .Register();
 
@@ -346,7 +346,7 @@ namespace StormDiversMod.Items.Armour
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 20)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 18)
             .AddTile(TileID.Hellforge)
             .Register();
 
@@ -397,7 +397,7 @@ namespace StormDiversMod.Items.Armour
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 17)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 15)
             .AddTile(TileID.Hellforge)
             .Register();
 

@@ -16,7 +16,6 @@ This mod includes:
 -4 new pets
 -25 new enemies across the game, most with their own banner
 -1 new unique boss that can be fought in place of the Plantera (config option)
--Some NPCs now sell new items
 -A way to remove the shields from the pillars prematurely 
 -New recipes for certain uncraftable vanilla items
 

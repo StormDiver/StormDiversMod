@@ -706,7 +706,7 @@ namespace StormDiversMod.Basefiles
                 float speedX = 0f;
                 float speedY = -8f;
 
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(100)); // This defines the projectiles random spread . 10 degree spread.
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(100));
 
                 Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), 80, 0, Player.whoAmI);
 

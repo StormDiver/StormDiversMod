@@ -239,7 +239,7 @@ namespace StormDiversMod.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
 
-            npcLoot.Add(ItemDropRule.Common(ItemID.FrostDaggerfish, 1, 3, 8));
+            npcLoot.Add(ItemDropRule.Common(ItemID.FrostDaggerfish, 1, 10, 20));
 
 
         }

@@ -101,6 +101,8 @@ namespace StormDiversMod.NPCs
         public override void AI()
         {
             NPC.buffImmune[BuffID.OnFire] = true;
+            NPC.buffImmune[BuffID.OnFire3] = true;
+
             NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
             NPC.buffImmune[BuffID.Confused] = true;
 

@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 18)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 15)
             .AddTile(TileID.Hellforge)
             .Register();
 
@@ -146,7 +146,7 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 18)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 15)
             .AddTile(TileID.Hellforge)
             .Register();
 

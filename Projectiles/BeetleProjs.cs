@@ -37,7 +37,7 @@ namespace StormDiversMod.Projectiles
         protected virtual float HoldoutRangeMin => 50f;
         protected virtual float HoldoutRangeMax => 175f;
 
-
+        bool beetled;
         public override void AI()
         {
             Player player = Main.player[Projectile.owner]; // Since we access the owner player instance so much, it's useful to create a helper local variable for this
@@ -65,20 +65,7 @@ namespace StormDiversMod.Projectiles
             {
                 progress = (duration - Projectile.timeLeft) / halfDuration;
             }
-            bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
 
-
-            if (Projectile.timeLeft == (halfDuration - 1) && lineOfSight)
-            {
-
-                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f}, Projectile.Center);
-
-                Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
-
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-
-
-            }
 
                 // Move the projectile from the HoldoutRangeMin to the HoldoutRangeMax and back, using SmoothStep for easing the movement
                 Projectile.Center = player.MountedCenter + Vector2.SmoothStep(Projectile.velocity * HoldoutRangeMin, Projectile.velocity * HoldoutRangeMax, progress);
@@ -102,10 +89,25 @@ namespace StormDiversMod.Projectiles
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
-           
+
+            bool lineOfSight = Collision.CanHitLine(Projectile.Center, 0, 0, player.position, player.width, player.height);
+
+            if (Projectile.timeLeft < halfDuration && lineOfSight)
+            {
+                if (!beetled)
+                {
+                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 1f, Pitch = 1.3f }, Projectile.Center);
+
+                    Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
+                    beetled = true;
+                }
+
+            }
 
         }
-    
+
 
     }
     //________________________________________________________________________________________________________________

@@ -80,7 +80,7 @@ namespace StormDiversMod.NPCs
 
             if (!NPC.AnyNPCs(ModContent.NPCType<HellMiniBoss>()) && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
             {
-                return SpawnCondition.Underworld.Chance * 0.07f;
+                return SpawnCondition.Underworld.Chance * 0.06f;
             }
             else
             {
@@ -96,6 +96,7 @@ namespace StormDiversMod.NPCs
         public override void AI()
         {
             NPC.buffImmune[BuffID.OnFire] = true;
+            NPC.buffImmune[BuffID.OnFire3] = true;
             NPC.buffImmune[(BuffType<SuperBurnDebuff>())] = true;
             NPC.buffImmune[(BuffType<HellSoulFireDebuff>())] = true;
             NPC.buffImmune[(BuffType<UltraBurnDebuff>())] = true;

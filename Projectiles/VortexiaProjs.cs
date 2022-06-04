@@ -31,7 +31,7 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 70;
             Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -52,25 +52,16 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dust].velocity *= 0.5f;
             
             Projectile.ai[1]++;
-            if (Projectile.ai[1] >= 30)
+            if (Projectile.ai[1] >= 15)
             {
-                SoundEngine.PlaySound(SoundID.Item20 with {Volume = 1f, Pitch = 0.5f}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item20 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
 
-                float numberProjectiles = Main.rand.Next(3, 5); //3 to 4
-                float rotation = MathHelper.ToRadians(180);
-                for (int j = 0; j < numberProjectiles; j++)
-                {
+                Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(180));
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<VortexiaProj2>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
 
-                    Vector2 perturbedSpeed = new Vector2(0, 2.5f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<VortexiaProj2>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
-    
-                }
-
-                float speedX = 0f;
-                float speedY = -10f;
                 for (int i = 0; i < 25; i++)
                 {
-                    Vector2 perturbeddustSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                    Vector2 perturbeddustSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
                     int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 229, perturbeddustSpeed.X, perturbeddustSpeed.Y, 200, default, 1.5f);
                     Main.dust[dust2].noGravity = true;
                 }
@@ -109,11 +100,9 @@ namespace StormDiversMod.Projectiles
 
                 }
 
-                float speedX = 0f;
-                float speedY = -10f;
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 perturbeddustSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                    Vector2 perturbeddustSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
                     int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 229, perturbeddustSpeed.X, perturbeddustSpeed.Y, 200, default, 1.5f);
                     Main.dust[dust2].noGravity = true;
                 }
@@ -159,7 +148,7 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 180;
             Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -189,7 +178,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.localAI[0] = 1f;
                 }
                 Vector2 move = Vector2.Zero;
-                float distance = 350f;
+                float distance = 400f;
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {
@@ -212,7 +201,7 @@ namespace StormDiversMod.Projectiles
                 if (target)
                 {
                     AdjustMagnitude(ref move);
-                    Projectile.velocity = (9.5f * Projectile.velocity + move) / 10f;
+                    Projectile.velocity = (10f * Projectile.velocity + move) / 10f;
                     AdjustMagnitude(ref Projectile.velocity);
                 }
             }
