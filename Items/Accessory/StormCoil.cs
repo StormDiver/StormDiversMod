@@ -19,7 +19,8 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Overloaded Storm Core");
-            Tooltip.SetDefault("Right click while holding up or down to send a lighting portal at the cursor that zaps enemies");
+            Tooltip.SetDefault("Right click while holding UP to send a lighting portal to the cursor that zaps enemies\n" +
+                "Right click while holding DOWN to return the portal to you");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

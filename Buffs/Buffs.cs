@@ -617,7 +617,7 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forest Empowerment");
-            Description.SetDefault("Reduces damage taken by 2");
+            Description.SetDefault("Reduces damage taken by 4");
         }
 
         public override void Update(Player player, ref int buffIndex)

@@ -78,7 +78,7 @@ namespace StormDiversMod.Items.Summons
         }
         public override bool CanUseItem(Player player)
         {
-            return NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && !NPC.AnyNPCs(ModContent.NPCType<NPCs.StormBoss>());
+            return NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.StormBoss>());
             //return true;
         }
         public override bool? UseItem(Player player)
@@ -97,12 +97,12 @@ namespace StormDiversMod.Items.Summons
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.StormBoss>());
+                    NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.StormBoss>());
 
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: ModContent.NPCType<NPCs.StormBoss>());
+                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.StormBoss>());
 
                 }
             }

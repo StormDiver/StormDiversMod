@@ -127,8 +127,7 @@ namespace StormDiversMod.Projectiles
 				}
 
 				Projectile.velocity = move;
-
-
+		
 
 			}
 			//return to player if distance is too great
@@ -143,30 +142,42 @@ namespace StormDiversMod.Projectiles
 			}
 
 			cooldown++;
+			bool collision = Collision.CanHit(player.Center, 0, 0, Main.MouseWorld, 0, 0); //Positioning the portal requires this, returning it does not
 			if (Projectile.owner == Main.myPlayer)
 			{
-				int xcursor = (int)(Main.MouseWorld.X / 16);
+				/*int xcursor = (int)(Main.MouseWorld.X / 16);
 				int ycursor = (int)(Main.MouseWorld.Y / 16);
-				Tile tile = Main.tile[xcursor, ycursor];
-				if ((tile != null && !tile.HasTile && Collision.CanHit(player.Center, 0, 0, Main.MouseWorld, 0, 0)) || Projectile.ai[0] == 1) //Checks if mouse is in valid postion
+				Tile tile = Main.tile[xcursor, ycursor];*/
+
+				if (player.controlUseTile && ((player.controlUp && Projectile.ai[0] == 0 && collision) || (player.controlDown && Projectile.ai[0] == 1)) && cooldown >= 30)//switch between passive and attack
 				{
-
-					if (player.controlUseTile && (player.controlDown || player.controlUp) && cooldown >= 30)
+					for (int i = 0; i < 25; i++)
 					{
-						for (int i = 0; i < 25; i++)
-						{
-							int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 226, 0f, 0f, 0, default, 1.5f);
-							Main.dust[dustIndex].velocity *= 3;
+						int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 226, 0f, 0f, 0, default, 1.5f);
+						Main.dust[dustIndex].velocity *= 3;
 
-							Main.dust[dustIndex].noGravity = true;
-						}
-						SoundEngine.PlaySound(SoundID.Item93, player.Center);
-
-						cooldown = 0;
-						Projectile.ai[0]++;//Go to next movement postion
+						Main.dust[dustIndex].noGravity = true;
 					}
-					
+					SoundEngine.PlaySound(SoundID.Item93, player.Center);
+
+					cooldown = 0;
+					Projectile.ai[0]++;//Go to next movement postion
 				}
+
+				if (player.controlUseTile && player.controlUp && Projectile.ai[0] == 1 && collision && cooldown >= 30) //Change position in attack mode
+				{
+					Projectile.localAI[1] = 0; //reset mouse pos detecter
+					for (int i = 0; i < 25; i++)
+					{
+						int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 226, 0f, 0f, 0, default, 1.5f);
+						Main.dust[dustIndex].velocity *= 3;
+
+						Main.dust[dustIndex].noGravity = true;
+					}
+					SoundEngine.PlaySound(SoundID.Item93, player.Center);
+					cooldown = 0;
+				}
+
 			}
 
 
@@ -179,7 +190,7 @@ namespace StormDiversMod.Projectiles
 			rotate++;
 			Projectile.rotation = rotate / 5;
 
-			if (Projectile.ai[1] > 30)
+			if (Projectile.ai[1] > 30 && Projectile.velocity.X == 0 && Projectile.velocity.Y == 0) //fire lightning if stationary 
 			{
 
 				for (int j = 0; j < 30; j++)

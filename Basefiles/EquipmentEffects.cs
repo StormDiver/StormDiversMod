@@ -864,7 +864,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (!stormBossProj)
                 {
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<StormAccessProj>(), 65, 1, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<StormAccessProj>(), 75, 1, Player.whoAmI);
                     for (int i = 0; i < 30; i++)
                     {
                         float speedY = -3f;
@@ -1220,7 +1220,7 @@ namespace StormDiversMod.Basefiles
         {
             if (woodNecklace && Player.ZoneForest)
             {
-                damage -= 2;
+                damage -= 4;
             }
             //for Enchanted Mushroom
             if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff1>()))

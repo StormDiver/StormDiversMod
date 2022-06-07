@@ -21,13 +21,12 @@ namespace StormDiversMod.Items.BossTrophy
 	public class StormBossBag : ModItem
 	{
 		// Sets the associated NPC this treasure bag is dropped from
-		public override int BossBagNPC => ModContent.NPCType<NPCs.StormBoss>();
+		public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Treasure Bag (Overloaded Scandrone)");
 			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
-
 			ItemID.Sets.BossBag[Type] = true; // This set is one that every boss bag should have, it, for example, lets our boss bag drop dev armor..
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
@@ -42,7 +41,7 @@ namespace StormDiversMod.Items.BossTrophy
 			Item.rare = ItemRarityID.Purple;
 			Item.expert = true; // This makes sure that "Expert" displays in the tooltip and the item name color changes
 		}
-
+		
 		public override bool CanRightClick()
 		{
 			return true;

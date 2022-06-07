@@ -23,7 +23,7 @@ using Terraria.ModLoader.IO;
 
 using StormDiversMod.Items.Pets;
 
-namespace StormDiversMod.NPCs
+namespace StormDiversMod.NPCs.Boss
 {
     [AutoloadBossHead]
     public class StormBoss : ModNPC
@@ -47,8 +47,8 @@ namespace StormDiversMod.NPCs
         {
             Main.npcFrameCount[NPC.type] = 24;
             
-            NPC.width = 50;
-            NPC.height = 50;
+            NPC.width = 75;
+            NPC.height = 75;
 
             NPC.aiStyle = -1;
           
@@ -58,12 +58,12 @@ namespace StormDiversMod.NPCs
             NPC.defense = 15;
             NPC.lifeMax = 40000; //56,000 on expert / 72,000 on master
             
-            NPC.gfxOffY = -5;
+            NPC.gfxOffY = -12;
 
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath14;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 10, 0, 0);
+            NPC.value = Item.buyPrice(0, 15, 0, 0);
             NPC.boss = true;
             if (!Main.dedServ)
             {
@@ -321,10 +321,10 @@ namespace StormDiversMod.NPCs
             {
                 SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
 
-                if (Main.netMode != NetmodeID.Server)
+                if (Main.netMode != NetmodeID.Server)//Drop some gore when changing phase
                 {
-                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
-
+                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore4").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -513,11 +513,11 @@ namespace StormDiversMod.NPCs
                         //angle
                         if (rotateright)
                         {
-                            rotation += 1f;
+                            rotation += 0.8f;
                         }
                         else
                         {
-                            rotation -= 1f;
+                            rotation -= 0.8f;
 
                         }
                         NPC.ai[1]++;//Count up to dash only when orbiting
@@ -1087,7 +1087,7 @@ namespace StormDiversMod.NPCs
             for (int i = 0; i < 8; i++)
             {
                  
-                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 20, NPC.Center.Y - 20), 40, 40, 229);
+                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 25, NPC.Center.Y - 25), 50, 50, 229);
                 dust.scale = 0.5f;
 
             }
@@ -1107,7 +1107,9 @@ namespace StormDiversMod.NPCs
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore1").Type, 1f);
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore2").Type, 1f);
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore3").Type, 1f);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore4").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
+
                 }
                 for (int i = 0; i < 150; i++)
                 {
@@ -1185,21 +1187,21 @@ namespace StormDiversMod.NPCs
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //Glowmask
          {
-             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/StormBoss_Glow");
-             Vector2 drawPos = new Vector2(0, 4 + NPC.gfxOffY) + NPC.Center - Main.screenPosition;
+             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/Boss/StormBoss_Glow");
+             Vector2 drawPos = new Vector2(0, 13 + NPC.gfxOffY) + NPC.Center - Main.screenPosition;
 
              spriteBatch.Draw(texture, drawPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
          }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //Trial
         {
             Main.instance.LoadProjectile(NPC.type);
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/StormBoss");
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/Boss/StormBoss");
 
             if (charge)
             {
                 for (int k = 0; k < NPC.oldPos.Length; k++)
                 {
-                    Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-16, 7 + NPC.gfxOffY);
+                    Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-12, 20 + NPC.gfxOffY);
                     Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
                     Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                 }
@@ -1208,7 +1210,7 @@ namespace StormDiversMod.NPCs
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
-            position += new Vector2(0, 20); //Moves healthbar down a little
+            position += new Vector2(0, 25); //Moves healthbar down a little
             return true;
         }  
     }

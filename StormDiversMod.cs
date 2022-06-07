@@ -28,7 +28,7 @@ namespace StormDiversMod
                 if (bossChecklist != null)
                 {
                     bossChecklist.Call
-                        ("AddBoss", this, "Overloaded Scandrone", ModContent.NPCType<NPCs.StormBoss>(), 11.5f, (Func<bool>)(() => StormWorld.stormBossDown), () => true,
+                        ("AddBoss", this, "Overloaded Scandrone", ModContent.NPCType<NPCs.Boss.StormBoss>(), 11.5f, (Func<bool>)(() => StormWorld.stormBossDown), () => true,
                         new List<int> { ModContent.ItemType<Items.BossTrophy.StormBossTrophy>(), ModContent.ItemType<Items.BossTrophy.StormBossRelic>(), ModContent.ItemType<Items.Pets.StormBossPetItem>(),
                         ModContent.ItemType<Items.BossTrophy.StormBossBag>(), ModContent.ItemType<Items.Accessory.StormCoil>(), //vanity
                         //other
@@ -38,7 +38,7 @@ namespace StormDiversMod
                         ModContent.ItemType<Items.Summons.StormBossSummoner>(), "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
                         "Overloaded Scandrone returns to its home planet (and didn't die on the way home",
                         (SpriteBatch sb, Rectangle rect, Color color) => {
-                            Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/StormBoss_Image").Value;
+                            Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
                             Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
                             sb.Draw(texture, centered, color);
                         }
@@ -51,11 +51,14 @@ namespace StormDiversMod
         public static ModKeybind ArmourSpecialHotkey;
         public override void Load()
         {
-            
+
+            ArmourSpecialHotkey = KeybindLoader.RegisterKeybind(this, "Armor Special Ability", "V");
+
+            /*if (GetInstance<Configurations>().NoDamageSpread)
             {
-                ArmourSpecialHotkey = KeybindLoader.RegisterKeybind(this, "Armor Special Ability", "V");
-                //if (StormDiversMod.ArmourSpecialHotkey.JustPressed) 
-            }
+                //!!All credit goes to Kojo's mod called Rho's Playground!!
+                On.Terraria.Main.DamageVar += (orig, damage, luck) => (int)Math.Round(damage * Main.rand.NextFloat(1, 1)); //No damage variance
+            }*/
         }
         public override void Unload()
         {

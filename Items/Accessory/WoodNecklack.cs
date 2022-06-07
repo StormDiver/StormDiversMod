@@ -16,8 +16,8 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wooden Pendulant");
-            Tooltip.SetDefault("Reduces damage taken by 2 while in a forest"); //maybe trees drop more acorns, more wood??
+            DisplayName.SetDefault("Wooden Pendant");
+            Tooltip.SetDefault("Reduces damage taken by 4 while in a forest"); //maybe trees drop more acorns, more wood??
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

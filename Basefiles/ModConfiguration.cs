@@ -23,38 +23,45 @@ namespace StormDiversMod.Basefiles
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        /*[Label("Disable Frost and Arid ore Generation")]
-        // Similar to Label, this sets the tooltip. Tooltips are useful for slightly longer and more detailed explanations of config options.
-        [Tooltip("This will prevent the 2 ores in this mod from generating, but they will still drop from NPCs and crates, Requires a Reload")]
-        // ReloadRequired hints that if this value is changed, a reload is required for the mod to properly work. 
-        // Failure to properly use ReloadRequired will cause many, many problems including ID desync.
-        [ReloadRequired] //Not really needed, but keep it to stop people for finding exploits 
-        public bool PreventOreSpawn { get; set; }*/
+        [Header("Enemies")]
         [Label("Overloaded Scandrone acts as a Plantera Alternative")]
         [Tooltip("This will make defeating Overloaded Scandrone activate everything that defeating the Plantera would")]
+        [DefaultValue(false)]
         //[ReloadRequired] //No reload required as it just prevents a single bool being activated
         public bool StormBossSkipsPlant { get; set; }
-
+    
         [Label("Prevent modded pillar enemies from spawning")]
         [Tooltip("This will prevent the new pillar enemies in this mod from spawning")]
         //[ReloadRequired] //No reload required as it just changes the spawn chance and doesn't disable the enemy itself
+        [DefaultValue(false)]
         public bool PreventPillarEnemies { get; set; }
 
         [Label("Disable buffed Derplings")]
         [Tooltip("This will prevent Derplings from gaining massively increased stats post-plantera")]
         //[ReloadRequired] //No reload required 
+        [DefaultValue(false)]
         public bool PreventBuffedDerps { get; set; }
 
+        [Header("Visual")]
         [Label("Disable screen shake effects")]
         [Tooltip("Disables the screen shake that a few items in this mod make")]
         //[ReloadRequired] //None required
+        [DefaultValue(false)]
         public bool NoShake { get; set; }
 
+        [Header("Misc")]
         [Label("Revert modded throwing weapons to throwing class")]
         [Tooltip("This will make all weapons in the mod that were previously throwing deal thrown damage (Requires reload)")]
         [ReloadRequired] //Yes
+        [DefaultValue(false)]
         public bool ThrowingTryhards { get; set; }
 
-        
+        //This will be added if Rho's Playground is ever deleted
+        /*[Label("Remove damage variance")]
+        [Tooltip("This will remove the random spread in all damage dealt and taken (Requires reload)")]
+        [ReloadRequired] //Yes
+        [DefaultValue(false)]
+        public bool NoDamageSpread { get; set; }*/
+
     }
 }

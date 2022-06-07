@@ -63,7 +63,6 @@ namespace StormDiversMod.Items.BossTrophy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Overloaded Scandrone Relic");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
