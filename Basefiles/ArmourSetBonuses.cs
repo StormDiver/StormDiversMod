@@ -233,7 +233,7 @@ namespace StormDiversMod.Basefiles
 
                     float speedX = 0f;
                     float speedY = -8f;
-                    int damage = 170;
+                    int damage = 200;
                     for (int i = 0; i < 1; i++) //1 rockets per charge
                     {
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(50));
@@ -559,7 +559,7 @@ namespace StormDiversMod.Basefiles
 
             if (spaceRockOffence && Player.HasBuff(ModContent.BuffType<SpaceRockOffence>()))
             {
-                if (!GetInstance<Configurations>().NoShake)
+                if (!GetInstance<ConfigurationsIndividual>().NoShake)
                 {
                     Player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }
@@ -651,7 +651,7 @@ namespace StormDiversMod.Basefiles
 
             if (spaceRockDefence && Player.HasBuff(ModContent.BuffType<SpaceRockDefence>()) && damage >= 2)
             {
-                if (!GetInstance<Configurations>().NoShake)
+                if (!GetInstance<ConfigurationsIndividual>().NoShake)
                 {
                     Player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }
@@ -685,7 +685,7 @@ namespace StormDiversMod.Basefiles
         }
         //===================================Other hooks======================================
 
-
+        int aridProj = ModContent.ProjectileType<AncientArmourProj>();
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
         {
 
@@ -735,9 +735,9 @@ namespace StormDiversMod.Basefiles
             {
                 if (crit)
                 {
-                    target.immune[Main.myPlayer] = 4;
+                    target.GetGlobalNPC<NPCEffects>().aridimmunetime = 10; //target immune to explosion for 10 frames
 
-                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), damage, 1, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), damage, 0, Player.whoAmI);
                 }
             }
 
@@ -804,9 +804,9 @@ namespace StormDiversMod.Basefiles
             {
                 if (crit)
                 {
-                    target.immune[Main.myPlayer] = 4;
+                    target.GetGlobalNPC<NPCEffects>().aridimmunetime = 10; //target immune to explosion for 10 frames
 
-                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 1, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 0, Player.whoAmI);
                 }
             }
 

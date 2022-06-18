@@ -78,7 +78,7 @@ namespace StormDiversMod.NPCs
         {
 
         
-            if (!GetInstance<Configurations>().PreventPillarEnemies)
+            if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies)
             {
                 return SpawnCondition.VortexTower.Chance * 0.14f;
             }
@@ -166,7 +166,6 @@ namespace StormDiversMod.NPCs
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
 
-                   // Projectile.NewProjectile(NPC.Center.X + NPC.width / 2, NPC.Center.Y + NPC.height / 2, velocity.X, velocity.Y, type, damage, knockBack, Main.myPlayer);
                     SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
 

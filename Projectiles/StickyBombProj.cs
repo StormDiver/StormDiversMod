@@ -43,7 +43,7 @@ namespace StormDiversMod.Projectiles
         bool boomed; //when it is exploding
         int boomtime = 0; //How long until you can actually detonate
         bool unstick; //Bool for if you unstick the bombs
-        
+        int projsleft = 17; //1 extra
         public override bool? CanDamage()
         {
             if (unstick)
@@ -125,7 +125,14 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity.Y = -2;
                 unstick = true;
             }
-
+            if (player.itemAnimation == 1 && player.HeldItem.type == ModContent.ItemType<Items.Weapons.StickyLauncher>())
+            {
+                projsleft -= 1; 
+            }
+            if (projsleft == 0 && Projectile.timeLeft > 3)
+            {
+                Projectile.timeLeft = 3;
+            }
         }
             
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -175,33 +182,32 @@ namespace StormDiversMod.Projectiles
 
 
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++) //Flame particles
             {
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X- 10, Projectile.Center.Y - 10), 20, 20, 6, 0f, 0f, 100, default, 2f);
-                Main.dust[dustIndex].noGravity = false;
-                Main.dust[dustIndex].velocity *= 4f;
-                int dustIndex2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y - 10), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 3f);
-                Main.dust[dustIndex2].noGravity = true;
-                Main.dust[dustIndex2].velocity *= 2;
+                Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 2.5f);
+                Main.dust[dustIndex].noGravity = true;
+               
 
             }
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < 50; i++) //Grey dust circle
             {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.Center;
-                dust = Main.dust[Terraria.Dust.NewDust(position, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
+
+                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
                 dust.scale = 3f;
-                dust.velocity *= 5;
+                dust.velocity *= 2.5f;
 
             }
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++) //Grey dust fade
             {
 
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
-                Main.dust[dustIndex].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
+                Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
         }

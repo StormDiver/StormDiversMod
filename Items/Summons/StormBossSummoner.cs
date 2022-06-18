@@ -121,7 +121,7 @@ namespace StormDiversMod.Items.Summons
                     float ai = Main.rand.Next(100);
 
                     int projID = Projectile.NewProjectile(source, new Vector2(player.Center.X + (15 * player.direction), player.Top.Y - 6), new Vector2(0, -8),
-                        ModContent.ProjectileType<Projectiles.StormLightningProj>(), 0, .5f, Main.myPlayer, rotation.ToRotation(), ai);
+                        ModContent.ProjectileType<Projectiles.StormLightningProj>(), 0, .5f, player.whoAmI, rotation.ToRotation(), ai);
                     Main.projectile[projID].damage = 0;
                     Main.projectile[projID].tileCollide = false;
 
@@ -134,7 +134,7 @@ namespace StormDiversMod.Items.Summons
                     float ai = Main.rand.Next(100);
 
                     int projID = Projectile.NewProjectile(source, new Vector2(player.Center.X + (15 * player.direction), player.Bottom.Y - 6), new Vector2(0, 8),
-                        ModContent.ProjectileType<Projectiles.StormLightningProj>(), 0, .5f, Main.myPlayer, rotation.ToRotation(), ai);
+                        ModContent.ProjectileType<Projectiles.StormLightningProj>(), 0, .5f, player.whoAmI, rotation.ToRotation(), ai);
                     Main.projectile[projID].damage = 0;
                     Main.projectile[projID].tileCollide = false;
 

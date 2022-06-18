@@ -282,7 +282,7 @@ namespace StormDiversMod.Basefiles
             {
                 case NPCID.Demolitionist:
 
-                    if (!GetInstance<Configurations>().StormBossSkipsPlant && Main.LocalPlayer.HasItem(ModContent.ItemType<StormLauncher>()))
+                    if (!GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant && Main.LocalPlayer.HasItem(ModContent.ItemType<StormLauncher>()))
                     {
                         shop.item[nextSlot].SetDefaults(ItemID.RocketI);
                         nextSlot++;

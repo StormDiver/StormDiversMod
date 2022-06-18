@@ -122,6 +122,46 @@ namespace StormDiversMod.Basefiles
       
         public override void PreUpdateWorld()
         {
+
+            if (Main.expertMode)
+            {
+                if (NPC.ShieldStrengthTowerVortex > GetInstance<ConfigurationsGlobal>().shieldHealthExpert)
+                {
+                    NPC.ShieldStrengthTowerVortex = GetInstance<ConfigurationsGlobal>().shieldHealthExpert;
+                }
+                if (NPC.ShieldStrengthTowerSolar > GetInstance<ConfigurationsGlobal>().shieldHealthExpert)
+                {
+                    NPC.ShieldStrengthTowerSolar = GetInstance<ConfigurationsGlobal>().shieldHealthExpert;
+                }
+                if (NPC.ShieldStrengthTowerNebula > GetInstance<ConfigurationsGlobal>().shieldHealthExpert)
+                {
+                    NPC.ShieldStrengthTowerNebula = GetInstance<ConfigurationsGlobal>().shieldHealthExpert;
+                }
+                if (NPC.ShieldStrengthTowerStardust > GetInstance<ConfigurationsGlobal>().shieldHealthExpert)
+                {
+                    NPC.ShieldStrengthTowerStardust = GetInstance<ConfigurationsGlobal>().shieldHealthExpert;
+                }
+            }
+            if (!Main.expertMode)
+            {
+                if (NPC.ShieldStrengthTowerVortex > GetInstance<ConfigurationsGlobal>().shieldHealthNormal)
+                {
+                    NPC.ShieldStrengthTowerVortex = GetInstance<ConfigurationsGlobal>().shieldHealthNormal;
+                }
+                if (NPC.ShieldStrengthTowerSolar > GetInstance<ConfigurationsGlobal>().shieldHealthNormal)
+                {
+                    NPC.ShieldStrengthTowerSolar = GetInstance<ConfigurationsGlobal>().shieldHealthNormal;
+                }
+                if (NPC.ShieldStrengthTowerNebula > GetInstance<ConfigurationsGlobal>().shieldHealthNormal)
+                {
+                    NPC.ShieldStrengthTowerNebula = GetInstance<ConfigurationsGlobal>().shieldHealthNormal;
+                }
+                if (NPC.ShieldStrengthTowerStardust > GetInstance<ConfigurationsGlobal>().shieldHealthNormal)
+                {
+                    NPC.ShieldStrengthTowerStardust = GetInstance<ConfigurationsGlobal>().shieldHealthNormal;
+                }
+            }
+
             //For the messages when a boss is defeated
             if (NPC.downedBoss1 && !eocMessage) //EoC
             {

@@ -128,12 +128,12 @@ namespace StormDiversMod.Projectiles
             }
             for (int i = 0; i < 50; i++)
             {
+                Vector2 perturbedSpeed = new Vector2(0, -7.5f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229);
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
 
                 dust.scale = 2f;
-                dust.velocity *= 4f;
                 dust.fadeIn = 1.5f;
 
             }
@@ -291,7 +291,7 @@ namespace StormDiversMod.Projectiles
             
             Projectile.alpha = 255;
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++) //Grey dust
             {
 
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
@@ -301,18 +301,18 @@ namespace StormDiversMod.Projectiles
                 dust.fadeIn = 1f;
 
             }
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++) //Green particle circle
             {
+                Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229);
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
 
                 dust.scale = 2f;
-                dust.velocity *= 5f;
                 dust.fadeIn = 1.5f;
 
             }
-            for (int i = 0; i < 80; i++)
+            for (int i = 0; i < 80; i++) //Green particle static
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.

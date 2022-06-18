@@ -192,7 +192,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (!GetInstance<Configurations>().NoShake)
+            if (!GetInstance<ConfigurationsIndividual>().NoShake)
             {
                 player.GetModPlayer<MiscFeatures>().screenshaker = true;
             }
@@ -274,7 +274,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (!GetInstance<Configurations>().NoShake)
+            if (!GetInstance<ConfigurationsIndividual>().NoShake)
             {
                 player.GetModPlayer<MiscFeatures>().screenshaker = true;
             }

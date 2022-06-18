@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
 
-namespace StormDiversMod.Projectiles       //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+namespace StormDiversMod.Projectiles      
 {
     public class SpaceGlobeProj : ModProjectile
     {
@@ -103,6 +103,15 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SpaceGlobeProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             SoundEngine.PlaySound(SoundID.Item62 with {Volume = 0.5f}, Projectile.Center);
+            for (int i = 0; i < 30; i++) //Flame particles
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1.5f);
+                Main.dust[dustIndex].noGravity = true;
+
+
+            }
             for (int i = 0; i < 30; i++)
             {
 
@@ -379,7 +388,15 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 perturbedSpeed = perturbedSpeed * scale;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SpaceArmourProj2>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner);
             }
+            for (int i = 0; i < 30; i++) //Flame particles
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
 
+                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1.5f);
+                Main.dust[dustIndex].noGravity = true;
+
+
+            }
         }
         public override Color? GetAlpha(Color lightColor)
         {

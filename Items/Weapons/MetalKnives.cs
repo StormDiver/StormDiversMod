@@ -26,7 +26,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetDefaults()
         {
             Item.damage = 14;
-            if (GetInstance<Configurations>().ThrowingTryhards)
+            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
             {
                 Item.DamageType = DamageClass.Throwing;
             }
@@ -78,7 +78,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetDefaults()
         {
             Item.damage = 15;
-            if (GetInstance<Configurations>().ThrowingTryhards)
+            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
             {
                 Item.DamageType = DamageClass.Throwing;
             }

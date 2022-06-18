@@ -37,7 +37,7 @@ namespace StormDiversMod.Projectiles
 
             Projectile.tileCollide = true;
 
-            if (GetInstance<Configurations>().ThrowingTryhards)
+            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
             {
                 Projectile.DamageType = DamageClass.Throwing;
 
@@ -143,7 +143,7 @@ namespace StormDiversMod.Projectiles
             Projectile.tileCollide = true;
 
 
-            if (GetInstance<Configurations>().ThrowingTryhards)
+            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
             {
                 Projectile.DamageType = DamageClass.Throwing;
 

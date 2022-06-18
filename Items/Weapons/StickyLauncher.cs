@@ -33,7 +33,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 20;
             //Item.reuseDelay = 30;
             Item.useTurn = false;
-            Item.autoReuse = false;
+            Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Ranged;
             Item.shoot = ModContent.ProjectileType<StickyBombProj>();
@@ -54,7 +54,8 @@ namespace StormDiversMod.Items.Weapons
         public override bool CanUseItem(Player player)
         {
             // Ensures no more than 16 bombs
-            return player.ownedProjectileCounts[Item.shoot] < 16;
+            //return player.ownedProjectileCounts[Item.shoot] < 16;
+            return true;
         }
         float shootvelo = 1; //Speed multiplers
 

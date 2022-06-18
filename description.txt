@@ -16,8 +16,8 @@ This mod includes:
 -4 new pets
 -25 new enemies across the game, most with their own banner
 -1 new unique boss that can be fought in place of the Plantera (config option)
--A way to remove the shields from the pillars prematurely 
 -New recipes for certain uncraftable vanilla items
+-Configurable pillar shield kill count 
 
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: (Currently only updated to date with the 1.3 version of this mod)

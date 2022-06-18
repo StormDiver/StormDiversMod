@@ -242,7 +242,7 @@ namespace StormDiversMod.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
 
-            npcLoot.Add(ItemDropRule.Common(ItemID.LunarTabletFragment, 1, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ItemID.LunarTabletFragment, 1, 2, 5));
             npcLoot.Add(ItemDropRule.Common(ItemID.LihzahrdPowerCell, 5));
 
 

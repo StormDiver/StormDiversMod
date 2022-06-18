@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.Minions
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Servant of Cthulhu Minion");
-			Description.SetDefault("A Servant of Cthulhu minion will attack enemies for you");
+			Description.SetDefault("A Servant of Cthulhu minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}

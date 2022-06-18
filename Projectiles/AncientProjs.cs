@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Projectiles
 {
@@ -326,7 +327,7 @@ namespace StormDiversMod.Projectiles
             Projectile.light = 0.1f;
             Projectile.friendly = true;
 
-            Projectile.timeLeft = 3;
+            Projectile.timeLeft = 4;
             Projectile.penetrate = -1;
 
             Projectile.tileCollide = true;
@@ -338,7 +339,30 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = -1;
 
         }
+        public override bool? CanDamage()
+        {
+            if (Projectile.timeLeft <= 3)//No damage on first frame spawned
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+     
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.GetGlobalNPC<NPCEffects>().aridimmunetime > 0) //Npcs immune to explosion when activating it
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public override void AI()
         {
             Projectile.velocity.X = 0;
@@ -363,8 +387,8 @@ namespace StormDiversMod.Projectiles
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
 
-                Projectile.width = 200;
-                Projectile.height = 200;
+                Projectile.width = 250;
+                Projectile.height = 250;
                 Projectile.Center = Projectile.position;
 
 
@@ -373,17 +397,7 @@ namespace StormDiversMod.Projectiles
 
             }
         }
-        public override bool? CanDamage()
-        {
-            if (Projectile.timeLeft > 3)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+    
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             //target.AddBuff(mod.BuffType("AridSandDebuff"), 180);

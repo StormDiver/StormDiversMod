@@ -245,7 +245,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = true;
 			Projectile.alpha = 255;
-			Projectile.penetrate = -1;
+			Projectile.penetrate = 10;
 			Projectile.extraUpdates = 4;
 			Projectile.timeLeft = 300;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 1;

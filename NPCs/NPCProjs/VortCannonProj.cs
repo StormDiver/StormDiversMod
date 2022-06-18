@@ -109,7 +109,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
             
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 30; i++)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -120,7 +120,17 @@ namespace StormDiversMod.NPCs.NPCProjs
                 dust.fadeIn = 1f;
 
             }
+            for (int i = 0; i < 50; i++) //Green particle circle
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -6f).RotatedByRandom(MathHelper.ToRadians(360));
 
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
+
+                dust.scale = 1.5f;
+                dust.fadeIn = 1.5f;
+
+            }
         }
 
       

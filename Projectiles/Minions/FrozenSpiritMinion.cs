@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.Minions
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Frozen Spirit Minion");
-			Description.SetDefault("A Frozen Spirit minion will attack enemies for you");
+			Description.SetDefault("A Frozen Spirit minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -267,7 +267,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 								Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
 								Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), 
-									new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenSpiritMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+									new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenSpiritMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 							}
 							Projectile.velocity.X = shootToX * -0.18f;
 							Projectile.velocity.Y = shootToY * -0.18f;

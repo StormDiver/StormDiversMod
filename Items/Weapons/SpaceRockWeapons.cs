@@ -143,7 +143,7 @@ namespace StormDiversMod.Items.Weapons
                     float num17 = num13 * num15;
                     float SpeedX = num16 + (float)Main.rand.Next(-10, 10) * 0.05f;  //this defines the projectile X position speed and randomnes
                     float SpeedY = num17 + (float)Main.rand.Next(-10, 10) * 0.05f;  //this defines the projectile Y position speed and randomnes
-                Projectile.NewProjectile(source, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), type, (int)(damage * 0.75f), 0.5f, Main.myPlayer, 0.0f, (float)Main.rand.Next(5));
+                Projectile.NewProjectile(source, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), type, (int)(damage * 0.75f), 0.5f, player.whoAmI, 0.0f, (float)Main.rand.Next(5));
             }
                 SoundEngine.PlaySound(SoundID.Item13, player.Center);
               

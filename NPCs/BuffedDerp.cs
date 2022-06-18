@@ -22,7 +22,7 @@ namespace StormDiversMod.NPCs
 
         public override void SetDefaults(NPC npc)
         {
-            if (!GetInstance<Configurations>().PreventBuffedDerps)
+            if (!GetInstance<ConfigurationsGlobal>().PreventBuffedDerps)
             {
                 if (npc.type == NPCID.Derpling && NPC.downedPlantBoss)
                 {
@@ -39,7 +39,7 @@ namespace StormDiversMod.NPCs
         //private float scale;
         public override void AI(NPC npc)
         {
-            if (!GetInstance<Configurations>().PreventBuffedDerps)
+            if (!GetInstance<ConfigurationsGlobal>().PreventBuffedDerps)
             {
                 if (npc.type == NPCID.Derpling && NPC.downedPlantBoss)
                 {
@@ -120,7 +120,7 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(NPC npc, int hitDirection, double damage)
         {
-            if (!GetInstance<Configurations>().PreventBuffedDerps)
+            if (!GetInstance<ConfigurationsGlobal>().PreventBuffedDerps)
             {
                 if (npc.type == NPCID.Derpling)
                 {

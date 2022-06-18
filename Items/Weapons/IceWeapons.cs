@@ -24,7 +24,7 @@ namespace StormDiversMod.Items.Weapons
         {
             
             Item.damage = 60;
-            if (GetInstance<Configurations>().ThrowingTryhards)
+            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
             {
                 Item.DamageType = DamageClass.Throwing;
             }

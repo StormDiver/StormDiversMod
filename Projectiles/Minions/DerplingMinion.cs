@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Minion");
+            DisplayName.SetDefault("Baby Derpling Minion");
             Description.SetDefault("A buffed baby Derpling will fight for you");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

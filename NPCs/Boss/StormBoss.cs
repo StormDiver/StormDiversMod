@@ -468,7 +468,14 @@ namespace StormDiversMod.NPCs.Boss
 
                     NPC.rotation = (player.MountedCenter - NPC.Center).ToRotation();//Look at the player
 
-                    NPC.ai[2] = 0;
+                    NPC.ai[2] = 0; //reset dash
+
+                    if (Main.netMode != NetmodeID.MultiplayerClient) //movement speed
+                    {
+                        movespeed = 1f * distance / 30;
+                        NPC.netUpdate = true;
+                    }
+
                     if (distance > 500) //Travelling towards player
                     {
                         if (NPC.position.X < player.position.X)
@@ -487,18 +494,18 @@ namespace StormDiversMod.NPCs.Boss
                         {
                             rotation = 270;
                         }
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            movespeed = 1f * distance / 30;
-                            NPC.netUpdate = true;
-                        }
+                       
 
                     }
                     else //Oribiting player
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            movespeed = 7.5f;
+                            if (movespeed < 7.5f) //minimum speed
+                            {
+                                movespeed = 7.5f;
+                            }
+
                             NPC.netUpdate = true;
                         }
                         //Factors for calculations
@@ -1130,7 +1137,7 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void OnKill()
         {
-            if (GetInstance<Configurations>().StormBossSkipsPlant)
+            if (GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant)
             {
                 Item.NewItem(NPC.GetSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, ItemID.TempleKey);
 
@@ -1139,7 +1146,7 @@ namespace StormDiversMod.NPCs.Boss
             {
                 StormWorld.stormBossDown = true;
             }
-            if (NPC.downedPlantBoss == false && GetInstance<Configurations>().StormBossSkipsPlant)
+            if (NPC.downedPlantBoss == false && GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant)
             {
                 NPC.downedPlantBoss = true;
 

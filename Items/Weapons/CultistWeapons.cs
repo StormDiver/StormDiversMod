@@ -276,31 +276,7 @@ namespace StormDiversMod.Items.Weapons
             int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
             Main.projectile[index].originalDamage = Item.damage;
             return false;
-
-            //Code for lighting,
-            /*
-            Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 122);
-
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 35f;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-            }
-
-            Vector2 rotation = -Main.player[Main.myPlayer].Center + Main.MouseWorld;
-                float ai = Main.rand.Next(100);
-                Vector2 speed = Vector2.Normalize(rotation) * Item.shootSpeed;
-                int projID = Projectile.NewProjectile(position.X, position.Y, speed.X, speed.Y, ProjectileID.CultistBossLightningOrbArc, damage, .5f, player.whoAmI, rotation.ToRotation(), ai);
-                Main.projectile[projID].hostile = false;
-                Main.projectile[projID].friendly = true;
-                Main.projectile[projID].penetrate = 10;
-                Main.projectile[projID].usesLocalNPCImmunity = true;
-                Main.projectile[projID].localNPCHitCooldown = -1;
-                Main.projectile[projID].scale = 0.5f;
-            Main.projectile[projID].timeLeft = 100;
-            Main.projectile[projID].magic = true;
-            */
-
+          
         }
         //Drop rate in NPCEffects/ Luantic Cultist treasure bag
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

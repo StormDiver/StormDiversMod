@@ -139,10 +139,10 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.FragmentSolar, 50)
-            .AddIngredient(ItemID.FragmentVortex, 50)
-            .AddIngredient(ItemID.FragmentNebula, 50)
-            .AddIngredient(ItemID.FragmentStardust, 50)
+            .AddIngredient(ItemID.FragmentSolar, 40)
+            .AddIngredient(ItemID.FragmentVortex, 40)
+            .AddIngredient(ItemID.FragmentNebula, 40)
+            .AddIngredient(ItemID.FragmentStardust, 40)
          .AddTile(TileID.LunarCraftingStation)
          .Register();
 

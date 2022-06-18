@@ -83,7 +83,7 @@ namespace StormDiversMod.Items.Weapons
         {
             foreach (TooltipLine line in tooltips)
             {
-                if (!GetInstance<Configurations>().StormBossSkipsPlant)
+                if (!GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant)
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                     {
@@ -232,7 +232,7 @@ namespace StormDiversMod.Items.Weapons
 
                 float ai = Main.rand.Next(100);
                 int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
-                    ModContent.ProjectileType<Projectiles.StormLightningProj>(), damage, .5f, Main.myPlayer, perturbedSpeed.ToRotation(), ai);
+                    ModContent.ProjectileType<Projectiles.StormLightningProj>(), damage, .5f, player.whoAmI, perturbedSpeed.ToRotation(), ai);
 
                 Main.projectile[projID].DamageType = DamageClass.Magic;
             }

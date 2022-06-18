@@ -69,7 +69,7 @@ namespace StormDiversMod.NPCs
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
-            if (!GetInstance<Configurations>().PreventPillarEnemies)
+            if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies)
             {
                 return SpawnCondition.SolarTower.Chance * 0.2f;
             }

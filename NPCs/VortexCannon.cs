@@ -68,7 +68,7 @@ namespace StormDiversMod.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!GetInstance<Configurations>().PreventPillarEnemies)
+            if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies)
             {
                 return SpawnCondition.VortexTower.Chance * 0.22f;
             }
@@ -109,9 +109,6 @@ namespace StormDiversMod.NPCs
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.position.X + player.width / 2, player.position.Y + player.height / 2) -
                    new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
-
-
-                    // Projectile.NewProjectile(NPC.Center.X, NPC.Center.Y, velocity.X, velocity.Y, type, damage, knockBack, Main.myPlayer);
                    
 
 

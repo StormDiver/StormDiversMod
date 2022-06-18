@@ -135,7 +135,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 
                                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(60));
                                 
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StardustSentryProj2>(), Projectile.damage, 1, Main.myPlayer);
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StardustSentryProj2>(), Projectile.damage, 1, Projectile.owner);
                                 SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 
                                 Projectile.ai[1] = 0;

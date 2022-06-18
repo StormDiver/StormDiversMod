@@ -117,7 +117,7 @@ namespace StormDiversMod.Items.Weapons
             distance = 3f / distance;
             shootToX *= distance * 7;
             shootToY *= distance * 7;
-            int proj = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(shootToX, shootToY), type, damage, knockback, Main.myPlayer,0 ,0);
+            int proj = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(shootToX, shootToY), type, damage, knockback, player.whoAmI, 0 ,0);
             //SoundEngine.PlaySound(SoundID.Item8 with{Volume = 0.5f, Pitch = 0.5f}, position);
 
             //For the dust

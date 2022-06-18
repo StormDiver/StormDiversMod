@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.Minions
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("HellSoul Minion");
-			Description.SetDefault("A HellSoul minion will attack enemies for you");
+			Description.SetDefault("A HellSoul minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -225,7 +225,7 @@ namespace StormDiversMod.Projectiles.Minions
 						shootToX *= distance * 9f;
 						shootToY *= distance * 9f;
 
-						Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
 						for (int i = 0; i < 10; i++)
 						{

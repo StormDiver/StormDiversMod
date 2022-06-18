@@ -641,7 +641,7 @@ namespace StormDiversMod.Basefiles
                 //For impacting the ground at speed
                 if (Player.velocity.Y == 0 && falling && Player.controlDown)
                 {
-                    if (!GetInstance<Configurations>().NoShake)
+                    if (!GetInstance<ConfigurationsIndividual>().NoShake)
                     {
                         Player.GetModPlayer<MiscFeatures>().screenshaker = true;
                     }
@@ -714,7 +714,7 @@ namespace StormDiversMod.Basefiles
                             float num17 = num13 * num15;
                             float SpeedX = num16 + (float)Main.rand.Next(-2, 2) * 0.05f;  //this defines the projectile X position speed and randomnes
                             float SpeedY = num17 + (float)Main.rand.Next(-2, 2) * 0.05f;  //this defines the projectile Y position speed and randomnes
-                            int projID = Projectile.NewProjectile(null, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), ModContent.ProjectileType<OceanSpellProj>(), 25, 0.5f, Main.myPlayer, 0.0f, (float)Main.rand.Next(5));
+                            int projID = Projectile.NewProjectile(null, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), ModContent.ProjectileType<OceanSpellProj>(), 25, 0.5f, Player.whoAmI, 0.0f, (float)Main.rand.Next(5));
 
                             Main.projectile[projID].aiStyle = 0;
                             Main.projectile[projID].DamageType = DamageClass.Generic;
@@ -977,7 +977,7 @@ namespace StormDiversMod.Basefiles
             {
 
 
-                if ((attackdmg >= 90 && Main.expertMode) && !Player.HasBuff(ModContent.BuffType<CelestialBuff>()))
+                if (((attackdmg >= 90 && Main.expertMode) || (attackdmg >= 60 && !Main.expertMode)) && attackdmg < Player.statLife)
                 {
 
 
@@ -989,14 +989,14 @@ namespace StormDiversMod.Basefiles
                     }
 
                 }
-                if (attackdmg >= 60 && !Main.expertMode && !Player.HasBuff(ModContent.BuffType<CelestialBuff>()))
+                /*if (attackdmg >= 60 && !Main.expertMode && !Player.HasBuff(ModContent.BuffType<CelestialBuff>()))
                 {
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff>()))
                     {
                         SoundEngine.PlaySound(SoundID.Item122, Player.Center);
                         Player.AddBuff(ModContent.BuffType<CelestialBuff>(), (int)(attackdmg * 4f));
                     }
-                }
+                }*/
             }
             //Creates the shards for the frost core when hit ======================
             int frostdamage = (int)((attackdmg * .75f));
@@ -1033,7 +1033,10 @@ namespace StormDiversMod.Basefiles
                         dust.noGravity = true;
                     }
                     frosttime = 360;
-                    Player.AddBuff(ModContent.BuffType<FrozenBuff>(), 360);
+                    if (attackdmg < Player.statLife)
+                    {
+                        Player.AddBuff(ModContent.BuffType<FrozenBuff>(), 360);
+                    }
                 }
             }
 

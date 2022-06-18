@@ -298,7 +298,7 @@ namespace StormDiversMod.NPCs
         {
             LeadingConditionRule plantDead = new LeadingConditionRule(new Conditions.DownedPlantera());
 
-                plantDead.OnSuccess(ItemDropRule.Common(ItemID.LunarTabletFragment, 1, 3, 5));
+                plantDead.OnSuccess(ItemDropRule.Common(ItemID.LunarTabletFragment, 1, 5, 8));
                 plantDead.OnSuccess(ItemDropRule.Common(ItemID.LihzahrdPowerCell, 1));
            
             npcLoot.Add(plantDead);

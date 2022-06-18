@@ -67,7 +67,7 @@ namespace StormDiversMod.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!GetInstance<Configurations>().PreventPillarEnemies)
+            if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies)
             {
                 return SpawnCondition.NebulaTower.Chance * 0.3f;
             }

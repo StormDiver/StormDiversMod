@@ -70,6 +70,10 @@ namespace StormDiversMod.Basefiles
 
         public int spintime; //how long until rotation can be reset
 
+        //For the arid immune
+
+        public int aridimmunetime;
+
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
         {
@@ -210,9 +214,15 @@ namespace StormDiversMod.Basefiles
 
                 }
 
+            }          
+            //------------Arid immune
+            if (aridimmunetime > 0)
+            {
+                //Main.NewText("PLEASE WORK::::::" + aridimmunetime, 204, 101, 22);
+                aridimmunetime--;
             }
-            //__________________________________________________________________________________________________
 
+            //______________
             /*var player = Main.LocalPlayer;
             float distanceX = player.Center.X - npc.Center.X;
             float distanceY = player.Center.Y - npc.Center.Y;
@@ -679,10 +689,12 @@ namespace StormDiversMod.Basefiles
 
 
             }
-            if (projectile.type == ModContent.ProjectileType<Projectiles.AncientArmourProj>())
+            if (projectile.type == ModContent.ProjectileType<Projectiles.AncientArmourProj>()) //No crit from arid explosion
             {
                 crit = false;
             }
+        
+          
 
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
@@ -708,6 +720,7 @@ namespace StormDiversMod.Basefiles
             }
 
         }
+        
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
         }

@@ -19,22 +19,49 @@ using Terraria.UI;
 
 namespace StormDiversMod.Basefiles
 {
-    public class Configurations : ModConfig //configuration settings
+    public class ConfigurationsGlobal : ModConfig //configuration settings
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("Enemies")]
-        [Label("Overloaded Scandrone acts as a Plantera Alternative")]
-        [Tooltip("This will make defeating Overloaded Scandrone activate everything that defeating the Plantera would")]
-        [DefaultValue(false)]
-        //[ReloadRequired] //No reload required as it just prevents a single bool being activated
-        public bool StormBossSkipsPlant { get; set; }
-    
+        [Header("Celestial Event Shield")]
+
+        [Label("Pillar shield kill count (Classic Mode)")]
+        [Tooltip("How many enemies will have to be defeated for the shield to be destroyed in Classic difficulty (Requires reload)")]
+        [Range(25, 100)]
+        [Slider] 
+        [DefaultValue(100)]
+        [ReloadRequired] //Yes
+        public int shieldHealthNormal;
+
+        [Label("Pillar shield kill count (Expert+ Mode)")]
+        [Tooltip("How many enemies will have to be defeated for the shield to be destroyed in Expert or Master (Requires reload)")]
+        [Range(25, 150)]
+        [Slider]      
+        [DefaultValue(150)]
+        [ReloadRequired] //Yes
+        public int shieldHealthExpert;
+
+        [Header("Enemy Spawning")]
+
         [Label("Prevent modded pillar enemies from spawning")]
         [Tooltip("This will prevent the new pillar enemies in this mod from spawning")]
         //[ReloadRequired] //No reload required as it just changes the spawn chance and doesn't disable the enemy itself
         [DefaultValue(false)]
         public bool PreventPillarEnemies { get; set; }
+
+        [Label("Disable Temple Guardians pre Plantera")]
+        [Tooltip("Prevent Temple Guardians from spawning when entering the temple pre-Plantera (Not recommended)")]
+        //[ReloadRequired] //Sadly no
+        [DefaultValue(false)]
+        public bool SmellyPlayer { get; set; }
+
+        [Header("Enemy Misc")]
+
+        [Label("Overloaded Scandrone acts as a Plantera Alternative")]
+        [Tooltip("This will make defeating Overloaded Scandrone activate everything that defeating the Plantera would")]
+        [DefaultValue(false)]
+        //[ReloadRequired] //No reload required as it just prevents a single bool being activated
+        public bool StormBossSkipsPlant { get; set; }
 
         [Label("Disable buffed Derplings")]
         [Tooltip("This will prevent Derplings from gaining massively increased stats post-plantera")]
@@ -42,14 +69,8 @@ namespace StormDiversMod.Basefiles
         [DefaultValue(false)]
         public bool PreventBuffedDerps { get; set; }
 
-        [Header("Visual")]
-        [Label("Disable screen shake effects")]
-        [Tooltip("Disables the screen shake that a few items in this mod make")]
-        //[ReloadRequired] //None required
-        [DefaultValue(false)]
-        public bool NoShake { get; set; }
-
         [Header("Misc")]
+
         [Label("Revert modded throwing weapons to throwing class")]
         [Tooltip("This will make all weapons in the mod that were previously throwing deal thrown damage (Requires reload)")]
         [ReloadRequired] //Yes

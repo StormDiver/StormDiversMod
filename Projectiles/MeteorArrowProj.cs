@@ -67,7 +67,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.localAI[0] = 1f;
             }
             Vector2 move = Vector2.Zero;
-            float distance = 100f;
+            float distance = 200f;
             bool target = false;
             if (hometime <= 15)
             {

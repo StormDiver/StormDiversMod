@@ -192,26 +192,27 @@ namespace StormDiversMod.Projectiles
 
 
 
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 60; i++) //Flame particle
             {
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 3f);
+                Vector2 perturbedSpeed = new Vector2(0, -8f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 2f);
                 Main.dust[dustIndex].noGravity = true;
-                Main.dust[dustIndex].velocity *= 4f;
                 
             }
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++) //Grey Dust circle
             {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.Center;
-                dust = Main.dust[Terraria.Dust.NewDust(position, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
+
+                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
                 dust.scale = 2f;
                 dust.velocity *= 3;
 
 
             }
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++) //Grey dust fade
             {
 
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
