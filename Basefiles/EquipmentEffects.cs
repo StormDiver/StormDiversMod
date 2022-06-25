@@ -575,14 +575,14 @@ namespace StormDiversMod.Basefiles
                 if (!spikespawned) //24 frames between spawns
                 {
 
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 0);
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 60);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 0);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 60);
 
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 120);
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 180);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 120);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 180);
 
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 240);
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 100, 0f, Player.whoAmI, 0, 300);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 240);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 300);
 
                     spikespawned = true;
 

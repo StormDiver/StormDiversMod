@@ -19,7 +19,6 @@ namespace StormDiversMod.Items.Armour
     public class NightsBHelmet : ModItem
     {
 
-       
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

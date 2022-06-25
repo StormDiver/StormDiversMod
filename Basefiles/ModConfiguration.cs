@@ -23,24 +23,6 @@ namespace StormDiversMod.Basefiles
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("Celestial Event Shield")]
-
-        [Label("Pillar shield kill count (Classic Mode)")]
-        [Tooltip("How many enemies will have to be defeated for the shield to be destroyed in Classic difficulty (Requires reload)")]
-        [Range(25, 100)]
-        [Slider] 
-        [DefaultValue(100)]
-        [ReloadRequired] //Yes
-        public int shieldHealthNormal;
-
-        [Label("Pillar shield kill count (Expert+ Mode)")]
-        [Tooltip("How many enemies will have to be defeated for the shield to be destroyed in Expert or Master (Requires reload)")]
-        [Range(25, 150)]
-        [Slider]      
-        [DefaultValue(150)]
-        [ReloadRequired] //Yes
-        public int shieldHealthExpert;
-
         [Header("Enemy Spawning")]
 
         [Label("Prevent modded pillar enemies from spawning")]

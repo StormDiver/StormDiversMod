@@ -61,7 +61,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("The strongest souls can escape the cauldron, only to be stuck in a smaller one.")
+				new FlavorTextBestiaryInfoElement("The strongest of souls can be separated from the main cauldron, to assist it in battle.")
             });
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

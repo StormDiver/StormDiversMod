@@ -32,13 +32,12 @@ namespace StormDiversMod.NPCs
             AIType = NPCID.Derpling;
             AnimationType = NPCID.Derpling;
             NPC.alpha = 3;
-            NPC.dontTakeDamageFromHostiles = true;
             NPC.damage = 80;
             
             NPC.defense = 10;
             NPC.lifeMax = 800;
           
-                NPC.HitSound = SoundID.NPCHit1;
+            NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath18;
             NPC.knockBackResist = 0.5f;
             Item.buyPrice(0, 0, 0, 0);

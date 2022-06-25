@@ -975,15 +975,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 }
                 else
                 {
-                    for (int j = 0; j < 50; j++)
-                    {
-                        float speedY = -4f;
-
-                        Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-
-                        int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 229, dustspeed.X, dustspeed.Y, 229, default, 1.5f);
-                        Main.dust[dust2].noGravity = true;
-                    }
+                    
                     Projectile.Kill();
                 }
             }

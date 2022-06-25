@@ -122,10 +122,10 @@ namespace StormDiversMod.Projectiles
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (target.defense <= 500)
+            /*if (target.defense <= 500)
             {
                 damage = damage + (int)(target.defense * 0.5f);
-            }
+            }*/
         }
         public override void Kill(int timeLeft)
         {

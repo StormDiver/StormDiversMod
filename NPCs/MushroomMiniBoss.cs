@@ -24,7 +24,6 @@ namespace StormDiversMod.NPCs
                                                       // make sure to set this for your modnpcs.
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
-
         }
         public override void SetDefaults()
         {

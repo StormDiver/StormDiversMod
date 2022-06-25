@@ -101,7 +101,7 @@ namespace StormDiversMod.Projectiles
 			{
 				if (Projectile.owner == Main.myPlayer)
 				{
-					if (Projectile.localAI[1] == 1)
+					if (Projectile.localAI[1] == 0)
 					{
 						mousepos = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y); //Set position 
 					}

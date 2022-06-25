@@ -81,14 +81,26 @@ namespace StormDiversMod.NPCs
         float jumpheight; //Jumpy
         float moveatspeed; //How fast it runs
 
-
+        Player player;
+        public override bool? CanFallThroughPlatforms()
+        {
+            if (player.position.Y > NPC.Bottom.Y && Collision.CanHitLine(NPC.Center, 0, 0, player.Center, 0, 0) && attackmode) // fall through platforms is player is below
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
         public override void AI()
         {
             for (int k = 0; k < NPC.buffImmune.Length; k++)
             {
                 NPC.buffImmune[k] = true;
             }
-            Player player = Main.player[NPC.target];
+            player = Main.player[NPC.target];
             Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
@@ -104,8 +116,8 @@ namespace StormDiversMod.NPCs
 
             if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
             {
-                moveatspeed = 15 + (distance / 50);
-                if ((NPC.velocity.X > 5 || NPC.velocity.X < -5) && NPC.velocity.Y == 0)
+                moveatspeed = 15 + ((distanceX * distanceX) / 500); //speed increases the further away it is
+                if ((NPC.velocity.X > 5 || NPC.velocity.X < -5) && NPC.velocity.Y == 0) 
                 {
                     if (Main.rand.Next(3) == 0)
                     {
@@ -114,18 +126,18 @@ namespace StormDiversMod.NPCs
 
                     }
                 }
-                if (moveatspeed > 25)
+                if (moveatspeed > 25) //movement speed cap
                 {
                     moveatspeed = 25;
                 }
             }
             else
             {
-                moveatspeed = 10 + (distance / 50);
+                moveatspeed = 10 + ((distanceX * distanceX) / 500); //speed icreases the further away it is
 
-                if (moveatspeed > 18)
+                if (moveatspeed > 15) //movement speed cap
                 {
-                    moveatspeed = 18;
+                    moveatspeed = 15;
                 }
             }
 
@@ -181,14 +193,6 @@ namespace StormDiversMod.NPCs
                         {
                             NPC.velocity.Y = -12 + jumpheight;
                             jump = true;
-                        }
-                        if (player.position.Y > NPC.Bottom.Y && Collision.CanHitLine(NPC.Center, 0, 0, player.Center, 0, 0)) // fall through platforms is player is below
-                        {
-                            NPC.noTileCollide = true;
-                        }
-                        else
-                        {
-                            NPC.noTileCollide = false;
                         }
 
                         if (!jump && NPC.velocity.Y == 0 && !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && player.position.Y - 10 < NPC.position.Y) //Jump if cannot detect player

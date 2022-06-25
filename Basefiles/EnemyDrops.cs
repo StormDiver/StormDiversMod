@@ -119,25 +119,9 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
-            /*if (npc.type == NPCID.CultistBoss) //Cultist Treasurebag, new method works now
-            {
-                if (Main.expertMode) 
-                {
-
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.CultistBossBag);
-
-                }
-            }*/
             //Items with drop requirements-------------------------------------------------------------------------------
-
-            if (npc.type == NPCID.IceBat || npc.type == NPCID.SnowFlinx || npc.type == NPCID.SpikedIceSlime || npc.type == NPCID.UndeadViking)
-            {
-                if (Main.rand.Next(100) == 0)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<IceStaff>());
-                }
-            }
-            if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion|| npc.type == NPCID.GiantFlyingAntlion)
+         
+            if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion|| npc.type == NPCID.GiantFlyingAntlion) //needs to drop with ammo
             {
                 if (Main.rand.Next(100) == 0)
                 {
@@ -146,7 +130,6 @@ namespace StormDiversMod.Basefiles
 
                 }
             }
-
 
             if ((NPC.downedMechBossAny && !NPC.downedMoonlord) && (npc.type == NPCID.Duck || npc.type == NPCID.Duck2 || npc.type == NPCID.DuckWhite || npc.type == NPCID.DuckWhite2))
             {
@@ -159,7 +142,7 @@ namespace StormDiversMod.Basefiles
 
             }
 
-            if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton)
+            if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
             {
                 if (Main.rand.Next(100) < 5)
 
@@ -351,9 +334,14 @@ namespace StormDiversMod.Basefiles
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MossRepeater>(), 50));
 
             }
-        
 
-          
+            if (npc.type == NPCID.IceBat || npc.type == NPCID.SnowFlinx || npc.type == NPCID.SpikedIceSlime || npc.type == NPCID.UndeadViking)
+            {
+              
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IceStaff>(), 50));
+
+            }
+
             if (npc.type == NPCID.GrayGrunt || npc.type == NPCID.RayGunner || npc.type == NPCID.GigaZapper || npc.type == NPCID.MartianEngineer || npc.type == NPCID.MartianOfficer || npc.type == NPCID.BrainScrambler)
             {
 

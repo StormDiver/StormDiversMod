@@ -19,8 +19,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Spinner");
-            Tooltip.SetDefault("Throw out spinning projectiles that linger in place\nLimit of 6 projectiles at a time, right click to remove all thrown projectiles");
+            DisplayName.SetDefault("Lihzahrd Sawblade");
+            Tooltip.SetDefault("Throw out spinning sawblades that linger in place\nLimit of 6 sawblades at a time, right click to remove all thrown sawblades");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
