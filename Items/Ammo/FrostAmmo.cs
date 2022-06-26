@@ -43,7 +43,7 @@ namespace StormDiversMod.Items.Ammo
         {
             
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<FrostBullet>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<FrostBullet>(), 100);
             recipe.AddIngredient(ItemID.MusketBall, 100);
             recipe.AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 1);
             recipe.AddTile(TileID.MythrilAnvil);
@@ -88,7 +88,7 @@ namespace StormDiversMod.Items.Ammo
         {
             
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<FrostArrow>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<FrostArrow>(), 100);
             recipe.AddIngredient(ItemID.WoodenArrow, 100);
             recipe.AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 1);
             recipe.AddTile(TileID.MythrilAnvil);

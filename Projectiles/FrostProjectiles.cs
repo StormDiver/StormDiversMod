@@ -168,6 +168,8 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
+            Projectile.ContinuouslyUpdateDamage = true;
+
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

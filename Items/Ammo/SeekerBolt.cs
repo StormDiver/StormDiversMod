@@ -40,7 +40,7 @@ namespace StormDiversMod.Items.Ammo
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<SeekerBolt>(), 333);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<SeekerBolt>(), 333);
             recipe.AddIngredient(ItemID.HallowedBar, 1);
             recipe.AddIngredient(ItemID.SoulofSight, 1);
             recipe.AddTile(TileID.MythrilAnvil);

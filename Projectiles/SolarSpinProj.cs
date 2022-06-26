@@ -30,6 +30,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.DamageType = DamageClass.Melee;
             Projectile.extraUpdates = 1;
             //Projectile.scale = 1.2f;
+            Projectile.ContinuouslyUpdateDamage = true;
 
 
         }

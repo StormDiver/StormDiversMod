@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Ammo
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<ShroomArrow>(), 150);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<ShroomArrow>(), 150);
             recipe.AddIngredient(ItemID.ShroomiteBar, 1);
             recipe.AddIngredient(ItemID.WoodenArrow, 150);
             recipe.AddTile(TileID.MythrilAnvil);

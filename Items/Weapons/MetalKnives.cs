@@ -59,7 +59,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<MetalSilverKnive>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<MetalSilverKnive>(), 100);
             recipe.AddIngredient(ItemID.ThrowingKnife, 100);
             recipe.AddIngredient(ItemID.SilverBar, 1);
             recipe.AddTile(TileID.Anvils);
@@ -112,7 +112,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<MetalTungstenKnive>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<MetalTungstenKnive>(), 100);
             recipe.AddIngredient(ItemID.ThrowingKnife, 100);
             recipe.AddIngredient(ItemID.TungstenBar, 1);
             recipe.AddTile(TileID.Anvils);

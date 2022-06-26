@@ -12,12 +12,11 @@ There's over 300 total modded items for you to discover; including weapons, acce
 [*]New bars and other crafting materials
 [*]A bunch of different buffs and debuffs inflicted from a range of sources
 [*]10 new potions
-[*]5 new Vanity sets and a 2 speical vanity masks
+[*]5 new Vanity sets and a 2 special vanity masks
 [*]4 new pets
 [*]25 new enemies across the game, most with their own banner
 [*]1 new unique boss that can be fought in place of the Plantera (config option)
 [*]New recipes for certain uncraftable vanilla items
-[*]Configurable pillar shield kill count 
 [/list]
 
 Join the Discord server here: https://discord.gg/VJvf2HkxtA

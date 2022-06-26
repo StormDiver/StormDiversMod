@@ -41,7 +41,7 @@ namespace StormDiversMod.Items.Ammo
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<DualArrow>(), 50);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<DualArrow>(), 50);
             recipe.AddIngredient(ItemID.WoodenArrow, 50);
             recipe.AddIngredient(ItemID.Rope, 5);
             recipe.AddTile(TileID.WorkBenches);

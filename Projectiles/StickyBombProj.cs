@@ -23,9 +23,7 @@ namespace StormDiversMod.Projectiles
         {
             Projectile.width = 20;
             Projectile.height = 20;
-
-
-           
+ 
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.aiStyle = 2;
@@ -38,6 +36,8 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = -1;
             DrawOriginOffsetY = -1;
+            Projectile.ContinuouslyUpdateDamage = true;
+
         }
         bool stick; //wheter bomb has hit a tile
         bool boomed; //when it is exploding

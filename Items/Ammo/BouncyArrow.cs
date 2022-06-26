@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Ammo
         public override void AddRecipes()
         {
          
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<BouncyArrow>(), 25);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BouncyArrow>(), 25);
             recipe.AddIngredient(ItemID.WoodenArrow, 25);
             recipe.AddIngredient(ItemID.PinkGel, 1);
 

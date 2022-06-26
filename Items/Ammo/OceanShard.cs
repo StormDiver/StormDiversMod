@@ -45,7 +45,7 @@ namespace StormDiversMod.Items.Ammo
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<OceanShard>(), 200);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<OceanShard>(), 200);
             recipe.AddIngredient(ItemID.Coral, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();

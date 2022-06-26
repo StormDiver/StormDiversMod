@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Ammo
         {
 
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<MeteorArrow>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<MeteorArrow>(), 100);
             recipe.AddIngredient(ItemID.WoodenArrow, 100);
             recipe.AddIngredient(ItemID.MeteoriteBar, 1);
             recipe.AddTile(TileID.Anvils);

@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Ammo
         {
 
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<IronShot>(), 70);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<IronShot>(), 70);
             recipe.AddIngredient(ItemID.MusketBall, 70);
             recipe.AddIngredient(ItemID.IronBar, 1);
             recipe.AddTile(TileID.Anvils);
@@ -92,7 +92,7 @@ namespace StormDiversMod.Items.Ammo
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<LeadShot>(), 70);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<LeadShot>(), 70);
             recipe.AddIngredient(ItemID.MusketBall, 70);
             recipe.AddIngredient(ItemID.LeadBar, 1);
             recipe.AddTile(TileID.Anvils);

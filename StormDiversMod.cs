@@ -51,10 +51,8 @@ namespace StormDiversMod
         public static ModKeybind ArmourSpecialHotkey;
         public override void Load()
         {
-
             ArmourSpecialHotkey = KeybindLoader.RegisterKeybind(this, "Armor Special Ability", "V");
-
-            /*if (GetInstance<Configurations>().NoDamageSpread)
+            /*if (GetInstance<ConfigurationsGlobal>().NoDamageSpread)
             {
                 //!!All credit goes to Kojo's mod called Rho's Playground!!
                 On.Terraria.Main.DamageVar += (orig, damage, luck) => (int)Math.Round(damage * Main.rand.NextFloat(1, 1)); //No damage variance
@@ -66,7 +64,7 @@ namespace StormDiversMod
         }
         public StormDiversMod()
 		{
-
+             
 		}
         public override void AddRecipeGroups() //Recipe Groups
         {
@@ -156,7 +154,6 @@ namespace StormDiversMod
                 ItemID.SoulofMight,
                 ItemID.SoulofSight,
                 ItemID.SoulofFright,
-
            });
             RecipeGroup.RegisterGroup("StormDiversMod:MechSoul", group);
         }

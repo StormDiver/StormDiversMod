@@ -32,7 +32,8 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
             DrawOffsetX = 7;
             DrawOriginOffsetY = 0;
-  
+            Projectile.ContinuouslyUpdateDamage = true;
+
         }
 
         public override void AI()
@@ -95,6 +96,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.DamageType = DamageClass.Melee;
             DrawOffsetX = 6;
             DrawOriginOffsetY = 0;
+            Projectile.ContinuouslyUpdateDamage = true;
 
 
         }
@@ -146,6 +148,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.DamageType = DamageClass.Melee;
             DrawOffsetX = 5;
             DrawOriginOffsetY = 0;
+            Projectile.ContinuouslyUpdateDamage = true;
 
 
         }

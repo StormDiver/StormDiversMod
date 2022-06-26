@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Potions
 
         public override void AddRecipes()
         {
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<GunPotion>(), 1);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<GunPotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
             recipe.AddIngredient(ItemID.Lens);
             recipe.AddIngredient(ItemID.Blinkroot);
@@ -79,7 +79,7 @@ namespace StormDiversMod.Items.Potions
 
         public override void AddRecipes()
         {
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<BloodPotion>(), 1);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BloodPotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 2);
             recipe.AddTile(TileID.Bottles);
@@ -120,7 +120,7 @@ namespace StormDiversMod.Items.Potions
 
         public override void AddRecipes()
         {
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<ShroomitePotion>(), 1);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<ShroomitePotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
             recipe.AddIngredient(ItemID.ShroomiteBar, 1);
             recipe.AddIngredient(ItemID.Moonglow, 2);
@@ -161,7 +161,7 @@ namespace StormDiversMod.Items.Potions
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<SpectrePotion>(), 1);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<SpectrePotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
             recipe.AddIngredient(ItemID.Ectoplasm, 2);
             recipe.AddIngredient(ItemID.Waterleaf, 2);
@@ -212,7 +212,7 @@ namespace StormDiversMod.Items.Potions
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<BeetlePotion>(), 1);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BeetlePotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
             recipe.AddIngredient(ItemID.BeetleHusk, 2);
             recipe.AddIngredient(ItemID.Fireblossom, 2);
@@ -253,7 +253,7 @@ namespace StormDiversMod.Items.Potions
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<SpookyPotion>(), 1);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<SpookyPotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
             recipe.AddIngredient(ItemID.SpookyWood, 40);
             recipe.AddIngredient(ItemID.Shiverthorn, 2);

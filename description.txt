@@ -1,4 +1,4 @@
-Storm's Additions Mod (Formerly Storm Diver’s Additions Mod) is a small-medium sized content/Minor QoL mod that adds unique content throughout different areas of the game where content seems lacking, along with unique items thrown in here and there. It even makes some hard to obtain vanilla items a little easier to get.
+[c/22DD97:Storm's Additions Mod] (Formerly Storm Diver’s Additions Mod), is a decently sized content mod that adds unique content throughout different areas of the game where content seems lacking, along with unique items thrown in here and there. It even makes some hard to obtain vanilla items a little easier to get.
 
 There's over 300 total modded items for you to discover; including weapons, accessories, ammo, tools, armour, vanity sets, enemies, and more. Many are crafted with vanilla items, but some have their own modded ingredients added to the recipes.
 
@@ -12,17 +12,15 @@ This mod includes:
 -New bars and other crafting materials
 -A bunch of different buffs and debuffs inflicted from a range of sources
 -10 new potions
--5 new Vanity sets and a 2 speical vanity masks
+-5 new Vanity sets and a 2 special vanity masks
 -4 new pets
 -25 new enemies across the game, most with their own banner
 -1 new unique boss that can be fought in place of the Plantera (config option)
 -New recipes for certain uncraftable vanilla items
--Configurable pillar shield kill count 
 
-Join the Discord server here: https://discord.gg/VJvf2HkxtA
-Check out the Mod wiki here: (Currently only updated to date with the 1.3 version of this mod)
-https://terrariamods.fandom.com/wiki/Storm_Diver%27s_Additions_Mod
+Make sure to check the Steam page for the changelog, and the leave any comments you have about the mod
 
-Credit to Hyperkatmanders for updating some of the sprites and providing balance suggestions
+Creator, coder, and main spriter: [c/22DD97:The Storm]
+Spriter and playtester: [c/EE59E3:Hyperkatmanders]
 
 Please note that if you previously used the 1.3 version of the mod and import that 1.3 world/character you will lose any of this mod’s items obtained due to an internal name change and file renaming! If this is the case it is highly recommended to start a brand new playthrough.

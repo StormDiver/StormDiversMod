@@ -39,12 +39,12 @@ namespace StormDiversMod.Items.Ammo
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<StoneShot>(), 111);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<StoneShot>(), 111);
             recipe.AddIngredient(ItemID.StoneBlock, 333);    
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
 
-            recipe = Mod.CreateRecipe(ItemID.StoneBlock, 333);
+            recipe = Recipe.Create(ItemID.StoneBlock, 333);
             recipe.AddIngredient(ModContent.ItemType<StoneShot>(), 111);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();

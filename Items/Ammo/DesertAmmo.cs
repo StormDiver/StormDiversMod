@@ -41,7 +41,7 @@ namespace StormDiversMod.Items.Ammo
 
         public override void AddRecipes()
         {
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<DesertBullet>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<DesertBullet>(), 100);
             recipe.AddIngredient(ItemID.MusketBall, 100);
             recipe.AddIngredient(ModContent.ItemType<Items.OresandBars.DesertBar>(), 1);
             recipe.AddTile(TileID.MythrilAnvil);
@@ -85,7 +85,7 @@ namespace StormDiversMod.Items.Ammo
         public override void AddRecipes()
         {
           
-            Recipe recipe = Mod.CreateRecipe(ModContent.ItemType<DesertArrow>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<DesertArrow>(), 100);
             recipe.AddIngredient(ItemID.WoodenArrow, 100);
             recipe.AddIngredient(ModContent.ItemType<Items.OresandBars.DesertBar>(), 1);
             recipe.AddTile(TileID.MythrilAnvil);
