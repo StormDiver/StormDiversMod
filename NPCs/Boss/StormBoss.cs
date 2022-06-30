@@ -215,20 +215,26 @@ namespace StormDiversMod.NPCs.Boss
             {
                 if (NPC.ai[3] == 0) //No attacks when first summoned, or when changing to phase 3
                 {
-                    if (lowlife)
+                   
+                    if (lowlife && NPC.localAI[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NPC.defense = 999; //Defence while in phase transistion
+                        NPC.netUpdate = true;
+
                     }
                     animateclaws = true;
 
-                    NPC.localAI[0]++;
-                    if (!lowlife && NPC.localAI[0] == 1 && Main.netMode != NetmodeID.MultiplayerClient)//Set postion when first spawned
+                    
+                    if (!lowlife && NPC.localAI[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)//Set postion when first spawned
                     {
                         NPC.localAI[2] = 0;
                         NPC.localAI[3] = -200;
                         NPC.netUpdate = true;
 
                     }
+
+                    NPC.localAI[0]++;
+
                     if (!charge && NPC.localAI[0] >= 60 && Main.netMode != NetmodeID.MultiplayerClient)  //After one second set new values (prevents boss from glitching out when spawned via cheatsheet, and makes boss back up before charging)
                     {
                         if (!lowlife)
@@ -260,8 +266,9 @@ namespace StormDiversMod.NPCs.Boss
                             NPC.defense = 0; //reduced defence to 0
                             NPC.ai[3] = 5;
                         }
-                        NPC.netUpdate = true;
                         NPC.localAI[0] = 0;
+                        NPC.netUpdate = true;
+
                     }
                 }
 
@@ -528,11 +535,11 @@ namespace StormDiversMod.NPCs.Boss
 
                         }
                         NPC.ai[1]++;//Count up to dash only when orbiting
-                        if (NPC.ai[1] > (180 + Main.rand.Next(200)) && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (NPC.ai[1] > (180 + Main.rand.Next(200)))
 
                         {
                             charge = true;
-                            NPC.netUpdate = true;
+                            //NPC.netUpdate = true;
 
                         }
                     }
@@ -588,8 +595,9 @@ namespace StormDiversMod.NPCs.Boss
                         {
 
                             NPC.velocity *= 0.96f;
+                            NPC.netUpdate = true;
+
                         }
-                        NPC.netUpdate = true;
                     }
                     if (NPC.ai[2] < 45 && NPC.ai[0] > 9 || (halflife && NPC.ai[0] > 6))//faster firing on half life
 
@@ -710,7 +718,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (NPC.localAI[0] > (100 + Main.rand.Next(100)) && Main.netMode != NetmodeID.MultiplayerClient) //Change to next attack
                 {
-
+                    NPC.ai[1] = 0;
                     NPC.ai[0] = 0;
 
                     NPC.ai[3]++;
@@ -1201,16 +1209,18 @@ namespace StormDiversMod.NPCs.Boss
          }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) //Trial
         {
-            Main.instance.LoadProjectile(NPC.type);
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/Boss/StormBoss");
-
-            if (charge)
+            if (!Main.dedServ)
             {
-                for (int k = 0; k < NPC.oldPos.Length; k++)
+                Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/Boss/StormBoss");
+
+                if (charge)
                 {
-                    Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-12, 20 + NPC.gfxOffY);
-                    Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
-                    Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    for (int k = 0; k < NPC.oldPos.Length; k++)
+                    {
+                        Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-12, 20 + NPC.gfxOffY);
+                        Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
+                        Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    }
                 }
             }
                 return true;        

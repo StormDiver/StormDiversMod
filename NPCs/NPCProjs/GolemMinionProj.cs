@@ -28,8 +28,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             
             Projectile.light = 0.4f;
             
-            Projectile.friendly = false;
-            Projectile.hostile = true;
+           
             
             Projectile.penetrate = 1;
             
@@ -49,6 +48,8 @@ namespace StormDiversMod.NPCs.NPCProjs
             //aiType = 452;
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
         }
         
        

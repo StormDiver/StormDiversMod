@@ -466,7 +466,7 @@ namespace StormDiversMod.Basefiles
             //For Spooky Core======================
             if (spooked)
             {
-                float distancehealth = 600 + ((Player.statLifeMax2 - Player.statLife) / 2);
+                float distancehealth = 500 + ((Player.statLifeMax2 - Player.statLife) / 2);
                 if (distancehealth > 1000)
                 {
                     distancehealth = 1000;

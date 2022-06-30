@@ -926,7 +926,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 72) //Aim indicator
             {
-                if (!Main.dedServ)
+                //if (!Main.dedServ)
                 {
                     Dust dust;
                     dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(shootToX * 2f + Projectile.velocity.X, shootToY * 2f + Projectile.velocity.Y), 0, new Color(255, 255, 255), 2f);

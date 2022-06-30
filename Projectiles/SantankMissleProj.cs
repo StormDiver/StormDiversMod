@@ -43,6 +43,8 @@ namespace StormDiversMod.Projectiles
         {
             var player = Main.player[Projectile.owner];
 
+            //Projectile.damage = (int)player.GetTotalDamage(DamageClass.Ranged).ApplyTo(Projectile.originalDamage);
+
             /*if (Projectile.position.Y > (player.position.Y - 250) && Projectile.position.Y < player.position.Y)
             {
                 Projectile.tileCollide = false;

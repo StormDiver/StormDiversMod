@@ -34,7 +34,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.DamageType = DamageClass.Melee;
             DrawOffsetX = 8;
             DrawOriginOffsetY = 0;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
 
         }
@@ -44,9 +44,11 @@ namespace StormDiversMod.Projectiles.ToolsProjs
            
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-           
 
-           
+            var player = Main.player[Projectile.owner];
+
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
+
             AnimateProjectile();
         }
 
@@ -100,7 +102,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.DamageType = DamageClass.Melee;
             DrawOffsetX = 10;
             DrawOriginOffsetY = 0;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
 
         }
@@ -111,8 +113,10 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
 
+            var player = Main.player[Projectile.owner];
 
-           
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
+
             AnimateProjectile();
         }
 
@@ -153,7 +157,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.DamageType = DamageClass.Melee;
             DrawOffsetX = 9;
             DrawOriginOffsetY = 0;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
 
         }
@@ -164,7 +168,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
 
+            var player = Main.player[Projectile.owner];
 
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
 
             AnimateProjectile();
         }

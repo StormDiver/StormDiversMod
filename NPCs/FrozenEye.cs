@@ -127,7 +127,7 @@ namespace StormDiversMod.NPCs
                     {
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(7));
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack, Main.myPlayer);
                         NPC.velocity.X = velocity.X * -0.2f;
                         NPC.velocity.Y = velocity.Y * -0.2f;
                         NPC.netUpdate = true;

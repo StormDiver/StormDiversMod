@@ -71,35 +71,35 @@ namespace StormDiversMod
             //recipe.AddRecipeGroup("StormDiversMod:EvilBars", 10);
 
 
-            RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Bar", new int[]
+            RecipeGroup group = new RecipeGroup(() => "Demonite or Crimtane Bar", new int[]
             {
                 ItemID.DemoniteBar,
                 ItemID.CrimtaneBar
             });
             RecipeGroup.RegisterGroup("StormDiversMod:EvilBars", group);
 
-            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Golden Bar", new int[]
+            group = new RecipeGroup(() => "Gold or Platinum Bar", new int[]
             {
                 ItemID.GoldBar,
                 ItemID.PlatinumBar
             });
             RecipeGroup.RegisterGroup("StormDiversMod:GoldBars", group);
 
-            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Golden Ore", new int[]
+            group = new RecipeGroup(() => "Gold or Platinum Ore", new int[]
             {
                 ItemID.GoldOre,
                 ItemID.PlatinumOre
             });
             RecipeGroup.RegisterGroup("StormDiversMod:GoldOres", group);
 
-            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Material", new int[]
+            group = new RecipeGroup(() => "Shadow Scale or Tissue Sample", new int[]
             {
                 ItemID.ShadowScale,
                 ItemID.TissueSample
             });
             RecipeGroup.RegisterGroup("StormDiversMod:EvilMaterial", group);
     
-            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Running Boots", new int[]
+            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Base Running Boots", new int[]
             {
                 ItemID.HermesBoots,
                 ItemID.FlurryBoots,
@@ -108,7 +108,7 @@ namespace StormDiversMod
             });
             RecipeGroup.RegisterGroup("StormDiversMod:RunBoots", group);
 
-            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Anvil", new int[]
+            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Prehardmode Anvil", new int[]
             {
                 ItemID.IronAnvil,
                 ItemID.LeadAnvil,
@@ -116,7 +116,15 @@ namespace StormDiversMod
             });
             RecipeGroup.RegisterGroup("StormDiversMod:Anvils", group);
 
-            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tier 2 Hardmode Bar", new int[]
+            group = new RecipeGroup(() => "Cobalt or Palladium Bar", new int[]
+          {
+                ItemID.CobaltBar,
+                ItemID.PalladiumBar,
+
+          });
+            RecipeGroup.RegisterGroup("StormDiversMod:LowHMBars", group);
+
+            group = new RecipeGroup(() => "Mythril or Orichalcum Bar", new int[]
            {
                 ItemID.MythrilBar,
                 ItemID.OrichalcumBar,
@@ -124,13 +132,13 @@ namespace StormDiversMod
            });
             RecipeGroup.RegisterGroup("StormDiversMod:MidHMBars", group);
 
-            group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tier 3 Hardmode Bar", new int[]
+            group = new RecipeGroup(() => "Adamantite or Titanium Bar", new int[]
            {
                 ItemID.AdamantiteBar,
                 ItemID.TitaniumBar,
 
            });
-            RecipeGroup.RegisterGroup("StormDiversMod:T3HMBars", group);
+            RecipeGroup.RegisterGroup("StormDiversMod:HighHMBars", group);
 
             group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tombstone", new int[]
           {
@@ -158,15 +166,16 @@ namespace StormDiversMod
             RecipeGroup.RegisterGroup("StormDiversMod:MechSoul", group);
         }
     }
-    /*public class immunity : GlobalProjectile
+    public class immunity : GlobalProjectile
     {
-        public override void SetDefaults(Projectile projectile)
+        /*public override void SetDefaults(Projectile projectile)
         {
             if (projectile.type == ProjectileID.TerrarianBeam)
             {
                 projectile.usesLocalNPCImmunity = true;
                 projectile.localNPCHitCooldown = 10;
             }
-        }
-    }*/
+        }*/
+     
+    }
 }

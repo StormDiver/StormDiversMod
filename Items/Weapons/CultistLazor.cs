@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mysterious Cultist Hood");
-            Tooltip.SetDefault("Charge up and fire a damaging laser from this strange cultist hood\nWait, What!?");
+            Tooltip.SetDefault("Charge up and fire a damaging laser from this strange cultist hood that rapidly drains mana\nWait, What!?");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -30,18 +30,29 @@ namespace StormDiversMod.Items.Weapons
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useTurn = false;
-            Item.autoReuse = false;
+            Item.autoReuse = true;
             Item.DamageType = DamageClass.Magic;
             //Item.UseSound = SoundID.Item13;
             Item.channel = true;
             Item.damage = 85;
             Item.knockBack = 2f;
-            Item.mana = 6;
-            Item.shoot = ModContent.ProjectileType < Projectiles.CultistLazorProj>();
+            //Item.mana = 1;
+            Item.shoot = ModContent.ProjectileType <Projectiles.CultistLazorProj>();
             Item.shootSpeed = 0f;
 
 
             Item.noMelee = true;
+        }
+        public override bool CanUseItem(Player player) //cannot be used if the player has less than 10 mana
+        {
+            if (player.statMana < 10)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         public override Vector2? HoldoutOffset()
         {

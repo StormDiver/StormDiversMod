@@ -9,12 +9,10 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles
-{
-   
+{ 
     public class StoneSolar : ModProjectile
     {
-
-        public override void SetStaticDefaults()
+      public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Solar Stone Boulder");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -78,12 +76,7 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
             }
         }
-
-     
-
-       
-            int reflect = 2;
-
+        int reflect = 2;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -171,7 +164,6 @@ namespace StormDiversMod.Projectiles
     
     public class StoneSolarFrag : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Solar Fragment");
@@ -205,9 +197,7 @@ namespace StormDiversMod.Projectiles
             dust.noGravity = true;
             Projectile.rotation += (float)Projectile.direction * -0.2f;
 
-
         }
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
@@ -218,7 +208,6 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
-
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
 
@@ -231,10 +220,7 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
             }
         }
-
-
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
             Projectile.Kill();
             return true;

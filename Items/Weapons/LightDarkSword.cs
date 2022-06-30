@@ -121,7 +121,7 @@ namespace StormDiversMod.Items.Weapons
             .AddIngredient(ItemID.DarkShard, 1)
             .AddIngredient(ItemID.SoulofLight, 8)
             .AddIngredient(ItemID.SoulofNight, 8)
-           .AddRecipeGroup("StormDiversMod:T3HMBars", 15)
+           .AddRecipeGroup("StormDiversMod:HighHMBars", 15)
            .AddTile(TileID.MythrilAnvil)
            .Register();
            

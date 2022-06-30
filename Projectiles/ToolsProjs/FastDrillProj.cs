@@ -32,7 +32,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
             DrawOffsetX = -1;
             DrawOriginOffsetY = 0;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
         }
 
@@ -41,7 +41,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
            
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-    
+            var player = Main.player[Projectile.owner];
+
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
             AnimateProjectile();
         }
 
@@ -83,7 +85,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             DrawOffsetX = -2;
             DrawOriginOffsetY = 0;
 
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
         }
 
@@ -92,7 +94,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
+            var player = Main.player[Projectile.owner];
 
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
             AnimateProjectile();
         }
 

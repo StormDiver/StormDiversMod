@@ -30,7 +30,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.DamageType = DamageClass.Melee;
             Projectile.extraUpdates = 1;
             //Projectile.scale = 1.2f;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
 
         }
@@ -56,7 +56,6 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
         public override void AI()
         {
 
-            
             //-------------------------------------------------------------Sound-------------------------------------------------------
             Projectile.soundDelay--;
             if (Projectile.soundDelay <= 0)
@@ -66,6 +65,10 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             }
             //-----------------------------------------------How the projectile works---------------------------------------------------------------------
             Player player = Main.player[Projectile.owner];
+
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
+
+
             if (Main.myPlayer == Projectile.owner)
             {
                 if (!player.channel || player.noItems || player.CCed)

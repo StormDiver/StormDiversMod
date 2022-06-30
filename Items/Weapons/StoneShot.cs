@@ -4,16 +4,18 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using StormDiversMod.Basefiles;
+using static Terraria.ModLoader.ModContent;
 
 
-namespace StormDiversMod.Items.Ammo
+namespace StormDiversMod.Items.Weapons
 {
     public class StoneShot : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Compact Boulder");
-            Tooltip.SetDefault("For use with Stone Launchers");
+            Tooltip.SetDefault("You might have trouble throwing these far");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }
@@ -23,29 +25,41 @@ namespace StormDiversMod.Items.Ammo
             Item.height = 18;
             Item.maxStack = 999;
             Item.value = Item.sellPrice(0, 0, 0, 1);
-            Item.rare = ItemRarityID.Blue;
-            Item.DamageType = DamageClass.Ranged;
+            Item.rare = ItemRarityID.White;
 
-            Item.damage = 10;
-            
+            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
+            {
+                Item.DamageType = DamageClass.Throwing;
+            }
+            else
+            {
+                Item.DamageType = DamageClass.Ranged;
+
+            }
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.noUseGraphic = true;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.damage = 16;           
             Item.knockBack = 4f;
             Item.consumable = true;
-            
+            Item.UseSound = SoundID.Item1;
+
             Item.shoot = ModContent.ProjectileType<Projectiles.StoneProj>();
             Item.shootSpeed = 5f;
-            Item.ammo = Item.type;
+            //Item.ammo = Item.type;
         }
 
         public override void AddRecipes()
         {
 
-            Recipe recipe = Recipe.Create(ModContent.ItemType<StoneShot>(), 111);
-            recipe.AddIngredient(ItemID.StoneBlock, 333);    
+            Recipe recipe = Recipe.Create(ModContent.ItemType<StoneShot>(), 1);
+            recipe.AddIngredient(ItemID.StoneBlock, 3);    
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
 
-            recipe = Recipe.Create(ItemID.StoneBlock, 333);
-            recipe.AddIngredient(ModContent.ItemType<StoneShot>(), 111);
+            recipe = Recipe.Create(ItemID.StoneBlock, 3);
+            recipe.AddIngredient(ModContent.ItemType<StoneShot>(), 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
 

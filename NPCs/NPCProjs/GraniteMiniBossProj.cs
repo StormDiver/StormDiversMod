@@ -34,7 +34,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                
             Projectile.tileCollide = true;
                     
-            AIType = ProjectileID.Bullet;
+          
           
             
         }

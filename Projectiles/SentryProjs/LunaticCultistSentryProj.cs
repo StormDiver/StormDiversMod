@@ -158,7 +158,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     shootToX *= distance * 6f;
                     shootToY *= distance * 6f;
 
-                    int damage = 100 + ((player.maxMinions - 1) * 15); // 100 base damage, plus 15 per minion slot
+                    int damage = (int)player.GetTotalDamage(DamageClass.Summon).ApplyTo(100); 
                     if (shoottime > 30)
                     {
 

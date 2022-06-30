@@ -30,7 +30,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.ignoreWater = false;
             Projectile.sentry = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = Projectile.SentryLifeTime;
+            //Projectile.timeLeft = Projectile.SentryLifeTime;
+            Projectile.timeLeft = 36000;
             Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.usesLocalNPCImmunity = true;

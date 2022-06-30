@@ -32,7 +32,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
 
-            Projectile.timeLeft = Projectile.SentryLifeTime;
+            //Projectile.timeLeft = Projectile.SentryLifeTime;
+            Projectile.timeLeft = 36000;
             //drawOffsetX = 2;
             //drawOriginOffsetY = 2;
             Projectile.sentry = true;
@@ -393,7 +394,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width * 2, Projectile.height * 2, 135, Projectile.velocity.X, Projectile.velocity.Y, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 2f;
 

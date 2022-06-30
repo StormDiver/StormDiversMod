@@ -7,7 +7,8 @@ using StormDiversMod.Dusts;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Buffs;
+using StormDiversMod.Basefiles;
+using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.Projectiles
 {
@@ -36,7 +37,7 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = -1;
             DrawOriginOffsetY = -1;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
         }
         bool stick; //wheter bomb has hit a tile
@@ -112,11 +113,18 @@ namespace StormDiversMod.Projectiles
             }
             var player = Main.player[Projectile.owner];
 
+            //Projectile.damage = (int)player.GetTotalDamage(DamageClass.Ranged).ApplyTo(Projectile.originalDamage);
+
+
             if ((player.controlUseTile && !player.controlDown && player.HeldItem.type == ModContent.ItemType<Items.Weapons.StickyLauncher>() && boomtime > 30) || player.dead) //will go BOOM
             {
                 if (Projectile.timeLeft > 3)
                 {
                     Projectile.timeLeft = 3;
+                }
+                if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                {
+                    player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }
             }
             if ((player.controlUseTile && player.controlDown && !unstick && stick)) //will go BOOM

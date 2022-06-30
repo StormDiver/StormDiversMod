@@ -11,15 +11,60 @@ using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using StormDiversMod.Basefiles;
+using System.Collections.Generic;
 
 namespace StormDiversMod.Items.Weapons
 {
-    public class StoneThrower : ModItem
+    public class StoneAmmo : GlobalItem
+    {     
+        public override void SetDefaults(Item item)
+        {
+            if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock 
+                || item.type == ItemID.Granite || item.type == ItemID.Marble || item.type == ItemID.Sandstone || item.type == ItemID.CorruptSandstone || item.type == ItemID.CrimsonSandstone || item.type == ItemID.HallowSandstone)
+            {
+                item.ammo = ItemID.StoneBlock;
+                item.DamageType = DamageClass.Ranged;
+                item.noMelee = true;
+            }
+            if (item.type == ItemID.StoneBlock || item.type == ItemID.Granite || item.type == ItemID.Marble || item.type == ItemID.Sandstone)
+            {
+                item.damage = 15;
+                item.knockBack = 3f;
+            }
+            
+            if (item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock)
+            {
+                item.damage = 20;
+                item.knockBack = 4.5f;
+            }
+            if (item.type == ItemID.PearlstoneBlock || item.type == ItemID.CorruptSandstone || item.type == ItemID.CrimsonSandstone || item.type == ItemID.HallowSandstone)
+            {
+                item.damage = 30;
+                item.knockBack = 6f;
+            }
+        }
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock 
+                    || item.type == ItemID.Granite || item.type == ItemID.Marble || item.type == ItemID.Sandstone || item.type == ItemID.CorruptSandstone || item.type == ItemID.CrimsonSandstone || item.type == ItemID.HallowSandstone)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Material")
+                    {
+                        line.Text = "Ammo\n" + line.Text;
+                    }
+                }
+            }
+        }
+      
+    }
+        public class StoneThrower : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stone Launcher");
-            Tooltip.SetDefault("Fire out all your unwanted stone at your foes\nRequires Compact Boulders, craft more with stone");
+            DisplayName.SetDefault("Stone Cannon");
+            Tooltip.SetDefault("Fire out all your unwanted stone at your foes");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
            
         }
@@ -39,14 +84,16 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
-            Item.useAmmo = ItemType<Ammo.StoneShot>();
+            //Item.useAmmo = ItemType<Ammo.StoneShot>();
+            Item.useAmmo = ItemID.StoneBlock;
+
             Item.UseSound = SoundID.Item61;
 
             
             //Item.crit = 0;
-            Item.knockBack = 6f;
+            Item.knockBack = 5f;
 
-            Item.shootSpeed = 7.5f;
+            Item.shootSpeed = 8f;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -62,10 +109,12 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            velocity.X = velocity.X + player.velocity.X;
-            velocity.Y = velocity.Y + player.velocity.Y;
+            //velocity.X = velocity.X + player.velocity.X;
+            //velocity.Y = velocity.Y + player.velocity.Y;
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneProj>(), damage, knockback, player.whoAmI);
 
-            return true;
+            return false;
         }
 
         public override void AddRecipes()
@@ -88,8 +137,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mega Stone Launcher");
-            Tooltip.SetDefault("An upgraded stone launcher which makes stone far more deadly\nRequires Compact Boulders, craft more with stone");
+            DisplayName.SetDefault("Mega Stone Cannon");
+            Tooltip.SetDefault("An upgraded stone cannon which makes stone far more deadly");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -107,8 +156,11 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
             Item.damage = 50;
             Item.DamageType = DamageClass.Ranged;
-            Item.shoot = ModContent.ProjectileType<StoneHardProj>();
-            Item.useAmmo = ItemType<Ammo.StoneShot>();
+
+            Item.shoot = ModContent.ProjectileType<StoneProj>();
+            //Item.useAmmo = ItemType<Ammo.StoneShot>();
+            Item.useAmmo = ItemID.StoneBlock;
+
             Item.UseSound = SoundID.Item61;
 
 
@@ -131,6 +183,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
+           
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneHardProj>(), damage, knockback, player.whoAmI);
 
@@ -155,8 +208,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Stone Launcher");
-            Tooltip.SetDefault("Superheats the boulders and fires 2 to 3 at a time\nRequires Compact Boulders to work, craft more with stone");
+            DisplayName.SetDefault("Flaming Stone Cannon");
+            Tooltip.SetDefault("Superheats your stone into flaming stone boulders");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -174,10 +227,10 @@ namespace StormDiversMod.Items.Weapons
             Item.damage = 75;
             Item.DamageType = DamageClass.Ranged;
 
-            Item.shoot = ModContent.ProjectileType<StoneSuperProj>();
-            Item.useAmmo = ItemType<Ammo.StoneShot>();
+            Item.shoot = ModContent.ProjectileType<StoneProj>();
+            //Item.useAmmo = ItemType<Ammo.StoneShot>();
+            Item.useAmmo = ItemID.StoneBlock;
             Item.UseSound = SoundID.Item38;
-
 
             //Item.crit = 0;
             Item.knockBack = 8f;
@@ -203,6 +256,7 @@ namespace StormDiversMod.Items.Weapons
                 position += muzzleOffset;
             }
             int numberProjectiles = 2 + Main.rand.Next(2); //This defines how many projectiles to shot.
+        
             for (int i = 0; i < numberProjectiles; i++)
             {
 
@@ -232,8 +286,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunar Stone Launcher");
-            Tooltip.SetDefault("Empowers boulders with the power of the celestial fragments\nRequires Compact Boulders to work, craft more with stone");
+            DisplayName.SetDefault("Celestial Stone Cannon");
+            Tooltip.SetDefault("Empowers your stone with the power of the celestial fragments");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -256,8 +310,10 @@ namespace StormDiversMod.Items.Weapons
             Item.damage = 120;
             Item.DamageType = DamageClass.Ranged;
 
-            Item.shoot = ModContent.ProjectileType<StoneSuperProj>();
-            Item.useAmmo = ItemType<Ammo.StoneShot>();
+            Item.shoot = ModContent.ProjectileType<StoneProj>();
+            //Item.useAmmo = ItemType<Ammo.StoneShot>();
+            Item.useAmmo = ItemID.StoneBlock;
+
             Item.UseSound = SoundID.Item38;
 
             Item.crit = 12;
@@ -283,6 +339,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
+
             int choice = Main.rand.Next(4);
             if (choice == 0)
             {

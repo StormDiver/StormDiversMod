@@ -84,7 +84,7 @@ namespace StormDiversMod.NPCs
             }
             else if (NPC.downedPlantBoss && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))
             {
-                return SpawnCondition.JungleTemple.Chance * 0.08f;
+                return SpawnCondition.JungleTemple.Chance * 0.05f;
             }
             else
             {

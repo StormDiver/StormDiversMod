@@ -32,7 +32,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
             DrawOffsetX = 7;
             DrawOriginOffsetY = 0;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
         }
 
@@ -43,7 +43,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-  
+            var player = Main.player[Projectile.owner];
+
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
             AnimateProjectile();
         }
 
@@ -96,7 +98,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.DamageType = DamageClass.Melee;
             DrawOffsetX = 6;
             DrawOriginOffsetY = 0;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
 
         }
@@ -105,7 +107,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
         {
             int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 127, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 100, default, 1.9f);
             Main.dust[dust].noGravity = true;
+            var player = Main.player[Projectile.owner];
 
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;   
             AnimateProjectile();
@@ -148,7 +152,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             Projectile.DamageType = DamageClass.Melee;
             DrawOffsetX = 5;
             DrawOriginOffsetY = 0;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
 
         }
@@ -157,7 +161,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
         {
             int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 127, Projectile.velocity.X * 0.35f, Projectile.velocity.Y * 0.3f, 100, default, 1.9f);
             Main.dust[dust].noGravity = true;
+            var player = Main.player[Projectile.owner];
 
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             AnimateProjectile();

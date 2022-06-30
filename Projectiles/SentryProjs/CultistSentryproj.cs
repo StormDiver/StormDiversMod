@@ -29,8 +29,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.ignoreWater = false;
             Projectile.sentry = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = Projectile.SentryLifeTime;
-            Projectile.tileCollide = true;
+            //Projectile.timeLeft = Projectile.SentryLifeTime;
+			Projectile.timeLeft = 36000;
+			Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = 0;
@@ -120,7 +121,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         target.TargetClosest(true);
 
                         
-                        if (Projectile.ai[1] > 25)
+                        if (Projectile.ai[1] > 35)
                         {
 
                             //Dividing the factor of 2f which is the desired velocity by distance
@@ -245,7 +246,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = true;
 			Projectile.alpha = 255;
-			Projectile.penetrate = 10;
+			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 4;
 			Projectile.timeLeft = 300;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 1;
@@ -452,6 +453,13 @@ namespace StormDiversMod.Projectiles.SentryProjs
 					}
 				}*/
 			}
+
+		}
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			Projectile.damage = (Projectile.damage * 9) / 10;
+
 		}
 	}
 }
+	

@@ -233,7 +233,8 @@ namespace StormDiversMod.Basefiles
 
                     float speedX = 0f;
                     float speedY = -8f;
-                    int damage = 200;
+                    //int damage = 200;
+                    int santankdamage = (int)Player.GetTotalDamage(DamageClass.Ranged).ApplyTo(160); //208 with santank buffs alone
                     for (int i = 0; i < 1; i++) //1 rockets per charge
                     {
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(50));
@@ -241,11 +242,11 @@ namespace StormDiversMod.Basefiles
                         perturbedSpeed = perturbedSpeed * scale;
                         if (Player.gravDir == 1)
                         {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), santankdamage, 1f, Player.whoAmI);
                         }
                         else
                         {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y + 6), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), damage, 1f, Player.whoAmI);
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y + 6), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), santankdamage, 1f, Player.whoAmI);
 
                         }
                     }
@@ -536,7 +537,8 @@ namespace StormDiversMod.Basefiles
         //=====================For attacking an enemy with anything===========================================
         public override void OnHitAnything(float x, float y, Entity victim)
         {
-            int mushdamage = 20; //Looks like you didn't deal mush damage with this 
+            //int mushdamage = 20; //Looks like you didn't deal mush damage with this 
+            int mushdamage = (int)Player.GetTotalDamage(DamageClass.Ranged).ApplyTo(18); //19 with shroom buffs
             if (mushset && mushtime == 0)
             {
                 if (Main.rand.Next(2) == 0)
@@ -553,7 +555,8 @@ namespace StormDiversMod.Basefiles
                 mushtime = 90;
             }
             //For the SpaceArmour with the helmet (offence)
-            int offencedmg = 150;
+            //int offencedmg = 150;
+            int offencedmg = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(120); //153 with asteroid buffs alone
             int offenceknb = 5;
             float offenceveloX = victim.velocity.X * 0.6f;
 

@@ -168,7 +168,7 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
-            Projectile.ContinuouslyUpdateDamage = true;
+            //Projectile.ContinuouslyUpdateDamage = true;
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -200,6 +200,8 @@ namespace StormDiversMod.Projectiles
             }
 
             Player player = Main.player[Projectile.owner];
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
+
             if (Main.myPlayer == Projectile.owner)
             {
                 if (!player.channel || player.noItems || player.CCed)

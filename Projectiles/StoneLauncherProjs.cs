@@ -351,6 +351,10 @@ namespace StormDiversMod.Projectiles
 
 
         }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
     }
     //______________________________________________________________________________________
     public class StoneFragProj : ModProjectile
@@ -488,6 +492,10 @@ namespace StormDiversMod.Projectiles
                 }
 
             }
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
         }
     }
 }

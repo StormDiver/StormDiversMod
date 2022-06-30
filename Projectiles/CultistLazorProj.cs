@@ -57,6 +57,9 @@ namespace StormDiversMod.Projectiles
             Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.hide = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 6;
+            //Projectile.ContinuouslyUpdateDamage = true;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -113,7 +116,7 @@ namespace StormDiversMod.Projectiles
         // Set custom immunity time on hitting an NPC
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[Projectile.owner] = 5;
+            //target.immune[Projectile.owner] = 6;
             for (int i = 0; i < 20; i++)
             {
                 int dust = Dust.NewDust(target.position, target.width, target.height, 111, Projectile.velocity.X * 5, Projectile.velocity.Y * 5, 50, default, 1f);
@@ -134,6 +137,9 @@ namespace StormDiversMod.Projectiles
             Player player = Main.player[Projectile.owner];
             Projectile.position = player.Center + Projectile.velocity * MOVE_DISTANCE;
             Projectile.timeLeft = 2;
+
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Magic).ApplyTo(Projectile.originalDamage);
+
 
             // By separating large AI into methods it becomes very easy to see the flow of the AI in a broader sense
             // First we update player variables that are needed to channel the laser
@@ -159,12 +165,20 @@ namespace StormDiversMod.Projectiles
             if (IsAtMaxCharge && firesound == false)
             {
                 //Only plays once, when the laser begins to fire
-               SoundEngine.PlaySound(SoundID.Item125 with{Volume = 1.5f, Pitch = -0.3f}, Projectile.Center);
+                player.statMana -= (int)(10 * player.manaCost); //remove 10 mana when laser is first fired
+                if (Main.myPlayer == player.whoAmI)
+                {
+                    if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                    {
+                        player.GetModPlayer<MiscFeatures>().screenshaker = true;
+                    }
+                }
+                SoundEngine.PlaySound(SoundID.Item125 with{Volume = 1.5f, Pitch = -0.3f}, Projectile.Center);
                 for (int i = 0; i < 100; i++) 
                 {
-                    int dust = Dust.NewDust(pos, 0, 0, 135, Projectile.velocity.X * 2, Projectile.velocity.Y * 2, 50, default, 3f);   
+                    int dust = Dust.NewDust(pos, 0, 0, 111, Projectile.velocity.X * 2, Projectile.velocity.Y * 2, 50, default, 1.5f);   
                     Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 3f;
+                    Main.dust[dust].velocity *= 2f;
                 }
                 firesound = true;
             }
@@ -172,13 +186,13 @@ namespace StormDiversMod.Projectiles
             manachance = player.manaCost *= 100;
             if (IsAtMaxCharge)
             {
-                
+                player.manaRegenDelay = 60; //prevent mana from regenerating while laser is being fired
                 if (Projectile.soundDelay <= 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item13 with{Volume = 1.5f, Pitch = -0.2f}, Projectile.Center);
                     Projectile.soundDelay = 30;
                 }
-                if (player.statMana >= 0)
+                if (player.statMana > 0)
                 {
 
 
@@ -248,8 +262,11 @@ namespace StormDiversMod.Projectiles
                 {
                     Projectile.Kill();
                 }
+            
                 if (!IsAtMaxCharge)
                 {
+                    player.manaRegenDelay = 60; //prevent mana from regenerating while laser is being charged up
+                    //player.manaRegen = 0;
                     if (Projectile.soundDelay <= 0)
                     {
                         SoundEngine.PlaySound(SoundID.Item15 with{Volume = 2f, Pitch = -0.5f}, Projectile.Center);
