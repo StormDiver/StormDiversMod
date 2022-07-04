@@ -168,7 +168,8 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
-            //Projectile.ContinuouslyUpdateDamage = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 16;
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -200,7 +201,7 @@ namespace StormDiversMod.Projectiles
             }
 
             Player player = Main.player[Projectile.owner];
-            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
 
             if (Main.myPlayer == Projectile.owner)
             {
@@ -230,8 +231,7 @@ namespace StormDiversMod.Projectiles
 
             int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135);  //this is the dust that this projectile will spawn
             Main.dust[dust].velocity /= 1f;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            
 
             /* if (hitbox == 160)
              {

@@ -18,6 +18,7 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Ho-Ho-Homing missile");
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
         }
 

@@ -102,6 +102,8 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             DisplayName.SetDefault("Nebula Flame");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {

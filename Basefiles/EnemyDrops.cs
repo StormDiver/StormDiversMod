@@ -19,6 +19,63 @@ using Terraria.ObjectData;
 
 namespace StormDiversMod.Basefiles
 {
+    public class PostEvilDrop : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                return NPC.downedBoss2;
+            }
+            return false;
+        }
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+        public string GetConditionDescription()
+        {
+            return "Drops once the Evil boss has been defeated";
+        }
+    }
+    public class PostSkeletronDrop : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                return NPC.downedBoss3;
+            }
+            return false;
+        }
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+        public string GetConditionDescription()
+        {
+            return "Drops once the Skeletron has been defeated";
+        }
+    }
+    public class PostMechDrop : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {             
+                return NPC.downedMechBossAny;
+            }
+            return false;
+        }
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+        public string GetConditionDescription()
+        {
+            return "Drops once any mechanical boss has been defeated";
+        }
+    }
 
     public class NPCDrops : GlobalNPC
     {
@@ -118,63 +175,7 @@ namespace StormDiversMod.Basefiles
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.StormBossSummoner>());
                 }
             }
-
-            //Items with drop requirements-------------------------------------------------------------------------------
-         
-            if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion|| npc.type == NPCID.GiantFlyingAntlion) //needs to drop with ammo
-            {
-                if (Main.rand.Next(100) == 0)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<SandstoneGun>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.MusketBall, Main.rand.Next(60, 100));
-
-                }
-            }
-
-            if ((NPC.downedMechBossAny && !NPC.downedMoonlord) && (npc.type == NPCID.Duck || npc.type == NPCID.Duck2 || npc.type == NPCID.DuckWhite || npc.type == NPCID.DuckWhite2))
-            {
-
-                if (Main.rand.Next(25) == 0)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<QuackStaff>());
-                }
-
-
-            }
-
-            if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
-            {
-                if (Main.rand.Next(100) < 5)
-
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Weapons.StickyLauncher>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Ammo.StickyBomb>(), Main.rand.Next(50, 101));
-
-                }
-            }
-            if (NPC.downedBoss3 && npc.type == NPCID.Demon)
-            {
-                if (Main.rand.Next(50) == 0)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<HeartJar>());
-                }
-            }
-
-            if ((NPC.downedBoss2))
-            {
-                if (npc.type == NPCID.Drippler || npc.type == NPCID.BloodZombie)
-                {
-                    if (Main.rand.Next(2) == 0)
-                    {
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.BloodDrop>());
-
-                    }
-                }
-                if (npc.type == NPCID.ZombieMerman || npc.type == NPCID.EyeballFlyingFish)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.BloodDrop>(), Main.rand.Next(2, 4));
-                }
-            }
+            //No bestiary--------------------------------------------------------------------------------------------------------------------
             if (Main.rand.Next(5000) < 1)
 
             {
@@ -188,6 +189,30 @@ namespace StormDiversMod.Basefiles
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<TheClaymanMask>());
                 }
             }
+            //Items with drop requirements-------------------------------------------------------------------------------
+
+            if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion|| npc.type == NPCID.GiantFlyingAntlion) //needs to drop with ammo
+            {
+                if (Main.rand.Next(100) == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<SandstoneGun>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.MusketBall, Main.rand.Next(60, 100));
+
+                }
+            }       
+
+            if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
+            {
+                if (Main.rand.Next(100) < 5)
+
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Weapons.StickyLauncher>());
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Ammo.StickyBomb>(), Main.rand.Next(50, 101));
+
+                }
+            }
+          
+          
             if (npc.type == NPCID.VortexRifleman)
             {
                 if (Main.rand.Next(100) < 2)
@@ -263,12 +288,21 @@ namespace StormDiversMod.Basefiles
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            //drop rules
             LeadingConditionRule plantDead = new LeadingConditionRule(new Conditions.DownedPlantera());
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule isExpert = new LeadingConditionRule(new Conditions.IsExpert());
 
+            IItemDropRule PostSkeletronDrop = new LeadingConditionRule(new PostSkeletronDrop());
+            IItemDropRule PostEvilDrop = new LeadingConditionRule(new PostEvilDrop());
+            IItemDropRule PostMechDrop = new LeadingConditionRule(new PostMechDrop());
+
 
             //Weapons-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            if (npc.type == NPCID.Duck || npc.type == NPCID.Duck2 || npc.type == NPCID.DuckWhite || npc.type == NPCID.DuckWhite2)
+            {
+                PostMechDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<QuackStaff>(), 25));
+            }
             if (npc.type == NPCID.Skeleton || npc.type == NPCID.MisassembledSkeleton || npc.type == NPCID.PantlessSkeleton || npc.type == NPCID.HeadacheSkeleton)
             {
 
@@ -377,6 +411,15 @@ namespace StormDiversMod.Basefiles
 
             }
             //Accessories--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            if (npc.type == NPCID.Demon)
+            {
+                PostSkeletronDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HeartJar>(), 50));
+                if (Main.rand.Next(50) == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<HeartJar>());
+                }
+            }
+            
             if (npc.type == NPCID.Derpling)
             {
 
@@ -443,11 +486,19 @@ namespace StormDiversMod.Basefiles
 
             }
 
+            if (npc.type == NPCID.Drippler || npc.type == NPCID.BloodZombie)
+            {
+                PostEvilDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.BloodDrop>(), 2));
+            }
+
+            if (npc.type == NPCID.ZombieMerman || npc.type == NPCID.EyeballFlyingFish)
+            {
+                PostEvilDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.BloodDrop>(), 1, 2, 4));
+            }
+
             if (npc.type == NPCID.Derpling)
             {
-
                 plantDead.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.DerplingShell>(), 1, 1, 2));
-
             }
 
             if (npc.type == NPCID.SantaNK1)
@@ -456,15 +507,12 @@ namespace StormDiversMod.Basefiles
                 isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 8, 12));
                 notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 6, 10));
 
-
-
             }
             //Pets-----------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.VortexRifleman)
             {
 
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Pets.StormLightItem>(), 50));
-
             }
 
             //Misc----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -487,38 +535,19 @@ namespace StormDiversMod.Basefiles
             {
                notExpert.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<CultistLazor>(), 50, 33));
 
-
-
                 npcLoot.Add(ItemDropRule.BossBag(ItemID.CultistBossBag));
                 //notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Weapons.CultistBow>(), ModContent.ItemType<Weapons.CultistSpear>(), ModContent.ItemType<Weapons.CultistTome>(), ModContent.ItemType<Weapons.CultistStaff>()));
                 notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<CultistBow>(), ModContent.ItemType<CultistSpear>(), ModContent.ItemType<CultistTome>(), ModContent.ItemType<CultistStaff>()));
 
-                /*int choice = Main.rand.Next(4);
-
-                if (choice == 0)
-                {
-
-                }
-                if (choice == 1)
-                {
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapons.CultistSpear>(), 1));
-
-                }
-                if (choice == 2)
-                {
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapons.CultistTome>(), 1));
-
-                }
-                if (choice == 3)
-                {
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapons.CultistStaff>(), 1));
-
-                }*/
             }
 
             npcLoot.Add(plantDead);
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);
+
+            npcLoot.Add(PostSkeletronDrop);
+            npcLoot.Add(PostEvilDrop);
+            npcLoot.Add(PostMechDrop);
 
         }
     }

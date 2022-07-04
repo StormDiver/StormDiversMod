@@ -201,7 +201,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             DisplayName.SetDefault("Jungle Thorn ball");
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
-
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
         public override void SetDefaults()
         {

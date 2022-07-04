@@ -335,6 +335,7 @@ namespace StormDiversMod.Projectiles.Minions
 			DisplayName.SetDefault("HellSoul Minion Projectile");
 			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 		public override void SetDefaults()
 		{

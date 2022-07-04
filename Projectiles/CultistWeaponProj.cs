@@ -337,6 +337,8 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
 
         public override void SetDefaults()

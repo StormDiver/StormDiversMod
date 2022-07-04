@@ -315,6 +315,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Beetle");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -472,6 +474,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mini Beetle");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()

@@ -380,6 +380,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mini Nebula Duck");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
 
         public override void SetDefaults()

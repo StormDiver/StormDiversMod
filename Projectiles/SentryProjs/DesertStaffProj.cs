@@ -211,7 +211,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             DisplayName.SetDefault("Forbidden Sand");
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
-
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
         public override void SetDefaults()
         {

@@ -164,7 +164,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
 
             Projectile.extraUpdates = 1;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
 
             Projectile.timeLeft = 300;
             //aiType = ProjectileID.LostSoulHostile;

@@ -108,7 +108,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 if (distance < 900f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
                    
-                    if (Projectile.ai[1] > 60)
+                    if (Projectile.ai[1] > 50)
                     {
                         currenttarget = target;
                         animate = true;
@@ -262,7 +262,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
-
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
         public override void SetDefaults()
         {

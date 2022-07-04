@@ -18,6 +18,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Meteor Arrow");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
 
         public override void SetDefaults()

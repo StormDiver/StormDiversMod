@@ -65,7 +65,7 @@ namespace StormDiversMod.Basefiles
 
         public bool shroomaccess; //Player has the Shroomite Accessory equipped
 
-        public bool heartSteal; //Player has the Jar of Hearts equipped
+        public bool heartSteal; //Player has the Heart emblem equipped
 
         public bool mushChestplate; //Player has Shroom chestplate equipped
 
@@ -282,39 +282,45 @@ namespace StormDiversMod.Basefiles
                 {
                     if (soulBoots)
                     {
-                        Player.maxRunSpeed += (3f);
+                        Player.maxRunSpeed += 2.1f;
                         Player.runAcceleration *= 2f;
+                        Player.runSlowdown = 0.2f;
                     }
                     else if (bloodBoots)
                     {
-                        Player.maxRunSpeed += (1.5f);
+                        Player.maxRunSpeed += 1f;
                         Player.runAcceleration *= 1.5f;
+                        Player.runSlowdown = 0.15f;
                     }
                 }
                 else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt && Player.velocity.Y == 0)//When not on asphalt 
                 {
                     if (soulBoots)
                     {
-                        Player.maxRunSpeed += (9f);
+                        Player.maxRunSpeed += 7f;
                         Player.runAcceleration *= 3f;
+                        Player.runSlowdown = 0.5f;
                     }
                     else if (bloodBoots)
                     {
-                        Player.maxRunSpeed += (6f);
+                        Player.maxRunSpeed += 5f;
                         Player.runAcceleration *= 1.75f;
+                        Player.runSlowdown = 0.35f;
                     }
                 }
                 else if (Player.velocity.Y != 0)//When in the air
                 {
                     if (soulBoots)
                     {
-                        Player.maxRunSpeed += (6f);
+                        Player.maxRunSpeed += 4.5f;
                         Player.runAcceleration *= 2f;
+                        Player.runSlowdown = 0.25f;
                     }
                     else if (bloodBoots)
                     {
-                        Player.maxRunSpeed += (3.5f);
+                        Player.maxRunSpeed += 3.5f;
                         Player.runAcceleration *= 1.5f;
+                        Player.runSlowdown = 0.2f;
                     }
                 }
                 if (soulBoots)
@@ -387,7 +393,7 @@ namespace StormDiversMod.Basefiles
                             Main.dust[dustSmoke].noGravity = true;
                             Main.dust[dustSmoke].velocity *= 0.1f;
                         }
-                        if (!bloodBoots)//If wearing blood boots sound comes from that one
+                        if (!bloodBoots)//If wearing blood boots sound comes from that one (as blood drops are tied to sound effect)
                         {
                             soundDelay++;
 
@@ -445,7 +451,7 @@ namespace StormDiversMod.Basefiles
                         }
                         soundDelay++;
 
-                        if (soundDelay >= 6)
+                        if (soundDelay >= 6) //always drop blood, even with soul boots equipped
                         {
                             if (Player.gravDir == 1)
                             {
@@ -1045,17 +1051,18 @@ namespace StormDiversMod.Basefiles
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
         {
-            if (heartSteal) //For the Jar of hearts 
+            /*if (heartSteal) //For the Jar of hearts 
             {
                 if (!target.SpawnedFromStatue && target.life <= (target.lifeMax * 0.50f) && !target.boss && !target.friendly && target.lifeMax > 5 && !target.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
                 {
 
                     if (!target.GetGlobalNPC<NPCEffects>().heartStolen) //Makes sure this only happens once
                     {
-                        if (Main.rand.Next(6) == 0) //1 in 6 chance to have the debuff applied and drop a heart
+                        if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and drop a heart
                         {
                             
                             Item.NewItem(new EntitySource_Loot(target), new Vector2(target.Center.X, target.Center.Y), new Vector2(target.width, target.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+
                             SoundEngine.PlaySound(SoundID.NPCDeath7, target.Center);
                             for (int i = 0; i < 15; i++)
                             {
@@ -1072,7 +1079,7 @@ namespace StormDiversMod.Basefiles
                         }
                     }
                 }
-            }           
+            }     */      
 
             //For the Blood potion
             if (BloodOrb)
@@ -1133,14 +1140,14 @@ namespace StormDiversMod.Basefiles
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
         {          
-            if (heartSteal) //For the Jar of hearts
+            /*if (heartSteal) //For the Jar of hearts
             {
                 if (!target.SpawnedFromStatue && target.life <= (target.lifeMax * 0.50f) && !target.boss && !target.friendly && target.lifeMax > 5 && !target.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
                 {
 
                     if (!target.GetGlobalNPC<NPCEffects>().heartStolen)//Makes sure this only happens once
                     {
-                        if (Main.rand.Next(7) == 0) //1 in 7 chance to have the debuff applied and drop a heart
+                        if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and drop a heart
                         {
                             Item.NewItem(new EntitySource_Loot(target), new Vector2(target.Center.X, target.Center.Y), new Vector2(target.width, target.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
 
@@ -1161,7 +1168,7 @@ namespace StormDiversMod.Basefiles
                         }
                     }
                 }
-            }
+            }*/
           
             //Blood potion
             if (BloodOrb)

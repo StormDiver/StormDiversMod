@@ -16,6 +16,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Betsy's Flame");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()

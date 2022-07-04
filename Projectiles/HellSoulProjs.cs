@@ -18,6 +18,8 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Hellsoul Arrow");
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -372,6 +374,7 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Hellsoul Flare");
             Main.projFrames[Projectile.type] = 4;
+
         }
         public override void SetDefaults()
         {
@@ -602,6 +605,8 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Hellsoul Soul");
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {

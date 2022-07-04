@@ -436,6 +436,8 @@ namespace StormDiversMod.Projectiles
             DisplayName.SetDefault("Spectre Dagger");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
 
         public override void SetDefaults()

@@ -234,6 +234,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 		{
 			DisplayName.SetDefault("Lunatic Lightning");
 			ProjectileID.Sets.SentryShot[Projectile.type] = true;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
 		}
 		public override void SetDefaults()

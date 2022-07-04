@@ -236,7 +236,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             DisplayName.SetDefault("Frost Stream");
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
-
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
         public override void SetDefaults()
         {

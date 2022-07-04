@@ -29,9 +29,9 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.extraUpdates = 1;
-            //Projectile.scale = 1.2f;
             //Projectile.ContinuouslyUpdateDamage = true;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 14;
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -66,7 +66,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             //-----------------------------------------------How the projectile works---------------------------------------------------------------------
             Player player = Main.player[Projectile.owner];
 
-            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage);
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
 
 
             if (Main.myPlayer == Projectile.owner)
@@ -93,8 +93,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Main.dust[dust].velocity /= 1f;
             Main.dust[dust].scale = 2f;
             Main.dust[dust].noGravity = true;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 14;
+            
         }
         public override void PostDraw(Color lightColor)
         {

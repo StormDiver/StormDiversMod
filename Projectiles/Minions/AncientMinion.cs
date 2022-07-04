@@ -376,6 +376,7 @@ namespace StormDiversMod.Projectiles.Minions
 		{
 			DisplayName.SetDefault("Ancient Spirit Minion Projectile");
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 		public override void SetDefaults()
 		{

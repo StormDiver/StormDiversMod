@@ -5,6 +5,8 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using static Terraria.ModLoader.ModContent;
+
 using Terraria.GameContent.Creative;
 
 

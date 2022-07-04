@@ -79,7 +79,7 @@ namespace StormDiversMod.NPCs
 
             if (NPC.downedPlantBoss)
             {
-                return SpawnCondition.JungleTemple.Chance * 0.4f;
+                return SpawnCondition.JungleTemple.Chance * 0.35f;
             }
            
             else
@@ -115,7 +115,7 @@ namespace StormDiversMod.NPCs
 
                 shoottime++;
 
-                if (shoottime >= 75)//starts the shooting animation
+                if (shoottime >= 90)//starts the shooting animation
                 {
                  
 
@@ -130,12 +130,12 @@ namespace StormDiversMod.NPCs
                 {
                     animatespeed = 10;
                 }
-                if (shoottime >= 90)//fires the projectiles
+                if (shoottime >= 120)//fires the projectiles
                 {
 
 
 
-                    float projectileSpeed = 10f; // The speed of your projectile (in pixels per second).
+                    float projectileSpeed = 7.5f; // The speed of your projectile (in pixels per second).
                     int damage = 30; // The damage your projectile deals. normal x2, expert x4
                     float knockBack = 3;
                     //int type = mod.ProjectileType("GolemMinionProj");
@@ -155,7 +155,8 @@ namespace StormDiversMod.NPCs
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
                         float scale = 1f - (Main.rand.NextFloat() * .2f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y - 13), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                        int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y - 13), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                        //Main.projectile[proj].timeLeft = 240;
 
                     }
 

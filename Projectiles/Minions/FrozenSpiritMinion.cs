@@ -382,7 +382,7 @@ namespace StormDiversMod.Projectiles.Minions
 		{
 			DisplayName.SetDefault("Frozen Spirit Shard");
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
-
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 
 		public override void SetDefaults()

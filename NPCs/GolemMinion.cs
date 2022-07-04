@@ -84,7 +84,7 @@ namespace StormDiversMod.NPCs
             }
             else if (NPC.downedPlantBoss && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))
             {
-                return SpawnCondition.JungleTemple.Chance * 0.05f;
+                return SpawnCondition.JungleTemple.Chance * 0.035f;
             }
             else
             {
@@ -174,7 +174,7 @@ namespace StormDiversMod.NPCs
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NPC.ai[0] = Main.rand.NextFloat(150f, -150f);
-                        NPC.ai[1] = Main.rand.NextFloat(-50f, -200f);
+                        NPC.ai[1] = Main.rand.NextFloat(-100f, -200f);
                         NPC.netUpdate = true;
 
                     }

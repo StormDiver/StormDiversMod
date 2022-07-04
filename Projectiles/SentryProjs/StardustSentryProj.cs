@@ -272,7 +272,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             DisplayName.SetDefault("Golden Flow Invader");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
-
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
         public override void SetDefaults()
         {
@@ -443,7 +443,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             DisplayName.SetDefault("Fast Golden Flow Invader");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
-
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
         public override void SetDefaults()
         {

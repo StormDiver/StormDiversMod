@@ -48,6 +48,8 @@ namespace StormDiversMod.Projectiles.Minions
 
 			Main.projPet[Projectile.type] = true;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
+
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 
 		public sealed override void SetDefaults()

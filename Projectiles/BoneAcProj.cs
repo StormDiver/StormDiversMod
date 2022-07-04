@@ -15,6 +15,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spinning bone");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
 
         public override void SetDefaults()
@@ -28,12 +30,13 @@ namespace StormDiversMod.Projectiles
 
             Projectile.DamageType = DamageClass.Generic;
             Projectile.timeLeft = 100;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
 
             //drawOffsetX = 2;
             //drawOriginOffsetY = 2;
 
         }
+        float distance = 200;
         public override void AI()
         {
             Projectile.light = 0;
@@ -43,7 +46,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.localAI[0] = 1f;
             }
             Vector2 move = Vector2.Zero;
-            float distance = 150;
+           
             bool target = false;
             for (int k = 0; k < 200; k++)
             {
@@ -51,7 +54,14 @@ namespace StormDiversMod.Projectiles
                 {
                     if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                     {
-                        Vector2 newMove = Main.npc[k].Center - Projectile.Center;
+                        distance = 200;
+                    }
+                    else
+                    {
+                        distance = 100;
+
+                    }
+                    Vector2 newMove = Main.npc[k].Center - Projectile.Center;
                         float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
                         if (distanceTo < distance)
                         {
@@ -59,7 +69,7 @@ namespace StormDiversMod.Projectiles
                             distance = distanceTo;
                             target = true;
                         }
-                    }
+                    
                 }
             }
             if (target)
@@ -68,6 +78,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity = (10 * Projectile.velocity + move) / 7f;
                 AdjustMagnitude(ref Projectile.velocity);
             }
+         
 
         }
         private void AdjustMagnitude(ref Vector2 vector)
@@ -82,7 +93,19 @@ namespace StormDiversMod.Projectiles
         {
             
         }
-       
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.velocity.X = -oldVelocity.X * 1;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 1f;
+            }
+            return false;
+        }
 
     }
    

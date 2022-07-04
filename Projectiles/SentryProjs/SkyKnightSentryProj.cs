@@ -233,6 +233,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Star Warrior Star");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {

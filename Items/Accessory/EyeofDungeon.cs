@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eye of the Dungeon");
-            Tooltip.SetDefault("Summons homing spinning bones from where you stand");
+            Tooltip.SetDefault("Summons spinning bones that home towards nearby enemies");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -46,11 +46,11 @@ namespace StormDiversMod.Items.Accessory
                
                 int damage = 16;
                 float speedX = 0f;
-                float speedY = -24f;
+                float speedY = -5f;
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                 perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.BoneAcProj>(), damage, 3f, player.whoAmI);
+                Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.BoneAcProj>(), damage, 1.5f, player.whoAmI);
 
                 
                 skulltime = 0;

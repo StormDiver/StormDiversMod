@@ -20,15 +20,16 @@ namespace StormDiversMod.NPCs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Perfectly Normal Derpling");
-            Main.npcFrameCount[NPC.type] = 18;
+            Main.npcFrameCount[NPC.type] = 12;
             NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
             NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 Hide = true // Hides this NPC from the bestiary
             };
                  NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, bestiaryData);
-            
-         }
+            NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 8;
+        }
         public override void SetDefaults()
         {
             NPC.width = 30;
@@ -65,10 +66,8 @@ namespace StormDiversMod.NPCs
         }
         
         int feartime; //Cooldown before ai starts
-
-        bool fear;// running aniamtion 
        
-        bool death; //Vctory animation
+        bool death; //Victory animation
 
         bool jump; //If it has jumped
 
@@ -126,24 +125,24 @@ namespace StormDiversMod.NPCs
 
                     }
                 }
-                if (moveatspeed > 25) //movement speed cap
+                if (moveatspeed > 20) //movement speed cap
                 {
-                    moveatspeed = 25;
+                    moveatspeed = 20;
                 }
             }
             else
             {
                 moveatspeed = 10 + ((distanceX * distanceX) / 500); //speed icreases the further away it is
 
-                if (moveatspeed > 15) //movement speed cap
+                if (moveatspeed > 10) //movement speed cap
                 {
-                    moveatspeed = 15;
+                    moveatspeed = 10;
                 }
             }
 
             jumpheight = distanceY / 70;
 
-            if (jumpheight < -20)
+            if (jumpheight < -20)//cap jump height
             {
                 jumpheight = -20;
             }
@@ -172,24 +171,22 @@ namespace StormDiversMod.NPCs
                     }
                     if (attackmode) //When taregting the player
                     {
-                       
-                        fear = true;
-
+                                              
 
                         if (distanceX <= -5)
                         {
-                            NPC.velocity.X = -moveatspeed;
+                            NPC.velocity.X = -moveatspeed + (player.velocity.X * 0.5f);
                         }
                         if (distanceX >= 5)
                         {
-                            NPC.velocity.X = +moveatspeed;
+                            NPC.velocity.X = +moveatspeed + (player.velocity.X * 0.5f);
                         }
                         if (distanceX < 25 && distanceX > -25)
                         {
                             NPC.velocity.X *= 0.5f;
                         }
 
-                        if ((distanceX >= -50 && distanceX <= 50) && !jump && NPC.velocity.Y == 0 && player.position.Y + 50 < NPC.position.Y) //jump to attack player
+                        if ((distanceX >= -50 && distanceX <= 50) && !jump && NPC.velocity.Y == 0 && player.position.Y + 40 < NPC.position.Y) //jump to attack player
                         {
                             NPC.velocity.Y = -12 + jumpheight;
                             jump = true;
@@ -212,7 +209,6 @@ namespace StormDiversMod.NPCs
                 if (dociletime <= 0 && NPC.velocity.Y == 0) //After 5 seconds of not being in player range return to docile
                 {
                     attackmode = false;
-                    fear = false;
                     distancefear = 500; //reset orignal trigger range
                     npcframe = 0; //Stays on frame 0 if no fear
 
@@ -225,8 +221,11 @@ namespace StormDiversMod.NPCs
                 {
                     dociletime--;
 
-                    fear = false;
-                    death = true;
+                    if (NPC.velocity.Y == 0)
+                    {
+                        attackmode = false;
+                        death = true;
+                    }
                     NPC.velocity.X = 0;
                     distancefear = 500;
                     NPC.noTileCollide = false;
@@ -245,18 +244,33 @@ namespace StormDiversMod.NPCs
         }
         public override void FindFrame(int frameHeight)
         {
-            if (fear)
+            if (attackmode)
             {
                 NPC.frame.Y = npcframe * frameHeight;
                 NPC.frameCounter++;
-                if (NPC.frameCounter > 2)
+                if (NPC.velocity.Y == 0)
                 {
-                    npcframe++;
-                    NPC.frameCounter = 0;
+                    if (NPC.frameCounter > 3)
+                    {
+                        npcframe++;
+                        NPC.frameCounter = 0;
+                    }
+                    if (npcframe <= 0 || npcframe >= 5) //Cycles through frames 1-4 when running on ground
+                    {
+                        npcframe = 1;
+                    }
                 }
-                if (npcframe <= 7 || npcframe >= 18) //Cycles through frames 8-17 when FEAR (frame 8 maeks it twitch)
+                else if (NPC.velocity.Y != 0)
                 {
-                    npcframe = 8;
+                    if (NPC.frameCounter > 4)
+                    {
+                        npcframe++;
+                        NPC.frameCounter = 0;
+                    }
+                    if (npcframe <= 4 || npcframe >= 9) //Cycles through frames 5-8 when in the air
+                    {
+                        npcframe = 5;
+                    }
                 }
             }
             if (death)
@@ -268,12 +282,12 @@ namespace StormDiversMod.NPCs
                     npcframe++;
                     NPC.frameCounter = 0;
                 }
-                if (npcframe <= 0 || npcframe >= 9) //Cycles through frames 1-8 when DEAD
+                if (npcframe <= 8 || npcframe >= 12) //Cycles through frames 9-11 when player is dead (dance victory)
                 {
-                    npcframe = 1;
+                    npcframe = 9;
                 }
             }
-            if (!fear && !death)
+            if (!attackmode && !death)
             {
                 NPC.frame.Y = npcframe * frameHeight;
                 npcframe = 0; //Stays on frame 0 if no fear
@@ -325,7 +339,24 @@ namespace StormDiversMod.NPCs
                
             }
         }
-        
 
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/DerpMimic");
+
+            //Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, NPC.height * 0.5f);
+            if (jump)
+            {
+                for (int k = 0; k < NPC.oldPos.Length; k++)
+                {
+                    Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-23, -19);
+                    Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
+                    Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                }
+            }
+            return true;
+
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heart Emblem");
-            Tooltip.SetDefault("Some enemies will drop a super heart when hit below half life\nEnemies that drop the heart lose life rapidly\nIncreases maximum health by 20");
+            Tooltip.SetDefault("Most enemies have a chance to drop a super heart when they fall below half life\nEnemies that drop the heart lose life rapidly\nIncreases maximum health by 20");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Philosopher's Heart");
-            Tooltip.SetDefault("Reduces the cooldown of healing potions by 25%\nSome enemies will drop a super heart when hit below half life\nEnemies that drop the heart lose life rapidly\nIncreases maximum health by 20");
+            Tooltip.SetDefault("Reduces the cooldown of healing potions by 25%\nMost enemies have a chance to drop a super heart when they fall below half life\nEnemies that drop the heart lose life rapidly\nIncreases maximum health by 20");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

@@ -46,7 +46,7 @@ namespace StormDiversMod.Items.Accessory
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<FrostAccess>(), 1)
             .AddIngredient(ModContent.ItemType<DesertJar>(), 1)
-            .AddIngredient(ItemID.HallowedBar, 1)
+            .AddIngredient(ItemID.HallowedBar, 5)
             //.AddRecipeGroup("StormDiversMod:MechSoul", 5)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();

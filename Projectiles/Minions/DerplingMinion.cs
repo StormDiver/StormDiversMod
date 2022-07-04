@@ -21,6 +21,7 @@ namespace StormDiversMod.Projectiles.Minions
             Description.SetDefault("A buffed baby Derpling will fight for you");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
+
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -54,8 +55,8 @@ namespace StormDiversMod.Projectiles.Minions
             // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 
-            
-        }
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+		}
 
         public sealed override void SetDefaults()
         {

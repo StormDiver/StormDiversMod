@@ -17,6 +17,8 @@ using StormDiversMod.Items.Ammo;
 using StormDiversMod.Items.Accessory;
 using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
+using Terraria.Audio;
+
 
 namespace StormDiversMod.Basefiles
 {
@@ -214,7 +216,7 @@ namespace StormDiversMod.Basefiles
 
                 }
 
-            }          
+            }
             //------------Arid immune
             if (aridimmunetime > 0)
             {
@@ -223,28 +225,57 @@ namespace StormDiversMod.Basefiles
             }
 
             //______________
-            /*var player = Main.LocalPlayer;
-            float distanceX = player.Center.X - npc.Center.X;
-            float distanceY = player.Center.Y - npc.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-            bool lineOfSight = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height);
-            if (Main.LocalPlayer.HasBuff(BuffType<BloodBuff>()) && !npc.friendly && npc.lifeMax > 5) //If the player has taken a blood potion and the NPC is within a certian radius of the player
+
+            if (player.GetModPlayer<EquipmentEffects>().heartSteal) //For the Jar of hearts
             {
-                
-                if (distance < 140 && lineOfSight)
+                if (!npc.SpawnedFromStatue && npc.life <= (npc.lifeMax * 0.50f) && !npc.boss && !npc.friendly && npc.lifeMax > 5 && !npc.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
                 {
 
-                    npc.AddBuff(mod.BuffType("BloodDebuff"), 2);
+                    if (!npc.GetGlobalNPC<NPCEffects>().heartStolen)//Makes sure this only happens once
+                    {
+                        if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and drop a heart
+                        {
+                            Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+
+
+                            SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
+                            for (int i = 0; i < 15; i++)
+                            {
+                                var dust = Dust.NewDustDirect(new Vector2(npc.Center.X, npc.Center.Y), 5, 5, 72);
+                                //dust.noGravity = true;
+                            }
+                            npc.AddBuff(ModContent.BuffType<HeartDebuff>(), 3600);
+                            npc.GetGlobalNPC<NPCEffects>().heartStolen = true; //prevents more hearts from being dropped
+
+                        }
+                        else //Otherwise it just prevents the roll from happening again
+                        {
+                            npc.GetGlobalNPC<NPCEffects>().heartStolen = true;
+                        }
+                    }
                 }
-            }*/
+                /*float distanceX = player.Center.X - npc.Center.X;
+                float distanceY = player.Center.Y - npc.Center.Y;
+                float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+                bool lineOfSight = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height);
+                if (Main.LocalPlayer.HasBuff(BuffType<BloodBuff>()) && !npc.friendly && npc.lifeMax > 5) //If the player has taken a blood potion and the NPC is within a certian radius of the player
+                {
 
-            //COVER YOURSELF IN OIL
-            /*if (npc.HasBuff(BuffID.Oiled) && Main.raining && !npc.boss)
-            {
-                npc.velocity.Y = -10;
-            }*/
+                    if (distance < 140 && lineOfSight)
+                    {
+
+                        npc.AddBuff(mod.BuffType("BloodDebuff"), 2);
+                    }
+                }*/
+
+                //COVER YOURSELF IN OIL
+                /*if (npc.HasBuff(BuffID.Oiled) && Main.raining && !npc.boss)
+                {
+                    npc.velocity.Y = -10;
+                }*/
 
 
+            }
         }
         public override void SetDefaults(NPC npc)
         {
@@ -693,8 +724,14 @@ namespace StormDiversMod.Basefiles
             {
                 crit = false;
             }
-        
-          
+
+            if (npc.type == NPCType<NPCs.Boss.StormBoss>()) //75% damage from homing projectiles
+            {
+                if (ProjectileID.Sets.CultistIsResistantTo[projectile.type])
+                {
+                    damage = (damage * 3) / 4;
+                }
+            }
 
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
@@ -740,7 +777,6 @@ namespace StormDiversMod.Basefiles
                     NPC.immuneTime = 10;
                 }
             }*/
-
         }
         public override void HitEffect(NPC npc, int hitDirection, double damage)
         {

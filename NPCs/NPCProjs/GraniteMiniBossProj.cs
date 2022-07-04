@@ -24,7 +24,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.width = 10;
             Projectile.height = 10;
 
-            Projectile.aiStyle = 1;
+            Projectile.aiStyle = 0;
             Projectile.light = 0.1f;
             
             Projectile.friendly = false;

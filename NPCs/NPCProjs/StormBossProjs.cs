@@ -827,13 +827,13 @@ namespace StormDiversMod.NPCs.NPCProjs
         Vector2 rotation;
         
         Player player;
+
+        int movespeed = 20;
         public override void AI()
         {
-
+            //projecile.ai[1], 0 for orbital portals, 1 for stright down portals
             Projectile.ai[0]++;
-
-          
-            
+  
                 if (Main.rand.Next(5) == 0)
                 {
 
@@ -853,13 +853,26 @@ namespace StormDiversMod.NPCs.NPCProjs
                         Main.dust[dust2].noGravity = true;
                     
                 }
-            
+
             if (Projectile.ai[0] <= 60)//Increase opticaity and size
             {
                 Projectile.alpha -= 5;
-                if (Projectile.scale <=1)
+                if (Projectile.scale <= 1)
                 {
-                    Projectile.scale += 0.05f;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        if (Projectile.ai[1] == 0)
+                        {
+                            Projectile.scale += 0.08f;
+                        }
+                        if (Projectile.ai[1] == 1)
+                        {
+                            Projectile.scale += 0.15f;
+                        }
+                        Projectile.netUpdate = true;
+
+                    }
+
                 }
             }
 
@@ -899,13 +912,22 @@ namespace StormDiversMod.NPCs.NPCProjs
                     rotation = -Projectile.Center + player.Center; //set the lightning rotation as well
 
                 }
+                if (Projectile.ai[1] == 1)
+                {
+                    Projectile.ai[0] += 30; //Skip ahead when firing down
+                }
 
             }
+            
             if (Projectile.ai[0] < 60)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    int movespeed = 20;
+                    if (Projectile.ai[1] == 0) //Only move vertically if straight portals
+                    {
+                        movespeed = 20;
+                    }
+                   
                     Vector2 moveTo = player.Center;
                     Vector2 move = moveTo - Projectile.Center + new Vector2(xPos, yPos); //Postion around player
                     float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
@@ -914,6 +936,11 @@ namespace StormDiversMod.NPCs.NPCProjs
                         move *= movespeed / magnitude;
                     }
                     Projectile.velocity = move;
+                    if (Projectile.ai[1] == 1) //Only move vertically if straight portals
+                    {
+                        movespeed = 40;
+                        Projectile.velocity.X = 0;
+                    }
 
                     Projectile.netUpdate = true;
                 }
@@ -924,12 +951,19 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 Projectile.velocity *= 0;
             }
-            if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 72) //Aim indicator
+            if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 72)
             {
-                //if (!Main.dedServ)
+                if (Projectile.ai[1] == 0) //aim indicator
                 {
                     Dust dust;
                     dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(shootToX * 2f + Projectile.velocity.X, shootToY * 2f + Projectile.velocity.Y), 0, new Color(255, 255, 255), 2f);
+                    dust.noGravity = true;
+                    dust.velocity *= 1.5f;
+                }
+                else if (Projectile.ai[1] == 1)
+                {
+                    Dust dust;
+                    dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(0, 5), 0, new Color(255, 255, 255), 2f);
                     dust.noGravity = true;
                     dust.velocity *= 1.5f;
                 }
@@ -949,11 +983,23 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    float ai = Main.rand.Next(25);
-                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX * 1.15f, shootToY * 1.15f),
-                    ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
-                    Main.projectile[projID].scale = 1f;
-                    Main.projectile[projID].tileCollide = false;
+                    if (Projectile.ai[1] == 0)
+                    {
+                        float ai = Main.rand.Next(25);
+                        int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX * 1.15f, shootToY * 1.15f),
+                        ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
+                        Main.projectile[projID].scale = 1f;
+                        Main.projectile[projID].tileCollide = false;
+                    }
+                    else if (Projectile.ai[1] == 1)
+                    {
+                        Vector2 rotation2 = -Projectile.Center + (Projectile.Center + new Vector2(0, 250));
+                        float ai = Main.rand.Next(25);
+                        int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 6),
+                        ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, Main.myPlayer, rotation2.ToRotation(), ai);
+                        Main.projectile[projID].scale = 0.9f;
+                        Main.projectile[projID].tileCollide = false;
+                    }
                 }
                 /*else if (Main.netMode == 2)//server, just fire normal projectile as lightning doesn't want to work 
                 {

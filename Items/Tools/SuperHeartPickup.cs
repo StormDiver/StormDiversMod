@@ -37,15 +37,16 @@ namespace StormDiversMod.Items.Tools
            
             if (player.HasBuff(BuffID.Heartreach))
             {
-                grabRange = 200;
+                grabRange = 300;
                 
             }
             else
             {
-                grabRange = 100;
+                grabRange = 150;
 
             }
         }
+        
         public override void PostUpdate()
         {
             Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.5f * Main.essScale);

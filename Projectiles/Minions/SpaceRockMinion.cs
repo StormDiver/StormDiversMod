@@ -49,7 +49,7 @@ namespace StormDiversMod.Projectiles.Minions
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 
-          
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
         }
 
@@ -360,7 +360,7 @@ namespace StormDiversMod.Projectiles.Minions
             ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.MinionShot[Projectile.type] = true;
-
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
         public override void SetDefaults()
         {

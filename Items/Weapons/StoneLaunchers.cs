@@ -19,14 +19,15 @@ namespace StormDiversMod.Items.Weapons
     {     
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock 
-                || item.type == ItemID.Granite || item.type == ItemID.Marble || item.type == ItemID.Sandstone || item.type == ItemID.CorruptSandstone || item.type == ItemID.CrimsonSandstone || item.type == ItemID.HallowSandstone)
+            if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock)
             {
                 item.ammo = ItemID.StoneBlock;
                 item.DamageType = DamageClass.Ranged;
                 item.noMelee = true;
+                item.damage = 15;
+                item.knockBack = 3f;
             }
-            if (item.type == ItemID.StoneBlock || item.type == ItemID.Granite || item.type == ItemID.Marble || item.type == ItemID.Sandstone)
+            /*if (item.type == ItemID.StoneBlock || item.type == ItemID.Granite || item.type == ItemID.Marble)
             {
                 item.damage = 15;
                 item.knockBack = 3f;
@@ -37,18 +38,17 @@ namespace StormDiversMod.Items.Weapons
                 item.damage = 20;
                 item.knockBack = 4.5f;
             }
-            if (item.type == ItemID.PearlstoneBlock || item.type == ItemID.CorruptSandstone || item.type == ItemID.CrimsonSandstone || item.type == ItemID.HallowSandstone)
+            if (item.type == ItemID.PearlstoneBlock)
             {
                 item.damage = 30;
                 item.knockBack = 6f;
-            }
+            }*/
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             foreach (TooltipLine line in tooltips)
             {
-                if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock 
-                    || item.type == ItemID.Granite || item.type == ItemID.Marble || item.type == ItemID.Sandstone || item.type == ItemID.CorruptSandstone || item.type == ItemID.CrimsonSandstone || item.type == ItemID.HallowSandstone)
+                if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock)
                 {
                     if (line.Mod == "Terraria" && line.Name == "Material")
                     {
