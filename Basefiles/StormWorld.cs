@@ -94,30 +94,35 @@ namespace StormDiversMod.Basefiles
 
         public override void NetSend(BinaryWriter writer)
         {
-            var flags = new BitsByte();
+            var flags = new BitsByte(); //Message flags (8 max)
     
-            flags[4] = planteraMessage;
-            flags[5] = eocMessage;
-            flags[6] = mechMessage;
-            flags[7] = golemMessage;
-            flags[8] = bloodMessage;
-
-            flags[9] = stormBossDown;
-
+            flags[0] = planteraMessage;
+            flags[1] = eocMessage;
+            flags[2] = mechMessage;
+            flags[3] = golemMessage;
+            flags[4] = bloodMessage;
 
             writer.Write(flags);
+
+            BitsByte flags2 = new BitsByte(); //Boss flags (8 max)
+
+            flags2[0] = stormBossDown;
+
+            writer.Write(flags2);
         }
         public override void NetReceive(BinaryReader reader)
         {
             BitsByte flags = reader.ReadByte();
   
-            planteraMessage = flags[4];
-            eocMessage = flags[5];
-            mechMessage = flags[6];
-            golemMessage = flags[7];
-            bloodMessage = flags[8];
+            planteraMessage = flags[0];
+            eocMessage = flags[1];
+            mechMessage = flags[2];
+            golemMessage = flags[3];
+            bloodMessage = flags[4];
 
-            stormBossDown = flags[9];
+            BitsByte flags2 = reader.ReadByte();
+
+            stormBossDown = flags2[0];
         }
       
         public override void PreUpdateWorld()

@@ -152,20 +152,8 @@ namespace StormDiversMod.Basefiles
             recipe9.AddTile(TileID.MythrilAnvil);
             recipe9.Register();
 
-            //Blood moon items
-            Recipe recipe10 = Recipe.Create(ItemID.BloodRainBow, 1);           
-            recipe10.AddRecipeGroup("StormDiversMod:EvilBars", 12);
-            recipe10.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 4);
-            recipe10.AddTile(TileID.Anvils);
-            recipe10.Register();
-
-            recipe10 = Recipe.Create(ItemID.VampireFrogStaff, 1);
-            recipe10.AddRecipeGroup("StormDiversMod:EvilBars", 12);
-            recipe10.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 4);
-            recipe10.AddTile(TileID.Anvils);
-            recipe10.Register();
-
-            recipe10 = Recipe.Create(ItemID.BloodFishingRod, 1);
+            //Blood tear and rod
+            Recipe recipe10 = Recipe.Create(ItemID.BloodFishingRod, 1);
             recipe10.AddRecipeGroup("StormDiversMod:EvilBars", 12);
             recipe10.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 4);
             recipe10.AddTile(TileID.Anvils);
@@ -177,7 +165,7 @@ namespace StormDiversMod.Basefiles
             recipe10.Register();
 
             //hardmode Blood moon items
-            Recipe recipe11 = Recipe.Create(ItemID.DripplerFlail, 1);
+            /*Recipe recipe11 = Recipe.Create(ItemID.DripplerFlail, 1);
             recipe11.AddIngredient(ItemID.HallowedBar, 10);
             recipe11.AddIngredient(ItemID.SoulofMight, 10);
             recipe11.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 8);
@@ -211,7 +199,7 @@ namespace StormDiversMod.Basefiles
             recipe11.AddIngredient(ItemID.SoulofFright, 5);
             recipe11.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 10);
             recipe11.AddTile(TileID.MythrilAnvil);
-            recipe11.Register();
+            recipe11.Register();*/
         }
 
     }

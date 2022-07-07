@@ -17,7 +17,6 @@ namespace StormDiversMod.Items.Weapons
 			DisplayName.SetDefault("Bloody Blade"); 
 			Tooltip.SetDefault("Shoots out a trail of blood every other swing");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
 
         public override void SetDefaults() 

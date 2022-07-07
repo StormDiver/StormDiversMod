@@ -555,11 +555,11 @@ namespace StormDiversMod.NPCs.Boss
 
                         }
                         NPC.ai[1]++;//Count up to dash only when orbiting
-                        if (NPC.ai[1] > (180 + Main.rand.Next(180)))
+                        if (NPC.ai[1] > (180 + Main.rand.Next(180)) && Main.netMode != NetmodeID.MultiplayerClient)
 
                         {
                             charge = true;
-                            //NPC.netUpdate = true;
+                            NPC.netUpdate = true;
 
                         }
                     }
@@ -641,10 +641,11 @@ namespace StormDiversMod.NPCs.Boss
                         NPC.ai[0] = 0;
 
                     }
-                    if (NPC.ai[2] >= 90 || (halflife && NPC.ai[2] >= 60))//return faster below half life
+                    if (NPC.ai[2] >= 90 || (halflife && NPC.ai[2] >= 60) && Main.netMode != NetmodeID.MultiplayerClient)//return faster below half life
                     {
                         charge = false;
                         NPC.ai[0] = 0;
+                        NPC.netUpdate = true;
                     }
                 }
                 if (!charge && NPC.localAI[0] > (420 + Main.rand.Next(300)) && Main.netMode != NetmodeID.MultiplayerClient)
@@ -1004,7 +1005,11 @@ namespace StormDiversMod.NPCs.Boss
                     }
                     NPC.ai[0]++;
                     NPC.ai[2]++;
-                    charge = true;
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        charge = true;
+                        NPC.netUpdate = true;
+                    }
 
                     NPC.rotation = (float)Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 0f;
 
@@ -1051,7 +1056,7 @@ namespace StormDiversMod.NPCs.Boss
                             NPC.netUpdate = true;
                         }
                     }
-                    if (NPC.ai[2] > 30) //Decelerate
+                    if ((NPC.ai[2] > 30 && !lowlife) || (NPC.ai[2] > 35 && lowlife)) //Decelerate
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1059,7 +1064,7 @@ namespace StormDiversMod.NPCs.Boss
                             NPC.netUpdate = true;
                         }
                     }
-                    if ((NPC.ai[2] > 60 && !lowlife) || (NPC.ai[2] > 75 && lowlife)) //Reset dash, slower in phase 2
+                    if ((NPC.ai[2] > 60 && !lowlife) || (NPC.ai[2] > 70 && lowlife)) //Reset dash, slower in phase 2
                     {
                         NPC.ai[2] = 0;
                     }
@@ -1244,10 +1249,13 @@ namespace StormDiversMod.NPCs.Boss
                 Item.NewItem(NPC.GetSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, ItemID.TempleKey);
 
             }
-            if (StormWorld.stormBossDown == false)
+            /*if (StormWorld.stormBossDown == false)
             {
                 StormWorld.stormBossDown = true;
-            }
+            }*/
+
+            NPC.SetEventFlagCleared(ref StormWorld.stormBossDown, -1); //set boss downed
+
             if (NPC.downedPlantBoss == false && GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant)
             {
                 NPC.downedPlantBoss = true;

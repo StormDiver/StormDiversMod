@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody Rifle");
+            DisplayName.SetDefault("Bloodshot Rifle");
             Tooltip.SetDefault("Converts regular bullets into blood bullets that drop blood in flight\nRight Click to zoom out");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
