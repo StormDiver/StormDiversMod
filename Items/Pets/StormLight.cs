@@ -168,11 +168,11 @@ namespace StormDiversMod.Items.Pets
             {
                 ypostion += 0.1f;
             }
-            if (ypostion <= -65f)
+            if (ypostion <= -62f)
             {
                 yAssend = false;
             }
-            if (ypostion >= -55f)
+            if (ypostion >= -58f)
             {
                 yAssend = true;
             }

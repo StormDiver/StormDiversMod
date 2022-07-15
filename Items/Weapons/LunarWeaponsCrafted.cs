@@ -18,9 +18,8 @@ namespace StormDiversMod.Items.Weapons
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Blazing Star"); 
-			Tooltip.SetDefault("Spins around with the force of a star\nKnocks enemies in the direction you're facing\nHas a chance to reflect basic projectiles when spun");
+			Tooltip.SetDefault("Spins around with the force of a star, knocking enemies in the direction you're facing\nHas a chance to reflect basic projectiles when spun");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        
         }
 
 		public override void SetDefaults() 
@@ -62,7 +61,11 @@ namespace StormDiversMod.Items.Weapons
         }
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White;
+
+            Color color = Color.White;
+            color.A = 150;
+            return color;
+
         }
         /*public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

@@ -13,7 +13,7 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Pickaxe");
+            DisplayName.SetDefault("Soul Pickaxe");
             Tooltip.SetDefault("Empowered with the burning souls of hell");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -87,7 +87,7 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Hamaxe");
+            DisplayName.SetDefault("Soul Hamaxe");
             Tooltip.SetDefault("Empowered with the burning souls of hell");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()

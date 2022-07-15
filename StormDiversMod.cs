@@ -28,7 +28,7 @@ namespace StormDiversMod
                 if (bossChecklist != null)
                 {
                     bossChecklist.Call
-                        ("AddBoss", this, "Overloaded Scandrone", ModContent.NPCType<NPCs.Boss.StormBoss>(), 11.5f, (Func<bool>)(() => StormWorld.stormBossDown), () => true,
+                        ("AddBoss", this, "Overloaded Scandrone", ModContent.NPCType<NPCs.Boss.StormBoss>(), 12f, (Func<bool>)(() => StormWorld.stormBossDown), () => true,
                         new List<int> { ModContent.ItemType<Items.BossTrophy.StormBossTrophy>(), ModContent.ItemType<Items.BossTrophy.StormBossRelic>(), ModContent.ItemType<Items.Pets.StormBossPetItem>(),
                         ModContent.ItemType<Items.BossTrophy.StormBossBag>(), ModContent.ItemType<Items.Accessory.StormCoil>(), //vanity
                         //other

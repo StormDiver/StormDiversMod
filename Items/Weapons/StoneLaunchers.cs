@@ -16,7 +16,8 @@ using System.Collections.Generic;
 namespace StormDiversMod.Items.Weapons
 {
     public class StoneAmmo : GlobalItem
-    {     
+    {
+  
         public override void SetDefaults(Item item)
         {
             if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock)
@@ -76,11 +77,11 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 3, 0, 0);
             Item.rare = ItemRarityID.Green;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 35;
-            Item.useAnimation = 35;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 23;
+            Item.damage = 16;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
@@ -93,7 +94,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.crit = 0;
             Item.knockBack = 5f;
 
-            Item.shootSpeed = 8f;
+            Item.shootSpeed = 11f;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -103,7 +104,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-         
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 35f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -112,7 +112,7 @@ namespace StormDiversMod.Items.Weapons
             //velocity.X = velocity.X + player.velocity.X;
             //velocity.Y = velocity.Y + player.velocity.Y;
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneProj>(), damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 4), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneProj>(), damage, knockback, player.whoAmI);
 
             return false;
         }
@@ -150,11 +150,11 @@ namespace StormDiversMod.Items.Weapons
             Item.rare = ItemRarityID.LightPurple;
 
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 50;
+            Item.damage = 48;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
@@ -185,7 +185,7 @@ namespace StormDiversMod.Items.Weapons
             }
            
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneHardProj>(), damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneHardProj>(), damage, knockback, player.whoAmI);
 
             return false;
         }
@@ -220,11 +220,11 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 75;
+            Item.damage = 65;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
@@ -255,13 +255,13 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            int numberProjectiles = 2 + Main.rand.Next(2); //This defines how many projectiles to shot.
+            int numberProjectiles = 2; //This defines how many projectiles to shot.
         
             for (int i = 0; i < numberProjectiles; i++)
             {
 
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(13));
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneSuperProj>(), damage, knockback, player.whoAmI);
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneSuperProj>(), damage, knockback, player.whoAmI);
             }
 
             return false;
@@ -346,7 +346,7 @@ namespace StormDiversMod.Items.Weapons
                 {
 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneSolar>(), damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneSolar>(), damage, knockback, player.whoAmI);
                 }
             }
             else if (choice == 1)
@@ -354,7 +354,7 @@ namespace StormDiversMod.Items.Weapons
                 {
 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.3f, perturbedSpeed.Y * 1.3f), ModContent.ProjectileType<StoneVortex>(), damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X * 1f, perturbedSpeed.Y * 1f), ModContent.ProjectileType<StoneVortex>(), damage, knockback, player.whoAmI);
 
                 }
             }
@@ -364,7 +364,7 @@ namespace StormDiversMod.Items.Weapons
                 {
 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(20));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneNebula>(), damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneNebula>(), damage, knockback, player.whoAmI);
 
                 }
             }
@@ -374,7 +374,7 @@ namespace StormDiversMod.Items.Weapons
                 {
 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneStardust>(), damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneStardust>(), damage, knockback, player.whoAmI);
 
                 }
             }

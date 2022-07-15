@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Weapons
         {
             CreateRecipe()
             .AddRecipeGroup("StormDiversMod:EvilBars", 10)
-           .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 3)
+           .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
            .AddTile(TileID.Anvils)
            .Register();
            
@@ -127,7 +127,7 @@ namespace StormDiversMod.Items.Weapons
         {
             CreateRecipe()
            .AddRecipeGroup("StormDiversMod:EvilBars", 10)
-          .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 3)
+          .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
           .AddTile(TileID.Anvils)
           .Register();
 
@@ -170,10 +170,8 @@ namespace StormDiversMod.Items.Weapons
 
         }
 
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {    
-            
+        {             
             return true;
         }
 
@@ -181,7 +179,7 @@ namespace StormDiversMod.Items.Weapons
         {
             CreateRecipe()
          .AddRecipeGroup("StormDiversMod:EvilBars", 10)
-        .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 3)
+        .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
         .AddTile(TileID.Anvils)
         .Register();
         }

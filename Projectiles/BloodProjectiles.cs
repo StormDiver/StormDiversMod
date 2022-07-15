@@ -20,7 +20,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 12;
             Projectile.height = 12;
             Projectile.friendly = true;

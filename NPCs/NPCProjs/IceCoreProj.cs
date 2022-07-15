@@ -23,6 +23,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void SetDefaults()
         {
+            Projectile.coldDamage = true;
 
             Projectile.width = 8;
             Projectile.height = 8;

@@ -331,10 +331,12 @@ namespace StormDiversMod.Items.Materials
         public override Color? GetAlpha(Color lightColor)
         {
 
-            return Color.White;
+            Color color = Color.White;
+            color.A = 150;
+            return color;
 
         }
-      
+
 
     }
     //____________________________________________________________________________________

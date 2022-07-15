@@ -28,7 +28,8 @@ namespace StormDiversMod.NPCs
         }
         public override void SetDefaults()
         {
-            
+            NPC.coldDamage = true;
+
             NPC.width = 22;
             NPC.height = 45;
 

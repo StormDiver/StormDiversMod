@@ -38,8 +38,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetCritChance(DamageClass.Ranged) += 3;
-       
+            player.GetCritChance(DamageClass.Ranged) += 3;     
         }
 
         public override void ArmorSetShadows(Player player)

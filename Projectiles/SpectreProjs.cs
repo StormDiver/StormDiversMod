@@ -156,33 +156,34 @@ namespace StormDiversMod.Projectiles
             //aiType = 297;
 
         }
-        int distime = 0;
-        int orbittime = 0;
+        int currentdistance = 0;
+        int maxdistance = 0;
         int speed;
         bool lineOfSight;
         public override void AI()
         {
-            if (Projectile.ai[1]  == 1)
+
+            if (Projectile.ai[1] == 0)
             {
                 int orbit = Main.rand.Next(1, 5); //The intial random value selected
                 if (orbit == 1)
                 {
-                    orbittime = 60; //max distance, disttime counts up to this and when it reaches it it stops increasing
+                    maxdistance = 60; //max distance, disttime counts up to this and when it reaches it it stops increasing
                     speed = 8; //speed
                 }
                 else if (orbit == 2)
                 {
-                    orbittime = 140;
+                    maxdistance = 140;
                     speed = 7;
                 }
                 if (orbit == 3)
                 {
-                    orbittime = 100;
+                    maxdistance = 100;
                     speed = -8;
                 }
                 else if (orbit == 4)
                 {
-                    orbittime = 180;
+                    maxdistance = 180;
                     speed = -7;
                 }
             }
@@ -190,11 +191,11 @@ namespace StormDiversMod.Projectiles
             
 
 
-            if (distime <= orbittime) //Disttime will count up making the orb orbit further out until it reaches the orbittime value
+            if (currentdistance <= maxdistance) //Disttime will count up making the orb orbit further out until it reaches the orbittime value
             {
-                distime++;
+                currentdistance++;
             }
-            if (distime == orbittime - 1)
+            if (currentdistance == maxdistance - 1)
             {
                 SoundEngine.PlaySound(SoundID.Item30 with { Volume = 0.5f}, Projectile.Center);
 
@@ -213,11 +214,13 @@ namespace StormDiversMod.Projectiles
             //Making player variable "p" set as the projectile's owner
             Player p = Main.player[Projectile.owner];
 
+            Projectile.damage = (int)p.GetTotalDamage(DamageClass.Magic).ApplyTo(Projectile.originalDamage); //update damage
+
             //Factors for calculations
 
             double deg = (double)Projectile.ai[1] * speed; //The degrees, you can multiply Projectile.ai[1] to make it orbit faster, may be choppy depending on the value
             double rad = deg * (Math.PI / 180); //Convert degrees to radians
-            double dist = distime; //Distance away from the player
+            double dist = currentdistance; //Distance away from the player
 
             /*Position the player based on where the player is, the Sin/Cos of the angle times the /
             /distance for the desired distance away from the player minus the projectile's width   /
@@ -246,7 +249,7 @@ namespace StormDiversMod.Projectiles
             lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
 
 
-            if (player.controlUseTile && lineOfSight && distime >= orbittime) //will fire projectile once it reaches maximum orbit and has a line of sight with the player
+            if (player.controlUseTile && lineOfSight && currentdistance >= maxdistance) //will fire projectile once it reaches maximum orbit and has a line of sight with the player
             {
 
                 if (Projectile.owner == Main.myPlayer)
@@ -263,7 +266,7 @@ namespace StormDiversMod.Projectiles
                         distance = 3f / distance;
                         shootToX *= distance * 8;
                         shootToY *= distance * 8;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SpectreStaffSpinProj2>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack + 2, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SpectreStaffSpinProj2>(), (int)(Projectile.damage * 2f), Projectile.knockBack + 2, Projectile.owner);
                         Projectile.Kill();
                     }
                 }
@@ -466,6 +469,7 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Magic;
 
             var player = Main.player[Projectile.owner];
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Magic).ApplyTo(Projectile.originalDamage); //update damage
 
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -517,7 +521,7 @@ namespace StormDiversMod.Projectiles
             if (target)
             {
                 AdjustMagnitude(ref move);
-                Projectile.velocity = (10 * Projectile.velocity + move) / 10.2f;
+                Projectile.velocity = (10 * Projectile.velocity + move) / 10.1f;
                 AdjustMagnitude(ref Projectile.velocity);
             }
             

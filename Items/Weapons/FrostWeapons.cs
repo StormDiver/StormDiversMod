@@ -15,15 +15,14 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Blizzard Baton"); 
-			Tooltip.SetDefault("Spins with the power of a small blizzard\nKnocks enemies in the direction you're facing and inflicts CryoBurn");
+			DisplayName.SetDefault("Frozen Polestar"); 
+			Tooltip.SetDefault("Spins around and knocks enemies in the direction you're facing\nInflicts cryoburn on enemies");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
 		public override void SetDefaults() 
 		{
 			Item.damage = 40;
-
             Item.DamageType = DamageClass.Melee;
             Item.width = 50;
 			Item.height = 74;

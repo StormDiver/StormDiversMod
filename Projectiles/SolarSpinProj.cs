@@ -76,7 +76,25 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                     Projectile.Kill();
                 }
             }
-            Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);     //this is the projectile light color R, G, B (Red, Green, Blue)
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, 1f, 0.5f, 0f);     //this is the projectile light color R, G, B (Red, Green, Blue)
+            }
+            if (Projectile.owner == Main.myPlayer)
+            {
+                if (Main.MouseWorld.X >= player.Center.X)
+                {
+                    Projectile.velocity.X = 1;
+                    player.direction = 1;
+                }
+                else if (Main.MouseWorld.X < player.Center.X)
+                {
+                    Projectile.velocity.X = -1;
+                    player.direction = -1;
+
+                }
+            }
+
             Projectile.Center = player.MountedCenter;
             Projectile.position.X += player.width / 2 * player.direction;
             

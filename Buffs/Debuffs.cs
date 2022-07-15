@@ -84,44 +84,7 @@ namespace StormDiversMod.Buffs
 
         }
     }
-    //________________________________________
-    public class BoulderDebuff : ModBuff
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Bouldered");
-            Description.SetDefault("That really hurt, reduced movement speed");
-            Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-
-            player.moveSpeed = 0.25f;
-            player.lifeRegen = -10;
-
-            //player.GetModPlayer<NegativeHealthDrain>().boulderDB = true;
-
-            if (Main.rand.Next(4) < 3)
-            {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 1, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
-                if (Main.rand.NextBool(4))
-                {
-                    Main.dust[dust].noGravity = false;
-                    Main.dust[dust].scale *= 0.5f;
-                }
-            }
-        }
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-
-            npc.GetGlobalNPC<NPCEffects>().boulderDB = true;
-        }
-    }
+   
     //_____________________________________________________________
     public class ScanDroneDebuff : ModBuff
     {
@@ -140,45 +103,7 @@ namespace StormDiversMod.Buffs
         }
 
     }
-    //___________________________________________________________
-    public class SuperBoulderDebuff : ModBuff
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Super Bouldered");
-            Description.SetDefault("Now it REALLY hurts, reduced movement speed and constant burning");
-            Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-            player.moveSpeed = 0.2f;
-            player.lifeRegen = -20;
-
-            //player.GetModPlayer<NegativeHealthDrain>().superBoulderDB = true;
-
-            if (Main.rand.Next(4) < 3)
-            {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 55, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
-                if (Main.rand.NextBool(4))
-                {
-                    Main.dust[dust].noGravity = false;
-                    Main.dust[dust].scale *= 0.5f;
-                }
-            }
-            Lighting.AddLight(player.position, 1f, 0.5f, 0f);
-        }
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-            npc.GetGlobalNPC<NPCEffects>().superBoulderDB = true;
-        }
-        
-       
-    }
+   
     //____________________________________________________________
     public class LunarBoulderDebuff : ModBuff
     {

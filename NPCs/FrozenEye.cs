@@ -19,15 +19,15 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frozen Eyefish"); 
-                                                           
-            //NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+            DisplayName.SetDefault("Frozen Eyefish");
+            Main.npcFrameCount[NPC.type] = 8;
 
+            //NPCID.Sets.DontDoHardmodeScaling[Type] = true;
         }
         public override void SetDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 8;
-            
+            NPC.coldDamage = true;
+
             NPC.width = 30;
             NPC.height = 30;
 

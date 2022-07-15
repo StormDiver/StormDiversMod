@@ -244,10 +244,10 @@ namespace StormDiversMod.NPCs
         }
         public override void FindFrame(int frameHeight)
         {
+            NPC.frameCounter++;
             if (attackmode)
             {
                 NPC.frame.Y = npcframe * frameHeight;
-                NPC.frameCounter++;
                 if (NPC.velocity.Y == 0)
                 {
                     if (NPC.frameCounter > 3)
@@ -276,7 +276,6 @@ namespace StormDiversMod.NPCs
             if (death)
             {
                 NPC.frame.Y = npcframe * frameHeight;
-                NPC.frameCounter++;
                 if (NPC.frameCounter > 5)
                 {
                     npcframe++;
@@ -297,11 +296,11 @@ namespace StormDiversMod.NPCs
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (Main.netMode == NetmodeID.Server)
+            /*if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
                 return;
-            }
+            }*/
             //attacking make it hostile
             if (!attackmode)
             {

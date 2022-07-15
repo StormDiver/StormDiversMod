@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Accessory
         {
             CreateRecipe()
             .AddRecipeGroup("StormDiversMod:RunBoots", 1)
-           .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 3)
+           .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
            .AddTile(TileID.Anvils)
            .Register();
 

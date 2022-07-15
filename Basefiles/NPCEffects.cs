@@ -29,10 +29,8 @@ namespace StormDiversMod.Basefiles
 
         public bool lunarBoulderDB;
 
-        public bool superBoulderDB;
         // npc.GetGlobalNPC<NPCEffects>().boulderDB = true; in debuff.cs
         // target.AddBuff(mod.BuffType("BoulderDebuff"), 1200)
-        public bool boulderDB;
 
         public bool sandBurn;
 
@@ -79,9 +77,7 @@ namespace StormDiversMod.Basefiles
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
         {
-            boulderDB = false;
             lunarBoulderDB = false;
-            superBoulderDB = false;
             sandBurn = false;
             beetled = false;
             nebula = false;
@@ -360,13 +356,7 @@ namespace StormDiversMod.Basefiles
                     damage = 10;
                 }
             }
-            if (boulderDB)
-            {
-                npc.lifeRegen -= 60;
-
-                damage = 8;
-
-            }
+       
             if (ultraburnDebuff)
             {
                 if (npc.HasBuff(BuffID.Oiled))
@@ -401,13 +391,6 @@ namespace StormDiversMod.Basefiles
 
             }
 
-            if (superBoulderDB)
-            {
-                npc.lifeRegen -= 120;
-
-                damage = 12;
-
-            }
 
             if (nebula) //unused
             {
@@ -435,38 +418,8 @@ namespace StormDiversMod.Basefiles
         int particle = 0;
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-            if (boulderDB)
-            {
-                if (Main.rand.Next(4) < 3)
-                {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 1, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1.5f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.NextBool(4))
-                    {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
-                    }
-                }
-
-            }
-            if (superBoulderDB)
-            {
-                if (Main.rand.Next(4) < 3)
-                {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 55, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.NextBool(4))
-                    {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
-                    }
-                }
-                Lighting.AddLight(npc.position, 1f, 0.5f, 0f);
-            }
+          
+           
             if (lunarBoulderDB)
             {
                 int choice = Main.rand.Next(4);

@@ -446,11 +446,18 @@ namespace StormDiversMod.Projectiles
 				dustYspeed = 13;
 
 			}
-			else if (Projectile.ai[1] == 2) //Mini Nukes/ Cluster
+			else if (Projectile.ai[1] == 2) //Mini Nukes/ Cluster I
 			{
 				extraTime = -50;
 				lightningSpeed = 2.0f;
 				dustYspeed = 16;
+
+			}
+			else if (Projectile.ai[1] == 3) //Mini Nukes/ Cluster II
+			{
+				extraTime = -100;
+				lightningSpeed = 2.3f;
+				dustYspeed = 20;
 
 			}
 		}

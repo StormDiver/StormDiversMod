@@ -70,6 +70,8 @@ namespace StormDiversMod.Items.Armour
             {
                 player.armorEffectDrawOutlines = false;
             }
+            player.socialShadowRocketBoots = true;
+
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -84,7 +86,6 @@ namespace StormDiversMod.Items.Armour
             //player.endurance += 0.1f;
             //player.blackBelt = true;
             player.GetModPlayer<ArmourSetBonuses>().twilightSet = true;
-
         }
 
         public override void AddRecipes()

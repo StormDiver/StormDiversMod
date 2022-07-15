@@ -28,8 +28,8 @@ namespace StormDiversMod.NPCs
         {
             Main.npcFrameCount[NPC.type] = 3;
             
-            NPC.width = 30;
-            NPC.height = 30;
+            NPC.width = 26;
+            NPC.height = 26;
 
             NPC.aiStyle = 14; 
             AIType = NPCID.IlluminantBat;
@@ -45,7 +45,6 @@ namespace StormDiversMod.NPCs
             NPC.DeathSound = SoundID.NPCDeath6;
             NPC.knockBackResist = 0.9f;
             NPC.value = Item.buyPrice(0, 0, 0, 0);
-
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
@@ -83,7 +82,7 @@ namespace StormDiversMod.NPCs
             NPC.buffImmune[(BuffType<UltraBurnDebuff>())] = true;
 
             shoottime++;
-            NPC.rotation = NPC.velocity.X / 15;
+            NPC.rotation = NPC.velocity.X / 100;
 
 
             Player player = Main.player[NPC.target];
@@ -156,12 +155,12 @@ namespace StormDiversMod.NPCs
                 dust2.noGravity = true;
 
             }
-            if (Main.rand.Next(4) == 0)
+            if (Main.rand.Next(7) == 0)
             {
 
-                var dust3 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Bottom.Y - 4), NPC.width, 6, 173, 0, 5);
-                dust3.noGravity = true;
-
+                var dust3 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Bottom.Y - 4), NPC.width, 6, 6, 0, 5);
+                dust3.noGravity = false;
+                dust3.scale = 0.8f;
             }
         }
 
@@ -234,13 +233,19 @@ namespace StormDiversMod.NPCs
                 for (int i = 0; i < 10; i++)
                 {
 
+                    var dust2 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 135);
+                    dust2.scale = 1.5f;
+                    dust2.noGravity = true;
+
+                }
+                for (int i = 0; i < 10; i++)
+                {
+
                     int dustIndex = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 31, 0f, 0f, 0, default, 1f);
                     Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
                 }
-
-
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -253,13 +258,20 @@ namespace StormDiversMod.NPCs
 
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/HellMiniBossMinion_Glow");
-             Vector2 drawPos = new Vector2(0, 2) + NPC.Center - Main.screenPosition;
+            Vector2 drawPos = new Vector2(0, -2) + NPC.Center - Main.screenPosition;
 
-             spriteBatch.Draw(texture, drawPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, drawPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
 
 
-         }
-         
-        
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+
+            Color color = Color.White;
+            color.A = 200;
+            return color;
+
+        }
+
     }
 }

@@ -28,7 +28,7 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 60;
             Projectile.aiStyle = 14;
-            Projectile.scale = 0.75f;
+            Projectile.scale = 1f;
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -262,8 +262,8 @@ namespace StormDiversMod.Projectiles
             Projectile.penetrate = 2;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 300;
-            Projectile.aiStyle = 0;
-            Projectile.scale = 0.75f;
+            Projectile.aiStyle = 14;
+            Projectile.scale = 1f;
             AIType = ProjectileID.Bullet;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -515,7 +515,7 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 180;
             Projectile.aiStyle = 14;
-            Projectile.scale = 0.75f;
+            Projectile.scale = 1f;
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -763,7 +763,7 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 180;
             Projectile.aiStyle = 14;
-            Projectile.scale = 0.75f;
+            Projectile.scale = 1f;
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;

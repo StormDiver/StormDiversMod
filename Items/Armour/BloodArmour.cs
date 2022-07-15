@@ -20,9 +20,7 @@ namespace StormDiversMod.Items.Armour
             DisplayName.SetDefault("Hemoglobin Helmet");
             Tooltip.SetDefault("4% increased melee damage and critical strike chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
-
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -64,19 +62,16 @@ namespace StormDiversMod.Items.Armour
         {
             player.setBonus = "Multiple damaging blood orbs burst out of you upon striking an enemy with a melee weapon";
 
-            player.GetModPlayer<ArmourSetBonuses>().BloodDrop = true;
-   
+            player.GetModPlayer<ArmourSetBonuses>().BloodDrop = true; 
         }
         
         public override void AddRecipes()
         {
-
             CreateRecipe()
              .AddRecipeGroup("StormDiversMod:EvilBars", 12)
-            .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 3)
+            .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
             .AddTile(TileID.Anvils)
-            .Register();
-           
+            .Register();        
         }
     }
 
@@ -91,7 +86,6 @@ namespace StormDiversMod.Items.Armour
             DisplayName.SetDefault("Hemoglobin Breastplate");
             Tooltip.SetDefault("6% increased melee damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
 
         public override void SetDefaults()
@@ -114,7 +108,7 @@ namespace StormDiversMod.Items.Armour
         {
           CreateRecipe()
              .AddRecipeGroup("StormDiversMod:EvilBars", 18)
-            .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 4)
+            .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 6)
             .AddTile(TileID.Anvils)
             .Register();
 
@@ -154,7 +148,7 @@ namespace StormDiversMod.Items.Armour
         {
             CreateRecipe()
                .AddRecipeGroup("StormDiversMod:EvilBars", 15)
-              .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 3)
+              .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
               .AddTile(TileID.Anvils)
               .Register();
 

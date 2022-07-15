@@ -176,7 +176,7 @@ namespace StormDiversMod.Items.Pets
 
             xpostion = 50 * player.direction; //Moves to the front of the player
             Projectile.spriteDirection = player.direction; //Flips sprite
-            movespeed = distance / 15 + 0.5f; //Moves faster the further away it is
+            movespeed = distance / 20 + 0.5f; //Moves faster the further away it is
 
             //To make bop up and down
             if (yAssend)
@@ -187,11 +187,11 @@ namespace StormDiversMod.Items.Pets
             {
                 ypostion += 0.1f;
             }
-            if (ypostion <= -65f)
+            if (ypostion <= -62f)
             {
                 yAssend = false;
             }
-            if (ypostion >= -55f)
+            if (ypostion >= -58f)
             {
                 yAssend = true;
             }

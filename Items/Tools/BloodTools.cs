@@ -57,7 +57,7 @@ namespace StormDiversMod.Items.Tools
         {
             CreateRecipe()
            .AddRecipeGroup("StormDiversMod:EvilBars", 16)
-           .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 3)
+           .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
            .AddTile(TileID.Anvils)
            .Register();
 
@@ -113,7 +113,7 @@ namespace StormDiversMod.Items.Tools
         {
             CreateRecipe()
            .AddRecipeGroup("StormDiversMod:EvilBars", 16)
-           .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 3)
+           .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
            .AddTile(TileID.Anvils)
            .Register();
            

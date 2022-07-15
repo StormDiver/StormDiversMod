@@ -57,7 +57,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.localAI[0] = 1f;
             }
             Vector2 move = Vector2.Zero;
-            float distance = 300f;
+            float distance = 500f;
             bool target = false;
             for (int k = 0; k < 200; k++)
             {
@@ -79,7 +79,7 @@ namespace StormDiversMod.Projectiles
             if (target)
             {
                 AdjustMagnitude(ref move);
-                Projectile.velocity = (15 * Projectile.velocity + move) / 15f;
+                Projectile.velocity = (10 * Projectile.velocity + move) / 10.2f;
                 AdjustMagnitude(ref Projectile.velocity);
             }
 
@@ -282,7 +282,7 @@ namespace StormDiversMod.Projectiles
             //drawOriginOffsetY = -9;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-
+            Projectile.extraUpdates = 1;
 
         }
         int dusttime;

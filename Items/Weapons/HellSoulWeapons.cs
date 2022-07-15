@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Bow");
+            DisplayName.SetDefault("Hell Fury");
             Tooltip.SetDefault("Fires out a homing soul arrow every shot");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -187,7 +187,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Blade");
+            DisplayName.SetDefault("Soul Blade");
             Tooltip.SetDefault("Fires out a spread of soul beams every third swing");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -234,12 +234,12 @@ namespace StormDiversMod.Items.Weapons
             weaponattack--;
             if (weaponattack <= 0)
             {
-                float numberProjectiles = 4;
+                float numberProjectiles = 5;
                 float rotation = MathHelper.ToRadians(15);
                 for (int j = 0; j < numberProjectiles; j++)
                 {
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.66f), knockback, player.whoAmI);
+                    int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.66f), (int)(knockback * 0.33f), player.whoAmI);
                 }
                 //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.2f), knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item8, player.Center);
@@ -284,7 +284,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Flare");
+            DisplayName.SetDefault("Hell Flare");
             Tooltip.SetDefault("Summons multiple soul flames that charge towards the cursor");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -343,8 +343,7 @@ namespace StormDiversMod.Items.Weapons
                 }
             }
             return false;
-        }
-       
+        }     
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-0, 0);
@@ -376,7 +375,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Staff");
+            DisplayName.SetDefault("Soul Cauldron Staff");
             Tooltip.SetDefault("Summons a HellSoul minion to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;

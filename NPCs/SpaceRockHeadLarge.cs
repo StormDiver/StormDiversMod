@@ -71,12 +71,16 @@ namespace StormDiversMod.NPCs
             //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
             //NPC.damage = (int)(NPC.damage * 0.75f);
         }
+        public override bool? CanFallThroughPlatforms()
+        {         
+                return true;
+        }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
             if (NPC.downedGolemBoss)
             {
-                return SpawnCondition.Sky.Chance * 0.4f;
+                return SpawnCondition.Sky.Chance * 0.25f;
             }
             return SpawnCondition.Sky.Chance * 0f;
             

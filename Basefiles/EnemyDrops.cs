@@ -176,8 +176,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
             //No bestiary--------------------------------------------------------------------------------------------------------------------
-            if (Main.rand.Next(5000) < 1)
-
+            if (Main.rand.Next(5000) < 1 & npc.lifeMax > 5)
             {
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<ThePainMask>());
             }
@@ -392,19 +391,7 @@ namespace StormDiversMod.Basefiles
                 npcLoot.Add(ItemDropRule.OneFromOptions(2, ModContent.ItemType<WoodPointyStick>(), ModContent.ItemType<WoodCrossbow>(), ModContent.ItemType<WoodNecklace>()));
 
             }
-            if (npc.type == NPCID.GoblinShark || npc.type == NPCID.BloodEelHead)
-            {
-
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BloodyRifle>(), 8, 6));
-
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.BloodDrop>(), 1, 3, 5));
-
-            }
-            if (npc.type == NPCID.BloodNautilus)
-            {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.BloodDrop>(), 1, 4, 6));
-
-            }
+            
             if (npc.type == NPCID.WyvernHead)
             {
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<WyvernBow>(), 5, 4));

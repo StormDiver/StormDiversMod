@@ -20,10 +20,11 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mini Snowflake");
+
         }
         public override void SetDefaults()
         {
-
+            Projectile.coldDamage = true;
             Projectile.width = 14;
             Projectile.height = 14;
             Projectile.friendly = false;
@@ -98,6 +99,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void SetDefaults()
         {
+            Projectile.coldDamage = true;
 
             Projectile.width = 30;
             Projectile.height = 30;

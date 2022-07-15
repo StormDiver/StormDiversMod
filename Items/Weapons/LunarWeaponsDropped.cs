@@ -80,6 +80,14 @@ namespace StormDiversMod.Items.Weapons
                 0f
             );
         }
+        public override Color? GetAlpha(Color lightColor)
+        {
+
+            Color color = Color.White;
+            color.A = 150;
+            return color;
+
+        }
     }
     //__________________________________________________________________________________________
     public class LunarVortexShotgun : ModItem

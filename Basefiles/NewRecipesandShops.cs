@@ -155,7 +155,7 @@ namespace StormDiversMod.Basefiles
             //Blood tear and rod
             Recipe recipe10 = Recipe.Create(ItemID.BloodFishingRod, 1);
             recipe10.AddRecipeGroup("StormDiversMod:EvilBars", 12);
-            recipe10.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 4);
+            recipe10.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 8);
             recipe10.AddTile(TileID.Anvils);
             recipe10.Register();
 
@@ -211,23 +211,6 @@ namespace StormDiversMod.Basefiles
         {
             switch (type)
             {
-                case NPCID.Demolitionist:
-                    {
-                        if (Main.LocalPlayer.HasItem(ItemID.MiningHelmet))
-
-                        {
-                            shop.item[nextSlot].SetDefaults(ItemID.MiningShirt);
-                            nextSlot++;
-                            shop.item[nextSlot].SetDefaults(ItemID.MiningPants);
-                            nextSlot++;
-
-                        }
-                    }
-                    break;
-            }
-
-            switch (type)
-            {
                 case NPCID.ArmsDealer:
 
                     if (Main.LocalPlayer.HasItem(ModContent.ItemType<OceanGun>()))
@@ -240,44 +223,42 @@ namespace StormDiversMod.Basefiles
                     break;
             }
 
+        
             switch (type)
             {
                 case NPCID.Demolitionist:
 
+                    if (Main.LocalPlayer.HasItem(ItemID.MiningHelmet))
+
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.MiningShirt);
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(ItemID.MiningPants);
+                        nextSlot++;
+
+                    }
                     if (Main.LocalPlayer.HasItem(ModContent.ItemType<ProtoLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FrostLauncher>()))
                     {
                         shop.item[nextSlot].SetDefaults(ModContent.ItemType<ProtoGrenade>());
                         nextSlot++;
 
                     }
-
-                    break;
-            }
-            switch (type)
-            {
-                case NPCID.Demolitionist:
-
                     if (Main.LocalPlayer.HasItem(ModContent.ItemType<StickyLauncher>()))
                     {
                         shop.item[nextSlot].SetDefaults(ModContent.ItemType<StickyBomb>());
                         nextSlot++;
 
                     }
-
-                    break;
-            }
-            switch (type)
-            {
-                case NPCID.Demolitionist:
-
                     if (!GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant && Main.LocalPlayer.HasItem(ModContent.ItemType<StormLauncher>()))
                     {
                         shop.item[nextSlot].SetDefaults(ItemID.RocketI);
                         nextSlot++;
                     }
 
+
                     break;
             }
+       
             switch (type)
             {
                 case NPCID.Merchant:
@@ -285,6 +266,16 @@ namespace StormDiversMod.Basefiles
                     if (NPC.downedBoss1)
                     {
                         shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Tools.Quack>());
+                        nextSlot++;
+
+                    }
+                    if (Main.raining)
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.RainHat);
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(ItemID.RainCoat);
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Armour.RainBoots>());
                         nextSlot++;
 
                     }
@@ -298,7 +289,8 @@ namespace StormDiversMod.Basefiles
 
                     shop.item[nextSlot].SetDefaults(ModContent.ItemType<Aircan>());
                     nextSlot++;
-
+                    shop.item[nextSlot].SetDefaults(ItemID.CombatWrench);
+                    nextSlot++;
 
                     break;
             }
@@ -315,20 +307,74 @@ namespace StormDiversMod.Basefiles
 
                     break;
             }
+         
+
             switch (type)
             {
-                case NPCID.Merchant:
+                case NPCID.DyeTrader:
                     {
-                        if (Main.raining)
-                        {
-                            shop.item[nextSlot].SetDefaults(ItemID.RainHat);
-                            nextSlot++;
-                            shop.item[nextSlot].SetDefaults(ItemID.RainCoat);
-                            nextSlot++;
-                            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Armour.RainBoots>());
-                            nextSlot++;
 
+                        shop.item[nextSlot].SetDefaults(ItemID.DyeTradersScimitar);
+                        nextSlot++;
+
+                    }
+                    break;
+            }
+
+            switch (type)
+            {
+                case NPCID.Painter:
+                    {
+
+                        shop.item[nextSlot].SetDefaults(ItemID.PainterPaintballGun);
+                        nextSlot++;
+
+                    }
+                    break;
+            }
+            /*switch (type)
+            {
+                case NPCID.DD2Bartender:
+                    {
+
+                        shop.item[nextSlot].SetDefaults(ItemID.AleThrowingGlove);
+                        nextSlot++;
+
+                    }
+                    break;
+            }*/
+            switch (type)
+            {
+                case NPCID.Stylist:
+                    {
+
+                        shop.item[nextSlot].SetDefaults(ItemID.StylistKilLaKillScissorsIWish);
+                        nextSlot++;
+
+                    }
+                    break;
+            }
+            switch (type)
+            {
+                case NPCID.PartyGirl:
+                    {
+                        if (!Main.LocalPlayer.HasItem(ItemID.PartyGirlGrenade))
+                        {
+                            shop.item[nextSlot].SetDefaults(ItemID.PartyGirlGrenade);
+                            nextSlot++;
                         }
+                    }
+                    break;
+            }
+        
+            switch (type)
+            {
+                case NPCID.Princess:
+                    {
+
+                        shop.item[nextSlot].SetDefaults(ItemID.PrincessWeapon);
+                        nextSlot++;
+
                     }
                     break;
             }

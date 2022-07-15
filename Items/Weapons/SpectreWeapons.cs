@@ -136,7 +136,9 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            return true;
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<SpectreHoseProj>(), damage, knockback, player.whoAmI);
+
+            return false;
         }
 
         public override void AddRecipes()
@@ -161,20 +163,19 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Orbiter");
-            Tooltip.SetDefault("Summons spectre orbs that orbit around you at varying distances\nRight click to launch any orbs at their maximum orbital distance towards the cursor");
-
+            DisplayName.SetDefault("Spectre Artifact");
+            Tooltip.SetDefault("Summons spectre orbs that orbit around you at varying distances\nRight click to launch any orbs at their maximum orbital distance towards the cursor\nCan launch the orbs without needing to hold the weapon");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
         {
-            Item.width = 40;
-            Item.height = 50;
+            Item.width = 30;
+            Item.height = 30;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 8, 0, 0);
             Item.rare = ItemRarityID.Yellow;
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useStyle = ItemUseStyleID.HoldUp;
 
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item43;
@@ -185,26 +186,19 @@ namespace StormDiversMod.Items.Weapons
 
             Item.knockBack = 0f;
 
-            Item.useTime = 14;
-            Item.useAnimation = 14;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
             //Item.reuseDelay = 20;
             Item.shoot = ModContent.ProjectileType<SpectreStaffSpinProj>();
             Item.shootSpeed = 4.5f;
-            Item.mana = 15;
+            Item.mana = 12;
 
-
-
-            //Item.useAmmo = AmmoID.Arrow;
-
-            Item.noMelee = true; //Does the weapon itself inflict damage?
-                                 //Item.noUseGraphic = true; //When uses no graphic is shown
-                                 //Item.channel = true; //Speical conditons when held down
-
+            Item.noMelee = true; 
         }
 
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[Item.shoot] < 10;
+            return player.ownedProjectileCounts[Item.shoot] < 15;
 
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("HellSoul Mask");
+            DisplayName.SetDefault("Inferno Soul Mask");
             Tooltip.SetDefault("14% increased melee damage\n5% increased melee critical strike chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -93,7 +93,7 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("HellSoul Helmet");
+            DisplayName.SetDefault("Inferno Soul Helmet");
             Tooltip.SetDefault("10% increased ranged damage\n8% increased ranged critical strike chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -168,7 +168,7 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("HellSoul Hood");
+            DisplayName.SetDefault("Inferno Soul Hood");
             Tooltip.SetDefault("12% increased magic damage\n6% increased critical strike chance\nIncreases maximum mana by 60");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -242,7 +242,7 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("HellSoul Crown");
+            DisplayName.SetDefault("Inferno Soul Crown");
             Tooltip.SetDefault("10% increased summoner damage\nIncreases maximum number of minions by 1");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -318,7 +318,7 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("HellSoul Breastplate");
+            DisplayName.SetDefault("Inferno Soul Breastplate");
             Tooltip.SetDefault("7% increased damage\n6% increased critical strike chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
@@ -366,7 +366,7 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("HellSoul Greaves");
+            DisplayName.SetDefault("Inferno Soul Greaves");
             Tooltip.SetDefault("5% increased damage\n6% increased critical strike chance\n25% increased movement speed");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()

@@ -153,14 +153,15 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Spinner");
-
+            DisplayName.SetDefault("Frozen Polestar");
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
         public override void SetDefaults()
         {
 
-            Projectile.width = 150;
-            Projectile.height = 150;
+            Projectile.width = 158;
+            Projectile.height = 158;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -192,6 +193,7 @@ namespace StormDiversMod.Projectiles
         // bool hitboxdown;
         public override void AI()
         {
+            Projectile.timeLeft = 60;
 
             Projectile.soundDelay--;
             if (Projectile.soundDelay <= 0)
@@ -210,19 +212,32 @@ namespace StormDiversMod.Projectiles
                     Projectile.Kill();
                 }
             }
-            Lighting.AddLight(Projectile.Center, 0f, 0.5f, 0.5f);
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, 0f, 0.5f, 0.5f);
+            }
+            if (Projectile.owner == Main.myPlayer)
+            {
+                if (Main.MouseWorld.X >= player.Center.X)
+                {
+                    Projectile.velocity.X = 1;
+                    player.direction = 1;
+                }
+                else if (Main.MouseWorld.X < player.Center.X)
+                {
+                    Projectile.velocity.X = -1;
+                    player.direction = -1;
+
+                }
+            }
+
             Projectile.Center = player.MountedCenter;
             Projectile.position.X += player.width / 2 * player.direction;
-            Projectile.spriteDirection = player.direction;
-            Projectile.rotation += 0.15f * player.direction;
-            /* if (Projectile.rotation > MathHelper.TwoPi)
-             {
-                 Projectile.rotation -= MathHelper.TwoPi;
-             }
-             else if (Projectile.rotation < 0)
-             {
-                 Projectile.rotation += MathHelper.TwoPi;
-             }*/
+            
+            //Projectile.spriteDirection = player.direction;
+            
+            Projectile.rotation += 0.15f * player.direction; //this is the projectile rotation/spinning speed
+           
             player.heldProj = Projectile.whoAmI;
             player.itemTime = 2;
             player.itemAnimation = 2;
@@ -231,31 +246,7 @@ namespace StormDiversMod.Projectiles
 
             int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135);  //this is the dust that this projectile will spawn
             Main.dust[dust].velocity /= 1f;
-            
-
-            /* if (hitbox == 160)
-             {
-                 hitboxup = false;
-                 hitboxdown = true;
-             }
-             if (hitbox == 150)
-             {
-                 hitboxup = true;
-                 hitboxdown = false;
-             }
-             if (hitboxup == true)
-             {
-                 for (int i = 0; i < 10; i++)
-                 {
-                     hitbox++;
-                 }
-             }
-             if (hitboxdown == true)
-             {
-                 hitbox--;
-             }
-             Projectile.width = (int)hitbox;
-             Projectile.height = (int)hitbox;*/
+           
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -263,7 +254,22 @@ namespace StormDiversMod.Projectiles
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(texture.Width / 2, texture.Height / 2), 1f, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             return false;
         }
-       
+        public override void PostDraw(Color lightColor)
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            var player = Main.player[Projectile.owner];
+
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            }
+        }
+
     }
     //___________________________________________________________________________________________________________________________________
     public class FrostStarProj : ModProjectile
@@ -372,7 +378,8 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-3f, 3f);
                 float speedY = Main.rand.NextFloat(-3f, 3f);
 
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
+                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
+                Main.projectile[projID].DamageType = DamageClass.Melee;
             }
             Projectile.Kill();
             return false;

@@ -14,7 +14,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             DisplayName.SetDefault("Baby Derpling Banner");
             Tooltip.SetDefault("Nearby players get a bonus against: BABY DERPLINGS??!!! YOU MONSTER!!!");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override void SetDefaults()
         {
@@ -53,10 +52,10 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             Item.autoReuse = true;
             Item.useAnimation = 15;
             Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0); 
+            Item.value = Item.sellPrice(0, 0, 2, 0);
             Item.createTile = ModContent.TileType<VineDerpBannerPlace>();  //This defines what type of tile this Item will place	
             Item.placeStyle = 0;
         }
@@ -176,7 +175,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             DisplayName.SetDefault("Star Hopper Banner");
             Tooltip.SetDefault("Nearby players get a bonus against: Star Hopper");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override void SetDefaults()
         {
@@ -257,7 +255,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             DisplayName.SetDefault("Asteroid Orbiter Banner");
             Tooltip.SetDefault("Nearby players get a bonus against: Asteroid Orbiter");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override void SetDefaults()
         {

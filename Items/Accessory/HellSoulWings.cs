@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Wings");
+            DisplayName.SetDefault("Hell Flame Wings");
             Tooltip.SetDefault("Allows flight and slow fall\nHold UP to ascend faster");
             //Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 6));
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
