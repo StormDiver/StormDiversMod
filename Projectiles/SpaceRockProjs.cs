@@ -48,9 +48,10 @@ namespace StormDiversMod.Projectiles
             opacity -= 10;
             Projectile.alpha = opacity;
 
-
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.ai[0] > 12f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
@@ -161,7 +162,10 @@ namespace StormDiversMod.Projectiles
         {
             rotate += 2;
             Projectile.rotation = rotate * 0.1f;
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.timeLeft > 125)
             {
                 Projectile.timeLeft = 125;
@@ -278,9 +282,10 @@ namespace StormDiversMod.Projectiles
                 Projectile.tileCollide = false;
 
             }
-
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-            
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.ai[0] > 12f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
@@ -436,7 +441,10 @@ namespace StormDiversMod.Projectiles
         {
             rotate += 2;
             Projectile.rotation = rotate * 0.1f;
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.timeLeft > 125)
             {
                 Projectile.timeLeft = 125;
@@ -553,7 +561,10 @@ namespace StormDiversMod.Projectiles
             }
             rotate += 2;
             Projectile.rotation = rotate * 0.1f;
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.timeLeft > 125)
             {
                 Projectile.timeLeft = 125;

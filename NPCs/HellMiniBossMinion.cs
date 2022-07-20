@@ -150,7 +150,7 @@ namespace StormDiversMod.NPCs
             if (Main.rand.Next(5) == 0)
             {
 
-                var dust2 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, NPC.height / 2, 135, 0, -2);
+                var dust2 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, NPC.height / 2, 135, 0, -7);
                 dust2.scale = 1f;
                 dust2.noGravity = true;
 

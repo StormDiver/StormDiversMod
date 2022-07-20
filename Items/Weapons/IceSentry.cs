@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frozen Queen's Staff");
-            Tooltip.SetDefault("Summons a floating Ice Sentry that fires out a stream of ice at nearby enemies\nRight click to target a specific enemy");
+            Tooltip.SetDefault("Summons a floating Ice Sentry that fires out a stream of ice at nearby enemies that slows them down\nRight click to target a specific enemy");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

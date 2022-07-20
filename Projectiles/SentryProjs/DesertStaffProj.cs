@@ -56,8 +56,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.alpha = opacity;
             //Projectile.rotation += (float)Projectile.direction * -0.1f;
             Main.player[Projectile.owner].UpdateMaxTurrets();
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             {
                 if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
                 {
@@ -230,8 +232,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.ai[0] > 5f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn

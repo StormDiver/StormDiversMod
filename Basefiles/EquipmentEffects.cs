@@ -18,7 +18,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Buffs;
 using StormDiversMod.NPCs;
 using StormDiversMod.Projectiles;
-using StormDiversMod.Dusts;
+
 using Terraria.DataStructures;
 using Terraria.Audio;
 
@@ -52,8 +52,6 @@ namespace StormDiversMod.Basefiles
         public bool frostCube; //Player has the Summoners Core equipped
 
         public bool spooked; //Player has the Spooky Core equipped
-
-        public bool BloodOrb; //Player has taken a Blood potion
 
         public bool SpectreSkull; //Player has the Spectre Skull equipped
 
@@ -98,7 +96,7 @@ namespace StormDiversMod.Basefiles
         public int bearcool; //Cooldown for the Teddy Bear
         public int stomptrail; //Delay of the projectuiles of the trail when falling with the boots
         public int frosttime; //Cooldown of the frost shards from the Cryo Core
-        public int desertdusttime; //Cooldown for the sand balst from the Phar0oh's Urn
+        public bool desertdustspawned; //has the Pahroh's urn creaed the oprbiting projectile?
         public int granitebufftime; //Cooldown for the granite Accessory Buff to be reapplied
         public bool granitesurge; //Makes it so the granite accessory cooldown can start and makes it so the next attack removes the buff
       
@@ -131,7 +129,6 @@ namespace StormDiversMod.Basefiles
             bootFall = false;
             frostCube = false;
             spooked = false;     
-            BloodOrb = false;
             SpectreSkull = false;
             desertJar = false;
             frostJar = false;
@@ -155,7 +152,7 @@ namespace StormDiversMod.Basefiles
             bearcool = 0;
             frosttime = 0;
             falling = false;
-            desertdusttime = 0;
+            desertdustspawned = false;
             granitebufftime = 0;
             granitesurge = false;
             shroomshotCount = 0;
@@ -233,10 +230,6 @@ namespace StormDiversMod.Basefiles
             {
                 bearcool--;
             }
-            if (desertdusttime > 0)
-            {
-                desertdusttime--;
-            }
 
             if (granitebufftime > 0)
             {
@@ -246,12 +239,14 @@ namespace StormDiversMod.Basefiles
             //======================================================================================Accessories/other======================================================================================
             if (beetleFist && Player.HeldItem.CountsAsClass(DamageClass.Melee))
             {
-                if (Main.rand.Next(10) == 0)
+                if (Main.rand.Next(6) == 0)
                 {
-                    int dust = Dust.NewDust(new Vector2(Player.position.X - 10, Player.position.Y - 5), Player.width + 20, Player.height + 10, ModContent.DustType<BeetleDust>());
+                    int dust = Dust.NewDust(new Vector2(Player.position.X - 10, Player.position.Y - 5), Player.width + 20, Player.height + 10, 186);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.5f;
                     Main.dust[dust].velocity.Y -= 0.5f;
+                    Main.dust[dust].fadeIn = 0.5f;
+
                 }
             }
             //For Spectre Skull/Flower
@@ -481,15 +476,15 @@ namespace StormDiversMod.Basefiles
                 {
                     if (Player.gravDir == 1)
                     {
-                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, 0, -2);
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 200, 0, -2);
                         dust.noGravity = true;
-                        dust.scale = 0.8f;
+                        dust.fadeIn = 0.5f;
                     }
                     else
                     {
-                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, 0, +2);
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 200, 0, +2);
                         dust.noGravity = true;
-                        dust.scale = 0.8f;
+                        dust.fadeIn = 0.5f;
                     }
                 }
                 //circle of dust
@@ -500,11 +495,11 @@ namespace StormDiversMod.Basefiles
                     double dist = distancehealth; //Distance away from the player
                     float dustx = Player.Center.X - (int)(Math.Cos(rad) * dist);
                     float dusty = Player.Center.Y - (int)(Math.Sin(rad) * dist);
-                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Player.position, Player.width, Player.height))//no dust unless lien of sight
+                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Player.position, Player.width, Player.height))//no dust unless line of sight
                     {
-                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 259, 0, 0);
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 200, 0, 0);
                         dust.noGravity = true;
-                        dust.scale = 1.25f;
+                        dust.scale = 2;
                     }
                 }
                 for (int i = 0; i < 200; i++)
@@ -551,11 +546,11 @@ namespace StormDiversMod.Basefiles
             //for Pharoh Urn
             if (desertJar)
             {
-                if ((Player.velocity.X > 3.5f || Player.velocity.X < -3.5f) || (Player.velocity.Y > 3.5f || Player.velocity.Y < -3.5f))
+                if ((Player.velocity.X > 3.5f || Player.velocity.X < -3.5f) || (Player.velocity.Y > 4f || Player.velocity.Y < -4f))
                 {
 
                     dropdust++;
-                    if (dropdust == 4)
+                    if (dropdust >= 3)
                     {
 
                         //float speedX = 0f;
@@ -563,22 +558,32 @@ namespace StormDiversMod.Basefiles
                         //Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(180));
                         //float scale = 1f - (Main.rand.NextFloat() * .5f);
                         //perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.DesertJarProj>(), 45, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.DesertJarProj>(), 40, 0, Player.whoAmI);
                         dropdust = 0;
 
                         //Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 13);
-
                     }
-
-
                 }
+                if (!desertdustspawned) //spawn the 2 orbiting orojs
+                {
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 0);
+                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 180);
+
+                    desertdustspawned = true;
+                }
+
+
+            }
+            if (!desertJar)//reset bool
+            {
+                desertdustspawned = false;
             }
 
             //For the Mechanical Spikes===========================
             if (primeSpin)
             {
 
-                if (!spikespawned) //24 frames between spawns
+                if (!spikespawned) 
                 {
 
                     Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 0);
@@ -596,10 +601,11 @@ namespace StormDiversMod.Basefiles
 
 
             }
-            if (!primeSpin)//reset timer
+            if (!primeSpin)//reset bool
             {
                 spikespawned = false;
             }
+
 
             //For the Heavy Boots===========================
             if (bootFall)
@@ -917,7 +923,7 @@ namespace StormDiversMod.Basefiles
         {
            
             //For the Desert urn
-            if (desertJar)
+            /*if (desertJar)
             {
                 
                 if (desertdusttime < 1 && !Player.dead)
@@ -947,7 +953,7 @@ namespace StormDiversMod.Basefiles
 
                     }
                 }
-            }
+            }*/
            
             base.OnHitAnything(x, y, victim);
         }
@@ -1050,45 +1056,8 @@ namespace StormDiversMod.Basefiles
         //===================================Other hooks======================================
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
-        {
-            /*if (heartSteal) //For the Jar of hearts 
-            {
-                if (!target.SpawnedFromStatue && target.life <= (target.lifeMax * 0.50f) && !target.boss && !target.friendly && target.lifeMax > 5 && !target.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
-                {
-
-                    if (!target.GetGlobalNPC<NPCEffects>().heartStolen) //Makes sure this only happens once
-                    {
-                        if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and drop a heart
-                        {
-                            
-                            Item.NewItem(new EntitySource_Loot(target), new Vector2(target.Center.X, target.Center.Y), new Vector2(target.width, target.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
-
-                            SoundEngine.PlaySound(SoundID.NPCDeath7, target.Center);
-                            for (int i = 0; i < 15; i++)
-                            {
-                                var dust = Dust.NewDustDirect(new Vector2(target.Center.X, target.Center.Y), 5, 5, 72);
-                                //dust.noGravity = true;
-                            }
-                            target.AddBuff(ModContent.BuffType<HeartDebuff>(), 3600);
-                            target.GetGlobalNPC<NPCEffects>().heartStolen = true; //prevents more hearts from being dropped
-
-                        }
-                        else //Otherwise it just prevents the roll from happening again
-                        {
-                            target.GetGlobalNPC<NPCEffects>().heartStolen = true;
-                        }
-                    }
-                }
-            }     */      
-
-            //For the Blood potion
-            if (BloodOrb)
-            {
-                if (Main.rand.Next(3) == 0)
-                {
-                    target.AddBuff(ModContent.BuffType<BloodDebuff>(), 300);
-                }
-            }
+        { 
+          
             //for the Beetle Gauntlet
             if (beetleFist)
             {
@@ -1168,16 +1137,7 @@ namespace StormDiversMod.Basefiles
                         }
                     }
                 }
-            }*/
-          
-            //Blood potion
-            if (BloodOrb)
-            {
-                if (Main.rand.Next(4) == 0)
-                {
-                    target.AddBuff(ModContent.BuffType<BloodDebuff>(), 300);
-                }
-            }
+            }*/                 
 
             //for the Beetle Gauntlet
             if (beetleFist)

@@ -163,7 +163,10 @@ namespace StormDiversMod.Projectiles
 
             rotate += 2;
             Projectile.rotation = rotate * 0.1f;
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.timeLeft > 125)
             {
                 Projectile.timeLeft = 125;

@@ -18,7 +18,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Buffs;
 using StormDiversMod.NPCs;
 using StormDiversMod.Projectiles;
-using StormDiversMod.Dusts;
+
 using Terraria.DataStructures;
 using Terraria.Audio;
 
@@ -489,19 +489,15 @@ namespace StormDiversMod.Basefiles
                         dust2.noGravity = true;
                         dust2.velocity *= 2;
                     }
-
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
                     if (Player.gravDir == 1)
                     {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, -2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 20), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 20), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
                     }
                     else
                     {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 12), new Vector2(7, +2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 12), new Vector2(-7, +2.5f), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 20), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 20), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
                     }
                     derplinglaunchcooldown = 60;
                 }
@@ -603,7 +599,7 @@ namespace StormDiversMod.Basefiles
 
                         SoundEngine.PlaySound(SoundID.NPCHit9, Player.Center);
 
-                        float numberProjectiles = 7 + Main.rand.Next(3);
+                        float numberProjectiles = 10 + Main.rand.Next(5);
 
                         for (int i = 0; i < numberProjectiles; i++)
                         {
@@ -688,7 +684,6 @@ namespace StormDiversMod.Basefiles
         }
         //===================================Other hooks======================================
 
-        int aridProj = ModContent.ProjectileType<AncientArmourProj>();
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
         {
 
@@ -706,12 +701,15 @@ namespace StormDiversMod.Basefiles
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles) - 0.27f));
                     Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("HellSoulArmourProj"), hellsouldmg, 0, Player.whoAmI);
                 }*/
+
+                int helldamagemelee = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(80); //89 with armour buffs
+
                 float speedX = 0f;
                 float speedY = -8f;
 
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(100));
 
-                Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), 80, 0, Player.whoAmI);
+                Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), helldamagemelee, 0, Player.whoAmI);
 
                 for (int i = 0; i < 20; i++)
                 {
@@ -779,8 +777,11 @@ namespace StormDiversMod.Basefiles
                 float speedX = 0f;
                 float speedY = -8f;
 
+                int helldamageproj = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(80); //89 with armour buffs
+
+
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(100)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), 65, 0, Player.whoAmI);
+                Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), helldamageproj, 0, Player.whoAmI);
 
 
                 for (int i = 0; i < 20; i++)

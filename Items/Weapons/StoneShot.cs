@@ -64,9 +64,6 @@ namespace StormDiversMod.Items.Weapons
             recipe.AddIngredient(ModContent.ItemType<StoneShot>(), 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
-
-            
-
         }
 
     }

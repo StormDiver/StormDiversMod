@@ -11,7 +11,7 @@ using Terraria.GameContent;
 namespace StormDiversMod.NPCs.NPCProjs
 {
    
-    public class HellSoulProj : ModProjectile
+    public class HellSoulEnemyProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {

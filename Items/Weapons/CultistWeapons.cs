@@ -74,7 +74,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lunatic Bow of Ice");
-            Tooltip.SetDefault("Fires out an ice arrow that rains down icicles on impact");
+            Tooltip.SetDefault("Fires out an ice arrow that rains down icicles on impact\nIce arrows slow down enemies on direct hit");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()

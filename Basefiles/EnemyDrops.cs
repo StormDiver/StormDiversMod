@@ -8,7 +8,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Buffs;
 using StormDiversMod.Basefiles;
 using StormDiversMod.Items.Weapons;
-using StormDiversMod.Dusts;
+
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
 using StormDiversMod.Items.Ammo;

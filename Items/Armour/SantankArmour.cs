@@ -41,8 +41,10 @@ namespace StormDiversMod.Items.Armour
         {
             player.GetDamage(DamageClass.Ranged) += 0.12f;
             player.GetCritChance(DamageClass.Ranged) += 8;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
 
         public override void ArmorSetShadows(Player player)

@@ -663,7 +663,10 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             int frameCounter = Projectile.frameCounter;
             Projectile.frameCounter = frameCounter + 1;
-            Lighting.AddLight(Projectile.Center, 0.3f, 0.45f, 0.5f);
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, 0.3f, 0.45f, 0.5f);
+            }
             if (Projectile.velocity == Vector2.Zero)
             {
                 if (Projectile.frameCounter >= Projectile.extraUpdates * 2)

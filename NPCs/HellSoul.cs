@@ -133,7 +133,7 @@ namespace StormDiversMod.NPCs
                     float projectileSpeed = 7f; // The speed of your projectile (in pixels per second).
                     int damage = 20; // The damage your projectile deals.
                     float knockBack = 3;
-                    int type = ModContent.ProjectileType<NPCs.NPCProjs.HellSoulProj>();
+                    int type = ModContent.ProjectileType<NPCs.NPCProjs.HellSoulEnemyProj>();
                     SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -

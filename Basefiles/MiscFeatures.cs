@@ -18,7 +18,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Buffs;
 using StormDiversMod.NPCs;
 using StormDiversMod.Projectiles;
-using StormDiversMod.Dusts;
+
 using Terraria.DataStructures;
 using Terraria.Audio;
 

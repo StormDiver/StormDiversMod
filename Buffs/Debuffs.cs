@@ -39,9 +39,11 @@ namespace StormDiversMod.Buffs
                     Main.dust[dust].scale *= 0.5f;
                 }
             }
-            Lighting.AddLight(player.position, 1f, 0.5f, 0f);
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.position, 1f, 0.5f, 0f);
 
-
+            }
             
         }
         public override void Update(NPC npc, ref int buffIndex)
@@ -76,7 +78,10 @@ namespace StormDiversMod.Buffs
                 int dust2 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 156, player.velocity.X, player.velocity.Y, 135, default, .3f);
                 Main.dust[dust2].velocity *= 0.5f;
             }
-            Lighting.AddLight(player.position, 0f, 1f, 1f);
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.position, 0f, 1f, 1f);
+            }
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
@@ -144,8 +149,10 @@ namespace StormDiversMod.Buffs
                 Main.dust[dust].velocity *= 1.8f;
                 Main.dust[dust].velocity.Y -= 0.5f;
             }
-            Lighting.AddLight(player.position, 1f, 0.5f, 0.8f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.position, 1f, 0.5f, 0.8f);
+            }
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
@@ -179,44 +186,6 @@ namespace StormDiversMod.Buffs
         }
     }
     //___________________________________________________________
-    public class NebulaDebuff : ModBuff //Unused
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Nebula Blazed");
-            Description.SetDefault("You are being burnt by the full power of a nebula");
-            Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-            player.lifeRegen = -30;
-
-            if (Main.rand.Next(4) < 3)
-            {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 130, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
-                if (Main.rand.NextBool(4))
-                {
-                    Main.dust[dust].noGravity = false;
-                    Main.dust[dust].scale *= 0.5f;
-                }
-            }
-            Lighting.AddLight(player.position, 1f, 0.5f, 0.8f);
-
-        }
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-
-            npc.GetGlobalNPC<NPCEffects>().nebula = true;
-
-
-        }
-    }
-    //___________________________________________________________
     public class HeartDebuff : ModBuff
     {
         public override void SetStaticDefaults()
@@ -237,29 +206,6 @@ namespace StormDiversMod.Buffs
             npc.GetGlobalNPC<NPCEffects>().heartDebuff = true;
 
             
-
-        }
-    }
-    //________________________________________________
-    public class BloodDebuff : ModBuff
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Decayed");
-            Description.SetDefault("Your life is slowing decaying away");
-            Main.debuff[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-            
-
-        }
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-            npc.GetGlobalNPC<NPCEffects>().bloodDebuff = true;
-
-
 
         }
     }

@@ -94,9 +94,10 @@ namespace StormDiversMod.NPCs
             NPC.buffImmune[(BuffType<Buffs.UltraFrostDebuff>())] = true;
 
             shoottime++;
-
-            Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);
+            }
 
             Player player = Main.player[NPC.target];
             Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;

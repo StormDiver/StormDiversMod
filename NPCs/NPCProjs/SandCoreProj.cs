@@ -30,8 +30,10 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.ai[0] > 0f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
@@ -39,7 +41,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                     int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y - 5), 10, 10, 162, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= 0.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y - 5), 10, 10, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
+                    int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y - 5), 10, 10, 129, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
                     Main.dust[dust2].velocity *= 0.5f;
 
                 }

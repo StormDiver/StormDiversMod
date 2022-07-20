@@ -102,9 +102,10 @@ namespace StormDiversMod.NPCs
 
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X / 12;
-
-            Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);
+            }
             NPC.rotation = NPC.velocity.X / 100;
 
 
@@ -170,7 +171,7 @@ namespace StormDiversMod.NPCs
                 if (Main.rand.Next(5) == 0)
                 {
 
-                    var dust2 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, NPC.height / 2, 135, 0, -4);
+                    var dust2 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, NPC.height / 2, 135, 0, -10);
                     dust2.scale = 1.5f;
                     dust2.noGravity = true;
 
@@ -235,7 +236,7 @@ namespace StormDiversMod.NPCs
                 if (Main.rand.Next(3) == 0)
                 {
 
-                    var dust2 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, NPC.height / 2, 135, 0, -7);
+                    var dust2 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, NPC.height / 2, 135, 0, -10);
                     dust2.scale = 1.5f;
                     dust2.noGravity = true;
 

@@ -490,7 +490,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             DisplayName.SetDefault("Dune Blaster Banner");
             Tooltip.SetDefault("Nearby players get a bonus against: Dune Blaster");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override void SetDefaults()
         {
@@ -516,7 +515,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             DisplayName.SetDefault("Meteor Bomber Banner");
             Tooltip.SetDefault("Nearby players get a bonus against: Meteor Bomber");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override void SetDefaults()
         {
@@ -542,7 +540,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             DisplayName.SetDefault("Lihzahrd Flametrap Banner");
             Tooltip.SetDefault("Nearby players get a bonus against: Lihzahrd Flametrap");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override void SetDefaults()
         {

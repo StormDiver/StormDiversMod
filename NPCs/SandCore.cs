@@ -66,7 +66,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A husk filled with the hottest sands known to man, and can melt anything it touches.")
+				new FlavorTextBestiaryInfoElement("A husk of hardened sand, capable of spewing out sand hot enough to melt anything it touches.")
             });
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -81,7 +81,7 @@ namespace StormDiversMod.NPCs
             if (!NPC.AnyNPCs(ModContent.NPCType<SandCore>()) && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneUndergroundDesert && Main.hardMode)
             {
                 {
-                    return SpawnCondition.DesertCave.Chance * 0.01f;
+                    return SpawnCondition.DesertCave.Chance * 0.015f;
                 }
             }
             
@@ -100,13 +100,8 @@ namespace StormDiversMod.NPCs
 
         public override void AI()
         {
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.OnFire3] = true;
-
             NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
             NPC.buffImmune[BuffID.Confused] = true;
-
-            Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);
 
             NPC.spriteDirection = NPC.direction;
 
@@ -168,7 +163,7 @@ namespace StormDiversMod.NPCs
             {
                 NPC.noTileCollide = false;
             }
-            if (distance <= 300f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && !staggered)
+            if (distance <= 350f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && !staggered)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -184,7 +179,7 @@ namespace StormDiversMod.NPCs
 
                 sounddelay ++;
 
-                if (NPC.ai[0] >= 5 && !player.dead && NPC.ai[1] < 120)//fires the projectiles
+                if (NPC.ai[0] >= 5 && !player.dead && NPC.ai[1] < 120)//fires the projectiles, once ever 5 frames for 2 seconds
                 {
                     attacking = true;
 
@@ -213,14 +208,14 @@ namespace StormDiversMod.NPCs
                     SoundEngine.PlaySound(SoundID.Item34 with{Volume = 1f, Pitch = 0.25f}, NPC.Center);
                     sounddelay = 0;
                 }
-                if (NPC.ai[1] > 120) // shoots for 2 seconds
+                if (NPC.ai[1] > 120) //stop firing after 2 seconds
                 {
                     attacking = false;
                     sounddelay = 0;
                     NPC.ai[0] = 0;
 
                 }
-                if (NPC.ai[1] > 300) // pauses for 3
+                if (NPC.ai[1] > 300) // reset cycle after 3 seconds
                 {
                     NPC.ai[1] = 0;
                 }
@@ -258,7 +253,7 @@ namespace StormDiversMod.NPCs
                 var dust3 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Bottom.Y - 15), NPC.width, 20, 10, 0, 10);
                 dust3.noGravity = true;
             }
-       
+      
         }
         int npcframe = 0;
         public override void FindFrame(int frameHeight)
@@ -296,7 +291,7 @@ namespace StormDiversMod.NPCs
     
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.OnFire, 600);
+            target.AddBuff(BuffType<AridSandDebuff>(), 300);
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -317,7 +312,7 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 2; i++)
             {
-                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 54);
+                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 129);
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) they will spawn this
             {
@@ -328,10 +323,9 @@ namespace StormDiversMod.NPCs
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore4").Type, 1f);
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("SandCoreGore4").Type, 1f);
 
-
                 for (int i = 0; i < 40; i++)
                 {
-                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 54);
+                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 129);
                     dust.scale = 2;
                     dust.velocity *= 3;
                     dust.noGravity = true;
@@ -355,11 +349,16 @@ namespace StormDiversMod.NPCs
 
 
         }
-     
-      
-        public override Color? GetAlpha(Color lightColor)
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+
         {
-            return Color.White;
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/SandCore_Glow");
+            Vector2 drawPos = new Vector2(0, -2) + NPC.Center - Main.screenPosition;
+
+            spriteBatch.Draw(texture, drawPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+
+
         }
     }
 }

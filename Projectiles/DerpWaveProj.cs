@@ -25,46 +25,41 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 40;
+            Projectile.timeLeft = 45;
             Projectile.extraUpdates = 1;
             Projectile.knockBack = 8f;
-            //Projectile.usesLocalNPCImmunity = true;
-            //Projectile.usesIDStaticNPCImmunity = true;
-            
+            Projectile.usesLocalNPCImmunity = true;            
             Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = false;
         }
         float airknock = 13;
         public override void AI()
         {
-            Projectile.damage = (Projectile.damage * 100) / 101;
+            Projectile.damage = (Projectile.damage * 99) / 100;
             airknock -= 0.14f;
 
-            if (Projectile.ai[0] > 0f)  //this defines where the flames starts
+            var player = Main.player[Projectile.owner];
+            //increase in height
+            if (player.gravDir == 1)
             {
-                if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
-                {
-
-
-                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    Vector2 position = Projectile.position;
-                    int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 68, 0f, 0f, 100, default, 1.5f);
-
-                    //Main.dust[dustIndex].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
-                    //Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].noGravity = true;
-                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 203);
-
-                    dust2.noGravity = true;
-
-
-                }
+                Projectile.height += 4;
+                Projectile.position.Y -= 4;
             }
             else
             {
-                Projectile.ai[0] += 1f;
+                Projectile.height += 4;
+                //Projectile.position.Y += 4; grows from top, no need to move it down
             }
-            return;
+
+            Vector2 position = Projectile.position;
+            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 68, 0f, 0f, 100, default, 1.5f);
+
+            Main.dust[dustIndex].noGravity = true;
+            var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 203);
+
+            dust2.noGravity = true;
+
+
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

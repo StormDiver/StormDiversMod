@@ -108,8 +108,10 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.ai[0] > 0f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
@@ -264,8 +266,10 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.ai[0] > 30f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
@@ -325,8 +329,10 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.ai[0] > 0f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
@@ -367,9 +373,8 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Dust");
-            
-            
+            DisplayName.SetDefault("Forbidden Dust Trail");
+                     
         }
 
         public override void SetDefaults()
@@ -377,12 +382,11 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 24;
             Projectile.height = 24;
 
-            Projectile.aiStyle = 1;
             Projectile.light = 0.1f;
 
             Projectile.friendly = true;
            
-            Projectile.timeLeft = 90;
+            Projectile.timeLeft = 120;
             Projectile.penetrate = 1;
 
 
@@ -391,20 +395,30 @@ namespace StormDiversMod.Projectiles
             Projectile.knockBack = 0;
 
 
-            Projectile.aiStyle = 14;
             //Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
-
-
+            //Projectile.usesLocalNPCImmunity = true;
+            //Projectile.localNPCHitCooldown = 10;
         }
-
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.GetGlobalNPC<NPCEffects>().pharohimmunetime > 0) //Static immunity
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public override void AI()
         {
 
             Projectile.velocity.X = 0;
             Projectile.velocity.Y = 0;
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             var player = Main.player[Projectile.owner];
 
             if (player.GetModPlayer<EquipmentEffects>().frostJar == false) //Will change to frost if the player has the Frozen jar
@@ -412,7 +426,7 @@ namespace StormDiversMod.Projectiles
 
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1f);
 
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= 0.5f;
@@ -426,15 +440,17 @@ namespace StormDiversMod.Projectiles
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 2.5f;
+                    Main.dust[dust].velocity *= 1.5f;
                     int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
                 }
             }
-
-            return;
+            Projectile.ai[1]++;
+         
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            target.GetGlobalNPC<NPCEffects>().pharohimmunetime = 10; //frames of static immunity
+
             var player = Main.player[Projectile.owner];
 
             if (player.GetModPlayer<EquipmentEffects>().frostJar == false)
@@ -446,7 +462,6 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
 
             }
-            Projectile.damage = (Projectile.damage * 9) / 10;
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
 
@@ -472,11 +487,149 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
 
-            Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
-            
+        }
+
+    }
+    //______________________________________________________________________________________________________
+    public class DesertJarProj2 : ModProjectile //orbit
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Forbidden Dust Orbit");
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 24;
+            Projectile.height = 24;
+            Projectile.light = 0.1f;
+            Projectile.friendly = true;
+            Projectile.timeLeft = 999999999;
+            Projectile.penetrate = -1;
+
+            Projectile.tileCollide = false;
+            Projectile.scale = 1f;
+            Projectile.knockBack = 0;
+
+            //Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 20;
+
+
+        }
+        bool lineOfSight;
+        public override void AI()
+        {
+
+            Projectile.velocity.X = 0;
+            Projectile.velocity.Y = 0;
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
+            var player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<EquipmentEffects>().frostJar == false) //Will change to frost if the player has the Frozen jar
+            {
+
+                if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
+
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 0.5f;
+                    int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
+                }
+            }
+            else
+            {
+
+                if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 135, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 1.5f;
+
+                    int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
+                }
+            }
+
+            Projectile.rotation += (float)Projectile.direction * -0.2f;
+            //Making player variable "p" set as the projectile's owner
+
+            //Factors for calculations
+            double deg = ((double)Projectile.ai[1] + 90) * -5; //The degrees, you can multiply Projectile.ai[1] to make it orbit faster, may be choppy depending on the value
+            double rad = deg * (Math.PI / 180); //Convert degrees to radians
+            double dist = 50; //Distance away from the player
+
+            /*Position the player based on where the player is, the Sin/Cos of the angle times the /
+            /distance for the desired distance away from the player minus the projectile's width   /
+            /and height divided by two so the center of the projectile is at the right place.     */
+
+            Projectile.position.X = player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
+            Projectile.position.Y = player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
+
+            //Increase the counter/angle in degrees by 1 point, you can change the rate here too, but the orbit may look choppy depending on the value
+            Projectile.ai[1] += 1f;
+
+            if (player.GetModPlayer<EquipmentEffects>().desertJar == false || player.dead)
+            {             
+                Projectile.Kill();            
+            }
+
+            lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
+
+        }
+        public override bool? CanDamage()
+        {
+            if (!lineOfSight)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            var player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<EquipmentEffects>().frostJar == false)
+            {
+                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
+            }
+            else
+            {
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+
+            }
+        }
+        public override void OnHitPvp(Player target, int damage, bool crit)
+
+        {
+            var player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<EquipmentEffects>().frostJar == false)
+            {
+                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
+            }
+            else
+            {
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+
+            }
+            target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+
+            return false;
+        }
+        public override void Kill(int timeLeft)
+        {
 
         }
 
     }
-   
 }

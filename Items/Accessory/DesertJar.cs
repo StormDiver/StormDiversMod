@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Pharaoh's Urn");
-            Tooltip.SetDefault("Leaves behind a damaging trail of sand when moving fast enough\nDamaging enemies creates a small sand blast around you");
+            Tooltip.SetDefault("Two sand particles will orbit you at close range, damaging enemies\nLeaves behind a damaging trail of sand when moving fast enough");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

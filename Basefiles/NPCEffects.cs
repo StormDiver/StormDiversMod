@@ -10,7 +10,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Buffs;
 using StormDiversMod.Basefiles;
 using StormDiversMod.Items.Weapons;
-using StormDiversMod.Dusts;
+
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
 using StormDiversMod.Items.Ammo;
@@ -27,40 +27,30 @@ namespace StormDiversMod.Basefiles
 
         public override bool InstancePerEntity => true;
 
-        public bool lunarBoulderDB;
-
         // npc.GetGlobalNPC<NPCEffects>().boulderDB = true; in debuff.cs
         // target.AddBuff(mod.BuffType("BoulderDebuff"), 1200)
 
-        public bool sandBurn;
+        public bool lunarBoulderDB; //Lunar Bouldered
 
+        public bool sandBurn; //Forbidden Burn 
 
-        public bool beetled;
+        public bool beetled; //beetle Swarm
 
-        public bool nebula;
+        public bool heartDebuff; //Stolen Heart
+         
+        public bool superFrost; //Cryoburn
 
+        public bool superburnDebuff; //Blazing fire
 
-        public bool spectreDebuff;
+        public bool hellSoulFire; //Soulburn
+         
+        public bool darknessDebuff; //Escence of darkness
 
-        public bool heartDebuff;
+        public bool ultraburnDebuff; //Ultra Burn
 
-        public bool superFrost;
+        public bool ultrafrostDebuff; //Ultra freeze
 
-        public bool bloodDebuff;
-
-        public bool superburnDebuff;
-
-        public bool heartStolen; //If the npc has been hit when below 50% life
-
-        public bool hellSoulFire;
-
-        public bool darknessDebuff;
-
-        public bool ultraburnDebuff;
-
-        public bool ultrafrostDebuff;
-
-        public bool spookedDebuff;
+        public bool spookedDebuff; //Spooked
 
         //All this for a speen----------------------------------------------
 
@@ -70,9 +60,17 @@ namespace StormDiversMod.Basefiles
 
         public int spintime; //how long until rotation can be reset
 
-        //For the arid immune
+        //For projectile immunity immune
 
         public int aridimmunetime;
+
+        public int pharohimmunetime;
+
+
+        //For Heart Emblem
+
+        public bool heartStolen; //If the npc has dropped below 50% life
+
 
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
@@ -80,11 +78,8 @@ namespace StormDiversMod.Basefiles
             lunarBoulderDB = false;
             sandBurn = false;
             beetled = false;
-            nebula = false;
-            spectreDebuff = false;
             heartDebuff = false;
             superFrost = false;
-            bloodDebuff = false;
             superburnDebuff = false;
             hellSoulFire = false;
             derplaunched = false;
@@ -104,6 +99,51 @@ namespace StormDiversMod.Basefiles
 
         public override void AI(NPC npc)
         {
+            //Debuff immunities
+            if (npc.boss)
+            {
+                npc.buffImmune[(BuffType<BeetleDebuff>())] = true;
+            }
+            if (npc.buffImmune[BuffID.Frostburn] == true) //all enemies immune to frost burn are immune to the Cryoburn and Ultra Freeze
+            {
+                npc.buffImmune[BuffType<SuperFrostBurn>()] = true; //Cryoburn
+                npc.buffImmune[BuffType<UltraFrostDebuff>()] = true; //Ultra Freeze
+            }
+            if (npc.buffImmune[BuffID.OnFire] == true) //all enemies immune to on fire are immune to the fire debuffs
+            {
+                npc.buffImmune[BuffType<SuperBurnDebuff>()] = true; //Blazing Fire
+                npc.buffImmune[BuffType<HellSoulFireDebuff>()] = true; //Soul Fire
+                npc.buffImmune[BuffType<UltraBurnDebuff>()] = true; //Ultra Burn
+            }
+            //All underground desert and sandstorm enemies are immune to Forbidden burn
+            if (npc.type == NPCID.SandSlime || npc.type == NPCID.Antlion || npc.type == NPCID.WalkingAntlion || npc.type == NPCID.GiantWalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.GiantFlyingAntlion || 
+                npc.type == NPCID.LarvaeAntlion || npc.type == NPCID.DesertBeast || npc.type == NPCID.DesertScorpionWalk || npc.type == NPCID.DesertScorpionWall || npc.type == NPCID.DesertLamiaDark || npc.type == NPCID.DesertLamiaLight || 
+                npc.type == NPCID.DesertDjinn ||  npc.type == NPCID.DesertGhoul || npc.type == NPCID.DesertGhoulCorruption || npc.type == NPCID.DesertGhoulCrimson || npc.type == NPCID.DesertGhoulHallow ||
+                npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.TombCrawlerBody || npc.type == NPCID.TombCrawlerTail || npc.type == NPCID.DuneSplicerHead || npc.type == NPCID.DuneSplicerBody || npc.type == NPCID.DuneSplicerTail ||
+                npc.type == NPCID.SandElemental || npc.type == NPCID.SandShark || npc.type == NPCID.SandsharkCorrupt || npc.type == NPCID.SandsharkCrimson || npc.type == NPCID.SandsharkHallow || npc.type == NPCID.Tumbleweed
+                )
+            {
+                npc.buffImmune[BuffType<AridSandDebuff>()] = true;
+            }
+            
+            //slowdown enemies
+            if (beetled && !npc.boss)
+            {
+                npc.velocity.X *= 0.92f;
+                npc.velocity.Y *= 0.92f;
+
+            }
+            if (spookedDebuff && !npc.boss)
+            {
+                npc.velocity.X *= 0.96f;
+
+            }
+            if (ultrafrostDebuff && !npc.boss)
+            {
+                npc.velocity.X *= 0.93f;
+
+            }
+
             var player = Main.LocalPlayer;
 
             if (NPC.ShieldStrengthTowerVortex == 0 && NPC.ShieldStrengthTowerSolar == 0 && NPC.ShieldStrengthTowerNebula == 0 && NPC.ShieldStrengthTowerStardust == 0 && shieldtime > 0)
@@ -171,18 +211,7 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }
-
-            if (beetled && !npc.boss)
-            {
-                npc.velocity.X *= 0.92f;
-                npc.velocity.Y *= 0.92f;
-
-            }
-            if (spookedDebuff && !npc.boss)
-            {
-                npc.velocity.X *= 0.94f;
-
-            }
+        
             //speen________________________________________________
             {
                 if (derplaunched)
@@ -213,13 +242,16 @@ namespace StormDiversMod.Basefiles
                 }
 
             }
-            //------------Arid immune
+            //------------Proejctile immune
             if (aridimmunetime > 0)
             {
                 //Main.NewText("PLEASE WORK::::::" + aridimmunetime, 204, 101, 22);
                 aridimmunetime--;
             }
-
+            if (pharohimmunetime > 0)
+            {
+                pharohimmunetime--;
+            }
             //______________
 
             if (player.GetModPlayer<EquipmentEffects>().heartSteal) //For the Jar of hearts
@@ -276,20 +308,13 @@ namespace StormDiversMod.Basefiles
         public override void SetDefaults(NPC npc)
         {
 
-            if (npc.boss)
-            {
-                npc.buffImmune[(BuffType<BeetleDebuff>())] = true;
-            }
+          
 
         }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-            if (bloodDebuff)
-            {
-                npc.lifeRegen -= 12;
-                damage = 2;
-            }
+           
             if (heartDebuff)
             {
                 npc.lifeRegen -= 50;
@@ -383,21 +408,6 @@ namespace StormDiversMod.Basefiles
                     damage = 10;
                 }
             }
-            if (spectreDebuff) //unused
-            {
-                npc.lifeRegen -= 120;
-
-                damage = 14;
-
-            }
-
-
-            if (nebula) //unused
-            {
-                npc.lifeRegen -= 180;
-                damage = 20;
-            }
-
             if (spookedDebuff)
             {
                 npc.lifeRegen -= 500;
@@ -411,9 +421,6 @@ namespace StormDiversMod.Basefiles
                 damage = 30;
 
             }
-
-
-
         }
         int particle = 0;
         public override void DrawEffects(NPC npc, ref Color drawColor)
@@ -451,24 +458,11 @@ namespace StormDiversMod.Basefiles
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
-                Lighting.AddLight(npc.position, 1f, 0.5f, 0f);
-            }
-            if (nebula)
-            {
-                if (Main.rand.Next(4) < 3)
+                if (!Main.dedServ)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 130, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.NextBool(4))
-                    {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
-                    }
+                    Lighting.AddLight(npc.position, 1f, 0.5f, 0f);
                 }
-                Lighting.AddLight(npc.position, 1f, 0.5f, 0.8f);
-            }
+            }           
             if (sandBurn)
             {
                 if (Main.rand.Next(4) < 3)
@@ -483,7 +477,10 @@ namespace StormDiversMod.Basefiles
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
-                Lighting.AddLight(npc.position, 0.1f, 0.2f, 0.7f);
+                if (!Main.dedServ)
+                {
+                    Lighting.AddLight(npc.position, 0.1f, 0.2f, 0.7f);
+                }
             }
 
 
@@ -491,23 +488,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, ModContent.DustType<BeetleDust>(), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default, 1f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.NextBool(4))
-                    {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
-                    }
-                }
-
-            }
-            if (spectreDebuff)
-            {
-                if (Main.rand.Next(4) < 3)
-                {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 16, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default, 1f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 186, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -546,27 +527,7 @@ namespace StormDiversMod.Basefiles
                     Main.dust[dust].velocity *= 0.5f;
                 }
 
-            }
-            if (bloodDebuff)
-            {
-                if (Main.rand.Next(4) < 3)
-                /*{
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 5, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default, 1f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 5f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.NextBool(4))
-                    {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
-                    }
-                }*/
-                {
-                    var dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, 95);
-                    dust.noGravity = true;
-
-                }
-            }
+            }           
             if (superburnDebuff)
             {
 
@@ -638,8 +599,10 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(5) == 0)
                 {
-                    int dust = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, ModContent.DustType<SpookDust>(), npc.velocity.X * 1.2f, -5, 0, default, 2.5f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    int dust = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 200, npc.velocity.X * 1.2f, -3, 0, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].fadeIn = 0.5f; //this make so the dust has no gravity
+
                 }
                 drawColor = new Color(255, 68, 0);
 

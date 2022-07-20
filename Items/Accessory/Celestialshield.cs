@@ -44,7 +44,6 @@ namespace StormDiversMod.Items.Accessory
             player.buffImmune[BuffID.Obstructed] = true;
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[ModContent.BuffType<Buffs.ScanDroneDebuff>()] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.NebulaDebuff>()] = true;
             player.noKnockback = true;
             player.GetModPlayer<EquipmentEffects>().lunarBarrier = true;
 

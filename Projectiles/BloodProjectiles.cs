@@ -8,6 +8,8 @@ using StormDiversMod.Basefiles;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using static Terraria.ModLoader.ModContent;
+
 
 namespace StormDiversMod.Projectiles
 {
@@ -115,8 +117,6 @@ namespace StormDiversMod.Projectiles
         //bool bloodspray = true;
         public override void AI()
         {
-
-
             if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
             {
                 Dust dust;
@@ -133,11 +133,7 @@ namespace StormDiversMod.Projectiles
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
-
-
             }
-
-
             return;
         }
 
@@ -242,78 +238,11 @@ namespace StormDiversMod.Projectiles
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
-
-
-        }
-        /* OLD SPEAR CODE
-        public float MovementFactor // Change this value to alter how fast the spear moves
-        {
-            get => Projectile.ai[0];
-            set => Projectile.ai[0] = value;
-        }
-
-        // It appears that for this AI, only the ai0 field is used!
-        public override void AI()
-        {
-            // Since we access the owner player instance so much, it's useful to create a helper local variable for this
-            // Sadly, Projectile/ModProjectile does not have its own
-            Player projOwner = Main.player[Projectile.owner];
-            // Here we set some of the projectile's owner properties, such as held item and itemtime, along with projectile direction and position based on the player
-            Vector2 ownerMountedCenter = projOwner.RotatedRelativePoint(projOwner.MountedCenter, true);
-            Projectile.direction = projOwner.direction;
-            projOwner.heldProj = Projectile.whoAmI;
-            projOwner.itemTime = projOwner.itemAnimation;
-            Projectile.position.X = ownerMountedCenter.X - (float)(Projectile.width / 2);
-            Projectile.position.Y = ownerMountedCenter.Y - (float)(Projectile.height / 2);
-            // As long as the player isn't frozen, the spear can move
-            if (!projOwner.frozen)
-            {
-                if (MovementFactor == 0f) // When initially thrown out, the ai0 will be 0f
-                {
-                    MovementFactor = 1.5f; // Make sure the spear moves forward when initially thrown out
-                    Projectile.netUpdate = true; // Make sure to netUpdate this spear
-                }
-                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 2) // Somewhere along the item animation, make sure the spear moves back
-                {
-                    MovementFactor -= 1f;
-                }
-                else // Otherwise, increase the movement factor
-                {
-                    MovementFactor += 1.4f;
-                }
-            }
-            // Change the spear position based off of the velocity and the movementFactor
-            Projectile.position += Projectile.velocity * MovementFactor;
-            // When we reach the end of the animation, we can kill the spear projectile
-            if (projOwner.itemAnimation == 0)
-            {
-                Projectile.Kill();
-            }
-            // Apply proper rotation, with an offset of 135 degrees due to the sprite's rotation, notice the usage of MathHelper, use this class!
-            // MathHelper.ToRadians(xx degrees here)
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
-            // Offset by 90 degrees here
-            if (Projectile.spriteDirection == -1)
-            {
-                Projectile.rotation -= MathHelper.ToRadians(90f);
-            }
-
-            // These dusts are added later, for the 'ExampleMod' effect
-            if (Main.rand.NextBool(3))
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 5, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 1, Scale: 1.2f);
-                dust.noGravity = true;
-                dust.velocity += Projectile.velocity * 0.3f;
-                dust.velocity *= 0.2f;
-            }
-        
-        }*/
-
-
+        }       
     }
    
     //_______________________________________________
-    public class BloodOrbitProj : ModProjectile
+    public class BloodOrbitProj : ModProjectile //Unused
     {
         public override void SetStaticDefaults()
         {
@@ -378,12 +307,7 @@ namespace StormDiversMod.Projectiles
             //Increase the counter/angle in degrees by 1 point, you can change the rate here too, but the orbit may look choppy depending on the value
             Projectile.ai[1] += 1f;
             var player = Main.player[Projectile.owner];
-            if (player.GetModPlayer<EquipmentEffects>().BloodOrb == false || player.dead)
-            {
-                Projectile.Kill();
-            }
-
-
+       
 
         }
     }
@@ -579,6 +503,120 @@ namespace StormDiversMod.Projectiles
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
 
             }
+        }
+    }
+    //________________________
+    public class BloodGrenadeProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Blood Grenade");
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 16;
+            Projectile.height = 16;
+
+
+            Projectile.friendly = true;
+
+            Projectile.aiStyle = 14;
+
+
+            Projectile.penetrate = 1;
+            Projectile.tileCollide = true;
+            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
+            {
+                Projectile.DamageType = DamageClass.Throwing;
+
+            }
+            else
+            {
+                Projectile.DamageType = DamageClass.Ranged;
+
+            }
+            Projectile.timeLeft = 180;
+            DrawOriginOffsetY = -4;
+        }
+        public override void AI()
+        {
+
+            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 5, 0f, 0f, 100, default, 1f);
+            Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
+            Main.dust[dustIndex].noGravity = true;
+
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            //Projectile.Kill();
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.velocity.X = -oldVelocity.X * 0.4f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 0.4f;
+            }
+            return false;
+        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            Projectile.Kill();
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+
+            SoundEngine.PlaySound(SoundID.NPCHit9, Projectile.Center);
+
+            float numberProjectiles = 3 + Main.rand.Next(3);
+
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+
+                float speedX = 0f;
+                float speedY = -4f;
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
+                float scale = 1f - (Main.rand.NextFloat() * .5f);
+                perturbedSpeed = perturbedSpeed * scale;
+
+                int projID = Projectile.NewProjectile(null, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), Projectile.damage / 3, 1, Projectile.owner);
+                Main.projectile[projID].DamageType = DamageClass.Ranged;
+                Main.projectile[projID].timeLeft = 180;
+
+            }
+
+            for (int i = 0; i < 20; i++) //blood particles
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 5, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 2f);
+                Main.dust[dustIndex].noGravity = true;
+
+
+            }
+            for (int i = 0; i < 20; i++) //Large blood particles
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -1f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y);
+
+                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust.noGravity = true;
+                dust.scale = 1f;
+                dust.velocity *= 2f;
+
+            }
+            /*for (int i = 0; i < 20; i++) //Grey dust fade
+            {
+
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
+                Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                Main.dust[dustIndex].noGravity = true;
+            }*/
         }
     }
 }

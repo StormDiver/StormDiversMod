@@ -655,8 +655,7 @@ namespace StormDiversMod.NPCs.Banners
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.StyleWrapLimit = 111;
-            TileObjectData.addTile(Type);
-            
+            TileObjectData.addTile(Type);        
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Dune Blaster Banner");
             AddMapEntry(new Color(13, 88, 130), name);
@@ -673,7 +672,6 @@ namespace StormDiversMod.NPCs.Banners
             {
                 
                 Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.SandCore>()] = true;
-
             }
         }
     }

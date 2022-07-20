@@ -94,9 +94,10 @@ namespace StormDiversMod.NPCs
         public override void AI()
         {
             NPC.buffImmune[BuffID.Confused] = true;
-
-            Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);
+            }
             //NPC.velocity.Y = 3;
             Player player = Main.player[NPC.target];
             NPC.TargetClosest();

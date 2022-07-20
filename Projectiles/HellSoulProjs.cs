@@ -273,7 +273,7 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 45;
+            Projectile.timeLeft = 35;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
 
@@ -282,7 +282,6 @@ namespace StormDiversMod.Projectiles
             //drawOriginOffsetY = -9;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            Projectile.extraUpdates = 1;
 
         }
         int dusttime;
@@ -614,7 +613,7 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 12;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 240;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
             Projectile.DamageType = DamageClass.Generic;
@@ -656,7 +655,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.localAI[0] = 1f;
                 }
                 Vector2 move = Vector2.Zero;
-                float distance = 500f;
+                float distance = 750f;
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {
@@ -688,22 +687,31 @@ namespace StormDiversMod.Projectiles
             if (damagetime > 10)
             {
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 10f)
+                if (magnitude > 13.5f)
                 {
-                    vector *= 11f / magnitude;
+                    vector *= 13.5f / magnitude;
                 }
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (damagetime <= 20)
+            Projectile.timeLeft -= 30;
+            if (Projectile.velocity.X != oldVelocity.X)
             {
-                return false;
+                Projectile.velocity.X = -oldVelocity.X * 0.7f;
             }
-            else
+            if (Projectile.velocity.Y != oldVelocity.Y)
             {
-                return true;
+                Projectile.velocity.Y = -oldVelocity.Y * 0.7f;
             }
+
+            for (int i = 0; i < 5; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
+                dust.scale = 1f;
+                dust.velocity *= 2;
+            }
+            return false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

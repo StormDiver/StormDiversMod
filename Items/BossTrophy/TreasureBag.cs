@@ -110,8 +110,10 @@ namespace StormDiversMod.Items.BossTrophy
 		public override void PostUpdate()
 		{
 			// Spawn some light and dust when dropped in the world
-			Lighting.AddLight(Item.Center, Color.White.ToVector3() * 0.4f);
-
+			if (!Main.dedServ)
+			{
+				Lighting.AddLight(Item.Center, Color.White.ToVector3() * 0.4f);
+			}
 			if (Item.timeSinceItemSpawned % 12 == 0)
 			{
 				Vector2 center = Item.Center + new Vector2(0f, Item.height * -0.1f);

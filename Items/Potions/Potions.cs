@@ -50,47 +50,6 @@ namespace StormDiversMod.Items.Potions
         }
     }
     //____________________________________________________
-    public class BloodPotion : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Life Decay Potion");
-            Tooltip.SetDefault("Grants a chance to decay the life of attacked enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
-
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 16;
-            Item.height = 30;
-            Item.useStyle = ItemUseStyleID.DrinkLiquid;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
-            Item.useTurn = true;
-            Item.UseSound = SoundID.Item3;
-            Item.maxStack = 99;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(0, 0, 2, 50);
-            Item.buffType = BuffType<Buffs.BloodBuff>(); //Specify an existing buff to be applied when used.
-            Item.buffTime = 18000; //The amount of time the buff declared in Item.buffType will last in ticks. 5400 / 60 is 90, so this buff will last 90 seconds.
-        }
-
-        public override void AddRecipes()
-        {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<BloodPotion>(), 1);
-            recipe.AddIngredient(ItemID.BottledWater);
-            recipe.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 2);
-            recipe.AddTile(TileID.Bottles);
-            recipe.Register();
-
-          
-
-            
-        }
-    }
-    //____________________________________________________
 
     public class ShroomitePotion : ModItem
     {

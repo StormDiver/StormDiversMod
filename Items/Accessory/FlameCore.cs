@@ -23,7 +23,10 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void PostUpdate()
         {
-            Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.8f * Main.essScale);
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.8f * Main.essScale);
+            }
         }
         public override void SetDefaults()
         {

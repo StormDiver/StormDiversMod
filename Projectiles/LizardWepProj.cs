@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using StormDiversMod.Dusts;
+
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Basefiles;
 using StormDiversMod.Buffs;
@@ -207,8 +207,10 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-            
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
             if (Projectile.ai[0] > 8f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn

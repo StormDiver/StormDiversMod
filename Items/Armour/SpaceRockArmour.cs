@@ -40,9 +40,10 @@ namespace StormDiversMod.Items.Armour
 
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.GetCritChance(DamageClass.Generic) += 8;
-         
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-        
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
     
         public override void ArmorSetShadows(Player player)
@@ -122,8 +123,10 @@ namespace StormDiversMod.Items.Armour
             player.GetCritChance(DamageClass.Generic) += 2;
             player.noKnockback = true;
             player.lifeRegen += 2;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
 
         public override void ArmorSetShadows(Player player)
@@ -147,7 +150,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Grants the Orbital Defense buff that reduces damage of the next attack by 25% while summoning damaging asteroid fragments from the sky";
+            player.setBonus = "Grants the Orbital Defense buff that reduces damage of the next attack by 25% while summoning damaging asteroid fragments from the sky\nIsn't activated if the attacks only deals 1 damage";
            
                 player.GetModPlayer<ArmourSetBonuses>().spaceRockDefence = true;
 
@@ -196,8 +199,10 @@ namespace StormDiversMod.Items.Armour
 
             player.GetDamage(DamageClass.Generic) += 0.07f;
             player.GetCritChance(DamageClass.Generic) += 5;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
 
         }
         public override void AddRecipes()
@@ -243,8 +248,10 @@ namespace StormDiversMod.Items.Armour
         {
             player.GetDamage(DamageClass.Generic) += 0.06f;
             player.GetCritChance(DamageClass.Generic) += 5;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
         public override void AddRecipes()
         {

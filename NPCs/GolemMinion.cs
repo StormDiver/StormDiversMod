@@ -110,8 +110,10 @@ namespace StormDiversMod.NPCs
             NPC.buffImmune[BuffID.Confused] = true;
 
             NPC.noTileCollide = true;
-            Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);
+            }
             NPC.spriteDirection = NPC.direction;
 
 

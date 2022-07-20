@@ -7,6 +7,8 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using StormDiversMod.Basefiles;
+using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -182,6 +184,58 @@ namespace StormDiversMod.Items.Weapons
         .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
         .AddTile(TileID.Anvils)
         .Register();
+        }
+    }
+    //_______________________
+    //____________________________________________________
+    public class BloodPotion : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Blood Grenade");
+            Tooltip.SetDefault("Bursts into multiple blood drops on destruction");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Item.damage = 60;
+            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
+            {
+                Item.DamageType = DamageClass.Throwing;
+            }
+            else
+            {
+                Item.DamageType = DamageClass.Ranged;
+
+            }
+            Item.width = 10;
+            Item.height = 14;
+            Item.consumable = true;
+            Item.maxStack = 999;
+            Item.useTime = 50;
+            Item.useAnimation = 50;
+            Item.noUseGraphic = true;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.knockBack = 5;
+            Item.value = Item.sellPrice(0, 0, 0, 50);
+            Item.rare = ItemRarityID.Blue;
+            Item.shootSpeed = 5;
+            Item.shoot = ModContent.ProjectileType<Projectiles.BloodGrenadeProj>();
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.noMelee = true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BloodPotion>(), 5);
+            recipe.AddIngredient(ItemID.Grenade, 5);
+            recipe.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 1);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
+
         }
     }
 }

@@ -338,7 +338,9 @@ namespace StormDiversMod.Projectiles.Minions
 			// Some visuals here
 			if (!Main.dedServ)
 			{
-				Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
+				
+					Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
+				
 				if (Main.rand.Next(8) == 0)
 				{
 

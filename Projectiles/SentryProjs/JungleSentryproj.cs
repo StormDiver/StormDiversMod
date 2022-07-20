@@ -74,7 +74,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
            
             //Projectile.rotation += (float)Projectile.direction * -0.1f;
             Main.player[Projectile.owner].UpdateMaxTurrets();
-            Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
 
             {
                 if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn

@@ -73,7 +73,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundSnow,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("This frozen creature lurks in the underground ice biome, waiting for an unsuspecting adventurer to rain down sharp icicles. ")
+				new FlavorTextBestiaryInfoElement("A frozen creature that lurks in the underground ice biome, waiting to rain down sharp icicles upon any unsuspecting adventurer.")
             });
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -110,9 +110,10 @@ namespace StormDiversMod.NPCs
             NPC.buffImmune[(BuffType<SuperFrostBurn>())] = true;
             NPC.buffImmune[(BuffType<UltraFrostDebuff>())] = true;
             NPC.buffImmune[BuffID.Confused] = true;
-
-            Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);
+            }
             Player player = Main.player[NPC.target];
             NPC.TargetClosest();
             Vector2 moveTo = player.Center;
@@ -350,7 +351,7 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.ai[3] == 1)
             {
-                NPC.ai[0] = 60;
+                NPC.ai[0] = 50;
             }
             if (Main.netMode == NetmodeID.Server)
             {

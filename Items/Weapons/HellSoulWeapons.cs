@@ -234,12 +234,12 @@ namespace StormDiversMod.Items.Weapons
             weaponattack--;
             if (weaponattack <= 0)
             {
-                float numberProjectiles = 5;
-                float rotation = MathHelper.ToRadians(15);
+                float numberProjectiles = 3;
+                float rotation = MathHelper.ToRadians(16);
                 for (int j = 0; j < numberProjectiles; j++)
                 {
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.66f), (int)(knockback * 0.33f), player.whoAmI);
+                    int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.5f), (int)(knockback * 0.33f), player.whoAmI);
                 }
                 //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.2f), knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item8, player.Center);

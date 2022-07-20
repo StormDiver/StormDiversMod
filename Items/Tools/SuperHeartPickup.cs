@@ -49,7 +49,10 @@ namespace StormDiversMod.Items.Tools
         
         public override void PostUpdate()
         {
-            Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.5f * Main.essScale);
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.5f * Main.essScale);
+            }
         }
         public override bool CanPickup(Player player)
         {

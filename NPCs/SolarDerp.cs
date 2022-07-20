@@ -77,17 +77,16 @@ namespace StormDiversMod.NPCs
             {
                 return SpawnCondition.SolarTower.Chance * 0f;
             }
-        }
-
-       
-        
+        }      
        
         int shoottime = 0;
-        int firetime = 0;
         public override void AI()
         {
             NPC.buffImmune[BuffID.OnFire] = true;
+            NPC.buffImmune[BuffID.OnFire3] = true;
+
             NPC.buffImmune[(BuffType<SuperBurnDebuff>())] = true;
+            NPC.buffImmune[BuffType<HellSoulFireDebuff>()] = true; 
             NPC.buffImmune[(BuffType<UltraBurnDebuff>())] = true;
 
             if (Main.rand.NextFloat() < 0.8f)
@@ -121,10 +120,6 @@ namespace StormDiversMod.NPCs
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-
-                    firetime++;
-                    //if (firetime >= 10)
-                    {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             for (int i = 0; i < 6; i++)
@@ -145,9 +140,7 @@ namespace StormDiversMod.NPCs
                         }
 
                         shoottime = 0;
-                    }
-
-                    
+      
                 }
             }
             else

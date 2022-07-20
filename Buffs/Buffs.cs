@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using System.Linq;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Basefiles;
-using StormDiversMod.Dusts;
+
 
 
 //buff effects for npcs are in NPCEffects.cs, effects for player are in EquipmentEffects.cs
@@ -255,23 +255,6 @@ namespace StormDiversMod.Buffs
             player.lifeRegen += 6;
             player.loveStruck = true; 
             //player.moveSpeed = 0.1f;
-        }
-    }
-    //_____________________________________________
-
-    public class BloodBuff : ModBuff
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Life Decayer");
-            Description.SetDefault("Attacking enemies has a chance to decay their life");
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-            player.GetModPlayer<EquipmentEffects>().BloodOrb = true;
-
-         
         }
     }
    
@@ -569,30 +552,6 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-
-        }
-    }
-    public class BeetlePowerBuff : ModBuff
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Beetle Power");
-            Description.SetDefault("10% increased melee critical strike chance");
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-
-            if (Main.rand.Next(4) < 3)
-            {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, ModContent.DustType<BeetleDust>(), player.velocity.X, player.velocity.Y, 0, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
-
-            }
-
-            player.GetCritChance(DamageClass.Melee) += 10;
 
         }
     }

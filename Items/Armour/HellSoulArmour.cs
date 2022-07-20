@@ -40,17 +40,19 @@ namespace StormDiversMod.Items.Armour
 
             player.GetDamage(DamageClass.Melee) += 0.14f;
             player.GetCritChance(DamageClass.Melee) += 5;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
 
         public override void ArmorSetShadows(Player player)
         {
             player.armorEffectDrawOutlines = true;
-            if (Main.rand.Next(4) == 0)
+            if (Main.rand.Next(3) == 0)
             {
-                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
-                dust.scale = 1.4f;
+                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173, 0, -3);
+                dust.scale = 1f;
             }
 
         }
@@ -116,8 +118,10 @@ namespace StormDiversMod.Items.Armour
         
             player.GetDamage(DamageClass.Ranged) += 0.10f;
             player.GetCritChance(DamageClass.Ranged) += 8;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
 
         public override void ArmorSetShadows(Player player)
@@ -192,8 +196,10 @@ namespace StormDiversMod.Items.Armour
             player.GetDamage(DamageClass.Magic) += 0.12f;
             player.GetCritChance(DamageClass.Magic) += 6;
             player.statManaMax2 += 60;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
 
         public override void ArmorSetShadows(Player player)
@@ -266,8 +272,10 @@ namespace StormDiversMod.Items.Armour
 
             player.GetDamage(DamageClass.Summon) += 0.10f;
             player.maxMinions += 1;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
 
         public override void ArmorSetShadows(Player player)
@@ -339,9 +347,11 @@ namespace StormDiversMod.Items.Armour
 
             player.GetDamage(DamageClass.Generic) += 0.07f;
             player.GetCritChance(DamageClass.Generic) += 6;
-            
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
 
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
         public override void AddRecipes()
         {
@@ -391,8 +401,10 @@ namespace StormDiversMod.Items.Armour
             player.GetCritChance(DamageClass.Generic) += 6;
 
             player.moveSpeed += 0.25f;
-            Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
-
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
+            }
         }
         public override void AddRecipes()
         {
