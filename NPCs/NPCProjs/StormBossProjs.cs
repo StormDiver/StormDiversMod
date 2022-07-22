@@ -798,13 +798,12 @@ namespace StormDiversMod.NPCs.NPCProjs
             DisplayName.SetDefault("Overloaded Scandrone Portal");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             Main.projFrames[Projectile.type] = 4;
-
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 38;
-            Projectile.height = 38;
+            Projectile.width = 62;
+            Projectile.height = 62;
             Projectile.light = 0.6f;
             Projectile.friendly = false;
             Projectile.hostile = true;
@@ -1033,7 +1032,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
 
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 8) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+            if (Projectile.frameCounter >= 5) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
             {
                 Projectile.frame++;
                 Projectile.frame %= 4; // Will reset to the first frame if you've gone through them all.

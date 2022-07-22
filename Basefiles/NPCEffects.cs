@@ -64,9 +64,9 @@ namespace StormDiversMod.Basefiles
 
         public int aridimmunetime;
 
-        public int pharohimmunetime;
+        public int pharaohimmunetime;
 
-
+        public int yoyoimmunetime;
         //For Heart Emblem
 
         public bool heartStolen; //If the npc has dropped below 50% life
@@ -248,9 +248,13 @@ namespace StormDiversMod.Basefiles
                 //Main.NewText("PLEASE WORK::::::" + aridimmunetime, 204, 101, 22);
                 aridimmunetime--;
             }
-            if (pharohimmunetime > 0)
+            if (pharaohimmunetime > 0)
             {
-                pharohimmunetime--;
+                pharaohimmunetime--;
+            }
+            if (yoyoimmunetime > 0)
+            {
+                yoyoimmunetime--;
             }
             //______________
 

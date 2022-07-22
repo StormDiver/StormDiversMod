@@ -336,7 +336,7 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Orbital Defense");
-            Description.SetDefault("25% damage reduction from the next attack\nTaking damage summons asteroid fragments from the sky");
+            Description.SetDefault("25% damage reduction from the next attack\nTaking damage summons asteroid boulders from the sky");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -360,7 +360,7 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Orbital Strike");
-            Description.SetDefault("Your next attack will cause asteroid fragments to fall upon the attacked enemy");
+            Description.SetDefault("Your next attack will cause asteroid boulders to fall upon the attacked enemy");
             Main.buffNoTimeDisplay[Type] = true;
         }
 

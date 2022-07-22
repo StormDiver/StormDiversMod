@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Asteroid Globe");
-            Tooltip.SetDefault("Summons a floating asteroid fragment at the cursor's location that explodes into smaller fragments");
+            Tooltip.SetDefault("Summons a floating asteroid boulder at the cursor's location that explodes into many fragments");
             
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -109,9 +109,9 @@ namespace StormDiversMod.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = false;
-            Item.scale = 1.3f;
+            Item.scale = 1.5f;
             Item.knockBack = 6;
-            Item.shoot = ModContent.ProjectileType<SpaceSwordProj>();
+            Item.shoot = ModContent.ProjectileType<SpaceFragment>();
             Item.shootSpeed = 16f;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -132,7 +132,7 @@ namespace StormDiversMod.Items.Weapons
                 {
                     Vector2 vector2_1 = new Vector2((float)((double)player.position.X + (double)player.width * 0.5 + (double)(Main.rand.Next(150) * -player.direction) + ((double)Main.mouseX + (double)Main.screenPosition.X - (double)player.position.X)), (float)((double)player.position.Y + (double)player.height * 0.5 - 600.0));   //this defines the projectile width, direction and position
                     vector2_1.X = (float)(((double)vector2_1.X + (double)player.Center.X) / 2.0) + (float)Main.rand.Next(-250, 251); //Spawn Spread
-                    vector2_1.Y -= (float)(100 * index);
+                    vector2_1.Y -= (float)(70 * index);
                     float num12 = (float)Main.mouseX + Main.screenPosition.X - vector2_1.X;
                     float num13 = (float)Main.mouseY + Main.screenPosition.Y - vector2_1.Y;
                     if ((double)num13 < 0.0) num13 *= -1f;
@@ -143,7 +143,8 @@ namespace StormDiversMod.Items.Weapons
                     float num17 = num13 * num15;
                     float SpeedX = num16 + (float)Main.rand.Next(-10, 10) * 0.05f;  //this defines the projectile X position speed and randomnes
                     float SpeedY = num17 + (float)Main.rand.Next(-10, 10) * 0.05f;  //this defines the projectile Y position speed and randomnes
-                Projectile.NewProjectile(source, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), type, (int)(damage * 0.75f), 0.5f, player.whoAmI, 0.0f, (float)Main.rand.Next(5));
+                int projid = Projectile.NewProjectile(source, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), type, (int)(damage * 0.75f), 0.5f, player.whoAmI, 0.0f, (float)Main.rand.Next(5));
+                Main.projectile[projid].DamageType = DamageClass.Melee;
             }
                 SoundEngine.PlaySound(SoundID.Item13, player.Center);
               

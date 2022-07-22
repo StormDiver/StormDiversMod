@@ -217,7 +217,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Arid Command Staff");
-            Tooltip.SetDefault("Summons an Arid Spirit Minion to fight for you");
+            Tooltip.SetDefault("Summons an Ancient Arid Minion to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

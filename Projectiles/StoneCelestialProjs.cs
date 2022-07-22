@@ -108,7 +108,7 @@ namespace StormDiversMod.Projectiles
 
                     float speedX =  Main.rand.NextFloat(-12f, 12f);
                     float speedY =  Main.rand.NextFloat(-12f, 12f);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneSolarFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 0);
 
                 }
             }
@@ -140,7 +140,7 @@ namespace StormDiversMod.Projectiles
                 float speedX =  Main.rand.NextFloat(-13f, 13f);
                 float speedY =  Main.rand.NextFloat(-13f, 13f);
 
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneSolarFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner,0 , 0);
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -160,89 +160,6 @@ namespace StormDiversMod.Projectiles
 
         }
     }
-    //______________________________________________________________________________________
-    
-    public class StoneSolarFrag : ModProjectile
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Solar Fragment");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-        }
-        public override void SetDefaults()
-        {
-            Projectile.light = 0.2f;
-            Projectile.width = 8;
-            Projectile.height = 8;
-            Projectile.friendly = true;
-            Projectile.penetrate = 5;
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.timeLeft = 180;
-            Projectile.aiStyle = 14;
-            AIType = ProjectileID.WoodenArrowFriendly;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
-        
-            DrawOffsetX = -2;
-            DrawOriginOffsetY = -2;
-        }
-        
-        public override void AI()
-        {
-            Dust dust;
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            Vector2 position = Projectile.Center;
-            dust = Terraria.Dust.NewDustPerfect(position, 244, new Vector2(0f, 0f), 0, new Color(255, 100, 0), 1f);
-            dust.noGravity = true;
-            Projectile.rotation += (float)Projectile.direction * -0.2f;
-
-        }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
-            for (int i = 0; i < 3; i++)
-            {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
-            }
-            Projectile.damage = (Projectile.damage * 9) / 10;
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
-        {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 240);
-            for (int i = 0; i < 3; i++)
-            {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
-            }
-        }
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Projectile.Kill();
-            return true;
-        }
-        public override void Kill(int timeLeft)
-        {
-            if (Projectile.owner == Main.myPlayer)
-            {
-                SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
-
-                for (int i = 0; i < 3; i++)
-                {
-
-                     
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
-                }
-
-            }
-        }
-       
-    }
-    //______________________________________________________________________________________
     //______________________________________________________________________________________
     public class StoneVortex : ModProjectile
     {
@@ -303,7 +220,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-6f, 6f);
                 float speedY = Main.rand.NextFloat(-6f, 6f);
 
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 1);
 
             }
         }
@@ -352,7 +269,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-8f, 8f);
                     float speedY = Main.rand.NextFloat(-8f, 8f);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 1);
 
                 }
             }
@@ -382,9 +299,9 @@ namespace StormDiversMod.Projectiles
 
                 float speedX = Main.rand.NextFloat(-10f, 10f);
                 float speedY = Main.rand.NextFloat(-10f, 10f);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneVortexFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 1);
 
-             }
+            }
 
 
         }
@@ -405,97 +322,8 @@ namespace StormDiversMod.Projectiles
 
         }
     }
-    //______________________________________________________________________________________
-
-    public class StoneVortexFrag : ModProjectile
-    {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Vortex Fragment");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-        }
-        public override void SetDefaults()
-        {
-            Projectile.light = 0.2f;
-            Projectile.width = 8;
-            Projectile.height = 8;
-            Projectile.friendly = true;
-            Projectile.penetrate = 5;
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.timeLeft = 180;
-            Projectile.aiStyle = 14;
-            AIType = ProjectileID.WoodenArrowFriendly;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
-         
-            DrawOffsetX = -3;
-            DrawOriginOffsetY = -3;
-        }
-
-        public override void AI()
-        {
-            Dust dust;
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            Vector2 position = Projectile.Center;
-            dust = Terraria.Dust.NewDustPerfect(position, 110, new Vector2(0f, 0f), 0, new Color(255, 100, 0), 1f);
-            dust.noGravity = true;
-            Projectile.rotation += (float)Projectile.direction * -0.2f;
-
-
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
-            for (int i = 0; i < 3; i++)
-            {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
-            }
-            Projectile.damage = (Projectile.damage * 9) / 10;
-
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
-        {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 240);
-            for (int i = 0; i < 3; i++)
-            {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
-            }
-        }
-
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-
-        {
-            Projectile.Kill();
-            return true;
-        }
-        public override void Kill(int timeLeft)
-        {
-            if (Projectile.owner == Main.myPlayer)
-            {
-                SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
-
-                for (int i = 0; i < 3; i++)
-                {
-
-                     
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
-                }
-
-            }
-        }
-        
-    }
+    
     //_________________________________________________________________
-    //_____________________________________________________________________
     public class StoneNebula : ModProjectile
     {
 
@@ -597,7 +425,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-7f, 7f);
                     float speedY = Main.rand.NextFloat(-7f, 7f);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneNebulaFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 2);
 
                 }
             }
@@ -629,7 +457,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-9f, 9f);
                 float speedY = Main.rand.NextFloat(-9f, 9f);
 
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneNebulaFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 2);
             }
 
 
@@ -651,98 +479,7 @@ namespace StormDiversMod.Projectiles
 
         }
     }
-    //______________________________________________________________________________________
-
-    public class StoneNebulaFrag : ModProjectile
-    {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Nebula Fragment");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-        }
-        public override void SetDefaults()
-        {
-            Projectile.light = 0.2f;
-            Projectile.width = 8;
-            Projectile.height = 8;
-            Projectile.friendly = true;
-            Projectile.penetrate = 5;
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.timeLeft = 180;
-            Projectile.aiStyle = 14;
-            AIType = ProjectileID.WoodenArrowFriendly;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
-           
-            DrawOffsetX = -3;
-            DrawOriginOffsetY = -3;
-        }
-
-        public override void AI()
-        {
-            Dust dust;
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            Vector2 position = Projectile.Center;
-            dust = Terraria.Dust.NewDustPerfect(position, 112, new Vector2(0f, 0f), 0, new Color(255, 100, 0), 1f);
-            dust.noGravity = true;
-            Projectile.rotation += (float)Projectile.direction * -0.2f;
-
-
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
-            for (int i = 0; i < 3; i++)
-            {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
-            }
-            Projectile.damage = (Projectile.damage * 9) / 10;
-
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
-        {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 240);
-            for (int i = 0; i < 3; i++)
-            {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
-            }
-        }
-
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-
-        {
-            Projectile.Kill();
-            return true;
-        }
-        public override void Kill(int timeLeft)
-        {
-            if (Projectile.owner == Main.myPlayer)
-            {
-                SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
-
-                for (int i = 0; i < 3; i++)
-                {
-
-                     
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
-                }
-
-            }
-        }
-        
-    }
-    //________________________________________
-    
-    //__________________________________________________________________________________________________
+ 
     //__________________________________________________________________________________________________
     public class StoneStardust : ModProjectile
     {
@@ -792,7 +529,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-3f, 3f);
                     float speedY = Main.rand.NextFloat(-3f, 3f);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 3);
 
 
                 }
@@ -859,7 +596,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-7f, 7f);
                     float speedY = Main.rand.NextFloat(-7f, 7f);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 3);
                 }
             }
 
@@ -890,7 +627,7 @@ namespace StormDiversMod.Projectiles
                 float speedX = Main.rand.NextFloat(-9f, 9f);
                 float speedY = Main.rand.NextFloat(-9f, 9f);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneStardustFrag>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 3);
             }
 
 
@@ -912,16 +649,14 @@ namespace StormDiversMod.Projectiles
 
         }
     }
-    //______________________________________________________________________________________
-
-    public class StoneStardustFrag : ModProjectile
+ //_________________________________________________________________________________
+    public class StoneFragCelestial : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stardust Fragment");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            DisplayName.SetDefault("Celestial Fragment");
+            Main.projFrames[Projectile.type] = 4;
+
         }
         public override void SetDefaults()
         {
@@ -936,32 +671,51 @@ namespace StormDiversMod.Projectiles
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-           
-            DrawOffsetX = -3;
-            DrawOriginOffsetY = -3;
-        }
 
+            DrawOffsetX = -2;
+            DrawOriginOffsetY = -2;
+        }
+        int dusttype;
         public override void AI()
         {
+            if (Projectile.ai[1] == 0)//solar
+            {
+                Projectile.frame = 0;
+                dusttype = 244;
+            }
+            else if (Projectile.ai[1] == 1) //vortex
+            {
+                Projectile.frame = 1;
+                dusttype = 110;
+            }
+            else if (Projectile.ai[1] == 2) //nebula
+            {
+                Projectile.frame = 2;
+                dusttype = 112;
+            }
+            else if (Projectile.ai[1] == 3) //Stardust
+            {
+                Projectile.frame = 3;
+                dusttype = 111;
+            }
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = Projectile.Center;
-            dust = Terraria.Dust.NewDustPerfect(position, 111, new Vector2(0f, 0f), 0, new Color(255, 100, 0), 1f);
+            dust = Terraria.Dust.NewDustPerfect(position, dusttype, new Vector2(0f, 0f), 0, new Color(255, 100, 0), 1f);
             dust.noGravity = true;
             Projectile.rotation += (float)Projectile.direction * -0.2f;
 
-
         }
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
             for (int i = 0; i < 3; i++)
             {
 
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
+
+                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, dusttype);
             }
+            Projectile.damage = (Projectile.damage * 9) / 10;
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
 
@@ -970,16 +724,11 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 3; i++)
             {
 
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
+
+                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, dusttype);
             }
-            Projectile.damage = (Projectile.damage * 9) / 10;
-
         }
-
-
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
             Projectile.Kill();
             return true;
@@ -992,14 +741,12 @@ namespace StormDiversMod.Projectiles
 
                 for (int i = 0; i < 3; i++)
                 {
-
-                     
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, dusttype);
                 }
 
             }
         }
-       
-    }
 
+    }
+    //______________________________________________________________________________________
 }

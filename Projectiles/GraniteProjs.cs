@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
-
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Projectiles
 {
@@ -382,13 +382,26 @@ namespace StormDiversMod.Projectiles
 
             Projectile.scale = 1f;
             Projectile.aiStyle = 99;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
             // drawOffsetX = -3;
             // drawOriginOffsetY = 1;
         }
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.GetGlobalNPC<NPCEffects>().yoyoimmunetime > 0) //Static immunity
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public override void AI()
         {
-          
+            Player player = Main.player[Projectile.owner];
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -404,6 +417,11 @@ namespace StormDiversMod.Projectiles
             }
 
             return true;
+
+        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.GetGlobalNPC<NPCEffects>().yoyoimmunetime = 10; //frames of static immunity
 
         }
         public override void PostDraw(Color drawColor)

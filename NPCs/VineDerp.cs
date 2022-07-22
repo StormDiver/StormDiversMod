@@ -113,10 +113,8 @@ namespace StormDiversMod.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-
+            npcLoot.Add(ItemDropRule.Common(ItemID.ChlorophyteOre, 1, 10, 16));
             npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Pets.DerplingVine>(), 3, 2));
-
-
         }
        
     }

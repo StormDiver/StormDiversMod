@@ -235,7 +235,7 @@ namespace StormDiversMod.Items.Weapons
             if (weaponattack <= 0)
             {
                 float numberProjectiles = 3;
-                float rotation = MathHelper.ToRadians(16);
+                float rotation = MathHelper.ToRadians(14);
                 for (int j = 0; j < numberProjectiles; j++)
                 {
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Projectiles
 {
@@ -260,13 +261,27 @@ namespace StormDiversMod.Projectiles
 
             Projectile.scale = 1f;
             Projectile.aiStyle = 99;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
             // drawOffsetX = -3;
             // drawOriginOffsetY = 1;
         }
         int shoottime = 0;
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.GetGlobalNPC<NPCEffects>().yoyoimmunetime > 0) //Static immunity
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public override void AI()
         {
+            Player player = Main.player[Projectile.owner];
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = Projectile.position;
@@ -287,7 +302,7 @@ namespace StormDiversMod.Projectiles
 
                     Vector2 perturbedSpeed = new Vector2(0, -4).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<TurtleYoyoProj2>(), (int)(Projectile.damage * 1.25f), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<TurtleYoyoProj2>(), (int)(Projectile.damage * 0.8f), 0, Projectile.owner);
                     shoottime = 0;
                 }
             }
@@ -295,6 +310,7 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            target.GetGlobalNPC<NPCEffects>().yoyoimmunetime = 10; //frames of static immunity
 
             Player player = Main.player[Projectile.owner];
             
@@ -325,7 +341,8 @@ namespace StormDiversMod.Projectiles
 
             Projectile.scale = 1f;
             Projectile.aiStyle = -1;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
             // drawOffsetX = -3;
             // drawOriginOffsetY = 1;
         }

@@ -36,7 +36,7 @@ namespace StormDiversMod
                         ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>()}, //ModContent.ItemType<Items.Tools.StormHook>(), ModContent.ItemType<Items.Accessory.StormWings>(),ItemID.TempleKey},
 
                         ModContent.ItemType<Items.Summons.StormBossSummoner>(), "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
-                        "Overloaded Scandrone returns to its home planet (and didn't die on the way home",
+                        "Overloaded Scandrone returns to its home planet (and didn't die on the way home)",
                         (SpriteBatch sb, Rectangle rect, Color color) => {
                             Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
                             Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));

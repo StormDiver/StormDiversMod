@@ -16,8 +16,8 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Arid Spirit Minion");
-			Description.SetDefault("An Arid Spirit minion will fight for you");
+			DisplayName.SetDefault("Ancient Arid Minion");
+			Description.SetDefault("An Ancient Arid minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -35,25 +35,22 @@ namespace StormDiversMod.Projectiles.Minions
 			}
 		}
 	}
-
-
 	//_______________________________________________________________________
 	public class AncientMinionProj : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Arid Spirit Minion");
-			Main.projFrames[Projectile.type] = 4;
+			DisplayName.SetDefault("Ancient Arid Minion");
+			Main.projFrames[Projectile.type] = 8;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
-
 			Main.projPet[Projectile.type] = true;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 		}
 
 		public sealed override void SetDefaults()
 		{
-			Projectile.width = 30;
-			Projectile.height = 30;
+			Projectile.width = 38;
+			Projectile.height = 38;
 			// Makes the minion go through tiles freely
 			Projectile.tileCollide = false;
 
@@ -66,10 +63,7 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.minionSlots = 1f;
 			// Needed so the minion doesn't despawn on collision with enemies or tiles
 			Projectile.penetrate = -1;
-			Projectile.DamageType = DamageClass.Summon;
-
-			Projectile.alpha = 75;
-			
+			Projectile.DamageType = DamageClass.Summon;		
 		}
 
 		// Here you can decide if your minion breaks things like grass or pots
@@ -294,35 +288,41 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 
-
 			// So it will lean slightly towards the direction it's moving
 			Projectile.rotation = Projectile.velocity.X * 0.05f;
 
-			
+			Projectile.frameCounter++;
+
 			if (shooting)
 			{
-				Projectile.frameCounter++;
-				if (Projectile.frameCounter >= 8)
+				if (Projectile.frameCounter >= 4)
 				{
 					Projectile.frameCounter = 0;
 					Projectile.frame++;
 
 				}
-				if (Projectile.frame <= 0 || Projectile.frame >= 4) // frae 1-3 when shooting
+				if (Projectile.frame <= 3 || Projectile.frame >= 8) // frame 4-7 when shooting
 				{
-					Projectile.frame = 1;
+					Projectile.frame = 4;
 				}
 			}
 			else
 			{
+				if (Projectile.frameCounter >= 6)
+				{
+					Projectile.frameCounter = 0;
+					Projectile.frame++;
 
-				Projectile.frame = 0; //no animation when not
-
+				}
+				if (Projectile.frame >= 4) // frame 0-3 when not shooting
+				{
+					Projectile.frame = 0;
+				}
 			}
 			// Some visuals here
 			if (!Main.dedServ)
 			{
-				Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
+				Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.2f);
 				
 				if (Main.rand.Next(6) == 0)
 				{
@@ -359,13 +359,7 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 		}
-		public override Color? GetAlpha(Color lightColor)
-		{
-
-			Color color = Color.Orange;
-			color.A = 100;
-			return color;
-		}
+	
 	}
 	//__________________________________________________________________________________________________________
 
@@ -374,7 +368,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Spirit Minion Projectile");
+			DisplayName.SetDefault("Ancient Arid Minion Projectile");
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
@@ -385,7 +379,6 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.friendly = true;
 			Projectile.penetrate = 2;
 			Projectile.timeLeft = 60;
-			Projectile.light = 0.4f;
 			Projectile.scale = 1f;
 			Projectile.aiStyle = 0;
 			Projectile.usesLocalNPCImmunity = true;

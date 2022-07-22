@@ -396,12 +396,12 @@ namespace StormDiversMod.Projectiles
 
 
             //Projectile.usesIDStaticNPCImmunity = true;
-            //Projectile.usesLocalNPCImmunity = true;
-            //Projectile.localNPCHitCooldown = 10;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (target.GetGlobalNPC<NPCEffects>().pharohimmunetime > 0) //Static immunity
+            if (target.GetGlobalNPC<NPCEffects>().pharaohimmunetime > 0) //Static immunity
             {
                 return false;
             }
@@ -449,7 +449,7 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.GetGlobalNPC<NPCEffects>().pharohimmunetime = 10; //frames of static immunity
+            target.GetGlobalNPC<NPCEffects>().pharaohimmunetime = 10; //frames of static immunity
 
             var player = Main.player[Projectile.owner];
 

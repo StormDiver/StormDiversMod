@@ -247,8 +247,6 @@ namespace StormDiversMod.Projectiles.Minions
 					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
 
 				}
-
-
 			}
 			else
 			{
@@ -288,7 +286,7 @@ namespace StormDiversMod.Projectiles.Minions
 						Projectile.velocity.X = (Projectile.velocity.X * (inertia - 1) + vectorToIdlePosition.X) / inertia;
 
 
-						if (Projectile.velocity.X != 0 && jump && Projectile.velocity.Y == 0) //Start jump
+						if (Projectile.velocity.X != 0 && !jump && Projectile.velocity.Y == 0) //Start jump
 						{
 							Projectile.velocity.Y = -6;
 							jump = true;
@@ -305,7 +303,7 @@ namespace StormDiversMod.Projectiles.Minions
 								Projectile.velocity.Y += 0.3f;
 							}
 						}
-						if (Projectile.ai[1] > 20) //After 20 frames start falling
+						if (Projectile.ai[1] > 5) //After 5 frames start falling
 						{
 							jump = false;
 
@@ -397,7 +395,7 @@ namespace StormDiversMod.Projectiles.Minions
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-			jump = true;
+			//jump = true;
 			return false;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

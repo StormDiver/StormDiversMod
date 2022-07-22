@@ -63,7 +63,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A sentient asteroid fragment that is infused with strange extra-terrestrial energy, allowing it to charge towards whatever it chooses.")
+				new FlavorTextBestiaryInfoElement("A sentient asteroid boulder that is infused with strange extra-terrestrial energy, allowing it to charge towards whatever it chooses.")
             });
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
