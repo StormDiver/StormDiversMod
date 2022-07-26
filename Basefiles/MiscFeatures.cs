@@ -31,7 +31,6 @@ namespace StormDiversMod.Basefiles
         public int shaketimer; //How long to shake the screen for
 
         public int templeWarning; //Warning until Temple Guardians spawn
-       
         public override void ResetEffects() //Resets bools if the item is unequipped
         { 
             screenshaker = false;
@@ -73,6 +72,7 @@ namespace StormDiversMod.Basefiles
                 Main.screenPosition += new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7));
                 shaketimer--;
             }
+           
 
         }
         public override void PostUpdateEquips() //Updates every frame

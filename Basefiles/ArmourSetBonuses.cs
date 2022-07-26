@@ -302,6 +302,7 @@ namespace StormDiversMod.Basefiles
             float yWarplimit = 400;
             if (twilightSet)
             {
+             
                 float distanceX = Player.Center.X - Main.MouseWorld.X;
                 float distanceY = Player.Center.Y - Main.MouseWorld.Y;
                 float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
@@ -319,7 +320,8 @@ namespace StormDiversMod.Basefiles
                         twilightcharged = true; //Activates the outline effect on the armour
 
                         if (StormDiversMod.ArmourSpecialHotkey.JustPressed) //Activates when player presses button
-                        {
+                        { 
+
                             Player.AddBuff(BuffID.Obstructed, 10); //Hopefully this covers up the janky teleport :thePain:
                             Player.AddBuff(ModContent.BuffType<TwilightDebuff>(), 480);
 
@@ -332,8 +334,6 @@ namespace StormDiversMod.Basefiles
                                     Main.projectile[p].Kill();
                                 }
                             }
-
-
                             {
                                 for (int i = 0; i < 30; i++) //Dust pre-teleport
                                 {
@@ -352,7 +352,6 @@ namespace StormDiversMod.Basefiles
 
 
                                 }
-
                                 //X postion 
                                 {
                                     if (distanceX <= xWarplimit && distanceX >= -xWarplimit)
@@ -387,7 +386,6 @@ namespace StormDiversMod.Basefiles
                                         {
                                             Player.position.Y = (Main.MouseWorld.Y - (Player.height)) + (distanceY + yWarplimit);
                                             //Main.NewText("Mouse it to the down", 0, 0, 146);
-
                                         }
                                         else if (distanceY > yWarplimit)
                                         {

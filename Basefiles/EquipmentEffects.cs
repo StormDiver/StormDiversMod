@@ -99,7 +99,7 @@ namespace StormDiversMod.Basefiles
         public bool desertdustspawned; //has the Pahroh's urn creaed the oprbiting projectile?
         public int granitebufftime; //Cooldown for the granite Accessory Buff to be reapplied
         public bool granitesurge; //Makes it so the granite accessory cooldown can start and makes it so the next attack removes the buff
-      
+        public int flamecooldown; //Cooldown for betsy's flame with channeling weapons
         public int shroomshotCount = 0; //Count show many times the player has fired with the shroomite access
         public bool shotrocket; //Wheter the shroomite rocket has been fired or not
    
@@ -163,6 +163,7 @@ namespace StormDiversMod.Basefiles
             dropdust = 0;
             coraldrop = 0;
             stormBossProj = false;
+            flamecooldown = 0;
         }
    
         //===============================================================================================================
@@ -783,57 +784,57 @@ namespace StormDiversMod.Basefiles
             //For betsy's Flame ======================
             if (flameCore)
             {
-
+                if (flamecooldown > 0)
+                {
+                    flamecooldown--;
+                }
                 Player.runAcceleration += 0.25f;
 
-                if (Player.itemAnimation > 1 && (Player.HeldItem.CountsAsClass(DamageClass.Melee) || Player.HeldItem.CountsAsClass(DamageClass.Ranged) || Player.HeldItem.CountsAsClass(DamageClass.Magic) || Player.HeldItem.CountsAsClass(DamageClass.Summon) || Player.HeldItem.CountsAsClass(DamageClass.Throwing))) //weapon is in use
+                if ((Player.itemAnimation == 1 && Player.HeldItem.damage >= 1 && Player.HeldItem.ammo == 0 && !shotflame) || (Player.HeldItem.channel && Player.channel && flamecooldown <= 0)) //weapon is in use
                 {
 
-                    if (!shotflame)
+                    if (Main.rand.Next(3) == 0)
                     {
-                        if (Main.rand.Next(3) == 0)
+                        for (int i = 0; i < 20; i++)
                         {
-                            for (int i = 0; i < 20; i++)
+
+                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 244);
+
+                            dust.noGravity = true;
+
+                        }
+
+                        SoundEngine.PlaySound(SoundID.Item34, Player.Center);
+
+                        float numberProjectiles = 2 + Main.rand.Next(2);
+
+                        for (int i = 0; i < numberProjectiles; i++)
+                        {
+                            float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
+
+
+                            float speedX = 0f;
+                            float speedY = -10f;
+                            int damage = (int)(Player.HeldItem.damage * 0.7f);
+                            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(90));
+                            float scale = 1f - (Main.rand.NextFloat() * .5f);
+                            perturbedSpeed = perturbedSpeed * scale;
+
+                            if (Player.gravDir == 1)
                             {
-
-                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 244);
-
-                                dust.noGravity = true;
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
 
                             }
 
-                            SoundEngine.PlaySound(SoundID.Item34, Player.Center);
-
-                            float numberProjectiles = 2 + Main.rand.Next(2);
-
-                            for (int i = 0; i < numberProjectiles; i++)
-                            {
-                                float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
-
-
-                                float speedX = 0f;
-                                float speedY = -6f;
-                                int damage = (int)(Player.HeldItem.damage * 0.6f);
-                                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(90));
-                                float scale = 1f - (Main.rand.NextFloat() * .5f);
-                                perturbedSpeed = perturbedSpeed * scale;
-
-                                if (Player.gravDir == 1)
-                                {
-                                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
-                                }
-                                else
-                                {
-                                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
-
-                                }
-
-                            }
                         }
 
                     }
+                    flamecooldown = Player.HeldItem.useTime; //cooldown for channeling weapons
                     shotflame = true;
-
                 }
                 else
                 {
@@ -989,7 +990,7 @@ namespace StormDiversMod.Basefiles
             {
 
 
-                if (((attackdmg >= 90 && Main.expertMode) || (attackdmg >= 60 && !Main.expertMode)) && attackdmg < Player.statLife)
+                if (((attackdmg >= 75 && Main.expertMode) || (attackdmg >= 50 && !Main.expertMode)) && attackdmg < Player.statLife)
                 {
 
 

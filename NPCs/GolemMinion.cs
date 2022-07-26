@@ -38,8 +38,16 @@ namespace StormDiversMod.NPCs
             
             NPC.damage = 60;
             NPC.lavaImmune = true;
-            NPC.defense = 32;
-            NPC.lifeMax = 2000;
+            if (!NPC.downedPlantBoss)
+            {
+                NPC.defense = 32;
+                NPC.lifeMax = 2000;
+            }
+            else
+            {
+                NPC.defense = 16;
+                NPC.lifeMax = 1200;
+            }
             NPC.noGravity = true;
             NPC.rarity = 3;
 
@@ -96,7 +104,7 @@ namespace StormDiversMod.NPCs
         bool spawn = true;
 
         public override void AI()
-        {
+        {          
             //NPC.ai[0] = Xpos
             //NPC.ai[1] = Ypos
             // NPC.ai[2] = Shoottime
@@ -152,7 +160,7 @@ namespace StormDiversMod.NPCs
             {
                 NPC.ai[2]++;
 
-                if (NPC.ai[2] >= 60)//starts the shooting animation
+                if ((NPC.ai[2] >= 60 && !NPC.downedPlantBoss) || (NPC.ai[2] >= 90 && NPC.downedPlantBoss))//starts the shooting animation
                 {
                     //NPC.velocity.X = 0;
                     NPC.velocity.Y *= 0.98f;
@@ -170,7 +178,7 @@ namespace StormDiversMod.NPCs
                 {
                     shooting = false;
                 }
-                if (NPC.ai[2] >= 80)//fires the projectiles
+                if ((NPC.ai[2] >= 80 && !NPC.downedPlantBoss) || (NPC.ai[2] >= 120 && NPC.downedPlantBoss))//fires the projectiles
                 {
                     spawn = false;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -182,7 +190,17 @@ namespace StormDiversMod.NPCs
                     }
 
                     float projectileSpeed = 10f; // The speed of your projectile (in pixels per second).
-                    int damage = 35; // The damage your projectile deals. normal x2, expert x4
+                    int damage; // The damage your projectile deals. normal x2, expert x4 (70/140/210)
+                    if (!NPC.downedPlantBoss)
+                    {
+                        damage = 35; // The damage your projectile deals. normal x2, expert x4 (70/140/210)
+
+                    }
+                    else
+                    {
+                        damage = 25; // The damage your projectile deals. normal x2, expert x4 (50/100/150)
+
+                    }
                     float knockBack = 3;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.GolemMinionProj>();
                     if (Main.netMode != NetmodeID.MultiplayerClient)

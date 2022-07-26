@@ -68,8 +68,7 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(0, 0);
         }
-
-       
+   
         public override void AddRecipes()
         {
             CreateRecipe()

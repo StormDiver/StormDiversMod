@@ -857,7 +857,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        if (player.velocity.X < 0) //Choose what side to fly to for next attack depending on moving player direction
+                        if (player.velocity.X <= 0) //Choose what side to fly to for next attack depending on moving player direction
                         {
                             NPC.localAI[2] = 300;
                         }

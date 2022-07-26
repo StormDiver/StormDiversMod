@@ -565,7 +565,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             DisplayName.SetDefault("Frozen Eyefish Banner");
             Tooltip.SetDefault("Nearby players get a bonus against: Frozen Eyefish");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override void SetDefaults()
         {

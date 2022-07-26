@@ -57,44 +57,5 @@ namespace StormDiversMod.Items.Accessory
         }
 
     }
-    public class FrostCubeProjs : GlobalProjectile
-    {
-        /*public override bool InstancePerEntity => true;
-       
-        public override void AI(Projectile projectile)
-        {
-            var player = Main.player[projectile.owner];
-            if (projectile.minion && projectile.friendly)
-            {
-                if (player.GetModPlayer<EquipmentEffects>().frostCube == true)
-                {
-
-
-
-                    if (Main.rand.Next(3) == 0)
-                    {
-                        Dust dust;
-                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                        Vector2 position = projectile.position;
-                        dust = Terraria.Dust.NewDustDirect(position, projectile.width, projectile.height, 16, 0f, 0f, 0, new Color(255, 255, 255), 1f);
-                        dust.noGravity = true;
-                    }
-
-                    //projectile.extraUpdates = (int)1f;
-
-
-                }
-                
-            
-            }
-            else
-            {
-                if (projectile.type != ProjectileID.DeadlySphere &&
-                   projectile.type != ProjectileID.Spazmamini)
-                {
-                    projectile.extraUpdates = 0;
-                }
-            }
-        }*/
-    }
+   
 }

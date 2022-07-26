@@ -393,7 +393,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit6 with{Volume = 0.3f}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 0.3f}, Projectile.Center);
 
                 for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {

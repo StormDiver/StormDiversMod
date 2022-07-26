@@ -32,7 +32,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             //Projectile.ContinuouslyUpdateDamage = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 14;
-
+            Projectile.timeLeft = 9999999;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -71,7 +71,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
 
             if (Main.myPlayer == Projectile.owner)
             {
-                if (!player.channel || player.noItems || player.CCed)
+                if (!player.channel || player.noItems || player.dead)
                 {
                     Projectile.Kill();
                 }
@@ -132,8 +132,6 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
         public override bool PreDraw(ref Color lightColor)
         {
 
-           
-
             return true;
 
         }
@@ -152,17 +150,18 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
         public override bool InstancePerEntity => true;
         
     
-        bool reflected;
+        public bool reflected;
         public override void AI(Projectile projectile)
         {
-            var player = Main.player[projectile.owner];
+            var player = Main.LocalPlayer;
 
             //var projreflect = Main.projectile[mod.ProjectileType("SelenianBladeProj")];
 
             //if (Main.LocalPlayer.HasBuff(BuffType<SelenianBuff>()))
             if (projectile.aiStyle != 20)
             {
-                if (player.itemAnimation > 1 && Main.mouseLeft && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarSolarSpin>())
+
+                if (player.itemAnimation > 1 && player.controlUseItem && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarSolarSpin>())
                 {
 
                     if (projectile.hostile)
@@ -180,15 +179,18 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                             float distanceY = player.Center.Y - projectile.Center.Y;
                             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
-                           
-                                if (distance <= 100 && !reflected)
-                                {
 
-                                    int choice = Main.rand.Next(2);
-                                    if (choice == 0)
+                            if (distance <= 100 && !reflected)
+                            {
+
+                                int choice = Main.rand.Next(2);
+                                if (choice == 0)
+                                {
+                                    SoundEngine.PlaySound(SoundID.Item56, projectile.Center);
+                                    //Projectile.Kill();
+                                    if (!Main.dedServ)
                                     {
-                                        SoundEngine.PlaySound(SoundID.Item56, projectile.Center);
-                                        //Projectile.Kill();
+                                        projectile.owner = Main.myPlayer;
                                         projectile.velocity.X *= -1f;
 
 
@@ -196,22 +198,25 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
 
                                         projectile.friendly = true;
                                         projectile.hostile = false;
+                                        //damage is in npceffects
+                                        projectile.netUpdate = true;
 
-                                        projectile.damage *= 4;
-                                        reflected = true;
                                     }
-                                    else
-                                    {
-                                        reflected = true;
-                                    }
+                                    reflected = true;
                                 }
+                                else
+                                {
+                                    reflected = true;
+                                }
+                            }
 
-                            
                         }
+
                     }
                 }
-                
+
             }
         }
+      
     }
 }

@@ -653,6 +653,23 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
+            if (projectile.GetGlobalProjectile<Projectiles.SelenianReflect>().reflected) //update damaeg to be the same as if it hit the player
+            {
+                if (Main.masterMode)
+                {
+                    damage *= 6;
+                }
+                else if (Main.expertMode && !Main.masterMode)
+                {
+                    damage *= 4;
+                }
+                else
+                {
+                    damage *= 2;
+
+                }
+            }
+
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {

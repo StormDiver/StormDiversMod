@@ -190,7 +190,7 @@ namespace StormDiversMod.Projectiles
            
         }
        
-        int reflect = 5;
+        int reflect = 4;
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

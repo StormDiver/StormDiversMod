@@ -101,7 +101,7 @@ namespace StormDiversMod.Items.Weapons
                                 type = ProjectileID.BulletHighVelocity;
                             }
                         Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.15f), knockback * 2, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item40, position);
+                        SoundEngine.PlaySound(SoundID.Item40 with {Pitch = 0.3f }, position);
                     }
                     else
                     {

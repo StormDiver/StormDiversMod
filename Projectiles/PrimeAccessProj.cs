@@ -172,7 +172,7 @@ namespace StormDiversMod.Projectiles
 
         public override void AI(Projectile projectile)
         {
-            var player = Main.player[projectile.owner];
+            var player = Main.LocalPlayer;
 
             if (projectile.aiStyle != 20)
             {

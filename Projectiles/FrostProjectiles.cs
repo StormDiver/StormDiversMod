@@ -171,6 +171,7 @@ namespace StormDiversMod.Projectiles
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
+            Projectile.timeLeft = 9999999;
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -193,8 +194,6 @@ namespace StormDiversMod.Projectiles
         // bool hitboxdown;
         public override void AI()
         {
-            Projectile.timeLeft = 60;
-
             Projectile.soundDelay--;
             if (Projectile.soundDelay <= 0)
             {
@@ -207,7 +206,7 @@ namespace StormDiversMod.Projectiles
 
             if (Main.myPlayer == Projectile.owner)
             {
-                if (!player.channel || player.noItems || player.CCed)
+                if (!player.channel || player.noItems || player.dead)
                 {
                     Projectile.Kill();
                 }

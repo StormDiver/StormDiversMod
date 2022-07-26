@@ -82,7 +82,7 @@ namespace StormDiversMod.Projectiles
             if (target)
             {
                 AdjustMagnitude(ref move);
-                Projectile.velocity = (15 * Projectile.velocity + move) / 8f;
+                Projectile.velocity = (15 * Projectile.velocity + move) / 15.5f;
                 AdjustMagnitude(ref Projectile.velocity);
             }
 
@@ -90,9 +90,9 @@ namespace StormDiversMod.Projectiles
         private void AdjustMagnitude(ref Vector2 vector)
         {
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-            if (magnitude > 6f)
+            if (magnitude > 8f)
             {
-                vector *= 6f / magnitude;
+                vector *= 8f / magnitude;
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)

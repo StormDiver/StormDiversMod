@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Betsy's Flame");
-            Tooltip.SetDefault("Has a chance to summon Betsy's flames when using any weapon\nSlightly increases player acceleration");
+            Tooltip.SetDefault("Summons homing flames when using any weapon\nIncreases acceleration");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
