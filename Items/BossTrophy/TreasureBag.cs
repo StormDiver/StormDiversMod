@@ -14,6 +14,7 @@ using Terraria.Enums;
 using System;
 using ReLogic.Content;
 using StormDiversMod.Items.Weapons;
+using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod.Items.BossTrophy
 {
@@ -21,7 +22,7 @@ namespace StormDiversMod.Items.BossTrophy
 	public class StormBossBag : ModItem
 	{
 		// Sets the associated NPC this treasure bag is dropped from
-		public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
+		//public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
 
 		public override void SetStaticDefaults()
 		{
@@ -46,8 +47,38 @@ namespace StormDiversMod.Items.BossTrophy
 		{
 			return true;
 		}
+        public override void ModifyItemLoot(ItemLoot itemLoot)
+        {
+			//expert
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.StormCoil>(), 1));
+			//weapons
 
-		public override void OpenBossBag(Player player)
+			/*IItemDropRule[] stormLauncherAmmo = new IItemDropRule[] {
+				ItemDropRule.Common(ModContent.ItemType<StormLauncher>(), 1),
+				ItemDropRule.Common(ItemID.RocketI, 1, 150, 200),
+				};
+			IItemDropRule[] stormdrops = new IItemDropRule[] {
+				ItemDropRule.Common(ModContent.ItemType<StormKnife>(), 1),
+				ItemDropRule.FewFromOptions(2, 1, ModContent.ItemType<StormLauncher>(), ItemID.RocketI),
+
+				ItemDropRule.Common(ModContent.ItemType<StormStaff>(), 1),
+				ItemDropRule.Common(ModContent.ItemType<StormSentryStaff>(), 1),
+				};
+			itemLoot.Add(new OneFromRulesRule(1, stormdrops));*/
+
+			itemLoot.Add(ItemDropRule.OneFromOptions(1, ItemType<StormKnife>(), ItemType<StormLauncher>(), ItemType<StormStaff>(), ItemType<StormSentryStaff>()));
+			itemLoot.Add(ItemDropRule.Common(ItemID.RocketI, 1, 150, 200));
+			//bonus weapon
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<VortexiaWeapon>(), 10));
+			//extras
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.StormWings>(), 3));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tools.StormHook>(), 3));
+			//mask
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>(), 7));
+			//coins
+			itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NPCs.Boss.StormBoss>()));
+		}
+		/*public override void OpenBossBag(Player player)
 		{
 			// We have to replicate the expert drops from MinionBossBody here via QuickSpawnItem
 
@@ -98,7 +129,7 @@ namespace StormDiversMod.Items.BossTrophy
 
 
 
-		}
+		}*/
 		// Below is code for the visuals
 
 		public override Color? GetAlpha(Color lightColor)

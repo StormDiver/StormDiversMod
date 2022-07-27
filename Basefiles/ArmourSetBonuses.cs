@@ -632,7 +632,7 @@ namespace StormDiversMod.Basefiles
         //=====================For taking damage from any source===========================================
 
         int attackdmg = 0;//This is for how much damage the player takes
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit) //When you take damage for whatever reason
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter) //When you take damage for whatever reason
         {
 
             attackdmg = (int)damage; //Int for the damage taken

@@ -187,102 +187,9 @@ namespace StormDiversMod.Basefiles
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<TheClaymanMask>());
                 }
-            }
-            //Items with drop requirements-------------------------------------------------------------------------------
+            }         
 
-            if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion|| npc.type == NPCID.GiantFlyingAntlion) //needs to drop with ammo
-            {
-                if (Main.rand.Next(100) == 0)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<SandstoneGun>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.MusketBall, Main.rand.Next(60, 100));
-
-                }
-            }       
-
-            if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
-            {
-                if (Main.rand.Next(100) < 5)
-
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Weapons.StickyLauncher>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Ammo.StickyBomb>(), Main.rand.Next(50, 101));
-
-                }
-            }
-          
-          
-            if (npc.type == NPCID.VortexRifleman)
-            {
-                if (Main.rand.Next(100) < 2)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StormDiverBMask>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StormDiverBody>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StormDiverLegs>());
-                }
-            }
-            if (npc.type == NPCID.SolarSolenian)
-            {
-                if (Main.rand.Next(100) < 2)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.SelenianBMask>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.SelenianBody>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.SelenianLegs>());
-                }
-            }
-            if (npc.type == NPCID.NebulaSoldier)
-            {
-                if (Main.rand.Next(100) < 2)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.PredictorBMask>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.PredictorBody>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.PredictorLegs>());
-                }
-            }
-            if (npc.type == NPCID.StardustSoldier)
-            {
-                if (Main.rand.Next(100) < 2)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StargazerBMask>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StargazerBody>());
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Vanitysets.StargazerLegs>());
-                }
-            }
-
-
-            if (npc.type == NPCID.GoblinSummoner)
-            {
-                int shadowchoice = Main.rand.Next(3);
-                {
-                    if (shadowchoice == 0)
-                    {
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameBMask>());
-                        if (Main.expertMode)
-                        {
-                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>());
-
-                        }
-                    }
-                    else if (shadowchoice == 1)
-                    {
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>());
-                        if (Main.expertMode)
-                        {
-                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameBMask>());
-
-                        }
-                    }
-                    else
-                    {
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>());
-                        if (Main.expertMode)
-                        {
-                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>());
-
-                        }
-                    }
-                }
-            }
+                   
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -397,6 +304,28 @@ namespace StormDiversMod.Basefiles
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<WyvernBow>(), 5, 4));
 
             }
+
+
+            if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion || npc.type == NPCID.GiantFlyingAntlion) //needs to drop with ammo
+            {
+                IItemDropRule[] ancientGunAmmo = new IItemDropRule[] {
+                ItemDropRule.Common(ModContent.ItemType<SandstoneGun>(), 1),
+                ItemDropRule.Common(ItemID.MusketBall, 1, 60, 100),
+                };
+                npcLoot.Add(new FewFromRulesRule(2, 100, ancientGunAmmo));
+            }
+
+
+            if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
+            {
+                IItemDropRule[] stickylauncherAmmo = new IItemDropRule[] {
+                ItemDropRule.Common(ModContent.ItemType<StickyLauncher>(), 1),
+                ItemDropRule.Common(ModContent.ItemType<Items.Ammo.StickyBomb>(), 1, 150, 200),
+                };
+                npcLoot.Add(new FewFromRulesRule(2, 20, stickylauncherAmmo));
+
+            }
+
             //Accessories--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.Demon)
             {
@@ -438,13 +367,28 @@ namespace StormDiversMod.Basefiles
 
             }
 
-            /*if (npc.type == NPCID.GoblinSummoner)
+            if (npc.type == NPCID.GoblinSummoner)
             {
-                npcLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Items.Armour.ShadowFlameBMask>(), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>(), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>()));
-                isExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Items.Armour.ShadowFlameBMask>(), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>(), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>()));
-            }*/
-            //Rest in old code because :shrug:
-
+                notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Items.Armour.ShadowFlameBMask>(), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>(), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>()));
+                isExpert.OnSuccess(ItemDropRule.FewFromOptions(2, 1, ModContent.ItemType<Items.Armour.ShadowFlameBMask>(), ModContent.ItemType<Items.Armour.ShadowFlameChestplate>(), ModContent.ItemType<Items.Armour.ShadowFlameGreaves>()));
+            }
+           
+            if (npc.type == NPCID.SolarSolenian)
+            {
+                npcLoot.Add(ItemDropRule.FewFromOptions(3, 50, ModContent.ItemType<Items.Vanitysets.SelenianBMask>(), ModContent.ItemType<Items.Vanitysets.SelenianBody>(), ModContent.ItemType<Items.Vanitysets.SelenianLegs>()));
+            }
+            if (npc.type == NPCID.VortexRifleman)
+            {
+                npcLoot.Add(ItemDropRule.FewFromOptions(3, 50, ModContent.ItemType<Items.Vanitysets.StormDiverBMask>(), ModContent.ItemType<Items.Vanitysets.StormDiverBody>(), ModContent.ItemType<Items.Vanitysets.StormDiverLegs>()));
+            }
+            if (npc.type == NPCID.NebulaSoldier)
+            {
+                npcLoot.Add(ItemDropRule.FewFromOptions(3, 50, ModContent.ItemType<Items.Vanitysets.PredictorBMask>(), ModContent.ItemType<Items.Vanitysets.PredictorBody>(), ModContent.ItemType<Items.Vanitysets.PredictorLegs>()));
+            }
+            if (npc.type == NPCID.StardustSoldier)
+            {
+                npcLoot.Add(ItemDropRule.FewFromOptions(3, 50, ModContent.ItemType<Items.Vanitysets.StargazerBMask>(), ModContent.ItemType<Items.Vanitysets.StargazerBody>(), ModContent.ItemType<Items.Vanitysets.StargazerLegs>()));
+            }
 
             //Materials -----------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.ChaosElemental)

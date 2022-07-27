@@ -12,19 +12,114 @@ using StormDiversMod.Items.Pets;
 using StormDiversMod.Basefiles;
 using StormDiversMod.Items.OresandBars;
 using static Terraria.ModLoader.ModContent;
+using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod.Basefiles
 {
+    /*public class PostMechItemDrop : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                return NPC.downedMechBossAny;
+            }
+            return false;
+        }
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+        public string GetConditionDescription()
+        {
+            return "Obtained once any mechanical boss has been defeated";
+        }
+    }*/
     public class TreasureBagsandCrates : GlobalItem
     {
 
+        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+        {
+            IItemDropRule MechItemDrop = new LeadingConditionRule(new PostMechDrop());
 
-        public override void OpenVanillaBag(string context, Player player, int arg)
+            if (item.type == ItemID.EyeOfCthulhuBossBag)
+            {
+                itemLoot.Add(ItemDropRule.OneFromOptions(1, ItemType<EyeSword>(), ItemType<EyeGun>(), ItemType<EyeStaff>(), ItemType<EyeMinion>()));
+
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Tools.EyeHook>(), 4));
+
+            }
+            if (item.type == ItemID.SkeletronPrimeBossBag || item.type == ItemID.TwinsBossBag || item.type == ItemID.DestroyerBossBag)
+            {
+                MechItemDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.PrimeAccess>(), 1));
+            }
+            if (item.type == ItemID.BossBagBetsy)
+            {
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.FlameCore>(), 1));
+
+            }
+            if (item.type == ItemID.CultistBossBag)
+            {
+                itemLoot.Add(ItemDropRule.OneFromOptions(1, ItemType<CultistSpear>(), ItemType<CultistBow>(), ItemType<CultistTome>(), ItemType<CultistStaff>()));
+
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<CultistLazor>(), 20));
+            }
+
+            if (item.type == ItemID.LockBox)
+            {
+                IItemDropRule[] protoLauncherAmmo = new IItemDropRule[] {
+                ItemDropRule.Common(ModContent.ItemType<ProtoLauncher>(), 1),
+                ItemDropRule.Common(ModContent.ItemType<Items.Ammo.ProtoGrenade>(), 1, 60, 100),
+                };
+                itemLoot.Add(new FewFromRulesRule(2, 5, protoLauncherAmmo));
+
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<TwilightPetItem>(), 5));
+            }
+            if (item.type == ItemID.WoodenCrate || item.type == ItemID.WoodenCrateHard)
+            {
+                itemLoot.Add(ItemDropRule.OneFromOptions(2, ItemType<WoodCrossbow>(), ItemType<WoodPointyStick>(), ItemType<Items.Accessory.WoodNecklace>()));
+
+            }
+
+            if (item.type == ItemID.FrozenCrate || item.type == ItemID.FrozenCrateHard)
+            {
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<IceStaff>(), 10));
+
+            }
+            if (item.type == ItemID.JungleFishingCrate || item.type == ItemID.JungleFishingCrateHard)
+            {
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<MossRepeater>(), 10));
+
+            }
+            if (item.type == ItemID.OasisCrate || item.type == ItemID.OasisCrateHard)
+            {
+                IItemDropRule[] ancientGunAmmo = new IItemDropRule[] {
+                ItemDropRule.Common(ModContent.ItemType<SandstoneGun>(), 1),
+                ItemDropRule.Common(ItemID.MusketBall, 1, 60, 100),             
+                };
+                itemLoot.Add(new FewFromRulesRule(2, 10, ancientGunAmmo));           
+            }
+            if (item.type == ItemID.FrozenCrateHard)
+            {
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.OresandBars.IceBar>(), 6, 1, 10));
+
+            }
+            if (item.type == ItemID.OasisCrateHard)
+            {
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.OresandBars.DesertBar>(), 6, 1, 10));
+
+            }
+
+
+            itemLoot.Add(MechItemDrop);
+
+        }
+        /*public override void OpenVanillaBag(string context, Player player, int arg)
         {
             if (context == "bossBag" && arg == ItemID.BossBagBetsy) //besty Treasure bag
             {
                 player.QuickSpawnItem(player.GetSource_OpenItem(arg), ItemType<Items.Accessory.FlameCore>(), Main.rand.Next(1, 1));
-
+            
             }
           
             if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3) //Any mech boss treasure bag post 3 mechs
@@ -95,17 +190,7 @@ namespace StormDiversMod.Basefiles
 
                 }
             }
-            /*if (context == "bossBag" && Main.hardMode)
-            {
-                if (Main.rand.Next(100) < 2)
-
-                {
-                    player.QuickSpawnItem(ItemType<ContestArmourHelmet>(), Main.rand.Next(1, 1));
-                    player.QuickSpawnItem(ItemType<ContestArmourChestplate>(), Main.rand.Next(1, 1));
-                    player.QuickSpawnItem(ItemType<ContestArmourLeggings>(), Main.rand.Next(1, 1));
-                }
-
-            }*/
+          
             if (context == "lockBox") //proto launcher
             {
                 if (Main.rand.Next(100) < 20)
@@ -192,7 +277,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
            
-        }
+        }*/
 
 
     }

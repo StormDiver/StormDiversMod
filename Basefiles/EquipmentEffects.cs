@@ -962,7 +962,7 @@ namespace StormDiversMod.Basefiles
         //=====================For taking damage from any source===========================================
 
         int attackdmg = 0;//This is for how much damage the player takes
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit) //When you take damage for whatever reason
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter) //When you take damage for whatever reason
         {
             Player.ClearBuff(ModContent.BuffType<HeartBarrierBuff>()); //Removes buff on hit
 
@@ -1187,7 +1187,7 @@ namespace StormDiversMod.Basefiles
             }
         
         }
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             if (woodNecklace && Player.ZoneForest)
             {
@@ -1219,7 +1219,7 @@ namespace StormDiversMod.Basefiles
                 SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122);
 
             }*/
-            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
+            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
         public override void OnHitByNPC(NPC npc, int damage, bool crit) //Hit by melee only
         {
