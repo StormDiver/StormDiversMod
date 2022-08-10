@@ -142,7 +142,6 @@ namespace StormDiversMod.Items.Weapons
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);

@@ -14,7 +14,7 @@ namespace StormDiversMod.Basefiles
 {
 		public class DrawLayerData
 		{
-			public static Color DefaultColor() => new Color(255, 255, 255, 0) * 0.8f;
+			public static Color DefaultColor() => new Color(255, 255, 255, 0) * 0.7f;
 
 			public Asset<Texture2D> Texture { get; init; }
 

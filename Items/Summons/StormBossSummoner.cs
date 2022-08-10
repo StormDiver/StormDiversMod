@@ -38,14 +38,14 @@ namespace StormDiversMod.Items.Summons
                 if (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3)
                 if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                 {
-                    line.Text = line.Text + "\nThe Signal appears to be blocked by the souls of the mechanical machines"; //Unuseable pre mechs
+                    line.Text = line.Text + "\nThe Signal appears to be blocked by the souls of the mechanical bosses"; //Unusable pre mechs
                 }
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
 
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.Text = line.Text + "\nMay experience issues on multiplayer!\nFor the best experience fight the boss on single player!"; //If not set as a plantera alt you need to get rockets somehow
+                        line.Text = line.Text + "\nMay experience issues on multiplayer!\nFor the best experience fight the boss on single player!"; //multiplayer sucks
                     }
                 }
             }

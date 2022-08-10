@@ -61,6 +61,7 @@ namespace StormDiversMod.Basefiles
             if (item.type == ItemID.CultistBossBag)
             {
                 itemLoot.Add(ItemDropRule.OneFromOptions(1, ItemType<CultistSpear>(), ItemType<CultistBow>(), ItemType<CultistTome>(), ItemType<CultistStaff>()));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.LunaticHood>(), 1));
 
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<CultistLazor>(), 20));
             }
@@ -74,6 +75,10 @@ namespace StormDiversMod.Basefiles
                 itemLoot.Add(new FewFromRulesRule(2, 5, protoLauncherAmmo));
 
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<TwilightPetItem>(), 5));
+            }
+            if (item.type == ItemID.ObsidianLockbox)
+            {              
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.HeartJar>(), 3));
             }
             if (item.type == ItemID.WoodenCrate || item.type == ItemID.WoodenCrateHard)
             {

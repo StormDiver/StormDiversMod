@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-
+using StormDiversMod.Basefiles;
 namespace StormDiversMod.Projectiles       
 {
    
@@ -87,24 +87,38 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = false;
             //Projectile.magic = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 10;
-            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 9999;
+            Projectile.extraUpdates = 0;
             //Projectile.knockBack = 2f;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = 6;
             Projectile.DamageType = DamageClass.Generic;
         }
 
         public override void AI()
         {
-           
+            var player = Main.player[Projectile.owner];
+            Projectile.position.X = player.Center.X - 20;
+            if (player.gravDir == 1)
+            {
+                Projectile.position.Y = player.Center.Y + 0;
+            }
+            else
+            {
+                Projectile.position.Y = player.Center.Y - 40;
+            }
+            Projectile.knockBack = 6;
+            Projectile.velocity.X = player.direction; //knocks enemies in the direction facing
+            if (player.GetModPlayer<EquipmentEffects>().falling == false || player.dead || !player.controlDown)
+            {
+                Projectile.Kill();
+            }
+            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Center.Y - 20), Projectile.width, 20, 31, 0f, 0f, 100, default, 1.5f);
+            Main.dust[dustIndex].noGravity = true;
         }
-
-
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.Kill();
             return false;
         }
     }

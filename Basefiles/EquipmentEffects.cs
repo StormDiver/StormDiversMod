@@ -619,38 +619,22 @@ namespace StormDiversMod.Basefiles
                     //SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 15, 2, -0.5f);
                     Player.gravity += 4;
                     Player.maxFallSpeed *= 1.4f;
-                    Player.dash = 0;
-                    Player.velocity.X *= 0.75f;
+                    
+                    Player.runAcceleration = 0.25f;
                     if ((Player.velocity.Y > 12 && Player.gravDir == 1) || (Player.velocity.Y < -12 && Player.gravDir == -1))
                     {
-
-
-                        falling = true;
-                        stopfall = 0;
-                        Player.noKnockback = true;
-                        Vector2 position = Player.position;
-                        int dustIndex = Dust.NewDust(new Vector2(Player.position.X, Player.position.Y), Player.width, Player.height, 31, 0f, 0f, 100, default, 1.5f);
-                        Main.dust[dustIndex].noGravity = true;
-
-                        stomptrail++;
-                        if (stomptrail > 2)
+                        if (!falling)
                         {
-                            if (Player.gravDir == 1)
-                            {
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.BottomRight.Y - 10), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 50, 6, Player.whoAmI);
-                            }
-                            else
-                            {
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.TopRight.Y - 10), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 50, 6, Player.whoAmI);
-
-                            }
-                            stomptrail = 0;
+                            Player.velocity.X *= 0.5f;
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 60, 6, Player.whoAmI);
                         }
-
-
+                        //immunity is in miscfeatures.cs
+                        falling = true;
+                        Player.noKnockback = true;
+                    
                     }
 
-                }
+                }               
                 //For impacting the ground at speed
                 if (Player.velocity.Y == 0 && falling && Player.controlDown)
                 {
@@ -681,9 +665,12 @@ namespace StormDiversMod.Basefiles
                     falling = false;
 
                 }
-
+                if (!Player.controlDown || Player.controlJump || Player.mount.Active) //cancels stomp
+                {
+                    falling = false;
+                }
                 //If the player slows down too much then the stomp bool is cancelled
-                if ((Player.velocity.Y <= 2 && Player.gravDir == 1) || (Player.velocity.Y >= -2 && Player.gravDir == -1))
+                /*if ((Player.velocity.Y <= 2 && Player.gravDir == 1) || (Player.velocity.Y >= -2 && Player.gravDir == -1))
                 {
 
                     stopfall++;
@@ -695,7 +682,7 @@ namespace StormDiversMod.Basefiles
                 if (stopfall > 1)
                 {
                     falling = false;
-                }
+                }*/
 
             }
             //If boots are unequipped then cancel the bool
@@ -1107,9 +1094,9 @@ namespace StormDiversMod.Basefiles
          
         }
 
-
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
-        {          
+        {     
+          
             /*if (heartSteal) //For the Jar of hearts
             {
                 if (!target.SpawnedFromStatue && target.life <= (target.lifeMax * 0.50f) && !target.boss && !target.friendly && target.lifeMax > 5 && !target.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life

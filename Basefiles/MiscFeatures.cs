@@ -31,6 +31,8 @@ namespace StormDiversMod.Basefiles
         public int shaketimer; //How long to shake the screen for
 
         public int templeWarning; //Warning until Temple Guardians spawn
+
+        public int playerimmunetime; //makes player immune to damage
         public override void ResetEffects() //Resets bools if the item is unequipped
         { 
             screenshaker = false;
@@ -75,6 +77,7 @@ namespace StormDiversMod.Basefiles
            
 
         }
+      
         public override void PostUpdateEquips() //Updates every frame
         {
             //Detect if player is in Temple and immediatly summon up to 12 Guardians
@@ -119,12 +122,35 @@ namespace StormDiversMod.Basefiles
                         //Player.AddBuff(BuffID.Darkness, 2);
                     }
                 }
-               
+                
             }
             else
             {
                 templeWarning = 0;
             }
+            if (playerimmunetime > 0)
+            {
+                playerimmunetime--;
+            }
+            if (Player.GetModPlayer<EquipmentEffects>().bootFall == false)
+            {
+                playerimmunetime = 0;
+            }
+        }
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        {
+            if (proj.type == ModContent.ProjectileType<StompBootProj2>() && target.type != NPCID.TargetDummy) //10 frames of immunity
+            {
+                playerimmunetime = 10;
+            }
+        }
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        {
+            if (playerimmunetime > 0)
+            {
+                return false;
+            }
+            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
     }
     public class Itemchanges : GlobalItem

@@ -102,7 +102,7 @@ namespace StormDiversMod.Items.Vanitysets
             base.SetStaticDefaults();
             DisplayName.SetDefault("Storm Diver Body");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
+            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
 
         }
 
@@ -279,7 +279,7 @@ namespace StormDiversMod.Items.Vanitysets
             base.SetStaticDefaults();
             DisplayName.SetDefault("Selenian Body");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
+            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
 
         }
 
@@ -456,7 +456,7 @@ namespace StormDiversMod.Items.Vanitysets
             base.SetStaticDefaults();
             DisplayName.SetDefault("Predictor Body");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
+            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
 
         }
 
@@ -632,7 +632,7 @@ namespace StormDiversMod.Items.Vanitysets
             base.SetStaticDefaults();
             DisplayName.SetDefault("Stargazer Body");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
+            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
 
         }
 

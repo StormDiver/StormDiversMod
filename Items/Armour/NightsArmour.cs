@@ -115,8 +115,7 @@ namespace StormDiversMod.Items.Armour
     
     public class NightsChainmail : ModItem
     {
-        
-
+       
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -126,7 +125,7 @@ namespace StormDiversMod.Items.Armour
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
 
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
+            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
         }
 
         public override void SetDefaults()

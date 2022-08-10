@@ -80,6 +80,8 @@ namespace StormDiversMod.NPCs
         float jumpheight; //Jumpy
         float moveatspeed; //How fast it runs
 
+        float oldmovespeed;
+
         Player player;
         public override bool? CanFallThroughPlatforms()
         {
@@ -171,20 +173,39 @@ namespace StormDiversMod.NPCs
                     }
                     if (attackmode) //When taregting the player
                     {
-                                              
 
-                        if (distanceX <= -5)
+                        if (NPC.velocity.Y == 0)
                         {
-                            NPC.velocity.X = -moveatspeed + (player.velocity.X * 0.5f);
+                            if (distanceX <= -20)
+                            {
+                                NPC.velocity.X = -moveatspeed + (player.velocity.X * 0.5f);
+                            }
+                            if (distanceX >= 20)
+                            {
+                                NPC.velocity.X = +moveatspeed + (player.velocity.X * 0.5f);
+                            }
+                            if (distanceX < 25 && distanceX > -25)
+                            {
+                                NPC.velocity.X *= 0.5f;
+                            }
                         }
-                        if (distanceX >= 5)
+                        else
                         {
-                            NPC.velocity.X = +moveatspeed + (player.velocity.X * 0.5f);
+                            if (distanceX <= -20)
+                            {
+                                NPC.velocity.X = -moveatspeed * 1.25f;
+                            }
+                            if (distanceX >= 20)
+                            {
+                                NPC.velocity.X = +moveatspeed * 1.25f;
+                            }
+                            if (distanceX < 25 && distanceX > -25)
+                            {
+                                NPC.velocity.X *= 0.3f;
+                            }
                         }
-                        if (distanceX < 25 && distanceX > -25)
-                        {
-                            NPC.velocity.X *= 0.5f;
-                        }
+                      
+
 
                         if ((distanceX >= -50 && distanceX <= 50) && !jump && NPC.velocity.Y == 0 && player.position.Y + 40 < NPC.position.Y) //jump to attack player
                         {
@@ -193,17 +214,17 @@ namespace StormDiversMod.NPCs
                         }
 
                         if (!jump && NPC.velocity.Y == 0 && !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && player.position.Y - 10 < NPC.position.Y) //Jump if cannot detect player
-                       {
-                           NPC.velocity.Y = -15;
-                           jump = true;
-                       }
+                        {
+                            NPC.velocity.Y = -15;
+                            jump = true;
+                        }
 
                         if (NPC.collideX && !jump && NPC.velocity.Y == 0 && (distanceX <= -50 || distanceX >= 50)) //Jump over obstacles in the way
                         {
                             NPC.velocity.Y = -12;
                             jump = true;
                         }
-                        
+
                     }
                 }
                 if (dociletime <= 0 && NPC.velocity.Y == 0) //After 5 seconds of not being in player range return to docile

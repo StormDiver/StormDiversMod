@@ -358,7 +358,7 @@ namespace StormDiversMod.NPCs
         public override void OnKill()
         {
             int fragdrop;
-            if (Main.expertMode)
+            /*if (Main.expertMode)
             {
                 drops = 12 + Main.rand.Next(6); //12-18 on Expert (+1 from bestiary, 13 - 19)
             }
@@ -392,7 +392,7 @@ namespace StormDiversMod.NPCs
                     
                    
                 }
-            }
+            }*/
             for (int i = 0; i < 5; i++) 
             {
                 Item.NewItem(NPC.GetSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, ItemID.Heart);
@@ -403,13 +403,21 @@ namespace StormDiversMod.NPCs
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule isExpert = new LeadingConditionRule(new Conditions.IsExpert());
 
-            isExpert.OnSuccess(ItemDropRule.Common(ItemID.LunarOre, 1, 15, 22));
-            notExpert.OnSuccess(ItemDropRule.Common(ItemID.LunarOre, 1, 12, 18));
+            IItemDropRule[] fragmentdrops = new IItemDropRule[] {
+                ItemDropRule.Common(ItemID.FragmentSolar, 1, 6, 12),
+                ItemDropRule.Common(ItemID.FragmentVortex, 1, 6, 12),
+                ItemDropRule.Common(ItemID.FragmentNebula, 1, 6, 12),
+                ItemDropRule.Common(ItemID.FragmentStardust, 1, 6, 12),
+            };
+            npcLoot.Add(new FewFromRulesRule(4, 1, fragmentdrops));
+
+            isExpert.OnSuccess(ItemDropRule.Common(ItemID.LunarOre, 1, 20, 30));
+            notExpert.OnSuccess(ItemDropRule.Common(ItemID.LunarOre, 1, 15, 25));
 
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);
 
-            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.FragmentSolar, ItemID.FragmentVortex, ItemID.FragmentNebula, ItemID.FragmentStardust));
+            //npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.FragmentSolar, ItemID.FragmentVortex, ItemID.FragmentNebula, ItemID.FragmentStardust));
  
         }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

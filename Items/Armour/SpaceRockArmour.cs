@@ -181,7 +181,7 @@ namespace StormDiversMod.Items.Armour
             DisplayName.SetDefault("Asteroid Chestplate");
             Tooltip.SetDefault("7% increased damage\n5% increased critical strike chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
+            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
 
         }
 

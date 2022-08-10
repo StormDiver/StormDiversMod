@@ -416,7 +416,7 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 125;
-            Projectile.extraUpdates = 2;
+            Projectile.extraUpdates = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }

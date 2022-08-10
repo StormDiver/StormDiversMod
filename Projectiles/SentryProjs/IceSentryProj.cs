@@ -161,13 +161,12 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
-
-                }
-                if (Projectile.frame == 8) //Once all the frames are exhausted it resets back to frame zero
-                {
-                    Projectile.frame = 0;
-                    Projectile.localAI[1] = 0; //Core closed active
-                }
+                }           
+            }
+            if (Projectile.frame >= 8) //Once all the frames are exhausted it resets back to frame zero
+            {
+                Projectile.frame = 0;
+                Projectile.localAI[1] = 0; //Core closed active
             }
             if (Projectile.localAI[1] == 0) //Core closed
             {              

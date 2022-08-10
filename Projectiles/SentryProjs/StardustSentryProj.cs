@@ -437,7 +437,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
     //____________________________________________________________
     public class StardustSentryProj3 : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fast Golden Flow Invader");

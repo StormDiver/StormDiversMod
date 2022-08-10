@@ -99,7 +99,7 @@ namespace StormDiversMod.Items.Armour
             DisplayName.SetDefault("Star Warrior Platemail");
             Tooltip.SetDefault("Increases your max number of sentries by 1\n3% increased damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.8f);
+            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
 
         }
 
