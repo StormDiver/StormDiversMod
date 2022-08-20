@@ -749,7 +749,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
             }
             //_____________________________________________________________________________________________
-            if (NPC.ai[3] == 3) //Third attack, spins above player, summoning portals around the player, EXPERT ONLY
+            if (NPC.ai[3] == 3) //Third attack, spins above player, summoning portals around the player
             {
                 /*if (!Main.expertMode) //if not expert skip attack, now performed on classic too
                 {

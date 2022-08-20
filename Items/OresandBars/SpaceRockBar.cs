@@ -44,8 +44,8 @@ namespace StormDiversMod.Items.OresandBars
 
 
             CreateRecipe()
-            .AddIngredient(ItemID.ChlorophyteBar, 1)
-            .AddIngredient(ModContent.ItemType<Items.Materials.SpaceRock>(), 1)
+            //.AddIngredient(ItemID.ChlorophyteBar, 1)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SpaceRock>(), 3)
             .AddTile(TileID.AdamantiteForge)
             .Register();
 

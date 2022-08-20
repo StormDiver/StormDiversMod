@@ -144,7 +144,7 @@ namespace StormDiversMod.Projectiles
         int shoottime = 0;
         public override bool? CanHitNPC(NPC target)
         {
-            if (target.GetGlobalNPC<NPCEffects>().yoyoimmunetime > 0) //Static immunity
+            if (target.GetGlobalNPC<NPCEffects>().yoyoimmunetime > 0 || target.friendly) //Static immunity
             {
                 return false;
             }

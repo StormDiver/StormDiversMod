@@ -358,7 +358,7 @@ namespace StormDiversMod.Projectiles
 
         public override bool? CanHitNPC(NPC target)
         {
-            if (target.GetGlobalNPC<NPCEffects>().aridimmunetime > 0) //Npcs immune to explosion when activating it
+            if (target.GetGlobalNPC<NPCEffects>().aridimmunetime > 0 || target.friendly) //Npcs immune to explosion when activating it
             {
                 return false;
             }

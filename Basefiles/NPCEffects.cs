@@ -19,7 +19,6 @@ using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.Audio;
 
-
 namespace StormDiversMod.Basefiles
 {
     public class NPCEffects : GlobalNPC
@@ -242,34 +241,76 @@ namespace StormDiversMod.Basefiles
                 }
 
             }
-            //------------Proejctile immune
-            if (aridimmunetime > 0)
+            if (!npc.friendly)
             {
-                //Main.NewText("PLEASE WORK::::::" + aridimmunetime, 204, 101, 22);
-                aridimmunetime--;
-            }
-            if (pharaohimmunetime > 0)
-            {
-                pharaohimmunetime--;
-            }
-            if (yoyoimmunetime > 0)
-            {
-                yoyoimmunetime--;
+                //------------Proejctile immune
+                if (aridimmunetime > 0)
+                {
+                    //Main.NewText("PLEASE WORK::::::" + aridimmunetime, 204, 101, 22);
+                    aridimmunetime--;
+                }
+                if (pharaohimmunetime > 0)
+                {
+                    pharaohimmunetime--;
+                }
+                if (yoyoimmunetime > 0)
+                {
+                    yoyoimmunetime--;
+                }
             }
             //______________
 
             if (player.GetModPlayer<EquipmentEffects>().heartSteal) //For the Jar of hearts
             {
-                if (!npc.SpawnedFromStatue && npc.life <= (npc.lifeMax * 0.50f) && !npc.boss && !npc.friendly && npc.lifeMax > 5 && !npc.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
+                if (!npc.SpawnedFromStatue && npc.life <= (npc.lifeMax * 0.50f) && !npc.friendly && npc.lifeMax > 5 && !npc.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
                 {
 
                     if (!npc.GetGlobalNPC<NPCEffects>().heartStolen)//Makes sure this only happens once
                     {
-                        if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and drop a heart
+                        if (!npc.boss) //non bosses
                         {
-                            Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                            if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and drop a heart
+                            {
+                                if (Main.netMode == 0)
+                                {
+                                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                                }
+                                else
+                                {
+                                    Main.LocalPlayer.statLife += 20;
+                                    Main.LocalPlayer.HealEffect(20, true);
+                                }
+                                //Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("TESTER."), new Color(224, 141, 255));
 
+                                SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
+                                for (int i = 0; i < 15; i++)
+                                {
+                                    var dust = Dust.NewDustDirect(new Vector2(npc.Center.X, npc.Center.Y), 5, 5, 72);
+                                    //dust.noGravity = true;
+                                }
+                                npc.AddBuff(ModContent.BuffType<HeartDebuff>(), 3600);
+                                npc.GetGlobalNPC<NPCEffects>().heartStolen = true; //prevents more hearts from being dropped
 
+                            }
+                            else //Otherwise it just prevents the roll from happening again
+                            {
+                                npc.GetGlobalNPC<NPCEffects>().heartStolen = true;
+                            }
+                        }
+                        else //for bosses
+                        {
+                            for (int i = 0; i < 3; i++)
+                            {
+                                if (Main.netMode == 0)
+                                {
+                                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                                }
+                                else
+                                {
+                                    Main.LocalPlayer.statLife += 20;
+                                    Main.LocalPlayer.HealEffect(20, true);
+                                }
+                            }
                             SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
                             for (int i = 0; i < 15; i++)
                             {
@@ -277,15 +318,12 @@ namespace StormDiversMod.Basefiles
                                 //dust.noGravity = true;
                             }
                             npc.AddBuff(ModContent.BuffType<HeartDebuff>(), 3600);
-                            npc.GetGlobalNPC<NPCEffects>().heartStolen = true; //prevents more hearts from being dropped
-
-                        }
-                        else //Otherwise it just prevents the roll from happening again
-                        {
                             npc.GetGlobalNPC<NPCEffects>().heartStolen = true;
+
                         }
                     }
                 }
+              
                 /*float distanceX = player.Center.X - npc.Center.X;
                 float distanceY = player.Center.Y - npc.Center.Y;
                 float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));

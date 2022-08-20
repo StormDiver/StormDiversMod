@@ -63,7 +63,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     Main.dust[dust].velocity *= 2.5f;
                 }
             }
-            Player player = Main.player[Projectile.owner];
+            var player = Main.player[Projectile.owner];
 
             Projectile.position.X = player.Center.X  - Projectile.width / 2;
             if (player.gravDir == 1)
@@ -154,12 +154,15 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 AnimateProjectile();
             }
             //Projectile.ai[0] += 1f;
-            if (player.GetModPlayer<ArmourSetBonuses>().skyKnightSet == false || player.dead)
-
+            if (Projectile.owner == Main.myPlayer)
             {
-                
-                Projectile.Kill();
-                return;
+                if (player.GetModPlayer<ArmourSetBonuses>().skyKnightSet == false || player.dead)
+
+                {
+
+                    Projectile.Kill();
+                    return;
+                }
             }
             //To make the sentry pulse
             if (scaleup)

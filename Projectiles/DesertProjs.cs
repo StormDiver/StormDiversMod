@@ -385,7 +385,8 @@ namespace StormDiversMod.Projectiles
             Projectile.light = 0.1f;
 
             Projectile.friendly = true;
-           
+            Projectile.hostile = false;
+
             Projectile.timeLeft = 120;
             Projectile.penetrate = 1;
 
@@ -401,7 +402,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (target.GetGlobalNPC<NPCEffects>().pharaohimmunetime > 0) //Static immunity
+            if (target.GetGlobalNPC<NPCEffects>().pharaohimmunetime > 0 || target.friendly) //Static immunity
             {
                 return false;
             }
@@ -410,6 +411,7 @@ namespace StormDiversMod.Projectiles
                 return true;
             }
         }
+      
         public override void AI()
         {
 

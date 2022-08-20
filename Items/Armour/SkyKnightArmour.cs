@@ -21,7 +21,7 @@ namespace StormDiversMod.Items.Armour
             base.SetStaticDefaults();
             DisplayName.SetDefault("Star Warrior Visage");
             Tooltip.SetDefault("5% increased damage");
-            ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
+            //ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {

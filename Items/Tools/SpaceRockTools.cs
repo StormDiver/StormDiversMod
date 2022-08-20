@@ -51,7 +51,7 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 18)
+            .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 9)
           .AddTile(TileID.MythrilAnvil)
           .Register();
 
@@ -103,7 +103,7 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 18)
+           .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 9)
             .AddTile(TileID.MythrilAnvil)
             .Register();
 

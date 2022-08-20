@@ -16,13 +16,13 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod.Basefiles
 {
-    /*public class PostMechItemDrop : IItemDropRuleCondition
+    public class PostMechItemDrop : IItemDropRuleCondition
     {
         public bool CanDrop(DropAttemptInfo info)
         {
             if (!info.IsInSimulation)
             {
-                return NPC.downedMechBossAny;
+                return NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
             }
             return false;
         }
@@ -32,15 +32,15 @@ namespace StormDiversMod.Basefiles
         }
         public string GetConditionDescription()
         {
-            return "Obtained once any mechanical boss has been defeated";
+            return "Dropped once all mech bosses have been defeated";
         }
-    }*/
+    }
     public class TreasureBagsandCrates : GlobalItem
     {
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
-            IItemDropRule MechItemDrop = new LeadingConditionRule(new PostMechDrop());
+            IItemDropRule MechItemDrop = new LeadingConditionRule(new PostMechItemDrop());
 
             if (item.type == ItemID.EyeOfCthulhuBossBag)
             {

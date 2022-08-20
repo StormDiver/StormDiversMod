@@ -87,7 +87,7 @@ namespace StormDiversMod.Basefiles
 
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestIceStaff));
                                 ChestIceStaffCount = (ChestIceStaffCount + 1) % ChestIceStaff.Length;
-
+                                inventoryIndex++;
                             }
 
                             break;
@@ -123,7 +123,7 @@ namespace StormDiversMod.Basefiles
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestAncientGunAmmo));
                                 chest.item[inventoryIndex].stack = WorldGen.genRand.Next(60, 100);
                                 ChestAncientGunAmmoCount = (ChestAncientGunAmmoCount + 1) % ChestAncientGunAmmo.Length;
-
+                                inventoryIndex++;
                             }
 
 
@@ -149,7 +149,7 @@ namespace StormDiversMod.Basefiles
 
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestMossyRep));
                                 ChestMossyRepCount = (ChestMossyRepCount + 1) % ChestMossyRep.Length;
-
+                                inventoryIndex++;
                             }
 
                             break;
@@ -173,7 +173,7 @@ namespace StormDiversMod.Basefiles
 
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestMiniDrill));
                                 ChestMiniDrillCount = (ChestMiniDrillCount + 1) % ChestMiniDrill.Length;
-
+                                inventoryIndex++;
                             }
 
                             break;
@@ -217,7 +217,7 @@ namespace StormDiversMod.Basefiles
                             {
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTwilightPet));
                                 ChestTwilightPetCount = (ChestTwilightPetCount + 1) % ChestTwilightPet.Length;
-
+                                inventoryIndex++;
                             }
 
                             break;
@@ -241,9 +241,7 @@ namespace StormDiversMod.Basefiles
 
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestHeart));
                                 ChestHeartCount = (ChestHeartCount + 1) % ChestHeart.Length;
-
-
-
+                                inventoryIndex++;
                             }
 
                             break;
@@ -266,9 +264,7 @@ namespace StormDiversMod.Basefiles
 
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestWeb));
                                 ChestWebCount = (ChestWebCount + 1) % ChestWeb.Length;
-
-
-
+                                inventoryIndex++;
                             }
 
                             break;
@@ -317,7 +313,7 @@ namespace StormDiversMod.Basefiles
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGraniteMage));
                                 ChestGraniteMageCount = (ChestGraniteMageCount + 1) % ChestGraniteMage.Length;
                             }
-
+                            inventoryIndex++;
                             break;
                         }
                     }
@@ -356,7 +352,7 @@ namespace StormDiversMod.Basefiles
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestMarbleMage));
                                 ChestMarbleMageCount = (ChestMarbleMageCount + 1) % ChestMarbleMage.Length;
                             }
-
+                            inventoryIndex++;
                             break;
                         }
                     }
@@ -395,7 +391,7 @@ namespace StormDiversMod.Basefiles
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestMushroomMage));
                                 ChestMushroomMageCount = (ChestMushroomMageCount + 1) % ChestMushroomMage.Length;
                             }
-
+                            inventoryIndex++;
                             break;
                         }
                     }

@@ -73,7 +73,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
            CreateRecipe()
-          .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 14)
+          .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 7)
           .AddTile(TileID.MythrilAnvil)
           .Register();
 
@@ -153,7 +153,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-         .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 14)
+         .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 7)
          .AddTile(TileID.MythrilAnvil)
          .Register();
         }
@@ -235,7 +235,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-         .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 14)
+         .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 7)
          .AddTile(TileID.MythrilAnvil)
          .Register();
         }
@@ -304,7 +304,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 14)
+           .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 7)
            .AddTile(TileID.MythrilAnvil)
            .Register();
 

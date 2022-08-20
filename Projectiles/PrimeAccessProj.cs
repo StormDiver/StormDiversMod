@@ -75,23 +75,24 @@ namespace StormDiversMod.Projectiles
             Projectile.ai[1] += 1f;
             var player = Main.player[Projectile.owner];
 
-
-            if (player.GetModPlayer<EquipmentEffects>().primeSpin == false || player.dead)
-
+            if (Projectile.owner == Main.myPlayer)
             {
-                for (int i = 0; i < 20; i++)
+                if (player.GetModPlayer<EquipmentEffects>().primeSpin == false || player.dead)
+
                 {
+                    for (int i = 0; i < 20; i++)
+                    {
 
-                    var dust2 = Dust.NewDustDirect(Projectile.Center, 0, 0, 6);
-                    dust2.velocity *= 3;
-                    dust2.scale = 2f;
-                    dust2.noGravity = true;
+                        var dust2 = Dust.NewDustDirect(Projectile.Center, 0, 0, 6);
+                        dust2.velocity *= 3;
+                        dust2.scale = 2f;
+                        dust2.noGravity = true;
 
+                    }
+                    Projectile.Kill();
+                    return;
                 }
-                Projectile.Kill();
-                return;
             }
-
             lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
 
            /* if (!lineOfSight)

@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Accessory
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 12)
+           .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 6)
            .AddIngredient(ItemID.SoulofFlight, 20)
            .AddTile(TileID.MythrilAnvil)
            .Register();
