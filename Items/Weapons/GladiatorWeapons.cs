@@ -21,6 +21,8 @@ namespace StormDiversMod.Items.Weapons
             Tooltip.SetDefault("Slow but powerful");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.Spears[Item.type] = true;
+
         }
 
         public override void SetDefaults()

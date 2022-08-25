@@ -67,6 +67,7 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Turtle Pike");
             Tooltip.SetDefault("Grants extra defense while attacking enemies");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.Spears[Item.type] = true;
 
         }
 
@@ -139,7 +140,7 @@ namespace StormDiversMod.Items.Weapons
         {
             Item.damage = 50;
             //Item.crit = 0;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 20;
             Item.height = 26;
             Item.useTime = 25;

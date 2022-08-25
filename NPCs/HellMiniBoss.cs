@@ -419,6 +419,20 @@ namespace StormDiversMod.NPCs
             isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 15, 24));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 12, 20));
 
+            /*int itemType = ModContent.ItemType<Items.Materials.SoulFire>();
+            var parameters = new DropOneByOne.Parameters()
+            {
+                ChanceNumerator = 1,
+                ChanceDenominator = 1,
+                MinimumStackPerChunkBase = 1,
+                MaximumStackPerChunkBase = 1,
+                MinimumItemDropsCount = 15,
+                MaximumItemDropsCount = 24,
+            };
+
+            isExpert.OnSuccess(new DropOneByOne(itemType, parameters));*/
+
+
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);
 

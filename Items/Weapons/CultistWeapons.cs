@@ -25,6 +25,9 @@ namespace StormDiversMod.Items.Weapons
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+
+            ItemID.Sets.Spears[Item.type] = true;
+
         }
 
         public override void SetDefaults()

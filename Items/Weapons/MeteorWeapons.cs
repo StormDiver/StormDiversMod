@@ -181,6 +181,7 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Space Spear");
             Tooltip.SetDefault("Striking an enemy summons 2 meteor fragments from the sky");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.Spears[Item.type] = true;
 
         }
 

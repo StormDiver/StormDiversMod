@@ -88,8 +88,10 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Heart Piercer");
             Tooltip.SetDefault("Great for stabbing in a hurry");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.Spears[Item.type] = true;
+
         }
-    
+
         public override void SetDefaults()
         {
             Item.damage = 20;
@@ -153,7 +155,7 @@ namespace StormDiversMod.Items.Weapons
         {
             Item.damage = 16;
             //Item.crit = 0;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 20;
             Item.height = 26;
             Item.useTime = 25;

@@ -18,9 +18,11 @@ namespace StormDiversMod.Items.Weapons
 			DisplayName.SetDefault("Forbidden Pike"); 
 			Tooltip.SetDefault("Unleash the power of the forbidden sands");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.Spears[Item.type] = true;
+
         }
 
-		public override void SetDefaults() 
+        public override void SetDefaults() 
 		{
 			Item.damage = 30;
             Item.crit = 0;

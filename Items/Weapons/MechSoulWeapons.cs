@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Weapons
             Item.damage = 70;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item1;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.noMelee = true;
             Item.useTime = 20;
             Item.useAnimation = 20;

@@ -88,6 +88,7 @@ namespace StormDiversMod.Items.Weapons
             DisplayName.SetDefault("Beetle Lance");
             Tooltip.SetDefault("Summons beetles that attack and swarm your foes");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.Spears[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -151,7 +152,7 @@ namespace StormDiversMod.Items.Weapons
         {
             Item.damage = 85;
             //Item.crit = 0;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 20;
             Item.height = 26;
             Item.useTime = 25;

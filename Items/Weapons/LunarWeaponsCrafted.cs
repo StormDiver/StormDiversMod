@@ -26,7 +26,7 @@ namespace StormDiversMod.Items.Weapons
 		{
 			Item.damage = 140;
             Item.crit = 0;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 70;
 			Item.height = 40;
 			Item.useTime = 10;
