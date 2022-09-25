@@ -48,6 +48,7 @@ namespace StormDiversMod.NPCs
             NPC.noGravity = true;
 
             //Banner = Item.BannerToNPC(ModContent.NPCType<StardustDerp>());
+            //Banner = Item.NPCtoBanner(ModContent.NPCType<StardustDerp>());
 
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)

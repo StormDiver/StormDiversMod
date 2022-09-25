@@ -11,6 +11,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.NPCs
 
@@ -71,11 +72,14 @@ namespace StormDiversMod.NPCs
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
-            if (NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<MoonDerp>()))
+            if (NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<MoonDerp>()) && !GetInstance<ConfigurationsGlobal>().NoMoonling4U)
             {
                 return SpawnCondition.Sky.Chance * 0.07f;
             }
-            return SpawnCondition.Sky.Chance * 0f;
+            else
+            {
+                return SpawnCondition.Sky.Chance * 0f;
+            }
         }
 
         int shootspeed = 0; // TIem between the 2 shots
@@ -403,13 +407,21 @@ namespace StormDiversMod.NPCs
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule isExpert = new LeadingConditionRule(new Conditions.IsExpert());
 
-            IItemDropRule[] fragmentdrops = new IItemDropRule[] {
+            /*IItemDropRule[] fragmentdrops = new IItemDropRule[] {
                 ItemDropRule.Common(ItemID.FragmentSolar, 1, 6, 12),
                 ItemDropRule.Common(ItemID.FragmentVortex, 1, 6, 12),
                 ItemDropRule.Common(ItemID.FragmentNebula, 1, 6, 12),
                 ItemDropRule.Common(ItemID.FragmentStardust, 1, 6, 12),
             };
-            npcLoot.Add(new FewFromRulesRule(4, 1, fragmentdrops));
+            npcLoot.Add(new FewFromRulesRule(4, 1, fragmentdrops));*/
+            isExpert.OnSuccess(ItemDropRule.Common(ItemID.FragmentSolar, 1, 6, 12));
+            notExpert.OnSuccess(ItemDropRule.Common(ItemID.FragmentSolar, 1, 5, 10));
+            isExpert.OnSuccess(ItemDropRule.Common(ItemID.FragmentVortex, 1, 6, 12));
+            notExpert.OnSuccess(ItemDropRule.Common(ItemID.FragmentVortex, 1, 5, 10));
+            isExpert.OnSuccess(ItemDropRule.Common(ItemID.FragmentNebula, 1, 6, 12));
+            notExpert.OnSuccess(ItemDropRule.Common(ItemID.FragmentNebula, 1, 5, 10));
+            isExpert.OnSuccess(ItemDropRule.Common(ItemID.FragmentStardust, 1, 6, 12));
+            notExpert.OnSuccess(ItemDropRule.Common(ItemID.FragmentStardust, 1, 5, 10));
 
             isExpert.OnSuccess(ItemDropRule.Common(ItemID.LunarOre, 1, 20, 30));
             notExpert.OnSuccess(ItemDropRule.Common(ItemID.LunarOre, 1, 15, 25));

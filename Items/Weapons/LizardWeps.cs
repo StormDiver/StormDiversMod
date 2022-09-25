@@ -229,7 +229,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 if (!NPC.downedPlantBoss)
                 {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
                         line.Text = line.Text + "\nYou shouldn't have this yet >:(";
                     }

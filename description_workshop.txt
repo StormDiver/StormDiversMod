@@ -23,7 +23,7 @@ Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: (Currently only updated to date with the 1.3 version of this mod)
 https://terrariamods.fandom.com/wiki/Storm_Diver%27s_Additions_Mod
 
-Creator, coder, and main spriter: [b]The Storm[/b]
+Creator, coder, and main spriter: [b]A Storm[/b]
 Spriter and playtester: [b]Hyperkatmanders[/b]
 
 Please note that if you previously used the 1.3 version of the mod and import that 1.3 world/character you will lose any of this mod’s items obtained due to an internal name change and file renaming! If this is the case it is highly recommended to start a brand new playthrough.

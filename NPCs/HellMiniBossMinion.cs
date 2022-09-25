@@ -51,6 +51,8 @@ namespace StormDiversMod.NPCs
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
             };
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+
+            //Banner = Item.NPCtoBanner(ModContent.NPCType<HellMiniBossMinion>());
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {

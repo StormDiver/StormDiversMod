@@ -31,6 +31,12 @@ namespace StormDiversMod.Basefiles
         [DefaultValue(false)]
         public bool PreventPillarEnemies { get; set; }
 
+        [Label("Disable Moonlings from naturally spawning")]
+        [Tooltip("Prevent Moonlings from spawning naturally in space post-Moon Lord, they can still be summoned via Moonling core")]
+        //[ReloadRequired] //No
+        [DefaultValue(false)]
+        public bool NoMoonling4U { get; set; }
+
         [Label("Disable Temple Guardians pre Plantera")]
         [Tooltip("Prevent Temple Guardians from spawning when entering the temple pre-Plantera (Not recommended)")]
         //[ReloadRequired] //Sadly no
