@@ -305,6 +305,11 @@ namespace StormDiversMod.Basefiles
 
             }
 
+            if (npc.type == NPCID.GoblinShark || npc.type == NPCID.BloodEelHead)
+            {
+
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BloodyRifle>(), 8, 6));
+            }
 
             if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion || npc.type == NPCID.GiantFlyingAntlion) //needs to drop with ammo
             {
