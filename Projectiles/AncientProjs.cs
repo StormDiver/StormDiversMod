@@ -15,8 +15,9 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Sand Explosion");
-            
-            
+            Main.projFrames[Projectile.type] = 7;
+
+
         }
 
         public override void SetDefaults()
@@ -25,18 +26,20 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 12;
 
             Projectile.aiStyle = 1;
-            Projectile.light = 0.1f;
+            Projectile.light = 0.9f;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
            
-            Projectile.timeLeft = 40;
+            Projectile.timeLeft = 50;
             Projectile.penetrate = -1;
 
 
             Projectile.tileCollide = true;
             Projectile.scale = 1f;
             Projectile.knockBack = 0;
-
+            Projectile.alpha = 255;
+            DrawOffsetX = 27;
+            DrawOriginOffsetY = 27;
 
             Projectile.aiStyle = -1;
             //Projectile.usesIDStaticNPCImmunity = true;
@@ -54,43 +57,65 @@ namespace StormDiversMod.Projectiles
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
-           
+            if (Projectile.timeLeft > 20)
+            {
                 if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 138, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
 
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= 0.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
+                    //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
                 }
-            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft == 3)
+            }
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft == 20)
             {
+                Projectile.alpha = 0;
+
                 Projectile.velocity.X = 0f;
                 Projectile.velocity.Y = 0f;
                 Projectile.tileCollide = false;
-               
+                Projectile.scale = 1.5f;
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
 
                 Projectile.width = 150;
                 Projectile.height = 150;
                 Projectile.Center = Projectile.position;
+                SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
-               
+                for (int i = 0; i < 25; i++)
+                {
 
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 138);
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+                    dust.velocity *= 4f;
+                    dust.fadeIn = 1f;
+
+                }
+         
+            }
+            if (Projectile.timeLeft <= 20)
+            {
                 Projectile.knockBack = 6f;
-
+                Projectile.frameCounter++;
+                if (Projectile.frameCounter >= 2) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+                {
+                    Projectile.frame++;
+                    Projectile.frameCounter = 0;
+                }
             }
         }
         public override bool? CanDamage()
         {
-            if (Projectile.timeLeft > 3)
+            if (Projectile.timeLeft > 17 && Projectile.timeLeft <= 20)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -111,28 +136,7 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
-
-            for (int i = 0; i < 50; i++)
-            {
-
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 138);
-                dust.noGravity = true;
-                dust.scale = 2f;
-                dust.velocity *= 3.5f;
-                dust.fadeIn = 1f;
-
-            }
-            for (int i = 0; i < 50; i++)
-            {
-                Dust dust;
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 55, 0f, 0f, 0, default, 1f)];
-                dust.noGravity = true;
-                dust.scale = 1f;
-
-
-            }
+           
           
 
         }
@@ -247,43 +251,78 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Sand Stream");
+            Main.projFrames[Projectile.type] = 4;
+
         }
         public override void SetDefaults()
         {
 
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 300;
+            Projectile.height = 300;
             Projectile.friendly = true;
-            Projectile.ignoreWater = true;
+            Projectile.ignoreWater = false;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 150;
             Projectile.extraUpdates = 2;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+            Projectile.scale = 0.1f;
+            DrawOffsetX = -35;
+            DrawOriginOffsetY = -35;
+            Projectile.light = 0.8f;
+            Projectile.ArmorPenetration = 10;
         }
-
-        public override void AI()
+        
+        public override bool? CanDamage()
         {
-            if (!Main.dedServ)
+            if (Projectile.ai[1] == 0)
             {
-                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-            }
-            if (Projectile.ai[0] > 13f)  //this defines where the flames starts
-            {
-                if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 138, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 0.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
-                }
+                return true;
             }
             else
             {
-                Projectile.ai[0] += 1f;
+                return false;
             }
-            return;
+        }
+        int dustoffset;
+        public override void AI()
+        {
+            dustoffset++;
+            Projectile.rotation += 0.1f;
+
+
+            if (Main.rand.Next(10) == 0)     //this defines how many dust to spawn
+            {
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 138, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1f);
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                Main.dust[dust].velocity *= 0.5f;
+                //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
+            }
+
+            if (Projectile.scale <= 1f)
+            {
+                Projectile.scale += 0.012f;
+            }
+            else
+            {
+                Projectile.alpha += 3;
+
+
+                Projectile.velocity.X *= 0.98f;
+                Projectile.velocity.Y *= 0.98f;
+
+                Projectile.frameCounter++;
+                if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+                {
+                    Projectile.frame++;
+                    Projectile.frameCounter = 0;
+                }
+            }
+            if (Projectile.alpha > 150 || Projectile.wet)
+            {
+                Projectile.Kill();
+            }
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -309,7 +348,8 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.Kill();
+            Projectile.velocity *= 0;
+            //Projectile.Kill();
             return false;
         }
     }
@@ -319,6 +359,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Sand Explosion");
+            Main.projFrames[Projectile.type] = 7;
 
         }
 
@@ -331,7 +372,7 @@ namespace StormDiversMod.Projectiles
             Projectile.light = 0.1f;
             Projectile.friendly = true;
 
-            Projectile.timeLeft = 4;
+            Projectile.timeLeft = 21;
             Projectile.penetrate = -1;
 
             Projectile.tileCollide = true;
@@ -341,11 +382,13 @@ namespace StormDiversMod.Projectiles
             Projectile.aiStyle = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
-
+            Projectile.alpha = 255;
+            DrawOffsetX = 75;
+            DrawOriginOffsetY = 75;
         }
         public override bool? CanDamage()
         {
-            if (Projectile.timeLeft <= 3)//No damage on first frame spawned
+            if (Projectile.timeLeft > 17 && Projectile.timeLeft <= 20)//No damage on first frame spawned
             {
                 return true;
             }
@@ -384,8 +427,11 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dust].velocity *= 0.5f;
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
             }
-            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft == 3)
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft == 20)
             {
+                Projectile.alpha = 0;
+
+                Projectile.scale = 2.5f;
                 Projectile.velocity.X = 0f;
                 Projectile.velocity.Y = 0f;
                 Projectile.tileCollide = false;
@@ -401,6 +447,54 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.knockBack = 6f;
 
+                SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
+
+                for (int i = 0; i < 50; i++)
+                {
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 138);
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+                    dust.velocity *= 5f;
+                    dust.fadeIn = 1f;
+
+                }
+                for (int i = 0; i < 50; i++)
+                {
+
+                    float speedY = -2f;
+
+                    Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 55, perturbedSpeed.X, perturbedSpeed.Y);
+
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+                    dust.velocity *= 4f;
+                    dust.fadeIn = 1f;
+
+                }
+                /*
+                for (int i = 0; i < 50; i++)
+                {
+                    Dust dust;
+                    Vector2 position = Projectile.position;
+                    dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 55, 0f, 0f, 0, default, 1f)];
+                    dust.noGravity = true;
+                    dust.scale = 1f;
+
+
+                }*/
+
+            }
+            if (Projectile.timeLeft <= 20)
+            {
+                Projectile.knockBack = 6f;
+                Projectile.frameCounter++;
+                if (Projectile.frameCounter >= 2) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+                {
+                    Projectile.frame++;
+                    Projectile.frameCounter = 0;
+                }
             }
         }
     
@@ -422,42 +516,7 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
 
-            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
-
-            for (int i = 0; i < 50; i++)
-            {
-
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 138);
-                dust.noGravity = true;
-                dust.scale = 2f;
-                dust.velocity *= 5f;
-                dust.fadeIn = 1f;
-
-            }
-            for (int i = 0; i < 50; i++)
-            {
-
-                float speedY = -2f;
-
-                Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 55, perturbedSpeed.X, perturbedSpeed.Y);
-
-                dust.noGravity = true;
-                dust.scale = 1.5f;
-                dust.velocity *= 4f;
-                dust.fadeIn = 1f;
-
-            }
-            for (int i = 0; i < 50; i++)
-            {
-                Dust dust;
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 55, 0f, 0f, 0, default, 1f)];
-                dust.noGravity = true;
-                dust.scale = 1f;
-
-
-            }
+            
 
 
         }

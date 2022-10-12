@@ -113,10 +113,12 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
-            for (int i = 0; i < 50; i++) //Frost particles
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Projectile.owner);
+            //Main.projectile[proj].scale = 1;
+
+            /*for (int i = 0; i < 50; i++) //Frost particles
             {
                 Vector2 perturbedSpeed = new Vector2(0, -6f).RotatedByRandom(MathHelper.ToRadians(360));
 
@@ -124,8 +126,19 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dustIndex].noGravity = true;
 
 
+            }*/
+            for (int i = 0; i < 30; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 156, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
+
+                dust.scale = 1.5f;
+                dust.fadeIn = 1.5f;
+
             }
-            for (int i = 0; i < 30; i++) //Grey dust circle
+            for (int i = 0; i < 20; i++) //Grey dust circle
             {
                 Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
@@ -136,14 +149,7 @@ namespace StormDiversMod.Projectiles
                 dust.velocity *= 2f;
 
             }
-            for (int i = 0; i < 30; i++) //Grey dust fade
-            {
-
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
-                Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].noGravity = true;
-            }
+          
 
         }
 
@@ -405,47 +411,76 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost");
+            Main.projFrames[Projectile.type] = 4;
+
         }
         public override void SetDefaults()
         {
 
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 300;
+            Projectile.height = 300;
             Projectile.friendly = true;
-            Projectile.ignoreWater = true;
+            Projectile.ignoreWater = false;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 125;
             Projectile.extraUpdates = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+            Projectile.scale = 0.1f;
+            DrawOffsetX = -35;
+            DrawOriginOffsetY = -35;
+            Projectile.light = 0.9f;
+            Projectile.ArmorPenetration = 10;
         }
-
-        public override void AI()
+        public override bool? CanDamage()
         {
-            if (!Main.dedServ)
+            if (Projectile.ai[1] == 0)
             {
-                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-            }
-            if (Projectile.timeLeft > 125)
-            {
-                Projectile.timeLeft = 125;
-            }
-            if (Projectile.ai[0] > 16f)  //this defines where the flames starts
-            {
-                if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 2.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
-                }
+                return true;
             }
             else
             {
-                Projectile.ai[0] += 1f;
+                return false;
             }
-            return;
+        }
+        int dustoffset;
+        public override void AI()
+        {
+            dustoffset++;
+            Projectile.rotation += 0.1f;
+          
+                if (Main.rand.Next(10) == 0)     //this defines how many dust to spawn
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 2.5f;
+                    //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
+                }
+           
+            if (Projectile.scale <= 1f)
+            {
+                Projectile.scale += 0.01f;
+            }
+            else
+            {
+                Projectile.alpha += 3;
+
+
+                Projectile.velocity.X *= 0.98f;
+                Projectile.velocity.Y *= 0.98f;
+
+                Projectile.frameCounter++;
+                if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+                {
+                    Projectile.frame++;
+                    Projectile.frameCounter = 0;
+                }
+            }
+            if (Projectile.alpha > 150 || Projectile.wet)
+            {
+                Projectile.Kill();
+            }
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -469,7 +504,8 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.Kill();
+            Projectile.velocity *= 0;
+            //Projectile.Kill();
             return false;
         }
     }

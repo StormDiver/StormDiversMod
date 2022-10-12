@@ -273,34 +273,114 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 35;
+            Projectile.timeLeft = 180;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
 
             Projectile.aiStyle = 0;
-            //drawOffsetX = -9;
-            //drawOriginOffsetY = -9;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
 
         }
-        int dusttime;
+        int damagetime;
+
+    
+        public override bool? CanDamage()
+        {
+            if (damagetime <= 60)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         public override void AI()
         {
-            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-
-            AnimateProjectile();
-
-            dusttime++;
-            if (dusttime >= 5)
+            damagetime++;
+            if (damagetime == 1)
             {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 173, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f, 0, new Color(255, 255, 255), 1f)];
-                dust.noGravity = true;
-                dust.scale = 0.8f;
+                for (int i = 0; i < 10; i++)
+                {
+
+                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
+                    dust2.scale = 1.5f;
+                    dust2.velocity *= 2;
+                }
+            }
+
+                AnimateProjectile();
+            Dust dust;
+            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+            Vector2 position = Projectile.position;
+            dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 173, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f, 0, new Color(255, 255, 255), 1f)];
+            dust.noGravity = true;
+            dust.scale = 0.8f;
+            if (damagetime > 60)
+            {
+
+                if (Projectile.localAI[0] == 0f)
+                {
+                    AdjustMagnitude(ref Projectile.velocity);
+                    Projectile.localAI[0] = 1f;
+                }
+                Vector2 move = Vector2.Zero;
+                float distance = 500f;
+                bool target = false;
+                for (int k = 0; k < 200; k++)
+                {
+                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
+                    {
+                        if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
+                        {
+                            Vector2 newMove = Main.npc[k].Center - Projectile.Center;
+                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                            if (distanceTo < distance)
+                            {
+
+                                move = newMove;
+                                distance = distanceTo;
+                                target = true;
+
+                                Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+                                DrawOriginOffsetY = 0;
+
+                            }
+                            
+                        }
+                    }
+                   
+                }
+                if (target)
+                {
+                    AdjustMagnitude(ref move);
+                    Projectile.velocity = (15 * Projectile.velocity + move) / 14f;
+                    AdjustMagnitude(ref Projectile.velocity);
+                }
+                else
+                {
+                    Projectile.rotation = damagetime * 0.5f;
+                    DrawOriginOffsetY = -7;
+                    Projectile.velocity *= 0.9f;
+                }
+            }
+            else
+            {
+                Projectile.rotation = damagetime * 0.5f;
+                DrawOriginOffsetY = -7;
+            }
+        }
+        private void AdjustMagnitude(ref Vector2 vector)
+        {
+            if (damagetime > 60)
+            {
+                float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+                if (magnitude > 13f)
+                {
+                    vector *= 13f / magnitude;
+                }
             }
         }
 
@@ -331,7 +411,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-                SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f }, Projectile.Center);
+                //SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f }, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {

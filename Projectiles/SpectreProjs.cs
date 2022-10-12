@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Skull");
+            DisplayName.SetDefault("Spectre Bolt");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -27,7 +27,7 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 18;
             Projectile.light = 0.6f;
             Projectile.friendly = true;
-            Projectile.penetrate = 11;
+            Projectile.penetrate = 3;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 240;
             //aiType = ProjectileID.Bullet;
@@ -65,9 +65,9 @@ namespace StormDiversMod.Projectiles
             speedup++;
             if (speedup <= 50)
             {
-                Projectile.velocity.X *= 1.04f;
-                Projectile.velocity.Y *= 1.04f;
-                Projectile.damage += 2;
+                Projectile.velocity.X *= 1.03f;
+                Projectile.velocity.Y *= 1.03f;
+                Projectile.damage += 1;
                
             }
 

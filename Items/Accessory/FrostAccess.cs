@@ -21,8 +21,8 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void SetDefaults()
         {
-            Item.width = 42;
-            Item.height = 46;
+            Item.width = 20;
+            Item.height = 20;
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.Pink;
 

@@ -55,15 +55,7 @@ namespace StormDiversMod.Basefiles
         [Tooltip("This will prevent Derplings from gaining massively increased stats post-plantera")]
         //[ReloadRequired] //No reload required 
         [DefaultValue(false)]
-        public bool PreventBuffedDerps { get; set; }
-
-        [Header("Misc")]
-
-        [Label("Revert modded throwing weapons to throwing class")]
-        [Tooltip("This will make all weapons in the mod that were previously throwing deal thrown damage (Requires reload)")]
-        [ReloadRequired] //Yes
-        [DefaultValue(false)]
-        public bool ThrowingTryhards { get; set; }
+        public bool PreventBuffedDerps { get; set; }       
 
         //This will be added if Rho's Playground is ever deleted
         /*[Label("Remove damage variance")]

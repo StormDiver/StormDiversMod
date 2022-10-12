@@ -120,6 +120,9 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
         protected virtual float HoldoutRangeMin => 25f;
         protected virtual float HoldoutRangeMax => 100f;

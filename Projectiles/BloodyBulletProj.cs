@@ -47,7 +47,7 @@ namespace StormDiversMod.Projectiles
             if (Main.rand.Next(2) == 0 && Projectile.ai[0] > 5)
             {
 
-                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 5, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 115, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
                 dust2.noGravity = true;
 
 
@@ -158,7 +158,7 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
 
             }
         }

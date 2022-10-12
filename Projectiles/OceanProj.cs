@@ -116,16 +116,14 @@ namespace StormDiversMod.Projectiles
     //_____________________________________________________
     public class OceanSmallProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Small Water Bolt");
         }
         public override void SetDefaults()
         {
-
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 60;
@@ -176,10 +174,11 @@ namespace StormDiversMod.Projectiles
             {
                 SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 10; i++)
                 {
 
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 33);
+                    dust.scale = 1.5f;
                 }
 
             }
@@ -202,7 +201,7 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 60;
             Projectile.aiStyle = 2;
             //aiType = ProjectileID.WoodenArrowFriendly;
             Projectile.ignoreWater = true;
@@ -211,6 +210,7 @@ namespace StormDiversMod.Projectiles
         }
         public override void AI()
         {
+           
             Projectile.rotation += (float)Projectile.direction * -0.5f;
 
             if (Main.rand.Next(4) == 0)

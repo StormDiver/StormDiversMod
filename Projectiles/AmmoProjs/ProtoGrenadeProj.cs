@@ -10,7 +10,7 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 
 
-namespace StormDiversMod.Projectiles
+namespace StormDiversMod.Projectiles.AmmoProjs
 {
 
     public class ProtoGrenadeProj : ModProjectile
@@ -114,21 +114,23 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.1f;
 
-
-            for (int i = 0; i < 50; i++) //Flame particles
+            for (int i = 0; i < 30; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 2f);
-                Main.dust[dustIndex].noGravity = true;
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
 
+                dust.scale = 1.5f;
+                dust.fadeIn = 1.5f;
 
             }
-            for (int i = 0; i < 25; i++) //Grey dust circle
+            for (int i = 0; i < 20; i++) //Grey dust circle
             {
                 Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
@@ -139,14 +141,7 @@ namespace StormDiversMod.Projectiles
                 dust.velocity *= 1.5f;
 
             }
-            for (int i = 0; i < 25; i++) //Grey dust fade
-            {
-
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
-                Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].noGravity = true;
-            }
+           
         }
 
     }

@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
 
-namespace StormDiversMod.Projectiles
+namespace StormDiversMod.Projectiles.AmmoProjs
 {
  
 

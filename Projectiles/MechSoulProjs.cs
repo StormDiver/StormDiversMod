@@ -117,11 +117,12 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
+                Projectile.alpha = 255;
+
                 Projectile.velocity.X = 0f;
                 Projectile.velocity.Y = 0f;
                 Projectile.tileCollide = false;
                 // Set to transparent. This projectile technically lives as  transparent for about 3 frames
-                Projectile.alpha = 255;
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
 
@@ -166,36 +167,35 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-                
-                for (int i = 0; i < 50; i++)
+
+
+                int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
+                Main.projectile[proj].scale = 1.25f;
+
+                for (int i = 0; i < 30; i++) //orange particles
                 {
-                    Dust dust;
-                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    Vector2 position = Projectile.position;
-                    dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                    Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+
+                    dust.scale = 1.5f;
+                    dust.fadeIn = 1.5f;
+
+                }
+
+                for (int i = 0; i < 20; i++) //Grey dust circle
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
+
+                    //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                     dust.noGravity = true;
                     dust.scale = 2f;
-
+                    dust.velocity *= 1.5f;
 
                 }
-                for (int i = 0; i < 30; i++)
-                {
-
-                    int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
-                    Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].noGravity = true;
-                }
-                for (int i = 0; i < 40; i++)
-                {
-
-                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
-
-                    dust2.scale = 1.5f;
-                    dust2.velocity *= 2;
-                }
-
-
+               
 
             }
         }

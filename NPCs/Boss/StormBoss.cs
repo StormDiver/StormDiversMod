@@ -1216,6 +1216,8 @@ namespace StormDiversMod.NPCs.Boss
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
+                int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Main.myPlayer);
+                Main.projectile[proj].scale = 1.75f;
                 if (Main.netMode != NetmodeID.Server)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore1").Type, 1f);

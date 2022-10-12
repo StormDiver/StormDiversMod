@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Weapons
         {
             DisplayName.SetDefault("Spiky Bomb Launcher");
             Tooltip.SetDefault("Fires out up to 16 Spiky Bombs that stick to surfaces can be detonated by right clicking while holding the weapon\nRight clicking while holding DOWN will unstick all bombs and make them explode on enemy impact" +
-                "\nShoots further depending on your cursor location\nRequires Spiky Bombs, purchase more from the Demolitionist");
+                "\nShoots further depending on your cursor location\nUses rockets as ammo");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -37,10 +37,10 @@ namespace StormDiversMod.Items.Weapons
 
             Item.DamageType = DamageClass.Ranged;
             Item.shoot = ModContent.ProjectileType<StickyBombProj>();
-            Item.useAmmo = ItemType<Ammo.StickyBomb>();
+            Item.useAmmo = AmmoID.Rocket;
             Item.UseSound = SoundID.Item61;
         
-            Item.damage = 80;
+            Item.damage = 100;
             //Item.crit = 4;
             Item.knockBack = 3f;
             Item.shootSpeed = 10;

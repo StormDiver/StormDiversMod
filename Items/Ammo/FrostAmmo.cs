@@ -34,7 +34,7 @@ namespace StormDiversMod.Items.Ammo
             Item.knockBack = 0f;
             Item.consumable = true;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.FrostBulletProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.FrostBulletProj>();
             Item.shootSpeed = 5f;
             Item.ammo = AmmoID.Bullet;
         }
@@ -79,7 +79,7 @@ namespace StormDiversMod.Items.Ammo
             Item.knockBack = 2f;
             Item.consumable = true;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.FrostArrowProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.FrostArrowProj>();
             Item.shootSpeed = 3f;
             Item.ammo = AmmoID.Arrow;
         }

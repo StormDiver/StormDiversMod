@@ -104,7 +104,7 @@ namespace StormDiversMod.Items.Weapons
                 type = ModContent.ProjectileType<Projectiles.SwordLightProj>();
                 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(2)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.5f, perturbedSpeed.Y * 1.5f), type, (int)(damage * 1.6f), knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.5f, perturbedSpeed.Y * 1.5f), type, (int)(damage * 1.3f), knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item9 with{Volume = 1f, Pitch = -0.5f}, player.Center);
                 SoundEngine.PlaySound(SoundID.Item1, player.Center);
 

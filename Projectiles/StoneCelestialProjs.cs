@@ -674,6 +674,8 @@ namespace StormDiversMod.Projectiles
 
             DrawOffsetX = -2;
             DrawOriginOffsetY = -2;
+            Projectile.ArmorPenetration = 50;
+
         }
         int dusttype;
         public override void AI()

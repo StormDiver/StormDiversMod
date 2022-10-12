@@ -371,8 +371,10 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = -2;
             DrawOriginOffsetY = -2;
+            Projectile.ArmorPenetration = 10;
+
         }
-        
+
         public override void AI()
         {
             if (Main.rand.NextFloat() < 1f)
@@ -438,8 +440,11 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 180;
             DrawOffsetX = -3;
             DrawOriginOffsetY = -3;
+
+            Projectile.ArmorPenetration = 30;
+
         }
-        
+
         public override void AI()
         {
             Dust dust;

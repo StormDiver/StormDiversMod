@@ -76,7 +76,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Derpling Rifle");
-            Tooltip.SetDefault("I know it looks cruel, but it had to be done\nFour round burst, only the first shot consumes ammo");
+            Tooltip.SetDefault("Four round burst, only the first shot consumes ammo\n'I know it looks cruel, but it had to be done'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

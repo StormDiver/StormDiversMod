@@ -313,10 +313,19 @@ namespace StormDiversMod.Projectiles
 
                 int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y - ypos), new Vector2(xpos * 0.02f, 5), ProjectileID.Blizzard, (int)(Projectile.damage * 0.6f), 0, Projectile.owner);
 
+
                 Main.projectile[projID].DamageType = DamageClass.Ranged;
 
                 Main.projectile[projID].tileCollide = false;
 
+                for (int i = 0; i < 20; i++)
+                {
+
+                    var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y - ypos), 0, 0, 135);
+                    dust.velocity *= 2.5f;
+                    dust.scale = 2f;
+                    dust.noGravity = true;
+                }
 
             }
 

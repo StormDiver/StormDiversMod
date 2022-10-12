@@ -323,11 +323,8 @@ namespace StormDiversMod.Basefiles
 
             if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
             {
-                IItemDropRule[] stickylauncherAmmo = new IItemDropRule[] {
-                ItemDropRule.Common(ModContent.ItemType<StickyLauncher>(), 1),
-                ItemDropRule.Common(ModContent.ItemType<Items.Ammo.StickyBomb>(), 1, 150, 200),
-                };
-                npcLoot.Add(new FewFromRulesRule(2, 20, stickylauncherAmmo));
+                ItemDropRule.Common(ModContent.ItemType<StickyLauncher>(), 20);
+               
 
             }
 
@@ -469,7 +466,7 @@ namespace StormDiversMod.Basefiles
             //Cultist boss----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.CultistBoss)
             {
-               notExpert.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<CultistLazor>(), 50, 33));
+               notExpert.OnSuccess(ItemDropRule.Common(33, ModContent.ItemType<CultistLazor>()));
 
                 npcLoot.Add(ItemDropRule.BossBag(ItemID.CultistBossBag));
                 //notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Weapons.CultistBow>(), ModContent.ItemType<Weapons.CultistSpear>(), ModContent.ItemType<Weapons.CultistTome>(), ModContent.ItemType<Weapons.CultistStaff>()));

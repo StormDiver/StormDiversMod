@@ -341,18 +341,13 @@ namespace StormDiversMod.Basefiles
                         nextSlot++;
 
                     }
-                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<ProtoLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FrostLauncher>()))
+                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<ProtoLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FrostLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<MechTheSeeker>()))
                     {
                         shop.item[nextSlot].SetDefaults(ModContent.ItemType<ProtoGrenade>());
                         nextSlot++;
 
                     }
-                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<StickyLauncher>()))
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<StickyBomb>());
-                        nextSlot++;
-
-                    }
+                 
                     if (!GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant && Main.LocalPlayer.HasItem(ModContent.ItemType<StormLauncher>()))
                     {
                         shop.item[nextSlot].SetDefaults(ItemID.RocketI);

@@ -304,8 +304,8 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fallen Champion Banner");
-            Tooltip.SetDefault("Nearby players get a bonus against: Fallen Champion");
+            DisplayName.SetDefault("Fallen Warrior Banner");
+            Tooltip.SetDefault("Nearby players get a bonus against: Fallen Warrior");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }

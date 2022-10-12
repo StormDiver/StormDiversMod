@@ -137,7 +137,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(0, 0);
+            return new Vector2(0, 2);
         }
         public override bool AltFunctionUse(Player player)
         {
@@ -161,14 +161,20 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 25f;
+
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+
             if (player.altFunctionUse == 2)
             {
 
                 type = ProjectileID.MoonlordBullet;
                 //type = mod.ProjectileType("VortexRocketProj2");
 
-                int numberProjectiles = 3 + Main.rand.Next(2); ; //This defines how many projectiles to shot.
+                int numberProjectiles = 4 + Main.rand.Next(2); ; //This defines how many projectiles to shot.
                 for (int i = 0; i < numberProjectiles; i++)
                 {
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10)); // This defines the projectiles random spread . 10 degree spread.
@@ -176,6 +182,7 @@ namespace StormDiversMod.Items.Weapons
                 }
                 SoundEngine.PlaySound(SoundID.Item36 with{Volume = 1f, Pitch = 0.5f}, player.Center);
 
+              
             }
             else
             {
@@ -189,6 +196,19 @@ namespace StormDiversMod.Items.Weapons
                 SoundEngine.PlaySound(SoundID.Item36, player.Center);
 
             }
+
+            for (int i = 0; i < 25; i++)
+            {
+                float speedY = -1.5f;
+
+                Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                int dust2 = Dust.NewDust(player.Center + muzzleOffset * 1.6f, 0, 0, 229, dustspeed.X + velocity.X / 8, dustspeed.Y + velocity.Y / 8, 229, default, 1.5f);
+                Main.dust[dust2].noGravity = true;
+                Main.dust[dust2].scale = 1.5f;
+
+            }
+
             return false;
         }
 

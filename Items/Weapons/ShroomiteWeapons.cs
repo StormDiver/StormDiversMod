@@ -151,7 +151,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shroomite Fury");
-            Tooltip.SetDefault("Shoots out two super bouncy piercing arrows each shot");
+            Tooltip.SetDefault("Shoots out two additional super bouncy piercing arrows each shot");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()

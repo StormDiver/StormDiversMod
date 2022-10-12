@@ -30,13 +30,13 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 30;
             Item.useAnimation = 30;
+            Item.autoReuse = true;
             //Item.reuseDelay = 30;
             Item.useTurn = false;
-            Item.autoReuse = false;
 
             Item.DamageType = DamageClass.Ranged;
 
-            Item.shoot = ModContent.ProjectileType<ProtoGrenadeProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.ProtoGrenadeProj>();
             Item.useAmmo = ItemType<Ammo.ProtoGrenade>();
             Item.UseSound = SoundID.Item61;
 

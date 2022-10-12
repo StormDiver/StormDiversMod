@@ -261,7 +261,10 @@ namespace StormDiversMod.Projectiles
 
             SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 1.5f, Pitch = -0.5f}, Projectile.Center);
 
-            for (int i = 0; i < 60; i++)
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionDarkProj>(), 0, 0, Projectile.owner);
+            //Main.projectile[proj].scale = 1;
+
+            /*for (int i = 0; i < 60; i++)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -271,8 +274,8 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 2f;
 
 
-            }
-            for (int i = 0; i < 60; i++)
+            }*/
+            for (int i = 0; i < 30; i++)
             {
 
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 109, 0f, 0f, 0, default, 1f);
@@ -280,7 +283,7 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 30; i++)
             {
 
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 109, 0f, 0f, 0, default, 2f);

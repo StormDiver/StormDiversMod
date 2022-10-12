@@ -188,7 +188,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Blade");
-            Tooltip.SetDefault("Fires out a spread of soul beams every third swing");
+            Tooltip.SetDefault("Summons 2 to 3 spinning soul blade flames each swing that home into enemies after a delay");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -204,8 +204,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
             Item.height = 50;
-            Item.useTime = 14;
-            Item.useAnimation = 14;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.value = Item.sellPrice(0, 4, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
@@ -226,25 +226,56 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
+            
         }
-        int weaponattack = 3;
+        float posX;
+        float posY;
+        float speedX;
+        float speedY;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
-            weaponattack--;
-            if (weaponattack <= 0)
+
+            float numberProjectiles = 2 + Main.rand.Next(2);
+            float rotation = MathHelper.ToRadians(14);
+            for (int j = 0; j < numberProjectiles; j++)
             {
-                float numberProjectiles = 3;
-                float rotation = MathHelper.ToRadians(14);
-                for (int j = 0; j < numberProjectiles; j++)
+                if (player.direction == 1)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.5f), (int)(knockback * 0.33f), player.whoAmI);
+                    posX = position.X + Main.rand.NextFloat(-10f, 70f);
+                    speedX = Main.rand.NextFloat(0f, 1.5f);
+
                 }
-                //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.2f), knockback, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item8, player.Center);
-                weaponattack = 3;
+                else
+                {
+                    posX = position.X + Main.rand.NextFloat(-70f, 10f);
+                    speedX = Main.rand.NextFloat(-1.5f, 0f);
+
+                }
+                if (player.gravDir == 1)
+                {
+                    posY = position.Y + Main.rand.NextFloat(-10f, -60f);
+                    speedY = -.5f;
+
+                }
+                else
+                {
+                    posY = position.Y - Main.rand.NextFloat(-10f, -60f);
+                    speedY = .5f;
+
+                }
+
+
+
+                Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(speedX, speedY), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.4f), (int)(knockback * 0.33f), player.whoAmI);
+
+
+                //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.HellSoulArmourProj>(), (int)(damage * 0.5f), (int)(knockback * 0.33f), player.whoAmI);
+
+                //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                //int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.5f), (int)(knockback * 0.33f), player.whoAmI);
             }
+            SoundEngine.PlaySound(SoundID.Item8, player.Center);
+
             return false;
         }
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

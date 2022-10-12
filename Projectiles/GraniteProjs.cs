@@ -127,6 +127,10 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
+
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
 

@@ -106,10 +106,12 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void Kill(int timeLeft)
         {
 
-            Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
-            
-            for (int i = 0; i < 30; i++)
+
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.2f;
+
+            /*for (int i = 0; i < 30; i++)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -119,8 +121,8 @@ namespace StormDiversMod.NPCs.NPCProjs
                 dust.scale = 2f;
                 dust.fadeIn = 1f;
 
-            }
-            for (int i = 0; i < 50; i++) //Green particle circle
+            }*/
+            for (int i = 0; i < 25; i++) //Green particle circle
             {
                 Vector2 perturbedSpeed = new Vector2(0, -6f).RotatedByRandom(MathHelper.ToRadians(360));
 

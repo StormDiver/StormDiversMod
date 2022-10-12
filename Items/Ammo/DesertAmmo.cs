@@ -13,7 +13,7 @@ namespace StormDiversMod.Items.Ammo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Bullet");
-            Tooltip.SetDefault("Has a chance to spilt into two mid-flight");
+            Tooltip.SetDefault("Creates a small cloud of forbidden dust on tile impact");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }
@@ -34,7 +34,7 @@ namespace StormDiversMod.Items.Ammo
             Item.knockBack = 0f;
             Item.consumable = true;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.DesertBulletProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.DesertBulletProj>();
             Item.shootSpeed = 5f;
             Item.ammo = AmmoID.Bullet;
         }
@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Ammo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Arrow");
-            Tooltip.SetDefault("Bounces twice, spins after bouncing");
+            Tooltip.SetDefault("Speeds up after a short time, ignoring gravity and dealing extra damage.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }
@@ -77,8 +77,8 @@ namespace StormDiversMod.Items.Ammo
             Item.knockBack = 2f;
             Item.consumable = true;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.DesertArrowProj>();
-            Item.shootSpeed = 3f;
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.DesertArrowProj>();
+            Item.shootSpeed = 0f;
             Item.ammo = AmmoID.Arrow;
         }
 

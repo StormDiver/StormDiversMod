@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace StormDiversMod.Projectiles
+namespace StormDiversMod.Projectiles.AmmoProjs
 {
     public class BouncyArrowProj : ModProjectile
     {
@@ -26,7 +26,7 @@ namespace StormDiversMod.Projectiles
             
             
             Projectile.tileCollide = true;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Ranged;
 
             Projectile.arrow = true;
@@ -36,7 +36,10 @@ namespace StormDiversMod.Projectiles
         }
         public override void AI()
         {
-            
+            if (reflect <= 0)
+            {
+                Projectile.Kill();
+            }
 
         }
         int reflect = 5;
@@ -46,10 +49,7 @@ namespace StormDiversMod.Projectiles
             Projectile.damage = (Projectile.damage * 9) / 10;
 
             reflect--;
-            if (reflect <= 0)
-            {
-                Projectile.Kill();
-            }
+           
             {
                 Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
                 
@@ -65,8 +65,10 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
             return false;
         }
+      
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            reflect--;
 
             Projectile.damage = (Projectile.damage * 8) / 10;
 
@@ -93,4 +95,5 @@ namespace StormDiversMod.Projectiles
 
         }
     }
+   
 }

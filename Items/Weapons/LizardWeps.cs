@@ -100,7 +100,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lihzahrd Flamer");
-            Tooltip.SetDefault("Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water\nUses gel for ammo");
+            Tooltip.SetDefault("Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water\nUses gel for ammo\nIgnores 15 points of enemy defense");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -130,8 +130,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 6;
-            Item.useAnimation = 24;
+            Item.useTime = 3;
+            Item.useAnimation = 12;
         
             Item.useTurn = false;
             Item.autoReuse = true;
@@ -139,11 +139,11 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.UseSound = SoundID.Item34;
 
-            Item.damage = 45;
+            Item.damage = 50;
             Item.knockBack = 0.5f;
             Item.shoot = ModContent.ProjectileType<Projectiles.LizardFlameProj>();
 
-            Item.shootSpeed = 5f;
+            Item.shootSpeed = 3f;
 
             Item.useAmmo = AmmoID.Gel;
 
@@ -153,9 +153,28 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(3, 0);
         }
+        public override void HoldItem(Player player)
+        {
+        }
+        bool candamage;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+            if (candamage)
+            {
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 1);
+                candamage = false;
+            }
+            else
+            {
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 0);
+                candamage = true;
+
+            }
             /*if (!NPC.downedPlantBoss)
             {
                 for (int i = 0; i < 10; i++)
@@ -185,12 +204,14 @@ namespace StormDiversMod.Items.Weapons
                 
                 return true;
             }*/
-            return true;
+            return false;
          }
-      
+
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
-            return Main.rand.NextFloat() > .50f;
+
+            return !(player.itemAnimation < Item.useAnimation - 2);
+
         }
         public override void AddRecipes()
         {

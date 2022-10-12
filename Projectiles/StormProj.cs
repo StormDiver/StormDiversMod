@@ -192,7 +192,7 @@ namespace StormDiversMod.Projectiles
 			rotate++;
 			Projectile.rotation = rotate / 5;
 
-			if (Projectile.ai[1] > 30 && Projectile.velocity.X == 0 && Projectile.velocity.Y == 0) //fire lightning if stationary 
+			if (Projectile.ai[1] > 40 && Projectile.velocity.X == 0 && Projectile.velocity.Y == 0) //fire lightning if stationary 
 			{
 
 				for (int j = 0; j < 30; j++)
@@ -330,23 +330,31 @@ namespace StormDiversMod.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
-			for (int j = 0; j < 1; j++)
+			float xpos = (Main.rand.NextFloat(-50, 50));
+
+			float ai = Main.rand.Next(100);
+
+			Vector2 rotation = -new Vector2(target.Center.X - xpos, target.Center.Y - 500) + target.Center;
+
+			int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - xpos, target.Center.Y - 500), new Vector2(xpos * 0.02f, 5),
+				ModContent.ProjectileType<Projectiles.StormLightningProj>(), damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
+			Main.projectile[projID].scale = 1;
+			Main.projectile[projID].penetrate = 2;
+			Main.projectile[projID].timeLeft = 600;
+			Main.projectile[projID].DamageType = DamageClass.Melee;
+			Main.projectile[projID].tileCollide = false;
+
+
+			for (int i = 0; i < 25; i++)
 			{
-				float xpos = (Main.rand.NextFloat(-50, 50));
+				float speedY = -3f;
 
-				float ai = Main.rand.Next(100);
+				Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-				Vector2 rotation = -new Vector2(target.Center.X - xpos, target.Center.Y - 500) + target.Center;
-
-				int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - xpos, target.Center.Y - 500), new Vector2(xpos * 0.02f, 5),
-					ModContent.ProjectileType<Projectiles.StormLightningProj>(), damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
-				Main.projectile[projID].scale = 1;
-				Main.projectile[projID].penetrate = 2;
-				Main.projectile[projID].timeLeft = 600;
-				Main.projectile[projID].DamageType = DamageClass.Melee;
-				Main.projectile[projID].tileCollide = false;
-
+				int dust2 = Dust.NewDust(new Vector2(target.Center.X - xpos, target.Center.Y - 500), 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 1.5f);
+				Main.dust[dust2].noGravity = true;
 			}
+
 		}
 		public override void Kill(int timeLeft)
 		{

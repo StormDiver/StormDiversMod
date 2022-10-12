@@ -147,7 +147,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Seeker");
-            Tooltip.SetDefault("Summons explosive bolts that can be guided towards the cursor when holding right click\nRequires Seeker Bolts, craft more with Souls of Sight");
+            Tooltip.SetDefault("Summons explosive bolts that can be guided towards the cursor when holding right click\nRequires Prototype Grenades, purchase more from the Demolitionist");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -171,10 +171,10 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.SeekerBoltProj>();
-            Item.useAmmo = ItemType<Ammo.SeekerBolt>();
+            Item.useAmmo = ItemType<Ammo.ProtoGrenade>();
             Item.UseSound = SoundID.Item11;
 
-            Item.damage = 45;
+            Item.damage = 30;
             //Item.crit = 0;
             Item.knockBack = 6f;
 
@@ -191,7 +191,7 @@ namespace StormDiversMod.Items.Weapons
            
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.SeekerBoltProj>(), damage, knockback, player.whoAmI);
             }
             return false;
         }

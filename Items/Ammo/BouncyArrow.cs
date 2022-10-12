@@ -31,7 +31,7 @@ namespace StormDiversMod.Items.Ammo
             Item.knockBack = 0f;
             Item.consumable = true;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.BouncyArrowProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.BouncyArrowProj>();
             Item.shootSpeed = 1f;
             Item.ammo = AmmoID.Arrow;
         }

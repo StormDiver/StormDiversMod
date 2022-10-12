@@ -47,7 +47,7 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
             }
 
@@ -113,6 +113,8 @@ namespace StormDiversMod.Projectiles
             Projectile.knockBack = 1f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
+
+            Projectile.light = 0.1f;
         }
         //bool bloodspray = true;
         public override void AI()
@@ -122,7 +124,7 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
             }
 
@@ -132,8 +134,10 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 0.75f)];
             }
+
+          
             return;
         }
 
@@ -157,7 +161,7 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 0.75f)];
 
             }
         }
@@ -184,6 +188,10 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
+
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
         protected virtual float HoldoutRangeMin => 25f;
         protected virtual float HoldoutRangeMax => 100f;
@@ -276,7 +284,7 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
             }
 
@@ -362,7 +370,7 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+                dust = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                 dust.noGravity = false;
 
             }
@@ -416,7 +424,7 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
             }
 
@@ -426,7 +434,8 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 0.75f)];
+                dust.noGravity = true;
 
 
             }
@@ -450,7 +459,8 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 0.75f)];
+                dust.noGravity = true;
 
             }
         }
@@ -518,7 +528,7 @@ namespace StormDiversMod.Projectiles
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 0.75f)];
 
             }
         }
@@ -544,23 +554,14 @@ namespace StormDiversMod.Projectiles
 
             Projectile.penetrate = 1;
             Projectile.tileCollide = true;
-            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
-            {
-                Projectile.DamageType = DamageClass.Throwing;
-
-            }
-            else
-            {
-                Projectile.DamageType = DamageClass.Ranged;
-
-            }
+             Projectile.DamageType = DamageClass.Ranged;         
             Projectile.timeLeft = 180;
             DrawOriginOffsetY = -4;
         }
         public override void AI()
         {
 
-            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 5, 0f, 0f, 100, default, 1f);
+            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 115, 0f, 0f, 100, default, 1f);
             Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
             Main.dust[dustIndex].noGravity = true;
 
@@ -611,8 +612,9 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 5, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 2f);
+                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
                 Main.dust[dustIndex].noGravity = true;
+                Main.dust[dustIndex].velocity *= 1.5f;
 
 
             }
@@ -623,7 +625,7 @@ namespace StormDiversMod.Projectiles
 
                 //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-                dust.scale = 1f;
+                dust.scale = 1.5f;
                 dust.velocity *= 2f;
 
             }

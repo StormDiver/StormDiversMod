@@ -189,43 +189,92 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lihzahrd Flame");
+            Main.projFrames[Projectile.type] = 4;
+
         }
         public override void SetDefaults()
         {
 
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 300;
+            Projectile.height = 300;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 125;
-            Projectile.extraUpdates = 3;
+            Projectile.timeLeft = 2000;
+            Projectile.extraUpdates = 4;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
+            Projectile.scale = 0.1f;
+            DrawOffsetX = -35;
+            DrawOriginOffsetY = -35;
+            Projectile.light = 0.9f;
+            Projectile.ArmorPenetration = 15;
         }
-
-        public override void AI()
+        public override bool? CanDamage()
         {
-            if (!Main.dedServ)
+            if (Projectile.ai[1] == 0)
             {
-                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-            }
-            if (Projectile.ai[0] > 8f)  //this defines where the flames starts
-            {
-                if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 2.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
-                }
+                return true;
             }
             else
             {
-                Projectile.ai[0] += 1f;
+                return false;
             }
-            return;
+        }
+        int dustoffset;
+        public override void AI()
+        {
+            dustoffset++;
+            Projectile.rotation += 0.1f;
+
+
+            if (Main.rand.Next(10) == 0)     //this defines how many dust to spawn
+            {
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 6, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                Main.dust[dust].velocity *= 1.5f;
+            }
+           
+
+            if (Projectile.scale <= 1.2f)
+            {
+                Projectile.scale += 0.008f;
+            }
+            else
+            {
+                Projectile.alpha += 3;
+               
+            
+                Projectile.velocity.X *= 0.98f;
+                Projectile.velocity.Y *= 0.98f;
+
+                Projectile.frameCounter++;
+                if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+                {
+                    Projectile.frame++;
+                    Projectile.frameCounter = 0;
+                }
+            }
+            if (Projectile.alpha > 150)
+            {
+                Projectile.Kill();
+            }
+
+            //To make hitbox larger, unused as casues issue
+            /*Projectile.width += 1;
+            Projectile.height += 1;
+            Projectile.position.X -= 0.5f;
+            Projectile.position.Y -= 0.5f;*/
+            /*Projectile.ai[1] ++;
+            if (Projectile.ai[1] >= 2)     //fix offest, + 0.5 offest 
+            {
+                DrawOffsetX += 1;
+                DrawOriginOffsetY += 1;
+                Projectile.ai[1] = 0;
+            }*/
+
+
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -266,6 +315,15 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
+      
+        /*public override Color? GetAlpha(Color lightColor)
+        {
+
+            Color color = Color.Orange;
+            color.A = 100;
+            return color;
+
+        }*/
     }
     //_____________________________________________
     public class LizardSpellProj : ModProjectile

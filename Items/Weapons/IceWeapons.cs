@@ -23,16 +23,8 @@ namespace StormDiversMod.Items.Weapons
         public override void SetDefaults()
         {
             
-            Item.damage = 60;
-            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
-            {
-                Item.DamageType = DamageClass.Throwing;
-            }
-            else
-            {
-                Item.DamageType = DamageClass.Ranged;
-
-            }
+            Item.damage = 60;         
+            Item.DamageType = DamageClass.Ranged;         
             Item.width = 10;
             Item.height = 14;
             Item.consumable = true;

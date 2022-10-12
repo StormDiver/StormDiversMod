@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Grenade");
+            DisplayName.SetDefault("Ice Grenade");
         }
 
         public override void SetDefaults()
@@ -32,16 +32,8 @@ namespace StormDiversMod.Projectiles
 
             Projectile.penetrate = -1;
             Projectile.tileCollide = true;
-            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
-            {
-                Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged;
 
-            }
-            else
-            {
-                Projectile.DamageType = DamageClass.Ranged;
-
-            }
             Projectile.timeLeft = 180;
 
         }
@@ -99,22 +91,26 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.25f;
 
-            for (int i = 0; i < 50; i++) //Frost particles
+            for (int i = 0; i < 30; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 156, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 2f);
-                Main.dust[dustIndex].noGravity = true;
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 156, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
 
+                dust.scale = 1.5f;
+                dust.fadeIn = 1.5f;
 
             }
-            for (int i = 0; i < 30; i++) //Grey dust circle
+
+            for (int i = 0; i < 20; i++) //Grey dust circle
             {
-                Vector2 perturbedSpeed = new Vector2(0, -2f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
 
                 //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
@@ -122,14 +118,6 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 2f;
                 dust.velocity *= 2f;
 
-            }
-            for (int i = 0; i < 30; i++) //Grey dust fade
-            {
-
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
-                Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].noGravity = true;
             }
         }
     }

@@ -152,7 +152,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Coral Blaster");
-            Tooltip.SetDefault("Fires out pieces of coral that are not affected by water\nRequires Coral Shards, craft more with coral");
+            Tooltip.SetDefault("Converts bullets into pieces of coral that are not affected by water and obey gravity");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -171,7 +171,7 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<OceanCoralProj>();
-            Item.useAmmo = ItemType<Ammo.OceanShard>();
+            Item.useAmmo = AmmoID.Bullet;
             Item.UseSound = SoundID.Item85;
 
             Item.damage = 8;
@@ -188,11 +188,12 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
-            {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(1)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
-            }
+
+
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(1)); // This defines the projectiles random spread . 10 degree spread.
+            int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<OceanCoralProj>(), damage, knockback, player.whoAmI, 0, 1);
+            Main.projectile[projID].timeLeft = 180;        
+
             return false;
         }
 

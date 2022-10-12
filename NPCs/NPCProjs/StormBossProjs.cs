@@ -18,7 +18,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             DisplayName.SetDefault("Overloaded ScanDrone Bolt");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            Main.projFrames[Projectile.type] = 5;
+            //Main.projFrames[Projectile.type] = 5;
         }
 
         public override void SetDefaults()
@@ -224,16 +224,30 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
-           
-                for (int i = 0; i < 50; i++)
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 0.7f;
+
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -3f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
+
+                dust.scale = 1.5f;
+                dust.fadeIn = 1.5f;
+
+            }
+
+            /*for (int i = 0; i < 20; i++)
                 {
                     float speedY = -4f;
 
                     Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 110, perturbedSpeed.X, perturbedSpeed.Y, 229, default, 1.5f);
+                    int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 229, default, 1.5f);
                     Main.dust[dust2].noGravity = true;
-                }
+                }*/
 
             
 
@@ -385,27 +399,31 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.5f;
 
            
-                for (int i = 0; i < 100; i++)
-                {
-                    float speedY = -10f;
+            for (int i = 0; i < 30; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
 
-                    int dust2 = Dust.NewDust(Projectile.Center - new Vector2( 10, 10), 20, 20, 110, perturbedSpeed.X, perturbedSpeed.Y, 229, default, 1.5f);
-                    Main.dust[dust2].noGravity = true;
-                }
-                for (int i = 0; i < 50; i++)
+                dust.scale = 1.5f;
+                dust.fadeIn = 1.5f;
+
+            }
+            /*for (int i = 0; i < 30; i++)
                 {
 
                     var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
                     dust.noGravity = true;
-                    dust.scale = 2.5f;
+                    dust.scale = 1.5f;
                     dust.velocity *= 4f;
                     dust.fadeIn = 1f;
 
-                }
+                }*/
             
 
         }
@@ -514,35 +532,33 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void Kill(int timeLeft)
         {
 
-            Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
-          
-                for (int i = 0; i < 100; i++)
-                {
-                    float speedY = -10f;
 
-                    Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.5f;
+            for (int i = 0; i < 30; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    int dust2 = Dust.NewDust(Projectile.Center - new Vector2(10, 10), 20, 20, 110, perturbedSpeed.X, perturbedSpeed.Y, 229, default, 1.5f);
-                    Main.dust[dust2].noGravity = true;
-                }
-                for (int i = 0; i < 50; i++)
-                {
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
-                    dust.noGravity = true;
-                    dust.scale = 2.5f;
-                    dust.velocity *= 4f;
-                    dust.fadeIn = 1f;
+                dust.scale = 1.5f;
+                dust.fadeIn = 1.5f;
 
-                }
-            
-            
+            }
+            /*for (int i = 0; i < 30; i++)
+            {
 
-        }
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
+                dust.noGravity = true;
+                dust.scale = 1.5f;
+                dust.velocity *= 4f;
+                dust.fadeIn = 1f;
 
-     
+            }*/
+        }   
     }
     //_____________________________
     public class StormBossLightning : ModProjectile
@@ -862,7 +878,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 if (Projectile.scale <= 1)
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
+                    { 
                         if (Projectile.ai[1] == 0)
                         {
                             Projectile.scale += 0.08f;

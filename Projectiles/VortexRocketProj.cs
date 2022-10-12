@@ -56,7 +56,7 @@ namespace StormDiversMod.Projectiles
         {
             dusttime++;
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-            if (dusttime > 1)
+            if (dusttime > 3)
             {
                 for (int i = 0; i < 15; i++)
                 {
@@ -114,38 +114,41 @@ namespace StormDiversMod.Projectiles
             //Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionVortexProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.5f;
+
             Projectile.alpha = 255;
 
-            for (int i = 0; i < 50; i++)
+            /*for (int i = 0; i < 30; i++)
             {
 
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
                 dust.noGravity = true;
-                dust.scale = 2.5f;
+                dust.scale = 2f;
                 dust.velocity *= 4f;
                 dust.fadeIn = 1f;
 
-            }
-            for (int i = 0; i < 50; i++)
+            }*/
+            for (int i = 0; i < 30; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(0, -7.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
 
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
 
-                dust.scale = 2f;
+                dust.scale = 1.5f;
                 dust.fadeIn = 1.5f;
 
             }
-            for (int i = 0; i < 80; i++)
+            /*for (int i = 0; i < 40; i++)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 229, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-                dust.scale = 1.5f;
-            }
+                dust.scale = 1f;
+            }*/
 
 
             Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
@@ -231,7 +234,7 @@ namespace StormDiversMod.Projectiles
         {
             dusttime++;
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-            if (dusttime > 2)
+            if (dusttime > 4)
             {
                 for (int i = 0; i < 25; i++)
                 {
@@ -288,22 +291,15 @@ namespace StormDiversMod.Projectiles
         {
             //Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
-            
+
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionVortexProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.9f;
+
             Projectile.alpha = 255;
 
-            for (int i = 0; i < 50; i++) //Grey dust
+            for (int i = 0; i < 30; i++) //Green particle circle
             {
-
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
-                dust.noGravity = true;
-                dust.scale = 2.5f;
-                dust.velocity *= 5f;
-                dust.fadeIn = 1f;
-
-            }
-            for (int i = 0; i < 50; i++) //Green particle circle
-            {
-                Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -9f).RotatedByRandom(MathHelper.ToRadians(360));
 
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
@@ -312,7 +308,7 @@ namespace StormDiversMod.Projectiles
                 dust.fadeIn = 1.5f;
 
             }
-            for (int i = 0; i < 80; i++) //Green particle static
+            for (int i = 0; i < 40; i++) //Green particle static
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -321,6 +317,7 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
                 dust.scale = 1.5f;
             }
+ 
 
             Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
             Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);

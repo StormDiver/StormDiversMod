@@ -68,8 +68,52 @@ namespace StormDiversMod
 		}
        
     }
-    public class immunity : GlobalProjectile
+    public class explosioneffects : GlobalProjectile
     {
+        public override void Kill(Projectile projectile, int timeLeft)
+        {
+            //Generic for Rocket, Grenade, Mine, and Snowman Cannon
+            //Cluster frags x0.75
+            if  (projectile.type == ProjectileID.ClusterFragmentsI || projectile.type == ProjectileID.ClusterFragmentsII
+                || projectile.type == ProjectileID.ClusterSnowmanFragmentsI || projectile.type == ProjectileID.ClusterSnowmanFragmentsII)
+            {
+                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
+                Main.projectile[proj].scale = 0.75f;
+            }
+            //Rocket Is and IIs, and Cluster Rockets x1.25
+            if (projectile.type == ProjectileID.RocketI || projectile.type == ProjectileID.RocketII
+                || projectile.type == ProjectileID.ClusterRocketI || projectile.type == ProjectileID.ClusterRocketII
+                || projectile.type == ProjectileID.GrenadeI || projectile.type == ProjectileID.GrenadeII
+                || projectile.type == ProjectileID.ClusterGrenadeI || projectile.type == ProjectileID.ClusterGrenadeII
+                || projectile.type == ProjectileID.ProximityMineI || projectile.type == ProjectileID.ProximityMineI                
+                || projectile.type == ProjectileID.ClusterMineI || projectile.type == ProjectileID.ClusterMineII
+                || projectile.type == ProjectileID.RocketSnowmanI || projectile.type == ProjectileID.RocketSnowmanII 
+                || projectile.type == ProjectileID.ClusterSnowmanRocketI || projectile.type == ProjectileID.ClusterSnowmanRocketI)
+            {
+                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
+                Main.projectile[proj].scale = 1.25f;
+            }
+            //Rocket IIIs and IVs 1.5x
+            if (projectile.type == ProjectileID.RocketIII || projectile.type == ProjectileID.RocketIV 
+                || projectile.type == ProjectileID.GrenadeIII || projectile.type == ProjectileID.GrenadeIV 
+                || projectile.type == ProjectileID.ProximityMineIII || projectile.type == ProjectileID.ProximityMineIV
+                || projectile.type == ProjectileID.RocketSnowmanIII || projectile.type == ProjectileID.RocketSnowmanIV)
+            {
+                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
+                Main.projectile[proj].scale = 1.5f;
+            }
+            //Mini Nukes x1.75
+            if (projectile.type == ProjectileID.MiniNukeRocketI || projectile.type == ProjectileID.MiniNukeRocketII 
+                || projectile.type == ProjectileID.MiniNukeGrenadeI || projectile.type == ProjectileID.MiniNukeGrenadeII 
+                || projectile.type == ProjectileID.MiniNukeMineI || projectile.type == ProjectileID.MiniNukeMineII
+                || projectile.type == ProjectileID.MiniNukeSnowmanRocketI || projectile.type == ProjectileID.MiniNukeSnowmanRocketII)
+            {
+                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
+                Main.projectile[proj].scale = 1.75f;
+            }
+
+            base.Kill(projectile, timeLeft);
+        }
         /*public override void SetDefaults(Projectile projectile)
         {
             if (projectile.type == ProjectileID.TerrarianBeam)
@@ -78,6 +122,6 @@ namespace StormDiversMod
                 projectile.localNPCHitCooldown = 10;
             }
         }*/
-     
+
     }
 }

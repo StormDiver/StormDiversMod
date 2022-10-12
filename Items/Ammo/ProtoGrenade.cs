@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Ammo
             Item.consumable = true;
 
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.ProtoGrenadeProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.ProtoGrenadeProj>();
             Item.shootSpeed = 3f;
             Item.ammo = Item.type;
         }

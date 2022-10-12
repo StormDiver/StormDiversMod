@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Bow Arrow");
+            DisplayName.SetDefault("Forbidden Fury Arrow");
         }
 
         public override void SetDefaults()
@@ -47,12 +47,13 @@ namespace StormDiversMod.Projectiles
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
             }
             if ((Projectile.velocity.X >= 3 || Projectile.velocity.X <= -3))
+            {
                 if (Main.rand.Next(12) == 0)
                 {
-              
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 2.5f), ModContent.ProjectileType<DesertArrowDust>(), (int)(Projectile.damage * 0.7), Projectile.knockBack, Projectile.owner);
-            }
 
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 2.5f), ModContent.ProjectileType<DesertArrowDust>(), (int)(Projectile.damage * 0.7), Projectile.knockBack, Projectile.owner);
+                }
+            }
         }
         // int reflect = 5;
 
@@ -104,6 +105,8 @@ namespace StormDiversMod.Projectiles
             Projectile.extraUpdates = 3;
             Projectile.timeLeft = 180;
             Projectile.penetrate = 2;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override void AI()
@@ -169,6 +172,10 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
+
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         protected virtual float HoldoutRangeMin => 25f;
@@ -263,7 +270,17 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
-
+        public override bool? CanDamage()
+        {
+            if (Projectile.ai[0] < 30)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public override void AI()
         {
             if (!Main.dedServ)

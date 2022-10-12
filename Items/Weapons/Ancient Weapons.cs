@@ -156,7 +156,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Arid Sandblaster");
-            Tooltip.SetDefault("Fires out a stream of burning sand\nUses gel for ammo");
+            Tooltip.SetDefault("Fires out a stream of burning sand\nUses gel for ammo\nIgnores 10 points of enemy defense");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -169,8 +169,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 7;
-            Item.useAnimation = 24;
+            Item.useTime = 4;
+            Item.useAnimation = 13;
 
             Item.useTurn = false;
             Item.autoReuse = true;
@@ -179,7 +179,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 16;
+            Item.damage = 18;
             Item.knockBack = 0.2f;
             Item.shoot = ModContent.ProjectileType<AncientFlameProj>(); 
 
@@ -195,7 +195,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void HoldItem(Player player)
         {
-            player.GetArmorPenetration(DamageClass.Ranged) += 10;
         }
         public override void AddRecipes()
         {
@@ -206,9 +205,33 @@ namespace StormDiversMod.Items.Weapons
             .Register();
 
         }
+        bool candamage;
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+            if (candamage)
+            {
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y-3), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 1);
+                candamage = false;
+            }
+            else
+            {
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y-3), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 0);
+                candamage = true;
+
+            }
+            return false;
+        }
+
         public override bool CanConsumeAmmo(Item ammo, Player player)
-        {       
-            return Main.rand.NextFloat() > .50f;
+        {
+
+            return !(player.itemAnimation < Item.useAnimation - 2);
+
         }
     }
     //____________________________________________________

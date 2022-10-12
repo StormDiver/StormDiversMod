@@ -12,8 +12,8 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coral Shard");
-            Tooltip.SetDefault("For use with the Coral Gun");
+            DisplayName.SetDefault("Coral Bullet");
+            Tooltip.SetDefault("Unaffected by water but has a limited range\nObeys gravity if fired from the Coral Blaster");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }
@@ -37,9 +37,9 @@ namespace StormDiversMod.Items.Ammo
             Item.knockBack = 0f;
             Item.consumable = true;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.OceanCoralProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.CoralBulletProj>();
             Item.shootSpeed = 0f;
-            Item.ammo = Item.type;
+            Item.ammo = AmmoID.Bullet;
         }
 
         public override void AddRecipes()

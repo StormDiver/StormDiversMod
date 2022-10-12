@@ -131,7 +131,7 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Ranged;
-            Item.shoot = ModContent.ProjectileType<Projectiles.ProtoGrenadeProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.ProtoGrenadeProj>();
             Item.useAmmo = ItemType<Ammo.ProtoGrenade>();
             Item.UseSound = SoundID.Item61;
 
@@ -182,7 +182,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cryofreezer");
-            Tooltip.SetDefault("Fires out frozen gas which inflicts CryoBurn\nUses gel for ammo");
+            Tooltip.SetDefault("Fires out frozen gas which inflicts CryoBurn\nUses gel for ammo\nIgnores 10 points of enemy defense");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -194,8 +194,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.Pink;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 8;
-            Item.useAnimation = 26;
+            Item.useTime = 4;
+            Item.useAnimation = 13;
 
             Item.useTurn = false;
             Item.autoReuse = true;
@@ -204,7 +204,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 22;
+            Item.damage = 27;
             Item.knockBack = 0.25f;
             Item.shoot = ModContent.ProjectileType<Projectiles.Frostthrowerproj>();
 
@@ -218,9 +218,30 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(0, 0);
         }
+        bool candamage;
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+            if (candamage)
+            {
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 1);
+                candamage = false;
+            }
+            else
+            {
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 0);
+                candamage = true;
+
+            }
+          
+            return false;
+        }
         public override void HoldItem(Player player)
         {
-            player.GetArmorPenetration(DamageClass.Ranged) += 10;
         }
         public override void AddRecipes()
         {
@@ -232,8 +253,9 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
-          
-            return Main.rand.NextFloat() > .50f;
+
+            return !(player.itemAnimation < Item.useAnimation - 2);
+
         }
     }
 }

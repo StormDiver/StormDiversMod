@@ -55,7 +55,7 @@ namespace StormDiversMod.NPCs
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
             NPC.knockBackResist = 0f;
-            NPC.value = Item.buyPrice(0, 2, 0, 0);
+            NPC.value = Item.buyPrice(0, 1, 0, 0);
 
            Banner = NPC.type;
            BannerItem = ModContent.ItemType<Banners.GolemMinionBannerItem>();
@@ -160,7 +160,7 @@ namespace StormDiversMod.NPCs
             {
                 NPC.ai[2]++;
 
-                if ((NPC.ai[2] >= 60 && !NPC.downedPlantBoss) || (NPC.ai[2] >= 90 && NPC.downedPlantBoss))//starts the shooting animation
+                if (NPC.ai[2] >= 70)//starts the shooting animation
                 {
                     //NPC.velocity.X = 0;
                     NPC.velocity.Y *= 0.98f;
@@ -178,7 +178,9 @@ namespace StormDiversMod.NPCs
                 {
                     shooting = false;
                 }
-                if ((NPC.ai[2] >= 80 && !NPC.downedPlantBoss) || (NPC.ai[2] >= 120 && NPC.downedPlantBoss))//fires the projectiles
+                //if ((NPC.ai[2] >= 80 && !NPC.downedPlantBoss) || (NPC.ai[2] >= 120 && NPC.downedPlantBoss))//fires the projectiles
+                if (NPC.ai[2] >= 100)//fires the projectiles
+
                 {
                     spawn = false;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -191,12 +193,12 @@ namespace StormDiversMod.NPCs
 
                     float projectileSpeed = 10f; // The speed of your projectile (in pixels per second).
                     int damage; // The damage your projectile deals. normal x2, expert x4 (70/140/210)
-                    if (!NPC.downedPlantBoss)
+                    /*if (!NPC.downedPlantBoss)
                     {
                         damage = 35; // The damage your projectile deals. normal x2, expert x4 (70/140/210)
 
                     }
-                    else
+                    else*/
                     {
                         damage = 25; // The damage your projectile deals. normal x2, expert x4 (50/100/150)
 

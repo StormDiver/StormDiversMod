@@ -29,15 +29,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 0, 1);
             Item.rare = ItemRarityID.White;
 
-            if (GetInstance<ConfigurationsGlobal>().ThrowingTryhards)
-            {
-                Item.DamageType = DamageClass.Throwing;
-            }
-            else
-            {
-                Item.DamageType = DamageClass.Ranged;
+            Item.DamageType = DamageClass.Ranged;
 
-            }
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.noUseGraphic = true;
