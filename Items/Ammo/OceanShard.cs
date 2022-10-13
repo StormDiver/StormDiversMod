@@ -13,7 +13,7 @@ namespace StormDiversMod.Items.Ammo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Coral Bullet");
-            Tooltip.SetDefault("Unaffected by water but has a limited range\nObeys gravity if fired from the Coral Blaster");
+            Tooltip.SetDefault("Unaffected by water but has a limited range");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }

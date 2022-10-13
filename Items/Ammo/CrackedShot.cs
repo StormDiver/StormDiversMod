@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Ammo
             Recipe recipe = Recipe.Create(ModContent.ItemType<CrackedShot>(), 150);
             recipe.AddIngredient(ItemID.MusketBall, 150);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 1);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(TileID.Anvils);
             recipe.Register();
 
         }

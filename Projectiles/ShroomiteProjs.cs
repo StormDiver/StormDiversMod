@@ -95,7 +95,7 @@ namespace StormDiversMod.Projectiles
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
 
-            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Projectile.owner);
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionShroomiteProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1f;
 
             for (int i = 0; i < 25; i++)
@@ -223,7 +223,7 @@ namespace StormDiversMod.Projectiles
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
-            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Projectile.owner);
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionShroomiteProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1f;
 
             for (int i = 0; i < 25; i++)
@@ -425,7 +425,7 @@ namespace StormDiversMod.Projectiles
 
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
-            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Projectile.owner);
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionShroomiteProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1.33f;
 
             Projectile.alpha = 255;

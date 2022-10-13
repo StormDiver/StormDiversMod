@@ -107,7 +107,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bouncy Knives");
+            DisplayName.SetDefault("Bouncy Throwing Knife");
             Tooltip.SetDefault("Very bouncy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 

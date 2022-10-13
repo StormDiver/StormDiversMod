@@ -13,7 +13,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spike Bomb");
-            Tooltip.SetDefault("Explodes into many damaging spikes\nDoes not destory tiles");
+            Tooltip.SetDefault("Explodes into many damaging spikes\nDoes not destroy tiles");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }
@@ -23,7 +23,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 24;
             Item.maxStack = 999;
             Item.value = Item.sellPrice(0, 0, 2, 50);
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Orange;
             Item.useTime = 40;
             Item.useAnimation = 40;
             Item.noUseGraphic = true;
