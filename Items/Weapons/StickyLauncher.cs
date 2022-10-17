@@ -65,7 +65,7 @@ namespace StormDiversMod.Items.Weapons
             return true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {          
+        {
             float shootToX = Main.MouseWorld.X - player.Center.X;
             float shootToY = Main.MouseWorld.Y - player.Center.Y;
             float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
@@ -86,9 +86,27 @@ namespace StormDiversMod.Items.Weapons
                 SoundEngine.PlaySound(SoundID.Item61, position);
 
             }
+            //Kills oldest projectile when 17th is summoned
+            int spikyprojs = 0;
+            int oldestProjIndex = -1;
+            int oldestProjTimeLeft = 100000;
+            for (int i = 0; i < 1000; i++)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == player.whoAmI && Main.projectile[i].type == ModContent.ProjectileType<StickyBombProj>())
+                {
+                    spikyprojs++;
+                    if (Main.projectile[i].timeLeft < oldestProjTimeLeft)
+                    {
+                        oldestProjIndex = i;
+                        oldestProjTimeLeft = Main.projectile[i].timeLeft;
+                    }
+                }
+            }
+            if (spikyprojs > 16)
+            {
+                Main.projectile[oldestProjIndex].timeLeft = 3;
+            }
 
-           
-            
             return false;
         }
         /*public override void AddRecipes()

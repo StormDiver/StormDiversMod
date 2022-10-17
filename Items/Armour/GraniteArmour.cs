@@ -67,7 +67,15 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Holding down the 'Armor Special Ability' hotkey while grounded grants damage resistance but lowers movement speed";
+            var list = StormDiversMod.ArmourSpecialHotkey.GetAssignedKeys();
+            string keyName = "(Not bound, set in controls)";
+
+            if (list.Count > 0)
+            {
+                keyName = list[0];
+            }
+
+            player.setBonus = "Holding down '" + keyName + "' while grounded grants damage resistance but lowers movement speed";
 
             if (StormDiversMod.ArmourSpecialHotkey.Current && player.velocity.Y == 0)
             {

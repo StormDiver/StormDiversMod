@@ -208,6 +208,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.knockBack = 6;
             }
 
+            
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -232,27 +233,21 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-
-            for (int i = 0; i < 30; i++)
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1f;
+            for (int i = 0; i < 20; i++)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-                dust.scale = 2f;
+                dust.scale = 1.5f;
 
 
             }
-            for (int i = 0; i < 30; i++)
-            {
-
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
-                Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].noGravity = true;
-            }
-            for (int i = 0; i < 40; i++)
+            
+            for (int i = 0; i < 20; i++)
             {
 
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);

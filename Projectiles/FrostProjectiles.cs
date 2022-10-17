@@ -176,7 +176,7 @@ namespace StormDiversMod.Projectiles
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 16;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.timeLeft = 9999999;
 
         }

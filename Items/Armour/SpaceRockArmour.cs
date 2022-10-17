@@ -32,7 +32,7 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Cyan;
-            Item.defense = 12;
+            Item.defense = 14;
         }
 
         public override void UpdateEquip(Player player)
@@ -99,7 +99,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Asteroid Mask");
-            Tooltip.SetDefault("5% increased damage\n2% increased critical strike chance\nIncreases health regeneration and grants immunity to knockback");
+            Tooltip.SetDefault("5% increased damage\nIncreases health regeneration and grants immunity to knockback");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -120,7 +120,6 @@ namespace StormDiversMod.Items.Armour
         {
 
             player.GetDamage(DamageClass.Generic) += 0.05f;
-            player.GetCritChance(DamageClass.Generic) += 2;
             player.noKnockback = true;
             player.lifeRegen += 2;
             if (!Main.dedServ)

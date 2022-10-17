@@ -15,6 +15,13 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
+using Terraria.GameContent;
+using Terraria.Enums;
+using ReLogic.Content;
+using StormDiversMod.Items.Weapons;
+using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod
 {
@@ -123,5 +130,14 @@ namespace StormDiversMod
             }
         }*/
 
+    }
+    public class treasurebagresearch : GlobalItem
+    {
+        public override void SetStaticDefaults()
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[ItemID.CultistBossBag] = 3;
+
+            base.SetStaticDefaults();
+        }
     }
 }

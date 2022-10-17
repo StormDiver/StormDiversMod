@@ -66,9 +66,18 @@ namespace StormDiversMod.Items.Armour
             return body.type == ItemType<SantankChestplate>() && legs.type == ItemType<SantankGreaves>();
 
         }
+
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Charge up to 10 homing missiles over time, pressing the 'Armor Special Ability' hotkey will fire however many are loaded"; 
+            var list = StormDiversMod.ArmourSpecialHotkey.GetAssignedKeys();
+            string keyName = "(Not bound, set in controls)";
+
+            if (list.Count > 0)
+            {
+                keyName = list[0];
+            }
+
+            player.setBonus = "Charge up to 10 homing missiles over time, pressing '"+ keyName+ "' will fire however many are loaded"; 
 
             player.GetModPlayer<ArmourSetBonuses>().santankSet = true;
 

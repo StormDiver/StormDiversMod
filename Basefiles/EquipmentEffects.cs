@@ -697,7 +697,7 @@ namespace StormDiversMod.Basefiles
                 {
                     coraldrop++;
 
-                    if (coraldrop >= 60 && Player.itemAnimation == 1)
+                    if ((Player.itemAnimation == 1 || Player.HeldItem.channel && Player.channel) && coraldrop >= 60)
                     {
                         for (int index = 0; index < 1; ++index)
                         {
@@ -1129,8 +1129,7 @@ namespace StormDiversMod.Basefiles
 
             //for the Beetle Gauntlet
             if (beetleFist)
-            {
-
+            {            
                 if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
                 {
                     SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f }, target.Center);

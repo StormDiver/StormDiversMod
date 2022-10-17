@@ -36,17 +36,13 @@ namespace StormDiversMod.Projectiles
             Projectile.extraUpdates = 1;
             Projectile.scale = 1f;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.light = 0.4f;
         }
      
         float movespeed = 25f; //Speed of the proj
 
         Vector2 mousepos;
-
-        float projsleft = 6.5f; //extra count for when spawned
-
-        int proj = ModContent.ProjectileType<Projectiles.LizardSpinnerProj>();
         public override void AI()
         {
             Projectile.ai[1]++;
@@ -122,14 +118,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.timeLeft = 60;
                 }
             }
-            if (player.itemAnimation == 1 && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LizardSpinner>()) 
-            {          
-                projsleft -= 0.5f; //half because extra updates
-            }
-            if (projsleft == 0)
-            {
-                Projectile.timeLeft = 60;
-            }
+         
         }
 
 

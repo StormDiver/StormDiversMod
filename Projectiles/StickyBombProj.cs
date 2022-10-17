@@ -32,7 +32,7 @@ namespace StormDiversMod.Projectiles
             Projectile.penetrate = 5;
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.timeLeft = 3600;
+            Projectile.timeLeft = 99999;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = -1;
@@ -44,7 +44,6 @@ namespace StormDiversMod.Projectiles
         bool boomed; //when it is exploding
         int boomtime = 0; //How long until you can actually detonate
         bool unstick; //Bool for if you unstick the bombs
-        int projsleft = 17; //1 extra
         public override bool? CanDamage()
         {
             if (unstick)
@@ -84,7 +83,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
                 //Projectile.hostile = true;
-
 
             }
             else
@@ -132,14 +130,6 @@ namespace StormDiversMod.Projectiles
                 SoundEngine.PlaySound(SoundID.Item108, Projectile.Center);
                 Projectile.velocity.Y = -2;
                 unstick = true;
-            }
-            if (player.itemAnimation == 1 && player.HeldItem.type == ModContent.ItemType<Items.Weapons.StickyLauncher>())
-            {
-                projsleft -= 1; 
-            }
-            if (projsleft == 0 && Projectile.timeLeft > 3)
-            {
-                Projectile.timeLeft = 3;
             }
         }
             

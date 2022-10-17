@@ -31,7 +31,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.extraUpdates = 1;
             //Projectile.ContinuouslyUpdateDamage = true;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 14;
+            Projectile.localNPCHitCooldown = 20;
             Projectile.timeLeft = 9999999;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

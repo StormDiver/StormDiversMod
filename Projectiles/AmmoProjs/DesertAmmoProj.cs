@@ -50,9 +50,9 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<DesertArrowDust>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Main.projectile[projID].timeLeft = 1200;
-            Main.projectile[projID].penetrate = 4;
+            int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<DesertArrowDust>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+            Main.projectile[projID].timeLeft = 600;
+            Main.projectile[projID].penetrate = 3;
 
             for (int i = 0; i < 10; i++)
             {           

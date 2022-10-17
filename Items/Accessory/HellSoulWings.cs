@@ -9,6 +9,11 @@ using StormDiversMod.Buffs;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using StormDiversMod.Basefiles;
+using ReLogic.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod.Items.Accessory
 {
@@ -29,7 +34,7 @@ namespace StormDiversMod.Items.Accessory
                 Texture = ModContent.Request<Texture2D>(Texture + "_Wings_Glow")
             });
         }
-
+       
         public override void SetDefaults()
         {
             Item.width = 34;

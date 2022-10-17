@@ -74,7 +74,25 @@ namespace StormDiversMod.Items.Weapons
         {
             
             SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2f, Pitch = 0.25f }, position);
-            
+            int spinnyprojs = 0;
+            int oldestProjIndex = -1;
+            int oldestProjTimeLeft = 100000;
+            for (int i = 0; i < 1000; i++)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == player.whoAmI && Main.projectile[i].type == ModContent.ProjectileType<Projectiles.LizardSpinnerProj>())
+                {
+                    spinnyprojs++;
+                    if (Main.projectile[i].timeLeft < oldestProjTimeLeft)
+                    {
+                        oldestProjIndex = i;
+                        oldestProjTimeLeft = Main.projectile[i].timeLeft;
+                    }
+                }
+            }
+            if (spinnyprojs > 5)
+            {
+                Main.projectile[oldestProjIndex].timeLeft = 10;
+            }
             return true;
         }
         public override void AddRecipes()

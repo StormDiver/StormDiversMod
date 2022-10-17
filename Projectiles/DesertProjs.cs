@@ -106,7 +106,7 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 180;
             Projectile.penetrate = 2;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 30;
         }
 
         public override void AI()
@@ -135,7 +135,7 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
-            Projectile.damage = (Projectile.damage * 9) / 10;
+            Projectile.damage = (Projectile.damage * 8) / 10;
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
 
@@ -307,6 +307,8 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
+
+            Projectile.damage = Projectile.damage * 8 / 10;
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
 

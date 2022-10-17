@@ -81,7 +81,15 @@ namespace StormDiversMod.Items.Armour
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Press the 'Armor Special Ability' hotkey to teleport to the cursor's location within a limited range\nWarping has a hard 8 second cooldown"; 
+            var list = StormDiversMod.ArmourSpecialHotkey.GetAssignedKeys();
+            string keyName = "(Not bound, set in controls)";
+
+            if (list.Count > 0)
+            {
+                keyName = list[0];
+            }
+
+            player.setBonus = "Press '" + keyName + "' to the cursor's location within a limited range\nWarping has a hard 8 second cooldown"; 
 
             //player.endurance += 0.1f;
             //player.blackBelt = true;

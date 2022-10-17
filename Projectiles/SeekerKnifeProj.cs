@@ -98,9 +98,13 @@ namespace StormDiversMod.Projectiles
 
                if (Main.rand.Next(5) == 0)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 220);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 294);
                     dust.noGravity = true;
                     dust.scale = 0.75f;
+
+                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 180);
+                    dust2.noGravity = true;
+                    dust2.scale = 1.25f;
                 }
             }
             else
@@ -120,8 +124,6 @@ namespace StormDiversMod.Projectiles
             }
 
         }
-
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
 
@@ -136,8 +138,12 @@ namespace StormDiversMod.Projectiles
                 SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
                 for (int i = 0; i < 15; i++)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 220);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 294);
                     dust.noGravity = true;
+                
+                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 180);
+                    dust2.noGravity = true;
+                    dust2.scale = 1.5f;
                 }
 
             }

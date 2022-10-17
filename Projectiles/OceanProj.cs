@@ -98,7 +98,8 @@ namespace StormDiversMod.Projectiles
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(170));
                     float scale = 1f - (Main.rand.NextFloat() * .7f);
                     perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<OceanSmallProj>(), (int)(Projectile.damage * 0.33f), 1, Projectile.owner);
+                    int ProjID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<OceanSmallProj>(), (int)(Projectile.damage * 0.33f), 1, Projectile.owner);
+                    Main.projectile[ProjID].ArmorPenetration = 5;
                 }
             }
         }
