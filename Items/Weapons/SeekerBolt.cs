@@ -12,8 +12,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Seeker Blade");
-            Tooltip.SetDefault("A large seeking blade that homes into enemies when within range");
+            DisplayName.SetDefault("Hunter's Blade");
+            Tooltip.SetDefault("A large throwable blade that homes into enemies when within range");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -46,8 +46,8 @@ namespace StormDiversMod.Items.Weapons
         {
             CreateRecipe()
             .AddIngredient(ItemID.HallowedBar, 15)
-            .AddIngredient(ItemID.SoulofMight, 8)
-            .AddIngredient(ItemID.SoulofSight, 8)
+            .AddIngredient(ItemID.SoulofMight, 10)
+            .AddIngredient(ItemID.SoulofSight, 10)
             .AddTile(TileID.MythrilAnvil)
             .Register();
 

@@ -286,7 +286,7 @@ namespace StormDiversMod.Items.Weapons
         {
             CreateRecipe()
           .AddIngredient(ItemID.CrystalShard, 20)
-          .AddIngredient(ItemID.UnicornHorn, 2)
+          .AddIngredient(ItemID.HallowedBar, 10)
           .AddIngredient(ItemID.SoulofFright, 20)
           .AddTile(TileID.MythrilAnvil)
           .Register();

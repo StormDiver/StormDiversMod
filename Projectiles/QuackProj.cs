@@ -198,6 +198,8 @@ namespace StormDiversMod.Projectiles
         public override void Kill(int timeLeft)
         {
 
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.75f;
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
             for (int i = 0; i < 35; i++)
@@ -210,18 +212,8 @@ namespace StormDiversMod.Projectiles
                 dust.fadeIn = 1f;
 
             }
-            for (int i = 0; i < 50; i++)
-            {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 174, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
-                dust.noGravity = true;
-                dust.scale = 2f;
-
-
-            }
-            for (int i = 0; i < 80; i++)
+        
+            for (int i = 0; i < 40; i++)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -233,7 +225,17 @@ namespace StormDiversMod.Projectiles
             }
 
         }
-
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (Projectile.timeLeft > 3)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public override Color? GetAlpha(Color lightColor)
         {
 

@@ -521,7 +521,7 @@ namespace StormDiversMod.Projectiles
             if (target)
             {
                 AdjustMagnitude(ref move);
-                Projectile.velocity = (10 * Projectile.velocity + move) / 10.1f;
+                Projectile.velocity = (12 * Projectile.velocity + move) / 12.5f;
                 AdjustMagnitude(ref Projectile.velocity);
             }
             
@@ -530,9 +530,9 @@ namespace StormDiversMod.Projectiles
         private void AdjustMagnitude(ref Vector2 vector)
         {
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-            if (magnitude > 16f)
+            if (magnitude > 20f)
             {
-                vector *= 16f / magnitude;
+                vector *= 20f / magnitude;
             }
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

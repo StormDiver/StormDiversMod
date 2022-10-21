@@ -69,33 +69,36 @@ namespace StormDiversMod
         {
             ArmourSpecialHotkey = null;
         }
-        public StormDiversMod()
-		{
-             
-		}
+       
        
     }
+  
     public class explosioneffects : GlobalProjectile
     {
         public override void Kill(Projectile projectile, int timeLeft)
         {
             //Generic for Rocket, Grenade, Mine, and Snowman Cannon
-            //Cluster frags x0.75
-            if  (projectile.type == ProjectileID.ClusterFragmentsI || projectile.type == ProjectileID.ClusterFragmentsII
+            //Cluster frags x0.75, using frost colours
+            if (projectile.type == ProjectileID.ClusterFragmentsI || projectile.type == ProjectileID.ClusterFragmentsII
                 || projectile.type == ProjectileID.ClusterSnowmanFragmentsI || projectile.type == ProjectileID.ClusterSnowmanFragmentsII)
             {
-                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
+                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionFrostProj>(), 0, 0, projectile.owner);
                 Main.projectile[proj].scale = 0.75f;
+            }
+            //Cluster Rockets, use frost colours at 1.25x
+            if (projectile.type == ProjectileID.ClusterRocketI || projectile.type == ProjectileID.ClusterRocketII
+               || projectile.type == ProjectileID.ClusterGrenadeI || projectile.type == ProjectileID.ClusterGrenadeII
+               || projectile.type == ProjectileID.ClusterMineI || projectile.type == ProjectileID.ClusterMineII
+               || projectile.type == ProjectileID.ClusterSnowmanRocketI || projectile.type == ProjectileID.ClusterSnowmanRocketI)
+            {
+                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionFrostProj>(), 0, 0, projectile.owner);
+                Main.projectile[proj].scale = 1.25f;
             }
             //Rocket Is and IIs, and Cluster Rockets x1.25
             if (projectile.type == ProjectileID.RocketI || projectile.type == ProjectileID.RocketII
-                || projectile.type == ProjectileID.ClusterRocketI || projectile.type == ProjectileID.ClusterRocketII
                 || projectile.type == ProjectileID.GrenadeI || projectile.type == ProjectileID.GrenadeII
-                || projectile.type == ProjectileID.ClusterGrenadeI || projectile.type == ProjectileID.ClusterGrenadeII
-                || projectile.type == ProjectileID.ProximityMineI || projectile.type == ProjectileID.ProximityMineI                
-                || projectile.type == ProjectileID.ClusterMineI || projectile.type == ProjectileID.ClusterMineII
-                || projectile.type == ProjectileID.RocketSnowmanI || projectile.type == ProjectileID.RocketSnowmanII 
-                || projectile.type == ProjectileID.ClusterSnowmanRocketI || projectile.type == ProjectileID.ClusterSnowmanRocketI)
+                || projectile.type == ProjectileID.ProximityMineI || projectile.type == ProjectileID.ProximityMineI
+                || projectile.type == ProjectileID.RocketSnowmanI || projectile.type == ProjectileID.RocketSnowmanII)
             {
                 int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
                 Main.projectile[proj].scale = 1.25f;

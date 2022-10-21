@@ -44,7 +44,7 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             if (Projectile.ai[1] == 0) //Fright
             {
-                dusttype = 259;
+                dusttype = 170;
                 DrawOffsetX = 4;
 
             }
@@ -91,19 +91,21 @@ namespace StormDiversMod.Projectiles
             {
                 if (Projectile.ai[1] == 0)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 259, Projectile.velocity.X * 0.75f, Projectile.velocity.Y * 0.75f);
-                    dust.scale = 1.5f;
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+                    dust.scale = 1.25f;
                     dust.noGravity = true;
                 }
                 else if (Projectile.ai[1] == 1)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 110, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
                     dust.scale = 0.75f;
+                    dust.noGravity = true;
 
                 }
                 else if (Projectile.ai[1] == 2)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 56, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+                    dust.noGravity = true;
 
                 }
             }

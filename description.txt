@@ -17,6 +17,7 @@ This mod includes:
 -25 new enemies across the game, most with their own banner
 -1 new unique boss that can be fought in place of the Plantera (config option)
 -New recipes for certain uncraftable vanilla items
+-New Lizharhd Temple Defences (Can be disabled Pre-Plnatera via Config)
 
 Make sure to check the Steam page for the changelog, and the leave any comments you have about the mod
 

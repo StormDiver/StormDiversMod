@@ -167,7 +167,7 @@ namespace StormDiversMod.Projectiles
 
                 Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
-
+           
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -183,9 +183,13 @@ namespace StormDiversMod.Projectiles
                     Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                     Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
                 }
-            }
-            return true;
+                return true;
 
+            }
+            else
+            {
+                return false;
+            }
         }
         
     }
@@ -351,9 +355,13 @@ namespace StormDiversMod.Projectiles
                     Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                     Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
                 }
-            }
-            return true;
+                return true;
 
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 

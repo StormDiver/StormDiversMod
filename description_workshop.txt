@@ -17,6 +17,7 @@ There's over 300 total modded items for you to discover; including weapons, acce
 [*]25 new enemies across the game, most with their own banner
 [*]1 new unique boss that can be fought in place of the Plantera (config option)
 [*]New recipes for certain uncraftable vanilla items
+[*]New Lizharhd Temple Defences (Can be disabled Pre-Plantera via Config)
 [/list]
 
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
