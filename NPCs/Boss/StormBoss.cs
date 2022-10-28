@@ -350,7 +350,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (Main.netMode != NetmodeID.Server)//Drop some gore when changing phase
                 {
-                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore4").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore4").Type, 1f);
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -419,6 +419,7 @@ namespace StormDiversMod.NPCs.Boss
             }
        
         }
+        Vector2 dashvelocity; //for attack 5 predictive dash
         private void Attacks(Player player)//___________________________________________________________________________________________________________________________________________________
         {
             //__________________________________________________________________________
@@ -430,11 +431,11 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (Main.expertMode) //Projectile damage
                     {
-                        projdamage = 23; // 92 On expert (138 on master)
+                        projdamage = 25; // 100 On expert (150 on master)
                     }
                     else
                     {
-                        projdamage = 30; // 60 on normal
+                        projdamage = 35; // 70 on normal
                     }
 
                     animateclaws = true;
@@ -983,7 +984,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (Main.expertMode) //Projectile damage
                     {
-                        projdamage = 30; // 120 On expert (108 portal) (180 on master (162 portal))
+                        projdamage = 35; // 140 On expert (126 portal) (210 on master (189 portal))
                     }
                     else
                     {
@@ -997,11 +998,11 @@ namespace StormDiversMod.NPCs.Boss
                     {
                         portalamount = 1;
                     }
-                    
+
                     animateclaws = false;
                     if (!lowlife)//don't change attack on last phase
                     {
-                        NPC.localAI[0]++; 
+                        NPC.localAI[0]++;
                     }
                     NPC.ai[0]++;
                     NPC.ai[2]++;
@@ -1012,15 +1013,35 @@ namespace StormDiversMod.NPCs.Boss
                     }
 
                     NPC.rotation = (float)Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 0f;
+                    
+                    //"predictive" aim, aims infront of the player, not for first dash in phase 2 to prevent unfairness
+                    if (distance > 250 && (NPC.localAI[0] >= 5 || lowlife))
+                    {
+                        dashvelocity = Vector2.Normalize(new Vector2(player.Center.X + (player.velocity.X * 10), player.Center.Y + (player.velocity.Y * 10)) - new Vector2(NPC.Center.X, NPC.Center.Y)) * 5;
 
-                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * 5;
+                        //dust effect for debugging
+                        /*var dust = Dust.NewDustDirect(new Vector2(player.Center.X + (player.velocity.X * 10), player.Center.Y + (player.velocity.Y * 10)), 0, 0, 294);
+                        dust.scale = 2;
+                        dust.noGravity = true;*/
+                        //----
+                    }
+                    else //if close to player, just target player directly
+                    {
+                        dashvelocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * 5;
+
+                        //dust effect for debugging
+                        /*var dust = Dust.NewDustDirect(new Vector2(player.Center.X, player.Center.Y), 0, 0, 294);
+                        dust.scale = 2;
+                        dust.noGravity = true;*/
+                        //----
+                    }
 
                     if (NPC.ai[2] == 1)//Start dash
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            NPC.velocity.X = velocity.X;
-                            NPC.velocity.Y = velocity.Y;
+                            NPC.velocity.X = dashvelocity.X;
+                            NPC.velocity.Y = dashvelocity.Y;
 
                             if (lowlife) //Summon a single portal per dash on phase 3
                             {
@@ -1216,6 +1237,7 @@ namespace StormDiversMod.NPCs.Boss
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
+                NPC.velocity *= 0.5f;
                 int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 1.75f;
                 if (Main.netMode != NetmodeID.Server)

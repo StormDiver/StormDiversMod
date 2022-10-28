@@ -146,7 +146,7 @@ namespace StormDiversMod.Items.Potions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Beetle Penetration Potion");
-            Tooltip.SetDefault("Increases armor penetration of all melee weapons by 25");
+            Tooltip.SetDefault("Increases armor penetration of all melee weapons by 20");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
 
         }

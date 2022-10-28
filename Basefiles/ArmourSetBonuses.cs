@@ -738,18 +738,14 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), damage, 0, Player.whoAmI);
                 }
             }
-
-
         }
-
-
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
         {
             //ShadowFlame armour
             if (shadowflameSet)
             {
 
-                if (proj.aiStyle == 165)
+                if (ProjectileID.Sets.IsAWhip[proj.type] == true)
                 {
                     if (!target.buffImmune[BuffID.ShadowFlame])
                     {

@@ -84,7 +84,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Hemoglobin Breastplate");
-            Tooltip.SetDefault("6% increased melee damage");
+            Tooltip.SetDefault("6% increased melee damage\n12% increased melee speed");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -99,10 +99,9 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-
             player.GetDamage(DamageClass.Melee) += 0.06f;
-         
-      
+            player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
+
         }
         public override void AddRecipes()
         {
@@ -123,7 +122,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Hemoglobin Greaves");
-            Tooltip.SetDefault("4% increased melee critical strike chance\n12% increased melee and movement speed");
+            Tooltip.SetDefault("6% increased melee critical strike chance\n12% increased movement speed");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -139,8 +138,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetCritChance(DamageClass.Melee) += 4;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
+            player.GetCritChance(DamageClass.Melee) += 6;
             player.moveSpeed += 0.12f;
            
         }

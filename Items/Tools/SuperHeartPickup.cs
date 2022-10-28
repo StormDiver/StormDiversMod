@@ -25,6 +25,7 @@ namespace StormDiversMod.Items.Tools
             ItemID.Sets.ItemNoGravity[Item.type] = true;
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.IgnoresEncumberingStone[Item.type] = true;
+            ItemID.Sets.IsAPickup[Item.type] = true;
         }
         
         public override bool GrabStyle(Player player)
@@ -64,6 +65,7 @@ namespace StormDiversMod.Items.Tools
 
             player.statLife += 25;
             player.HealEffect(25, true);
+            
             return false;
         }
        

@@ -193,7 +193,7 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 2000;
             Projectile.extraUpdates = 4;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = 60;
             Projectile.scale = 0.1f;
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
@@ -202,7 +202,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage()
         {
-            if (Projectile.ai[1] == 0)
+            if (Projectile.ai[1] == 0 && Projectile.alpha < 30)
             {
                 return true;
             }
@@ -214,23 +214,24 @@ namespace StormDiversMod.Projectiles
         int dustoffset;
         public override void AI()
         {
-            dustoffset++;
-            Projectile.rotation += 0.1f;
+            Projectile.rotation += 0.1f; //speen
 
 
-            if (Main.rand.Next(10) == 0)     //this defines how many dust to spawn
+            if (Main.rand.Next(10) == 0)  //dust spawn sqaure increases with hurtbox size
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 6, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                Main.dust[dust].noGravity = true; 
                 Main.dust[dust].velocity *= 1.5f;
             }
            
 
-            if (Projectile.scale <= 1.2f)
+            if (Projectile.scale <= 1.2f) //increase size until specified amount
             {
+                dustoffset++;//makes dust expand with projectile, also used for hitbox
+
                 Projectile.scale += 0.008f;
             }
-            else
+            else //once the size has been reached begin to fade out and slow down
             {
                 Projectile.alpha += 3;
                
@@ -238,34 +239,27 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity.X *= 0.98f;
                 Projectile.velocity.Y *= 0.98f;
 
+                //begin animation
                 Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+                if (Projectile.frameCounter >= 10)
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
                 }
             }
-            if (Projectile.alpha > 150)
+            if (Projectile.alpha > 150) //once faded enough kill projectile
             {
                 Projectile.Kill();
             }
-
-            //To make hitbox larger, unused as casues issue
-            /*Projectile.width += 1;
-            Projectile.height += 1;
-            Projectile.position.X -= 0.5f;
-            Projectile.position.Y -= 0.5f;*/
-            /*Projectile.ai[1] ++;
-            if (Projectile.ai[1] >= 2)     //fix offest, + 0.5 offest 
-            {
-                DrawOffsetX += 1;
-                DrawOriginOffsetY += 1;
-                Projectile.ai[1] = 0;
-            }*/
-
-
         }
-
+        public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
+        {
+            hitbox.Width = dustoffset;
+            hitbox.Height = dustoffset;
+            hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
+            hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            base.ModifyDamageHitbox(ref hitbox);
+        }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -289,8 +283,10 @@ namespace StormDiversMod.Projectiles
             reflect--;
             if (reflect <= 0)
             {
-                Projectile.Kill();
+                Projectile.velocity *= 0;
+                //Projectile.Kill();
             }
+            else
             {
 
                 if (Projectile.velocity.X != oldVelocity.X)
@@ -304,7 +300,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-      
+        
         /*public override Color? GetAlpha(Color lightColor)
         {
 

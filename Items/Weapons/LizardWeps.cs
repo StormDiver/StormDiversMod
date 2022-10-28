@@ -157,7 +157,7 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.UseSound = SoundID.Item34;
 
-            Item.damage = 50;
+            Item.damage = 60;
             Item.knockBack = 0.5f;
             Item.shoot = ModContent.ProjectileType<Projectiles.LizardFlameProj>();
 
@@ -184,12 +184,12 @@ namespace StormDiversMod.Items.Weapons
             }
             if (candamage)
             {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 1);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI, 0, 1);
                 candamage = false;
             }
             else
             {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 0);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI, 0, 0);
                 candamage = true;
 
             }

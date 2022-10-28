@@ -195,10 +195,25 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.life <= 0)          //this make so when the NPC has 0 life(dead) he will spawn this
             {
-                
+                for (int i = 0; i < 2; i++)
+                {
+                    int goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
+                    goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
+                    goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
+                    goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
+                }
                 for (int i = 0; i < 10; i++)
                 {
-                     
+                    
+
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 5);
                     dust.alpha = 150;
                 }

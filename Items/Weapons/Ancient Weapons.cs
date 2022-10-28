@@ -179,8 +179,8 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 18;
-            Item.knockBack = 0.2f;
+            Item.damage = 22;
+            Item.knockBack = 0f;
             Item.shoot = ModContent.ProjectileType<AncientFlameProj>(); 
 
             Item.shootSpeed = 2.5f;
@@ -215,12 +215,12 @@ namespace StormDiversMod.Items.Weapons
             }
             if (candamage)
             {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y-3), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 1);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y-3), new Vector2(velocity.X + player.velocity.X / 6, velocity.Y + player.velocity.Y / 6), type, damage, knockback, player.whoAmI, 0, 1);
                 candamage = false;
             }
             else
             {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y-3), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 0);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y-3), new Vector2(velocity.X + player.velocity.X / 6, velocity.Y + player.velocity.Y / 6), type, damage, knockback, player.whoAmI, 0, 0);
                 candamage = true;
 
             }

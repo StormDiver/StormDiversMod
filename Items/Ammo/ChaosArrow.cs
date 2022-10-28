@@ -13,7 +13,7 @@ namespace StormDiversMod.Items.Ammo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chaos Arrow");
-            Tooltip.SetDefault("Ignores gravity, and bounces off tiles and enemies\nGains speed with every bounce\n'Unleash the Chaos'");
+            Tooltip.SetDefault("Ignores gravity, and ricochets off tiles, gaining speed and damage with every bounce\n'Unleash the Chaos'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }

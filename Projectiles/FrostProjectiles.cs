@@ -10,6 +10,11 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
 
+using System.Linq;
+using static Terraria.ModLoader.ModContent;
+using Terraria.ModLoader.Utilities;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 
 
 namespace StormDiversMod.Projectiles
@@ -413,6 +418,9 @@ namespace StormDiversMod.Projectiles
             DisplayName.SetDefault("Frost");
             Main.projFrames[Projectile.type] = 4;
 
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 1;
         }
         public override void SetDefaults()
         {
@@ -435,7 +443,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage()
         {
-            if (Projectile.ai[1] == 0)
+            if (Projectile.ai[1] == 0 && Projectile.alpha < 30) // if dust is faded don't deal damage
             {
                 return true;
             }
@@ -447,29 +455,30 @@ namespace StormDiversMod.Projectiles
         int dustoffset;
         public override void AI()
         {
-            dustoffset++;
             Projectile.rotation += 0.1f;
           
-                if (Main.rand.Next(10) == 0)     //this defines how many dust to spawn
-                {
+                if (Main.rand.Next(10) == 0) //dust spawn sqaure increases with hurtbox size
+            {
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].noGravity = true; 
                     Main.dust[dust].velocity *= 2.5f;
                     //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
                 }
            
-            if (Projectile.scale <= 1f)
+            if (Projectile.scale <= 1f)//increase size until specified amount
             {
+                dustoffset++; //makes dust expand with projectile, also used for hitbox
+
                 Projectile.scale += 0.01f;
             }
-            else
+            else//once the size has been reached begin to fade out and slow down
             {
                 Projectile.alpha += 3;
 
 
                 Projectile.velocity.X *= 0.98f;
                 Projectile.velocity.Y *= 0.98f;
-
+                //begin animation
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
                 {
@@ -477,23 +486,27 @@ namespace StormDiversMod.Projectiles
                     Projectile.frameCounter = 0;
                 }
             }
-            if (Projectile.alpha > 150 || Projectile.wet)
+            if (Projectile.alpha > 150 || Projectile.wet)//once faded enough or touches water kill projectile
             {
                 Projectile.Kill();
             }
         }
-
+        public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
+        {
+            hitbox.Width = dustoffset;
+            hitbox.Height = dustoffset;
+            hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
+            hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            base.ModifyDamageHitbox(ref hitbox);
+        }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             var player = Main.player[Projectile.owner];
             if (Main.rand.Next(1) == 0) // the chance
-            {
-                
+            {              
                     target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
-
-                
-
+              
             }
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
@@ -508,6 +521,22 @@ namespace StormDiversMod.Projectiles
             //Projectile.Kill();
             return false;
         }
+        /*public override bool PreDraw(ref Color lightColor)
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/Frostthrowerproj_Trial");
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(-40, 0);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            }
+
+            return true;
+
+        }*/
     }
     //___________________________________________________________________________________________________________________________________
     public class FrostAccessProj : ModProjectile

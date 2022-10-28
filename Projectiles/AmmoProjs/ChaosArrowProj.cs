@@ -29,7 +29,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.light = 0.3f;
             Projectile.friendly = true;
             Projectile.timeLeft = 450;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
             Projectile.arrow = true;
             Projectile.tileCollide = true;
 
@@ -49,10 +49,11 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             reflect--;
-            if (reflect <= 0)
-            {
-                Projectile.Kill();
-            }
+
+
+            Projectile.damage = (Projectile.damage * 23) / 20; //15% extra damage
+            Projectile.knockBack += 1;
+
             if (Projectile.velocity.X != oldVelocity.X)
             {
                 Projectile.velocity.X = -oldVelocity.X * 1.2f;
@@ -67,26 +68,20 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 248);
                 dust2.noGravity = true;
             }
-            SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
+            if (reflect > 0)
+            {
+                SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
+            }
+
             return false;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            reflect--;
-
-            Projectile.damage = (Projectile.damage * 9) / 10;
-
-            Projectile.velocity.X = -Projectile.velocity.X * 1.2f;
-
-            Projectile.velocity.Y = -Projectile.velocity.Y * 1.2f;
-
             for (int i = 0; i < 10; i++)
             {
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 248);
                 dust2.noGravity = true;
             }
-
-            SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
         }
         public override void AI()
         {
@@ -109,7 +104,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
         public override void Kill(int timeLeft)
         {
-
+            SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
             for (int i = 0; i < 10; i++)
             {
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 248);
