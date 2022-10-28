@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 20;
             Item.height = 20;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Pink;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
@@ -85,7 +85,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 14;
             Item.height = 20;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             ItemID.Sets.ItemIconPulse[Item.type] = true;
 
             Item.value = Item.sellPrice(0, 0, 5, 0);
@@ -122,7 +122,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 26;
             Item.height = 26;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 5, 0);
             Item.rare = ItemRarityID.Blue;
 
@@ -154,7 +154,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 26;
             Item.height = 26;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             
             Item.value = Item.sellPrice(0, 0, 1, 0);
             Item.rare = ItemRarityID.Blue;
@@ -183,7 +183,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 16;
             Item.height = 24;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 25, 0);
              Item.rare = ItemRarityID.Lime;
 
@@ -220,7 +220,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 20;
             Item.height = 20;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Orange;
        
@@ -243,7 +243,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 14;
             Item.height = 20;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
 
             Item.value = Item.sellPrice(0, 0, 0, 50);
             Item.rare = ItemRarityID.Green;
@@ -279,7 +279,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 20;
             Item.height = 20;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 30, 0);
             Item.rare = ItemRarityID.Yellow;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
@@ -326,7 +326,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 20;
             Item.height = 20;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 5, 0);
             Item.rare = ItemRarityID.LightPurple;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
@@ -370,7 +370,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 10;
             Item.height = 10;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
 
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.rare = ItemRarityID.Pink;
@@ -401,7 +401,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 16;
             Item.height = 16;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.rare = ItemRarityID.Pink;
       
@@ -431,7 +431,7 @@ namespace StormDiversMod.Items.Materials
         {
             Item.width = 16;
             Item.height = 16;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 20, 0);
             Item.rare = ItemRarityID.Yellow;
 

@@ -21,7 +21,7 @@ namespace StormDiversMod.Items.Weapons
         {
             Item.width = 24;
             Item.height = 24;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 2, 50);
             Item.rare = ItemRarityID.Orange;
             Item.useTime = 40;

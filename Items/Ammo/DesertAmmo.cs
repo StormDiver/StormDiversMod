@@ -21,7 +21,7 @@ namespace StormDiversMod.Items.Ammo
         {
             Item.width = 12;
             Item.height = 12;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 40);
             Item.rare = ItemRarityID.Pink;
 
@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Ammo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Arrow");
-            Tooltip.SetDefault("Speeds up after a short time, ignoring gravity and dealing extra damage.");
+            Tooltip.SetDefault("Speeds up after a short delay, ignoring gravity and dealing extra damage.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 
         }
@@ -64,7 +64,7 @@ namespace StormDiversMod.Items.Ammo
         {
             Item.width = 14;
             Item.height = 40;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 40);
             Item.rare = ItemRarityID.Pink;
 

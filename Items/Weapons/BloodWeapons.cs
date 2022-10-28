@@ -208,7 +208,7 @@ namespace StormDiversMod.Items.Weapons
             Item.width = 10;
             Item.height = 14;
             Item.consumable = true;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.useTime = 50;
             Item.useAnimation = 50;
             Item.noUseGraphic = true;

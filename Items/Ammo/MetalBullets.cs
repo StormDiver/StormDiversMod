@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.Ammo
         {
             Item.width = 12;
             Item.height = 12;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 3);
             Item.rare = ItemRarityID.White;
 
@@ -68,7 +68,7 @@ namespace StormDiversMod.Items.Ammo
         {
             Item.width = 12;
             Item.height = 12;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 3);
             Item.rare = ItemRarityID.White;
 

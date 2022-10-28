@@ -27,7 +27,7 @@ namespace StormDiversMod.Items.OresandBars
         {
             Item.width = 25;
             Item.height = 24;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 30, 0);
             Item.rare = ItemRarityID.Pink;
             Item.useStyle = ItemUseStyleID.Swing;  

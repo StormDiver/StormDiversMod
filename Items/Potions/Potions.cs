@@ -29,7 +29,7 @@ namespace StormDiversMod.Items.Potions
             Item.useTime = 15;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item3;
-            Item.maxStack = 99;
+            Item.maxStack = 9999;
             Item.consumable = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 0, 2, 0);
@@ -69,7 +69,7 @@ namespace StormDiversMod.Items.Potions
             Item.useTime = 15;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item3;
-            Item.maxStack = 99;
+            Item.maxStack = 9999;
             Item.consumable = true;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 0, 20, 0);
@@ -109,7 +109,7 @@ namespace StormDiversMod.Items.Potions
             Item.useTime = 15;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item3;
-            Item.maxStack = 99;
+            Item.maxStack = 9999;
             Item.consumable = true;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 0, 20, 0);
@@ -160,7 +160,7 @@ namespace StormDiversMod.Items.Potions
             Item.useTime = 15;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item3;
-            Item.maxStack = 99;
+            Item.maxStack = 9999;
             Item.consumable = true;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 0, 20, 0);
@@ -201,7 +201,7 @@ namespace StormDiversMod.Items.Potions
             Item.useTime = 15;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item3;
-            Item.maxStack = 99;
+            Item.maxStack = 9999;
             Item.consumable = true;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 0, 20, 0);

@@ -30,7 +30,7 @@ namespace StormDiversMod.Items.Weapons
             Item.width = 10;
             Item.height = 10;
             Item.consumable = true;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.useTime = 14;
             Item.useAnimation = 14;
             Item.noUseGraphic = true;
@@ -74,7 +74,7 @@ namespace StormDiversMod.Items.Weapons
             Item.width = 10;
             Item.height = 10;
             Item.consumable = true;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.useTime = 14;
             Item.useAnimation = 14;
             Item.noUseGraphic = true;
@@ -119,7 +119,7 @@ namespace StormDiversMod.Items.Weapons
             Item.width = 10;
             Item.height = 10;
             Item.consumable = true;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.useTime = 14;
             Item.useAnimation = 14;
             Item.noUseGraphic = true;
