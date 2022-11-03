@@ -134,8 +134,18 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             }
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (Projectile.timeLeft > 3)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-      
         public override Color? GetAlpha(Color lightColor)
         {
 

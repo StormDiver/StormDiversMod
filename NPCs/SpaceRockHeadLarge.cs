@@ -21,19 +21,20 @@ namespace StormDiversMod.NPCs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Asteroid Charger"); // Automatic from .lang files
-                                                 // make sure to set this for your modnpcs.
-       
+                                                        // make sure to set this for your modnpcs.
+            NPCID.Sets.TrailingMode[NPC.type] = 3;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 10;
         }
         public override void SetDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 4;
+            Main.npcFrameCount[NPC.type] = 7;
             
             NPC.width = 40;
             NPC.height = 40;
 
             NPC.aiStyle = 74; 
             AIType = NPCID.SolarCorite;
-            AnimationType = NPCID.FlyingSnake;
+            //AnimationType = NPCID.FlyingSnake;
             NPC.noGravity = true;
             NPC.damage = 75;
             
@@ -85,7 +86,7 @@ namespace StormDiversMod.NPCs
             return SpawnCondition.Sky.Chance * 0f;
             
         }
-
+        bool charging;
         public override void AI()
         {
 
@@ -103,8 +104,17 @@ namespace StormDiversMod.NPCs
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-            NPC.velocity.X *= 0.97f;
-            NPC.velocity.Y *= 0.97f;
+            NPC.velocity.X *= 0.98f;
+            NPC.velocity.Y *= 0.98f;
+            if (NPC.velocity.X > 0.1f)
+            {
+                NPC.spriteDirection = -1;
+            }
+            if (NPC.velocity.X < -0.1f)
+            {
+                NPC.spriteDirection = 1;
+
+            }
 
             if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
@@ -121,9 +131,50 @@ namespace StormDiversMod.NPCs
 
                 int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 0, NPC.velocity.X, NPC.velocity.Y, 0, default, 0.5f);
             }
+            if (NPC.velocity.X > 5 || NPC.velocity.X < -5 || NPC.velocity.Y > 5 || NPC.velocity.Y < -5) //When moving fast frame 0
+            {
+                charging = true;
+            }
+            else
+            {
+                charging = false;
+                NPC.rotation = NPC.velocity.X / 10;
+            }
+
         }
+        int npcframe = 0;
 
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frame.Y = npcframe * frameHeight;
 
+            if (charging) 
+            {
+                if (NPC.frameCounter > 4)
+                {
+                    npcframe++;
+                    NPC.frameCounter = 0;
+                }
+                if (npcframe <= 3 ||npcframe >= 7) //Cycles through frames 4-6 when dashing
+                {
+                    npcframe = 4;
+                }
+            }
+            else
+            {
+                if (NPC.frameCounter > 6)
+                {
+                    npcframe++;
+                    NPC.frameCounter = 0;
+                }
+                if (npcframe >= 4) //Cycles through frames 0-3 when not dash
+                {
+                    npcframe = 0;
+                }
+            }
+            NPC.frameCounter++;
+
+        }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             
@@ -182,6 +233,23 @@ namespace StormDiversMod.NPCs
             return Color.White;
 
         }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
 
+            Main.instance.LoadProjectile(NPC.type);
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/SpaceRockHeadLarge");
+            if (charging) //When moving fast, ie. charging, have trail
+            {
+                //Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, NPC.height * 0.5f);
+                for (int k = 0; k < NPC.oldPos.Length; k++)
+                {
+                    Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-4, -6);
+                    Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
+                    Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                }
+            }
+            return true;
+
+        }
     }
 }

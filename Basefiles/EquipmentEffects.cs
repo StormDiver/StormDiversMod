@@ -223,20 +223,34 @@ namespace StormDiversMod.Basefiles
         {
             //Reduces ints if they are above 0 and not in the equip field
 
-            if (frosttime > 0)
+            if (frostSpike)
             {
-                frosttime--;
+                if (frosttime < 360)
+                {
+                    frosttime++;
+                }
             }
+            else
+            {
+                frosttime = 0;
+            }
+
+            if (graniteBuff)
+            {
+                if (granitebufftime < 600)
+                {
+                    granitebufftime++;
+                }
+            }
+            else
+            {
+                granitebufftime = 0;
+            }
+
             if (bearcool > 0)
             {
                 bearcool--;
             }
-
-            if (granitebufftime > 0)
-            {
-                granitebufftime--;
-            }
-  
             //======================================================================================Accessories/other======================================================================================
             if (beetleFist && Player.HeldItem.CountsAsClass(DamageClass.Melee))
             {
@@ -957,7 +971,7 @@ namespace StormDiversMod.Basefiles
             attackdmg = (int)damage; //Int for the damage taken
 
             //triggers the granite accessory buff for 5 seconds, and it cannot be refreshed until the 10 second timer hjas ran out
-            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>()) && granitebufftime == 0 && damage > 1)
+            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>()) && granitebufftime == 600 && damage > 1)
             {
                 Player.AddBuff(ModContent.BuffType<GraniteAccessBuff>(), 240);
                 SoundEngine.PlaySound(SoundID.NPCHit41 with { Volume = 1f, Pitch = -0.3f }, Player.Center);
@@ -969,7 +983,7 @@ namespace StormDiversMod.Basefiles
                     dust.scale = 2f;
                     dust.velocity *= 2;
                 }
-                granitebufftime = 600; //Activates the 10 second cooldown
+                granitebufftime = 0; //Activates the 10 second cooldown
             }
          
             //Grant buff for celestial barrier based on incoming damage======================
@@ -1006,7 +1020,7 @@ namespace StormDiversMod.Basefiles
             }
             if (frostSpike)
             {
-                if (frosttime < 1 && damage > 1)
+                if (frosttime >= 360 && damage > 1)
                 {
                     
                     SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.2f, Pitch = -0.5f}, Player.Center);
@@ -1032,7 +1046,7 @@ namespace StormDiversMod.Basefiles
                         dust = Main.dust[Terraria.Dust.NewDust(position, Player.width, Player.height, 92, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                         dust.noGravity = true;
                     }
-                    frosttime = 360;
+                    frosttime = 0;
                     if (attackdmg < Player.statLife)
                     {
                         Player.AddBuff(ModContent.BuffType<FrozenBuff>(), 360);

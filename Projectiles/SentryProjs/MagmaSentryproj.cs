@@ -28,14 +28,15 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.ignoreWater = false;
             Projectile.sentry = true;
             Projectile.penetrate = 1;
-            //Projectile.timeLeft = Projectile.SentryLifeTime;
-            Projectile.timeLeft = 36000;
+            Projectile.timeLeft = Projectile.SentryLifeTime;
             Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = -5;
             DrawOriginOffsetY = 2;
             Projectile.aiStyle = 2;
+            Projectile.DamageType = DamageClass.Summon;
+
         }
         public override bool? CanDamage()
         {
@@ -103,7 +104,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
                 //Getting the shooting trajectory
                 float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
+                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y + 14;
                 float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
                 //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
                 //If the distance between the projectile and the live target is active

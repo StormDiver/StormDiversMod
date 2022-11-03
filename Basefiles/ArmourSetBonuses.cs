@@ -47,6 +47,9 @@ namespace StormDiversMod.Basefiles
 
         public bool aridCritSet; //Arid armour
 
+        public bool cryoSet; //Cryogenic armour
+
+
         public bool shadowflameSet; //Shadowflame armour 
 
         //Ints and Bools activated from this file
@@ -63,6 +66,7 @@ namespace StormDiversMod.Basefiles
         public int santankcharge; //Charging up the santank missle
         public int santankmissleup; //Adds one to the charge every 10 frames
         public bool santanktrigger; //Has the player triggered the missiles
+        public int cryosetcooldown; //Colldown for Cryo set bonus
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -76,72 +80,87 @@ namespace StormDiversMod.Basefiles
             skyKnightSet = false;
             santankSet = false;
             aridCritSet = false;
+            cryoSet = false;
             shadowflameSet = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
-            bloodtime = 60;
+            bloodtime = 0;
             spaceStrikecooldown = 0;
             spaceBarriercooldown = 0;
-            hellblazetime = 45;
-            mushtime = 60;
+            hellblazetime = 0;
+            mushtime = 0;
             twilightcharged = false;
-            derplinglaunchcooldown = 90;
+            derplinglaunchcooldown = 0;
             skysentry = false;
             santankcharge = 0;
             santankmissleup = 0;
             santanktrigger = false;
+            cryosetcooldown = 0;
         }
 
         //===============================================================================================================
-
+     
         public override void PostUpdateEquips() //Updates every frame
         {
-            //Reduces ints if they are above 0 and not in the equip field
+            //Increase ints if they are below the limit and armour is equipped and not in the equip field
+          
+            if (BloodDrop)
+            {
+                if (bloodtime < 300) //HemoGolbin cooldown
+                {
+                    bloodtime++;
+                }
+                if (bloodtime >= 300)//Gives buff when cooldown is over
+                {
+                    Player.AddBuff(ModContent.BuffType<BloodBurstBuff>(), 2);
+                }
+            }
+            else
+            {
+                Player.ClearBuff(ModContent.BuffType<BloodBurstBuff>());
 
-            if (bloodtime > 0) //HemoGolbin cooldown
-            {
-                bloodtime--;
+                bloodtime = 0;
             }
-            if (bloodtime <= 0 && BloodDrop)//Gives buff when cooldown is over
+            if (mushset && mushtime < 90) //Mushroom cooldown
             {
-                Player.AddBuff(ModContent.BuffType<BloodBurstBuff>(), 2);
+                mushtime++;
+            }
+            if (!mushset)
+            {
+                mushtime = 0;
+            }
+            if (spaceRockDefence)
+            {
+                if (spaceBarriercooldown < 360) //Asteroid Armour Defence
+                {
+                    spaceBarriercooldown++;
+                }
+                if (spaceBarriercooldown >= 360)
+                {
+                    Player.AddBuff(ModContent.BuffType<SpaceRockDefence>(), 2);
 
+                }
             }
-            if (hellblazetime > 0) //hellSoul cooldown
-            {
-                hellblazetime--;
-            }
-
-            if (mushtime > 0) //Mushroom cooldown
-            {
-                mushtime--;
-            }
-
-            if (spaceBarriercooldown < 360 && spaceRockDefence) // counts up and when it reaches int the buff is applied, so players must wait after equipping armour
-            {
-                spaceBarriercooldown++;
-            }
-            if (spaceBarriercooldown == 360)
-            {
-                Player.AddBuff(ModContent.BuffType<SpaceRockDefence>(), 2);
-
-            }
-            if (!spaceRockDefence) //Clears buff if player removes armour
+            else
             {
                 Player.ClearBuff(ModContent.BuffType<SpaceRockDefence>());
                 spaceBarriercooldown = 0;
             }
-            if (spaceStrikecooldown < 180) //Ditto for offence
-            {
-                spaceStrikecooldown++;
-            }
-            if (spaceStrikecooldown == 180)
-            {
-                Player.AddBuff(ModContent.BuffType<SpaceRockOffence>(), 2);
 
+            if (spaceRockOffence)
+            {
+                if (spaceStrikecooldown < 180) //Asteroid Armour Offence
+                {
+                    spaceStrikecooldown++;
+                }
+                if (spaceStrikecooldown >= 180)
+                {
+                    Player.AddBuff(ModContent.BuffType<SpaceRockOffence>(), 2);
+
+                }
             }
-            if (!spaceRockOffence)
+            else
             {
                 Player.ClearBuff(ModContent.BuffType<SpaceRockOffence>());
                 spaceStrikecooldown = 0;
@@ -437,72 +456,72 @@ namespace StormDiversMod.Basefiles
 
             if (derpJump)
             {
-                if (derplinglaunchcooldown > 0)
+                if (derplinglaunchcooldown < 60)
                 {
-                    derplinglaunchcooldown--;
+                    derplinglaunchcooldown++;
                 }
-                if (derplinglaunchcooldown == 0 && derpJump && Player.velocity.Y == 0)
-                {
-                    Player.AddBuff(ModContent.BuffType<DerpBuff>(), 2);
-
-                }
-
+           
                 Player.jumpSpeedBoost += 4.5f;
 
                 Player.autoJump = true;
                 Player.maxFallSpeed *= 1.5f;
                 //Creates the wave upon jumping
-                if (Player.velocity.Y == 0 && Player.controlJump && derplinglaunchcooldown <= 0)
+                if (Player.velocity.Y == 0 && derplinglaunchcooldown >= 60)
                 {
+                    Player.AddBuff(ModContent.BuffType<DerpBuff>(), 2);
 
-                    Player.ClearBuff(ModContent.BuffType<DerpBuff>());
-
-                    SoundEngine.PlaySound(SoundID.NPCHit22 with { Volume = 1.5f, Pitch = -0.5f }, Player.Center);
-
-                    for (int i = 0; i < 40; i++)
+                    if (Player.controlJump)
                     {
-                        if (Player.gravDir == 1)
+
+                        Player.ClearBuff(ModContent.BuffType<DerpBuff>());
+
+                        SoundEngine.PlaySound(SoundID.NPCHit22 with { Volume = 1.5f, Pitch = -0.5f }, Player.Center);
+
+                        for (int i = 0; i < 40; i++)
                         {
-                            float speedX = Main.rand.NextFloat(-2f, 2f);
-                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, -3, 130, default, 1.5f);
+                            if (Player.gravDir == 1)
+                            {
+                                float speedX = Main.rand.NextFloat(-2f, 2f);
+                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, -3, 130, default, 1.5f);
+                                dust.noGravity = true;
+                                dust.velocity *= 2;
+                            }
+                            else
+                            {
+                                float speedX = Main.rand.NextFloat(-2f, 2f);
+                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, +3, 130, default, 1.5f);
+                                dust.noGravity = true;
+                                dust.velocity *= 2;
+                            }
+
+                        }
+                        for (int i = 0; i < 20; i++)
+                        {
+
+                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, -5, 0, 130, default, 1.5f);
                             dust.noGravity = true;
                             dust.velocity *= 2;
+                            var dust2 = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, 5, 0, 130, default, 1.5f);
+                            dust2.noGravity = true;
+                            dust2.velocity *= 2;
+                        }
+                        if (Player.gravDir == 1)
+                        {
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 20), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 20), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
                         }
                         else
                         {
-                            float speedX = Main.rand.NextFloat(-2f, 2f);
-                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, +3, 130, default, 1.5f);
-                            dust.noGravity = true;
-                            dust.velocity *= 2;
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 20), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 20), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
                         }
-
+                        derplinglaunchcooldown = 0;
                     }
-                    for (int i = 0; i < 20; i++)
-                    {
-
-                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, -5, 0, 130, default, 1.5f);
-                        dust.noGravity = true;
-                        dust.velocity *= 2;
-                        var dust2 = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, 5, 0, 130, default, 1.5f);
-                        dust2.noGravity = true;
-                        dust2.velocity *= 2;
-                    }
-                    if (Player.gravDir == 1)
-                    {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 20), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 20), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                    }
-                    else
-                    {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 20), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 20), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                    }
-                    derplinglaunchcooldown = 60;
                 }
             }
             if (!derpJump)
             {
-                derplinglaunchcooldown = 60;
+                derplinglaunchcooldown = 0;
             }
 
 
@@ -526,14 +545,170 @@ namespace StormDiversMod.Basefiles
                 Player.ClearBuff(ModContent.BuffType<SkyKnightSentryBuff>());
 
             }
+            //For Hellsoul Armour
+            if (hellSoulSet)
+            {
+                if (hellblazetime < 600) //hellSoul cooldown
+                {
+                    hellblazetime++;
+                    if (Main.rand.Next(600) < hellblazetime)
+                    {
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 173, 0, -4);
+                        dust.scale = 1.25f;
+                    }
+                }
+                if (hellblazetime == 599)
+                {
+                    SoundEngine.PlaySound(SoundID.Item20 with { Volume = 0.75f, Pitch = 0.5f }, Player.Center);
 
+                }
+                if (hellblazetime == 600)
+                {
+                    Player.AddBuff(ModContent.BuffType<HellSoulBuff>(), 2);
+
+                    if (StormDiversMod.ArmourSpecialHotkey.JustPressed)
+                    {
+                        int hellblazedmg = 1200;
+
+                        for (int i = 0; i < 200; i++)
+                        {
+                            NPC target = Main.npc[i];
+                            float distanceX = Player.Center.X - target.Center.X;
+                            float distanceY = Player.Center.Y - target.Center.Y;
+                            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+                            bool lineOfSight = Collision.CanHitLine(target.position, target.width, target.height, Player.position, Player.width, Player.height);
+                            if (!target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && StormDiversMod.ArmourSpecialHotkey.JustPressed)
+                            {
+                                if ((distance < 500 && lineOfSight) || (distance < 200 && !lineOfSight))
+                                {
+                                    if (hellblazedmg > 0) //only summon projectile if enemy will take damage
+                                    {
+                                        Projectile.NewProjectile(null, target.Center, new Vector2(0, 0), ModContent.ProjectileType<HellSoulArmourProj>(), hellblazedmg, 0, Player.whoAmI);
+                                        hellblazedmg = (hellblazedmg -= 80); //80 damage falloff per enemy, hits up to 15 enemies
+                                    }
+                                    //hellblazedmg = (hellblazedmg * 17) / 20; //15% damage falloff per enemy
+
+                                }
+                            }
+                        }
+                        Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<HellSoulArmourProj>(), 0, 0, Player.whoAmI);
+
+                        if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                        {
+                            Player.GetModPlayer<MiscFeatures>().screenshaker = true;
+                        }
+
+                        for (int i = 0; i < 50; i++)
+                        {
+                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 173);
+                            dust.scale = 1.5f;
+                            dust.velocity *= 13;
+
+                        }
+                        for (int i = 0; i < 25; i++)
+                        {
+                            Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
+                            var dust = Dust.NewDustDirect(Player.Center, 0, 0, 173, perturbedSpeed.X, perturbedSpeed.Y);
+                            dust.scale = 3f;
+                            dust.velocity *= 2f;
+
+                        }
+                        for (int i = 0; i < 75; i++)
+                        {
+                            Vector2 perturbedSpeed = new Vector2(0, -20f).RotatedByRandom(MathHelper.ToRadians(360));
+                            var dust = Dust.NewDustDirect(Player.Center, 0, 0, 173, perturbedSpeed.X, perturbedSpeed.Y);
+                            dust.scale = 3f;
+                            dust.velocity *= 2f;
+
+                        }
+                        for (int i = 0; i < 125; i++)
+                        {
+                            Vector2 perturbedSpeed = new Vector2(0, -35f).RotatedByRandom(MathHelper.ToRadians(360));
+                            var dust = Dust.NewDustDirect(Player.Center, 0, 0, 173, perturbedSpeed.X, perturbedSpeed.Y);
+                            dust.scale = 3f;
+                            dust.velocity *= 2f;
+
+                        }
+                        for (int i = 0; i < 200; i++)
+                        {
+                            Vector2 perturbedSpeed = new Vector2(0, -50f).RotatedByRandom(MathHelper.ToRadians(360));
+                            var dust = Dust.NewDustDirect(Player.Center, 0, 0, 173, perturbedSpeed.X, perturbedSpeed.Y);
+                            dust.scale = 3f;
+                            dust.velocity *= 2f;
+
+                        }
+                        SoundEngine.PlaySound(SoundID.Item74 with { Volume = 2f, Pitch = 0.5f }, Player.Center);
+                        SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f }, Player.Center);
+
+                        hellblazetime = 0;
+                    }
+                }
+            }
+            if (!hellSoulSet)
+            {
+                hellblazetime = 0;
+            }
+            if (cryoSet)
+            {
+                if (cryosetcooldown < 300)//count up when set nonus is not active
+                {
+                    cryosetcooldown++;
+                }
+                int xcursor = (int)(Main.MouseWorld.X / 16);
+                int ycursor = (int)(Main.MouseWorld.Y / 16);
+                Tile tile = Main.tile[xcursor, ycursor];
+                if ((tile != null && !tile.HasTile || !Main.tileSolid[tile.TileType]) && StormDiversMod.ArmourSpecialHotkey.JustPressed && cryosetcooldown >= 300 && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) //Activate set bonus
+                {
+                    int cryodamage = (int)Player.GetTotalDamage(DamageClass.Summon).ApplyTo(30); //36 with cryoset buffs alone
+
+                    Projectile.NewProjectile(null, Main.MouseWorld, new Vector2(0, 0), ModContent.ProjectileType<FrostCryoArmourProj>(), cryodamage, 0, Player.whoAmI);
+                    //Kills oldest projectile when new is summoned
+                    int cryoprojs = 0;
+                    int oldestProjIndex = -1;
+                    int oldestProjTimeLeft = 100000;
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        if (Main.projectile[i].active && Main.projectile[i].owner == Player.whoAmI && Main.projectile[i].type == ModContent.ProjectileType<FrostCryoArmourProj>())
+                        {
+                            cryoprojs++;
+                            if (Main.projectile[i].timeLeft < oldestProjTimeLeft)
+                            {
+                                oldestProjIndex = i;
+                                oldestProjTimeLeft = Main.projectile[i].timeLeft;
+                            }
+                        }
+
+                    }
+                    if (cryoprojs > 1)
+                    {
+                        Main.projectile[oldestProjIndex].timeLeft = 1;
+                    }
+                    SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.4f, Pitch = -0.5f }, Player.Center);
+
+                    for (int i = 0; i < 50; i++)
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.position.Y), Player.width, Player.height, 180, 0, -2);
+                        dust.scale = 1.5f;
+                        dust.noGravity = true;
+                    }
+                    int proj = Projectile.NewProjectile(null, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Player.whoAmI);
+                    Main.projectile[proj].scale = 1.25f;
+                    int proj2 = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Player.whoAmI);
+                    Main.projectile[proj2].scale = .9f;
+                    cryosetcooldown = 0;
+                }         
+            }
+            if (!cryoSet)
+            {
+                cryosetcooldown = 0;
+            }
         }
         //=====================For attacking an enemy with anything===========================================
         public override void OnHitAnything(float x, float y, Entity victim)
         {
             //int mushdamage = 20; //Looks like you didn't deal mush damage with this 
             int mushdamage = (int)Player.GetTotalDamage(DamageClass.Ranged).ApplyTo(18); //19 with shroom buffs
-            if (mushset && mushtime == 0)
+            if (mushset && mushtime >= 90)
             {
                 if (Main.rand.Next(2) == 0)
                 {
@@ -546,7 +721,7 @@ namespace StormDiversMod.Basefiles
 
                 }
 
-                mushtime = 90;
+                mushtime = 0;
             }
             //For the SpaceArmour with the helmet (offence)
             //int offencedmg = 150;
@@ -592,7 +767,7 @@ namespace StormDiversMod.Basefiles
                 if (BloodDrop)
                 {
 
-                    if (bloodtime < 1 && !Player.dead)
+                    if (bloodtime >= 300 && !Player.dead)
                     {
 
                         SoundEngine.PlaySound(SoundID.NPCHit9, Player.Center);
@@ -618,7 +793,7 @@ namespace StormDiversMod.Basefiles
                                 Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
 
                             }
-                            bloodtime = 300;
+                            bloodtime = 0;
                         }
                     }
                 }
@@ -633,7 +808,8 @@ namespace StormDiversMod.Basefiles
 
         int attackdmg = 0;//This is for how much damage the player takes
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
-        { 
+        {
+          
             attackdmg = (int)damage; //Int for the damage taken
 
             //For Space Armour with Mask (Defence)
@@ -685,7 +861,7 @@ namespace StormDiversMod.Basefiles
         {
 
             //For the Soul Fire armour setbonus with true melee
-            if (hellSoulSet && hellblazetime == 0)
+            /*if (hellSoulSet && hellblazetime == 0)
             {
                 /*float numberProjectiles = 9;
 
@@ -699,7 +875,7 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("HellSoulArmourProj"), hellsouldmg, 0, Player.whoAmI);
                 }*/
 
-                int helldamagemelee = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(80); //89 with armour buffs
+               /* int helldamagemelee = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(80); //89 with armour buffs
 
                 float speedX = 0f;
                 float speedY = -8f;
@@ -725,7 +901,7 @@ namespace StormDiversMod.Basefiles
                 SoundEngine.PlaySound(SoundID.Item8, target.Center);
 
                 hellblazetime = 30;
-            }
+            }*/
 
             //For Arid Armour with true melee
 
@@ -761,10 +937,24 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }
+            if (cryoSet)
+            {
+                if (ProjectileID.Sets.SentryShot[proj.type] == true)
+                {
+                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        var dust = Dust.NewDustDirect(target.position, target.width, target.height, 180);
+                        dust.scale = 1f;
+                        dust.velocity *= 2f;
+                        dust.noGravity = true;
+                    }
+                }
 
+            }
 
             //For the Soul Fire armour setbonus with projectiles ======================
-            if (hellSoulSet && hellblazetime == 0 && proj.type != ModContent.ProjectileType<HellSoulArmourProj>())
+            /*if (hellSoulSet && hellblazetime == 0 && proj.type != ModContent.ProjectileType<HellSoulArmourProj>())
             {
 
                 float speedX = 0f;
@@ -794,7 +984,7 @@ namespace StormDiversMod.Basefiles
                 SoundEngine.PlaySound(SoundID.Item8, target.Center);
 
                 hellblazetime = 30;
-            }
+            }*/
 
             //Arid armour with projectiles
             if (aridCritSet)

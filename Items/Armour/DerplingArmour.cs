@@ -96,8 +96,8 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Derpling Headgear");
-            Tooltip.SetDefault("5% increased damage\n12% increased critical strike chance");
+            DisplayName.SetDefault("Ancient Derpling Helmet");
+            Tooltip.SetDefault("10% increased damage\n5% increased critical strike chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -108,13 +108,13 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Lime;
-            Item.defense = 16;
+            Item.defense = 20;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.05f;
-            player.GetCritChance(DamageClass.Generic) += 12;
+            player.GetDamage(DamageClass.Generic) += 0.10f;
+            player.GetCritChance(DamageClass.Generic) += 5;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -156,7 +156,7 @@ namespace StormDiversMod.Items.Armour
             CreateRecipe()
             .AddIngredient(ItemID.ChlorophyteBar, 10)
             .AddIngredient(ModContent.ItemType<Items.Materials.DerplingShell>(), 5)
-            .AddTile(TileID.MythrilAnvil)
+            .AddTile(TileID.DemonAltar)
             .Register();
 
         }

@@ -32,8 +32,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
 
-            //Projectile.timeLeft = Projectile.SentryLifeTime;
-            Projectile.timeLeft = 36000;
+            Projectile.timeLeft = Projectile.SentryLifeTime;
             //drawOffsetX = 2;
             //drawOriginOffsetY = 2;
             Projectile.sentry = true;

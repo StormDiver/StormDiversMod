@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Projectiles
 {
@@ -682,30 +683,27 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellsoul Soul");
-            Main.projFrames[Projectile.type] = 4;
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
+            DisplayName.SetDefault("HellSoul Blast");
         }
         public override void SetDefaults()
         {
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 1;
+            Projectile.height = 1;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 240;
+            Projectile.timeLeft = 1;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
             Projectile.DamageType = DamageClass.Generic;
-            Projectile.aiStyle = 0;
-            //drawOffsetX = -9;
-            //drawOriginOffsetY = -9;
-
+            Projectile.aiStyle = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
         }
-        int damagetime = 0;
-        public override bool? CanDamage()
+        public override bool? CanHitNPC(NPC target)
         {
-            if (damagetime <= 10)
+            if (target.GetGlobalNPC<NPCEffects>().hellimmunetime > 0 || target.friendly) //Npcs immune to projectile after hitting it once, allows stacked enemies to be hit
             {
                 return false;
             }
@@ -714,130 +712,39 @@ namespace StormDiversMod.Projectiles
                 return true;
             }
         }
-
         public override void AI()
         {
-            damagetime++;
-            Projectile.rotation = Projectile.velocity.X / 20;
-
-            AnimateProjectile();
-            Dust dust;
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            Vector2 position = Projectile.position;
-            dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 173, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f, 0, new Color(255, 255, 255), 1f)];
-            dust.noGravity = true;
-            dust.scale = 0.8f;
-            if (damagetime > 10)
-            {
-                if (Projectile.localAI[0] == 0f)
-                {
-                    AdjustMagnitude(ref Projectile.velocity);
-                    Projectile.localAI[0] = 1f;
-                }
-                Vector2 move = Vector2.Zero;
-                float distance = 750f;
-                bool target = false;
-                for (int k = 0; k < 200; k++)
-                {
-                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
-                    {
-                        if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
-                        {
-                            Vector2 newMove = Main.npc[k].Center - Projectile.Center;
-                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-                            if (distanceTo < distance)
-                            {
-                                move = newMove;
-                                distance = distanceTo;
-                                target = true;
-                            }
-                        }
-                    }
-                }
-                if (target)
-                {
-                    AdjustMagnitude(ref move);
-                    Projectile.velocity = (15 * Projectile.velocity + move) / 15f;
-                    AdjustMagnitude(ref Projectile.velocity);
-                }
-            }
+           
         }
-        private void AdjustMagnitude(ref Vector2 vector)
-        {
-            if (damagetime > 10)
-            {
-                float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 13.5f)
-                {
-                    vector *= 13.5f / magnitude;
-                }
-            }
-        }
+       
         public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Projectile.timeLeft -= 30;
-            if (Projectile.velocity.X != oldVelocity.X)
-            {
-                Projectile.velocity.X = -oldVelocity.X * 0.7f;
-            }
-            if (Projectile.velocity.Y != oldVelocity.Y)
-            {
-                Projectile.velocity.Y = -oldVelocity.Y * 0.7f;
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
-                dust.scale = 1f;
-                dust.velocity *= 2;
-            }
+        {         
             return false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            target.GetGlobalNPC<NPCEffects>().hellimmunetime = 10; //frames of static immunity
 
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
+        }
 
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
-        }
-   
+
         public override void Kill(int timeLeft)
         {
-            if (Projectile.owner == Main.myPlayer)
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionHellSoulProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.75f;
+
+            for (int i = 0; i < 50; i++)
             {
+                Vector2 perturbedSpeed = new Vector2(0, -7.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 173, perturbedSpeed.X, perturbedSpeed.Y);
 
-                SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f }, Projectile.Center);
-
-                for (int i = 0; i < 10; i++)
-                {
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
-                    dust.scale = 1.5f;
-                    dust.velocity *= 2;
-                }
+                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust.scale = 2f;
+                dust.velocity *= 2f;
 
             }
-        }
-
-        public void AnimateProjectile() // Call this every frame, for example in the AI method.
-        {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 5) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
-            {
-                Projectile.frame++;
-                Projectile.frame %= 4; // Will reset to the first frame if you've gone through them all.
-                Projectile.frameCounter = 0;
-            }
-        }
-        public override Color? GetAlpha(Color lightColor)
-        {
-
-            Color color = Color.White;
-            color.A = 150;
-            return color;
 
         }
 

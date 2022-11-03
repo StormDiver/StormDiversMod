@@ -101,7 +101,6 @@ namespace StormDiversMod.NPCs
             NPC.buffImmune[BuffID.Confused] = true;
 
             NPC.spriteDirection = NPC.direction;
-            NPC.rotation = NPC.velocity.X / 12;
             if (!Main.dedServ)
             {
                 Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);

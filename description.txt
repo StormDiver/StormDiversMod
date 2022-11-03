@@ -6,13 +6,13 @@ This mod includes:
 
 -Over 100 new unique weapons across all classes, including some minions and sentries
 -Over 30 new accessories, including new expert exclusive ones and some tinkers
--11 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
+-12 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
 -New ammo for guns and bows
 -Multiple new tools
 -New bars and other crafting materials
 -A bunch of different buffs and debuffs inflicted from a range of sources
 -9 new potions
--5 new Vanity sets and a 2 special vanity masks
+-4 new Vanity sets and a 2 special vanity masks
 -4 new pets
 -25 new enemies across the game, most with their own banner
 -1 new unique boss that can be fought in place of the Plantera (config option)

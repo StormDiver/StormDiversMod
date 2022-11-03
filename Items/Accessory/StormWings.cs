@@ -53,13 +53,14 @@ namespace StormDiversMod.Items.Accessory
                 }
                 else
                 {
+                   
                     if (player.gravDir == 1)
                     {
-                        player.velocity.Y = 0.001f; //prevent bottles from being reactivated
+                        player.velocity.Y = 0.001f; //(mostly) prevent bottles from being reactivated
                     }
                     else
                     {
-                        player.velocity.Y = -0.001f; //prevent bottles from being reactivated
+                        player.velocity.Y = -0.001f; //(mostly0 prevent bottles from being reactivated
 
                     }
                 }
@@ -68,6 +69,7 @@ namespace StormDiversMod.Items.Accessory
             {
                 player.wingTime += 0.5f;
             }
+          
         }
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
         {

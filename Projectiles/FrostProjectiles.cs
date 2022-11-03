@@ -609,5 +609,87 @@ namespace StormDiversMod.Projectiles
             }
         }
     }
- 
+    //___________________________
+    public class FrostCryoArmourProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Cryo Cloud");
+        }
+        public override void SetDefaults()
+        {
+
+            Projectile.width = 100;
+            Projectile.height = 10;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+
+            Projectile.timeLeft = 600;
+            Projectile.aiStyle = -1;
+            DrawOffsetX = 0;
+            DrawOriginOffsetY = 0;
+        }
+        public override bool? CanDamage()
+        {
+
+            return false;
+        }
+        public override void AI()
+        {
+            if (Main.rand.Next(5) == 0)
+            {
+                float xpos = (Main.rand.NextFloat(-50, 50));
+                //float ypos = (Main.rand.NextFloat(200, 250));
+
+                int projID = Projectile.NewProjectile(null, new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y), new Vector2(xpos * -0.05f, 10), ModContent.ProjectileType<FrostAccessProj>(), Projectile.damage, 0, Projectile.owner);
+
+                Main.projectile[projID].DamageType = DamageClass.Summon;
+                Main.projectile[projID].aiStyle = 0;
+                Main.projectile[projID].timeLeft = 60;
+                Main.projectile[projID].penetrate = 1;
+
+                int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Projectile.owner);
+                Main.projectile[proj].scale = 0.5f;
+
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -15f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 135, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.scale = 1.5f;
+                dust.velocity *= 2f;
+                dust.noGravity = true;
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.Center.Y), Projectile.width, 0, 180, 0 , 10);
+                dust.scale = 1.5f;
+                dust.noGravity = true;
+            }
+            for (int i = 0; i < 1; i++)
+            {
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.Center.Y), Projectile.width, 0, 180, 0, -5);
+                dust.scale = 1.5f;
+                dust.noGravity = true;
+            }
+            Player player = Main.player[Projectile.owner];
+            if (player.dead)
+            {
+                Projectile.Kill();
+            }
+        }
+
+  
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+
+        {
+            return false;
+        }
+        public override void Kill(int timeLeft)
+        {
+          
+        }
+    }
+
 }

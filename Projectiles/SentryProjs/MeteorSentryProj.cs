@@ -30,13 +30,14 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.ignoreWater = false;
             Projectile.sentry = true;
             Projectile.penetrate = 1;
-            //Projectile.timeLeft = Projectile.SentryLifeTime;
-            Projectile.timeLeft = 36000; 
+            Projectile.timeLeft = Projectile.SentryLifeTime;
             Projectile.light = 0.4f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
+            Projectile.DamageType = DamageClass.Summon;
+
         }
         public override bool? CanDamage()
         {

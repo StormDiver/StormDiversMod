@@ -35,6 +35,13 @@ namespace StormDiversMod.Basefiles
             });
             RecipeGroup.RegisterGroup("StormDiversMod:EvilBars", group);
 
+            group = new RecipeGroup(() => "Silver or Tungsten Bar", new int[]
+           {
+                ItemID.SilverBar,
+                ItemID.TungstenBar
+           });
+            RecipeGroup.RegisterGroup("StormDiversMod:SilverBars", group);
+
             group = new RecipeGroup(() => "Gold or Platinum Bar", new int[]
             {
                 ItemID.GoldBar,

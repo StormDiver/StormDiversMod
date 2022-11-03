@@ -59,7 +59,7 @@ namespace StormDiversMod.Items.Tools
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                if (player.GetModPlayer<EquipmentEffects>().bearcool == 0)
+                if (player.GetModPlayer<EquipmentEffects>().bearcool >= 0)
                 {
                     player.AddBuff(ModContent.BuffType<Buffs.TeddyBuff>(), 300);
                     player.GetModPlayer<EquipmentEffects>().bearcool = 600;

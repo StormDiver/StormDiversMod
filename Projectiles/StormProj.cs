@@ -823,7 +823,7 @@ namespace StormDiversMod.Projectiles
 			Projectile.position.Y -= 4f;
 			Projectile.ai[0] += 8;
 			//Projectile.scale += 0.1f;
-			if (Projectile.ai[0] > 250)//kill when timer is reached, when fired from launcher granedes timer starts at 50/0/-50
+			if (Projectile.ai[0] > 250)//kill when timer is reached, when fired from launcher grenades timer starts at 50/0/-50
             {
                 Projectile.Kill();
             }

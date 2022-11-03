@@ -29,7 +29,7 @@ namespace StormDiversMod.Projectiles
             Projectile.hostile = false;
             Projectile.aiStyle = 2;
 
-            Projectile.penetrate = 5;
+            Projectile.penetrate = -1;
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 99999;

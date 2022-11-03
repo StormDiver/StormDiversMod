@@ -10,7 +10,11 @@ using StormDiversMod.NPCs.Banners;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
-
+using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Creative;
+using StormDiversMod.Projectiles;
+using Terraria.DataStructures;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.NPCs
 
@@ -35,7 +39,7 @@ namespace StormDiversMod.NPCs
             NPC.width = 30;
             NPC.height = 80;
 
-            //NPC.aiStyle = 3; 
+            //NPC.aiStyle = -1; 
             //aiType = NPCID.VortexSoldier;
 
             NPC.damage = 666;
@@ -43,7 +47,6 @@ namespace StormDiversMod.NPCs
             NPC.defense = 666;
             NPC.lifeMax = 666;
             NPC.noGravity = false;
-
 
             NPC.HitSound = SoundID.NPCHit6;
             NPC.DeathSound = SoundID.NPCDeath8;
@@ -60,9 +63,16 @@ namespace StormDiversMod.NPCs
          }*/
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.5f);
-            NPC.damage = (int)(NPC.damage * 0.5f);
-            
+            if (Main.expertMode && !Main.masterMode)
+            {
+                NPC.lifeMax = (int)(NPC.lifeMax / 2);
+                NPC.damage = (int)(NPC.damage / 2);
+            }
+            if (Main.masterMode)
+            {
+                NPC.lifeMax = (int)(NPC.lifeMax / 3);
+                NPC.damage = (int)(NPC.damage / 3);
+            }
         }
         
         int feartime; //Cooldown before ai starts
@@ -102,12 +112,13 @@ namespace StormDiversMod.NPCs
                 NPC.buffImmune[k] = true;
             }
             player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
+            //Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             feartime ++;
-            NPC.spriteDirection = NPC.direction;
+          
+            //NPC.spriteDirection = NPC.direction;
 
             int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
             int ytilepos = (int)(NPC.Bottom.Y / 16) + 0;
@@ -151,13 +162,27 @@ namespace StormDiversMod.NPCs
 
             if (feartime > 120)
             {
+                if (NPC.velocity.X > 0.1f)
+                {
+                    NPC.spriteDirection = 1;
+                }
+                if (NPC.velocity.X < -0.1f)
+                {
+                    NPC.spriteDirection = -1;
+
+                }
                 if (!player.dead)
                 {
+                    
                     if (distance <= distancefear && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
                     {
                         if (!attackmode)
                         {
                             SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center);
+                            if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                            {
+                                player.GetModPlayer<MiscFeatures>().screenshaker = true;
+                            }
                         }
                         death = false;
                         distancefear = 1000f; //increase detection range once triggered
@@ -174,7 +199,7 @@ namespace StormDiversMod.NPCs
                     if (attackmode) //When taregting the player
                     {
 
-                        if (NPC.velocity.Y == 0)
+                        if (NPC.velocity.Y == 0 || NPC.velocity.Y <= -11)//on ground or shortly after jumping have full movement control
                         {
                             if (distanceX <= -20)
                             {
@@ -188,20 +213,21 @@ namespace StormDiversMod.NPCs
                             {
                                 NPC.velocity.X *= 0.5f;
                             }
+                            oldmovespeed = NPC.velocity.X;
                         }
-                        else
+                        else //in air remove its control
                         {
                             if (distanceX <= -20)
                             {
-                                NPC.velocity.X = -moveatspeed * 1.25f;
+                                NPC.velocity.X = oldmovespeed;
                             }
                             if (distanceX >= 20)
                             {
-                                NPC.velocity.X = +moveatspeed * 1.25f;
+                                NPC.velocity.X = oldmovespeed;
                             }
                             if (distanceX < 25 && distanceX > -25)
                             {
-                                NPC.velocity.X *= 0.3f;
+                                oldmovespeed *= 0.95f;
                             }
                         }
                       
@@ -211,6 +237,8 @@ namespace StormDiversMod.NPCs
                         {
                             NPC.velocity.Y = -12 + jumpheight;
                             jump = true;
+
+                           
                         }
 
                         if (!jump && NPC.velocity.Y == 0 && !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && player.position.Y - 10 < NPC.position.Y) //Jump if cannot detect player
@@ -348,7 +376,24 @@ namespace StormDiversMod.NPCs
                  Gore.NewGore(NPC.position, NPC.velocity, mod.GetGoreSlot("VortCannonGore4"), 1f);
                  Gore.NewGore(NPC.position, NPC.velocity, mod.GetGoreSlot("VortCannonGore5"), 1f);
                 */
+                for (int i = 0; i < 2; i++)
+                {
+                    int goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
+                    goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
+                    goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
+                    goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1f;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
+                }
 
+                /*int type = ModContent.NPCType<DerpMimic>();
+                NPC.NewNPC(NPC.GetSource_FromAI(), (int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);*/
 
                 for (int i = 0; i < 100; i++)
                 {

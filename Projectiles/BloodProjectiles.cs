@@ -119,6 +119,24 @@ namespace StormDiversMod.Projectiles
         //bool bloodspray = true;
         public override void AI()
         {
+            if (Projectile.ai[1] > 3)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    float X = Projectile.Center.X - Projectile.velocity.X / 10f * (float)i;
+                    float Y = Projectile.Center.Y - Projectile.velocity.Y / 10f * (float)i;
+
+                    int dust = Dust.NewDust(new Vector2(X, Y), 0, 0, 115, 0, 0, 100, default, 1f);
+                    Main.dust[dust].position.X = X;
+                    Main.dust[dust].position.Y = Y;
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 0f;
+                }
+            }
+            else
+            {
+                Projectile.ai[1]++;
+            }
             if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
             {
                 Dust dust;
@@ -127,16 +145,6 @@ namespace StormDiversMod.Projectiles
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
             }
-
-
-            if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
-            {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 0.75f)];
-            }
-
           
             return;
         }
@@ -145,6 +153,14 @@ namespace StormDiversMod.Projectiles
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             SoundEngine.PlaySound(SoundID.NPCHit13, Projectile.Center);
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust;
+                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                Vector2 position = Projectile.position;
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 0, new Color(255, 255, 255), 0.75f)];
+
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -375,10 +391,10 @@ namespace StormDiversMod.Projectiles
 
             }
             shoottime++;
-            if (shoottime >= 8)
+            if (shoottime >= 5)
             {
                
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<BloodYoyoProj2>(), (int)(Projectile.damage * .5f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<BloodYoyoProj2>(), (int)(Projectile.damage * .33f), 0, Projectile.owner);
                 shoottime = 0;
                 
             }
@@ -413,21 +429,26 @@ namespace StormDiversMod.Projectiles
             Projectile.knockBack = 1f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
+            Projectile.ArmorPenetration = 5;
         }
         //bool bloodspray = true;
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
 
-            if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
-            {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
-                dust.noGravity = true;
-            }
 
+            for (int i = 0; i < 1; i++)
+            {
+                float X = Projectile.Center.X - Projectile.velocity.X / 10f * (float)i;
+                float Y = Projectile.Center.Y - Projectile.velocity.Y / 10f * (float)i;
+
+                int dust = Dust.NewDust(new Vector2(X, Y), 0, 0, 115, 0, 0, 100, default, 1f);
+                Main.dust[dust].position.X = X;
+                Main.dust[dust].position.Y = Y;
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 0f;
+            }
+          
 
             if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
@@ -436,8 +457,7 @@ namespace StormDiversMod.Projectiles
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 0.75f)];
                 dust.noGravity = true;
-
-
+                dust.velocity *= 0.1f;
             }
 
 

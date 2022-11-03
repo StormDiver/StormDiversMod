@@ -29,8 +29,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.ignoreWater = false;
             Projectile.sentry = true;
             Projectile.penetrate = 1;
-            //Projectile.timeLeft = Projectile.SentryLifeTime;
-			Projectile.timeLeft = 36000;
+            Projectile.timeLeft = Projectile.SentryLifeTime;
 			Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -153,7 +152,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
 
                                 //Projectile.NewProjectile(Projectile.Center.X, Projectile.Top.Y + 14, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("MagmaSentryProj2"), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-                                SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
+                                SoundEngine.PlaySound(SoundID.Item122 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
 
 
 

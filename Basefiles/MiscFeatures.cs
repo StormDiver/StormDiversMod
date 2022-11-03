@@ -71,7 +71,7 @@ namespace StormDiversMod.Basefiles
             }
             if (shaketimer > 0)
             {
-                Main.screenPosition += new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7));
+                Main.screenPosition += new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5));
                 shaketimer--;
             }
            

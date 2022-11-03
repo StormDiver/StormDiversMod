@@ -322,9 +322,10 @@ namespace StormDiversMod.Items.Weapons
 
             int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
             Main.projectile[index].originalDamage = Item.damage;
+
+
             return false;
 
-            
 
         }
        

@@ -66,6 +66,9 @@ namespace StormDiversMod.Basefiles
         public int pharaohimmunetime;
 
         public int yoyoimmunetime;
+
+        public int hellimmunetime;
+
         //For Heart Emblem
 
         public bool heartStolen; //If the npc has dropped below 50% life
@@ -257,6 +260,10 @@ namespace StormDiversMod.Basefiles
                 {
                     yoyoimmunetime--;
                 }
+                if (hellimmunetime > 0)
+                {
+                    hellimmunetime--;
+                }
             }
             //______________
 
@@ -323,7 +330,7 @@ namespace StormDiversMod.Basefiles
                         }
                     }
                 }
-              
+
                 /*float distanceX = player.Center.X - npc.Center.X;
                 float distanceY = player.Center.Y - npc.Center.Y;
                 float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
@@ -343,9 +350,9 @@ namespace StormDiversMod.Basefiles
                 {
                     npc.velocity.Y = -10;
                 }*/
-
-
+               
             }
+           
         }
         public override void SetDefaults(NPC npc)
         {
@@ -651,7 +658,7 @@ namespace StormDiversMod.Basefiles
             }
 
         }
-
+        
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             var player = Main.player[projectile.owner];
@@ -682,7 +689,19 @@ namespace StormDiversMod.Basefiles
             {
                 crit = false;
             }
+            if (projectile.type == ModContent.ProjectileType<Projectiles.HellSoulArmourProj>()) //No crit from hellsoul explosion
+            {
+                if (npc.aiStyle == 6) //Worms take reduced damage
+                {
+                    damage = (int)(damage * 0.5f);
+                }
+                crit = false;
+            }
+            if (npc.type == NPCType<NPCs.DerpMimic>()) //Takes 666 less damage
+            {
+                damage = damage - 666;
 
+            }
             if (npc.type == NPCType<NPCs.Boss.StormBoss>()) //75% damage from homing projectiles
             {
                 if (ProjectileID.Sets.CultistIsResistantTo[projectile.type])
@@ -718,6 +737,11 @@ namespace StormDiversMod.Basefiles
                     damage += 5;
                 }
             }
+            if (npc.type == NPCType<NPCs.DerpMimic>()) //Takes 666 less damage
+            {
+                damage = damage - 666;
+
+            }
             if (crit)
             {
                 if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
@@ -744,14 +768,7 @@ namespace StormDiversMod.Basefiles
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
             var player = Main.player[projectile.owner];
-            /*
-            if (crit)
-            {
-                if (player.GetModPlayer<EquipmentEffects>().aridCritSet == true)
-                {
-                    NPC.immuneTime = 10;
-                }
-            }*/
+          
         }
         public override void HitEffect(NPC npc, int hitDirection, double damage)
         {

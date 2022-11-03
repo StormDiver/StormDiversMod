@@ -29,8 +29,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.ignoreWater = false;
             Projectile.sentry = true;
             Projectile.penetrate = 1;
-            //Projectile.timeLeft = Projectile.SentryLifeTime;
-            Projectile.timeLeft = 36000;
+            Projectile.timeLeft = Projectile.SentryLifeTime;
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -51,7 +50,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
         
         public override void AI()
         {
-            Main.player[Projectile.owner].UpdateMaxTurrets();
+            Player player = Main.player[Projectile.owner];
+
+            player.UpdateMaxTurrets();
 
             Projectile.ai[0]++;//spawntime
             if (Projectile.ai[0] == 1)
@@ -78,8 +79,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         
             Projectile.ai[1]++;//Shoottime
             
-            Player player = Main.player[Projectile.owner];
-
+            
 
             //Getting the npc to fire at
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -108,7 +108,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 if (distance < 900f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
                    
-                    if (Projectile.ai[1] > 50)
+                    if (Projectile.ai[1] > 45)
                     {
                         currenttarget = target;
                         animate = true;
@@ -141,7 +141,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
                         float numberProjectiles = 3;
-                        float rotation = MathHelper.ToRadians(5);
+                        float rotation = MathHelper.ToRadians(4);
                         for (int l = 0; l < numberProjectiles; l++)
                         {
 

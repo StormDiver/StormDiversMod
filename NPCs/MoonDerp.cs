@@ -358,11 +358,11 @@ namespace StormDiversMod.NPCs
 
             }
         }
-        int drops;
+        //int drops;
         public override void OnKill()
         {
-            int fragdrop;
-            /*if (Main.expertMode)
+            /*int fragdrop;
+            if (Main.expertMode)
             {
                 drops = 12 + Main.rand.Next(6); //12-18 on Expert (+1 from bestiary, 13 - 19)
             }

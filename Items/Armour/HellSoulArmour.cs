@@ -48,13 +48,16 @@ namespace StormDiversMod.Items.Armour
 
         public override void ArmorSetShadows(Player player)
         {
-            player.armorEffectDrawOutlines = true;
-            if (Main.rand.Next(3) == 0)
+            if (player.HasBuff(ModContent.BuffType<Buffs.HellSoulBuff>()))
             {
-                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173, 0, -3);
-                dust.scale = 1f;
-            }
+                player.armorEffectDrawOutlines = true;
 
+                if (Main.rand.Next(3) == 0)
+                {
+                    var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173, 0, -3);
+                    dust.scale = 1f;
+                }
+            }
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -64,7 +67,15 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "20% increased melee speed\nAttacking enemies releases damaging homing souls from them";
+            var list = StormDiversMod.ArmourSpecialHotkey.GetAssignedKeys();
+            string keyName = "(Not bound, set in controls)";
+
+            if (list.Count > 0)
+            {
+                keyName = list[0];
+            }
+
+            player.setBonus = "20% increased melee speed\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
@@ -126,13 +137,15 @@ namespace StormDiversMod.Items.Armour
 
         public override void ArmorSetShadows(Player player)
         {
-            player.armorEffectDrawOutlines = true;
-            if (Main.rand.Next(4) == 0)
+            if (player.HasBuff(ModContent.BuffType<Buffs.HellSoulBuff>()))
             {
-                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
-                dust.scale = 1.4f;
+                player.armorEffectDrawOutlines = true;
+                if (Main.rand.Next(4) == 0)
+                {
+                    var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
+                    dust.scale = 1.4f;
+                }
             }
-
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -142,7 +155,15 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "25% chance not to consume ammo\nAttacking enemies releases damaging homing souls from them";
+            var list = StormDiversMod.ArmourSpecialHotkey.GetAssignedKeys();
+            string keyName = "(Not bound, set in controls)";
+
+            if (list.Count > 0)
+            {
+                keyName = list[0];
+            }
+
+            player.setBonus = "25% chance not to consume ammo\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.ammoCost75 = true;
@@ -204,13 +225,15 @@ namespace StormDiversMod.Items.Armour
 
         public override void ArmorSetShadows(Player player)
         {
-            player.armorEffectDrawOutlines = true;
-            if (Main.rand.Next(4) == 0)
+            if (player.HasBuff(ModContent.BuffType<Buffs.HellSoulBuff>()))
             {
-                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
-                dust.scale = 1.4f;
+                player.armorEffectDrawOutlines = true;
+                if (Main.rand.Next(4) == 0)
+                {
+                    var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
+                    dust.scale = 1.4f;
+                }
             }
-
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -220,7 +243,15 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "18% reduced mana usage\nAttacking enemies releases damaging homing souls from them";
+            var list = StormDiversMod.ArmourSpecialHotkey.GetAssignedKeys();
+            string keyName = "(Not bound, set in controls)";
+
+            if (list.Count > 0)
+            {
+                keyName = list[0];
+            }
+
+            player.setBonus = "18% reduced mana usage\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.manaCost -= 0.18f;
@@ -249,7 +280,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Inferno Soul Crown");
-            Tooltip.SetDefault("10% increased summoner damage\nIncreases maximum number of minions by 1");
+            Tooltip.SetDefault("10% increased summoner damage\nIncreases maximum number of minions by 2");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -271,7 +302,7 @@ namespace StormDiversMod.Items.Armour
         {
 
             player.GetDamage(DamageClass.Summon) += 0.10f;
-            player.maxMinions += 1;
+            player.maxMinions += 2;
             if (!Main.dedServ)
             {
                 Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
@@ -280,13 +311,15 @@ namespace StormDiversMod.Items.Armour
 
         public override void ArmorSetShadows(Player player)
         {
-            player.armorEffectDrawOutlines = true;
-            if (Main.rand.Next(4) == 0)
+            if (player.HasBuff(ModContent.BuffType<Buffs.HellSoulBuff>()))
             {
-                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
-                dust.scale = 1.4f;
+                player.armorEffectDrawOutlines = true;
+                if (Main.rand.Next(4) == 0)
+                {
+                    var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
+                    dust.scale = 1.4f;
+                }
             }
-       
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -296,10 +329,17 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Increases maximum number of minions by 2\nAttacking enemies releases damaging homing souls from them";
+            var list = StormDiversMod.ArmourSpecialHotkey.GetAssignedKeys();
+            string keyName = "(Not bound, set in controls)";
 
+            if (list.Count > 0)
+            {
+                keyName = list[0];
+            }
+
+            player.setBonus = "Increases maximum number of minions by 1\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
-            player.maxMinions += 2;
+            player.maxMinions += 1;
         }
         public override void AddRecipes()
         {

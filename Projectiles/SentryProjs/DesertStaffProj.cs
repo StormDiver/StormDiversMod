@@ -30,8 +30,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.ignoreWater = false;
             Projectile.sentry = true;
             Projectile.penetrate = 1;
-            //Projectile.timeLeft = Projectile.SentryLifeTime;
-            Projectile.timeLeft = 36000;
+            Projectile.timeLeft = Projectile.SentryLifeTime;
             Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.usesLocalNPCImmunity = true;
@@ -86,7 +85,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
                 //If the distance between the projectile and the live target is active
 
-                if (distance < 200f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy)
+                if (distance < 260f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy)
                 {
 
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
@@ -99,13 +98,17 @@ namespace StormDiversMod.Projectiles.SentryProjs
                             float numberProjectiles = 12;
                             float rotation = MathHelper.ToRadians(180);
                             //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-                            for (int j = 0; j < numberProjectiles; j++)
+                            for (int j = 0; j < numberProjectiles; j++) //visual effect
                             {
                                 float speedX = 0f;
                                 float speedY = 3.5f;
                                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
                                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertStaffProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             }
+
+                            //Invisible expanding projectile deals damage
+                            int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
+                                    ModContent.ProjectileType<DesertStaffProj3>(), Projectile.damage, .5f, Projectile.owner, 0);
 
                             SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
                             animate = true;
@@ -218,8 +221,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
         public override void SetDefaults()
         {
 
-            Projectile.width = 40;
-            Projectile.height = 40;
+            Projectile.width = 25;
+            Projectile.height = 25;
             Projectile.friendly = true;
             Projectile.ignoreWater = false;
             Projectile.penetrate = 3;
@@ -229,7 +232,11 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.localNPCHitCooldown = -1;
             Projectile.DamageType = DamageClass.Summon;
         }
+        public override bool? CanDamage()
+        {
 
+            return false;
+        }
         public override void AI()
         {
             if (!Main.dedServ)
@@ -246,6 +253,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     Main.dust[dust].velocity *= 0.5f;
                     int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y - 5), 10, 10, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
                 }
+
             }
             else
             {
@@ -272,5 +280,81 @@ namespace StormDiversMod.Projectiles.SentryProjs
             return false;
         }
     }
+    //_____________________________________________________________________________________________________
+    public class DesertStaffProj3 : ModProjectile
+    { 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Forbidden Sentry Explosion");
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+        }
 
+        public override void SetDefaults()
+        {
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 60;
+            Projectile.extraUpdates = 2;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 20;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.tileCollide = false;
+        }
+        bool lineOfSight;
+        public override void AI()
+        {
+            Projectile.velocity.X = 0;
+            Projectile.velocity.Y = 0;
+            //increases size and keeps it in place
+            Projectile.width += 8;
+            Projectile.height += 8;
+            Projectile.position.X -= 4f;
+            Projectile.position.Y -= 4f;
+            Projectile.ai[0] += 8;
+            //Projectile.scale += 0.1f;
+            if (Projectile.ai[0] > 450)//kill when timer is reached,
+            {
+                Projectile.Kill();
+            }
+            var player = Main.player[Projectile.owner];
+
+
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (Collision.CanHitLine(Projectile.Center, 0, 0, target.position, target.width, target.height))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);       
+            Projectile.damage = (Projectile.damage * 9) / 10;
+        }
+        public override void OnHitPvp(Player target, int damage, bool crit)
+
+        {
+
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+
+            return false;
+        }
+        public override void Kill(int timeLeft)
+        {
+
+
+        }
+
+    }
 }

@@ -333,7 +333,6 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
         }
         int shoottime = 0;
-        bool firedspike = false;//For hitting an enemy
         bool stopspikes = false;//For stopped spinning
 
         public override void AI()

@@ -293,10 +293,9 @@ namespace StormDiversMod.Basefiles
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WebStaff>(), 50));
 
             }
-            if (npc.type == NPCID.Gnome)
+            if (npc.netID == NPCID.GreenSlime)
             {
-                npcLoot.Add(ItemDropRule.OneFromOptions(2, ModContent.ItemType<WoodPointyStick>(), ModContent.ItemType<WoodCrossbow>(), ModContent.ItemType<WoodNecklace>()));
-
+                npcLoot.Add(ItemDropRule.OneFromOptions(40, ModContent.ItemType<WoodPointyStick>(), ModContent.ItemType<WoodCrossbow>(), ModContent.ItemType<WoodNecklace>()));
             }
             
             if (npc.type == NPCID.WyvernHead)
@@ -308,7 +307,14 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.GoblinShark || npc.type == NPCID.BloodEelHead)
             {
 
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BloodyRifle>(), 8, 6));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BloodyRifle>(), 5, 4));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BloodySentry>(), 5, 4));
+
+            }
+            if (npc.type == NPCID.BloodNautilus)
+            {
+               
+
             }
 
             if (npc.type == NPCID.WalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.GiantWalkingAntlion || npc.type == NPCID.GiantFlyingAntlion) //needs to drop with ammo

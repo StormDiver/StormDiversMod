@@ -99,7 +99,7 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Beetle Enhancement");
-            Description.SetDefault("20 armour penetration for melee weapons");
+            Description.SetDefault("20 armor penetration for melee weapons");
         }
         public override void Update(Player player, ref int buffIndex)
         {
@@ -550,6 +550,20 @@ namespace StormDiversMod.Buffs
             Main.buffNoTimeDisplay[Type] = true;
         }
 
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+    }
+
+    public class HellSoulBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Inferno Storm");
+            Description.SetDefault("The inferno flames are ready to be unleashed");
+            Main.buffNoTimeDisplay[Type] = true;
+        }
         public override void Update(Player player, ref int buffIndex)
         {
 

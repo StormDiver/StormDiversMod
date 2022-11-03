@@ -69,12 +69,18 @@ namespace StormDiversMod
         {
             ArmourSpecialHotkey = null;
         }
-       
-       
+        
     }
   
     public class explosioneffects : GlobalProjectile
     {
+        public override void SetDefaults(Projectile projectile)
+        {
+            if (projectile.timeLeft == Projectile.SentryLifeTime)
+            {
+                projectile.timeLeft = 36000;
+            }
+        }
         public override void Kill(Projectile projectile, int timeLeft)
         {
             //Generic for Rocket, Grenade, Mine, and Snowman Cannon
