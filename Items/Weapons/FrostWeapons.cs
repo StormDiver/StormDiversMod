@@ -306,8 +306,6 @@ namespace StormDiversMod.Items.Weapons
 
             //Item.shootSpeed = 3.5f;
 
-
-
             Item.noMelee = true;
         }
         /* public override Vector2? HoldoutOffset()

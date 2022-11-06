@@ -132,8 +132,10 @@ namespace StormDiversMod.Items.Armour
             Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlighlty increases player acceleration");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
-
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
+            if (!Main.dedServ)
+            {
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
+            }
         }
 
         public override void SetDefaults()

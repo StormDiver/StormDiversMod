@@ -24,7 +24,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Shadowflare Mask");
-            Tooltip.SetDefault("25% increased whip range\n8% increased summoner damage");
+            Tooltip.SetDefault("20% increased whip range\n10% increased whip speed\n8% increased summoner damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             /* HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -46,7 +46,8 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Summon) += 0.08f;
-            player.whipRangeMultiplier += 0.25f;
+            player.whipRangeMultiplier += 0.20f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.10f;
 
         }
 
@@ -114,7 +115,7 @@ namespace StormDiversMod.Items.Armour
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Shadowflare Robe");
-            Tooltip.SetDefault("15% whip speed and range\nIncreases maximum minions by 1\n8% increased summoner damage");
+            Tooltip.SetDefault("10% increased whip range\nIncreases maximum minions by 1\n8% increased summoner damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
 
@@ -137,8 +138,8 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Summon) += 0.08f;
-            player.whipRangeMultiplier += 0.15f;
-            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.15f;
+            player.whipRangeMultiplier += 0.10f;
+            //player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.15f;
             player.maxMinions += 1;
 
         }
@@ -165,7 +166,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Shadowflare Greaves");
-            Tooltip.SetDefault("10% increased whip speed\n8% increased summoner damage");
+            Tooltip.SetDefault("10% increased whip speed\n15% increased whip speed\n8% increased summoner damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             /* LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
@@ -187,6 +188,7 @@ namespace StormDiversMod.Items.Armour
         {
             player.GetDamage(DamageClass.Summon) += 0.08f;
             player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.1f;
+            player.whipRangeMultiplier += 0.15f;
 
         }
         public override void AddRecipes()

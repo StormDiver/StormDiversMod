@@ -17,7 +17,6 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod.Items.Accessory
 {
-
     [AutoloadEquip(EquipType.Wings)]
     public class HellSoulWings : ModItem
     {
@@ -25,16 +24,18 @@ namespace StormDiversMod.Items.Accessory
         {
             DisplayName.SetDefault("Hell Flame Wings");
             Tooltip.SetDefault("Allows flight and slow fall\nHold UP to ascend faster");
-            //Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 6));
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(160, 6.5f, 1.5f);
-
-            WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
+            if (!Main.dedServ)
             {
-                Texture = ModContent.Request<Texture2D>(Texture + "_Wings_Glow")
-            });
+                WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
+                {
+                    Texture = ModContent.Request<Texture2D>(Texture + "_Wings_Glow"),
+                    Color = () => Color.White * 0.8f
+                });
+            }
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(160, 6.5f, 1.5f);
         }
-       
+
         public override void SetDefaults()
         {
             Item.width = 34;

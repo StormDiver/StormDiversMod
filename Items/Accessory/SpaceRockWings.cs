@@ -23,11 +23,15 @@ namespace StormDiversMod.Items.Accessory
             DisplayName.SetDefault("Asteroid Wings");
             Tooltip.SetDefault("Allows flight and slow fall\nHas a fast horizontal movement and acceleration");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(190, 8.5f, 2.2f);
-            WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
+            if (!Main.dedServ)
             {
-                Texture = ModContent.Request<Texture2D>(Texture + "_Wings")
-            });
+                WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
+                {
+                    Texture = ModContent.Request<Texture2D>(Texture + "_Wings"),
+                    Color = () => Color.White * 0.8f
+                });
+            }
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(190, 8.5f, 2.2f);
 
         }
 

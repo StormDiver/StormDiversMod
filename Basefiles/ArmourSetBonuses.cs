@@ -939,7 +939,7 @@ namespace StormDiversMod.Basefiles
             }
             if (cryoSet)
             {
-                if (ProjectileID.Sets.SentryShot[proj.type] == true)
+                if (ProjectileID.Sets.SentryShot[proj.type] == true || proj.sentry)
                 {
                     target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
                     for (int i = 0; i < 10; i++)

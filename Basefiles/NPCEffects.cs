@@ -236,17 +236,25 @@ namespace StormDiversMod.Basefiles
                 {
                     npc.rotation += (0.14f * -direction); //Speen speed and direction
                 }
+                if (npc.velocity.Y == 0)
+                {
+                    spintime = 45;
+                    npc.rotation = 0; //reset the rotation to 0 for 1 frame
+
+                }
+
                 if (spintime == 45)
                 {
                     npc.rotation = 0; //reset the rotation to 0 for 1 frame
                     spintime = 0; //Allows the rotation to be recorded again
 
                 }
+               
 
             }
             if (!npc.friendly)
             {
-                //------------Proejctile immune
+                //------------Projectile immune
                 if (aridimmunetime > 0)
                 {
                     //Main.NewText("PLEASE WORK::::::" + aridimmunetime, 204, 101, 22);
@@ -668,6 +676,8 @@ namespace StormDiversMod.Basefiles
                 if (npc.HasBuff(BuffID.ShadowFlame))
                 {
                     damage += 5;
+
+                    damage = (int)(damage + 1.05f);
                 }
             }
 
@@ -699,7 +709,7 @@ namespace StormDiversMod.Basefiles
             }
             if (npc.type == NPCType<NPCs.DerpMimic>()) //Takes 666 less damage
             {
-                damage = damage - 666;
+                damage -= 666;
 
             }
             if (npc.type == NPCType<NPCs.Boss.StormBoss>()) //75% damage from homing projectiles
@@ -710,7 +720,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
-            if (projectile.GetGlobalProjectile<Projectiles.SelenianReflect>().reflected) //update damaeg to be the same as if it hit the player
+            if (projectile.GetGlobalProjectile<Projectiles.SelenianReflect>().reflected) //update damage to be the same as if it hit the player
             {
                 if (Main.masterMode)
                 {
@@ -739,7 +749,7 @@ namespace StormDiversMod.Basefiles
             }
             if (npc.type == NPCType<NPCs.DerpMimic>()) //Takes 666 less damage
             {
-                damage = damage - 666;
+                 damage -= 666;
 
             }
             if (crit)

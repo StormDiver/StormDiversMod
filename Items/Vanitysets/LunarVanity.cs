@@ -102,8 +102,10 @@ namespace StormDiversMod.Items.Vanitysets
             base.SetStaticDefaults();
             DisplayName.SetDefault("Storm Diver Body");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
-
+            if (!Main.dedServ)
+            {
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
+            }
         }
 
         public override void SetDefaults()
@@ -279,8 +281,10 @@ namespace StormDiversMod.Items.Vanitysets
             base.SetStaticDefaults();
             DisplayName.SetDefault("Selenian Body");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
-
+            if (!Main.dedServ)
+            {
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
+            }
         }
 
         public override void SetDefaults()
@@ -456,8 +460,10 @@ namespace StormDiversMod.Items.Vanitysets
             base.SetStaticDefaults();
             DisplayName.SetDefault("Predictor Body");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
-
+            if (!Main.dedServ)
+            {
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
+            }
         }
 
         public override void SetDefaults()
@@ -632,8 +638,10 @@ namespace StormDiversMod.Items.Vanitysets
             base.SetStaticDefaults();
             DisplayName.SetDefault("Stargazer Body");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
-
+            if (!Main.dedServ)
+            {
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
+            }
         }
 
         public override void SetDefaults()
@@ -643,7 +651,7 @@ namespace StormDiversMod.Items.Vanitysets
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Red;
             Item.vanity = true;
-
+             
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

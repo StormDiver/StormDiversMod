@@ -70,7 +70,8 @@ namespace StormDiversMod.Basefiles
 				return;
 			}
 
-			Color color = drawPlayer.GetImmuneAlphaPure(data.Color(), drawInfo.shadow);
+			//Color color = drawPlayer.GetImmuneAlphaPure(data.Color(), drawInfo.shadow);
+			Color color = drawPlayer.GetImmuneAlphaPure(data.Color() * drawInfo.stealth * (1f - drawInfo.shadow), drawInfo.shadow); //Wing glowmasks need the additional stealth/shadow multiplier for some reason
 
 			Texture2D texture = data.Texture.Value;
 			Vector2 drawPos = drawInfo.Position - Main.screenPosition + new Vector2(drawPlayer.width / 2 - drawPlayer.bodyFrame.Width / 2, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition;
@@ -90,6 +91,7 @@ namespace StormDiversMod.Basefiles
 
 		public static void RegisterData(int bodySlot, Func<Color> color)
 		{
+
 			if (!BodyColor.ContainsKey(bodySlot))
 			{
 				BodyColor.Add(bodySlot, color);
@@ -108,6 +110,10 @@ namespace StormDiversMod.Basefiles
 
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
 		{
+			Player drawPlayer = drawInfo.drawPlayer;
+
+			//Color color = drawPlayer.GetImmuneAlphaPure(data.Color() * drawInfo.stealth * (1f - drawInfo.shadow), drawInfo.shadow); //Wing glowmasks need the additional stealth/shadow multiplier for some reason
+
 			if (!BodyColor.TryGetValue(Player.body, out Func<Color> color))
 			{
 				return;
@@ -167,7 +173,8 @@ namespace StormDiversMod.Basefiles
 				return;
 			}
 
-			Color color = drawPlayer.GetImmuneAlphaPure(data.Color(), drawInfo.shadow);
+			//Color color = drawPlayer.GetImmuneAlphaPure(data.Color(), drawInfo.shadow);
+			Color color = drawPlayer.GetImmuneAlphaPure(data.Color() * drawInfo.stealth * (1f - drawInfo.shadow), drawInfo.shadow); //Wing glowmasks need the additional stealth/shadow multiplier for some reason
 
 			Texture2D texture = data.Texture.Value;
 			Vector2 drawPos = drawInfo.Position - Main.screenPosition + new Vector2(drawPlayer.width / 2 - drawPlayer.legFrame.Width / 2, drawPlayer.height - drawPlayer.legFrame.Height + 4f) + drawPlayer.legPosition;
@@ -184,7 +191,12 @@ namespace StormDiversMod.Basefiles
 	{
 		private static Dictionary<int, DrawLayerData> WingsLayerData { get; set; }
 
-		
+		/// <summary>
+		/// Add data associated with the wings equip slot here, usually in <see cref="ModType.SetStaticDefaults"/>.
+		/// <para>Don't forget the !Main.dedServ check!</para>
+		/// </summary>
+		/// <param name="wingSlot">Wings equip slot</param>
+		/// <param name="data">Data</param>
 		public static void RegisterData(int wingSlot, DrawLayerData data)
 		{
 			if (!WingsLayerData.ContainsKey(wingSlot))
@@ -227,7 +239,7 @@ namespace StormDiversMod.Basefiles
 				return;
 			}
 
-			Color color = drawPlayer.GetImmuneAlphaPure(data.Color(), drawInfo.shadow);
+			Color color = drawPlayer.GetImmuneAlphaPure(data.Color() * drawInfo.stealth * (1f - drawInfo.shadow), drawInfo.shadow); //Wing glowmasks need the additional stealth/shadow multiplier for some reason
 
 			Texture2D texture = data.Texture.Value;
 
@@ -298,7 +310,8 @@ namespace StormDiversMod.Basefiles
 				return;
 			}
 
-			Color color = drawPlayer.GetImmuneAlphaPure(data.Color(), drawInfo.shadow);
+			//Color color = drawPlayer.GetImmuneAlphaPure(data.Color(), drawInfo.shadow);
+			Color color = drawPlayer.GetImmuneAlphaPure(data.Color() * drawInfo.stealth * (1f - drawInfo.shadow), drawInfo.shadow); //Wing glowmasks need the additional stealth/shadow multiplier for some reason
 
 			Texture2D texture = data.Texture.Value;
 			Vector2 drawPos = drawInfo.Position - Main.screenPosition + new Vector2(drawPlayer.width / 2 - drawPlayer.legFrame.Width / 2, drawPlayer.height - drawPlayer.legFrame.Height + 4f) + drawPlayer.legPosition;

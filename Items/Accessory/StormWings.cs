@@ -23,11 +23,17 @@ namespace StormDiversMod.Items.Accessory
             DisplayName.SetDefault("Storm Wings");
             Tooltip.SetDefault("Allows flight and slow fall\nHold DOWN and JUMP to hover");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(168, 6.5f, 1.66f);
-            WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
+
+            if (!Main.dedServ)
             {
-                Texture = ModContent.Request<Texture2D>(Texture + "_Wings_Glow")
-            });
+                WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
+                {
+                    Texture = ModContent.Request<Texture2D>(Texture + "_Wings_Glow"),
+                    Color = () => Color.White * 0.8f
+                });
+            }
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(168, 6.5f, 1.66f);
+
         }
 
         public override void SetDefaults()
