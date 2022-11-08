@@ -69,10 +69,17 @@ namespace StormDiversMod.Basefiles
 
         public int hellimmunetime;
 
+        public int forbiddenimmunetime;
+
+
         //For Heart Emblem
 
         public bool heartStolen; //If the npc has dropped below 50% life
 
+        //Whip tags
+
+        public bool WhiptagForbidden; //Forbidden Whip
+        int forbiddenwhipcooldown;
 
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
@@ -89,6 +96,7 @@ namespace StormDiversMod.Basefiles
             ultraburnDebuff = false;
             ultrafrostDebuff = false;
             spookedDebuff = false;
+            WhiptagForbidden = false;
         }
 
         public override void SetStaticDefaults()
@@ -219,37 +227,37 @@ namespace StormDiversMod.Basefiles
                 if (derplaunched)
                 {
                     spintime++;
-                }
-                if (spintime == 0)
-                {
-                    if (npc.velocity.X > 0)
+
+                    if (spintime == 0)
                     {
-                        direction = 1;
+                        if (npc.velocity.X > 0)
+                        {
+                            direction = 1;
+                        }
+                        else
+                        {
+                            direction = -1;
+                        }
+
                     }
-                    else
+                    if (spintime > 0 && spintime < 45) //begins the rotation 
                     {
-                        direction = -1;
+                        npc.rotation += (0.14f * -direction); //Speen speed and direction
+                    }
+                    if (npc.velocity.Y == 0)
+                    {
+                        spintime = 44;
+                        npc.rotation = 0; //reset the rotation to 0 for 1 frame
+
                     }
 
-                }
-                if (spintime > 0 && spintime < 45) //begins the rotation 
-                {
-                    npc.rotation += (0.14f * -direction); //Speen speed and direction
-                }
-                if (npc.velocity.Y == 0)
-                {
-                    spintime = 45;
-                    npc.rotation = 0; //reset the rotation to 0 for 1 frame
+                    if (spintime >= 44)
+                    {
+                        npc.rotation = 0; //reset the rotation to 0 for 1 frame
+                        spintime = 0; //Allows the rotation to be recorded again
 
+                    }
                 }
-
-                if (spintime == 45)
-                {
-                    npc.rotation = 0; //reset the rotation to 0 for 1 frame
-                    spintime = 0; //Allows the rotation to be recorded again
-
-                }
-               
 
             }
             if (!npc.friendly)
@@ -271,6 +279,10 @@ namespace StormDiversMod.Basefiles
                 if (hellimmunetime > 0)
                 {
                     hellimmunetime--;
+                }
+                if (forbiddenimmunetime > 0)
+                {
+                    forbiddenimmunetime--;
                 }
             }
             //______________
@@ -338,29 +350,30 @@ namespace StormDiversMod.Basefiles
                         }
                     }
                 }
-
-                /*float distanceX = player.Center.X - npc.Center.X;
-                float distanceY = player.Center.Y - npc.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-                bool lineOfSight = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height);
-                if (Main.LocalPlayer.HasBuff(BuffType<BloodBuff>()) && !npc.friendly && npc.lifeMax > 5) //If the player has taken a blood potion and the NPC is within a certian radius of the player
-                {
-
-                    if (distance < 140 && lineOfSight)
-                    {
-
-                        npc.AddBuff(mod.BuffType("BloodDebuff"), 2);
-                    }
-                }*/
-
-                //COVER YOURSELF IN OIL
-                /*if (npc.HasBuff(BuffID.Oiled) && Main.raining && !npc.boss)
-                {
-                    npc.velocity.Y = -10;
-                }*/
-               
             }
-           
+            /*float distanceX = player.Center.X - npc.Center.X;
+            float distanceY = player.Center.Y - npc.Center.Y;
+            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+            bool lineOfSight = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height);
+            if (Main.LocalPlayer.HasBuff(BuffType<BloodBuff>()) && !npc.friendly && npc.lifeMax > 5) //If the player has taken a blood potion and the NPC is within a certian radius of the player
+            {
+
+                if (distance < 140 && lineOfSight)
+                {
+
+                    npc.AddBuff(mod.BuffType("BloodDebuff"), 2);
+                }
+            }*/
+
+            //COVER YOURSELF IN OIL
+            /*if (npc.HasBuff(BuffID.Oiled) && Main.raining && !npc.boss)
+            {
+                npc.velocity.Y = -10;
+            }*/
+            if (forbiddenwhipcooldown < 60)
+            {
+                forbiddenwhipcooldown++;
+            }
         }
         public override void SetDefaults(NPC npc)
         {
@@ -539,7 +552,16 @@ namespace StormDiversMod.Basefiles
                     Lighting.AddLight(npc.position, 0.1f, 0.2f, 0.7f);
                 }
             }
-
+            if (WhiptagForbidden)
+            {
+                if (Main.rand.Next(4) < 2)
+                {
+                    int dust = Dust.NewDust(npc.Center - new Vector2(5f, 5f), 10, 10, 10, 0, 0, 100, default, 1.25f);
+                    Main.dust[dust].noGravity = true;
+                 
+                }
+             
+            }
 
             if (beetled)
             {
@@ -666,7 +688,6 @@ namespace StormDiversMod.Basefiles
             }
 
         }
-        
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             var player = Main.player[projectile.owner];
@@ -676,8 +697,6 @@ namespace StormDiversMod.Basefiles
                 if (npc.HasBuff(BuffID.ShadowFlame))
                 {
                     damage += 5;
-
-                    damage = (int)(damage + 1.05f);
                 }
             }
 
@@ -736,7 +755,58 @@ namespace StormDiversMod.Basefiles
 
                 }
             }
+            //Forbidden whip
+            if (WhiptagForbidden && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type] == true || projectile.sentry))
+            {
+                //damage += 4; //tag damage
+                if (Main.rand.Next(100) <= 5 && !crit) //tag crit
+                {
+                    crit = true;
+                }
+                /*int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y - 300), new Vector2(0, 5), ModContent.ProjectileType<Projectiles.DesertArrowDust>(), 20, 0, Main.myPlayer);
+                Main.projectile[ProjID].penetrate = 1;
+                Main.projectile[ProjID].DamageType = DamageClass.Summon;
+                for (int i = 0; i < 15; i++)
+                {
 
+                    int dust = Dust.NewDust(new Vector2(npc.Center.X, npc.Center.Y - 300), 0, 0, 10, 0, 0, 130, default, 1.5f);
+
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                }*/
+                if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC])
+                {
+                    npc.GetGlobalNPC<NPCEffects>().forbiddenimmunetime = 20;// makes sure the enemy that summons the sand can't get hit by it
+
+                    for (int i = 0; i < Main.maxNPCs; i++) //Shoots sand at one enemy
+                    {
+                        NPC target = Main.npc[i];
+
+                        target.TargetClosest(true);
+
+                        //Getting the shooting trajectory
+                        float shootToX = target.position.X + (float)target.width * 0.5f - npc.Center.X;
+                        float shootToY = target.position.Y + (float)target.height * 0.5f - npc.Center.Y;
+                        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));                       
+
+                        if (distance < 400f && distance > 15f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0))
+                        {
+                            if (forbiddenwhipcooldown >= 1)
+                            {
+                                //Dividing the factor of 2f which is the desired velocity by distance
+                                distance = 1.6f / distance;
+
+                                //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
+                                shootToX *= distance * 2f;
+                                shootToY *= distance * 2f;
+
+                                int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<Projectiles.DesertWhipProj2>(), 10, 0, Main.myPlayer);
+
+                                forbiddenwhipcooldown = 0;
+                            }
+                        }
+                    }
+                }
+            }
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {

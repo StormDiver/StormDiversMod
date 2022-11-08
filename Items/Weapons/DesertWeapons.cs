@@ -259,4 +259,45 @@ namespace StormDiversMod.Items.Weapons
 
         }
     }
+
+    //________________________________
+    public class DesertWhip : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Forbidden Whip");
+            Tooltip.SetDefault("5% summon tag critical strike chance\nYour summons will focus struck enemies\nForbidden sand jumps from the targeted enemy when hit by summons");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.DefaultToWhip(ModContent.ProjectileType<Projectiles.DesertWhipProj>(), 40, 2, 4, 30);
+            Item.width = 30;
+            Item.height = 50;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 2, 0, 0);
+            Item.rare = ItemRarityID.Pink;
+            //Item.useTime = 30;
+            //Item.useAnimation = 30;
+            Item.DamageType = DamageClass.SummonMeleeSpeed;
+            //Item.damage = 40;
+            //Item.knockBack = 1f;
+            //Item.shootSpeed = 4f;
+            
+            Item.noMelee = true;
+        }
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+       .AddIngredient(ModContent.ItemType<Items.OresandBars.DesertBar>(), 14)
+       .AddTile(TileID.MythrilAnvil)
+       .Register();
+
+        }
+    }
 }

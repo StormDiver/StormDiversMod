@@ -463,4 +463,29 @@ namespace StormDiversMod.Buffs
 
         }
     }
+    //_________________________________________________________________
+    public class WhiptagForbiddenDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Forbidden Whip tag");
+            Description.SetDefault("You have been tagged by the Forbidden Whip");
+            Main.debuff[Type] = true;
+
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+
+            npc.GetGlobalNPC<NPCEffects>().WhiptagForbidden = true;
+
+
+        }
+    }
 }

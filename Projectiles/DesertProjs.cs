@@ -46,7 +46,7 @@ namespace StormDiversMod.Projectiles
                 
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
             }
-            if ((Projectile.velocity.X >= 3 || Projectile.velocity.X <= -3))
+            if ((Projectile.velocity.X >= 1 || Projectile.velocity.X <= -1))
             {
                 if (Main.rand.Next(12) == 0)
                 {

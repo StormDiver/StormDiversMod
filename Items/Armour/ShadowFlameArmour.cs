@@ -166,7 +166,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Shadowflare Greaves");
-            Tooltip.SetDefault("10% increased whip speed\n15% increased whip speed\n8% increased summoner damage");
+            Tooltip.SetDefault("10% increased whip range\n15% increased whip speed\n8% increased summoner damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             /* LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
@@ -187,8 +187,8 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Summon) += 0.08f;
-            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.1f;
-            player.whipRangeMultiplier += 0.15f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.15f;
+            player.whipRangeMultiplier += 0.10f;
 
         }
         public override void AddRecipes()

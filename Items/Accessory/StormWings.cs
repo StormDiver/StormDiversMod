@@ -53,9 +53,11 @@ namespace StormDiversMod.Items.Accessory
         {
             if (player.controlDown && player.controlJump && player.wingTime > 0 && player.velocity.Y != 0) //slow down to hover
             {
-                if ((player.velocity.Y > 0.1f && player.gravDir == 1) || (player.velocity.Y < -0.1f && player.gravDir == -1))
+                
+
+                if ((player.velocity.Y > 0.001f && player.gravDir == 1) || (player.velocity.Y < -0.001f && player.gravDir == -1))
                 {
-                    player.velocity.Y *= 0.6f;
+                    player.velocity.Y *= 0.8f;
                 }
                 else
                 {
@@ -93,10 +95,10 @@ namespace StormDiversMod.Items.Accessory
         {
             if (player.controlDown && player.controlJump && player.wingTime > 0 && player.velocity.Y != 0) //hover no vertical movement
             {
-                ascentWhenFalling = 0f;
-                ascentWhenRising = 0f;
+                ascentWhenFalling *= 0f;
+                ascentWhenRising *= 0f;
                 maxCanAscendMultiplier = 0f;
-                maxAscentMultiplier = 0f;
+                maxAscentMultiplier *= 0.5f;
                 constantAscend = 0f;
             }
             else
