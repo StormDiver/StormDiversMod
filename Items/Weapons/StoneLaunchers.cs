@@ -17,17 +17,19 @@ namespace StormDiversMod.Items.Weapons
 {
     public class StoneAmmo : GlobalItem
     {
-  
         public override void SetDefaults(Item item)
         {
             if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock)
             {
                 item.ammo = ItemID.StoneBlock;
-                item.DamageType = DamageClass.Ranged;
-                item.noMelee = true;
-                item.damage = 15;
-                item.knockBack = 3f;
+                //item.DamageType = DamageClass.Ranged;
+                //item.noMelee = true;
+                //item.damage = 15;
+                //item.knockBack = 3f;
+                item.notAmmo = true;
+                
             }
+
             /*if (item.type == ItemID.StoneBlock || item.type == ItemID.Granite || item.type == ItemID.Marble)
             {
                 item.damage = 15;
@@ -45,9 +47,10 @@ namespace StormDiversMod.Items.Weapons
                 item.knockBack = 6f;
             }*/
         }
+        
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            foreach (TooltipLine line in tooltips)
+            /*foreach (TooltipLine line in tooltips)
             {
                 if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock)
                 {
@@ -56,7 +59,7 @@ namespace StormDiversMod.Items.Weapons
                         line.Text = "Ammo\n" + line.Text;
                     }
                 }
-            }
+            }*/
         }
       
     }
@@ -69,6 +72,7 @@ namespace StormDiversMod.Items.Weapons
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
            
         }
+      
         public override void SetDefaults()
         {
             Item.width = 40;
@@ -81,7 +85,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 25;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 16;
+            Item.damage = 32;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
@@ -154,7 +158,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 22;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 48;
+            Item.damage = 64;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
@@ -224,7 +228,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 20;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 65;
+            Item.damage = 82;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
@@ -307,7 +311,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 15;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 120;
+            Item.damage = 140;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();

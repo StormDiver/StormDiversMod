@@ -61,15 +61,9 @@ namespace StormDiversMod.Basefiles
 
         //For projectile immunity immune
 
-        public int aridimmunetime;
+        public int aridimmunetime; //prevent arid armour explosion from hitting triggered enemy
 
-        public int pharaohimmunetime;
-
-        public int yoyoimmunetime;
-
-        public int hellimmunetime;
-
-        public int forbiddenimmunetime;
+        public int forbiddenimmunetime; //Prevent forbidden sand from bitten targetted enemy
 
 
         //For Heart Emblem
@@ -103,10 +97,6 @@ namespace StormDiversMod.Basefiles
         {
 
         }
-
-        int shieldtime = 5;
-
-
         public override void AI(NPC npc)
         {
             //Debuff immunities
@@ -153,73 +143,30 @@ namespace StormDiversMod.Basefiles
                 npc.velocity.X *= 0.93f;
 
             }
-
-            var player = Main.LocalPlayer;
-
-            if (NPC.ShieldStrengthTowerVortex == 0 && NPC.ShieldStrengthTowerSolar == 0 && NPC.ShieldStrengthTowerNebula == 0 && NPC.ShieldStrengthTowerStardust == 0 && shieldtime > 0)
-            {
-                shieldtime--;
-            }
-            else if (NPC.ShieldStrengthTowerVortex > 0 || NPC.ShieldStrengthTowerSolar > 0 || NPC.ShieldStrengthTowerNebula > 0 || NPC.ShieldStrengthTowerStardust > 0)
-            {
-                shieldtime = 5;
-            }
+            //summon projectiles for shield killer
+            var player = Main.LocalPlayer;         
 
             if (player.HeldItem.type == ModContent.ItemType<Items.Tools.ShieldKiller>() && player.itemAnimation == player.itemAnimationMax - 1)
             {
-                if (shieldtime > 0)
+
+                if (npc.type == NPCID.LunarTowerVortex)
                 {
-                    if (npc.type == NPCID.LunarTowerVortex)
-                    {
-
-                        for (int i = 0; i < 150; i++)
-                        {
-                            float speedY = -20f;
-
-                            Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-
-                            int dust2 = Dust.NewDust(npc.Center, 0, 0, 110, perturbedSpeed.X, perturbedSpeed.Y, 150, default, 2.5f);
-                            Main.dust[dust2].noGravity = true;
-                        }
-                    }
-
-                    if (npc.type == NPCID.LunarTowerSolar)
-                    {
-                        for (int i = 0; i < 150; i++)
-                        {
-                            float speedY = -20f;
-
-                            Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-
-                            int dust2 = Dust.NewDust(npc.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y, 150, default, 2.5f);
-                            Main.dust[dust2].noGravity = true;
-                        }
-                    }
-                    if (npc.type == NPCID.LunarTowerNebula)
-                    {
-                        for (int i = 0; i < 150; i++)
-                        {
-                            float speedY = -20f;
-
-                            Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-
-                            int dust2 = Dust.NewDust(npc.Center, 0, 0, 112, perturbedSpeed.X, perturbedSpeed.Y, 150, default, 2.5f);
-                            Main.dust[dust2].noGravity = true;
-                        }
-                    }
-                    if (npc.type == NPCID.LunarTowerStardust)
-                    {
-                        for (int i = 0; i < 150; i++)
-                        {
-                            float speedY = -20f;
-
-                            Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-
-                            int dust2 = Dust.NewDust(npc.Center, 0, 0, 111, perturbedSpeed.X, perturbedSpeed.Y, 150, default, 2.5f);
-                            Main.dust[dust2].noGravity = true;
-                        }
-                    }
+                    Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
                 }
+
+                if (npc.type == NPCID.LunarTowerSolar)
+                {
+                    Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(517));
+                }
+                if (npc.type == NPCID.LunarTowerNebula)
+                {
+                    Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
+                }
+                if (npc.type == NPCID.LunarTowerStardust)
+                {
+                    Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
+                }
+
             }
         
             //speen________________________________________________
@@ -267,18 +214,6 @@ namespace StormDiversMod.Basefiles
                 {
                     //Main.NewText("PLEASE WORK::::::" + aridimmunetime, 204, 101, 22);
                     aridimmunetime--;
-                }
-                if (pharaohimmunetime > 0)
-                {
-                    pharaohimmunetime--;
-                }
-                if (yoyoimmunetime > 0)
-                {
-                    yoyoimmunetime--;
-                }
-                if (hellimmunetime > 0)
-                {
-                    hellimmunetime--;
                 }
                 if (forbiddenimmunetime > 0)
                 {

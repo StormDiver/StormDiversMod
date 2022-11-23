@@ -328,7 +328,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.localAI[0] = 1f;
                 }
                 Vector2 move = Vector2.Zero;
-                float distance = 500f;
+                float distance = 400f;
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {
@@ -378,9 +378,9 @@ namespace StormDiversMod.Projectiles
             if (damagetime > 60)
             {
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 13f)
+                if (magnitude > 11.5f)
                 {
-                    vector *= 13f / magnitude;
+                    vector *= 11.5f / magnitude;
                 }
             }
         }
@@ -696,21 +696,11 @@ namespace StormDiversMod.Projectiles
             Projectile.scale = 1f;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.aiStyle = -1;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
+
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-        }
-        public override bool? CanHitNPC(NPC target)
-        {
-            if (target.GetGlobalNPC<NPCEffects>().hellimmunetime > 0 || target.friendly) //Npcs immune to projectile after hitting it once, allows stacked enemies to be hit
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
         }
         public override void AI()
         {
@@ -724,8 +714,6 @@ namespace StormDiversMod.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.GetGlobalNPC<NPCEffects>().hellimmunetime = 10; //frames of static immunity
-
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
 

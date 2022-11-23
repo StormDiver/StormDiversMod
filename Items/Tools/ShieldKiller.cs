@@ -46,93 +46,122 @@ namespace StormDiversMod.Items.Tools
            
             base.UseAnimation(player);
         }
-        
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
-        
-           // Main.PlaySound(SoundID.NPCKilled, (int)position.X, (int)position.Y, 59);
-            //for (int i = 0; i < 15; i++)
+
+            if (NPC.ShieldStrengthTowerVortex > 0 || NPC.ShieldStrengthTowerSolar > 0 || NPC.ShieldStrengthTowerNebula > 0 || NPC.ShieldStrengthTowerStardust > 0)
             {
-                if (NPC.ShieldStrengthTowerVortex > 0 || NPC.ShieldStrengthTowerSolar > 0 || NPC.ShieldStrengthTowerNebula > 0 || NPC.ShieldStrengthTowerStardust > 0)
+                SoundEngine.PlaySound(SoundID.Item122, position);
+                if (player.gravDir == 1)
                 {
-                    SoundEngine.PlaySound(SoundID.Item122, position);
-                    //Projectile.NewProjectile(position.X, position.Y, 0, 0, 629, damage, knockBack, player.whoAmI, NPC.FindFirstNPC(422));
-
-                    NPC.ShieldStrengthTowerVortex = 0;
-                    
-                    NPC.ShieldStrengthTowerSolar = 0;
-                    NPC.ShieldStrengthTowerNebula = 0;
-                    NPC.ShieldStrengthTowerStardust = 0;
-                    //Projectile.NewProjectile(player.Center.X, player.Bottom.Y, 0, 0, ProjectileID.DD2DarkMageHeal, 0, 0, player.whoAmI);
-
-
-                    Main.NewText("The Shields guarding the Celestial pillars have been stripped away!", 0, 204, 170);
-
-                    for (int i = 0; i < 50; i++)
+                    if (NPC.ShieldStrengthTowerVortex > 0)
                     {
-
-                        float speedX = 0f;
-                        float speedY = -10f;
-
-                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                        if (player.gravDir == 1)
-                        {
-                            int dust2 = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Top.Y - 6), 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y, 200, default, 1.5f);
-                            Main.dust[dust2].noGravity = true;
-                        }
-                        else
-                        {
-                            int dust2 = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Bottom.Y - 6), 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y, 200, default, 1.5f);
-                            Main.dust[dust2].noGravity = true;
-                        }
+                        int ProjID1 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
+                        Main.projectile[ProjID1].extraUpdates += 5;
                     }
-                  
-                }
-                else
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath6, position);
-                    for (int i = 0; i < 50; i++)
+                    if (NPC.ShieldStrengthTowerSolar > 0)
                     {
-                        float speedX = 0f;
-                        float speedY = -5f;
-
-                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                        if (player.gravDir == 1)
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Top.Y - 6), 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
-                            Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
-
-                        else
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Bottom.Y - 6), 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
-                            Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
+                        int ProjID2 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(517));
+                        Main.projectile[ProjID2].extraUpdates += 5;
                     }
+                    if (NPC.ShieldStrengthTowerNebula > 0)
+                    {
+                        int ProjID3 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
+                        Main.projectile[ProjID3].extraUpdates += 5;
+                    }
+                    if (NPC.ShieldStrengthTowerStardust > 0)
+                    {
+                        int ProjID4 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
+                        Main.projectile[ProjID4].extraUpdates += 5;
+                    }
+                }
+                else if (player.gravDir == 0)
+                {
+                    if (NPC.ShieldStrengthTowerVortex > 0)
+                    {
+                        int ProjID1 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
+                        Main.projectile[ProjID1].extraUpdates += 5;
+                    }
+                    if (NPC.ShieldStrengthTowerSolar > 0)
+                    {
+                        int ProjID2 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(517));
+                        Main.projectile[ProjID2].extraUpdates += 5;
+                    }
+                    if (NPC.ShieldStrengthTowerNebula > 0)
+                    {
+                        int ProjID3 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
+                        Main.projectile[ProjID3].extraUpdates += 5;
+                    }
+                    if (NPC.ShieldStrengthTowerStardust > 0)
+                    {
+                        int ProjID4 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
+                        Main.projectile[ProjID4].extraUpdates += 5;
+                    }
+                }
 
-                    Main.NewText("There are no active shields...", 150, 75, 76);
-                }
-                /*if (NPC.ShieldStrengthTowerSolar > 0)
+                //sets to 1, then the shield killer projectiles are spawned ontop of the pillars in NPCeffects
+                NPC.ShieldStrengthTowerVortex = 1;
+
+                NPC.ShieldStrengthTowerSolar = 1;
+                NPC.ShieldStrengthTowerNebula = 1;
+                NPC.ShieldStrengthTowerStardust = 1;
+
+                //Projectiles for vanity
+                
+
+
+                Main.NewText("The Shields guarding the Celestial pillars have been stripped away!", 0, 204, 170);
+
+                for (int i = 0; i < 100; i++)
                 {
-                    //Projectile.NewProjectile(position.X, position.Y, 0, 0, 629, damage, knockBack, player.whoAmI, NPC.FindFirstNPC(517));
-                   
+
+                    float speedX = 0f;
+                    float speedY = -5f;
+
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                    if (player.gravDir == 1)
+                    {
+                        int dust2 = Dust.NewDust(new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y, 200, default, 1.5f);
+                        Main.dust[dust2].noGravity = true;
+                    }
+                    else
+                    {
+                        int dust2 = Dust.NewDust(new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y, 200, default, 1.5f);
+                        Main.dust[dust2].noGravity = true;
+                    }
                 }
-                if ()
-                {
-                    //Projectile.NewProjectile(position.X, position.Y, 0, 0, 629, damage, knockBack, player.whoAmI, NPC.FindFirstNPC(507));
-                    
-                }
-                if ()
-                {
-                   //Projectile.NewProjectile(position.X, position.Y, 0, 0, 629, damage, knockBack, player.whoAmI, NPC.FindFirstNPC(493));
-                    
-                }*/
+
             }
+            else
+            {
+                SoundEngine.PlaySound(SoundID.NPCDeath6, position);
+                for (int i = 0; i < 50; i++)
+                {
+                    float speedX = 0f;
+                    float speedY = -5f;
+
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                    if (player.gravDir == 1)
+                    {
+                        int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
+                        Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                        Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                        Main.dust[dustIndex].noGravity = true;
+                    }
+
+                    else
+                    {
+                        int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
+                        Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                        Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                        Main.dust[dustIndex].noGravity = true;
+                    }
+                }
+
+                Main.NewText("There are no active shields...", 150, 75, 76);
+            }
+
             return false;
         }
 

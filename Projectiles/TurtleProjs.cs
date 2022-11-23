@@ -261,23 +261,14 @@ namespace StormDiversMod.Projectiles
 
             Projectile.scale = 1f;
             Projectile.aiStyle = 99;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;
             // drawOffsetX = -3;
             // drawOriginOffsetY = 1;
         }
         int shoottime = 0;
-        public override bool? CanHitNPC(NPC target)
-        {
-            if (target.GetGlobalNPC<NPCEffects>().yoyoimmunetime > 0 || target.friendly) //Static immunity
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+     
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -310,7 +301,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.GetGlobalNPC<NPCEffects>().yoyoimmunetime = 10; //frames of static immunity
 
             Player player = Main.player[Projectile.owner];
             

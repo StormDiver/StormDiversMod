@@ -65,25 +65,30 @@ namespace StormDiversMod.Items.Weapons
             {
                 
                 numberProjectiles = 3;
-                accuracy = 15;
+                accuracy = 20;
 
             }
             else if (type == ProjectileID.CrystalDart)
             {
-                damage = (damage * 3);
-                numberProjectiles = 1;
-                accuracy = 0;
+                //damage = (damage * 3);
+                //numberProjectiles = 1;
+                accuracy = 25;
             }
-            else
-               
+            else              
             {
-                accuracy = 10;
+                accuracy = 15;
             }
 
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                int ProjID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                if (type == ProjectileID.CrystalDart)
+                {
+                    Main.projectile[ProjID].usesLocalNPCImmunity = true;
+                    Main.projectile[ProjID].localNPCHitCooldown = 30;
+                }
+
             }
             SoundEngine.PlaySound(SoundID.Item98 with{Volume = 1.5f, Pitch = -0.4f}, player.Center);
 

@@ -188,7 +188,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Blade");
-            Tooltip.SetDefault("Summons 2 to 3 spinning soul blade flames each swing that home into enemies after a delay");
+            Tooltip.SetDefault("Summons a soul blade flame every swing that homes into enemies after a delay");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -237,7 +237,7 @@ namespace StormDiversMod.Items.Weapons
 
             float numberProjectiles = 2 + Main.rand.Next(2);
             float rotation = MathHelper.ToRadians(14);
-            for (int j = 0; j < numberProjectiles; j++)
+            //for (int j = 0; j < numberProjectiles; j++)
             {
                 if (player.direction == 1)
                 {
@@ -266,7 +266,7 @@ namespace StormDiversMod.Items.Weapons
 
 
 
-                Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(speedX, speedY), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.4f), (int)(knockback * 0.33f), player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(speedX, speedY), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.8f), (int)(knockback * 0.33f), player.whoAmI);
 
 
                 //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.HellSoulArmourProj>(), (int)(damage * 0.5f), (int)(knockback * 0.33f), player.whoAmI);
