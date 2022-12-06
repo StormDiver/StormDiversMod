@@ -182,7 +182,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cryofreezer");
-            Tooltip.SetDefault("Fires out a stream of super cold gas which inflicts CryoBurn\nUses gel for ammo\nIgnores 10 points of enemy defense");
+            Tooltip.SetDefault("Fires out a stream of super cold gas which inflicts CryoBurn\nUses gel for ammo\nIgnores 15 points of enemy defense");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -204,7 +204,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 35;
+            Item.damage = 21;
             Item.knockBack = 0.25f;
             Item.shoot = ModContent.ProjectileType<Projectiles.Frostthrowerproj>();
 
@@ -226,29 +226,8 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            if (candamage)
-            {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, damage, knockback, player.whoAmI, 0, 1);
-                candamage = false;
-            }
-            else
-            {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, damage, knockback, player.whoAmI, 0, 0);
-                candamage = true;
-
-            }
-            /* Alt method
-             //Main projectiles
-            {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 1);
-            }
-            //Visual projectile
-            {
-                int projid = Projectile.NewProjectile(source, new Vector2(position.X - muzzleOffset.X, position.Y - muzzleOffset.Y - 3), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI, 0, 0);
-                Main.projectile[projid].scale = -0.1f;
-
-            }*/
-          
+            
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, damage, knockback, player.whoAmI);               
             return false;
         }
         public override void HoldItem(Player player)

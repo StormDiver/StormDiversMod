@@ -44,8 +44,14 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<SpectreDaggerProj>();
             
             Item.shootSpeed = 16f;
-
-            Item.mana = 8;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 12;
+            }
+            else
+            {
+                Item.mana = 8;
+            }
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override void HoldItem(Player player)
@@ -109,7 +115,14 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 7;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 11;
+            }
+            else
+            {
+                Item.mana = 7;
+            }
             Item.UseSound = SoundID.Item8;
 
             Item.damage = 80;
@@ -191,8 +204,14 @@ namespace StormDiversMod.Items.Weapons
             //Item.reuseDelay = 20;
             Item.shoot = ModContent.ProjectileType<SpectreStaffSpinProj>();
             Item.shootSpeed = 4.5f;
-            Item.mana = 12;
-
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 18;
+            }
+            else
+            {
+                Item.mana = 12;
+            }
             Item.noMelee = true; 
         }
 

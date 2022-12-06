@@ -135,8 +135,14 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-
-            player.moveSpeed += 0.5f;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                player.moveSpeed += 0.15f;
+            }
+            else
+            {
+                player.moveSpeed += 0.5f;
+            }
         }
     }
     //_______________________________________________________________________________

@@ -272,6 +272,8 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 300;
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
+            Projectile.arrow = true;
+
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -311,12 +313,7 @@ namespace StormDiversMod.Projectiles
                 float xpos = (Main.rand.NextFloat(-200, 200));
                 float ypos = (Main.rand.NextFloat(250, 350));
 
-                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y - ypos), new Vector2(xpos * 0.02f, 5), ProjectileID.Blizzard, (int)(Projectile.damage * 0.6f), 0, Projectile.owner);
-
-
-                Main.projectile[projID].DamageType = DamageClass.Ranged;
-
-                Main.projectile[projID].tileCollide = false;
+                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y - ypos), new Vector2(xpos * 0.03f, 10), ModContent.ProjectileType<CultistBowProj2>(), (int)(Projectile.damage * 0.6f), 0, Projectile.owner);
 
                 for (int i = 0; i < 20; i++)
                 {
@@ -337,6 +334,82 @@ namespace StormDiversMod.Projectiles
         }
     }
     //___________________________________________
+    //___________________________________________________________________________________________________________________________________
+    public class CultistBowProj2 : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ice mist spike");
+        }
+        public override void SetDefaults()
+        {
+            Projectile.width = 14;
+            Projectile.height = 14;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 180;
+            Projectile.aiStyle = 0;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+            DrawOffsetX = 0;
+            DrawOriginOffsetY = 0;
+        }
+
+        public override void AI()
+        {
+            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0f, 0f, 100, default, 0.7f);
+            Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
+            Main.dust[dustIndex].noGravity = true;
+
+
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+
+            var player = Main.player[Projectile.owner];
+
+            if (Projectile.position.Y < (player.position.Y - 50))
+            {
+                Projectile.tileCollide = false;
+            }
+            else
+            {
+                Projectile.tileCollide = true;
+
+            }
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 120);
+        }
+        public override void OnHitPvp(Player target, int damage, bool crit)
+
+        {
+            target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 120);
+        }
+
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+
+        {
+            Projectile.Kill();
+            return true;
+        }
+        public override void Kill(int timeLeft)
+        {
+            if (Projectile.owner == Main.myPlayer)
+            {
+                SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
+
+                for (int i = 0; i < 10; i++)
+                {
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 135);
+                }
+
+            }
+        }
+    }
     //_______________________________________________________________________________________
     public class CultistTomeProj : ModProjectile
     {

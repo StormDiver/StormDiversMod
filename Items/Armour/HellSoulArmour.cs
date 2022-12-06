@@ -7,6 +7,13 @@ using StormDiversMod.Buffs;
 using StormDiversMod.Basefiles;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Creative;
+using ReLogic.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria.DataStructures;
+using Terraria.Localization;
+using Terraria.UI;
 
 
 namespace StormDiversMod.Items.Armour
@@ -426,7 +433,20 @@ namespace StormDiversMod.Items.Armour
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow")
             });
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                    {
+                        line.Text = "15% increased movement speed"; //Unusable pre mechs
+                    }
+                }
 
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -441,8 +461,14 @@ namespace StormDiversMod.Items.Armour
 
             player.GetDamage(DamageClass.Generic) += 0.05f;
             player.GetCritChance(DamageClass.Generic) += 6;
-
-            player.moveSpeed += 0.25f;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                player.moveSpeed += 0.15f;
+            }
+            else
+            {
+                player.moveSpeed += 0.25f;
+            }
             if (!Main.dedServ)
             {
                 Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);

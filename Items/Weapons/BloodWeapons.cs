@@ -9,6 +9,8 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Basefiles;
 using static Terraria.ModLoader.ModContent;
+using System.Collections.Generic;
+
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -91,7 +93,20 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.Spears[Item.type] = true;
 
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\nHold right click to charge and release to throw the spear";
+                    }
+                }
 
+            }
+        }
         public override void SetDefaults()
         {
             Item.damage = 20;

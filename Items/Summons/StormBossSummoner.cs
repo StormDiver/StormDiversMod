@@ -36,9 +36,11 @@ namespace StormDiversMod.Items.Summons
             foreach (TooltipLine line in tooltips)
             {
                 if (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3)
-                if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                 {
-                    line.Text = line.Text + "\nThe Signal appears to be blocked by the souls of the mechanical bosses"; //Unusable pre mechs
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\nThe Signal appears to be blocked by the souls of the mechanical bosses"; //Unusable pre mechs
+                    }
                 }
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {

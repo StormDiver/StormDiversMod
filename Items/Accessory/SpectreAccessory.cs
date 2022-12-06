@@ -33,7 +33,20 @@ namespace StormDiversMod.Items.Accessory
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
-
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "Mana usage is reduced by 25% while under the effects of mana sickness"; //Unusable pre mechs
+                    }
+                }
+               
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 22;
@@ -89,7 +102,24 @@ namespace StormDiversMod.Items.Accessory
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("TRAEProject"))
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "Magic critical hits have a chance to spawn a mana star"; 
+                    }
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                    {
+                        line.Text = "Mana usage is reduced by 25% while under the effects of mana sickness"; 
+                    }
+                }
 
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 22;
@@ -109,7 +139,10 @@ namespace StormDiversMod.Items.Accessory
 
             player.GetModPlayer<EquipmentEffects>().SpectreSkull = true;
             player.manaMagnet = true;
-            player.manaCost -= 0.08f;
+            if (!ModLoader.HasMod("TRAEProject"))
+            {
+                player.manaCost -= 0.08f;
+            }
             player.manaFlower = true;
 
         }

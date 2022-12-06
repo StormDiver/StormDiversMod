@@ -348,8 +348,14 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.HellSoulMagicProj>(); 
         
             Item.shootSpeed = 0f;
-
-            Item.mana = 12;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 18;
+            }
+            else
+            {
+                Item.mana = 12;
+            }
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }

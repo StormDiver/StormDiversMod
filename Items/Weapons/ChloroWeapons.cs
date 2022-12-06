@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chlorophyte Dart Shotgun");
-            Tooltip.SetDefault("Fires out a burst of darts\nMerges Crystal Darts into a single much more damaging dart");
+            Tooltip.SetDefault("Fires out a burst of darts");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -132,7 +132,14 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 6;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 9;
+            }
+            else
+            {
+                Item.mana = 6;
+            }
             Item.UseSound = SoundID.Item13;
 
             Item.damage = 48;

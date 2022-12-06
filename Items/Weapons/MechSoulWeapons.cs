@@ -251,7 +251,14 @@ namespace StormDiversMod.Items.Weapons
 
             Item.useTime = 25;
             Item.useAnimation = 25;
-            Item.mana = 12;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 18;
+            }
+            else
+            {
+                Item.mana = 12;
+            }
             Item.shoot = ModContent.ProjectileType<Projectiles.SkullSeek>();
             Item.shootSpeed = 16f;
 

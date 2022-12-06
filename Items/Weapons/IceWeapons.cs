@@ -88,7 +88,14 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 4;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 6;
+            }
+            else
+            {
+                Item.mana = 4;
+            }
             Item.UseSound = SoundID.Item30 with { Volume = 0.5f};
 
             Item.damage = 14;

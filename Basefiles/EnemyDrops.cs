@@ -85,24 +85,26 @@ namespace StormDiversMod.Basefiles
         public override void OnKill(NPC npc) //Used for items that don't work with the new method
         {
             //Zone Drops----------------------------------------------------------------------------------------------------------------------
-            if ((Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUnderworldHeight) && (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-                && (!npc.friendly && npc.lifeMax > 5 && npc.type != NPCID.TheHungry && npc.type != NPCID.TheHungryII)) //Hellsoul flames
+            if (!ModLoader.HasMod("TRAEProject"))
             {
-                if (Main.rand.Next(3) == 0)
+                if ((Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUnderworldHeight) && (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                && (!npc.friendly && npc.lifeMax > 5 && npc.type != NPCID.TheHungry && npc.type != NPCID.TheHungryII)) //Hellsoul flames
                 {
-                    if (Main.expertMode)
+                    if (Main.rand.Next(3) == 0)
                     {
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>(), Main.rand.Next(1, 3));
+                        if (Main.expertMode)
+                        {
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>(), Main.rand.Next(1, 3));
 
-                    }
-                    else
-                    {
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>());
+                        }
+                        else
+                        {
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.SoulFire>());
 
+                        }
                     }
                 }
             }
-           
             if (Main.hardMode) //Frost and Arid Shard
             {
 

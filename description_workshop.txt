@@ -20,6 +20,8 @@ There's over 300 total modded items for you to discover; including weapons, acce
 [*]New Lizharhd Temple Defences (Can be disabled Pre-Plantera via Config)
 [/list]
 
+[b]This mod has compatibility with the TRAE project mod, some items have been tweaked, mana consumption has been increased, and spears have their functionality from TRAE.[/b]
+
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: https://terrariamods.fandom.com/wiki/Storm_Diver%27s_Additions_Mod
 

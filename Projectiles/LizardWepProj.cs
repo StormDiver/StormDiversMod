@@ -183,7 +183,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 300;
             Projectile.height = 300;
             Projectile.friendly = true;
@@ -198,11 +197,11 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
             Projectile.light = 0.9f;
-            Projectile.ArmorPenetration = 15;
+            Projectile.ArmorPenetration = 20;
         }
         public override bool? CanDamage()
         {
-            if (Projectile.ai[1] == 0 && Projectile.alpha < 30)
+            if (Projectile.alpha < 30)
             {
                 return true;
             }

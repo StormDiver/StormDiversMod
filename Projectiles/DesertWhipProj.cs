@@ -68,8 +68,6 @@ namespace StormDiversMod.Projectiles
 
 				linepos += diff;
 			}
-
-
 		}
 		public override void AI()
 		{

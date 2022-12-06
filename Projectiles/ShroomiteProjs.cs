@@ -525,6 +525,9 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 300;
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
+
+            Projectile.arrow = true;
+
         }
         int reflect = 3;
 

@@ -8,6 +8,7 @@ using StormDiversMod.Basefiles;
 using Terraria.GameContent.Creative;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 
 namespace StormDiversMod.Items.Accessory
@@ -18,7 +19,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Striders");
-            Tooltip.SetDefault("Greatly increases movement speed up to 50mph, increases acceleration, and allows flight\n'Speed throughout the day and the night'");
+            Tooltip.SetDefault("Greatly increases movement speed up to 50mph\nIncreases acceleration, and allows flight\n'Speed throughout the day and the night'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(10, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -27,7 +28,20 @@ namespace StormDiversMod.Items.Accessory
                 Texture = ModContent.Request<Texture2D>(Texture + "_Shoes")
             });
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "100% increased running speed";
+                    }
+                }
 
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 30;

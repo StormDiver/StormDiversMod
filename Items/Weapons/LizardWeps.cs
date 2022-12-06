@@ -118,7 +118,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lihzahrd Flamer");
-            Tooltip.SetDefault("Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water\nUses gel for ammo\nIgnores 15 points of enemy defense");
+            Tooltip.SetDefault("Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water\nUses gel for ammo\nIgnores 20 points of enemy defense");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -132,7 +132,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 if (!NPC.downedPlantBoss)
                 {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
                         line.Text = line.Text + "\nYou shouldn't have this yet >:("; 
                     }
@@ -157,7 +157,7 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.UseSound = SoundID.Item34;
 
-            Item.damage = 60;
+            Item.damage = 35;
             Item.knockBack = 0.5f;
             Item.shoot = ModContent.ProjectileType<Projectiles.LizardFlameProj>();
 
@@ -182,17 +182,9 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            if (candamage)
-            {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI, 0, 1);
-                candamage = false;
-            }
-            else
-            {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI, 0, 0);
-                candamage = true;
-
-            }
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI);
+            
+            
             /*if (!NPC.downedPlantBoss)
             {
                 for (int i = 0; i < 10; i++)
@@ -289,7 +281,14 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 15;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 23;
+            }
+            else
+            {
+                Item.mana = 15;
+            }
             Item.UseSound = SoundID.Item20;
 
             Item.damage = 55;

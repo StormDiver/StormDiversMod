@@ -44,8 +44,14 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<SpaceGlobeProj>();
             
             Item.shootSpeed = 0f;
-
-            Item.mana = 15;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 23;
+            }
+            else
+            {
+                Item.mana = 15;
+            }
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }

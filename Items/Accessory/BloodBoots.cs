@@ -8,6 +8,7 @@ using StormDiversMod.Basefiles;
 using Terraria.GameContent.Creative;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 
 namespace StormDiversMod.Items.Accessory
@@ -18,11 +19,24 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bloody Treads");
-            Tooltip.SetDefault("The wearer can run up to 40mph\nLeaves behind a damaging trail of blood when running along the ground");
+            Tooltip.SetDefault("The wearer can run up to 40mph\nIncreases acceleration\nLeaves behind a damaging trail of blood when running along the ground");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
        
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "50% increased running speed";
+                    }
+                }
 
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 30;

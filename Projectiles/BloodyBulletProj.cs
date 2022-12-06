@@ -15,8 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody Bullet");
-          
+            DisplayName.SetDefault("Bloody Bullet");      
         }
 
         public override void SetDefaults()
@@ -38,6 +37,7 @@ namespace StormDiversMod.Projectiles
             DrawOriginOffsetY = 0;
             Projectile.extraUpdates = 1;
             Projectile.light = 0.2f;
+
         }
         public override void AI()
         {

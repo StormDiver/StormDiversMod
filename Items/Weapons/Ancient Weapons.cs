@@ -44,9 +44,14 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<AncientStaffProj>();// mod.ProjectileType("AncientStaffProj");
             
             Item.shootSpeed = 1f;
-
-            Item.mana = 10;
-
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 15;
+            }
+            else
+            {
+                Item.mana = 10;
+            }
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override bool CanUseItem(Player player)
@@ -179,7 +184,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 22;
+            Item.damage = 14;
             Item.knockBack = 0f;
             Item.shoot = ModContent.ProjectileType<AncientFlameProj>(); 
 
@@ -213,17 +218,9 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            if (candamage)
-            {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y-3), new Vector2(velocity.X + player.velocity.X / 6, velocity.Y + player.velocity.Y / 6), type, damage, knockback, player.whoAmI, 0, 1);
-                candamage = false;
-            }
-            else
-            {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y-3), new Vector2(velocity.X + player.velocity.X / 6, velocity.Y + player.velocity.Y / 6), type, damage, knockback, player.whoAmI, 0, 0);
-                candamage = true;
 
-            }
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 6, velocity.Y + player.velocity.Y / 6), type, damage, knockback, player.whoAmI);
+
             return false;
         }
 

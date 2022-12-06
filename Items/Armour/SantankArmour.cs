@@ -9,6 +9,7 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod;
 using Terraria.GameContent.Creative;
+using System.Collections.Generic;
 
 
 namespace StormDiversMod.Items.Armour
@@ -152,7 +153,20 @@ namespace StormDiversMod.Items.Armour
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                    {
+                        line.Text = "20% increased movement speed"; //Unusable pre mechs
+                    }
+                }
 
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -164,8 +178,14 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            
-            player.moveSpeed += 0.25f;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                player.moveSpeed += 0.20f;
+            }
+            else
+            {
+                player.moveSpeed += 0.25f;
+            }
             player.GetDamage(DamageClass.Ranged) += 0.08f;
             player.GetCritChance(DamageClass.Ranged) += 6;
 

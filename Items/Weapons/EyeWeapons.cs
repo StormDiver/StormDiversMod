@@ -144,8 +144,14 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 2f;
             Item.shoot = ModContent.ProjectileType<Projectiles.EyeStaffProj>();
             Item.shootSpeed = 10f;
-            Item.mana = 8;
-
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 12;
+            }
+            else
+            {
+                Item.mana = 8;
+            }
             Item.noMelee = true; //Does the weapon itself inflict damage?
 
         }

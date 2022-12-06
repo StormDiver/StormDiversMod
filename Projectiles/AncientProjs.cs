@@ -276,7 +276,7 @@ namespace StormDiversMod.Projectiles
         
         public override bool? CanDamage()
         {
-            if (Projectile.ai[1] == 0 && Projectile.alpha < 30)
+            if (Projectile.alpha < 45)
             {
                 return true;
             }

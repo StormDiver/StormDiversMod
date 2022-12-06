@@ -35,8 +35,14 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 8;
-            
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 12;
+            }
+            else
+            {
+                Item.mana = 8;
+            }
 
             Item.damage = 37;
             //Item.crit = 4;
@@ -114,8 +120,14 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 4;
-        
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 6;
+            }
+            else
+            {
+                Item.mana = 4;
+            }
 
             Item.damage = 100;
             //Item.crit = 4;

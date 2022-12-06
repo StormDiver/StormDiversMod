@@ -226,7 +226,7 @@ namespace StormDiversMod.Projectiles
 
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 54, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1.2f);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 54, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 100, Scale: 1.2f);
                 dust.noGravity = true;
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;

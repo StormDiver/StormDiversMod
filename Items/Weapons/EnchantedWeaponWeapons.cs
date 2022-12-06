@@ -43,8 +43,14 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType < Projectiles.EnchantedSwordProj>();
             
             Item.shootSpeed = 1f;
-
-            Item.mana = 10;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 15;
+            }
+            else
+            {
+                Item.mana = 10;
+            }
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -117,9 +123,14 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.CrimsonAxeProj>();
 
             Item.shootSpeed = 1f;
-
-            Item.mana = 12;
-
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 18;
+            }
+            else
+            {
+                Item.mana = 12;
+            }
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -191,9 +202,14 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.CursedHammerProj>();
 
             Item.shootSpeed = 1f;
-
-            Item.mana = 12;
-
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 18;
+            }
+            else
+            {
+                Item.mana = 12;
+            }
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

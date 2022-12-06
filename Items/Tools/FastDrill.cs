@@ -36,7 +36,7 @@ namespace StormDiversMod.Items.Tools
             Item.useTurn = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.FastDrillProj>();
             Item.shootSpeed = 27f;
-            Item.pick = 55;
+            Item.pick = 45;
             Item.tileBoost = -1;
             Item.UseSound = SoundID.Item23;
             Item.noMelee = true;

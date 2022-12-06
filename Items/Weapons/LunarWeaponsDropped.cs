@@ -281,8 +281,14 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType < Projectiles.PredictorBrainProj>();
 
             Item.shootSpeed = 5f;
-
-            Item.mana = 13;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 20;
+            }
+            else
+            {
+                Item.mana = 13;
+            }
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }

@@ -118,6 +118,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.DamageType = DamageClass.Summon;
             Item.sentry = true;
+
             Item.mana = 10;
             //Item.UseSound = SoundID.Item78;
 

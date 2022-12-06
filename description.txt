@@ -19,6 +19,8 @@ This mod includes:
 -New recipes for certain uncraftable vanilla items
 -New Lizharhd Temple Defences (Can be disabled Pre-Plnatera via Config)
 
+This mod has compatibility with the TRAE project mod, some items have been tweaked, mana consumption has been increased, and spears have their functionality from TRAE.
+
 Make sure to check the Steam page for the changelog, and the leave any comments you have about the mod
 
 Creator, coder, and main spriter: [c/22DD97:A Storm]

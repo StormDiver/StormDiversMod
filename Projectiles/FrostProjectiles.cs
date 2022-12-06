@@ -439,11 +439,11 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
             Projectile.light = 0.9f;
-            Projectile.ArmorPenetration = 10;
+            Projectile.ArmorPenetration = 15;
         }
         public override bool? CanDamage()
         {
-            if (Projectile.ai[1] == 0 && Projectile.alpha < 30) // if dust is faded don't deal damage
+            if (Projectile.alpha < 30) // if dust is faded don't deal damage
             {
                 return true;
             }
@@ -476,8 +476,8 @@ namespace StormDiversMod.Projectiles
                 Projectile.alpha += 3;
 
 
-                Projectile.velocity.X *= 0.98f;
-                Projectile.velocity.Y *= 0.98f;
+                Projectile.velocity.X *= 0.97f;
+                Projectile.velocity.Y *= 0.97f;
                 //begin animation
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.

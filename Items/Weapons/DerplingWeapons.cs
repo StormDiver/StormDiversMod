@@ -178,8 +178,14 @@ namespace StormDiversMod.Items.Weapons
             Item.UseSound = SoundID.Item13;
             Item.shoot = ModContent.ProjectileType < Projectiles.DerpMagicProj2>();
             Item.shootSpeed = 18f;
-            Item.mana = 5;
-
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 8;
+            }
+            else
+            {
+                Item.mana = 5;
+            }
             Item.noMelee = true; //Does the weapon itself inflict damage?
 
         }

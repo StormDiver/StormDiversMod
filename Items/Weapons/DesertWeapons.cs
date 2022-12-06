@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
+using System.Collections.Generic;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -21,7 +22,20 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.Spears[Item.type] = true;
 
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\nHold right click to charge and release to throw the spear";
+                    }
+                }
 
+            }
+        }
         public override void SetDefaults() 
 		{
 			Item.damage = 30;
@@ -54,9 +68,18 @@ namespace StormDiversMod.Items.Weapons
           
 
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-            
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), ModContent.ProjectileType<Projectiles.DesertSpearTipProj>(), damage, knockback, player.whoAmI);
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                if (player.altFunctionUse != 2)
+                {
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.35f, perturbedSpeed.Y * 0.35f), ModContent.ProjectileType<Projectiles.DesertSpearTipProj>(), damage, knockback, player.whoAmI);
+                }
+            }
+            else
+            {
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), ModContent.ProjectileType<Projectiles.DesertSpearTipProj>(), damage, knockback, player.whoAmI);
 
+            }
             return true;
         }
         
@@ -155,7 +178,14 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
-            Item.mana = 12;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 18;
+            }
+            else
+            {
+                Item.mana = 12;
+            }
             Item.UseSound = SoundID.Item20;
 
             Item.damage = 37;
