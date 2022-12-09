@@ -101,7 +101,6 @@ namespace StormDiversMod.Items.Armour
         {
             player.GetDamage(DamageClass.Melee) += 0.06f;
             player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
-
         }
         public override void AddRecipes()
         {

@@ -69,7 +69,7 @@ namespace StormDiversMod
         {
             ArmourSpecialHotkey = null;
         }
-        
+      
     }
   
     public class explosioneffects : GlobalProjectile

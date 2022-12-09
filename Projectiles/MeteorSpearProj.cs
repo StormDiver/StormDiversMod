@@ -203,9 +203,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.width = 80;
                 Projectile.height = 80;
                 Projectile.Center = Projectile.position;
-
-
-                Projectile.knockBack = 6;
             }
 
             

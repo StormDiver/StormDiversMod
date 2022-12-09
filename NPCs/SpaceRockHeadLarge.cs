@@ -87,6 +87,7 @@ namespace StormDiversMod.NPCs
             
         }
         bool charging;
+        bool playedsound;
         public override void AI()
         {
 
@@ -134,9 +135,15 @@ namespace StormDiversMod.NPCs
             if (NPC.velocity.X > 5 || NPC.velocity.X < -5 || NPC.velocity.Y > 5 || NPC.velocity.Y < -5) //When moving fast frame 0
             {
                 charging = true;
+                if (!playedsound)
+                {
+                    SoundEngine.PlaySound(SoundID.Item45 with { Volume = 2f, Pitch = 0f }, NPC.Center);
+                    playedsound = true;
+                }
             }
             else
             {
+                playedsound = false;
                 charging = false;
                 NPC.rotation = NPC.velocity.X / 10;
             }

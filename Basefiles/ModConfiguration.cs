@@ -55,7 +55,15 @@ namespace StormDiversMod.Basefiles
         [Tooltip("This will prevent Derplings from gaining massively increased stats post-plantera")]
         //[ReloadRequired] //No reload required 
         [DefaultValue(false)]
-        public bool PreventBuffedDerps { get; set; }       
+        public bool PreventBuffedDerps { get; set; }
+
+        [Header("Misc")]
+
+        [Label("Allow drills to benefit from mining buffs")]
+        [Tooltip("Allows drills to mine faster if you have any mining buffs equipped, currently only works on vanilla drills and drill in this mod (requires reload)")]
+        [ReloadRequired] //Yes
+        [DefaultValue(false)]
+        public bool FastDrill4U { get; set; }
 
         //This will be added if Rho's Playground is ever deleted
         /*[Label("Remove damage variance")]
