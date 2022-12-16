@@ -215,7 +215,7 @@ namespace StormDiversMod.Projectiles
             bool target = false;
             for (int k = 0; k < 200; k++)
             {
-                if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
+                if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
                 {
                     if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                     {

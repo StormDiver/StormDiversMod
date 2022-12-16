@@ -170,9 +170,9 @@ namespace StormDiversMod.Basefiles
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.MoonlingSummoner>());
                 }
             }
-            if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight && Main.IsItStorming && StormWorld.stormBossDown == false) //StormBoss Summoner
+            if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight & !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneNormalUnderground && Main.IsItStorming && StormWorld.stormBossDown == false) //StormBoss Summoner
             {
-                if (Main.rand.Next(25) == 0)
+                if (Main.rand.Next(50) == 0)
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.StormBossSummoner>());
                 }
@@ -349,7 +349,7 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.Derpling)
             {
 
-                plantDead.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 75, 50));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 75, 50));
 
             }
             if (npc.type == NPCID.CursedSkull)

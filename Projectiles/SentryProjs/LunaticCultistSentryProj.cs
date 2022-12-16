@@ -149,7 +149,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
                 //If the distance between the projectile and the live target is active         
 
-                if (distance < 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (distance < 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.CanBeChasedBy() && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
 
                     distance = 1.6f / distance;
@@ -158,7 +158,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     shootToX *= distance * 6f;
                     shootToY *= distance * 6f;
 
-                    int damage = (int)player.GetTotalDamage(DamageClass.Summon).ApplyTo(100); 
+                    int damage = (int)player.GetTotalDamage(DamageClass.Generic).ApplyTo(120); 
                     if (shoottime > 30)
                     {
 
@@ -341,7 +341,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {
-                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
+                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
                     {
                         if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                         {

@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 
-namespace StormDiversMod.Projectiles
+namespace StormDiversMod.Projectiles.WhipProjs
 {
 	public class DesertWhipProj : ModProjectile
 	{
@@ -71,13 +71,11 @@ namespace StormDiversMod.Projectiles
 		}
 		public override void AI()
 		{
-			if (Timer > 23)
-			{
-				int dust = Dust.NewDust(linepos, Projectile.width, Projectile.height, 10, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.2f);
-				Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+			int dust = Dust.NewDust(linepos, Projectile.width, Projectile.height, 10, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.2f);
+			Main.dust[dust].noGravity = true; //this make so the dust has no gravity
 
-				int dust2 = Dust.NewDust(linepos, Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.7f);
-			}
+			int dust2 = Dust.NewDust(linepos, Projectile.width, Projectile.height, 54, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 130, default, 0.7f);
+
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{

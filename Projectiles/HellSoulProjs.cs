@@ -62,7 +62,7 @@ namespace StormDiversMod.Projectiles
             bool target = false;
             for (int k = 0; k < 200; k++)
             {
-                if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
+                if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
                 {
                     if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                     {
@@ -328,11 +328,11 @@ namespace StormDiversMod.Projectiles
                     Projectile.localAI[0] = 1f;
                 }
                 Vector2 move = Vector2.Zero;
-                float distance = 400f;
+                float distance = 550f;
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {
-                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
+                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
                     {
                         if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                         {
@@ -378,9 +378,9 @@ namespace StormDiversMod.Projectiles
             if (damagetime > 60)
             {
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 11.5f)
+                if (magnitude > 13f)
                 {
-                    vector *= 11.5f / magnitude;
+                    vector *= 13f / magnitude;
                 }
             }
         }

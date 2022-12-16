@@ -214,7 +214,7 @@ namespace StormDiversMod.Items.Potions
 
             Recipe recipe = Recipe.Create(ModContent.ItemType<SpookyPotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
-            recipe.AddIngredient(ItemID.SpookyWood, 40);
+            recipe.AddIngredient(ItemID.SpookyWood, 20);
             recipe.AddIngredient(ItemID.Shiverthorn, 2);
             recipe.AddTile(TileID.Bottles);
             recipe.Register();

@@ -183,7 +183,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 
             // Default movement parameters (here for attacking)
-            float speed = 25f;
+            float speed = 30f;
             float inertia = 5f;
             if (Projectile.ai[0] <= 6)
             {
@@ -204,10 +204,8 @@ namespace StormDiversMod.Projectiles.Minions
 
                 }
                 else
-                {
-                   
-                        Projectile.velocity *= 1.02f; //Small little boost so that it doesn't slow down
-                    
+                {                 
+                        Projectile.velocity *= 1.03f; //Small little boost so that it doesn't slow down                  
                  
                 }
             }
@@ -316,18 +314,7 @@ namespace StormDiversMod.Projectiles.Minions
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1.5f);
                     dust.noGravity = true;
                 }
-                if (Projectile.ai[1] >= 90)
-                {
-                    if (Main.rand.Next(2) == 0)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Right.X + 200, target.Center.Y - 200), new Vector2(-15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                    }
-                    else
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Right.X - 200, target.Center.Y - 200), new Vector2(15, 15f), ModContent.ProjectileType<SpaceRockMinionProj2>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                    }
-                    Projectile.ai[1] = 0;
-                }
+                
             }
         }
 
@@ -351,128 +338,5 @@ namespace StormDiversMod.Projectiles.Minions
        
        
     }
-    //__________________________________________________________________________________________________________________________________________________
-    public class SpaceRockMinionProj2 : ModProjectile
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Asteroid Minion Fragment");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-            ProjectileID.Sets.MinionShot[Projectile.type] = true;
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-        }
-        public override void SetDefaults()
-        {
-
-            Projectile.width = 12;
-            Projectile.height = 12;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.ignoreWater = true;
-            Projectile.aiStyle = 14;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 60;
-            Projectile.light = 0.4f;
-            Projectile.scale = 1;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
-            Projectile.tileCollide = true;
-            DrawOffsetX = 0;
-            DrawOriginOffsetY = -6;
-            Projectile.tileCollide = false;
-            Projectile.DamageType = DamageClass.Summon;
-            
-
-        }
-        int rotate;
-        public override void AI()
-        {
-
-            var player = Main.player[Projectile.owner];
-
-            if (Projectile.position.Y > (player.position.Y - 200))
-            {
-                Projectile.tileCollide = true;
-            }
-            else
-            {
-                Projectile.tileCollide = false;
-
-            }
-            rotate += 2;
-            Projectile.rotation = rotate * 0.1f;
-            if (!Main.dedServ)
-            {
-                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-            }
-            if (Projectile.timeLeft > 125)
-            {
-                Projectile.timeLeft = 125;
-            }
-            if (Projectile.ai[0] > 0f)  //this defines where the flames starts
-            {
-                if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
-                {
-
-
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= -0.3f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust2].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust2].velocity *= -0.3f;
-
-                }
-            }
-            else
-            {
-                Projectile.ai[0] += 1f;
-            }
-
-        }
-
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Projectile.Kill();
-            return false;
-        }
-
-        public override void Kill(int timeLeft)
-        {
-
-            for (int i = 0; i < 10; i++)
-            {
-
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 0.5f);
-                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1f);
-            }
-        }
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Main.instance.LoadProjectile(Projectile.type);
-            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-
-            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
-            {
-                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
-            }
-
-            return true;
-
-        }
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-    }
+    
 }

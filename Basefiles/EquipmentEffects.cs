@@ -69,6 +69,9 @@ namespace StormDiversMod.Basefiles
 
         public bool derpEye; //Player had the Derpling Eye equipped
 
+        public bool derpEyeGolem; //Player had the Jungl Eye equipped
+
+
         public bool blueCuffs; //Player has insulated cuffs equipped
 
         public bool lunaticHood; //Player has the Luantic Hood equipped
@@ -86,6 +89,9 @@ namespace StormDiversMod.Basefiles
         public bool coralEmblem; //Player has coral Emblem equipped
 
         public bool stormBossAccess; //Player has the Storm Coil equipped
+
+        public bool mushroomSuper; //Player has the enchnated mushroom equipped
+
 
         //Ints and Bools activated from this file
 
@@ -137,6 +143,7 @@ namespace StormDiversMod.Basefiles
             heartSteal = false;
             mushChestplate = false;
             derpEye = false;
+            derpEyeGolem = false;
             blueCuffs = false;
             lunaticHood = false;
             beetleFist = false;
@@ -146,6 +153,7 @@ namespace StormDiversMod.Basefiles
             woodNecklace = false;
             coralEmblem = false;
             stormBossAccess = false;
+            mushroomSuper = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -235,7 +243,7 @@ namespace StormDiversMod.Basefiles
                 frosttime = 0;
             }
 
-            if (graniteBuff)
+            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>())) //don't increase tiemr if buff is active
             {
                 if (granitebufftime < 600)
                 {
@@ -961,7 +969,41 @@ namespace StormDiversMod.Basefiles
                 //Player.ClearBuff(ModContent.BuffType<SkyKnightSentryBuff"));
 
             }
+            if (mushroomSuper)
+            {
+                if (Player.statLife >= Player.statLifeMax2 * .75f)
+                {
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
 
+                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff1>(), 2);
+                }
+                else if (Player.statLife >= Player.statLifeMax2 * .5f && Player.statLife < Player.statLifeMax2 * .75f)
+                {
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
+
+                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff2>(), 2);
+                }
+                else if (Player.statLife >= Player.statLifeMax2 * .25f && Player.statLife < Player.statLifeMax2 * .5f)
+                {
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
+
+                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff3>(), 2);
+                }
+                else
+                {
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
+
+                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff4>(), 2);
+                }
+            }
         }
         //=====================For attacking an enemy with anything===========================================
         public override void OnHitAnything(float x, float y, Entity victim)
@@ -1150,7 +1192,6 @@ namespace StormDiversMod.Basefiles
             }
          
         }
-
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
         {     
           

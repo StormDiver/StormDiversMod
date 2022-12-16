@@ -71,9 +71,14 @@ namespace StormDiversMod.Basefiles
         public bool heartStolen; //If the npc has dropped below 50% life
 
         //Whip tags
+        public bool WhiptagBlood; //Bloody Whip
+        int bloodwhipcooldown;
 
         public bool WhiptagForbidden; //Forbidden Whip
         int forbiddenwhipcooldown;
+
+        public bool WhiptagSpaceRock; //Asteroid Whip
+        int spacerockwhipcooldown;
 
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
@@ -90,7 +95,9 @@ namespace StormDiversMod.Basefiles
             ultraburnDebuff = false;
             ultrafrostDebuff = false;
             spookedDebuff = false;
+            WhiptagBlood = false;
             WhiptagForbidden = false;
+            WhiptagSpaceRock = false;
         }
 
         public override void SetStaticDefaults()
@@ -305,9 +312,17 @@ namespace StormDiversMod.Basefiles
             {
                 npc.velocity.Y = -10;
             }*/
+            if (bloodwhipcooldown < 60)
+            {
+                bloodwhipcooldown++;
+            }
             if (forbiddenwhipcooldown < 60)
             {
                 forbiddenwhipcooldown++;
+            }
+            if (spacerockwhipcooldown < 60)
+            {
+                spacerockwhipcooldown++;
             }
         }
         public override void SetDefaults(NPC npc)
@@ -487,17 +502,7 @@ namespace StormDiversMod.Basefiles
                     Lighting.AddLight(npc.position, 0.1f, 0.2f, 0.7f);
                 }
             }
-            if (WhiptagForbidden)
-            {
-                if (Main.rand.Next(4) < 2)
-                {
-                    int dust = Dust.NewDust(npc.Center - new Vector2(5f, 5f), 10, 10, 10, 0, 0, 100, default, 1.25f);
-                    Main.dust[dust].noGravity = true;
-                 
-                }
-             
-            }
-
+          
             if (beetled)
             {
                 if (Main.rand.Next(4) < 3)
@@ -621,6 +626,36 @@ namespace StormDiversMod.Basefiles
                 drawColor = new Color(255, 68, 0);
 
             }
+            if (WhiptagBlood)
+            {
+                if (Main.rand.Next(4) < 1)
+                {
+                    int dust = Dust.NewDust(npc.Center - new Vector2(10f, 10f), 20, 20, 115, 0, 4, 50, default, 1.2f);
+                    Main.dust[dust].noGravity = true;
+
+                }
+
+            }
+            if (WhiptagForbidden)
+            {
+                if (Main.rand.Next(4) < 2)
+                {
+                    int dust = Dust.NewDust(npc.Center - new Vector2(5f, 5f), 10, 10, 10, 0, 0, 100, default, 1.25f);
+                    Main.dust[dust].noGravity = true;
+
+                }
+
+            }
+            if (WhiptagSpaceRock)
+            {
+                if (Main.rand.Next(4) < 1)
+                {
+                    int dust = Dust.NewDust(npc.Center - new Vector2(10f, 10f), 20, 20, 0, 0, -4, 100, default, 1f);
+                    Main.dust[dust].noGravity = true;
+
+                }
+
+            }
 
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -635,20 +670,6 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
-            if (crit)
-            {
-                if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
-                {
-                    damage = (int)(damage * 1.1f);
-                }
-                if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
-                {
-                    damage = (int)(damage * 1.2f);
-                }
-
-
-
-            }
             if (projectile.type == ModContent.ProjectileType<Projectiles.AncientArmourProj>()) //No crit from arid explosion
             {
                 crit = false;
@@ -690,56 +711,111 @@ namespace StormDiversMod.Basefiles
 
                 }
             }
-            //Forbidden whip
-            if (WhiptagForbidden && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type] == true || projectile.sentry))
+            //Whips
+            if (!projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type] == true || projectile.sentry))
             {
-                //damage += 4; //tag damage
-                if (Main.rand.Next(100) <= 5 && !crit) //tag crit
+                //Blood Whip
+                if (WhiptagBlood)
                 {
-                    crit = true;
-                }
-                /*int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y - 300), new Vector2(0, 5), ModContent.ProjectileType<Projectiles.DesertArrowDust>(), 20, 0, Main.myPlayer);
-                Main.projectile[ProjID].penetrate = 1;
-                Main.projectile[ProjID].DamageType = DamageClass.Summon;
-                for (int i = 0; i < 15; i++)
-                {
-
-                    int dust = Dust.NewDust(new Vector2(npc.Center.X, npc.Center.Y - 300), 0, 0, 10, 0, 0, 130, default, 1.5f);
-
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                }*/
-                if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC])
-                {
-                    npc.GetGlobalNPC<NPCEffects>().forbiddenimmunetime = 20;// makes sure the enemy that summons the sand can't get hit by it
-
-                    for (int i = 0; i < Main.maxNPCs; i++) //Shoots sand at one enemy
+                    //damage += 5; //tag damage
+                    if (Main.rand.Next(100) <= 4 && !crit) //tag crit
                     {
-                        NPC target = Main.npc[i];
-
-                        target.TargetClosest(true);
-
-                        //Getting the shooting trajectory
-                        float shootToX = target.position.X + (float)target.width * 0.5f - npc.Center.X;
-                        float shootToY = target.position.Y + (float)target.height * 0.5f - npc.Center.Y;
-                        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));                       
-
-                        if (distance < 400f && distance > 15f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0))
+                        crit = true;
+                    }
+                    if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC]) //summon projectile
+                    {
+                        if (bloodwhipcooldown >= 60)
                         {
-                            if (forbiddenwhipcooldown >= 1)
+
+                            Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y - (40 - (npc.width / 2))), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.WhipProjs.BloodWhipProj2>(), 15, 0, Main.myPlayer, 0 , Main.rand.Next (0, 359));
+                            bloodwhipcooldown = 0;
+                        }
+                       
+                    }
+                }
+                //Forbidden whip
+                if (WhiptagForbidden)
+                {
+                    //damage += 4; //tag damage
+                    if (Main.rand.Next(100) <= 6 && !crit) //tag crit
+                    {
+                        crit = true;
+                    }
+
+                    if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC])
+                    {
+                        npc.GetGlobalNPC<NPCEffects>().forbiddenimmunetime = 20;// makes sure the enemy that summons the sand can't get hit by it
+
+                        for (int i = 0; i < Main.maxNPCs; i++) //Shoots sand at one enemy
+                        {
+                            NPC target = Main.npc[i];
+
+                            target.TargetClosest(true);
+
+                            //Getting the shooting trajectory
+                            float shootToX = target.position.X + (float)target.width * 0.5f - npc.Center.X;
+                            float shootToY = target.position.Y + (float)target.height * 0.5f - npc.Center.Y;
+                            float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+
+                            if (distance < 400f && distance > 15f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0))
                             {
-                                //Dividing the factor of 2f which is the desired velocity by distance
-                                distance = 1.6f / distance;
+                                if (forbiddenwhipcooldown >= 10)
+                                {
+                                    //Dividing the factor of 2f which is the desired velocity by distance
+                                    distance = 1.6f / distance;
 
-                                //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                                shootToX *= distance * 2f;
-                                shootToY *= distance * 2f;
+                                    //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
+                                    shootToX *= distance * 2f;
+                                    shootToY *= distance * 2f;
 
-                                int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<Projectiles.DesertWhipProj2>(), 10, 0, Main.myPlayer);
+                                    int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<Projectiles.WhipProjs.DesertWhipProj2>(), 10, 0, Main.myPlayer);
 
-                                forbiddenwhipcooldown = 0;
+                                    forbiddenwhipcooldown = 0;
+                                }
                             }
                         }
                     }
+                }
+                if (WhiptagSpaceRock)
+                {
+                    damage += 5; //tag damage
+                    if (Main.rand.Next(100) <= 15 && !crit) //tag crit
+                    {
+                        crit = true;
+                    }
+
+                    if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC]) //summon projectile
+                    {
+                        if (spacerockwhipcooldown >= 25)
+                        {
+                            if (Main.rand.Next(2) == 0)
+                            {
+                                Projectile.NewProjectile(null, new Vector2(npc.Center.X + 200, npc.Center.Y - 300), new Vector2(-15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
+                            }
+                            else
+                            {
+                                Projectile.NewProjectile(null, new Vector2(npc.Center.X - 200, npc.Center.Y - 300), new Vector2(15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
+                            }
+                            spacerockwhipcooldown = 0;
+                        }
+
+                    }
+                }
+            }
+
+            if (crit) //crit damage increases
+            {
+                if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
+                {
+                    damage = (int)(damage * 1.1f);
+                }
+                if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
+                {
+                    damage = (int)(damage * 1.15f);
+                }
+                if (player.GetModPlayer<EquipmentEffects>().derpEyeGolem == true)
+                {
+                    damage = (int)(damage * 1.15f);
                 }
             }
         }

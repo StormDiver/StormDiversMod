@@ -28,7 +28,6 @@ namespace StormDiversMod.Items.Accessory
             Item.height = 30;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Blue;
-            Item.defense = 2;
             Item.accessory = true;
 
             Item.canBePlacedInVanityRegardlessOfConditions = true;
@@ -37,15 +36,12 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.GetModPlayer<EquipmentEffects>().graniteBuff = true;
             if (player.statLife >= player.statLifeMax2 * 0.75f)
             {
-                player.AddBuff(ModContent.BuffType<Buffs.GladiatorAccessBuff>(), 2);
-
-               
+                player.AddBuff(ModContent.BuffType<Buffs.GladiatorAccessBuff>(), 2);          
             }
         }
-      
+       
 
     }
 }

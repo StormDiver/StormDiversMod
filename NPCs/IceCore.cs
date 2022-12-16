@@ -102,7 +102,10 @@ namespace StormDiversMod.NPCs
         float ypos = -150;
         float movespeed = 3f; //Speed of the npc
         bool staggered;
-
+        public override bool? CanFallThroughPlatforms()
+        {
+            return true;
+        }
         public override void AI()
         {
             NPC.buffImmune[BuffID.Frostburn] = true;

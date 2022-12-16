@@ -274,7 +274,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 36;
             Item.autoReuse = true;
 
-            Item.damage = 48;
+            Item.damage = 55;
             Item.knockBack = 2f;
             Item.UseSound = SoundID.Item43;
 
@@ -315,6 +315,43 @@ namespace StormDiversMod.Items.Weapons
            .Register();
 
 
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+    }
+    //________________________________
+    public class SpaceRockWhip : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Asteroid Belt");
+            Tooltip.SetDefault("5 summon tag damage\n15% summon tag critical strike chance\nYour summons will focus struck enemies\nAsteroid fragments fall upon the targeted enemy when hit by summons");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.DefaultToWhip(ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj>(), 180, 7, 8, 28);
+            Item.width = 30;
+            Item.height = 20;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 10, 0, 0);
+            Item.rare = ItemRarityID.Cyan;
+            Item.DamageType = DamageClass.SummonMeleeSpeed;
+
+            Item.noMelee = true;
+        }
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 7)
+           .AddTile(TileID.MythrilAnvil)
+           .Register();
         }
         public override Color? GetAlpha(Color lightColor)
         {

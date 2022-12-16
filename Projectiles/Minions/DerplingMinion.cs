@@ -351,7 +351,7 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.frameCounter++;
 			if (!grounded)
 			{
-				if (Projectile.frameCounter >= 6) //Flying
+				if (Projectile.frameCounter >= 2) //Flying
 				{
 					Projectile.frameCounter = 0;
 					Projectile.frame++;

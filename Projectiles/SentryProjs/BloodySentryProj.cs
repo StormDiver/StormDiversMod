@@ -96,7 +96,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
                 //If the distance between the projectile and the live target is active
 
-                if (distance < 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (distance < 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.CanBeChasedBy() && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
                     if (Projectile.ai[1] > 15)
                     {
@@ -192,7 +192,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = true;
-            Projectile.ArmorPenetration = 6;
+            Projectile.ArmorPenetration = 8;
         }
 
         public override void AI()

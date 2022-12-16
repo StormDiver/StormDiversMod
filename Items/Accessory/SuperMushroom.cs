@@ -68,52 +68,7 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void UpdateAccessory(Player player, bool hideVisual) //Maybe add buffs for the levels
         {
-            
-            if (player.statLife >= player.statLifeMax2 * .75f)
-            {
-                /*player.allDamage += 0.02f;
-                dustchance = 16;*/
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
-
-                player.AddBuff(ModContent.BuffType<Buffs.MushBuff1>(), 2);
-
-            }
-            else if (player.statLife >= player.statLifeMax2 * .5f && player.statLife < player.statLifeMax2 * .75f)
-            {
-
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
-
-                player.AddBuff(ModContent.BuffType<Buffs.MushBuff2>(), 2);
-            }
-            else if (player.statLife >= player.statLifeMax2 * .25f && player.statLife < player.statLifeMax2 * .5f)
-            {
-
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
-
-                player.AddBuff(ModContent.BuffType<Buffs.MushBuff3>(), 2);
-
-            }
-            else 
-            {
-
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
-                player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
-
-                player.AddBuff(ModContent.BuffType<Buffs.MushBuff4>(), 2);
-
-            }
-
-
-
+            player.GetModPlayer<EquipmentEffects>().mushroomSuper = true;
         }
-        
-
     }
 }

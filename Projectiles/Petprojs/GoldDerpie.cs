@@ -235,7 +235,7 @@ namespace StormDiversMod.Projectiles.Petprojs
             Projectile.frameCounter++;
             if (!grounded)
             {
-                if (Projectile.frameCounter >= 6) //Flying
+                if (Projectile.frameCounter >= 2) //Flying
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame++;

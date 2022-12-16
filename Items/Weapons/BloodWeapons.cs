@@ -230,7 +230,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5;
             Item.value = Item.sellPrice(0, 0, 0, 50);
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemRarityID.Green;
             Item.shootSpeed = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.BloodGrenadeProj>();
             Item.UseSound = SoundID.Item1;
@@ -247,5 +247,40 @@ namespace StormDiversMod.Items.Weapons
             recipe.Register();
 
         }
+    }
+    //________________________________
+    public class BloodWhip : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("The Bloody Tendon");
+            Tooltip.SetDefault("4% summon tag critical strike chance\nYour summons will focus struck enemies\nDamaging blood orbs will orbit the targetted enemy when hit by summons");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.DefaultToWhip(ModContent.ProjectileType<Projectiles.WhipProjs.BloodWhipProj>(), 20, 2, 4.5f, 30);
+            Item.width = 30;
+            Item.height = 20;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 0, 75, 0);
+            Item.rare = ItemRarityID.Green;
+            Item.DamageType = DamageClass.SummonMeleeSpeed;
+
+            Item.noMelee = true;
+        }
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+         .AddRecipeGroup("StormDiversMod:EvilBars", 10)
+        .AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 5)
+        .AddTile(TileID.Anvils)
+        .Register();
+        }
+      
     }
 }

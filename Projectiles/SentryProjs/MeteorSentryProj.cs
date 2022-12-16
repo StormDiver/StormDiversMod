@@ -111,7 +111,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     float distanceX = target.position.X + ((float)target.width * 0.5f) - Projectile.Center.X;
                     float distanceY = target.position.Y + ((float)target.height * 0.5f) - Projectile.Center.Y;
 
-                    if (((distanceX >= -500f && distanceX <= 500f) && (distanceY >= 0f && distanceY <= 650f)) && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                    if (((distanceX >= -500f && distanceX <= 500f) && (distanceY >= 0f && distanceY <= 650f)) && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
                         target.TargetClosest(true);
 

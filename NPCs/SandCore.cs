@@ -97,7 +97,10 @@ namespace StormDiversMod.NPCs
         bool staggered;
         int ypos = -150;
 
-
+        public override bool? CanFallThroughPlatforms()
+        {
+            return true;
+        }
         public override void AI()
         {
             NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
@@ -135,7 +138,11 @@ namespace StormDiversMod.NPCs
            
                 NPC.rotation = NPC.velocity.X / 50;
             //NPC.ai[2] = staggertime;
-            if (Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+
+            int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
+            int ytilepos = (int)(NPC.position.Y + (float)(NPC.height / 2)) / 16;
+            Tile tile = Main.tile[xtilepos, ytilepos];
+            if (Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) || (distance < 500 && !Main.tileSolid[tile.TileType]))
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -144,11 +151,8 @@ namespace StormDiversMod.NPCs
                     NPC.netUpdate = true;
 
                 }
-            }
-            int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
-            int ytilepos = (int)(NPC.position.Y + (float)(NPC.height / 2)) / 16;
-            Tile tile = Main.tile[xtilepos, ytilepos];
-            if (distance > 600) //if far away pass through tiles
+            }         
+            if (distance > 500 && !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height)) //if far away pass through tiles
             { 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -159,10 +163,7 @@ namespace StormDiversMod.NPCs
 
                 }
             }
-            else if ((!Main.tileSolid[tile.TileType]) && distance <=600) //If close and not already inside of tiles no longer pass through tiles
-            {
-                NPC.noTileCollide = false;
-            }
+
             if (distance <= 350f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && !staggered)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)

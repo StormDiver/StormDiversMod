@@ -471,21 +471,49 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Forbidden Whip tag");
             Description.SetDefault("You have been tagged by the Forbidden Whip");
             Main.debuff[Type] = true;
-
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().WhiptagForbidden = true;
+        }
+    }
+    //_________________________________________________________________
+    public class WhiptagSpaceRockDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Asteroid Whip tag");
+            Description.SetDefault("You have been tagged by the Asteroid Belt");
+            Main.debuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-
-
-
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
+            npc.GetGlobalNPC<NPCEffects>().WhiptagSpaceRock = true;
+        }
+    }
+    //_________________________________________________________________
+    public class WhiptagBloodDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Bloody Whip tag");
+            Description.SetDefault("You have been tagged by The Bloody Spine");
+            Main.debuff[Type] = true;
+        }
 
-            npc.GetGlobalNPC<NPCEffects>().WhiptagForbidden = true;
-
-
+        public override void Update(Player player, ref int buffIndex)
+        {
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().WhiptagBlood = true;
         }
     }
 }
