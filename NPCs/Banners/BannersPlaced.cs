@@ -6,7 +6,7 @@ using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
- 
+
 namespace StormDiversMod.NPCs.Banners     
 {
     public class BabyDerpBannerPlace : ModTile
@@ -343,7 +343,6 @@ namespace StormDiversMod.NPCs.Banners
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Asteroid Orbiter Banner");
             AddMapEntry(new Color(13, 88, 130), name);
@@ -363,6 +362,8 @@ namespace StormDiversMod.NPCs.Banners
 
             }
         }
+       
+      
     }
     public class SpaceRockHeadLargeBannerPlace : ModTile
     {

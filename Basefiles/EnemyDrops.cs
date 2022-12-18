@@ -349,7 +349,7 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.Derpling)
             {
 
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 75, 50));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 150, 100));
 
             }
             if (npc.type == NPCID.CursedSkull)

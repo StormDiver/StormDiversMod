@@ -20,9 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Orbiter"); // Automatic from .lang files
-                                                 // make sure to set this for your modnpcs.
-            
+            DisplayName.SetDefault("Asteroid Orbiter");
         }
         public override void SetDefaults()
         {
@@ -30,7 +28,6 @@ namespace StormDiversMod.NPCs
             
             NPC.width = 34;
             NPC.height = 34;
-
             NPC.aiStyle = 14; 
             AIType = NPCID.FlyingSnake;
             AnimationType = NPCID.FlyingSnake;

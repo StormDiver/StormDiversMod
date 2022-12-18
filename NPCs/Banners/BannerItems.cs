@@ -3,7 +3,8 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using StormDiversMod.NPCs.Banners;
 using Terraria.GameContent.Creative;
-
+using System;
+using Microsoft.Xna.Framework;
 
 namespace StormDiversMod.NPCs.Banners          //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
@@ -273,6 +274,10 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             Item.createTile = ModContent.TileType<SpaceRockHeadBannerPlace>();  //This defines what type of tile this Item will place	
             Item.placeStyle = 0;
         }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
     }
     public class SpaceRockHeadLargeBannerItem : ModItem
     {
@@ -298,6 +303,10 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             Item.value = Item.sellPrice(0, 0, 2, 0);
             Item.createTile = ModContent.TileType<SpaceRockHeadLargeBannerPlace>();  //This defines what type of tile this Item will place	
             Item.placeStyle = 0;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
         }
     }
     public class GladiatorMiniBossBannerItem : ModItem
