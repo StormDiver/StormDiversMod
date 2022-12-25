@@ -179,6 +179,7 @@ namespace StormDiversMod.Basefiles
         {
             if (GetInstance<ConfigurationsGlobal>().FastDrill4U)
             {
+                
                 float drillspeed = player.pickSpeed * 100;
                 int drillspeed2 = (int)drillspeed;
                 if (item.type == ItemID.CobaltDrill || item.type == ItemID.PalladiumDrill)

@@ -41,10 +41,7 @@ namespace StormDiversMod.NPCs.Boss
             };
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCID.Sets.MPAllowedEnemies[Type] = true;
-
-            
-            
+            NPCID.Sets.MPAllowedEnemies[Type] = true;           
         }
         public override void SetDefaults()
         {
@@ -59,8 +56,8 @@ namespace StormDiversMod.NPCs.Boss
             NPC.noGravity = true;
             NPC.damage = 100; //100/150/225
             
-            NPC.defense = 15;
-            NPC.lifeMax = 32000;
+            NPC.defense = 25;
+            NPC.lifeMax = 40000;
             
             NPC.gfxOffY = -12;
 
@@ -93,11 +90,11 @@ namespace StormDiversMod.NPCs.Boss
         {
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(48000 / 2 * bossLifeScale); //48K
+                NPC.lifeMax = (int)(60000 / 2 * bossLifeScale); //60K
             }
             else
             {
-                NPC.lifeMax = (int)(66000 / 3 * bossLifeScale); //66K 
+                NPC.lifeMax = (int)(81000 / 3 * bossLifeScale); //81K 
 
             }
             NPC.damage = (int)(NPC.damage * 0.75f);
@@ -121,6 +118,34 @@ namespace StormDiversMod.NPCs.Boss
         float distance; //}Distance between boss and player
 
         int portalamount; //how many portals to summon
+
+        public static int phase2HeadSlot = -1;
+        public static int phase3HeadSlot = -1;
+
+        public override void Load()
+        {
+            string texture = BossHeadTexture + "_Phase2"; // Texture Name
+            phase2HeadSlot = Mod.AddBossHeadTexture(texture, -1); // -1 because we already have one registered via the [AutoloadBossHead] attribute, it would overwrite it otherwise
+
+            string texture2 = BossHeadTexture + "_Phase3"; // Texture Name
+            phase3HeadSlot = Mod.AddBossHeadTexture(texture2, -1); // -1 because we already have one registered via the [AutoloadBossHead] attribute, it would overwrite it otherwise
+        }
+        public override void BossHeadSlot(ref int index)
+        {
+            int slot = phase2HeadSlot;
+            if (halflife && !lowlife && slot != -1)
+            {
+                // If the boss is in its second stage, display the other head icon instead
+                index = slot;
+            }
+            int slot2 = phase3HeadSlot;
+            if (lowlife && slot2 != -1)
+            {
+                // If the boss is in its third stage, display the 3rd icon instead
+                index = slot2;
+            }
+        }
+
         public override void AI()
         {
             if (Main.netMode != NetmodeID.Server)
@@ -235,16 +260,8 @@ namespace StormDiversMod.NPCs.Boss
             {
                 if (NPC.ai[3] == 0) //No attacks when first summoned, or when changing to phase 3
                 {
-                   
-                    if (lowlife && NPC.localAI[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        NPC.defense = 999; //Defence while in phase transistion
-                        NPC.netUpdate = true;
-
-                    }
                     animateclaws = true;
-
-                    
+                   
                     if (!lowlife && NPC.localAI[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)//Set postion when first spawned
                     {
                         NPC.localAI[2] = 0;
@@ -274,7 +291,7 @@ namespace StormDiversMod.NPCs.Boss
                         NPC.netUpdate = true;
                     }
                     NPC.rotation = (player.MountedCenter - NPC.Center).ToRotation();
-
+                 
                     if (!charge && NPC.localAI[0] >= 120 && Main.netMode != NetmodeID.MultiplayerClient) //Change to first attack
                     {
                         if (!lowlife)
@@ -284,6 +301,8 @@ namespace StormDiversMod.NPCs.Boss
                         else if (lowlife) //If in phase 3, go to the last attack
                         {
                             NPC.defense = 0; //reduced defence to 0
+                            NPC.dontTakeDamage = false;
+
                             NPC.ai[3] = 5;
                         }
                         NPC.localAI[0] = 0;
@@ -346,6 +365,8 @@ namespace StormDiversMod.NPCs.Boss
             }
             if (!lowlife && NPC.life < NPC.lifeMax / 10 && Main.expertMode) //Below 10% health one attack, expert+ only
             {
+                NPC.dontTakeDamage = true; //immune to damage for short time
+
                 SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
 
                 if (Main.netMode != NetmodeID.Server)//Drop some gore when changing phase
@@ -974,6 +995,7 @@ namespace StormDiversMod.NPCs.Boss
             //_____________________________________________________________________________________________
             if (NPC.ai[3] == 5) //Fifth attack, below half health, rapid charging and summoning homing projs
             {
+                NPC.dontTakeDamage = false;
 
                 if (!halflife) //if not below half health skip attack
                 {

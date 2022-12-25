@@ -76,8 +76,7 @@ namespace StormDiversMod.Items.Weapons
             .AddIngredient(ItemID.Seashell, 2)
             .AddTile(TileID.WorkBenches)
             .Register();
-           
-
+          
         }
     }
     //_________________________________________________________________
@@ -107,7 +106,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = false;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<OceanSmallProj>();
-            Item.scale = 1.2f;
+            Item.scale = 1f;
 
             Item.shootSpeed = 10f;
         }

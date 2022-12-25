@@ -49,7 +49,7 @@ namespace StormDiversMod.NPCs
 
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
-            NPC.knockBackResist = 0f;
+            NPC.knockBackResist = 0.35f;
             NPC.value = Item.buyPrice(0, 1, 0, 0);
             NPC.gfxOffY = 0;
            Banner = NPC.type;
@@ -100,8 +100,10 @@ namespace StormDiversMod.NPCs
         
       
         float ypos = -150;
-        float movespeed = 3f; //Speed of the npc
-        bool staggered;
+        //float movespeed = 3f; //Speed of the npc
+        //bool staggered;
+        float speed = 6;
+        float inertia = 30;
         public override bool? CanFallThroughPlatforms()
         {
             return true;
@@ -119,7 +121,7 @@ namespace StormDiversMod.NPCs
             }
             Player player = Main.player[NPC.target];
             NPC.TargetClosest();
-            Vector2 moveTo = player.Center;
+            /*Vector2 moveTo = player.Center;
             Vector2 move = moveTo - NPC.Center + new Vector2(0, ypos);
             float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
 
@@ -128,12 +130,21 @@ namespace StormDiversMod.NPCs
                 move *= movespeed / magnitude;
             }
             NPC.velocity = move;
+            */
+            if (!player.dead)
+            {
+                Vector2 idlePosition = player.Center + new Vector2(0, ypos);
+                Vector2 vectorToIdlePosition = idlePosition - NPC.Center;
+
+                vectorToIdlePosition.Normalize();
+                vectorToIdlePosition *= speed;
+
+                NPC.velocity = (NPC.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+            }
 
             NPC.spriteDirection = NPC.direction;
             NPC.velocity.Y *= 0.96f;
-            
-
-
+           
             Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
@@ -142,7 +153,7 @@ namespace StormDiversMod.NPCs
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    movespeed = 1.5f;
+                    speed = 6;
                     ypos = 0;
                     NPC.noTileCollide = true;
                     NPC.netUpdate = true;
@@ -153,10 +164,7 @@ namespace StormDiversMod.NPCs
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (!staggered)
-                    {
-                        movespeed = 2.5f;
-                    }
+                    speed = 8;
                     ypos = -150;
                     NPC.noTileCollide = false;
                     NPC.netUpdate = true;
@@ -220,8 +228,7 @@ namespace StormDiversMod.NPCs
             if (NPC.ai[3] == 1)//phase
             {
                 NPC.rotation += (float)NPC.direction * -0.5f;
-                NPC.velocity.X *= 0.5f;
-                NPC.velocity.Y *= 0.5f;
+                NPC.velocity *= 0.9f;
                 NPC.ai[1]++;//Phasetime
                 if (distance <= 500f)
                 {
@@ -278,23 +285,7 @@ namespace StormDiversMod.NPCs
             {
                 var dust3 = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Bottom.Y - 10), 10, 20, 135, 0, 10);
                 dust3.noGravity = true;
-            }
-
-            if (staggered)//when hit greatly slowdown
-            {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    NPC.ai[2]++;
-
-                    movespeed = 0.4f;
-                    NPC.netUpdate = true;
-                }
-            }
-            if (NPC.ai[2] > 15)
-            {
-                staggered = false;
-                NPC.ai[2] = 0;
-            }
+            }          
             /*if (NPC.collideX)
             {
                 NPC.velocity.X = NPC.velocity.X * -1;
@@ -345,7 +336,6 @@ namespace StormDiversMod.NPCs
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            staggered = true;
             NPC.ai[2] = 0;
 
             if (NPC.ai[3] == 0)

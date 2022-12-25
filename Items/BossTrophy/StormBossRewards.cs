@@ -65,13 +65,11 @@ namespace StormDiversMod.Items.BossTrophy
 			DisplayName.SetDefault("Overloaded Scandrone Relic");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
-
 		public override void SetDefaults()
 		{
 			// Vanilla has many useful methods like these, use them! This substitutes setting Item.createTile and Item.placeStyle aswell as setting a few values that are common across all placeable items
 			// The place style (here by default 0) is important if you decide to have more than one relic share the same tile type (more on that in the tiles' code)
 			Item.DefaultToPlaceableTile(ModContent.TileType<StormBossRelicPlaced>(), 0);
-
 			Item.width = 30;
 			Item.height = 40;
 			Item.maxStack = 9999;
@@ -96,7 +94,6 @@ namespace StormDiversMod.Items.BossTrophy
 
 		// All relics use the same pedestal texture, this one is copied from vanilla
 		public override string Texture => "StormDiversMod/Items/BossTrophy/RelicPedestal";
-
 		public override void Load()
 		{
 			if (!Main.dedServ)

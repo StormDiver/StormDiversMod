@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Summons
 
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.Text = line.Text + "\nMay experience issues on multiplayer!\nFor the best experience fight the boss on single player!"; //multiplayer sucks
+                        line.Text = line.Text + "\nVery Buggy on multiplayer!\nFor the best experience fight the boss on single player!"; //multiplayer sucks
                     }
                 }
             }

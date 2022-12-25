@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Weapons
 			Item.autoReuse = true;
             //Item.useTurn = true;
             Item.knockBack = 4;
-            Item.scale = 1.15f;
+            Item.scale = 1f;
             //Item.shoot = mod.ProjectileType("BloodSwordProj");
             Item.shoot = ModContent.ProjectileType<Projectiles.BloodSwordProj>();
 

@@ -51,6 +51,9 @@ namespace StormDiversMod.Basefiles
 
         public bool spookedDebuff; //Spooked
 
+        public bool aridCoreDebuff; //Arid Aura
+
+
         //All this for a speen----------------------------------------------
 
         public bool derplaunched; //If the npc has been launched by the Derpling armour
@@ -95,6 +98,8 @@ namespace StormDiversMod.Basefiles
             ultraburnDebuff = false;
             ultrafrostDebuff = false;
             spookedDebuff = false;
+            aridCoreDebuff = false;
+
             WhiptagBlood = false;
             WhiptagForbidden = false;
             WhiptagSpaceRock = false;
@@ -626,6 +631,17 @@ namespace StormDiversMod.Basefiles
                 drawColor = new Color(255, 68, 0);
 
             }
+            if (aridCoreDebuff)
+            {
+                if (Main.rand.Next(5) == 0)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 138, npc.velocity.X * 1.2f, -3, 0, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].fadeIn = 0.5f; //this make so the dust has no gravity
+
+                }
+                drawColor = new Color(180, 150, 15);
+            }
             if (WhiptagBlood)
             {
                 if (Main.rand.Next(4) < 1)
@@ -711,6 +727,14 @@ namespace StormDiversMod.Basefiles
 
                 }
             }
+
+            if (player.GetModPlayer<EquipmentEffects>().aridBossAccess == true && aridCoreDebuff) //Ancient Emblem extra damage
+            {
+                //damage = damage + ((damage * 20) / 17);
+                damage = (damage * 23) / 20; //15% extra damage
+
+            }
+
             //Whips
             if (!projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type] == true || projectile.sentry))
             {

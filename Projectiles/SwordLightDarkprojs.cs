@@ -187,8 +187,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 22;
-            Projectile.height = 22;
+            Projectile.width = 14;
+            Projectile.height = 14;
             Projectile.light = 0f;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -272,8 +272,6 @@ namespace StormDiversMod.Projectiles
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 54, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
                 dust.scale = 2f;
-
-
             }*/
             for (int i = 0; i < 30; i++)
             {

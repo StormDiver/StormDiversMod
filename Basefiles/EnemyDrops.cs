@@ -177,6 +177,13 @@ namespace StormDiversMod.Basefiles
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.StormBossSummoner>());
                 }
             }
+            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUndergroundDesert && NPC.downedBoss3 && StormWorld.aridBossDown == false) //AridBoss Summoner
+            {
+                if (Main.rand.Next(50) == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.AridBossSummon>());
+                }
+            }
             //No bestiary--------------------------------------------------------------------------------------------------------------------
             if (Main.rand.Next(5000) < 1 & npc.lifeMax > 5)
             {

@@ -82,21 +82,6 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-        /*public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(6, 0);
-        }*/
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.Bone, 40)
-            .AddIngredient(ItemID.FossilOre, 15)
-            .AddTile(TileID.Anvils)
-            .Register();         
-        }
-      
-
     }
     //______________________________________________________________________________________________________
     public class AncientKnives : ModItem
@@ -128,8 +113,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item1;
-            Item.noMelee = true;
-            
+            Item.noMelee = true;          
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -143,16 +127,6 @@ namespace StormDiversMod.Items.Weapons
                 //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
             }
             return false;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.Bone, 40)
-            .AddIngredient(ItemID.FossilOre, 15)
-            .AddTile(TileID.Anvils)
-            .Register();
-
         }
     }
     //_______________________________________________________________________________
@@ -200,17 +174,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void HoldItem(Player player)
         {
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.Bone, 40)
-            .AddIngredient(ItemID.FossilOre, 15)
-            .AddTile(TileID.Anvils)
-            .Register();
-
-        }
-        bool candamage;
+        }     
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40;
@@ -273,15 +237,6 @@ namespace StormDiversMod.Items.Weapons
             // Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position.
             player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
             return false;
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.Bone, 40)
-            .AddIngredient(ItemID.FossilOre, 15)
-            .AddTile(TileID.Anvils)
-            .Register();
-
         }
 
     }

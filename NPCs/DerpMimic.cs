@@ -92,6 +92,8 @@ namespace StormDiversMod.NPCs
 
         float oldmovespeed;
 
+        int groundtime;
+
         Player player;
         public override bool? CanFallThroughPlatforms()
         {
@@ -155,9 +157,9 @@ namespace StormDiversMod.NPCs
 
             jumpheight = distanceY / 70;
 
-            if (jumpheight < -20)//cap jump height
+            if (jumpheight < -25)//cap jump height
             {
-                jumpheight = -20;
+                jumpheight = -25;
             }
 
             if (feartime > 120)
@@ -196,11 +198,19 @@ namespace StormDiversMod.NPCs
                       
                         dociletime--;
                     }
-                    if (attackmode) //When taregting the player
+                    if (attackmode) //When targetting the player
                     {
-
-                        if (NPC.velocity.Y == 0 || NPC.velocity.Y <= -11)//on ground or shortly after jumping have full movement control
+                        if (NPC.velocity.Y != 0)
                         {
+                            groundtime++;
+                        }
+                        else
+                        {
+                            groundtime = 0;
+                        }
+                        if (NPC.velocity.Y == 0 || groundtime <= 1)//on ground or shortly after jumping have full movement control
+                        {
+                            
                             if (distanceX <= -20)
                             {
                                 NPC.velocity.X = -moveatspeed + (player.velocity.X * 0.5f);

@@ -86,10 +86,8 @@ namespace StormDiversMod.NPCs
         bool yassend;
         float xpos = 0;
         bool xassend;
-        float movespeed = 1.5f;
-
-        bool damaged;
-        int damagecooldown;
+        float speed = 3;
+        float inertia = 30;     
         public override void AI()
         {
             NPC.buffImmune[BuffID.OnFire] = true;
@@ -139,29 +137,26 @@ namespace StormDiversMod.NPCs
             NPC.TargetClosest();
             NPC.rotation = NPC.velocity.X / 25;
 
-            if (!damaged)
+           
+            if (!player.dead)
             {
-                Vector2 moveTo = player.Center;
-                Vector2 move = moveTo - NPC.Center + new Vector2(xpos, ypos);
-                float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+                Vector2 idlePosition = player.Center + new Vector2(0, ypos);
+                Vector2 vectorToIdlePosition = idlePosition - NPC.Center;
+                float distanceToIdlePosition = vectorToIdlePosition.Length();
 
-                if (magnitude > movespeed)
+                if (distanceToIdlePosition > 10f)
                 {
-                    move *= movespeed / magnitude;
+                    vectorToIdlePosition.Normalize();
+                    vectorToIdlePosition *= speed;
                 }
-                NPC.velocity = move;
-            }
-            if (damaged)
-            {
-                damagecooldown++;
-                NPC.velocity *= 0;
-            }
-          
+                else if (NPC.velocity == Vector2.Zero)
+                {
+                    // If there is a case where it's not moving at all, give it a little "poke"
+                    NPC.velocity.X = -0.15f;
+                    NPC.velocity.Y = -0.05f;
+                }
 
-            if (damagecooldown >= 10)
-            {
-                damaged = false;
-                damagecooldown = 0;
+                NPC.velocity = (NPC.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
             }
 
             if (player.dead)
@@ -169,9 +164,6 @@ namespace StormDiversMod.NPCs
                 NPC.velocity.Y = -5;
 
             }
-
-
-
 
             Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
@@ -202,18 +194,14 @@ namespace StormDiversMod.NPCs
                 }
 
                 firing = true;
-                movespeed = 0.75f;
+                speed = 1.5f;
 
             }
             else
             {
                 firing = false;
-                movespeed = 1.5f;
-
+                speed = 3f;
             }
-
-
-
             if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
             {
 
@@ -224,11 +212,6 @@ namespace StormDiversMod.NPCs
                 dust2.velocity *= 2;
 
             }
-            /*if (Main.rand.Next(2) == 0)
-            {
-
-                int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 0, NPC.velocity.X, NPC.velocity.Y, 0, default, 0.5f);
-            }*/
         }
         int npcframe = 0;
 
@@ -264,20 +247,13 @@ namespace StormDiversMod.NPCs
                 }
             }
         }
-
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-
             target.AddBuff(BuffID.OnFire, 600);
-
-
         }
         public override void HitEffect(int hitDirection, double damage)
         {
             firerate = -30;
-         
-            damaged = true;
-
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers

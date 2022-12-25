@@ -115,7 +115,7 @@ namespace StormDiversMod.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = false;
-            Item.scale = 1.5f;
+            Item.scale = 1f;
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType<SpaceFragment>();
             Item.shootSpeed = 16f;

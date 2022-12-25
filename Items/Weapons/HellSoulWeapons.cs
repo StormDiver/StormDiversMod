@@ -196,11 +196,9 @@ namespace StormDiversMod.Items.Weapons
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
         }
-
         public override void SetDefaults()
         {
             Item.damage = 65;
-
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
             Item.height = 50;
@@ -214,9 +212,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = false;
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType<Projectiles.HellSoulSwordProj>();
-            Item.shootSpeed = 10f;
-            
-            
+            Item.shootSpeed = 10f;                       
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {

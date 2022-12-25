@@ -62,60 +62,6 @@ namespace StormDiversMod.Items.Pets
         
     }
 
-    public class StormBossPetItem : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Mysterious Device");
-            Tooltip.SetDefault("Summons a Baby Overloaded Scandrone\n'Scanning complete!'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-        }
-
-        public override void SetDefaults()
-        {
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.UseSound = SoundID.Item2;
-            Item.useAnimation = 20;
-            Item.useTime = 20;
-            Item.noMelee = true;
-            Item.width = 24;
-            Item.height = 22;
-            Item.maxStack = 1;
-            Item.value = Item.sellPrice(0, 5, 0, 0);
-
-            Item.shoot = ProjectileType<StormBossPetProj>();
-            Item.buffType = BuffType<StormBossPetBuff>();
-            Item.rare = ItemRarityID.Red;
-            Item.master = true;
-        }
-
-
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-
-            if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
-            {
-                player.AddBuff(Item.buffType, 3600, true);
-            }
-        }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-
-            player.AddBuff(Item.buffType, 2); // The item applies the buff, the buff spawns the projectile
-
-            return false;
-        }
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-        {
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Pets/StormBossPetItem_Glow");
-
-            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
-                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-        }
-
-    }
-
     public class StormLightItem : ModItem
     {
         public override void SetStaticDefaults()
@@ -224,6 +170,104 @@ namespace StormDiversMod.Items.Pets
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
 
+    }
+    //boss master pets
+
+    public class StormBossPetItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Mysterious Device");
+            Tooltip.SetDefault("Summons a Baby Overloaded Scandrone\n'Scanning complete!'");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.UseSound = SoundID.Item2;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
+            Item.noMelee = true;
+            Item.width = 24;
+            Item.height = 22;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+
+            Item.shoot = ProjectileType<StormBossPetProj>();
+            Item.buffType = BuffType<StormBossPetBuff>();
+            Item.rare = ItemRarityID.Red;
+            Item.master = true;
+        }
+
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+            {
+                player.AddBuff(Item.buffType, 3600, true);
+            }
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+
+            player.AddBuff(Item.buffType, 2); // The item applies the buff, the buff spawns the projectile
+
+            return false;
+        }
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Pets/StormBossPetItem_Glow");
+
+            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
+                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+        }
+
+    }
+
+    public class AridBossPetItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Glowing Horns");
+            Tooltip.SetDefault("Summons a liberated Husk that follows you");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.UseSound = SoundID.Item2;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
+            Item.noMelee = true;
+            Item.width = 24;
+            Item.height = 22;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+
+            Item.shoot = ProjectileType<AridBossPetProj>();
+            Item.buffType = BuffType<AridBossPetBuff>();
+            Item.rare = ItemRarityID.Orange;
+            Item.master = true;
+        }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+            {
+                player.AddBuff(Item.buffType, 3600, true);
+            }
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+
+            player.AddBuff(Item.buffType, 2); // The item applies the buff, the buff spawns the projectile
+
+            return false;
+        }      
     }
 }
 

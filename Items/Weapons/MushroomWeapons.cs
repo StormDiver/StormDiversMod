@@ -43,7 +43,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;  
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
-            Item.scale = 1.1f;
+            Item.scale = 1f;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = false;

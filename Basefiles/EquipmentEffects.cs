@@ -37,6 +37,9 @@ namespace StormDiversMod.Basefiles
 
         public bool stormBossPet; //The player has the Scandrone Pet
 
+        public bool aridBossPet; //The player has the Ancuent Husk Pet
+
+
         public bool shroombuff; //The Player has the Ranged enhancement potion buff
 
         public bool flameCore; //The player has Betsy's Flame equipped
@@ -90,6 +93,8 @@ namespace StormDiversMod.Basefiles
 
         public bool stormBossAccess; //Player has the Storm Coil equipped
 
+        public bool aridBossAccess; //Player has the Ancient Emblem equipped
+
         public bool mushroomSuper; //Player has the enchnated mushroom equipped
 
 
@@ -127,6 +132,7 @@ namespace StormDiversMod.Basefiles
             stormHelmet = false;
             twilightPet = false;
             stormBossPet = false;
+            aridBossPet = false;
             shroombuff = false;
             flameCore = false;
             frostSpike = false;
@@ -153,6 +159,7 @@ namespace StormDiversMod.Basefiles
             woodNecklace = false;
             coralEmblem = false;
             stormBossAccess = false;
+            aridBossAccess = false;
             mushroomSuper = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
@@ -567,6 +574,15 @@ namespace StormDiversMod.Basefiles
                         dust.noGravity = true;
                         dust.scale = 2;
                     }
+                    Vector2 velocity = Vector2.Normalize(new Vector2(Player.Center.X, Player.Center.Y) - new Vector2(dustx, dusty)) * 10; 
+                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Player.Center, 1, 1))//no dust unless line of sight
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 200, velocity.X, velocity.Y);
+                        dust.noGravity = true;
+                        dust.velocity *= 1f;
+                        dust.scale = 1.5f;
+                        dust.fadeIn = 0.5f;
+                    }
                 }
                 for (int i = 0; i < 200; i++)
                 {
@@ -584,24 +600,7 @@ namespace StormDiversMod.Basefiles
                     if (distance < distancehealth && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Player.Center, 0, 0, target.Center, 0, 0))
                     {
                         if (!target.buffImmune[(BuffType<SpookedDebuff>())])
-                        {
-                            /*
-                            distance = 1.6f / distance;
-
-                            //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                            shootToX *= distance * (10f + (distancehealth / 50));
-                            shootToY *= distance * (10f + (distancehealth / 50));
-                            if (Main.rand.Next(4) == 0)
-                            {
-                                Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(8));
-
-                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 259, perturbedSpeed.X, perturbedSpeed.Y);
-                                dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
-                                dust.noGravity = true;
-                                dust.scale = 0.75f;
-                            }
-                            */
-
+                        {                      
                             target.AddBuff(ModContent.BuffType<SpookedDebuff>(), 2);
                         }
                     }
@@ -1002,6 +1001,51 @@ namespace StormDiversMod.Basefiles
                     Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
 
                     Player.AddBuff(ModContent.BuffType<Buffs.MushBuff4>(), 2);
+                }
+            }
+            //Ancient Emblem
+            if (aridBossAccess)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    double deg = Main.rand.Next(0, 360); //The degrees
+                    double rad = deg * (Math.PI / 180); //Convert degrees to radians
+                    double dist = 90; //Distance away from the cursor
+                    float dustx = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);
+                    float dusty = Main.MouseWorld.Y - (int)(Math.Sin(rad) * dist);
+                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, 0, 0);
+                        dust.noGravity = true;
+                        dust.velocity *= 0;
+                        dust.scale = 1f;
+                        
+                    }
+                    Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(dustx, dusty)) * 10; //slight predictive 
+                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, velocity.X, velocity.Y);
+                        dust.noGravity = true;
+                        dust.velocity *= 0.5f;
+                        dust.scale = 0.75f;
+                    }
+                }
+                for (int i = 0; i < 200; i++)
+                {
+                    NPC target = Main.npc[i];
+                    var player = Main.MouseWorld;
+
+                    float shootToX = target.position.X + (float)target.width * 0.5f - Main.MouseWorld.X;
+                    float shootToY = target.position.Y + (float)target.height * 0.5f - Main.MouseWorld.Y;
+                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+
+                    if (distance < 90 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Main.MouseWorld, 0, 0, target.Center, 0, 0))
+                    {
+                        if (!target.buffImmune[(BuffType<AridCoreDebuff>())])
+                        {
+                            target.AddBuff(ModContent.BuffType<AridCoreDebuff>(), 2);
+                        }
+                    }
                 }
             }
         }

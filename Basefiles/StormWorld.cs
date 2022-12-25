@@ -28,6 +28,7 @@ namespace StormDiversMod.Basefiles
         public static bool bloodMessage; //For the message when the evuil boss is defeated
 
         public static bool stormBossDown; //when the Storm Boss is defeated
+        public static bool aridBossDown; //when the Storm Boss is defeated
 
 
         public override void OnWorldLoad()
@@ -40,6 +41,8 @@ namespace StormDiversMod.Basefiles
             bloodMessage = false;
 
             stormBossDown = false;
+            aridBossDown = false;
+
         }
         public override void OnWorldUnload()
         {
@@ -50,6 +53,7 @@ namespace StormDiversMod.Basefiles
             bloodMessage = false;
 
             stormBossDown = false;
+            aridBossDown = false;
 
         }
         public override void SaveWorldData(TagCompound tag)
@@ -79,6 +83,10 @@ namespace StormDiversMod.Basefiles
             {
                 tag["stormBossDown"] = true;
             }
+            if (aridBossDown)
+            {
+                tag["aridBossDown"] = true;
+            }
         }
         public override void LoadWorldData(TagCompound tag)
         {
@@ -89,6 +97,7 @@ namespace StormDiversMod.Basefiles
             bloodMessage = tag.ContainsKey("bloodMessage");
 
             stormBossDown = tag.ContainsKey("stormBossDown");
+            aridBossDown = tag.ContainsKey("aridBossDown");
 
         }
 
@@ -107,6 +116,8 @@ namespace StormDiversMod.Basefiles
             BitsByte flags2 = new BitsByte(); //Boss flags (8 max)
 
             flags2[0] = stormBossDown;
+            flags2[1] = aridBossDown;
+
 
             writer.Write(flags2);
         }
@@ -123,8 +134,9 @@ namespace StormDiversMod.Basefiles
             BitsByte flags2 = reader.ReadByte();
 
             stormBossDown = flags2[0];
+            aridBossDown = flags2[1];
         }
-      
+
         public override void PreUpdateWorld()
         {
 

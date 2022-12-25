@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Weapons
             Item.noMelee = false;
 
             Item.knockBack = 3;
-            Item.scale = 1.2f;
+            Item.scale = 1f;
             Item.shoot = ModContent.ProjectileType<Projectiles.EyeSwordProj>();
             Item.shootSpeed = 7f;
         }

@@ -42,7 +42,7 @@ namespace StormDiversMod
                         //ModContent.ItemType<Items.Weapons.StormKnife>(), ModContent.ItemType<Items.Weapons.StormLauncher>(), ModContent.ItemType<Items.Weapons.StormStaff>(), ModContent.ItemType<Items.Weapons.StormSentryStaff>(),
                         ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>()}, //ModContent.ItemType<Items.Tools.StormHook>(), ModContent.ItemType<Items.Accessory.StormWings>(),ItemID.TempleKey},
 
-                        ModContent.ItemType<Items.Summons.StormBossSummoner>(), "Spawned by using a Storm Beacon once all 3 mechs have been defeated",
+                        ModContent.ItemType<Items.Summons.StormBossSummoner>(), "Summoned by using a Storm Beacon once all 3 mechs have been defeated",
                         "Overloaded Scandrone returns to its home planet (and didn't die on the way home)",
                         (SpriteBatch sb, Rectangle rect, Color color) => {
                             Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
@@ -51,6 +51,22 @@ namespace StormDiversMod
                         }
                         );
                     // Additional bosses here
+
+                    bossChecklist.Call
+                       ("AddBoss", this, "Ancient Husk", ModContent.NPCType<NPCs.Boss.AridBoss>(), 6.5f, (Func<bool>)(() => StormWorld.aridBossDown), () => true,
+                       new List<int> { ModContent.ItemType<Items.BossTrophy.AridBossTrophy>(), ModContent.ItemType<Items.BossTrophy.AridBossRelic>(), ModContent.ItemType<Items.Pets.AridBossPetItem>(),
+                        ModContent.ItemType<Items.BossTrophy.AridBossBag>(), ModContent.ItemType<Items.Accessory.AridCore>(), //vanity
+                       
+                        ModContent.ItemType<Items.Vanitysets.BossMaskAridBoss>()},
+
+                       ModContent.ItemType<Items.Summons.AridBossSummon>(), "Summoned by using a Cracked Horn at any time while in a desert",
+                       "The Ancient Husk returns to the depths of the desert",
+                       (SpriteBatch sb, Rectangle rect, Color color) => {
+                           Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/AridBoss_Image").Value;
+                           Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+                           sb.Draw(texture, centered, color);
+                       }
+                       );
                 }
             }
         }

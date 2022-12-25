@@ -30,7 +30,7 @@ namespace StormDiversMod.Items.Vanitysets
         }      
         public override void ArmorSetShadows(Player player)
         {
-           
+          
         }
     }
     [AutoloadEquip(EquipType.Head)]
@@ -53,6 +53,7 @@ namespace StormDiversMod.Items.Vanitysets
         }
         public override void ArmorSetShadows(Player player)
         {
+
         }
     }
 }

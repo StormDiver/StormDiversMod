@@ -25,7 +25,6 @@ namespace StormDiversMod.Items.Weapons
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
         }
-
 		public override void SetDefaults() 
 		{
 			Item.damage = 50;
@@ -45,7 +44,7 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType < Projectiles.SwordLightProj>();
             Item.shootSpeed = 16f;
-            Item.scale = 1.3f;
+            Item.scale = 1f;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
 
         }

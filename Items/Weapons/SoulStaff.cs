@@ -89,7 +89,7 @@ namespace StormDiversMod.Items.Weapons
                 //For the radius
                 double deg = Main.rand.Next(0, 360); //The degrees
                 double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                double dist = 250; //Distance away from the player
+                double dist = 250; //Distance away from the cursor
 
 
                 position.X = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);

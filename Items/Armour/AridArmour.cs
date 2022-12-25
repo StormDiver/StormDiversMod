@@ -66,17 +66,6 @@ namespace StormDiversMod.Items.Armour
             player.GetModPlayer<ArmourSetBonuses>().aridCritSet = true;
    
         }
-        
-        public override void AddRecipes()
-        {
-
-            CreateRecipe()
-            .AddIngredient(ItemID.Bone, 40)
-            .AddIngredient(ItemID.FossilOre, 15)
-            .AddTile(TileID.Anvils)
-            .Register();
-           
-        }
     }
 
     //___________________________________________________________________________________________________________________________
@@ -107,17 +96,7 @@ namespace StormDiversMod.Items.Armour
 
             player.GetModPlayer<EquipmentEffects>().aridCritChest = true;
 
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-               .AddIngredient(ItemID.Bone, 60)
-               .AddIngredient(ItemID.FossilOre, 25)
-               .AddTile(TileID.Anvils)
-               .Register();
-
-        }
-      
+        }     
     }
     //______________________________________________________________________
     [AutoloadEquip(EquipType.Legs)]
@@ -146,16 +125,6 @@ namespace StormDiversMod.Items.Armour
             player.GetCritChance(DamageClass.Generic) += 5;
             player.moveSpeed += 0.12f;
            
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-             .AddIngredient(ItemID.Bone, 50)
-             .AddIngredient(ItemID.FossilOre, 20)
-             .AddTile(TileID.Anvils)
-             .Register();
-
-
         }
     }
     //__________________________________________________________________________________________________________________________

@@ -44,7 +44,7 @@ namespace StormDiversMod.Buffs
                 Lighting.AddLight(player.position, 1f, 0.5f, 0f);
 
             }
-            
+
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
@@ -74,7 +74,7 @@ namespace StormDiversMod.Buffs
             {
                 int dust = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 156, player.velocity.X, player.velocity.Y, 135, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                 Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                
+
                 int dust2 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 156, player.velocity.X, player.velocity.Y, 135, default, .3f);
                 Main.dust[dust2].velocity *= 0.5f;
             }
@@ -89,7 +89,7 @@ namespace StormDiversMod.Buffs
 
         }
     }
-   
+
     //_____________________________________________________________
     public class ScanDroneDebuff : ModBuff
     {
@@ -104,11 +104,11 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.statDefense -= 500;
-            
+
         }
 
     }
-   
+
     //____________________________________________________________
     public class LunarBoulderDebuff : ModBuff
     {
@@ -161,7 +161,7 @@ namespace StormDiversMod.Buffs
 
 
     }
-    
+
     //___________________________________________________________
     public class BeetleDebuff : ModBuff
     {
@@ -181,7 +181,7 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().beetled = true;
-            
+
 
         }
     }
@@ -205,7 +205,7 @@ namespace StormDiversMod.Buffs
         {
             npc.GetGlobalNPC<NPCEffects>().heartDebuff = true;
 
-            
+
 
         }
     }
@@ -261,7 +261,7 @@ namespace StormDiversMod.Buffs
 
             if (Main.rand.Next(4) < 3)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4,173, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default, 2f);
+                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 173, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 1f;
                 Main.dust[dust].velocity.Y -= 0.5f;
@@ -285,7 +285,7 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Twilight Warped");
             Description.SetDefault("You are unable to perform another Twilight Warp");
             Main.debuff[Type] = true;
-            
+
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -314,7 +314,7 @@ namespace StormDiversMod.Buffs
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-           
+
 
 
 
@@ -333,7 +333,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            
+
 
         }
         public override void Update(NPC npc, ref int buffIndex)
@@ -389,10 +389,10 @@ namespace StormDiversMod.Buffs
 
 
             int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 6, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default, 2.5f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 2f;
-            
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].velocity *= 1f;
+            Main.dust[dust].velocity.Y -= 2f;
+
 
 
         }
@@ -451,7 +451,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-          
+
 
 
         }
@@ -514,6 +514,23 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().WhiptagBlood = true;
+        }
+    }
+    //_________________________________________________________________
+    public class AridCoreDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Arid Aura");
+            Description.SetDefault("You will take more damage");
+            Main.debuff[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().aridCoreDebuff = true;
         }
     }
 }

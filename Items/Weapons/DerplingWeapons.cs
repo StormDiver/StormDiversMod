@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType < Projectiles.DerpMeleeProj>();
             Item.shootSpeed = 15f;
-            Item.scale = 1.2f;
+            Item.scale = 1f;
         }
         int weaponattack = 2;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
