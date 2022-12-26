@@ -174,57 +174,6 @@ namespace StormDiversMod.Basefiles
             }
             return true;
         }*/
-      //Drill speeds
-        public override void HoldItem(Item item, Player player)
-        {
-            if (GetInstance<ConfigurationsGlobal>().FastDrill4U)
-            {
-                
-                float drillspeed = player.pickSpeed * 100;
-                int drillspeed2 = (int)drillspeed;
-                if (item.type == ItemID.CobaltDrill || item.type == ItemID.PalladiumDrill)
-                {
-                    item.useTime = 7 * drillspeed2 / 100;
-                    //Main.NewText("Pick speed = " + 7 * drillspeed2 / 100, 47, 86, 146);
-                }
-                if (item.type == ItemID.MythrilDrill)
-                {
-                    item.useTime = 6 * drillspeed2 / 100;
-                }
-                if (item.type == ItemID.OrichalcumDrill)
-                {
-                    item.useTime = 5 * drillspeed2 / 100;
-                }
-                if (item.type == ItemID.AdamantiteDrill || item.type == ItemID.TitaniumDrill || item.type == ItemID.Drax || item.type == ItemID.ChlorophyteDrill)
-                {
-                    item.useTime = 4 * drillspeed2 / 100;
-                }
-                if (item.type == ItemID.LaserDrill)
-                {
-                    item.useTime = 6 * drillspeed2 / 100;
-                }
-                if (item.type == ItemID.SolarFlareDrill || item.type == ItemID.VortexDrill || item.type == ItemID.NebulaDrill || item.type == ItemID.StardustDrill)
-                {
-                    item.useTime = 2 * drillspeed2 / 100;
-                }
-                //mine
-                if (item.type == ModContent.ItemType<Items.Tools.FastDrill>())
-                {
-                    item.useTime = 5 * drillspeed2 / 100;
-                }
-                if (item.type == ModContent.ItemType<Items.Tools.FastDrill2>())
-                {
-                    item.useTime = 4 * drillspeed2 / 100;
-                }
-                if (item.type == ModContent.ItemType<Items.Tools.DerplingDrill>() || item.type == ModContent.ItemType<Items.Tools.SpaceRockDrillSaw>())
-                {
-                    item.useTime = 3 * drillspeed2 / 100;
-                }
-                if (item.type == ModContent.ItemType<Items.Tools.SantankDrill>())
-                {
-                    item.useTime = 2 * drillspeed2 / 100;
-                }
-            }
-        }
+       
     }
 }

@@ -57,14 +57,6 @@ namespace StormDiversMod.Basefiles
         [DefaultValue(false)]
         public bool PreventBuffedDerps { get; set; }
 
-        [Header("Misc")]
-
-        [Label("Allow drills to benefit from mining buffs")]
-        [Tooltip("Allows drills to mine faster if you have any mining buffs equipped, currently only works on vanilla drills and drill in this mod (requires reload)")]
-        [ReloadRequired] //Yes
-        [DefaultValue(false)]
-        public bool FastDrill4U { get; set; }
-
         //This will be added if Rho's Playground is ever deleted
         /*[Label("Remove damage variance")]
         [Tooltip("This will remove the random spread in all damage dealt and taken (Requires reload)")]

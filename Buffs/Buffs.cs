@@ -167,29 +167,6 @@ namespace StormDiversMod.Buffs
             
         }
     }
-    //____________________________________________
-    public class JarBuff : ModBuff
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Heart Collector");
-            Description.SetDefault("RIP");
-            Main.buffNoTimeDisplay[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-
-            /*if (Main.rand.Next(10) < 3)
-            {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 273, player.velocity.X, player.velocity.Y, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
-                Main.playerDrawDust.Add(dust);
-            }*/
-        }
-    }
     //___________________________________________________________________
     public class HeartBuff : ModBuff
     {
