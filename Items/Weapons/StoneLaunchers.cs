@@ -22,30 +22,8 @@ namespace StormDiversMod.Items.Weapons
             if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock)
             {
                 item.ammo = ItemID.StoneBlock;
-                //item.DamageType = DamageClass.Ranged;
-                //item.noMelee = true;
-                //item.damage = 15;
-                //item.knockBack = 3f;
-                item.notAmmo = true;
-                
+                item.notAmmo = true;              
             }
-
-            /*if (item.type == ItemID.StoneBlock || item.type == ItemID.Granite || item.type == ItemID.Marble)
-            {
-                item.damage = 15;
-                item.knockBack = 3f;
-            }
-            
-            if (item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock)
-            {
-                item.damage = 20;
-                item.knockBack = 4.5f;
-            }
-            if (item.type == ItemID.PearlstoneBlock)
-            {
-                item.damage = 30;
-                item.knockBack = 6f;
-            }*/
         }
         
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -90,8 +68,14 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
             //Item.useAmmo = ItemType<Ammo.StoneShot>();
-            Item.useAmmo = ItemID.StoneBlock;
-
+            if (ModLoader.HasMod("ThoriumMod"))
+            {
+                Item.useAmmo = ItemType<StoneShot>();
+            }
+            else
+            {
+                Item.useAmmo = ItemID.StoneBlock;
+            }
             Item.UseSound = SoundID.Item61;
 
             
@@ -101,6 +85,21 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 11f;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("ThoriumMod"))
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\nRequires Compact Boulders, craft more with stone";
+                    }
+                   
+                }
+
+            }
         }
         public override Vector2? HoldoutOffset()
         {
@@ -163,8 +162,14 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
             //Item.useAmmo = ItemType<Ammo.StoneShot>();
-            Item.useAmmo = ItemID.StoneBlock;
-
+            if (ModLoader.HasMod("ThoriumMod"))
+            {
+                Item.useAmmo = ItemType<StoneShot>();
+            }
+            else
+            {
+                Item.useAmmo = ItemID.StoneBlock;
+            }
             Item.UseSound = SoundID.Item61;
 
 
@@ -174,6 +179,21 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 13f;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("ThoriumMod"))
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\nRequires Compact Boulders, craft more with stone";
+                    }
+
+                }
+
+            }
         }
         public override Vector2? HoldoutOffset()
         {
@@ -233,7 +253,14 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
             //Item.useAmmo = ItemType<Ammo.StoneShot>();
-            Item.useAmmo = ItemID.StoneBlock;
+            if (ModLoader.HasMod("ThoriumMod"))
+            {
+                Item.useAmmo = ItemType<StoneShot>();
+            }
+            else
+            {
+                Item.useAmmo = ItemID.StoneBlock;
+            }
             Item.UseSound = SoundID.Item38;
 
             //Item.crit = 0;
@@ -242,6 +269,21 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 14f;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("ThoriumMod"))
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\nRequires Compact Boulders, craft more with stone";
+                    }
+
+                }
+
+            }
         }
         public override Vector2? HoldoutOffset()
         {
@@ -316,8 +358,14 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();
             //Item.useAmmo = ItemType<Ammo.StoneShot>();
-            Item.useAmmo = ItemID.StoneBlock;
-
+            if (ModLoader.HasMod("ThoriumMod"))
+            {
+                Item.useAmmo = ItemType<StoneShot>();
+            }
+            else
+            {
+                Item.useAmmo = ItemID.StoneBlock;
+            }
             Item.UseSound = SoundID.Item38;
 
             Item.crit = 12;
@@ -326,6 +374,21 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 17f;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("ThoriumMod"))
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\nRequires Compact Boulders, craft more with stone";
+                    }
+
+                }
+
+            }
         }
         public override Vector2? HoldoutOffset()
         {

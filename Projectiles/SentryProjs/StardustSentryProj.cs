@@ -140,12 +140,21 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                                 Projectile.ai[1] = 0;
                             }
-                                for (int k = 0; k < 25; k++)
+                            for (int k = 0; k < 25; k++)
                             {
                                 Dust dust2;
 
 
                                 dust2 = Main.dust[Terraria.Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135, 0f, 4f, 0, new Color(255, 255, 255), 2f)];
+                                dust2.noGravity = true;
+                                dust2.velocity *= 2;
+                            }
+                            for (int k = 0; k < 25; k++)
+                            {
+                                Dust dust2;
+
+
+                                dust2 = Main.dust[Terraria.Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 159, 0f, 4f, 0, new Color(255, 255, 255), 1f)];
                                 dust2.noGravity = true;
                                 dust2.velocity *= 2;
                             }
@@ -272,6 +281,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
         }
         public override void SetDefaults()
         {
@@ -300,7 +312,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void AI()
         {
-           
+
 
             dusttime++;
             if (dusttime >= 5)
@@ -310,19 +322,24 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Main.dust[dust].velocity *= 0.5f;
                 dusttime = 0;
             }
-            
+
             AnimateProjectile();
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
             Player player = Main.player[Projectile.owner];
 
             hometime++;
-           if (hometime > 6)
+            if (hometime > 6)
             {
                 Projectile.alpha = (int)0.5f;
             }
+            if (hometime <= 30)
+            {
+                Projectile.velocity *= 0.95f;
+            }
             if (hometime > 30)
             {
+
                 if (Projectile.localAI[0] == 0f)
                 {
                     AdjustMagnitude(ref Projectile.velocity);
@@ -363,6 +380,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     AdjustMagnitude(ref move);
                     Projectile.velocity = (10 * Projectile.velocity + move) / 10f;
                     AdjustMagnitude(ref Projectile.velocity);
+                    Projectile.velocity *= 1.05f;
+
                 }
             }
         }
@@ -393,7 +412,15 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0, 0, 120, default, 1.5f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 2f;
+
+                    //Main.dust[dust].velocity *= 2.5f;
+                }
+                for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 159, 0, 0, 120, default, 2f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 2f;
 
@@ -412,6 +439,21 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Projectile.frame %= 4; // Will reset to the first frame if you've gone through them all.
                 Projectile.frameCounter = 0;
             }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/SentryProjs/StardustSentryProj2_Trail");
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(-5, 0);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);                
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            }
+            return true;
+
         }
         public override Color? GetAlpha(Color lightColor)
         {

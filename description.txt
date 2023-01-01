@@ -5,7 +5,7 @@ There's over 300 total modded items for you to discover; including weapons, acce
 This mod includes:
 
 -Over 100 new unique weapons across all classes, including some minions and sentries
--Over 30 new accessories, including new expert exclusive ones and some tinkers
+-Over 30 new accessories, including new expert exclusive ones and some tinkers, and 3 wings
 -12 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
 -New ammo for guns and bows
 -Multiple new tools

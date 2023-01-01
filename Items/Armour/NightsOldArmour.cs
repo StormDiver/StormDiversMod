@@ -16,13 +16,13 @@ using Terraria.GameContent.Creative;
 namespace StormDiversMod.Items.Armour
 {
     [AutoloadEquip(EquipType.Head)]
-    public class NightsBHelmet : ModItem
+    public class NightsOldBHelmet : ModItem
     {
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Twilight Hood");
+            DisplayName.SetDefault("Ancient Twilight Hood");
             Tooltip.SetDefault("6% increased damage\n10% increased critical strike chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
@@ -72,7 +72,6 @@ namespace StormDiversMod.Items.Armour
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == ItemType<NightsChainmail>() || body.type == ItemType<NightsOldChainmail>() && legs.type == ItemType<NightsGreaves>() || legs.type == ItemType<NightsOldGreaves>();
-
         }
         public override void UpdateArmorSet(Player player)
         {
@@ -96,13 +95,13 @@ namespace StormDiversMod.Items.Armour
             .AddIngredient(ItemID.Silk, 15)
             .AddIngredient(ItemID.SoulofNight, 6)
             .AddIngredient(ModContent.ItemType<ChaosShard>(), 2)
-            .AddTile(TileID.Loom)
+            .AddTile(TileID.DemonAltar)
             .Register();
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
 
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Armour/NightsBHelmet_Glow");
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Armour/NightsOldBHelmet_Glow");
 
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
@@ -111,13 +110,13 @@ namespace StormDiversMod.Items.Armour
     //___________________________________________________________________________________________________________________________
     [AutoloadEquip(EquipType.Body)]
     
-    public class NightsChainmail : ModItem
+    public class NightsOldChainmail : ModItem
     {     
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Twilight Robe");
+            DisplayName.SetDefault("Ancient Twilight Robe");
             Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlighlty increases player acceleration");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
@@ -152,28 +151,26 @@ namespace StormDiversMod.Items.Armour
             .AddIngredient(ItemID.Silk, 20)
             .AddIngredient(ItemID.SoulofNight, 9)
             .AddIngredient(ModContent.ItemType<ChaosShard>(), 3)
-            .AddTile(TileID.Loom)
+            .AddTile(TileID.DemonAltar)
             .Register();
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Armour/NightsChainmail_Glow");
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Armour/NightsOldChainmail_Glow");
 
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
-
     }
     //______________________________________________________________________
     [AutoloadEquip(EquipType.Legs)]
-    public class NightsGreaves : ModItem
+    public class NightsOldGreaves : ModItem
     {
-        
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Twilight Leggings");
+            DisplayName.SetDefault("Ancient Twilight Leggings");
             Tooltip.SetDefault("3% increased damage\n2% increased critical strike chance\nSlightly increases jump speed and height");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
@@ -205,12 +202,12 @@ namespace StormDiversMod.Items.Armour
              .AddIngredient(ItemID.Silk, 18)
              .AddIngredient(ItemID.SoulofNight, 7)
              .AddIngredient(ModContent.ItemType<ChaosShard>(), 2)
-             .AddTile(TileID.Loom)
+             .AddTile(TileID.DemonAltar)
              .Register();
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Armour/NightsGreaves_Glow");
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Armour/NightsOldGreaves_Glow");
 
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);

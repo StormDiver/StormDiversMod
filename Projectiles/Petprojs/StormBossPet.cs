@@ -13,9 +13,7 @@ using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles.Petprojs
-{
-
-    
+{ 
     public class StormBossPetBuff : ModBuff
     {
         public override void SetStaticDefaults()
@@ -26,7 +24,6 @@ namespace StormDiversMod.Projectiles.Petprojs
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }
-
         public override void Update(Player player, ref int buffIndex)
         {
             player.buffTime[buffIndex] = 18000;
@@ -38,7 +35,6 @@ namespace StormDiversMod.Projectiles.Petprojs
 
             }
         }
-
     }
 
     public class StormBossPetProj : ModProjectile
@@ -52,8 +48,6 @@ namespace StormDiversMod.Projectiles.Petprojs
 
         public override void SetDefaults()
         {
-            //Projectile.CloneDefaults(ProjectileID.DD2PetGato);
-            //aiType = ProjectileID.DD2PetGato;
             Projectile.aiStyle = -1;
             Projectile.width = 32;
            Projectile.height = 32;
@@ -64,14 +58,12 @@ namespace StormDiversMod.Projectiles.Petprojs
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
         }
-
         public override bool PreAI()
         {
             Player player = Main.player[Projectile.owner];
             //player.petFlagDD2Gato = false; 
             return true;
         }
-
         float speed = 16f;
         float inertia = 25f;
         public override void AI()
@@ -94,35 +86,27 @@ namespace StormDiversMod.Projectiles.Petprojs
 
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
-
             Vector2 idlePosition = player.Center;
-            idlePosition.Y -= 24f; // Above player
-
-            
+            idlePosition.Y -= 52f; // Above player           
 
             // Teleport to player if distance is too big
             Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
             float distanceToIdlePosition = vectorToIdlePosition.Length();
             if (Main.myPlayer == player.whoAmI && distanceToIdlePosition > 2000f)
-            {
-              
+            {           
                 Projectile.position = idlePosition;
                 Projectile.velocity *= 0.1f;
                 Projectile.netUpdate = true;
-            }
-
-            
+            }           
             {
                 if (distanceToIdlePosition > 300f)
                 {
-
                     // Speed up the pet if it's away from the player
                     speed = 12f;
                     inertia = 60f;
                 }
                 else
                 {
-
                     // Slow down the pet if closer to the player
                     speed = 4f;
                     inertia = 80f;
@@ -143,8 +127,6 @@ namespace StormDiversMod.Projectiles.Petprojs
                     Projectile.velocity.Y = -0.05f;
                 }
             }
-
-
             if (!Main.dedServ)
             {
                 if (Main.rand.Next(6) == 0)
@@ -155,12 +137,7 @@ namespace StormDiversMod.Projectiles.Petprojs
                     dust.noGravity = true;
                 }
             }
-            
-
-
-            // animate
-
-           
+            // animate          
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 6)
                 {
@@ -170,9 +147,7 @@ namespace StormDiversMod.Projectiles.Petprojs
                 if (Projectile.frame >= 4)
                 {
                     Projectile.frame = 0;
-
-                }
-            
+                }           
         }
         public override void Kill(int timeLeft)
         {
@@ -187,11 +162,7 @@ namespace StormDiversMod.Projectiles.Petprojs
 
                 }
             }
-        }
-
-   
-
-        
+        }        
     }
 }
 

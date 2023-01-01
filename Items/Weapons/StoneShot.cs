@@ -35,14 +35,17 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 30;
             Item.noUseGraphic = true;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.damage = 16;           
+            Item.damage = 16;
             Item.knockBack = 4f;
             Item.consumable = true;
             Item.UseSound = SoundID.Item1;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.StoneProj>();
             Item.shootSpeed = 5f;
-            //Item.ammo = Item.type;
+            if (ModLoader.HasMod("ThoriumMod"))
+            {
+                Item.ammo = Item.type;
+            }
         }
 
         public override void AddRecipes()
