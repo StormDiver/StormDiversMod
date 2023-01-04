@@ -12,14 +12,14 @@ using ReLogic.Content;
 
 namespace StormDiversMod.Basefiles
 {
-		public class DrawLayerData
-		{
-			public static Color DefaultColor() => new Color(255, 255, 255, 0) * 0.7f;
+	public class DrawLayerData
+	{
+		public static Color DefaultColor() => new Color(255, 255, 255, 0) * 0.7f;
 
-			public Asset<Texture2D> Texture { get; init; }
+		public Asset<Texture2D> Texture { get; init; }
 
-			public Func<Color> Color { get; init; } = DefaultColor;
-		}
+		public Func<Color> Color { get; init; } = DefaultColor;
+	}
 	
 
 	public sealed class HeadLayer : PlayerDrawLayer

@@ -97,7 +97,6 @@ namespace StormDiversMod.Basefiles
 
         public bool mushroomSuper; //Player has the enchnated mushroom equipped
 
-
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the SPooky Core has fired its flames or not
@@ -182,7 +181,6 @@ namespace StormDiversMod.Basefiles
         }
    
         //===============================================================================================================
-       
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
             if (mushChestplate)
@@ -1183,12 +1181,24 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
+            //Vanity Mask sound
+            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
+            {
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+            }
+            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+            {
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+            }
         }
         //===================================Other hooks======================================
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
-        { 
-          
+        {
+            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+            {
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+            }
             //for the Beetle Gauntlet
             if (beetleFist)
             {
@@ -1237,8 +1247,11 @@ namespace StormDiversMod.Basefiles
          
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
-        {     
-          
+        {
+            /*if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+            {
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+            }*/
             /*if (heartSteal) //For the Jar of hearts
             {
                 if (!target.SpawnedFromStatue && target.life <= (target.lifeMax * 0.50f) && !target.boss && !target.friendly && target.lifeMax > 5 && !target.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
@@ -1267,7 +1280,7 @@ namespace StormDiversMod.Basefiles
                         }
                     }
                 }
-            }*/                 
+            }*/
 
             //for the Beetle Gauntlet
             if (beetleFist)
@@ -1317,6 +1330,14 @@ namespace StormDiversMod.Basefiles
         }
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
+            //For vanity sound, remove hurt sound here, play sound in hurt hook
+            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() ||
+                Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+            {            
+                playSound = false;
+            }
+
+
             if (woodNecklace && Player.ZoneForest)
             {
                 damage -= 4;
@@ -1349,6 +1370,7 @@ namespace StormDiversMod.Basefiles
             }*/
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
+      
         public override void OnHitByNPC(NPC npc, int damage, bool crit) //Hit by melee only
         {
 

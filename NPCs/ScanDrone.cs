@@ -12,6 +12,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.Basefiles;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.NPCs
 
@@ -93,15 +94,27 @@ namespace StormDiversMod.NPCs
         bool shooting;
         float movespeed = 10f; //Speed of the npc
 
-        float xpostion = 150; // The picked x postion
+        float xpostion = 0; // The picked x postion
         float ypostion = 0f;
+        public override void OnSpawn(IEntitySource source)
+        {
+            NPC.ai[1] = 90;
+        }
         public override void AI()
         {
             NPC.buffImmune[BuffID.Confused] = true;
 
-
             Player player = Main.player[NPC.target]; //Code to move towards player
             NPC.TargetClosest();
+
+            double deg = (NPC.ai[1]);
+            double rad = deg * (Math.PI / 180);
+            double dist = 100; //Distance away from the player
+
+            //position
+            xpostion = (int)(Math.Cos(rad) * dist);
+            ypostion = (int)(Math.Sin(rad) * dist);
+
             Vector2 moveTo = player.Center;
             Vector2 move = moveTo - NPC.Center + new Vector2(xpostion, ypostion); //Postion around player
             float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
@@ -111,6 +124,16 @@ namespace StormDiversMod.NPCs
             }
             NPC.velocity = move;
             NPC.velocity.X *= 0.9f;
+
+            //xpostion = 150 * -player.direction;
+            if (player.direction == 1 && NPC.ai[1] <= 180)
+            {
+                NPC.ai[1] += 5;
+            }
+            else if (player.direction == -1 && NPC.ai[1] >= 0)
+            {
+                NPC.ai[1] -= 5;
+            }
 
             shoottime++;
             NPC.noTileCollide = true;
@@ -135,13 +158,13 @@ namespace StormDiversMod.NPCs
             float distanceY = player.Center.Y - NPC.Center.Y;
             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             
-            xpostion = 150 * -player.direction;
+            
             if ((distanceX <= 600f && distanceX >= -600f) && (distanceY <= 200f && distanceY >= -200f))
             {
                 if (shoottime >= 50)
                 {
                     shooting = true;
-                    NPC.velocity.X = 0f;
+                    //NPC.velocity.X = 0f;
                     //NPC.velocity.Y = 0f;
 
 

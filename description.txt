@@ -5,8 +5,10 @@ There's over 300 total modded items for you to discover; including weapons, acce
 This mod includes:
 
 -Over 100 new unique weapons across all classes, including some minions and sentries
--Over 30 new accessories, including new expert exclusive ones and some tinkers, and 3 wings
+-Over 30 new accessories, including new expert exclusive ones and some tinkers, and 4 wings
 -12 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
+-25 new enemies across the game, most with their own banner
+-2 new unique bosses with one that can be fought in place of the Plantera (config option)
 -New ammo for guns and bows
 -Multiple new tools
 -New bars and other crafting materials
@@ -14,8 +16,6 @@ This mod includes:
 -9 new potions
 -4 new Vanity sets and a 2 special vanity masks
 -5 new pets
--25 new enemies across the game, most with their own banner
--2 new unique bosses with one that can be fought in place of the Plantera (config option)
 -New recipes for certain uncraftable vanilla items
 -New Lizharhd Temple Defences (Can be disabled Pre-Plnatera via Config)
 

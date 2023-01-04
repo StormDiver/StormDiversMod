@@ -74,7 +74,6 @@ namespace StormDiversMod.Projectiles
             Projectile.alpha = 0;
             DrawOffsetX = 25;
             DrawOriginOffsetY = 25;
-            Projectile.light = 0.9f;
         }
         public override bool? CanDamage()
         {
@@ -225,7 +224,6 @@ namespace StormDiversMod.Projectiles
             Main.projFrames[Projectile.type] = 7;
 
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 100;
@@ -257,6 +255,48 @@ namespace StormDiversMod.Projectiles
         {
             Color color = Color.White;
             color.A = 100;
+            return color;
+        }
+    }
+    public class ExplosionPainProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Explosion Pain");
+            Main.projFrames[Projectile.type] = 7;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 100;
+            Projectile.height = 100;
+            Projectile.friendly = true;
+            Projectile.timeLeft = 20;
+            Projectile.tileCollide = false;
+            Projectile.scale = 1.5f;
+            Projectile.aiStyle = -1;
+            Projectile.alpha = 0;
+            DrawOffsetX = 25;
+            DrawOriginOffsetY = 25;
+            Projectile.light = 0.9f;
+        }
+        public override bool? CanDamage()
+        {
+            return false;
+        }
+        public override void AI()
+        {
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 2) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+            }
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.Pink;
+            color.A = 255;
             return color;
         }
     }

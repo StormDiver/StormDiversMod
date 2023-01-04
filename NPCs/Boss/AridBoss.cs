@@ -138,16 +138,14 @@ namespace StormDiversMod.NPCs.Boss
         public override void AI()
         {          
             NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
+            NPC.buffImmune[BuffID.Confused] = true;
 
             if (Main.netMode != NetmodeID.Server)
             {
                 // For visuals regarding NPC position, netOffset has to be concidered to make visuals align properly
                 NPC.position += NPC.netOffset;
                 NPC.position -= NPC.netOffset;
-            }
-         
-            NPC.buffImmune[BuffID.Confused] = true;
-
+            }      
             //===============AI fields================
 
             //NPC.ai[0] = Shootime

@@ -30,7 +30,7 @@ namespace StormDiversMod.Items.Accessory
                 WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
                 {
                     Texture = ModContent.Request<Texture2D>(Texture + "_Wings_Glow"),
-                    Color = () => Color.White * 0.8f
+                    Color = () => Color.White * 0.75f
                 });
             }
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(160, 6.5f, 1.5f);

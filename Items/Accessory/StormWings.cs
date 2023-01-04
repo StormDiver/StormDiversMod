@@ -29,7 +29,7 @@ namespace StormDiversMod.Items.Accessory
                 WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
                 {
                     Texture = ModContent.Request<Texture2D>(Texture + "_Wings_Glow"),
-                    Color = () => Color.White * 0.8f
+                    Color = () => Color.White * 0.75f
                 });
             }
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(168, 6.5f, 1.66f);
@@ -68,7 +68,7 @@ namespace StormDiversMod.Items.Accessory
                     }
                     else
                     {
-                        player.velocity.Y = -0.001f; //(mostly0 prevent bottles from being reactivated
+                        player.velocity.Y = -0.001f; //(mostly) prevent bottles from being reactivated
 
                     }
                 }
@@ -110,7 +110,6 @@ namespace StormDiversMod.Items.Accessory
                 constantAscend = 0.15f;
             }
         }
-     
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

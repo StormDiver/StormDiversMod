@@ -6,7 +6,8 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
-
+using StormDiversMod.Basefiles;
+using Terraria.Audio;
 
 namespace StormDiversMod.Items.Vanitysets
 {
@@ -20,18 +21,25 @@ namespace StormDiversMod.Items.Vanitysets
             Tooltip.SetDefault("When the pain is too much");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
+    
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
-            Item.rare = ItemRarityID.White;
+            Item.rare = ItemRarityID.Blue;
             Item.vanity = true;           
-        }      
-        public override void ArmorSetShadows(Player player)
-        {
-          
         }
+        public override void UpdateEquip(Player player)
+        {
+        }
+        public override bool OnPickup(Player player)
+        {
+            SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f }, player.Center);
+
+            return base.OnPickup(player);
+        }
+
     }
     [AutoloadEquip(EquipType.Head)]
     public class TheClaymanMask : ModItem
@@ -48,12 +56,18 @@ namespace StormDiversMod.Items.Vanitysets
             Item.width = 18;
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
-            Item.rare = ItemRarityID.White;
+            Item.rare = ItemRarityID.Blue;
             Item.vanity = true; 
         }
         public override void ArmorSetShadows(Player player)
         {
 
+        }
+        public override bool OnPickup(Player player)
+        {
+            SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f }, player.Center);
+
+            return base.OnPickup(player);
         }
     }
 }

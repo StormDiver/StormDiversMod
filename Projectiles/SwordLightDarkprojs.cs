@@ -301,13 +301,14 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.timeLeft > 3)
             {
-                return Color.Black;
+                return Color.White;
             }
             else
             {
                 return null;
             }
         }
+
         public override bool PreDraw(ref Color lightColor)
         {
             Main.instance.LoadProjectile(Projectile.type);

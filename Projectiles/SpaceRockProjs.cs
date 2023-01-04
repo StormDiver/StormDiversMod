@@ -137,6 +137,8 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Asteroid Homing Boulder");
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {

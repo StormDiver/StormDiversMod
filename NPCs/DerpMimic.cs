@@ -126,7 +126,7 @@ namespace StormDiversMod.NPCs
             int ytilepos = (int)(NPC.Bottom.Y / 16) + 0;
             var tilePos = NPC.Bottom.ToTileCoordinates16();
 
-           
+          
 
             if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
             {
@@ -200,6 +200,7 @@ namespace StormDiversMod.NPCs
                     }
                     if (attackmode) //When targetting the player
                     {
+                        
                         if (NPC.velocity.Y != 0)
                         {
                             groundtime++;
@@ -208,7 +209,7 @@ namespace StormDiversMod.NPCs
                         {
                             groundtime = 0;
                         }
-                        if (NPC.velocity.Y == 0 || groundtime <= 1)//on ground or shortly after jumping have full movement control
+                        if (NPC.velocity.Y == 0)//on ground or shortly after jumping have full movement control
                         {
                             
                             if (distanceX <= -20)
@@ -224,24 +225,25 @@ namespace StormDiversMod.NPCs
                                 NPC.velocity.X *= 0.5f;
                             }
                             oldmovespeed = NPC.velocity.X;
+                            
                         }
                         else //in air remove its control
                         {
-                            if (distanceX <= -20)
+                            if (distanceX <= -30)
                             {
-                                NPC.velocity.X = oldmovespeed;
+                                NPC.velocity.X = -moveatspeed / 2 + (player.velocity.X * 0.25f);
                             }
-                            if (distanceX >= 20)
+                            if (distanceX >= 30)
                             {
-                                NPC.velocity.X = oldmovespeed;
+                                NPC.velocity.X = +moveatspeed / 2 + (player.velocity.X * 0.25f);
                             }
-                            if (distanceX < 25 && distanceX > -25)
+                            if (distanceX < 40 && distanceX > -40)
                             {
-                                oldmovespeed *= 0.95f;
+                                NPC.velocity.X *= 0.5f;
                             }
-                        }
-                      
 
+                        }
+                     
 
                         if ((distanceX >= -50 && distanceX <= 50) && !jump && NPC.velocity.Y == 0 && player.position.Y + 40 < NPC.position.Y) //jump to attack player
                         {

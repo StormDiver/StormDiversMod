@@ -48,7 +48,6 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
 
         }
-
         public override bool AltFunctionUse(Player player)
         {
             

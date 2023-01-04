@@ -105,6 +105,7 @@ namespace StormDiversMod.NPCs.Boss
         {
             NPC.noTileCollide = true;
             NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
+            NPC.buffImmune[BuffID.Confused] = true;
 
             shoottime++;
             NPC.rotation = NPC.velocity.X / 50;
