@@ -108,8 +108,6 @@ namespace StormDiversMod.Items.Tools
                 NPC.ShieldStrengthTowerStardust = 1;
 
                 //Projectiles for vanity
-                
-
 
                 Main.NewText("The Shields guarding the Celestial pillars have been stripped away!", 0, 204, 170);
 
@@ -133,7 +131,7 @@ namespace StormDiversMod.Items.Tools
                 }
 
             }
-            else
+            else if (NPC.ShieldStrengthTowerVortex == 0 && NPC.ShieldStrengthTowerSolar == 0 && NPC.ShieldStrengthTowerNebula == 0 && NPC.ShieldStrengthTowerStardust == 0)
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath6, position);
                 for (int i = 0; i < 50; i++)

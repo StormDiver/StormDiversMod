@@ -69,6 +69,7 @@ namespace StormDiversMod
                        );
                 }
             }
+
         }
 
         public static ModKeybind ArmourSpecialHotkey;
@@ -80,6 +81,15 @@ namespace StormDiversMod
                 //!!All credit goes to Kojo's mod called Rho's Playground!!
                 On.Terraria.Main.DamageVar += (orig, damage, luck) => (int)Math.Round(damage * Main.rand.NextFloat(1, 1)); //No damage variance
             }*/
+
+            //Wikithis
+            ModLoader.TryGetMod("Wikithis", out Mod wikithis);
+            if (wikithis != null && !Main.dedServ)
+            {
+                // Alternatively, you can use this instead, if your wiki is on terrariamods.fandom.com
+                wikithis.Call(0, this, "terrariamods.fandom.com$Storm_Diver%27s_Additions_Mod");
+                // wikithis.Call("AddModURL", this, "terrariamods.fandom.com/wiki/Storm_Diver%27s_Additions_Mod");
+            }
         }
         public override void Unload()
         {

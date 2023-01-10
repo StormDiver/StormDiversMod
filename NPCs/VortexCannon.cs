@@ -62,7 +62,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.VortexPillar,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A cannon on legs, completely unfazed by attacks, it continues to fire rockets damaging rockets until defeated.")
+				new FlavorTextBestiaryInfoElement("A cannon on legs, completely unfazed by attacks, it continues to fire barrages of rockets until defeated.")
             });
         }
 
