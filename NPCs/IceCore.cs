@@ -73,7 +73,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundSnow,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A frozen creature that lurks in the underground ice biome, waiting to rain down sharp icicles upon any unsuspecting adventurer.")
+				new FlavorTextBestiaryInfoElement("A frozen creature that lurks in the underground ice biome, waiting to rain down sharp icicles upon any unsuspecting terrarian.")
             });
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

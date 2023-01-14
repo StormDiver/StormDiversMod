@@ -30,6 +30,11 @@ namespace StormDiversMod.Basefiles
         //[ReloadRequired] //None required
         [DefaultValue(false)]
         public bool NoShake { get; set; }
-       
+
+        [Label("Disable text to speech sounds")]
+        [Tooltip("Disables the text to speech sounds some secret items make")]
+        //[ReloadRequired] //None required
+        [DefaultValue(false)]
+        public bool NoPain { get; set; }
     }
 }

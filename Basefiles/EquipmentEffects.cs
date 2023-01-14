@@ -1182,22 +1182,28 @@ namespace StormDiversMod.Basefiles
             }
 
             //Vanity Mask sound
-            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
+            if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
-            }
-            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
-            {
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
+                {
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                }
+                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+                {
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                }
             }
         }
         //===================================Other hooks======================================
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
         {
-            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+            if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+                {
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                }
             }
             //for the Beetle Gauntlet
             if (beetleFist)
@@ -1205,7 +1211,7 @@ namespace StormDiversMod.Basefiles
                 if (!Player.dead && crit)
                 {
 
-                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f }, target.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances= 0 }, target.Center);
 
                     float numberProjectiles = 3 + Main.rand.Next(3);
 
@@ -1218,7 +1224,7 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 45, 1, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 35, 1, Player.whoAmI);
 
                     }
                     for (int i = 0; i < 25; i++)
@@ -1287,7 +1293,7 @@ namespace StormDiversMod.Basefiles
             {            
                 if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
                 {
-                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f }, target.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances = 0 }, target.Center);
 
                     float numberProjectiles = 3 + Main.rand.Next(3);
 
@@ -1300,7 +1306,7 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 45, 1, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 35, 1, Player.whoAmI);
 
                     }
                     for (int i = 0; i < 25; i++)
@@ -1331,12 +1337,14 @@ namespace StormDiversMod.Basefiles
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             //For vanity sound, remove hurt sound here, play sound in hurt hook
-            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() ||
+            if (!GetInstance<ConfigurationsIndividual>().NoPain)
+            {
+                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() ||
                 Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
-            {            
-                playSound = false;
+                {
+                    playSound = false;
+                }
             }
-
 
             if (woodNecklace && Player.ZoneForest)
             {

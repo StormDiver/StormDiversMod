@@ -97,7 +97,7 @@ namespace StormDiversMod.Projectiles
             {
                 if (!beetled)
                 {
-                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 1f, Pitch = 1.3f }, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
 
                     Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
 
@@ -159,7 +159,7 @@ namespace StormDiversMod.Projectiles
             if (shoottime >= 20)
             {
 
-                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
 
                 Vector2 perturbedSpeed = new Vector2(0, -4).RotatedByRandom(MathHelper.ToRadians(360));
 
@@ -234,7 +234,7 @@ namespace StormDiversMod.Projectiles
                 Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
 
             }
         }
@@ -257,7 +257,7 @@ namespace StormDiversMod.Projectiles
                 Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
 
             }
             {
@@ -502,7 +502,7 @@ namespace StormDiversMod.Projectiles
 
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
-           
+            Projectile.ArmorPenetration = 15;
 
         }
         int damagetime = 0;

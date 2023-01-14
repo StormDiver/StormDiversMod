@@ -35,8 +35,10 @@ namespace StormDiversMod.Items.Vanitysets
         }
         public override bool OnPickup(Player player)
         {
-            SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f }, player.Center);
-
+            if (!GetInstance<ConfigurationsIndividual>().NoPain)
+            {
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f }, player.Center);
+            }
             return base.OnPickup(player);
         }
 
@@ -65,8 +67,10 @@ namespace StormDiversMod.Items.Vanitysets
         }
         public override bool OnPickup(Player player)
         {
-            SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f }, player.Center);
-
+            if (!GetInstance<ConfigurationsIndividual>().NoPain)
+            {
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f }, player.Center);
+            }
             return base.OnPickup(player);
         }
     }
