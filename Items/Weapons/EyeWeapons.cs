@@ -198,10 +198,9 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
             // Item.UseSound = SoundID.Item43;
 
-            Item.damage = 11;
+            Item.damage = 12;
             Item.knockBack = 3.5f;
             Item.UseSound = SoundID.Item43;
-
 
             Item.mana = 10;
 

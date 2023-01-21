@@ -72,7 +72,6 @@ namespace StormDiversMod.Items.Armour
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == ItemType<NightsChainmail>() || body.type == ItemType<NightsOldChainmail>() && legs.type == ItemType<NightsGreaves>() || legs.type == ItemType<NightsOldGreaves>();
-
         }
         public override void UpdateArmorSet(Player player)
         {

@@ -18,6 +18,9 @@ using StormDiversMod.Items.Accessory;
 using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
+using System;
 
 namespace StormDiversMod.Basefiles
 {
@@ -53,6 +56,8 @@ namespace StormDiversMod.Basefiles
 
         public bool aridCoreDebuff; //Arid Aura
 
+        public bool webDebuff; //Cobwebbed
+
 
         //All this for a speen----------------------------------------------
 
@@ -74,6 +79,10 @@ namespace StormDiversMod.Basefiles
         public bool heartStolen; //If the npc has dropped below 50% life
 
         //Whip tags
+
+        public bool WhiptagWeb; //Spider Whip
+        int webwhipcooldown;
+
         public bool WhiptagBlood; //Bloody Whip
         int bloodwhipcooldown;
 
@@ -99,7 +108,9 @@ namespace StormDiversMod.Basefiles
             ultrafrostDebuff = false;
             spookedDebuff = false;
             aridCoreDebuff = false;
+            webDebuff = false;
 
+            WhiptagWeb = false;
             WhiptagBlood = false;
             WhiptagForbidden = false;
             WhiptagSpaceRock = false;
@@ -145,6 +156,11 @@ namespace StormDiversMod.Basefiles
                 npc.velocity.Y *= 0.92f;
 
             }
+            if (webDebuff && !npc.boss)
+            {
+                npc.velocity.X *= 0.92f;
+
+            }
             if (spookedDebuff && !npc.boss)
             {
                 npc.velocity.X *= 0.96f;
@@ -155,6 +171,7 @@ namespace StormDiversMod.Basefiles
                 npc.velocity.X *= 0.93f;
 
             }
+            
             //summon projectiles for shield killer
             var player = Main.LocalPlayer;         
 
@@ -317,6 +334,10 @@ namespace StormDiversMod.Basefiles
             {
                 npc.velocity.Y = -10;
             }*/
+            if (webwhipcooldown < 60)
+            {
+                webwhipcooldown++;
+            }
             if (bloodwhipcooldown < 60)
             {
                 bloodwhipcooldown++;
@@ -642,6 +663,42 @@ namespace StormDiversMod.Basefiles
                 }
                 drawColor = new Color(180, 150, 15);
             }
+            if (webDebuff)
+            {
+                if (Main.rand.Next(4) < 2)
+                {
+                    int dust = Dust.NewDust(npc.Center, 0, 0, 31, 0, 0, 50, default, 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 0.6f;
+
+                    Main.dust[dust].fadeIn = 2;
+                }
+                /*if (Main.rand.Next(4) < 1)
+                {
+                    double deg = Main.rand.Next(0, 360); //The degrees
+                    double rad = deg * (Math.PI / 180); //Convert degrees to radians
+                    double dist = 50; //Distance away from the enemy
+                    float dustx = npc.Center.X - (int)(Math.Cos(rad) * dist);
+                    float dusty = npc.Center.Y - (int)(Math.Sin(rad) * dist);
+
+                    Vector2 velocity = Vector2.Normalize(new Vector2(npc.Center.X, npc.Center.Y) - new Vector2(dustx, dusty)) * 6;
+
+                    var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 0, 0, 31, velocity.X, velocity.Y);
+                    dust.noGravity = true;
+                    dust.scale = 1f;
+                }*/
+
+            }
+            if (WhiptagWeb)
+            {
+                if (Main.rand.Next(4) < 1)
+                {
+                    int dust = Dust.NewDust(npc.Center - new Vector2(10f, 10f), 20, 20, 31, 0, 0, 50, default, 0.8f);
+                    Main.dust[dust].noGravity = true;
+
+                }
+
+            }
             if (WhiptagBlood)
             {
                 if (Main.rand.Next(4) < 1)
@@ -738,6 +795,20 @@ namespace StormDiversMod.Basefiles
             //Whips
             if (!projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type] || ProjectileID.Sets.SentryShot[projectile.type] == true || projectile.sentry))
             {
+                //Spider Whip
+                if (WhiptagWeb)
+                {
+                    damage += 3; //tag damage
+
+                    if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC]) //summon projectile
+                    {
+                        if (Main.rand.Next(100) <= 20) //20% chance
+                        {
+                            npc.AddBuff(ModContent.BuffType<WebDebuff>(), 120);
+                        }
+                    }
+
+                }
                 //Blood Whip
                 if (WhiptagBlood)
                 {

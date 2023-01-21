@@ -517,6 +517,42 @@ namespace StormDiversMod.Buffs
         }
     }
     //_________________________________________________________________
+    public class WhiptagWebDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Spider Whip tag");
+            Description.SetDefault("You have been tagged by The Spider Whip");
+            Main.debuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().WhiptagWeb = true;
+        }
+    }
+    //_________________________________________________________________
+    public class WebDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Cobwebbed");
+            Description.SetDefault("You are covered in webs which slow you down");
+            Main.debuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().webDebuff = true;
+        }
+    }
+    //_________________________________________________________________
     public class AridCoreDebuff : ModBuff
     {
         public override void SetStaticDefaults()

@@ -250,9 +250,11 @@ namespace StormDiversMod.Basefiles
 
                 }
 
-                //For the Webstaff in Web chests
+                //For the Web items in Web chests
                 int[] ChestWeb = { ItemType<WebStaff>() };
                 int ChestWebCount = 0;
+                int[] ChestWebWhip = { ItemType<WebWhip>() };
+                int ChestWebWhipCount = 0;
                 if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 15 * 36)//Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
@@ -261,9 +263,11 @@ namespace StormDiversMod.Basefiles
                         {
                             if (WorldGen.genRand.NextBool(1))
                             {
-
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestWeb));
                                 ChestWebCount = (ChestWebCount + 1) % ChestWeb.Length;
+                                inventoryIndex++;
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestWebWhip));
+                                ChestWebWhipCount = (ChestWebWhipCount + 1) % ChestWebWhip.Length;
                                 inventoryIndex++;
                             }
 

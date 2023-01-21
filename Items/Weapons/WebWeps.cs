@@ -86,6 +86,32 @@ namespace StormDiversMod.Items.Weapons
         //Also generates in web covered chests
        
     }
-    //_____________________________________________________________________________________________________________________________
-   
+    //________________________________
+    public class WebWhip : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Spider Whip");
+            Tooltip.SetDefault("3 summon tag damage\nYour summons will focus struck enemies\nThe targetted enemy has a chance to be slowed down when hit by summons");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.DefaultToWhip(ModContent.ProjectileType<Projectiles.WhipProjs.WebWhipProj>(), 12, 0.5f, 3f, 30);
+            Item.width = 30;
+            Item.height = 20;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 0, 15, 0);
+            Item.rare = ItemRarityID.Blue;
+            Item.DamageType = DamageClass.SummonMeleeSpeed;
+
+            Item.noMelee = true;
+        }
+        public override bool MeleePrefix()
+        {
+            return true;
+        }   
+
+    }
+
 }

@@ -299,7 +299,8 @@ namespace StormDiversMod.Basefiles
             }
             if (npc.type == NPCID.WallCreeper || npc.type == NPCID.WallCreeperWall)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WebStaff>(), 50));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WebStaff>(), 40));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WebWhip>(), 40));
 
             }
             if (npc.netID == NPCID.GreenSlime)

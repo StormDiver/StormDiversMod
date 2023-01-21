@@ -78,7 +78,7 @@ namespace StormDiversMod.Items.Tools
             CreateRecipe()
            .AddIngredient(ItemID.Silk, 20)
             .AddIngredient(ItemID.Cobweb, 45)
-            .AddIngredient(ItemID.BlackThread, 10)
+            .AddIngredient(ItemID.GreenThread, 3)
          .AddTile(TileID.Loom)
          .Register();
 

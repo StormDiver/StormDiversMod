@@ -53,6 +53,7 @@ namespace StormDiversMod.NPCs
             NPC.rarity = 5;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.MoonDerpBannerItem>();
+            
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {

@@ -577,7 +577,7 @@ namespace StormDiversMod.Basefiles
                             float distanceY = Player.Center.Y - target.Center.Y;
                             float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
                             bool lineOfSight = Collision.CanHitLine(target.position, target.width, target.height, Player.position, Player.width, Player.height);
-                            if (!target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && StormDiversMod.ArmourSpecialHotkey.JustPressed)
+                            if (!target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && StormDiversMod.ArmourSpecialHotkey.JustPressed)
                             {
                                 if ((distance < 500 && lineOfSight) || (distance < 200 && !lineOfSight))
                                 {
