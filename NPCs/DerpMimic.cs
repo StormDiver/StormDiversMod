@@ -39,7 +39,7 @@ namespace StormDiversMod.NPCs
             NPC.width = 30;
             NPC.height = 80;
 
-            //NPC.aiStyle = -1; 
+            NPC.aiStyle = 0; 
             //aiType = NPCID.VortexSoldier;
 
             NPC.damage = 666;

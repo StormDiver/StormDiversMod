@@ -320,21 +320,13 @@ namespace StormDiversMod.Basefiles
     {
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
-            switch (type)
+           /* switch (type)
             {
-                case NPCID.ArmsDealer:
-
-                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<OceanGun>()))
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<OceanShard>());
-                        nextSlot++;
-
-                    }
+                case NPCID.ArmsDealer:                   
 
                     break;
-            }
-
-        
+            }*/
+     
             switch (type)
             {
                 case NPCID.Demolitionist:
@@ -346,7 +338,6 @@ namespace StormDiversMod.Basefiles
                         nextSlot++;
                         shop.item[nextSlot].SetDefaults(ItemID.MiningPants);
                         nextSlot++;
-
                     }
                     if (Main.LocalPlayer.HasItem(ModContent.ItemType<ProtoLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FrostLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<MechTheSeeker>()))
                     {
@@ -360,8 +351,6 @@ namespace StormDiversMod.Basefiles
                         shop.item[nextSlot].SetDefaults(ItemID.RocketI);
                         nextSlot++;
                     }
-
-
                     break;
             }
        
@@ -383,9 +372,7 @@ namespace StormDiversMod.Basefiles
                         nextSlot++;
                         shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Armour.RainBoots>());
                         nextSlot++;
-
                     }
-
                     break;
             }
             switch (type)
@@ -397,7 +384,6 @@ namespace StormDiversMod.Basefiles
                     nextSlot++;
                     shop.item[nextSlot].SetDefaults(ItemID.CombatWrench);
                     nextSlot++;
-
                     break;
             }
             switch (type)
@@ -410,10 +396,8 @@ namespace StormDiversMod.Basefiles
                         nextSlot++;
 
                     }
-
                     break;
-            }
-         
+            }       
 
             switch (type)
             {
@@ -422,7 +406,6 @@ namespace StormDiversMod.Basefiles
 
                         shop.item[nextSlot].SetDefaults(ItemID.DyeTradersScimitar);
                         nextSlot++;
-
                     }
                     break;
             }
@@ -434,7 +417,6 @@ namespace StormDiversMod.Basefiles
 
                         shop.item[nextSlot].SetDefaults(ItemID.PainterPaintballGun);
                         nextSlot++;
-
                     }
                     break;
             }
@@ -456,7 +438,6 @@ namespace StormDiversMod.Basefiles
 
                         shop.item[nextSlot].SetDefaults(ItemID.StylistKilLaKillScissorsIWish);
                         nextSlot++;
-
                     }
                     break;
             }
@@ -481,6 +462,16 @@ namespace StormDiversMod.Basefiles
                         shop.item[nextSlot].SetDefaults(ItemID.PrincessWeapon);
                         nextSlot++;
 
+                    }
+                    break;
+            }
+            switch (type)
+            {
+                case NPCID.BestiaryGirl:
+                    if (NPC.boughtDog)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>());
+                        nextSlot++;
                     }
                     break;
             }

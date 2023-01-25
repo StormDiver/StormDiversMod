@@ -31,7 +31,7 @@ namespace StormDiversMod.NPCs
             NPC.width = 20;
             NPC.height = 66;
 
-            //NPC.aiStyle = 22;
+            NPC.aiStyle = -1;
 
             //aiType = NPCID.Wraith;
             //animationType = NPCID.FlyingSnake;

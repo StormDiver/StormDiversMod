@@ -153,7 +153,7 @@ namespace StormDiversMod.Projectiles.Petprojs
                 {
                     if (!Main.dedServ)
                     {
-                        SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = 0.5f }, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = 0.5f, MaxInstances = -1 }, Projectile.Center); ;
 
                         for (int i = 0; i < 30; i++) //Dust post-teleport
                         {

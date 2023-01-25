@@ -70,6 +70,13 @@ namespace StormDiversMod
                 }
             }
 
+            if (ModLoader.TryGetMod("ThoriumMod", out Mod thoriumMod))
+            {
+                thoriumMod.Call("AddMartianItemID", ModContent.ItemType<SuperDartLauncher>());
+                thoriumMod.Call("AddFlailProjectileID", ModContent.ProjectileType<Projectiles.DestroyerFlailProj>());
+
+            }
+
         }
 
         public static ModKeybind ArmourSpecialHotkey;
@@ -157,8 +164,8 @@ namespace StormDiversMod
         {
             //Generic for Rocket, Grenade, Mine, and Snowman Cannon
             //Cluster frags x0.75, using frost colours
-            if (projectile.type == ProjectileID.ClusterFragmentsI || projectile.type == ProjectileID.ClusterFragmentsII
-                || projectile.type == ProjectileID.ClusterSnowmanFragmentsI || projectile.type == ProjectileID.ClusterSnowmanFragmentsII)
+            if (projectile.type is ProjectileID.ClusterFragmentsI or ProjectileID.ClusterFragmentsII
+                or ProjectileID.ClusterSnowmanFragmentsI or ProjectileID.ClusterSnowmanFragmentsII)
             {
                 int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionFrostProj>(), 0, 0, projectile.owner);
                 Main.projectile[proj].scale = 0.75f;

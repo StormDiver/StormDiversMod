@@ -54,11 +54,11 @@ namespace StormDiversMod.Projectiles
                 {
                     if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                     {
-                        distance = 200;
+                        distance = 250;
                     }
                     else
                     {
-                        distance = 100;
+                        distance = 150;
 
                     }
                     Vector2 newMove = Main.npc[k].Center - Projectile.Center;

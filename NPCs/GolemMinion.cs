@@ -31,11 +31,11 @@ namespace StormDiversMod.NPCs
             NPC.width = 34;
             NPC.height = 50;
 
-            //NPC.aiStyle = 22;
+            NPC.aiStyle = -1;
 
             //aiType = NPCID.Wraith;
             //animationType = NPCID.FlyingSnake;
-            
+
             NPC.damage = 60;
             NPC.lavaImmune = true;
             if (!NPC.downedPlantBoss)

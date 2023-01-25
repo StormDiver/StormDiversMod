@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.BossTrophy
 			Item.consumable = true;
 			Item.width = 24;
 			Item.height = 24;
-			Item.rare = ItemRarityID.Purple;
+			Item.rare = ItemRarityID.Orange;
 			Item.expert = true; // This makes sure that "Expert" displays in the tooltip and the item name color changes
 		}
 
@@ -165,7 +165,7 @@ namespace StormDiversMod.Items.BossTrophy
 			Item.consumable = true;
 			Item.width = 24;
 			Item.height = 24;
-			Item.rare = ItemRarityID.Purple;
+			Item.rare = ItemRarityID.Lime;
 			Item.expert = true; // This makes sure that "Expert" displays in the tooltip and the item name color changes
 		}
 		

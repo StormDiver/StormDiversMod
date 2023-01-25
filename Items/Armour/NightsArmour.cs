@@ -83,7 +83,7 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "Press '" + keyName + "' to the cursor's location within a limited range\nWarping has a hard 8 second cooldown"; 
+            player.setBonus = "Press '" + keyName + "' to warp to the cursor's location within a limited range\nWarping has a hard 8 second cooldown"; 
 
             //player.endurance += 0.1f;
             //player.blackBelt = true;

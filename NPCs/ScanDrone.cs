@@ -35,7 +35,7 @@ namespace StormDiversMod.NPCs
             NPC.width = 40;
             NPC.height = 20;
 
-            //NPC.aiStyle = 14; 
+            NPC.aiStyle = -1;
             //aiType = NPCID.GiantFlyingFox;
             //animationType = NPCID.CaveBat;
 

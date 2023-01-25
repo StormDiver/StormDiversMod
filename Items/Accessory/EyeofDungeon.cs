@@ -9,13 +9,13 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod.Items.Accessory
 {
-   
+
     public class EyeofDungeon : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eye of the Dungeon");
-            Tooltip.SetDefault("Summons spinning bones that home towards nearby enemies");
+            Tooltip.SetDefault("Summons homing spinning bones when near enemies");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
         }
@@ -31,32 +31,33 @@ namespace StormDiversMod.Items.Accessory
             Item.canBePlacedInVanityRegardlessOfConditions = true;
 
         }
-
-
         int skulltime = 0;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.statLife = 1;
-
             skulltime++;
-    
-            if (skulltime >=40)
+            for (int i = 0; i < 200; i++)
             {
-                
+                NPC target = Main.npc[i];
                
-                int damage = 16;
-                float speedX = 0f;
-                float speedY = -5f;
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                float scale = 1f - (Main.rand.NextFloat() * .5f);
-                perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.BoneAcProj>(), damage, 1.5f, player.whoAmI);
+                float distanceX = player.Center.X - target.Center.X;
+                float distanceY = player.Center.Y - target.Center.Y;
+                float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+                if (distance < 250 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(player.Center, 0, 0, target.Center, 0, 0))
+                {
+                    if (skulltime >= 45)
+                    {
+                        int damage = 16;
+                        float speedX = 0f;
+                        float speedY = -5f;
+                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                        float scale = 1f - (Main.rand.NextFloat() * .5f);
+                        perturbedSpeed = perturbedSpeed * scale;
+                        Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.BoneAcProj>(), damage, 1.5f, player.whoAmI);
 
-                
-                skulltime = 0;
+                        skulltime = 0;
+                    }
+                }
             }
         }
-       
-       
     }
 }

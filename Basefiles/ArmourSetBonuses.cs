@@ -430,14 +430,9 @@ namespace StormDiversMod.Basefiles
                                     dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
 
                                 }
-                                SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = -0.5f }, Player.Center);
-
-
-
+                                SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1 }, Player.Center);
                             }
                         }
-
-
                     }
                     else
                     {

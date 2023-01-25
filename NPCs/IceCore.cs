@@ -34,11 +34,11 @@ namespace StormDiversMod.NPCs
             NPC.width = 40;
             NPC.height = 40;
 
-            //NPC.aiStyle = 22;
+            NPC.aiStyle = -1;
 
             //aiType = NPCID.Wraith;
             //animationType = NPCID.FlyingSnake;
-            
+
             NPC.damage = 50;
             NPC.lavaImmune = true;
             NPC.defense = 10;
@@ -102,8 +102,8 @@ namespace StormDiversMod.NPCs
         float ypos = -150;
         //float movespeed = 3f; //Speed of the npc
         //bool staggered;
-        float speed = 6;
-        float inertia = 30;
+        float speed = 3;
+        float inertia = 55;
         public override bool? CanFallThroughPlatforms()
         {
             return true;
@@ -143,6 +143,8 @@ namespace StormDiversMod.NPCs
             }
 
             NPC.spriteDirection = NPC.direction;
+            NPC.velocity.X *= 0.99f;
+
             NPC.velocity.Y *= 0.96f;
            
             Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
@@ -153,7 +155,7 @@ namespace StormDiversMod.NPCs
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    speed = 6;
+                    speed = 3.5f;
                     ypos = 0;
                     NPC.noTileCollide = true;
                     NPC.netUpdate = true;
@@ -164,7 +166,7 @@ namespace StormDiversMod.NPCs
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    speed = 8;
+                    speed = 5f;
                     ypos = -150;
                     NPC.noTileCollide = false;
                     NPC.netUpdate = true;
@@ -185,7 +187,7 @@ namespace StormDiversMod.NPCs
                     NPC.ai[0]++; //shootime
                     NPC.ai[1]++; //phasetime
 
-                    if (NPC.ai[0] >= 15 && (NPC.position.Y < player.position.Y - 100))//fires the projectiles
+                    if (NPC.ai[0] >= 20 && (NPC.position.Y < player.position.Y - 100))//fires the projectiles
                     {
 
                         int damage = 15; 
