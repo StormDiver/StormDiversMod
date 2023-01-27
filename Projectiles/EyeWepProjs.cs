@@ -144,54 +144,32 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
 
-
-
         }
-
         bool reflect = false;
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
 
-            Projectile.damage = (Projectile.damage * 8) / 10;
-            for (int i = 0; i < 200; i++)
+            Player player = Main.player[Projectile.owner];
+
+            if (Projectile.owner == Main.myPlayer)
             {
+                float shootToX = player.Center.X - Projectile.Center.X;
+                float shootToY = player.Center.Y - Projectile.Center.Y;
+                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+                bool lineOfSight = Collision.CanHitLine(player.Center, 0, 0, Projectile.position, Projectile.width, Projectile.height);
 
-                NPC target = Main.npc[i];
-                if (Projectile.owner == Main.myPlayer)
-                {
-                    float shootToX = Main.MouseWorld.X - Projectile.Center.X;
-                    float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                    bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
+                distance = 3f / distance;
+                shootToX *= distance * 5;
+                shootToY *= distance * 5;
 
-                    distance = 3f / distance;
-                    shootToX *= distance * 3;
-                    shootToY *= distance * 3;
+                Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
 
-                    if (distance < 500f && lineOfSight)
-                    {
-                        target.TargetClosest(true);
-                        Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
-
-                        Projectile.velocity.X = perturbedSpeed.X;
-                        Projectile.velocity.Y = perturbedSpeed.Y;
-                    }
-                }
-                else
-                {
-                    if (Projectile.velocity.X != oldVelocity.X)
-                    {
-                        Projectile.velocity.X = -oldVelocity.X * 2f;
-                    }
-                    if (Projectile.velocity.Y != oldVelocity.Y)
-                    {
-                        Projectile.velocity.Y = -oldVelocity.Y * 1f;
-                    }
-                }
+                Projectile.velocity.X = perturbedSpeed.X;
+                Projectile.velocity.Y = perturbedSpeed.Y;
 
 
             }
+            
             if (!reflect)
             {
                 SoundEngine.PlaySound(SoundID.NPCHit1, Projectile.Center);

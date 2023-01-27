@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Blade of Light");
-            Tooltip.SetDefault("Summons mini Enchanted Swords that charge and ricochet towards the cursor and pierce\n'Not to be confused with The Blade of Night'");
+            Tooltip.SetDefault("Summons mini Enchanted Swords that charge towards the cursor, and ricochet and pierce\n'Not to be confused with The Blade of Night'");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

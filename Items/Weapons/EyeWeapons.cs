@@ -122,7 +122,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Eyestalk");
-            Tooltip.SetDefault("Summons a piercing eyeball that ricochets towards the cursor");
+            Tooltip.SetDefault("Summons a piercing eyeball that ricochets back towards you");
             Item.staff[Item.type] = true;
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -143,7 +143,7 @@ namespace StormDiversMod.Items.Weapons
             Item.damage = 28;
             Item.knockBack = 2f;
             Item.shoot = ModContent.ProjectileType<Projectiles.EyeStaffProj>();
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 12f;
             if (ModLoader.HasMod("TRAEProject"))
             {
                 Item.mana = 12;

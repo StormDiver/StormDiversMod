@@ -22,6 +22,7 @@ using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using Terraria.Audio;
 
+
 namespace StormDiversMod.Basefiles
 {
 
@@ -339,10 +340,9 @@ namespace StormDiversMod.Basefiles
                         twilightcharged = true; //Activates the outline effect on the armour
 
                         if (StormDiversMod.ArmourSpecialHotkey.JustPressed) //Activates when player presses button
-                        { 
-
-                            Player.AddBuff(BuffID.Obstructed, 10); //Hopefully this covers up the janky teleport :thePain:
+                        {
                             Player.AddBuff(ModContent.BuffType<TwilightDebuff>(), 480);
+                            //Player.AddBuff(BuffID.Obstructed, 10);
 
                             Player.grappling[0] = -1; //Remove grapple hooks
                             Player.grapCount = 0;
@@ -353,85 +353,97 @@ namespace StormDiversMod.Basefiles
                                     Main.projectile[p].Kill();
                                 }
                             }
+
+                            for (int i = 0; i < 30; i++) //Dust pre-teleport
                             {
-                                for (int i = 0; i < 30; i++) //Dust pre-teleport
-                                {
-                                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 62);
-                                    dust.scale = 1.1f;
-                                    dust.velocity *= 2;
-                                    //dust.noGravity = true;
+                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 62);
+                                dust.scale = 1.1f;
+                                dust.velocity *= 2;
+                                dust.noGravity = true;
+                                dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
 
-                                }
-                                for (int i = 0; i < 30; i++)
-                                {
-                                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 179);
-                                    dust.scale = 1.5f;
-                                    dust.noGravity = true;
-                                    dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-
-
-                                }
-                                //X postion 
-                                {
-                                    if (distanceX <= xWarplimit && distanceX >= -xWarplimit)
-                                    {
-                                        Player.position.X = Main.MouseWorld.X - (Player.width / 2);
-                                        //Main.NewText("Little mouse X", 0, 146, 0);
-                                    }
-                                    else
-                                    {
-                                        if (distanceX < -xWarplimit)
-                                        {
-                                            Player.position.X = (Main.MouseWorld.X - (Player.width / 2)) + (distanceX + xWarplimit);
-                                            //Main.NewText("Mouse it to the right", 146, 0, 0);
-                                        }
-                                        else if (distanceX > xWarplimit)
-                                        {
-                                            Player.position.X = (Main.MouseWorld.X - (Player.width / 2)) + (distanceX - xWarplimit);
-                                            //Main.NewText("Mouse it to the left", 146, 0, 0);
-                                        }
-                                    }
-                                }
-                                //Y postion 
-                                {
-                                    if (distanceY <= yWarplimit && distanceY >= -yWarplimit)
-                                    {
-                                        Player.position.Y = Main.MouseWorld.Y - (Player.height);
-                                        //Main.NewText("Little mouse Y", 0, 146, 0);
-                                    }
-                                    else
-                                    {
-                                        if (distanceY < -yWarplimit)
-                                        {
-                                            Player.position.Y = (Main.MouseWorld.Y - (Player.height)) + (distanceY + yWarplimit);
-                                            //Main.NewText("Mouse it to the down", 0, 0, 146);
-                                        }
-                                        else if (distanceY > yWarplimit)
-                                        {
-                                            Player.position.Y = (Main.MouseWorld.Y - (Player.height)) + (distanceY - yWarplimit);
-                                            //Main.NewText("Mouse it to the up", 0, 0, 146);
-                                        }
-                                    }
-                                }
-
-                                for (int i = 0; i < 30; i++) //Dust post-teleport
-                                {
-                                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 62);
-                                    dust.scale = 1.1f;
-                                    dust.velocity *= 2;
-                                    //dust.noGravity = true;
-
-                                }
-                                for (int i = 0; i < 30; i++)
-                                {
-                                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 179);
-                                    dust.scale = 1.5f;
-                                    dust.noGravity = true;
-                                    dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-
-                                }
-                                SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1 }, Player.Center);
                             }
+                            for (int i = 0; i < 30; i++)
+                            {
+                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 179);
+                                dust.scale = 1.5f;
+                                dust.noGravity = true;
+                                dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+
+
+                            }
+                            //effects to cover up teleport
+                            //Player.teleportTime = 0.1f;
+                            /*NPC.ResetNetOffsets();
+                            Main.BlackFadeIn = 255;                   
+                            Main.instantBGTransitionCounter = 10;*/
+
+                            Main.SetCameraLerp(0.1f, 0);//Smooth camera movement, this was it :clayman:
+                           
+                            //X postion 
+                            {
+                                if (distanceX <= xWarplimit && distanceX >= -xWarplimit)
+                                {
+                                    Player.position.X = Main.MouseWorld.X - (Player.width / 2);
+                                    //Main.NewText("Little mouse X", 0, 146, 0);
+                                }
+                                else
+                                {
+                                    if (distanceX < -xWarplimit)
+                                    {
+                                        Player.position.X = (Main.MouseWorld.X - (Player.width / 2)) + (distanceX + xWarplimit);
+                                        //Main.NewText("Mouse it to the right", 146, 0, 0);
+                                    }
+                                    else if (distanceX > xWarplimit)
+                                    {
+                                        Player.position.X = (Main.MouseWorld.X - (Player.width / 2)) + (distanceX - xWarplimit);
+                                        //Main.NewText("Mouse it to the left", 146, 0, 0);
+                                    }
+                                }
+                            }
+                            //Y postion 
+                            {
+                                if (distanceY <= yWarplimit && distanceY >= -yWarplimit)
+                                {
+                                    Player.position.Y = Main.MouseWorld.Y - (Player.height);
+                                    //Main.NewText("Little mouse Y", 0, 146, 0);
+                                }
+                                else
+                                {
+                                    if (distanceY < -yWarplimit)
+                                    {
+                                        Player.position.Y = (Main.MouseWorld.Y - (Player.height)) + (distanceY + yWarplimit);
+                                        //Main.NewText("Mouse it to the down", 0, 0, 146);
+                                    }
+                                    else if (distanceY > yWarplimit)
+                                    {
+                                        Player.position.Y = (Main.MouseWorld.Y - (Player.height)) + (distanceY - yWarplimit);
+                                        //Main.NewText("Mouse it to the up", 0, 0, 146);
+                                    }
+                                }
+                            }
+                            Main.screenPosition = Main.screenLastPosition;
+
+
+                            for (int i = 0; i < 30; i++) //Dust post-teleport
+                            {
+                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 62);
+                                dust.scale = 1.1f;
+                                dust.velocity *= 2;
+                                dust.noGravity = true;
+                                dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+
+                            }
+                            for (int i = 0; i < 30; i++)
+                            {
+                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 179);
+                                dust.scale = 1.5f;
+                                dust.noGravity = true;
+                                dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+
+                            }
+                            SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1 }, Player.Center);
+
                         }
                     }
                     else
