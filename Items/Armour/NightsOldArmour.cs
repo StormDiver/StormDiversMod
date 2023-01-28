@@ -71,7 +71,7 @@ namespace StormDiversMod.Items.Armour
         }
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == ItemType<NightsChainmail>() || body.type == ItemType<NightsOldChainmail>() && legs.type == ItemType<NightsGreaves>() || legs.type == ItemType<NightsOldGreaves>();
+            return (body.type == ItemType<NightsChainmail>() || body.type == ItemType<NightsOldChainmail>()) && (legs.type == ItemType<NightsGreaves>() || legs.type == ItemType<NightsOldGreaves>());
         }
         public override void UpdateArmorSet(Player player)
         {
@@ -83,7 +83,7 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "Press '" + keyName + "' to warp to the cursor's location within a limited range\nWarping has a hard 8 second cooldown"; 
+            player.setBonus = "Press '" + keyName + "' to warp to the cursor's location within a limited range\nWarping has a hard 8 second cooldown\n'Teleporting is just dashing at the speed of light'"; 
 
             //player.endurance += 0.1f;
             //player.blackBelt = true;

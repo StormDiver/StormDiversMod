@@ -346,7 +346,7 @@ namespace StormDiversMod.Projectiles
             {
                 stopspikes = true;
             }
-            if (shoottime >= 30)//Fire spikes while spinning
+            if (shoottime >= 25)//Fire spikes while spinning
             {
                 float numberProjectiles = 8;
                 float rotation = MathHelper.ToRadians(180);

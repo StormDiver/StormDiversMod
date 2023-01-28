@@ -321,8 +321,7 @@ namespace StormDiversMod.Basefiles
             float xWarplimit = 640;
             float yWarplimit = 400;
             if (twilightSet)
-            {
-             
+            {           
                 float distanceX = Player.Center.X - Main.MouseWorld.X;
                 float distanceY = Player.Center.Y - Main.MouseWorld.Y;
                 float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
@@ -335,8 +334,6 @@ namespace StormDiversMod.Basefiles
                     if (((distanceX < -xWarplimit || distanceX > xWarplimit || distanceY < -yWarplimit || distanceY > yWarplimit) && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) ||
                         (distanceX > -xWarplimit && distanceX < xWarplimit && distanceY > -yWarplimit && distanceY < yWarplimit)) //If there is no line of sight and cursor is past limit, don't allow teleport to prevent gettign stuck in blocks
                     {
-
-
                         twilightcharged = true; //Activates the outline effect on the armour
 
                         if (StormDiversMod.ArmourSpecialHotkey.JustPressed) //Activates when player presses button
@@ -361,7 +358,6 @@ namespace StormDiversMod.Basefiles
                                 dust.velocity *= 2;
                                 dust.noGravity = true;
                                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-
                             }
                             for (int i = 0; i < 30; i++)
                             {
@@ -369,8 +365,6 @@ namespace StormDiversMod.Basefiles
                                 dust.scale = 1.5f;
                                 dust.noGravity = true;
                                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-
-
                             }
                             //effects to cover up teleport
                             //Player.teleportTime = 0.1f;
@@ -422,8 +416,12 @@ namespace StormDiversMod.Basefiles
                                     }
                                 }
                             }
-                            Main.screenPosition = Main.screenLastPosition;
-
+                            //warp line effects
+                            Dust.QuickDustLine(Player.Center, Player.oldPosition + new Vector2(Player.width / 2, Player.height/ 2), 50, Color.Purple); //centre to centre
+                            Dust.QuickDustLine(new Vector2(Player.Center.X, Player.Top.Y), Player.oldPosition + new Vector2(Player.width / 2, Player.height ), 50, Color.Purple); //top to bottom
+                            Dust.QuickDustLine(new Vector2(Player.Center.X, Player.Bottom.Y), Player.oldPosition + new Vector2(Player.width / 2, 0), 50, Color.Purple); //bottom to top
+                            Dust.QuickDustLine(new Vector2(Player.Left.X, Player.Center.Y), Player.oldPosition + new Vector2(Player.width, Player.height / 2), 50, Color.Purple); //left to right
+                            Dust.QuickDustLine(new Vector2(Player.Right.X, Player.Center.Y), Player.oldPosition + new Vector2(0, Player.height / 2), 50, Color.Purple); //right to left
 
                             for (int i = 0; i < 30; i++) //Dust post-teleport
                             {
@@ -443,22 +441,18 @@ namespace StormDiversMod.Basefiles
 
                             }
                             SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1 }, Player.Center);
-
                         }
                     }
                     else
                     {
                         twilightcharged = false;
-
                     }
                 }
-
                 else
                 {
                     twilightcharged = false; //Removes the outline effect if the player is unable to charge
                 }
             }
-
             //for Derpling armour
 
             if (derpJump)
