@@ -317,14 +317,14 @@ namespace StormDiversMod.Basefiles
 
                         if (soulBoots)
                         {
-                            Player.maxRunSpeed += 2.1f;
-                            Player.runAcceleration *= 2f;
+                            Player.maxRunSpeed += 1.7f;
+                            Player.runAcceleration *= 1.75f;
                             Player.runSlowdown = 0.2f;
                         }
                         else if (bloodBoots)
                         {
-                            Player.maxRunSpeed += 1f;
-                            Player.runAcceleration *= 1.5f;
+                            Player.maxRunSpeed += 0.8f;
+                            Player.runAcceleration *= 1.25f;
                             Player.runSlowdown = 0.15f;
                         }
 
@@ -333,14 +333,14 @@ namespace StormDiversMod.Basefiles
                     {
                         if (soulBoots)
                         {
-                            Player.maxRunSpeed += 7f;
-                            Player.runAcceleration *= 3f;
+                            Player.maxRunSpeed += 6.2f;
+                            Player.runAcceleration *= 2.75f;
                             Player.runSlowdown = 0.5f;
                         }
                         else if (bloodBoots)
                         {
-                            Player.maxRunSpeed += 5f;
-                            Player.runAcceleration *= 1.75f;
+                            Player.maxRunSpeed += 4.2f;
+                            Player.runAcceleration *= 1.5f;
                             Player.runSlowdown = 0.35f;
                         }
                     }
@@ -348,14 +348,14 @@ namespace StormDiversMod.Basefiles
                     {
                         if (soulBoots)
                         {
-                            Player.maxRunSpeed += 4.5f;
-                            Player.runAcceleration *= 2f;
+                            Player.maxRunSpeed += 4f;
+                            Player.runAcceleration *= 1.75f;
                             Player.runSlowdown = 0.25f;
                         }
                         else if (bloodBoots)
                         {
-                            Player.maxRunSpeed += 3.5f;
-                            Player.runAcceleration *= 1.5f;
+                            Player.maxRunSpeed += 3.2f;
+                            Player.runAcceleration *= 1.25f;
                             Player.runSlowdown = 0.2f;
                         }
                     }
@@ -1187,10 +1187,14 @@ namespace StormDiversMod.Basefiles
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
                 {
                     SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.DeepPink, "Thepain!", true);
+
                 }
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
                 {
                     SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", true);
+
                 }
             }
         }
@@ -1203,6 +1207,8 @@ namespace StormDiversMod.Basefiles
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
                 {
                     SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", true);
+
                 }
             }
             //for the Beetle Gauntlet
@@ -1332,7 +1338,6 @@ namespace StormDiversMod.Basefiles
                 }
                 
             }
-        
         }
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
@@ -1375,7 +1380,8 @@ namespace StormDiversMod.Basefiles
                 damage = Player.statLife - 1;
                 SoundEngine.PlaySound(SoundID.Item, (int)Player.position.X, (int)Player.position.Y, 122);
 
-            }*/
+            }*/         
+
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
       

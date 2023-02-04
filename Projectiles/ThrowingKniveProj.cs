@@ -41,7 +41,8 @@ namespace StormDiversMod.Projectiles
 
             DrawOffsetX = 0;
             DrawOriginOffsetY = -0;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
 
@@ -136,6 +137,8 @@ namespace StormDiversMod.Projectiles
 
             DrawOffsetX = 0;
             DrawOriginOffsetY = -0;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         int spinspeed = 0;
@@ -228,7 +231,8 @@ namespace StormDiversMod.Projectiles
 
             DrawOffsetX = 0;
             DrawOriginOffsetY = -0;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
 

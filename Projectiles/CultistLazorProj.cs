@@ -195,7 +195,6 @@ namespace StormDiversMod.Projectiles
                 if (player.statMana > 0)
                 {
 
-
                     if (Main.rand.Next(100) <= manachance)
                     {
                         if (ModLoader.HasMod("TRAEProject"))//bool if TRAE

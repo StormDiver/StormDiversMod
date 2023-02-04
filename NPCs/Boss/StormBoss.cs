@@ -617,7 +617,7 @@ namespace StormDiversMod.NPCs.Boss
                             rotation += 180; //New target is opposite where charged
                             NPC.netUpdate = true;
                         }
-                        SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 1f, Pitch = -0.5f }, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 1f, Pitch = -0.5f, MaxInstances = 0 }, NPC.Center);
 
                     }
                     if (NPC.ai[2] > 1 && NPC.ai[2] < 15)//Accelerate
@@ -1087,7 +1087,7 @@ namespace StormDiversMod.NPCs.Boss
                             }
                             NPC.netUpdate = true;
                         }
-                        SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 1f, Pitch = -0.5f }, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 1f, Pitch = -0.5f, MaxInstances = 0 }, NPC.Center);
                     }
                     if (NPC.ai[2] > 1 && NPC.ai[2] < 8) //Accelerate
                     {

@@ -676,7 +676,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void AI()
         {
-            if (Projectile.scale > 0.05f)
+            if (Projectile.scale > 0.01f)
             {
                 Projectile.scale -= 0.005f;
             }

@@ -1,0 +1,2947 @@
+
+Mods: {
+	StormDiversMod: {
+		Buffs: {
+			AridCoreDebuff: {
+				DisplayName: Arid Aura
+				Description: You will take more damage
+			}
+
+			AridSandDebuff: {
+				DisplayName: Forbidden Burn
+				Description: The forbidden sand burns you
+			}
+
+			BeetleBuff: {
+				DisplayName: Beetle Enhancement
+				Description: 20 armor penetration for melee weapons
+			}
+
+			BeetleDebuff: {
+				DisplayName: Beetle Swarm
+				Description: Beetles have greatly reduced your speed
+			}
+
+			BloodBurstBuff: {
+				DisplayName: Blood Burst
+				Description: Blood is oozing to burst out of you
+			}
+
+			CelestialBuff: {
+				DisplayName: Celestial Guardian
+				Description: The powers of the Celestial spirits rapidly regenerate your life and grant additional defense
+			}
+
+			DarkShardDebuff: {
+				DisplayName: Essence of Dark
+				Description: You have been surrounded by the darkness
+			}
+
+			DerpBuff: {
+				DisplayName: Derpling Launch
+				Description: In Terraria, Derpling launch you
+			}
+
+			DerpDebuff: {
+				DisplayName: Launched
+				Description: You have been launched into the air by the power of the Derplings
+			}
+
+			FrozenBuff: {
+				DisplayName: Frost Spiked
+				Description: Your movement speed and critical strike chance are greatly increased
+			}
+
+			FruitHeartBuff: {
+				DisplayName: Life Fruit Up
+				Description: Max life is increased by 50
+			}
+
+			GladiatorAccessBuff: {
+				DisplayName: Warrior's Gift
+				Description: 20% increased critical strike chance
+			}
+
+			GraniteAccessBuff: {
+				DisplayName: Granite Surge
+				Description: 50% increased damage
+			}
+
+			GraniteBuff: {
+				DisplayName: Granite Barrier
+				Description: Reduces damage taken by by 15% and grants immunity to knockback
+			}
+
+			GunBuff: {
+				DisplayName: Marksmanship
+				Description: 15% increased bullet damage
+			}
+
+			HeartBarrierBuff: {
+				DisplayName: Life Barrier
+				Description: The next incoming attack will be reduced by 25% and will deal no knockback
+			}
+
+			HeartBuff: {
+				DisplayName: Life Up
+				Description: Max life is increased by 40
+			}
+
+			HeartDebuff: {
+				DisplayName: Stolen Heart
+				Description: You cannot live without a heart
+			}
+
+			HellSoulBuff: {
+				DisplayName: Inferno Storm
+				Description: The inferno flames are ready to be unleashed
+			}
+
+			HellSoulFireDebuff: {
+				DisplayName: SoulBurn
+				Description: This might not be fine
+			}
+
+			LunarBoulderDebuff: {
+				DisplayName: Lunar Bouldered
+				Description: Inflicts unimaginable pain, reduced movement speed and constant burning
+			}
+
+			MushBuff1: {
+				DisplayName: Shroom Power
+				Description: Increases damage dealt and reduces damage taken by 1
+			}
+
+			MushBuff2: {
+				DisplayName: Shroom Power
+				Description: Increases damage dealt and reduces damage taken by 2
+			}
+
+			MushBuff3: {
+				DisplayName: Shroom Power
+				Description: Increases damage dealt and reduces damage taken by 4
+			}
+
+			MushBuff4: {
+				DisplayName: Shroom Power
+				Description: Increases damage dealt and reduces damage taken by 6
+			}
+
+			RainBuff: {
+				DisplayName: Sprinting in the rain
+				Description: Your movement speed is increased
+			}
+
+			SantankBuff1: {
+				DisplayName: Ho-Ho-Homing Missile
+				Description: Some of your missiles are ready to launch
+			}
+
+			SantankBuff2: {
+				DisplayName: Ho-Ho-Homing Missile
+				Description: Most of your missiles are ready to launch
+			}
+
+			SantankBuff3: {
+				DisplayName: Ho-Ho-Homing Missile
+				Description: All of your missiles are ready to launch
+			}
+
+			ScanDroneDebuff: {
+				DisplayName: Marked for target
+				Description: All your defense has been taken away
+			}
+
+			ShroomiteBuff: {
+				DisplayName: Shroomite Enhancement
+				Description: Increases ammo damage by 10%
+			}
+
+			SkyKnightSentryBuff: {
+				DisplayName: Star Warrior's Sentry
+				Description: A Star sentry attacks for you
+			}
+
+			SpaceRockDefence: {
+				DisplayName: Orbital Defense
+				Description:
+					'''
+					25% damage reduction from the next attack
+					Taking damage summons asteroid boulders from the sky
+					'''
+			}
+
+			SpaceRockOffence: {
+				DisplayName: Orbital Strike
+				Description: Your next attack will cause asteroid boulders to fall upon the attacked enemy
+			}
+
+			SpectreBuff: {
+				DisplayName: Spectre Enhancement
+				Description: Maximum mana increased by 60
+			}
+
+			SpookedDebuff: {
+				DisplayName: Spooked
+				Description: You are overwhelmed by fear
+			}
+
+			SpookyBuff: {
+				DisplayName: Spooky Enhancement
+				Description: Increases Minion damage and whip speed by 10%
+			}
+
+			SuperBurnDebuff: {
+				DisplayName: Blazing Fire
+				Description: This is fine
+			}
+
+			SuperFrostBurn: {
+				DisplayName: CryoBurn
+				Description: It's like FrostBurn, but it hurts even more
+			}
+
+			TeddyBuff: {
+				DisplayName: Teddy Bear Love
+				Description: The love of the Teddy bear increases life regen
+			}
+
+			TurtleBuff: {
+				DisplayName: Shelled
+				Description: The power of the Turtle shell protects you
+			}
+
+			TwilightDebuff: {
+				DisplayName: Twilight Warped
+				Description: You are unable to perform another Twilight Warp
+			}
+
+			UltraBurnDebuff: {
+				DisplayName: UltraBurn
+				Description: This most certainly is NOT fine!!!!
+			}
+
+			UltraFrostDebuff: {
+				DisplayName: UltraFreeze
+				Description: This really really REALLY hurts!!!!
+			}
+
+			WebDebuff: {
+				DisplayName: Cobwebbed
+				Description: You are covered in webs which slow you down
+			}
+
+			WhiptagBloodDebuff: {
+				DisplayName: Bloody Whip tag
+				Description: You have been tagged by The Bloody Spine
+			}
+
+			WhiptagForbiddenDebuff: {
+				DisplayName: Forbidden Whip tag
+				Description: You have been tagged by the Forbidden Whip
+			}
+
+			WhiptagSpaceRockDebuff: {
+				DisplayName: Asteroid Whip tag
+				Description: You have been tagged by the Asteroid Belt
+			}
+
+			WhiptagWebDebuff: {
+				DisplayName: Spider Whip tag
+				Description: You have been tagged by The Spider Whip
+			}
+
+			WoodenBuff: {
+				DisplayName: Forest Empowerment
+				Description: Reduces damage taken by 4
+			}
+
+			AncientMinionBuff: {
+				DisplayName: Ancient Arid Minion
+				Description: An Ancient Arid minion will fight for you
+			}
+
+			DerplingMinionBuff: {
+				DisplayName: Baby Derpling Minion
+				Description: A buffed baby Derpling will fight for you
+			}
+
+			EyeMinionBuff: {
+				DisplayName: Servant of Cthulhu Minion
+				Description: A Servant of Cthulhu minion will fight for you
+			}
+
+			FrozenSpiritMinionBuff: {
+				DisplayName: Frozen Spirit Minion
+				Description: A Frozen Spirit minion will fight for you
+			}
+
+			HellSoulMinionBuff: {
+				DisplayName: HellSoul Minion
+				Description: A HellSoul minion will fight for you
+			}
+
+			LizardMinionBuff: {
+				DisplayName: Temple Guardian Minion
+				Description: A mini Temple Guardian minion will fight for you
+			}
+
+			SpaceRockMinionBuff: {
+				DisplayName: Asteroid Minion
+				Description: A mini Asteroid will fight for you
+			}
+
+			AridBossPetBuff: {
+				DisplayName: Liberated Husk
+				Description: Free at last, but it decides to stay with you
+			}
+
+			GoldDerpieBuff: {
+				DisplayName: Golden Derpie
+				Description: So shiny and bouncy!
+			}
+
+			StormBossPetBuff: {
+				DisplayName: Baby Overloaded Scandrone
+				Description: Scanning and droning
+			}
+
+			StormLightBuff: {
+				DisplayName: Baby Storm Diver
+				Description: It's not cute, it's not!!!
+			}
+
+			TwilightPetBuff: {
+				DisplayName: Twilight Figure
+				Description: A strange hooded figure lights your way
+			}
+		}
+
+		Items: {
+			AridCore: {
+				DisplayName: Ancient Scarab
+				Tooltip: Creates an Arid aura around the cursor, enemies within the aura take extra damage
+			}
+
+			BeetleBoot: {
+				DisplayName: Beetle Gauntlet
+				Tooltip:
+					'''
+					Critical striking an enemy with a melee weapon causes mini beetles to burst out of them and swarm nearby enemies
+					Increases melee knockback
+					12% increased melee speed
+					Enables auto swing for melee weapons
+					Increases the size of melee weapons
+					'''
+			}
+
+			BiomeCore: {
+				DisplayName: Biome Core
+				Tooltip:
+					'''
+					Taking more than 1 damage increases damage by 50% for 4 seconds with a 10 second cooldown afterwards
+					While above 75% HP your critical strike chance is increased by 20%
+					Increases damage dealt and reduces damage taken when losing health
+					'''
+			}
+
+			BloodBoots: {
+				DisplayName: Bloody Treads
+				Tooltip:
+					'''
+					The wearer can run up to 40mph
+					Increases acceleration
+					Leaves behind a damaging trail of blood when running along the ground
+					'''
+			}
+
+			BlueCuffs: {
+				DisplayName: Insulated Cuffs
+				Tooltip:
+					'''
+					All weapons have a chance to inflict frostburn upon attacked enemies
+					'Redirect the coldness into your foes'
+					'''
+			}
+
+			Celestialshield: {
+				DisplayName: Celestial Barrier
+				Tooltip:
+					'''
+					Grants immunity to debuffs inflicted by Extra-Terrestrial creatures
+					Taking heavy damage greatly increases health regeneration while protecting you
+					Duration depends on the amount of damage received
+					'''
+			}
+
+			CoralEmblem: {
+				DisplayName: Whirlpool Emblem
+				Tooltip: Using most weapons summons a water orb from the sky that travels towards the cursor's location
+			}
+
+			DerpEye: {
+				DisplayName: Eye of the Derpling
+				Tooltip:
+					'''
+					Greatly increases luck
+					Increases critical strike damage by 15%
+					'Lucky you'
+					'''
+			}
+
+			DerpEyeGolem: {
+				DisplayName: Eye of the Jungle
+				Tooltip:
+					'''
+					10% increased critical strike chance
+					Greatly increases luck
+					Increases critical strike damage by 15%
+					'''
+			}
+
+			DesertJar: {
+				DisplayName: Pharaoh's Urn
+				Tooltip:
+					'''
+					Two sand particles will orbit you at close range, damaging enemies
+					Leaves behind a damaging trail of sand when moving fast enough
+					'''
+			}
+
+			EyeofDungeon: {
+				DisplayName: Eye of the Dungeon
+				Tooltip: Summons homing spinning bones when near enemies
+			}
+
+			FlameCore: {
+				DisplayName: Betsy's Flame
+				Tooltip:
+					'''
+					Summons homing flames when using any weapon
+					Increases acceleration
+					'''
+			}
+
+			FrostAccess: {
+				DisplayName: Frozen Heart
+				Tooltip:
+					'''
+					Multiple frost spikes explode out of you when taking more than 1 damage
+					Increases critical strike chance and movement speed for 6 seconds afterwards
+					'''
+			}
+
+			FrostCube: {
+				DisplayName: Frozen Queen's Core
+				Tooltip:
+					'''
+					Increases your max number of minions and sentries by 1
+					Increases whip range by 15%
+					'''
+			}
+
+			FrostJar: {
+				DisplayName: Frozen Urn
+				Tooltip:
+					'''
+					Multiple frost spikes explode out of you when taking more than 1 damage
+					Increases critical strike chance and movement speed for 6 seconds afterwards
+					Two frost particles will orbit you at close range, damaging enemies
+					Leaves behind a damaging trail of frost when moving fast enough
+					'''
+			}
+
+			GladiatorAccess: {
+				DisplayName: Warrior's Trophy
+				Tooltip: While above 75% HP your critical strike chance is increased by 20%
+			}
+
+			GraniteCoreAccess: {
+				DisplayName: Granite Core
+				Tooltip:
+					'''
+					Taking more than 1 damage increases damage by 50% for 4 seconds
+					Has a 10 second cooldown afterwards
+					'''
+			}
+
+			HeartJar: {
+				DisplayName: Heart Emblem
+				Tooltip:
+					'''
+					Most enemies have a chance to drop a super heart when they fall below half life, bosses always drop 3 hearts
+					Enemies that drop the heart lose life rapidly
+					Increases maximum health by 20
+					'''
+			}
+
+			HeartJarPS: {
+				DisplayName: Philosopher's Heart
+				Tooltip:
+					'''
+					Reduces the cooldown of healing potions by 25%
+					Most enemies have a chance to drop a super heart when they fall below half life, bosses always drop 3 hearts
+					Enemies that drop the heart lose life rapidly
+					Increases maximum health by 20
+					'''
+			}
+
+			HellSoulWings: {
+				DisplayName: Hell Flame Wings
+				Tooltip:
+					'''
+					Allows flight and slow fall
+					Hold UP to ascend faster
+					'''
+			}
+
+			LightDarkWings: {
+				DisplayName: Harmonia Wings
+				Tooltip: Allows flight and slow fall
+			}
+
+			LunaticHood: {
+				DisplayName: Lunatic Hood of Command
+				Tooltip: Summons 2 mini cultists minions that fly next to you and fire shadow fireballs at enemies
+			}
+
+			PrimeAccess: {
+				DisplayName: Mechanical Spikes
+				Tooltip:
+					'''
+					Six spike balls will orbit you, damaging enemies within reach
+					Has a small chance to destroy almost any projectile that comes near
+					'''
+			}
+
+			ShroomAccessory: {
+				DisplayName: Shroomite Launcher Attachment
+				Tooltip: Makes all guns fire out mini shroomite rockets
+			}
+
+			ShroomAccessorySnipe: {
+				DisplayName: Shroomite Launcher Scope
+				Tooltip:
+					'''
+					Makes all guns fire out mini shroomite rockets
+					Increases view range for guns (Right click to zoom out)
+					10% increased ranged damage and critical strike chance
+					'''
+			}
+
+			SoulBoots: {
+				DisplayName: Soul Striders
+				Tooltip:
+					'''
+					Greatly increases movement speed up to 50mph
+					Increases acceleration, and allows flight
+					'Speed throughout the day and the night'
+					'''
+			}
+
+			SpaceRockWings: {
+				DisplayName: Asteroid Wings
+				Tooltip:
+					'''
+					Allows flight and slow fall
+					Has a fast horizontal movement and acceleration
+					'''
+			}
+
+			SpectreAccessory: {
+				DisplayName: Spectre Skull
+				Tooltip:
+					'''
+					Mana usage is negated when under the effects of mana sickness
+					Increases maximum mana by 40
+					'''
+			}
+
+			SpectreAccessoryMagnet: {
+				DisplayName: Magnet Skull Flower
+				Tooltip:
+					'''
+					8% reduced mana usage
+					Automatically use mana potions when needed
+					Increases pickup range for mana stars
+					Mana usage is negated when under the effects of mana sickness
+					Increases maximum mana by 40
+					'''
+			}
+
+			SpookyCore: {
+				DisplayName: Spooky Emblem
+				Tooltip:
+					'''
+					Creates an aura of fear around you that affects enemies
+					Has a greater range the lower on health you are
+					'''
+			}
+
+			StompBoot: {
+				DisplayName: Heavy Boots
+				Tooltip:
+					'''
+					Allows flight
+					Hold DOWN to fall faster and create a shockwave upon hitting the ground
+					While falling faster you will damage any enemy you fall on
+					'What did you think would happen if you attached an Anvil to a pair of boots?'
+					'''
+			}
+
+			StompBootHorse: {
+				DisplayName: Heavy Horseshoe Boots
+				Tooltip:
+					'''
+					Allows flight and negates fall damage
+					Hold DOWN to fall faster and create a shockwave upon hitting the ground
+					While falling faster you will damage any enemy you fall on
+					'''
+			}
+
+			StormCoil: {
+				DisplayName: Overloaded Storm Core
+				Tooltip:
+					'''
+					Right click while holding UP to send a lightning portal to the cursor that zaps enemies
+					Right click while holding DOWN to return the portal to you
+					'''
+			}
+
+			StormWings: {
+				DisplayName: Storm Wings
+				Tooltip:
+					'''
+					Allows flight and slow fall
+					Hold DOWN and JUMP to hover
+					'''
+			}
+
+			SuperMushroom: {
+				DisplayName: Enchanted Mushroom
+				Tooltip: Increases damage dealt and reduces damage taken when losing health
+			}
+
+			WoodNecklace: {
+				DisplayName: Wooden Pendant
+				Tooltip: Reduces damage taken by 4 while in a forest
+			}
+
+			AsteroidArrow: {
+				DisplayName: Asteroid Arrow
+				Tooltip: Quickly charges towards the cursor after a short delay, pierces after charging
+			}
+
+			AsteroidBullet: {
+				DisplayName: Asteroid Bullet
+				Tooltip:
+					'''
+					Summons a small asteroid fragment above struck enemies
+					The fragment deals low damage but ignores 50 defense
+					'''
+			}
+
+			BouncyArrow: {
+				DisplayName: Bouncy Arrow
+				Tooltip: Super bouncy
+			}
+
+			ChaosArrow: {
+				DisplayName: Chaos Arrow
+				Tooltip:
+					'''
+					Ignores gravity, and ricochets off tiles, gaining speed and damage with every bounce
+					'Unleash the Chaos'
+					'''
+			}
+
+			CrackedShot: {
+				DisplayName: Cracked Bullet
+				Tooltip: Has a chance to shatter into 4 shards in flight
+			}
+
+			DesertArrow: {
+				DisplayName: Forbidden Arrow
+				Tooltip: Speeds up after a short delay, ignoring gravity and dealing extra damage.
+			}
+
+			DesertBullet: {
+				DisplayName: Forbidden Bullet
+				Tooltip: Creates a small cloud of forbidden dust on tile impact
+			}
+
+			DualArrow: {
+				DisplayName: Dual Arrow
+				Tooltip: Two arrows tied together, has a chance to spilt in midair
+			}
+
+			FrostArrow: {
+				DisplayName: Frost Arrow
+				Tooltip: Explodes into tiny shards on impact
+			}
+
+			FrostBullet: {
+				DisplayName: Frost Bullet
+				Tooltip: Can pierce through walls, but scatters when doing so
+			}
+
+			IronShot: {
+				DisplayName: Iron Shot
+				Tooltip: Heavy bullet that obeys gravity and has a strong knockback
+			}
+
+			LeadShot: {
+				DisplayName: Lead Shot
+				Tooltip: Heavy bullet that obeys gravity and has a strong knockback
+			}
+
+			MeteorArrow: {
+				DisplayName: Meteor Arrow
+				Tooltip: Slightly attracted towards enemies
+			}
+
+			OceanShard: {
+				DisplayName: Coral Bullet
+				Tooltip: Unaffected by water but has a limited range
+			}
+
+			ProtoGrenade: {
+				DisplayName: Prototype Grenade
+				Tooltip: For use with certain launchers
+			}
+
+			ShroomArrow: {
+				DisplayName: Shroomite Arrow
+				Tooltip:
+					'''
+					Can pierce once
+					Leaves behind a trail of damaging mushrooms
+					'''
+			}
+
+			ShroomBullet: {
+				DisplayName: Shroomite Bullet
+				Tooltip: Ricochets off walls and pierces enemies
+			}
+
+			AridBMask: {
+				DisplayName: Arid Mask
+				Tooltip: 5% increased critical strike chance
+			}
+
+			AridChestplate: {
+				DisplayName: Arid Breastplate
+				Tooltip: Increases critical strike damage by 10%
+			}
+
+			AridGreaves: {
+				DisplayName: Arid Greaves
+				Tooltip:
+					'''
+					5% increased critical strike chance
+					12% increased movement speed
+					'''
+			}
+
+			BloodBHelmet: {
+				DisplayName: Hemoglobin Helmet
+				Tooltip: 4% increased melee damage and critical strike chance
+			}
+
+			BloodChainmail: {
+				DisplayName: Hemoglobin Breastplate
+				Tooltip:
+					'''
+					6% increased melee damage
+					12% increased melee speed
+					'''
+			}
+
+			BloodGreaves: {
+				DisplayName: Hemoglobin Greaves
+				Tooltip:
+					'''
+					6% increased melee critical strike chance
+					12% increased movement speed
+					'''
+			}
+
+			ContestArmourBHelmet: {
+				DisplayName: Cryogenic Mask
+				Tooltip:
+					'''
+					Increases your max number of sentries by 1
+					7% increased damage
+					'Cold and Misty'
+					'''
+			}
+
+			ContestArmourChestplate: {
+				DisplayName: Cryogenic Chestplate
+				Tooltip:
+					'''
+					8% increased damage
+					6% increased critical strike chance
+					'''
+			}
+
+			ContestArmourLeggings: {
+				DisplayName: Cryogenic Greaves
+				Tooltip:
+					'''
+					Increases your max number of sentries by 1
+					7% increased damage
+					10% increased movement speed
+					'''
+			}
+
+			DerplingBCrown: {
+				DisplayName: Messenger's Crown
+				Tooltip: Increases maximum movement speed
+			}
+
+			DerplingBHeadgear: {
+				DisplayName: Ancient Derpling Helmet
+				Tooltip:
+					'''
+					10% increased damage
+					5% increased critical strike chance
+					'''
+			}
+
+			DerplingBMask: {
+				DisplayName: Derpling Mask
+				Tooltip:
+					'''
+					10% increased damage
+					5% increased critical strike chance
+					'''
+			}
+
+			DerplingBreastplate: {
+				DisplayName: Derpling Breastplate
+				Tooltip:
+					'''
+					7% increased damage
+					6% increased critical strike chance
+					'''
+			}
+
+			DerplingGreaves: {
+				DisplayName: Derpling Greaves
+				Tooltip:
+					'''
+					6% increased damage and critical strike chance
+					Grants immunity to fall damage
+					'''
+			}
+
+			GraniteBMask: {
+				DisplayName: Granite Mask
+				Tooltip: 2% increased melee damage and critical strike chance
+			}
+
+			GraniteChestplate: {
+				DisplayName: Granite Chestplate
+				Tooltip:
+					'''
+					4% increased melee damage
+					10% increased melee speed
+					'''
+			}
+
+			GraniteGreaves: {
+				DisplayName: Granite Greaves
+				Tooltip: 2% increased melee damage and critical strike chance
+			}
+
+			HellSoulBCrown: {
+				DisplayName: Inferno Soul Crown
+				Tooltip:
+					'''
+					10% increased summoner damage
+					Increases maximum number of minions by 2
+					'''
+			}
+
+			HellSoulBHelmet: {
+				DisplayName: Inferno Soul Helmet
+				Tooltip:
+					'''
+					10% increased ranged damage
+					8% increased ranged critical strike chance
+					'''
+			}
+
+			HellSoulBHood: {
+				DisplayName: Inferno Soul Hood
+				Tooltip:
+					'''
+					12% increased magic damage
+					6% increased critical strike chance
+					Increases maximum mana by 60
+					'''
+			}
+
+			HellSoulBMask: {
+				DisplayName: Inferno Soul Mask
+				Tooltip:
+					'''
+					14% increased melee damage
+					5% increased melee critical strike chance
+					'''
+			}
+
+			HellSoulChestplate: {
+				DisplayName: Inferno Soul Breastplate
+				Tooltip:
+					'''
+					7% increased damage
+					6% increased critical strike chance
+					'''
+			}
+
+			HellSoulLeggings: {
+				DisplayName: Inferno Soul Greaves
+				Tooltip:
+					'''
+					5% increased damage
+					6% increased critical strike chance
+					25% increased movement speed
+					'''
+			}
+
+			MushroomBMask: {
+				DisplayName: Shroom Mask
+				Tooltip:
+					'''
+					3% increased ranged critical strike chance
+					There's not mushroom in there
+					'''
+			}
+
+			MushroomChestplate: {
+				DisplayName: Shroom Chestplate
+				Tooltip: Increases ranged damage by 1
+			}
+
+			MushroomGreaves: {
+				DisplayName: Shroom Greaves
+				Tooltip: 3% increased ranged critical strike chance
+			}
+
+			NightsBHelmet: {
+				DisplayName: Twilight Hood
+				Tooltip:
+					'''
+					6% increased damage
+					10% increased critical strike chance
+					'''
+			}
+
+			NightsChainmail: {
+				DisplayName: Twilight Robe
+				Tooltip:
+					'''
+					6% increased damage
+					3% increased critical strike chance
+					Slighlty increases player acceleration
+					'''
+			}
+
+			NightsGreaves: {
+				DisplayName: Twilight Leggings
+				Tooltip:
+					'''
+					3% increased damage
+					2% increased critical strike chance
+					Slightly increases jump speed and height
+					'''
+			}
+
+			NightsOldBHelmet: {
+				DisplayName: Ancient Twilight Hood
+				Tooltip:
+					'''
+					6% increased damage
+					10% increased critical strike chance
+					'''
+			}
+
+			NightsOldChainmail: {
+				DisplayName: Ancient Twilight Robe
+				Tooltip:
+					'''
+					6% increased damage
+					3% increased critical strike chance
+					Slighlty increases player acceleration
+					'''
+			}
+
+			NightsOldGreaves: {
+				DisplayName: Ancient Twilight Leggings
+				Tooltip:
+					'''
+					3% increased damage
+					2% increased critical strike chance
+					Slightly increases jump speed and height
+					'''
+			}
+
+			RainBoots.DisplayName: Rain Boots
+
+			SantankBMask: {
+				DisplayName: Santank Mask
+				Tooltip:
+					'''
+					12% increased ranged damage
+					8% increased ranged critical strike chance
+					'''
+			}
+
+			SantankChestplate: {
+				DisplayName: Santank Chestplate
+				Tooltip:
+					'''
+					10% increased ranged damage and critical strike chance
+					25% chance not to consume ammo
+					'''
+			}
+
+			SantankGreaves: {
+				DisplayName: Santank Greaves
+				Tooltip:
+					'''
+					8% increased ranged damage
+					6% increased ranged critical strike chance
+					25% increased movement speed
+					'''
+			}
+
+			ShadowFlameBMask: {
+				DisplayName: Shadowflare Mask
+				Tooltip:
+					'''
+					20% increased whip range
+					10% increased whip speed
+					8% increased summoner damage
+					'''
+			}
+
+			ShadowFlameChestplate: {
+				DisplayName: Shadowflare Robe
+				Tooltip:
+					'''
+					10% increased whip range
+					Increases maximum minions by 1
+					8% increased summoner damage
+					'''
+			}
+
+			ShadowFlameGreaves: {
+				DisplayName: Shadowflare Greaves
+				Tooltip:
+					'''
+					10% increased whip range
+					15% increased whip speed
+					8% increased summoner damage
+					'''
+			}
+
+			SkyKnightBMask: {
+				DisplayName: Star Warrior Visage
+				Tooltip: 7% increased damage
+			}
+
+			SkyKnightChest: {
+				DisplayName: Star Warrior Platemail
+				Tooltip:
+					'''
+					Increases your max number of sentries by 1
+					4% increased damage
+					'''
+			}
+
+			SkyKnightGreaves: {
+				DisplayName: Star Warrior Greaves
+				Tooltip:
+					'''
+					Increases your max number of sentries by 1
+					4% increased damage
+					'''
+			}
+
+			SpaceRockBHelmet: {
+				DisplayName: Asteroid Helmet
+				Tooltip:
+					'''
+					15% increased damage
+					8% increased critical strike chance
+					'''
+			}
+
+			SpaceRockBMask: {
+				DisplayName: Asteroid Mask
+				Tooltip:
+					'''
+					5% increased damage
+					Increases health regeneration and grants immunity to knockback
+					'''
+			}
+
+			SpaceRockChestplate: {
+				DisplayName: Asteroid Chestplate
+				Tooltip:
+					'''
+					7% increased damage
+					5% increased critical strike chance
+					'''
+			}
+
+			SpaceRockLeggings: {
+				DisplayName: Asteroid Leggings
+				Tooltip:
+					'''
+					6% increased damage
+					5% increased critical strike chance
+					50% increased movement speed
+					'''
+			}
+
+			AridBossBag: {
+				DisplayName: Treasure Bag (Ancient Husk)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			AridBossRelic.DisplayName: Ancient Husk Relic
+			AridBossTrophy.DisplayName: Ancient Husk Trophy
+
+			StormBossBag: {
+				DisplayName: Treasure Bag (Overloaded Scandrone)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			StormBossRelic.DisplayName: Overloaded Scandrone Relic
+			StormBossTrophy.DisplayName: Overloaded Scandrone Trophy
+
+			TheGoodBoyItem: {
+				DisplayName: The Best Boy
+				Tooltip: "'You will be missed'"
+			}
+
+			BloodDrop: {
+				DisplayName: Bloody Drop
+				Tooltip: A drop of blood that's somehow able to hold its shape
+			}
+
+			BlueCloth: {
+				DisplayName: Insulated Fabric
+				Tooltip: Can be used to keep warm
+			}
+
+			ChaosShard: {
+				DisplayName: Chaos Orb
+				Tooltip: "'Imbued with pure chaos'"
+			}
+
+			CrackedHeart: {
+				DisplayName: Broken Heart
+				Tooltip: "'Almost devoid of life'"
+			}
+
+			DerplingShell: {
+				DisplayName: Derpling Shell
+				Tooltip: "'Tough, but malleable'"
+			}
+
+			DesertOre: {
+				DisplayName: Forbidden Shard
+				Tooltip: Retrieved from the depths of the deserted caves
+			}
+
+			GraniteCore: {
+				DisplayName: Granite Power Cell
+				Tooltip: Seems to be pulsing with energy
+			}
+
+			IceOre: {
+				DisplayName: Frost Shard
+				Tooltip: Retrieved from the depths of the frozen caves
+			}
+
+			RedSilk: {
+				DisplayName: Warrior Cloth
+				Tooltip: Used to create Items of a fallen Gladiator
+			}
+
+			SantankScrap: {
+				DisplayName: Mechanical Scrap
+				Tooltip: All that remains of the mighty Santank
+			}
+
+			SoulFire: {
+				DisplayName: HellSoul Flame
+				Tooltip: A soul that never stops burning
+			}
+
+			SpaceRock: {
+				DisplayName: Asteroid Fragment
+				Tooltip: Seems to be infused with some strange energy
+			}
+
+			DesertBar: {
+				DisplayName: Forbidden Bar
+				Tooltip: Used in the creation of forbidden armor and weapons
+			}
+
+			IceBar: {
+				DisplayName: Frost Bar
+				Tooltip: Used in the creation of frozen armor and weapons
+			}
+
+			SpaceRockBar: {
+				DisplayName: Asteroid Bar
+				Tooltip: Radiating with energy
+			}
+
+			AridBossPetItem: {
+				DisplayName: Glowing Horns
+				Tooltip: Summons a liberated Husk that follows you
+			}
+
+			DerplingVine: {
+				DisplayName: Mysterious Vine
+				Tooltip: Seems to be infused with some strange energy
+			}
+
+			StormBossPetItem: {
+				DisplayName: Mysterious Device
+				Tooltip:
+					'''
+					Summons a Baby Overloaded Scandrone
+					'Scanning complete!'
+					'''
+			}
+
+			StormLightItem: {
+				DisplayName: Suspicious Looking Helmet
+				Tooltip: Summons something unthinkable
+			}
+
+			TwilightPetItem: {
+				DisplayName: Strange Twilight Hood
+				Tooltip: Summons a mysterious figure to light your way
+			}
+
+			BarrierPotion: {
+				DisplayName: Endurance Healing Potion
+				Tooltip: Reduces the damage of the next incoming attack by 25%
+			}
+
+			BeetlePotion: {
+				DisplayName: Beetle Penetration Potion
+				Tooltip: Increases armor penetration of all melee weapons by 20
+			}
+
+			DoubleHealingPotion: {
+				DisplayName: Enhanced Healing Potion
+				Tooltip: Potion sickness lasts longer than normal
+			}
+
+			FruitHeartPotion: {
+				DisplayName: Life Fruit Vial
+				Tooltip: Temporarily increases maximum health by 50
+			}
+
+			GunPotion: {
+				DisplayName: Marksmanship Potion
+				Tooltip: 15% increased bullet damage
+			}
+
+			HeartPotion: {
+				DisplayName: Life Vial
+				Tooltip: Temporarily increases maximum health by 40
+			}
+
+			ShroomitePotion: {
+				DisplayName: Shroomite Ammo Power Potion
+				Tooltip: Increases ammo damage by 10%
+			}
+
+			SpectrePotion: {
+				DisplayName: Spectre Empowerment Potion
+				Tooltip: Increases maximum mana by 60
+			}
+
+			SpookyPotion: {
+				DisplayName: Spooky Curse Potion
+				Tooltip: Increases Summon damage and whip speed by 10%
+			}
+
+			AridBossSummon: {
+				DisplayName: Cracked Horn
+				Tooltip: Seems to be cursed, use with caution
+			}
+
+			MoonlingSummoner: {
+				DisplayName: Moonling Core
+				Tooltip:
+					'''
+					Summons a Moonling that will try to kill you
+					Safer to use near solid ground
+					'''
+			}
+
+			StormBossSummoner: {
+				DisplayName: Storm Beacon
+				Tooltip: Signals a powerful foe
+			}
+
+			Aircan: {
+				DisplayName: Compressed Air Can
+				Tooltip:
+					'''
+					Fires out a blast of air that blows enemies away
+					'Great for clearing out cobwebs'
+					'''
+			}
+
+			BloodHammer: {
+				DisplayName: Bloody Hammer
+				Tooltip: "'Try not to leave blood stains on the wall'"
+			}
+
+			BloodPax: {
+				DisplayName: Bloody Pax
+				Tooltip: "'Try not to make a mess with this'"
+			}
+
+			DerpHook: {
+				DisplayName: Derpling Hook
+				Tooltip: Can fire out 3 hooks simultaneously, 2 can be attached at a time
+			}
+
+			DerplingChainsaw: {
+				DisplayName: Derpling Chainsaw
+				Tooltip: "'Cut down the trees'"
+			}
+
+			DerplingDrill: {
+				DisplayName: Derpling Drill
+				Tooltip: "'Drill through the ground'"
+			}
+
+			DerplingJackhammer: {
+				DisplayName: Derpling Jackhammer
+				Tooltip: "'Smash down the walls'"
+			}
+
+			DesertHamaxe: {
+				DisplayName: Forbidden Hamaxe
+				Tooltip: Strong enough to destroy Altars
+			}
+
+			DesertPick: {
+				DisplayName: Forbidden Pickaxe
+				Tooltip: Can mine Adamantite and Titanium
+			}
+
+			EyeHook: {
+				DisplayName: Eyeball Hook
+				Tooltip: Fires out one long but slow hook
+			}
+
+			FastDrill: {
+				DisplayName: Mini Drill
+				Tooltip: "'Speeds up your mining experience'"
+			}
+
+			FastDrill2: {
+				DisplayName: Mega Drill
+				Tooltip: "'Greatly speeds up your mining experience'"
+			}
+
+			FishingRodDerpling: {
+				DisplayName: Derpling Fishing Rod
+				Tooltip: Fires multiple lines at once
+			}
+
+			FrostHamaxe: {
+				DisplayName: Frost Hamaxe
+				Tooltip: Strong enough to destroy Altars
+			}
+
+			FrostPick: {
+				DisplayName: Frost Pickaxe
+				Tooltip: Can mine Adamantite and Titanium
+			}
+
+			GladiatorAxe: {
+				DisplayName: Gladiator's Waraxe
+				Tooltip: Used to be a mighty weapon, now merely used to chop down trees
+			}
+
+			GladiatorHammer: {
+				DisplayName: Gladiator's Warhammer
+				Tooltip: Used to be a mighty weapon, now merely used to smash down walls
+			}
+
+			GladiatorPick: {
+				DisplayName: Gladiator's Pickaxe
+				Tooltip: Can mine Meteorite
+			}
+
+			GraniteAxe.DisplayName: Granite Axe
+			GraniteHammer.DisplayName: Granite Hammer
+
+			GranitePick: {
+				DisplayName: Granite Pickaxe
+				Tooltip: Can mine Meteorite
+			}
+
+			HellSoulHamaxe: {
+				DisplayName: Soul Hamaxe
+				Tooltip: Empowered with the burning souls of hell
+			}
+
+			HellSoulPick: {
+				DisplayName: Soul Pickaxe
+				Tooltip: Empowered with the burning souls of hell
+			}
+
+			MushroomAxe: {
+				DisplayName: Shroom Axe
+				Tooltip: "'Use the mushrooms to chop down the mushrooms'"
+			}
+
+			MushroomHammer: {
+				DisplayName: Shroom Hammer
+				Tooltip: "'The Hammush's little brother'"
+			}
+
+			MushroomPick: {
+				DisplayName: Shroom Pickaxe
+				Tooltip: Can mine Meteorite
+			}
+
+			Quack: {
+				DisplayName: Rubber Duck
+				Tooltip: "'QUACK!'"
+			}
+
+			SantankDrill: {
+				DisplayName: Santa's Drill
+				Tooltip: "'For use on those who have been naughty'"
+			}
+
+			SantankJackham: {
+				DisplayName: Santa's Jackhammer
+				Tooltip: "'For use on those who have been naughty'"
+			}
+
+			SantankSaw: {
+				DisplayName: Santa's Chainsaw
+				Tooltip: "'For use on those who have been naughty'"
+			}
+
+			SentryKiller: {
+				DisplayName: Remote Sentry Detonator
+				Tooltip: Removes all of your placed sentries
+			}
+
+			ShieldKiller: {
+				DisplayName: Celestial Globe
+				Tooltip: Removes the shields from all active pillars
+			}
+
+			SpaceRockDrillSaw: {
+				DisplayName: Asteroid DrillSaw
+				Tooltip: "'Not to be confused with the SawDrill'"
+			}
+
+			SpaceRockJackhammer: {
+				DisplayName: Asteroid Jackhammer
+				Tooltip: "'Great for smashing down walls'"
+			}
+
+			StormHook: {
+				DisplayName: Lightning Hook
+				Tooltip: Fires out a single fast hook
+			}
+
+			SuperHeartPickup: {
+				DisplayName: Super Heart
+				Tooltip: Heals 25 health when picked up
+			}
+
+			TeddyBear: {
+				DisplayName: Teddy Bear
+				Tooltip:
+					'''
+					Hug the bear to regenerate life
+					'Full of love'
+					'''
+			}
+
+			BossMaskAridBoss.DisplayName: Ancient Husk Mask
+			BossMaskStormBoss.DisplayName: Scandrone Mask
+
+			PredictorBMask: {
+				DisplayName: Predictor Head
+				Tooltip: Unfortunately this will not increase your brain power
+			}
+
+			PredictorBody.DisplayName: Predictor Body
+			PredictorLegs.DisplayName: Predictor legs
+
+			SelenianBMask: {
+				DisplayName: Selenian Head
+				Tooltip: No, you cannot reflect projectiles!
+			}
+
+			SelenianBody.DisplayName: Selenian Body
+			SelenianLegs.DisplayName: Selenian legs
+
+			StargazerBMask: {
+				DisplayName: Stargazer Head
+				Tooltip: Note, this will not actually allow you to see stars any better
+			}
+
+			StargazerBody.DisplayName: Stargazer Body
+			StargazerLegs.DisplayName: Stargazer legs
+
+			StormDiverBMask: {
+				DisplayName: Storm Diver Mask
+				Tooltip: Can you even see out of this thing?
+			}
+
+			StormDiverBody.DisplayName: Storm Diver Body
+			StormDiverLegs.DisplayName: Storm Diver legs
+
+			TheClaymanMask: {
+				DisplayName: Clayman
+				Tooltip: Sliently judge everybody around you
+			}
+
+			ThePainMask: {
+				DisplayName: ThePain
+				Tooltip: When the pain is too much
+			}
+
+			AncientFlame: {
+				DisplayName: Arid Sandblaster
+				Tooltip:
+					'''
+					Fires out a stream of burning sand
+					Uses gel for ammo
+					Ignores 10 points of enemy defense
+					'''
+			}
+
+			AncientKnives: {
+				DisplayName: Arid Knives
+				Tooltip: Throw out several knives that pierce after spinning
+			}
+
+			AncientMinion: {
+				DisplayName: Arid Command Staff
+				Tooltip: Summons an Ancient Arid Minion to fight for you
+			}
+
+			AncientStaff: {
+				DisplayName: Arid Sandblast Staff
+				Tooltip: Creates an explosive blast of sand at the cursor's location
+			}
+
+			BeetleShellWeapon: {
+				DisplayName: Giant Beetle Shell
+				Tooltip: Summons beetles on impact that attack and swarm your foes
+			}
+
+			BeetleSpear: {
+				DisplayName: Beetle Lance
+				Tooltip: Summons beetles that attack and swarm your foes
+			}
+
+			BeetleYoyo: {
+				DisplayName: The Thorax
+				Tooltip: Summons beetles that attack and swarm your foes
+			}
+
+			BloodPotion: {
+				DisplayName: Blood Grenade
+				Tooltip: Bursts into multiple blood drops on destruction
+			}
+
+			BloodSpear: {
+				DisplayName: Heart Piercer
+				Tooltip: Great for stabbing in a hurry
+			}
+
+			BloodSword: {
+				DisplayName: Bloody Blade
+				Tooltip: Shoots out a trail of blood every other swing
+			}
+
+			BloodWhip: {
+				DisplayName: The Bloody Tendon
+				Tooltip:
+					'''
+					4% summon tag critical strike chance
+					Your summons will focus struck enemies
+					Damaging blood orbs will orbit the targetted enemy when hit by summons
+					'''
+			}
+
+			BloodYoyo: {
+				DisplayName: The Heart Attack
+				Tooltip: Leaves behind a trail of damaging blood
+			}
+
+			BloodyRifle: {
+				DisplayName: Bloodshot Rifle
+				Tooltip:
+					'''
+					Converts regular bullets into blood bullets that drop blood in flight
+					Right Click to zoom out
+					'''
+			}
+
+			BloodySentry: {
+				DisplayName: Bloody Urchin Staff
+				Tooltip: Summons a blood Urchin Sentry that rapidly spits defense-piercing blood streams at enemies
+			}
+
+			BoneBoomerang: {
+				DisplayName: Femurang
+				Tooltip:
+					'''
+					3 can be thrown out at a time
+					'What, you thought this was Humerus?'
+					'''
+			}
+
+			ChloroDartGun: {
+				DisplayName: Chlorophyte Dart Shotgun
+				Tooltip: Fires out a burst of darts
+			}
+
+			ChloroStaff: {
+				DisplayName: Chlorophyte Scepter
+				Tooltip: Fires out a stream of damaging spore dust
+			}
+
+			CultistBow: {
+				DisplayName: Lunatic Bow of Ice
+				Tooltip:
+					'''
+					Fires out an ice arrow that rains down icicles on impact
+					Ice arrows slow down enemies on direct hit
+					'''
+			}
+
+			CultistLazor: {
+				DisplayName: Mysterious Cultist Hood
+				Tooltip:
+					'''
+					Charge up and fire a damaging laser from this strange cultist hood that rapidly drains mana
+					Wait, What!?
+					'''
+			}
+
+			CultistSpear: {
+				DisplayName: Lunatic Spear of Fire
+				Tooltip: Summons blazing fire balls each stab
+			}
+
+			CultistStaff: {
+				DisplayName: Lunatic Staff of Lightning
+				Tooltip:
+					'''
+					Summons a lightning orb sentry that rapidly fires lightning bolts at enemies
+					Right click to target a specific enemy
+					'''
+			}
+
+			CultistTome: {
+				DisplayName: Lunatic Spell of Ancient Light
+				Tooltip: Summons ancient light that seeks out enemies
+			}
+
+			DerplingGun: {
+				DisplayName: Derpling Rifle
+				Tooltip:
+					'''
+					Four round burst, only the first shot consumes ammo
+					'I know it looks cruel, but it had to be done'
+					'''
+			}
+
+			DerplingMinion: {
+				DisplayName: Derpling Staff
+				Tooltip: Summons a buffed baby Derpling to fight for you
+			}
+
+			DerplingStaff: {
+				DisplayName: Derpling Scepter
+				Tooltip:
+					'''
+					Rapidly fires out magical Derpling Shell Shards
+					Has a small chance to fire out a larger shard that homes and explodes into smaller shards
+					'''
+			}
+
+			DerplingSword: {
+				DisplayName: Derpling Sword
+				Tooltip: Fire out multiple Derpling Shell Shards every other swing
+			}
+
+			DesertBow: {
+				DisplayName: Forbidden Fury
+				Tooltip: Converts all arrows to Ancient Forbidden arrows that rain down the heat of the Desert
+			}
+
+			DesertSpear: {
+				DisplayName: Forbidden Pike
+				Tooltip: Unleash the power of the forbidden sands
+			}
+
+			DesertSpell: {
+				DisplayName: Forbidden Storm
+				Tooltip: Summons the Forbidden sands
+			}
+
+			DesertStaff: {
+				DisplayName: Forbidden Staff
+				Tooltip: Summons a floating Forbidden Sentry that blasts sand in all directions
+			}
+
+			DesertWhip: {
+				DisplayName: Forbidden Whip
+				Tooltip:
+					'''
+					6% summon tag critical strike chance
+					Your summons will focus struck enemies
+					Forbidden sand jumps from the targeted enemy when hit by summons
+					'''
+			}
+
+			EnchantedAxeMagic: {
+				DisplayName: The Soul Splitter
+				Tooltip:
+					'''
+					Summons mini Crimson Axes that split into multiple axes
+					'Split the souls of your foes'
+					'''
+			}
+
+			EnchantedHammer: {
+				DisplayName: The Dream Crusher
+				Tooltip:
+					'''
+					Summons mini Cursed Hammers that rain down more hammers
+					'Crush the dreams of your enemies'
+					'''
+			}
+
+			EnchantedSword: {
+				DisplayName: The Blade of Light
+				Tooltip:
+					'''
+					Summons mini Enchanted Swords that charge towards the cursor, and ricochet and pierce
+					'Not to be confused with The Blade of Night'
+					'''
+			}
+
+			EyeGun: {
+				DisplayName: Eye Rifle
+				Tooltip:
+					'''
+					Fires 2 bullets in rapid succession
+					Only the first shot consumes ammo
+					'''
+			}
+
+			EyeMinion: {
+				DisplayName: Eyeball Staff
+				Tooltip: Summons a Servant of Cthulhu minion to fight for you
+			}
+
+			EyeStaff: {
+				DisplayName: The Eyestalk
+				Tooltip: Summons a piercing eyeball that ricochets back towards you
+			}
+
+			EyeSword: {
+				DisplayName: Eye Sored
+				Tooltip: Launches a bouncing eyeball every swing
+			}
+
+			FrostLauncher: {
+				DisplayName: Frost Launcher
+				Tooltip:
+					'''
+					Fires out impact-exploding grenades that inflict CryoBurn
+					Requires Prototype Grenades, purchase more from the Demolitionist
+					'''
+			}
+
+			FrostSentry: {
+				DisplayName: Frostspike Staff
+				Tooltip: Summons a frost sentry that fires piercing icicles at high speed at enemies
+			}
+
+			FrostSpinner: {
+				DisplayName: Frozen Polestar
+				Tooltip:
+					'''
+					Spins around and knocks enemies in the direction you're facing
+					Inflicts cryoburn on enemies
+					'''
+			}
+
+			FrostStar: {
+				DisplayName: Frost Frizbee
+				Tooltip: Throws out a frizbee that shatters on impact
+			}
+
+			Frostthrower: {
+				DisplayName: Cryofreezer
+				Tooltip:
+					'''
+					Fires out a stream of super cold gas which inflicts CryoBurn
+					Uses gel for ammo
+					Ignores 15 points of enemy defense
+					'''
+			}
+
+			GladiatorBow: {
+				DisplayName: Gladiator's Bow
+				Tooltip: Fires arrows at a high velocity
+			}
+
+			GladiatorSpear: {
+				DisplayName: Gladiator's Glaive
+				Tooltip: Slow but powerful
+			}
+
+			GladiatorStaff: {
+				DisplayName: Gladiator's Staff
+				Tooltip: Fires out a magical piercing beam
+			}
+
+			GraniteRifle: {
+				DisplayName: Granite Rifle
+				Tooltip: Converts regular bullets into Granite Bullets that pierce once
+			}
+
+			GraniteStaff: {
+				DisplayName: Granite Scepter
+				Tooltip: Fires out a bunch of energy bolts
+			}
+
+			GraniteYoyo.DisplayName: The Surge
+
+			HarpyBow: {
+				DisplayName: Feathered Bow
+				Tooltip: Converts Wooden Arrows into Feather Arrows that ignore gravity and pierce
+			}
+
+			HarpyStaff: {
+				DisplayName: Feather Scepter
+				Tooltip:
+					'''
+					Fires out a spread of 3 feathers
+					The center feather deals more damage and pierces once
+					'''
+			}
+
+			HarpyYoyo: {
+				DisplayName: The Feather Thrower
+				Tooltip: Lighter than most yoyos
+			}
+
+			HellSoulBow: {
+				DisplayName: Hell Fury
+				Tooltip: Fires out a homing soul arrow every shot
+			}
+
+			HellSoulFlare: {
+				DisplayName: Hell Flare
+				Tooltip: Summons multiple soul flames that charge towards the cursor
+			}
+
+			HellSoulMinion: {
+				DisplayName: Soul Cauldron Staff
+				Tooltip: Summons a HellSoul minion to fight for you
+			}
+
+			HellSoulRifle: {
+				DisplayName: The HellBlaster
+				Tooltip: Fires out a blast of bullets alongside a piercing soul bullet
+			}
+
+			HellSoulSword: {
+				DisplayName: Soul Blade
+				Tooltip: Summons a soul blade flame every swing that homes into enemies after a delay
+			}
+
+			IceGrenade: {
+				DisplayName: Ice Grenade
+				Tooltip: Inflicts frostburn on enemies
+			}
+
+			IceSentry: {
+				DisplayName: Frozen Queen's Staff
+				Tooltip:
+					'''
+					Summons a floating Ice Sentry that fires out a stream of ice at nearby enemies that slows them down
+					Right click to target a specific enemy
+					'''
+			}
+
+			IceStaff: {
+				DisplayName: Icicle Staff
+				Tooltip: Rapidly shoots out damaging icicles
+			}
+
+			JungleSentry: {
+				DisplayName: Jungle Tree Staff
+				Tooltip: Summons a jungle tree that launches out a bunch of thorn balls
+			}
+
+			LightDarkSword: {
+				DisplayName: Equinox
+				Tooltip:
+					'''
+					Left Click to fire out an essence of light that travels towards enemies at high speed
+					Right click to fire out an essence of dark that surrounds enemies in darkness
+					'Perfectly balanced, as all things should be'
+					'''
+			}
+
+			LizardFlame: {
+				DisplayName: Lihzahrd Flamer
+				Tooltip:
+					'''
+					Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water
+					Uses gel for ammo
+					Ignores 20 points of enemy defense
+					'''
+			}
+
+			LizardMinion: {
+				DisplayName: Lihzahrd Guardian Staff
+				Tooltip: Summons a mini Temple Guardian to fight for you
+			}
+
+			LizardSpell: {
+				DisplayName: Lihzahrd Flameburst Tome
+				Tooltip: Summons a burst of ricocheting fireballs
+			}
+
+			LizardSpinner: {
+				DisplayName: Lihzahrd Sawblade
+				Tooltip:
+					'''
+					Throw out spinning sawblades that linger in place
+					Limit of 6 sawblades at a time, right click to remove all thrown sawblades
+					'''
+			}
+
+			LunarNebulaStaff: {
+				DisplayName: Nebula Storm
+				Tooltip: Summons nebula projectiles that explode into many homing bolts
+			}
+
+			LunarPredictorBrain: {
+				DisplayName: Predictor Brain
+				Tooltip: Summons nebula projectiles that charge towards the cursor
+			}
+
+			LunarSelenianBlade: {
+				DisplayName: Selenian Blades
+				Tooltip: Can be thrown out and spin in place upon striking an enemy
+			}
+
+			LunarSolarSpin: {
+				DisplayName: Blazing Star
+				Tooltip:
+					'''
+					Spins around with the force of a star, knocking enemies in the direction you're facing
+					Has a chance to reflect basic projectiles when spun
+					'''
+			}
+
+			LunarStardustSentry: {
+				DisplayName: Star Invader Staff
+				Tooltip:
+					'''
+					Summons a floating Stardust Sentry that launches mini Flow Invaders that home into enemies
+					Right click to target a specific enemy
+					'''
+			}
+
+			LunarStargazerLaser: {
+				DisplayName: Stargazer Core
+				Tooltip:
+					'''
+					Summons a floating Stardust Portal that fires piercing projectiles at nearby enemies in bursts
+					Right click to target a specific enemy
+					'''
+			}
+
+			LunarVortexLauncher: {
+				DisplayName: Vortex Launcher
+				Tooltip:
+					'''
+					Fires out a barrage of vortex rockets
+					Right click to fire a single faster, fully accurate, and more damaging rocket
+					'''
+			}
+
+			LunarVortexShotgun: {
+				DisplayName: Storm Diver Shotgun
+				Tooltip:
+					'''
+					Stolen from the Legendary Storm Divers
+					Right click to convert bullets into luminite bullets
+					'''
+			}
+
+			MechanicalRepeater: {
+				DisplayName: Mechanical Repeater
+				Tooltip:
+					'''
+					Rapidly fires arrows in bursts of three
+					Only the first shot consumes ammo
+					'''
+			}
+
+			MechDestroyerFlail: {
+				DisplayName: The Vaporizer
+				Tooltip: Fires out 8 spikes continuously while spinning
+			}
+
+			MechPrimeStaff: {
+				DisplayName: The Obliterator
+				Tooltip: Fires out spinning skulls that will home onto any enemy they touch
+			}
+
+			MechSawBlade: {
+				DisplayName: The Shredder
+				Tooltip:
+					'''
+					Shreds any enemy that it comes into contact with
+					Emits sparks that linger on the ground
+					'''
+			}
+
+			MechTheSeeker: {
+				DisplayName: The Seeker
+				Tooltip:
+					'''
+					Summons explosive bolts that can be guided towards the cursor when holding right click
+					Requires Prototype Grenades, purchase more from the Demolitionist
+					'''
+			}
+
+			MetalSilverKnive: {
+				DisplayName: Silver Throwing Knife
+				Tooltip: Ricochets off tiles
+			}
+
+			MetalTungstenKnive: {
+				DisplayName: Tungsten Throwing Knife
+				Tooltip: Ricochets off tiles
+			}
+
+			MeteorBow: {
+				DisplayName: Space Bow
+				Tooltip:
+					'''
+					Rains arrows from the sky
+					Allows Meteor Arrows to pass through tiles
+					'''
+			}
+
+			MeteorSentry: {
+				DisplayName: Space Saucer Staff
+				Tooltip:
+					'''
+					Summons a floating saucer that fires lasers at enemies below
+					Right click to target a specific enemy
+					'''
+			}
+
+			MeteorSpear: {
+				DisplayName: Space Spear
+				Tooltip: Striking an enemy summons 2 meteor fragments from the sky
+			}
+
+			MoltenDagger: {
+				DisplayName: Molten Dagger
+				Tooltip: Rapidly stab your foes
+			}
+
+			MoltenSeedLauncher: {
+				DisplayName: Flaming Seed Launcher
+				Tooltip:
+					'''
+					Sets seeds ablaze
+					Obtain more from the Witch Doctor
+					'''
+			}
+
+			MoltenSentry: {
+				DisplayName: Magma Orb Staff
+				Tooltip:
+					'''
+					Summons a magma orb sentry that launches bouncing fireballs at enemies
+					Right click to target a specific enemy
+					'''
+			}
+
+			MoltenSpell: {
+				DisplayName: Magma Blast
+				Tooltip: Summons an orb of lava that splashes on impact
+			}
+
+			MossRepeater: {
+				DisplayName: Mossy Repeater
+				Tooltip: Seems a little old and neglected, but should still work
+			}
+
+			MushroomBow: {
+				DisplayName: Shroom Bow
+				Tooltip: Fires out 2 arrows at once
+			}
+
+			MushroomStaff: {
+				DisplayName: Mushy Staff
+				Tooltip: Summons a ricocheting mushroom
+			}
+
+			MushroomSword: {
+				DisplayName: Shrooword
+				Tooltip:
+					'''
+					Summons a spinning mushroom onto attacked enemies
+					'There's not mushroom to stand around'
+					'''
+			}
+
+			OceanGun: {
+				DisplayName: Coral Blaster
+				Tooltip: Converts bullets into pieces of coral that are not affected by water and obey gravity
+			}
+
+			OceanSpell: {
+				DisplayName: Tidal Wave
+				Tooltip: Summons an orb of water that splashes on impact
+			}
+
+			OceanSword: {
+				DisplayName: Blade of the Sea
+				Tooltip: Fires out a blast of water each swing
+			}
+
+			PainSword: {
+				DisplayName: The Pain Giver
+				Tooltip:
+					'''
+					Inflicts unimaginable pain
+					But not as much pain as I will inflict upon you for having this
+					'''
+			}
+
+			ProtoLauncher: {
+				DisplayName: Prototype Launcher
+				Tooltip:
+					'''
+					Fires out impact-exploding grenades that have a small chance to prematurely explode into shrapnel
+					Requires Prototype Grenades, purchase more from the Demolitionist
+					'''
+			}
+
+			QuackStaff: {
+				DisplayName: Duck Fracture
+				Tooltip:
+					'''
+					Fires out mini ducks to attack your foes
+					'May be prone to quacking'
+					'''
+			}
+
+			QuackStaffSuper: {
+				DisplayName: Duck Quackture
+				Tooltip:
+					'''
+					Summons a bunch of ducks enhanced by lunar energy
+					'Incredibly prone to quacking'
+					'''
+			}
+
+			SandstoneGun: {
+				DisplayName: Ancient Revolver
+				Tooltip:
+					'''
+					Fires a burst of 6 bullets with only the first shot consuming ammo
+					Needs time to reload between bursts
+					'''
+			}
+
+			SeekerBolt: {
+				DisplayName: Hunter's Blade
+				Tooltip: A large throwable blade that homes into enemies when within range
+			}
+
+			ShroomiteFury: {
+				DisplayName: Shroomite Fury
+				Tooltip: Shoots out two additional super bouncy piercing arrows each shot
+			}
+
+			ShroomiteLauncher: {
+				DisplayName: Shroomite Launcher
+				Tooltip:
+					'''
+					Fires Shroomite Rockets which explode into mushrooms
+					Right click to fire Shroomite Grenades
+					'''
+			}
+
+			ShroomiteSharpshooter: {
+				DisplayName: Shroomite Sharpshooter
+				Tooltip:
+					'''
+					33% Chance not to consume Ammo
+					Builds up accuracy over several seconds, dealing extra damage at full accuracy
+					Right Click to zoom out
+					'''
+			}
+
+			SoulStaff: {
+				DisplayName: Soul Storm
+				Tooltip: Summons 3 damaging souls around the cursor that travel inwards each use
+			}
+
+			SpaceRockGlobe: {
+				DisplayName: Asteroid Globe
+				Tooltip: Summons a floating asteroid boulder at the cursor's location that explodes into many fragments
+			}
+
+			SpaceRockGun: {
+				DisplayName: Asteroid Blaster
+				Tooltip:
+					'''
+					50% Chance not to consume Ammo
+					Fires out 2 bullets per shot
+					'''
+			}
+
+			SpaceRockMinion: {
+				DisplayName: Asteroid Staff
+				Tooltip: Summons a mini Asteroid to fight for you
+			}
+
+			SpaceRockSword: {
+				DisplayName: Asteroid Blade
+				Tooltip: Rains down tiny asteroid fragments from the sky
+			}
+
+			SpaceRockWhip: {
+				DisplayName: Asteroid Belt
+				Tooltip:
+					'''
+					5 summon tag damage
+					15% summon tag critical strike chance
+					Your summons will focus struck enemies
+					Asteroid fragments fall upon the targeted enemy when hit by summons
+					'''
+			}
+
+			SpectreDagger: {
+				DisplayName: Spectre Dagger
+				Tooltip:
+					'''
+					Summons magical controllable daggers
+					Maximum of 5 can be controlled at any time
+					'''
+			}
+
+			SpectreHose: {
+				DisplayName: Spectre Scepter
+				Tooltip:
+					'''
+					Rapidly fires mini Spectre skulls that speed up rapidly
+					Deals more damage the faster the skulls travels
+					'''
+			}
+
+			SpectreStaff2: {
+				DisplayName: Spectre Artifact
+				Tooltip:
+					'''
+					Summons spectre orbs that orbit around you at varying distances
+					Right click to launch any orbs at their maximum orbital distance towards the cursor
+					Can launch the orbs without needing to hold the weapon
+					'''
+			}
+
+			SpiritStaff: {
+				DisplayName: Frozen Spirit Staff
+				Tooltip: Summons a Frozen Spirit Head to fight for you
+			}
+
+			SpookyStaff: {
+				DisplayName: Spooky Staff
+				Tooltip: Rains homing fire from the sky
+			}
+
+			StickyBomb: {
+				DisplayName: Spike Bomb
+				Tooltip:
+					'''
+					Explodes into many damaging spikes
+					Does not destroy tiles
+					'''
+			}
+
+			StickyLauncher: {
+				DisplayName: Spiky Bomb Launcher
+				Tooltip:
+					'''
+					Fires out up to 16 Spiky Bombs that stick to surfaces can be detonated by right clicking while holding the weapon
+					Right clicking while holding DOWN will unstick all bombs and make them explode on enemy impact
+					Shoots further depending on your cursor location
+					Uses rockets as ammo
+					'''
+			}
+
+			StoneShot: {
+				DisplayName: Compact Boulder
+				Tooltip: You might have trouble throwing these far
+			}
+
+			StoneThrower: {
+				DisplayName: Stone Cannon
+				Tooltip: Fire out all your unwanted stone at your foes
+			}
+
+			StoneThrowerHard: {
+				DisplayName: Mega Stone Cannon
+				Tooltip: An upgraded stone cannon which makes stone far more deadly
+			}
+
+			StoneThrowerSuper: {
+				DisplayName: Flaming Stone Cannon
+				Tooltip: Superheats your stone into flaming stone boulders
+			}
+
+			StoneThrowerSuperLunar: {
+				DisplayName: Celestial Stone Cannon
+				Tooltip: Empowers your stone with the power of the celestial fragments
+			}
+
+			StormKnife: {
+				DisplayName: Lightning Knife
+				Tooltip: Summons a powerful lightning bolt onto struck enemies
+			}
+
+			StormLauncher: {
+				DisplayName: Overloaded Lightning Launcher
+				Tooltip:
+					'''
+					Fires out overloaded grenades that explode into a lightning blast
+					Uses regular rockets as ammo
+					'''
+			}
+
+			StormSentryStaff: {
+				DisplayName: Overloaded Staff
+				Tooltip:
+					'''
+					Summons a Scandrone sentry that attacks enemies for you
+					Right click to target a specific enemy
+					'''
+			}
+
+			StormStaff: {
+				DisplayName: Lightning Scepter
+				Tooltip: Rapidly fires out piercing lightning bolts
+			}
+
+			SuperDartLauncher: {
+				DisplayName: Martian Dart Launcher
+				Tooltip:
+					'''
+					Rapidly fires out darts
+					50% chance not to consume darts
+					'''
+			}
+
+			ThrowingKnifeBouncy: {
+				DisplayName: Bouncy Throwing Knife
+				Tooltip: Very bouncy
+			}
+
+			TombStaff: {
+				DisplayName: Tombstone Staff
+				Tooltip:
+					'''
+					Fires out magical tombstones that bounce around
+					Tombstones spawn a miniature ghost upon hitting an enemy
+					'''
+			}
+
+			TurtleShellWeapon: {
+				DisplayName: Giant Turtle Shell
+				Tooltip:
+					'''
+					Toss the shells back at your foes
+					Grants extra defense while attacking enemies
+					'''
+			}
+
+			TurtleSpear: {
+				DisplayName: Turtle Pike
+				Tooltip: Grants extra defense while attacking enemies
+			}
+
+			TurtleYoyo: {
+				DisplayName: The Spinning Tortoise
+				Tooltip:
+					'''
+					Fires out yoyo heads randomly
+					Grants extra defense while attacking enemies
+					'''
+			}
+
+			VortexiaWeapon: {
+				DisplayName: Vortexia
+				Tooltip:
+					'''
+					Summons a damaging vortex that summons smaller homing vortexes
+					'Relic of a lost era'
+					'''
+			}
+
+			WebStaff: {
+				DisplayName: Web Staff
+				Tooltip: Fires out a blob of web that sticks to surfaces
+			}
+
+			WebWhip: {
+				DisplayName: Spider Whip
+				Tooltip:
+					'''
+					3 summon tag damage
+					Your summons will focus struck enemies
+					The targetted enemy has a chance to be slowed down when hit by summons
+					'''
+			}
+
+			WoodCrossbow: {
+				DisplayName: Wooden Crossbow
+				Tooltip:
+					'''
+					Converts arrows into piercing crossbow bolts
+					'Slow but powerful'
+					'''
+			}
+
+			WoodPointyStick: {
+				DisplayName: Pointy Wooden Stick
+				Tooltip: "'Poke it with a stick'"
+			}
+
+			WyvernBow: {
+				DisplayName: Bow of the Wyverns
+				Tooltip:
+					'''
+					Fires 3 arrows in an even spread
+					Grants additional speed to all arrows
+					'''
+			}
+
+			BabyDerpBannerItem: {
+				DisplayName: Baby Derpling Banner
+				Tooltip: Nearby players get a bonus against: BABY DERPLINGS??!!! YOU MONSTER!!!
+			}
+
+			FrozenEyeBannerItem: {
+				DisplayName: Frozen Eyefish Banner
+				Tooltip: Nearby players get a bonus against: Frozen Eyefish
+			}
+
+			FrozenSoulBannerItem: {
+				DisplayName: Frozen Spirit Banner
+				Tooltip: Nearby players get a bonus against: Frozen Spirit
+			}
+
+			GladiatorMiniBossBannerItem: {
+				DisplayName: Fallen Warrior Banner
+				Tooltip: Nearby players get a bonus against: Fallen Warrior
+			}
+
+			GolemMinionBannerItem: {
+				DisplayName: Temple Guardian Banner
+				Tooltip: Nearby players get a bonus against: Temple Guardian
+			}
+
+			GolemSentryBannerItem: {
+				DisplayName: Lihzahrd Flametrap Banner
+				Tooltip: Nearby players get a bonus against: Lihzahrd Flametrap
+			}
+
+			GraniteMiniBossBannerItem: {
+				DisplayName: Surged Granite Core Banner
+				Tooltip: Nearby players get a bonus against: Surged Granite Core
+			}
+
+			HellMiniBossBannerItem: {
+				DisplayName: Soul Cauldron Banner
+				Tooltip: Nearby players get a bonus against: Soul Cauldron
+			}
+
+			HellSoulBannerItem: {
+				DisplayName: Heartless Soul Banner
+				Tooltip: Nearby players get a bonus against: Heartless Soul
+			}
+
+			IceCoreBannerItem: {
+				DisplayName: Frigid Snowflake Banner
+				Tooltip: Nearby players get a bonus against: Frigid Snowflake
+			}
+
+			MeteorDropperBannerItem: {
+				DisplayName: Meteor Bomber Banner
+				Tooltip: Nearby players get a bonus against: Meteor Bomber
+			}
+
+			MoonDerpBannerItem: {
+				DisplayName: Moonling Banner
+				Tooltip: Nearby players get a bonus against: Moonling
+			}
+
+			MushroomMiniBossBannerItem: {
+				DisplayName: Angry Mushroom Banner
+				Tooltip: Nearby players get a bonus against: Angry Mushroom
+			}
+
+			NebulaDerpBannerItem: {
+				DisplayName: Brain Hopper Banner
+				Tooltip: Nearby players get a bonus against: Brain Hopper
+			}
+
+			SandCoreBannerItem: {
+				DisplayName: Dune Blaster Banner
+				Tooltip: Nearby players get a bonus against: Dune Blaster
+			}
+
+			ScanDroneBannerItem: {
+				DisplayName: ScanDrone Banner
+				Tooltip: Nearby players get a bonus against: ScanDrone
+			}
+
+			SolarDerpBannerItem: {
+				DisplayName: Blazing Hopper Banner
+				Tooltip: Nearby players get a bonus against: Blazing Hopper
+			}
+
+			SpaceRockHeadBannerItem: {
+				DisplayName: Asteroid Orbiter Banner
+				Tooltip: Nearby players get a bonus against: Asteroid Orbiter
+			}
+
+			SpaceRockHeadLargeBannerItem: {
+				DisplayName: Asteroid Charger Banner
+				Tooltip: Nearby players get a bonus against: Asteroid Charger
+			}
+
+			StardustDerpBannerItem: {
+				DisplayName: Star Hopper Banner
+				Tooltip: Nearby players get a bonus against: Star Hopper
+			}
+
+			StormDerpBannerItem: {
+				DisplayName: Storm Hopper Banner
+				Tooltip: Nearby players get a bonus against: Storm Hopper
+			}
+
+			VineDerpBannerItem: {
+				DisplayName: Camouflaged Derpling Banner
+				Tooltip: Nearby players get a bonus against: Camouflaged Derpling
+			}
+
+			VortCannonBannerItem: {
+				DisplayName: Vortexian Cannon Banner
+				Tooltip: Nearby players get a bonus against: Vortexian Cannon
+			}
+		}
+
+		NPCs: {
+			BabyDerp.DisplayName: Baby Derpling
+			AridBoss.DisplayName: Ancient Husk
+			AridBossMinion.DisplayName: Ancient Spirit
+			StormBoss.DisplayName: Overloaded Scandrone
+			DerpMimic.DisplayName: Perfectly Normal Derpling
+			FrozenEye.DisplayName: Frozen Eyefish
+			FrozenSoul.DisplayName: Frozen Spirit
+			GladiatorMiniBoss.DisplayName: Fallen Warrior
+			GolemMinion.DisplayName: Temple Guardian
+			GolemSentry.DisplayName: Lihzahrd Flametrap
+			GraniteMiniBoss.DisplayName: Surged Granite Core
+			HellMiniBoss.DisplayName: Soul Cauldron
+			HellMiniBossMinion.DisplayName: Soul Cauldron Servant
+			HellSoul.DisplayName: Heartless Soul
+			IceCore.DisplayName: Frigid Snowflake
+			MeteorDropper.DisplayName: Meteor Bomber
+			MoonDerp.DisplayName: Moonling
+			MushroomMiniBoss.DisplayName: Angry Mushroom
+			NebulaDerp.DisplayName: Brain Hopper
+			SandCore.DisplayName: Dune Blaster
+			ScanDrone.DisplayName: ScanDrone
+			SolarDerp.DisplayName: Blazing Hopper
+			SpaceRockHead.DisplayName: Asteroid Orbiter
+			SpaceRockHeadLarge.DisplayName: Asteroid Charger
+			StardustDerp.DisplayName: Star Hopper
+			StardustMiniDerp.DisplayName: Star Hopper Minion
+			StormDerp.DisplayName: Storm Hopper
+			VineDerp.DisplayName: Camouflaged Derpling
+			VortexCannon.DisplayName: Vortexian Cannon
+		}
+
+		Projectiles: {
+			AridBossFlameProj.DisplayName: Ancient Husk Sand Flame
+			AridBossSandProj.DisplayName: Ancient Husk Sand
+			AridBossShardProj.DisplayName: Ancient Husk Shard
+			DerplingEnemyShellProj.DisplayName: Derpling Shell Shard
+			FrozenEyeProj.DisplayName: Mini Snowflake
+			FrozenSoulProj.DisplayName: Giant Snowflake
+			GladiatorMiniBossProj.DisplayName: Fallen Warrior Sword
+			GolemMinionProj.DisplayName: Temple Guardian Laser
+			GraniteMiniBossProj.DisplayName: Granite Bolt
+			HellMiniBossProj1.DisplayName: HellSoul Bolt
+			HellMiniBossProj2.DisplayName: HellSoul Giant Flame
+			HellSoulEnemyProj.DisplayName: Red Soul
+			IceCoreProj.DisplayName: Frost Spike
+			MeteorDropperProj.DisplayName: Meteor Fragment
+			MoonDerpBoltProj.DisplayName: Moonling Bolt
+			MoonDerpEyeProj.DisplayName: Moonling Eye
+			MushroomMiniBossProj.DisplayName: Bouncing Mushroom
+			NebulaFlame.DisplayName: Nebula Flame
+			SandCoreProj.DisplayName: Forbidden Sand
+			ScanDroneProj.DisplayName: ScanDrone Bolt
+			SolarDerpProj.DisplayName: Solar Fireball
+			SpaceHeadProj.DisplayName: Asteroid Bolt
+			SpaceHeadProj2.DisplayName: Asteroid Bolt
+			StormBossBolt.DisplayName: Overloaded ScanDrone Bolt
+			StormBossBomb.DisplayName: Overloaded ScanDrone Bomb
+			StormBossLightning.DisplayName: Overloaded ScanDrone Lightning
+			StormBossLightningPortal.DisplayName: Overloaded Scandrone Portal
+			StormBossMine.DisplayName: Overloaded ScanDrone Mine
+			StormBossMineLarge.DisplayName: Overloaded ScanDrone Large Mine
+			StormDerpProj.DisplayName: Vortex Spike
+			VortCannonProj.DisplayName: Vortexian Rocket
+			AsteroidArrowProj.DisplayName: Asteroid Arrow
+			AsteroidBulletProj.DisplayName: Asteroid Bullet
+			BouncyArrowProj.DisplayName: Bouncy Arrow
+			ChaosArrowProj.DisplayName: Chaos Arrow
+			CoralBulletProj.DisplayName: Coral Bullet
+			CrackedShotProj.DisplayName: Cracked Bullet
+			CrackedShotProj2.DisplayName: Cracked Bullet Shard
+			DesertArrowProj.DisplayName: Forbidden Arrow
+			DesertBulletProj.DisplayName: Forbidden Bullet
+			DualArrowProj.DisplayName: Dual Arrow
+			FrostArrowProj.DisplayName: Frost Arrow
+			FrostBulletProj.DisplayName: Frost Bullet
+			FrostBulletProj2.DisplayName: Frost Bullet
+			IronShotProj.DisplayName: Iron Bullet
+			LeadShotProj.DisplayName: Lead Bullet
+			MeteorArrowProj.DisplayName: Meteor Arrow
+			ProtoGrenadeProj.DisplayName: Proto Grenade
+			ProtoGrenadeProj2.DisplayName: Sharpnel
+			ShroomArrowProj.DisplayName: Shroomite Arrow
+			ShroomBulletProj.DisplayName: Shroomite Bullet
+			AncientArmourProj.DisplayName: Ancient Sand Explosion
+			AncientFlameProj.DisplayName: Ancient Sand Stream
+			AncientKnivesProj.DisplayName: Ancient Throwing Knife
+			AncientStaffProj.DisplayName: Ancient Sand Explosion
+			BeetleGloveProj.DisplayName: Mini Beetle
+			BeetleProj.DisplayName: Beetle
+			BeetleShellProj.DisplayName: Beetle Shell
+			BeetleSpearProj.DisplayName: Beetle Spear
+			BeetleYoyoProj.DisplayName: Beetle Yoyo
+			BetsyFlameProj.DisplayName: Betsy's Flame
+			BloodBootProj.DisplayName: Blood Boot Trail
+			BloodDropProj.DisplayName: Blood Drop
+			BloodGrenadeProj.DisplayName: Blood Grenade
+			BloodSpearProj.DisplayName: Blood Spear
+			BloodSwordProj.DisplayName: Blood Trial
+			BloodyBulletProj.DisplayName: Bloody Bullet
+			BloodyBulletProj2.DisplayName: Blood Bullet Drop
+			BloodYoyoProj.DisplayName: Heart Attack Yoyo
+			BloodYoyoProj2.DisplayName: Blood Yoyo trail
+			BoneAcProj.DisplayName: Spinning bone
+			BoneBoomerangProj.DisplayName: Bone Boomerang
+			CelestialShieldProj.DisplayName: Celestial Guardian
+			ChloroStaffProj.DisplayName: Chlorophyte Stream
+			CrimsonAxeProj.DisplayName: Crimson Axe
+			CrimsonAxeProj2.DisplayName: Crimson Axe
+			CultistBowProj.DisplayName: Ice mist arrow
+			CultistBowProj2.DisplayName: Ice mist spike
+			CultistLazorProj.DisplayName: Cultist Laser
+			CultistSpearProj.DisplayName: Cultist Spear
+			CultistSpearProj2.DisplayName: Fireball Blast
+			CultistTomeProj.DisplayName: Cultist Star
+			CursedHammerProj.DisplayName: Cursed Hammer
+			CursedHammerProj2.DisplayName: Cursed Hammer
+			DerpMagicProj.DisplayName: Derpling Magic Shell
+			DerpMagicProj2.DisplayName: Derpling Magic Shard
+			DerpMeleeProj.DisplayName: Derpling Shell Shard
+			DerpWaveProj.DisplayName: Derpling Shockwave
+			DesertArrowDust.DisplayName: Forbidden Arrow Dust
+			DesertBowProj.DisplayName: Forbidden Fury Arrow
+			DesertJarProj.DisplayName: Forbidden Dust Trail
+			DesertJarProj2.DisplayName: Forbidden Dust Orbit
+			DesertSpearProj.DisplayName: Forbidden Spear
+			DesertSpearTipProj.DisplayName: Forbidden Spear Dust
+			DesertSpellProj.DisplayName: Forbidden Sand
+			DestroyerFlailProj.DisplayName: Vaporiser Flail
+			DestroyerFlailProj2.DisplayName: Destroyer Flail Unused
+			DestroyerFlailProj3.DisplayName: Vaporiser Spike
+			EnchantedSwordProj.DisplayName: Enchanted Sword
+			EnchantedSwordProj2.DisplayName: Enchanted Sword
+			ExplosionDarkProj.DisplayName: Explosion Dark
+			ExplosionFrostProj.DisplayName: Explosion Frost
+			ExplosionGenericProj.DisplayName: Explosion Generic
+			ExplosionHellSoulProj.DisplayName: Explosion Soul
+			ExplosionPainProj.DisplayName: Explosion Pain
+			ExplosionShroomiteProj.DisplayName: Explosion Shroomite
+			ExplosionVortexProj.DisplayName: Explosion Vortex
+			EyeStaffProj.DisplayName: Bouncing Eye
+			EyeSwordProj.DisplayName: Eye Sword Ball
+			FlamingSeed.DisplayName: Flaming Seed
+			FrostAccessProj.DisplayName: Frost Fragment
+			FrostCryoArmourProj.DisplayName: Cryo Cloud
+			FrostGrenadeProj.DisplayName: Frost Grenade
+			FrostSpinProj.DisplayName: Frozen Polestar
+			FrostStarProj.DisplayName: Frost Frizbee
+			Frostthrowerproj.DisplayName: Frost
+			GhostProj.DisplayName: Mini Ghost
+			GladiatorSpearProj.DisplayName: Gladiator Glaive
+			GladiatorSpearProj2.DisplayName: Gladiator Spear Bolt
+			GladiatorStaffProj.DisplayName: Gladiator Staff Beam
+			GraniteBulletProj.DisplayName: Granite Bullet
+			GraniteSpearProj.DisplayName: Granite Spear
+			GraniteSpearProj2.DisplayName: Granite Spear Orb
+			GraniteStaffProj.DisplayName: Granite Energy Orb
+			GraniteYoyoProj.DisplayName: Granite Yoyo
+			HarpyArrowProj.DisplayName: Feather Arrow
+			HarpyProj.DisplayName: Harpy Feather
+			HarpyProj2.DisplayName: Big Harpy Feather
+			HarpyYoyoProj.DisplayName: Harpy Yoyo
+			HellSoulArmourProj.DisplayName: HellSoul Blast
+			HellSoulBowProj.DisplayName: Hellsoul Arrow
+			HellSoulMagicProj.DisplayName: Hellsoul Flare
+			HellSoulMagicProj2.DisplayName: Hellsoul Flare
+			HellSoulRifleProj.DisplayName: Hellsoul Bullet
+			HellSoulSwordProj.DisplayName: Hellsoul Blade
+			IceGrenadeProj.DisplayName: Ice Grenade
+			IceStaffProj.DisplayName: Icicle
+			LavaSmallProj.DisplayName: Small Lava Bolt
+			LavaSpellProj.DisplayName: Magic Lava Orb
+			LizardFlameProj.DisplayName: Lihzahrd Flame
+			LizardSpellProj.DisplayName: Lihzahrd Fire Orb
+			LizardSpinnerProj.DisplayName: Lihzahrd Spinner
+			MagicMushArmourProj.DisplayName: Magical Mushroom
+			MagicMushProj.DisplayName: Magical Mushroom
+			MeteorSpearProj.DisplayName: Meteor Spear
+			MeteorSpearProj2.DisplayName: Meteor Fragment
+			AncientMinionProj.DisplayName: Ancient Arid Minion
+			AncientMinionProj2.DisplayName: Ancient Arid Minion Projectile
+			DerplingMinionProj.DisplayName: Derpling Minion
+			EyeMinionProj.DisplayName: Servant of Cthulhu Minion
+			FrozenSpiritMinionProj.DisplayName: Frozen Spirit Minion
+			FrozenSpiritMinionProj2.DisplayName: Frozen Spirit Shard
+			HellSoulMinionProj.DisplayName: HellSoul Minion
+			HellSoulMinionProj2.DisplayName: HellSoul Minion Projectile
+			LizardMinionProj.DisplayName: Temple Guardian Minion
+			LizardMinionProj2.DisplayName: Temple Minion Laser
+			SpaceRockMinionProj.DisplayName: Asteroid Minion
+			MoltenDaggerProj.DisplayName: Molten Dagger
+			NebulaStaffProj.DisplayName: Nebula Flame
+			NebulaStaffProj2.DisplayName: Nebula Flame
+			OceanCoralProj.DisplayName: Coral Shard
+			OceanSmallProj.DisplayName: Small Water Bolt
+			OceanSpellProj.DisplayName: Magic Water Orb
+			PainProj.DisplayName: Painful Projectile
+			AridBossPetProj.DisplayName: Liberated Husk
+			GoldDerpie.DisplayName: Golden Derpie
+			StormBossPetProj.DisplayName: Baby Overloaded Scandrone
+			StormLightProj.DisplayName: Baby Storm Diver
+			TwilightPetProj.DisplayName: Twilight light
+			PredictorBrainProj.DisplayName: Nebula Brain Bolt
+			PredictorBrainProj2.DisplayName: Nebula Brain Bolt
+			PrimeAccessProj.DisplayName: Mechanical Spike ball
+			QuackNebulaProj.DisplayName: Mini Nebula Duck
+			QuackProj.DisplayName: Mini Duck
+			QuackSolarProj.DisplayName: Mini Solar Duck
+			QuackStardustMiniProj.DisplayName: Mini Mini Stardust Duck
+			QuackStardustProj.DisplayName: Mini Stardust Duck
+			QuackVortexProj.DisplayName: Mini Vortex Duck
+			SantankMissleProj.DisplayName: Ho-Ho-Homing missile
+			SawBladeChain.DisplayName: Mechanical ChainSaw
+			SeekerBoltProj.DisplayName: Seeker Bolt
+			SeekerKnifeProj.DisplayName: Seeeker Knife
+			SelenianBladeProj.DisplayName: Solar Blade
+			BloodySentryProj.DisplayName: Blood Urchin Sentry
+			BloodySentryProj2.DisplayName: Urchin Sentry Blood
+			CultistSentryProj.DisplayName: Cultist Sentry Orb
+			CultistSentryProj2.DisplayName: Lunatic Lightning
+			DesertStaffProj.DisplayName: Forbidden Sentry
+			DesertStaffProj2.DisplayName: Forbidden Sand
+			DesertStaffProj3.DisplayName: Forbidden Sentry Explosion
+			FrostSentryProj.DisplayName: Frostspike Sentry
+			FrostSentryProj2.DisplayName: Frost Sentry Proj
+			IceSentryProj.DisplayName: Ice Sentry
+			IceSentryProj2.DisplayName: Frost Stream
+			JungleSentryProj.DisplayName: Jungle Sentry
+			JungleSentryProj2.DisplayName: Jungle Thorn ball
+			LunaticExpertSentryProj.DisplayName: Cultist Sentry
+			LunaticExpertSentryProj2.DisplayName: Cultist Shadow Fireball
+			MagmaSentryProj.DisplayName: Magma Orb Sentry
+			MagmaSentryProj2.DisplayName: Magma Fire Orb
+			MeteorSentryProj.DisplayName: Meteor Sentry
+			MeteorSentryProj2.DisplayName: Meteor Sentry laser
+			SkyKnightSentryProj.DisplayName: Star Warrior Sentry
+			SkyKnightSentryProj2.DisplayName: Star Warrior Star
+			StardustSentryProj.DisplayName: Stardust Sentry
+			StardustSentryProj2.DisplayName: Golden Flow Invader
+			StardustSentryProj3.DisplayName: Fast Golden Flow Invader
+			StargazerCoreProj.DisplayName: Stargazer Sentry
+			StargazerCoreProj2.DisplayName: Stargazer Laser
+			StormSentryProj.DisplayName: Scandrone Sentry
+			StormSentryProj2.DisplayName: Storm Sentry
+			ShroomBowArrowProj.DisplayName: Shroomite Glowing arrow
+			ShroomGrenProj.DisplayName: Shroomite Grenade
+			ShroomMush.DisplayName: Spinning Mushroom
+			ShroomRocketProj.DisplayName: Shroomite Rocket
+			ShroomSetRocketProj.DisplayName: Launcher Attachment Rocket
+			SkullSeek.DisplayName: Prime Skull
+			SolarSpinProj.DisplayName: Solar Spinner
+			SoulsProj.DisplayName: Damaging Soul
+			SpaceArmourProj.DisplayName: Asteroid Homing Boulder
+			SpaceFragment.DisplayName: Asteroid Fragment
+			SpaceGlobeProj.DisplayName: Asteroid Boulder
+			SpectreDaggerProj.DisplayName: Spectre Dagger
+			SpectreDaggerProj2.DisplayName: Spectre Dagger
+			SpectreHoseProj.DisplayName: Spectre Bolt
+			SpectreStaffSpinProj.DisplayName: Spectre Orb
+			SpectreStaffSpinProj2.DisplayName: Spectre Orb
+			SpikeBombProj.DisplayName: Spiky Bomb
+			SpikeBombProj2.DisplayName: Spiky Bomb Spike
+			SpookyGlobeProj.DisplayName: Spooky Sky Orb
+			StickyBombProj.DisplayName: Spiky Bomb
+			StompBootProj.DisplayName: Shockwave
+			StompBootProj2.DisplayName: Stompwave
+			StoneFragCelestial.DisplayName: Celestial Fragment
+			StoneFragProj.DisplayName: Stone Fragment
+			StoneFragSuperProj.DisplayName: Flaming Fragment
+			StoneHardProj.DisplayName: Hard Stone Boulder
+			StoneNebula.DisplayName: Nebula Stone Boulder
+			StoneProj.DisplayName: Stone Boulder
+			StoneSolar.DisplayName: Solar Stone Boulder
+			StoneStardust.DisplayName: Stardust Stone Boulder
+			StoneSuperProj.DisplayName: Flaming Stone Boulder
+			StoneVortex.DisplayName: Vortex Stone Boulder
+			StormAccessProj.DisplayName: Storm Portal
+			StormExplosionProj.DisplayName: Overloaded Lightning Explosion
+			StormGrenadeProj.DisplayName: Overloaded Grenade
+			StormKnifeProj.DisplayName: Overloaded Knife
+			StormLightningProj.DisplayName: Overloaded Lightning
+			SwordDarkProj.DisplayName: Dark Essence
+			SwordLightProj.DisplayName: Light Essence
+			ThrowingKnifeBouncyProj.DisplayName: Bouncy Knife
+			ThrowingSilverKniveProj.DisplayName: Silver Throwing Knive
+			ThrowingTungstenKniveProj.DisplayName: Tungsten Throwing Knive
+			TombProj.DisplayName: TombStone
+			AircanProj.DisplayName: Air Blast
+			BobberDerpling.DisplayName: Derpling Bobber
+			DerpChainProj.DisplayName: Derpling Chainsaw
+			DerpDrillProj.DisplayName: Derpling Drill
+			DerpJackProj.DisplayName: Derpling Jackhammer
+			FastDrill2Proj.DisplayName: Mega Drill
+			FastDrillProj.DisplayName: Mini Drill
+			HookDerpProj.DisplayName: Derpling Hook
+			HookEyeProj.DisplayName: Eyeball Hook
+			HookStormProj.DisplayName: Lightning Hook
+			SantankDrillProj.DisplayName: Santank Drill
+			SantankJackhamProj.DisplayName: Santank Jackhammer
+			SantankSawProj.DisplayName: Santank Chainsaw
+			SpaceRockDrillSawProj.DisplayName: Asteroid DrillSaw
+			SpaceRockJackhammerProj.DisplayName: Asteroid Jackhammer
+			TurtleShellProj.DisplayName: Turtle Shell
+			TurtleSpearProj.DisplayName: Turtle Spear
+			TurtleYoyoProj.DisplayName: Turtle Yoyo
+			TurtleYoyoProj2.DisplayName: Turtle Yoyo
+			VortexiaProj.DisplayName: Large Vortex
+			VortexiaProj2.DisplayName: Homing Vortex
+			VortexRocketProj.DisplayName: Vortex Rocket
+			VortexRocketProj2.DisplayName: Vortex Rocket
+			WebProj.DisplayName: Web
+			BloodWhipProj.DisplayName: Blood Whip Proj
+			BloodWhipProj2.DisplayName: Bloody whip Orb
+			DesertWhipProj.DisplayName: Desert Whip Proj
+			DesertWhipProj2.DisplayName: Forbidden Whip Dust
+			SpaceRockWhipProj.DisplayName: Space Rock Whip Proj
+			SpaceRockWhipProj2.DisplayName: Asteroid Whip Fragment
+			WebWhipProj.DisplayName: Web Whip Proj
+			WoodenBoltProj.DisplayName: CrossBow Bolt
+			WoodPointyStickProj.DisplayName: Pointy Stick
+			TRAEBeetleSpear.DisplayName: T R A E Beetle Spear
+			TRAEBeetleSpearThrow.DisplayName: T R A E Beetle Spear Throw
+			TRAEBloodySpear.DisplayName: T R A E Bloody Spear
+			TRAEBloodySpearThrow.DisplayName: T R A E Bloody Spear Throw
+			TRAECultistSpear.DisplayName: T R A E Cultist Spear
+			TRAECultistSpearThrow.DisplayName: T R A E Cultist Spear Throw
+			TRAEDesertSpear.DisplayName: T R A E Desert Spear
+			TRAEDesertSpearThrow.DisplayName: T R A E Desert Spear Throw
+			TRAEGladiatorSpear.DisplayName: T R A E Gladiator Spear
+			TRAEGladiatorSpearThrow.DisplayName: T R A E Gladiator Spear Throw
+			TRAEMeteorSpear.DisplayName: T R A E Meteor Spear
+			TRAEMeteorSpearThrow.DisplayName: T R A E Meteor Spear Throw
+			TRAETurtleSpear.DisplayName: T R A E Turtle Spear
+			TRAETurtleSpearThrow.DisplayName: T R A E Turtle Spear Throw
+		}
+
+		Tiles: {
+			DesertOrePlaced.MapEntry: Forbidden Ore
+			IceOrePlaced.MapEntry: Frost Ore
+			BabyDerpBannerPlace.MapEntry: Baby Derpling Banner
+			FrozenEyeBannerPlace.MapEntry: Frozen Eyefish Banner
+			FrozenSoulBannerPlace.MapEntry: Frozen Spirit Banner
+			GladiatorMiniBossBannerPlace.MapEntry: Fallen Champion Banner
+			GolemMinionBannerPlace.MapEntry: Temple Guardian Banner
+			GolemSentryBannerPlace.MapEntry: Lihzahrd Flametrap Banner
+			GraniteMiniBossBannerPlace.MapEntry: Surged Granite Core Banner
+			HellMiniBossBannerPlace.MapEntry: Soul Cauldron Banner
+			HellSoulBannerPlace.MapEntry: Heartless Soul Banner
+			IceCoreBannerPlace.MapEntry: Frigid Snowflake Banner
+			MeteorDropperBannerPlace.MapEntry: Meteor Bomber Banner
+			MoonDerpBannerPlace.MapEntry: Moonling Banner
+			MushroomMiniBossBannerPlace.MapEntry: Angry Mushroom Banner
+			NebulaDerpBannerPlace.MapEntry: Brain Hopper Banner
+			SandCoreBannerPlace.MapEntry: Dune Blaster Banner
+			ScanDroneBannerPlace.MapEntry: ScanDrone Banner
+			SolarDerpBannerPlace.MapEntry: Blazing Hopper Banner
+			SpaceRockHeadBannerPlace.MapEntry: Asteroid Orbiter Banner
+			SpaceRockHeadLargeBannerPlace.MapEntry: Asteroid Charger Banner
+			StardustDerpBannerPlace.MapEntry: Star Hopper Banner
+			StormDerpBannerPlace.MapEntry: Storm Hopper Banner
+			VineDerpBannerPlace.MapEntry: Camouflaged Derpling Banner
+			VortCannonBannerPlace.MapEntry: Vortexian Cannon Banner
+		}
+	}
+}

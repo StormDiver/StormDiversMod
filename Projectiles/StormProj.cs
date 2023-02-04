@@ -359,7 +359,7 @@ namespace StormDiversMod.Projectiles
 		public override void Kill(int timeLeft)
 		{
 
-			SoundEngine.PlaySound(SoundID.NPCHit53 with {Volume = 0.5f, Pitch = -0.5f}, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.NPCHit53 with {Volume = 0.5f, Pitch = -0.5f, MaxInstances = 0}, Projectile.Center);
 
 			for (int i = 0; i < 20; i++)
 			{
@@ -569,14 +569,14 @@ namespace StormDiversMod.Projectiles
 			Projectile.alpha = 255;
 			Projectile.penetrate = -1;
 			Projectile.extraUpdates = 4;
-			Projectile.timeLeft = 120;
+			Projectile.timeLeft = 300;
 			Projectile.scale = 0.75f;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 75;
+	
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 1;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 60;
+
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -649,7 +649,7 @@ namespace StormDiversMod.Projectiles
 		public override void AI()
 		{
 
-			if (Projectile.scale > 0.1f)
+			if (Projectile.scale > 0.01f)
 			{
 				Projectile.scale -= 0.005f;
 			}

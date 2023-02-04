@@ -354,10 +354,7 @@ namespace StormDiversMod.Basefiles
         public override void SetDefaults(NPC npc)
         {
 
-          
-
         }
-
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
            
@@ -913,7 +910,9 @@ namespace StormDiversMod.Basefiles
                     damage = (int)(damage * 1.15f);
                 }
             }
+           
         }
+        
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)

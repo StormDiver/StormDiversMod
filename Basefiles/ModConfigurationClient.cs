@@ -19,10 +19,10 @@ using Terraria.UI;
 
 namespace StormDiversMod.Basefiles
 {
+    [Label("Local Configurations")]
     public class ConfigurationsIndividual : ModConfig //configuration settings
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
-        [DisplayName("Local Configurations")]
         [Header("Visual")]
 
         [Label("Disable screen shake effects")]
@@ -30,6 +30,7 @@ namespace StormDiversMod.Basefiles
         //[ReloadRequired] //None required
         [DefaultValue(false)]
         public bool NoShake { get; set; }
+        [Header("Audio")]
 
         [Label("Disable text to speech sounds")]
         [Tooltip("Disables the text to speech sounds some secret items make")]

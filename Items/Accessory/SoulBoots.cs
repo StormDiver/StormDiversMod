@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Striders");
-            Tooltip.SetDefault("Greatly increases movement speed up to 50mph\nIncreases acceleration, and allows flight\n'Speed throughout the day and the night'");
+            Tooltip.SetDefault("Greatly increases movement speed up to 46mph\nIncreases acceleration, and allows flight\n'Speed throughout the day and the night'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(10, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

@@ -19,10 +19,10 @@ using Terraria.UI;
 
 namespace StormDiversMod.Basefiles
 {
+    [Label("Global Configurations")]
     public class ConfigurationsGlobal : ModConfig //configuration settings
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
-
         [Header("Enemy Spawning")]
 
         [Label("Prevent modded pillar enemies from spawning")]

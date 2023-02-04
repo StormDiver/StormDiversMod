@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bloody Treads");
-            Tooltip.SetDefault("The wearer can run up to 40mph\nIncreases acceleration\nLeaves behind a damaging trail of blood when running along the ground");
+            Tooltip.SetDefault("The wearer can run up to 36mph\nIncreases acceleration\nLeaves behind a damaging trail of blood when running along the ground");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
        
         }
