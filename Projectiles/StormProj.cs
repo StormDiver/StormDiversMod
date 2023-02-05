@@ -371,7 +371,6 @@ namespace StormDiversMod.Projectiles
 				Main.dust[dust2].noGravity = true;
 			}
 
-
 		}
 		public override bool PreDraw(ref Color lightColor)
 		{
