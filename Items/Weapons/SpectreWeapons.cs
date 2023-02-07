@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spectre Dagger");
-            Tooltip.SetDefault("Summons magical controllable daggers\nMaximum of 5 can be controlled at any time");
+            Tooltip.SetDefault("Summons magical controllable daggers\nCan be moved through tiles carefully\nMaximum of 5 can be controlled at any time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

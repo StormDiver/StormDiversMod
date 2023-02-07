@@ -114,14 +114,18 @@ namespace StormDiversMod.Projectiles.WhipProjs
 
 				}
 				//Segment 3
-				else if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11 || i == 13 || i == 15)
+				else if (i % 2 != 0 && i >= 1)
 				{
+				//else if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11 || i == 13 || i == 15)
+				//{
 					frame.Y = 58;
 					frame.Height = 14;
 				}
 				//segement 2
-				else if (i == 2 || i == 4 || i == 6 || i == 8 || i == 10 || i == 12 || i == 14 || i == 16)
+				else if (i % 2 == 0 && i >= 1)
 				{
+				//else if (i == 2 || i == 4 || i == 6 || i == 8 || i == 10 || i == 12 || i == 14 || i == 16)
+				//{
 					frame.Y = 40;
 					frame.Height = 14;
 				}

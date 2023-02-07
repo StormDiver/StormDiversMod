@@ -94,7 +94,7 @@ namespace StormDiversMod.Items.Weapons
                 }
                 else
                 {
-                    posY = position.Y - Main.rand.NextFloat(10f, -100f);
+                    posY = position.Y - Main.rand.NextFloat(-10f, 100f);
                 }
                 int projid2 = Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
                 Main.projectile[projid2].DamageType = DamageClass.Melee;

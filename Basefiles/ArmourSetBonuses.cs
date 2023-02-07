@@ -167,8 +167,6 @@ namespace StormDiversMod.Basefiles
                 spaceStrikecooldown = 0;
             }
 
-
-
             //For santank set ======================================================================
             if (santankSet)
             {
@@ -193,7 +191,7 @@ namespace StormDiversMod.Basefiles
                     Player.ClearBuff(ModContent.BuffType<SantankBuff2>());
                     Player.ClearBuff(ModContent.BuffType<SantankBuff3>());
                 }
-                if (!santanktrigger && santankmissleup == 0 && (santankcharge == 10 || santankcharge == 20 || santankcharge == 30 || santankcharge == 40 || santankcharge == 50 || santankcharge == 60 || santankcharge == 70 || santankcharge == 80 || santankcharge == 90 || santankcharge == 100))
+                if (!santanktrigger && santankmissleup == 0 && santankcharge % 10 == 0 && santankcharge != 0) //every 10 (30 frames)
                 //Creates a particle and sound effect at these times, times by 3 to get excat frame
                 {
                     for (int i = 0; i < 30; i++)
@@ -213,7 +211,7 @@ namespace StormDiversMod.Basefiles
                     }
                     SoundEngine.PlaySound(SoundID.Item61 with { Volume = 0.5f, Pitch = 0.5f }, Player.Center);
                 }
-                else if (santanktrigger && (santankcharge == 10 || santankcharge == 20 || santankcharge == 30 || santankcharge == 40 || santankcharge == 50 || santankcharge == 60 || santankcharge == 70 || santankcharge == 80 || santankcharge == 90 || santankcharge == 100))
+                else if (santanktrigger && santankcharge % 10 == 0 && santankcharge > 0)
                 //Fires missles at these times
                 {
                     for (int i = 0; i < 30; i++)
@@ -249,7 +247,6 @@ namespace StormDiversMod.Basefiles
                         }
                     }
                     SoundEngine.PlaySound(SoundID.Item92, Player.Center);
-
 
                     float speedX = 0f;
                     float speedY = -8f;

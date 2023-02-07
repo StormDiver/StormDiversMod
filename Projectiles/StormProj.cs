@@ -225,6 +225,7 @@ namespace StormDiversMod.Projectiles
 						ModContent.ProjectileType<StormLightningProj>(), 0, 0, Projectile.owner, perturbedSpeed.ToRotation(), ai);
 
 					Main.projectile[projID].tileCollide = false;
+					Main.projectile[projID].scale = 0.6f;
 
 
 				}
@@ -443,27 +444,27 @@ namespace StormDiversMod.Projectiles
 			if (Projectile.ai[1] == 0) //Rockets I/II/Liquids
 			{
 				extraTime = 50;
-				lightningSpeed = 1.4f;
+				lightningSpeed = 1.2f;
 				dustYspeed = 10;
 			}
 			else if (Projectile.ai[1] == 1) //Rocket III/IV
 			{
 				extraTime = 0;
-				lightningSpeed = 1.75f;
+				lightningSpeed = 1.5f;
 				dustYspeed = 13;
 
 			}
 			else if (Projectile.ai[1] == 2) //Mini Nukes/ Cluster I
 			{
 				extraTime = -50;
-				lightningSpeed = 2.0f;
+				lightningSpeed = 1.75f;
 				dustYspeed = 16;
 
 			}
 			else if (Projectile.ai[1] == 3) //Mini Nukes/ Cluster II
 			{
 				extraTime = -100;
-				lightningSpeed = 2.3f;
+				lightningSpeed = 2f;
 				dustYspeed = 20;
 
 			}
@@ -501,7 +502,7 @@ namespace StormDiversMod.Projectiles
 						ModContent.ProjectileType<StormLightningProj>(), 0, 0, Projectile.owner, perturbedSpeed.ToRotation(), ai); 
 
 					Main.projectile[projID].tileCollide = false;
-					Main.projectile[projID].scale = 0.75f;
+					Main.projectile[projID].scale = 0.7f;
 					Main.projectile[projID].DamageType = DamageClass.Ranged;
 				}
 

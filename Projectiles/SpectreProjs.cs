@@ -43,8 +43,7 @@ namespace StormDiversMod.Projectiles
     
         int speedup = 0;
         public override void AI()
-        {
-            
+        {            
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             //Dust.NewDust(Projectile.Center + Projectile.velocity, Projectile.width, Projectile.height, 175);
 
@@ -69,36 +68,29 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity.Y *= 1.03f;
                 Projectile.damage += 1;
                
-            }
-
-          
+            }       
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 264);
+                dust.scale = 1.5f;
+                dust.velocity *= 2;
+                dust.noGravity = true;
             }
         }
 
-
         public override void Kill(int timeLeft)
         {
-
-
-
             SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
-
-            for (int i = 0; i < 10; i++)
-            {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
+            for (int i = 0; i < 25; i++)
+            {               
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 264);
+                dust.scale = 1.5f;
+                dust.velocity *= 2;
+                dust.noGravity = true;
             }
-
         }
         public void AnimateProjectile() // Call this every frame, for example in the AI method.
         {
@@ -112,13 +104,10 @@ namespace StormDiversMod.Projectiles
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 150;
             return color;
-
         }
-
     }
     
     //_______________________________________________________________________________________________
@@ -160,61 +149,46 @@ namespace StormDiversMod.Projectiles
         int maxdistance = 0;
         int speed;
         bool lineOfSight;
+        public override void OnSpawn(IEntitySource source)
+        {
+            maxdistance = Main.rand.Next(80, 160);
+            if (maxdistance % 2 == 0)
+            {
+                speed = 8;
+            }
+            else
+            {
+                speed = -8;
+            }
+            if (maxdistance> 120)
+            {
+                speed = (speed * 15) / 20;
+            }
+        }
         public override void AI()
         {
-
             if (Projectile.ai[1] == 0)
             {
-                int orbit = Main.rand.Next(1, 5); //The intial random value selected
-                if (orbit == 1)
-                {
-                    maxdistance = 60; //max distance, disttime counts up to this and when it reaches it it stops increasing
-                    speed = 8; //speed
-                }
-                else if (orbit == 2)
-                {
-                    maxdistance = 140;
-                    speed = 7;
-                }
-                if (orbit == 3)
-                {
-                    maxdistance = 100;
-                    speed = -8;
-                }
-                else if (orbit == 4)
-                {
-                    maxdistance = 180;
-                    speed = -7;
-                }
+               
             }
             //picks a random direction and distance
-            
-
-
             if (currentdistance <= maxdistance) //Disttime will count up making the orb orbit further out until it reaches the orbittime value
             {
                 currentdistance++;
             }
             if (currentdistance == maxdistance - 1)
             {
-                SoundEngine.PlaySound(SoundID.Item30 with { Volume = 0.5f}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item30 with { Volume = 0.5f }, Projectile.Center);
 
                 for (int i = 0; i < 20; i++)
                 {
-
-                     
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 185);
                     dust2.noGravity = true;
-
                 }
             }
+            Player player = Main.player[Projectile.owner];
 
-
-
-            //Making player variable "p" set as the projectile's owner
-            Player p = Main.player[Projectile.owner];
-
-            Projectile.damage = (int)p.GetTotalDamage(DamageClass.Magic).ApplyTo(Projectile.originalDamage); //update damage
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Magic).ApplyTo(Projectile.originalDamage); //update damage
 
             //Factors for calculations
 
@@ -226,12 +200,11 @@ namespace StormDiversMod.Projectiles
             /distance for the desired distance away from the player minus the projectile's width   /
             /and height divided by two so the center of the projectile is at the right place.     */
 
-            Projectile.position.X = p.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
-            Projectile.position.Y = p.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
+            Projectile.position.X = player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
+            Projectile.position.Y = player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
 
             //Increase the counter/angle in degrees by 1 point, you can change the rate here too, but the orbit may look choppy depending on the value
             Projectile.ai[1] += 1f;
-            var player = Main.player[Projectile.owner];
             if (player.dead)
             {
                 Projectile.Kill();
@@ -240,14 +213,11 @@ namespace StormDiversMod.Projectiles
             //AnimateProjectile();
 
             Dust dust;
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = Projectile.Center;
             dust = Terraria.Dust.NewDustPerfect(position, 185, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
             dust.noGravity = true;
 
-
             lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
-
 
             if (player.controlUseTile && lineOfSight && currentdistance >= maxdistance) //will fire projectile once it reaches maximum orbit and has a line of sight with the player
             {
@@ -262,7 +232,6 @@ namespace StormDiversMod.Projectiles
                         float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
                         bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
 
-
                         distance = 3f / distance;
                         shootToX *= distance * 8;
                         shootToY *= distance * 8;
@@ -270,8 +239,8 @@ namespace StormDiversMod.Projectiles
                         Projectile.Kill();
                     }
                 }
+            }
         }
-    }
         
         public override bool? CanDamage()
         {
@@ -287,17 +256,12 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-
-
-
             SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
-            for (int i = 0; i < 10; i++)
-            {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15);
+            for (int i = 0; i < 20; i++)
+            {              
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 185);
+                    dust.noGravity = true;
             }
-
         }
         /*public void AnimateProjectile() // Call this every frame, for example in the AI method.
         {
@@ -311,7 +275,6 @@ namespace StormDiversMod.Projectiles
         }*/
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 150;
             return color;
@@ -328,9 +291,7 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
     }
     //_______________________________________________________________________________________________
@@ -362,13 +323,10 @@ namespace StormDiversMod.Projectiles
             //Projectile.CloneDefaults(297);
             // aiType = 297;
         }
-        bool lineOfSight;
-       
+        bool lineOfSight;    
         public override void AI()
         {
-
             var player = Main.player[Projectile.owner];
-
 
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -376,10 +334,7 @@ namespace StormDiversMod.Projectiles
             dust = Terraria.Dust.NewDustPerfect(position, 185, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
             dust.noGravity = true;
 
-              lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
-
-         
-
+            lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -395,9 +350,7 @@ namespace StormDiversMod.Projectiles
         {
 
             for (int i = 0; i < 10; i++)
-            {
-
-                 
+            {                
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 185);
                 dust.noGravity = true;
                 dust.scale = 0.7f;
@@ -463,6 +416,10 @@ namespace StormDiversMod.Projectiles
             
         }
         int releasetime = 0;
+
+        float speed;
+        float inertia;
+        float distanceToIdlePosition; //distance to player
         public override void AI()
         {
             releasetime++;
@@ -474,18 +431,45 @@ namespace StormDiversMod.Projectiles
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = Projectile.Center;
-            dust = Terraria.Dust.NewDustPerfect(position, 15, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+            dust = Terraria.Dust.NewDustPerfect(position, 185, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
             dust.noGravity = true;
             dust.scale = 1f;
 
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
-            if (Projectile.localAI[0] == 0f)
+            /*if (Projectile.localAI[0] == 0f)
             {
                 AdjustMagnitude(ref Projectile.velocity);
                 Projectile.localAI[0] = 1f;
+            }*/
+            speed = 30f;
+            inertia = 8f;
+
+            Vector2 idlePosition = Main.MouseWorld;
+            Vector2 vectorToIdlePosition = idlePosition - Projectile.Center + new Vector2(Main.rand.Next(-50, 50), Main.rand.Next(-50, 50));
+            distanceToIdlePosition = vectorToIdlePosition.Length();
+            if (player.controlUseItem && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SpectreDagger>() && !player.dead)
+            {
+                //if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
+                {
+                    Projectile.timeLeft = 120;
+                    if (distanceToIdlePosition > 10f)
+                    {
+                        vectorToIdlePosition.Normalize();
+                        vectorToIdlePosition *= speed;
+                    }
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                }
             }
-            Vector2 move = Vector2.Zero;
+            if (distanceToIdlePosition > 100f)
+            {
+                Projectile.tileCollide = true;
+            }
+            else
+            {
+                Projectile.tileCollide = false;
+            }
+            /*Vector2 move = Vector2.Zero;
             float distance = 1000f;
             bool target = false;
             for (int k = 0; k < 200; k++)
@@ -496,8 +480,6 @@ namespace StormDiversMod.Projectiles
                     {
                         if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
                         {
-
-
                             Projectile.timeLeft = 120;
                             Vector2 newMove = Main.MouseWorld - Projectile.Center;
                             float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
@@ -509,57 +491,45 @@ namespace StormDiversMod.Projectiles
                             }
                         }
                     }
-                }
-                
-                
-            }
+                }                               
+            }*/
             if (player.releaseUseItem && releasetime >= 10 || player.HeldItem.type != ModContent.ItemType<Items.Weapons.SpectreDagger>())
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Projectile.velocity.X, Projectile.velocity.Y), ModContent.ProjectileType<SpectreDaggerProj2>(), Projectile.damage, 0, Projectile.owner);
                 Projectile.Kill();
             }
-            if (target)
+            /*if (target)
             {
                 AdjustMagnitude(ref move);
                 Projectile.velocity = (12 * Projectile.velocity + move) / 12.5f;
                 AdjustMagnitude(ref Projectile.velocity);
-            }
-            
-
+            }   */          
         }
         private void AdjustMagnitude(ref Vector2 vector)
         {
-            float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+           /* float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
             if (magnitude > 20f)
             {
                 vector *= 20f / magnitude;
-            }
+            }*/
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             for (int i = 0; i < 3; i++)
             {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 15);
-                //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 8);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 185);
+                dust.noGravity = true;
             }
-
             //Projectile.damage += 12;
         }
 
-
         public override void Kill(int timeLeft)
         {
-
-
-
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
             for (int i = 0; i < 5; i++)
             {
-
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 15);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 185);
+                dust.noGravity = true;
             }
            
         }
@@ -638,43 +608,32 @@ namespace StormDiversMod.Projectiles
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = Projectile.Center;
-            dust = Terraria.Dust.NewDustPerfect(position, 15, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+            dust = Terraria.Dust.NewDustPerfect(position, 185, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
             dust.noGravity = true;
             dust.scale = 1f;
 
-            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-
-            
-
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;          
         }
        
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             for (int i = 0; i < 3; i++)
             {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 15);
-                //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 8);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 185);
+                dust.noGravity = true;
             }
-
             //Projectile.damage += 12;
         }
 
 
         public override void Kill(int timeLeft)
         {
-
-
-
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
             for (int i = 0; i < 5; i++)
             {
-
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 15);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 185);
+                dust.noGravity = true;
             }
-
         }
         public override bool PreDraw(ref Color lightColor)
         {

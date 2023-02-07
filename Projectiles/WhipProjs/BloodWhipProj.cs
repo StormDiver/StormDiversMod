@@ -113,24 +113,18 @@ namespace StormDiversMod.Projectiles.WhipProjs
 					frame.Height = 20;
 
 				}
-				//Segment 3
-				else if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11)
+				//Segment 2
+				else if (i % 2 != 0 && i >= 1)
 				{
 					frame.Y = 42;
 					frame.Height = 14;
 				}
-				//segement 2
-				else if (i == 2 || i == 4 || i == 6 || i == 8 || i == 10 || i == 12)
+				//segement 1
+				else if (i % 2 == 0 && i >= 1)
 				{
 					frame.Y = 26;
 					frame.Height = 14;
-				}
-				//segment 1
-				/*else if (i > 0)
-				{
-					frame.Y = 24;
-					frame.Height = 14;
-				}*/
+				}			
 
 				Vector2 element = list[i];
 				Vector2 diff = list[i + 1] - element;
