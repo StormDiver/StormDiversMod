@@ -62,6 +62,19 @@ namespace StormDiversMod.Items.Weapons
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(1));
             float scale = 1f - (Main.rand.NextFloat() * .4f);
             perturbedSpeed = perturbedSpeed * scale;
+
+            if (scale > 0.85f)
+            {
+                damage = (damage * 20) / 17;
+
+            }
+            if (scale < 0.75f)
+            {
+                damage = (damage * 17) / 20;
+
+            }
+            //Main.NewText("Tester " + scale, 0, 204, 170);
+
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
      
             pitch = scale - 1;

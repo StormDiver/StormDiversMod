@@ -174,7 +174,6 @@ namespace StormDiversMod.Items.Weapons
         public override void HoldItem(Player player)
         {
         }
-        bool candamage;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40;
@@ -182,9 +181,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI);
-            
-            
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI);                    
             /*if (!NPC.downedPlantBoss)
             {
                 for (int i = 0; i < 10; i++)
@@ -204,7 +201,6 @@ namespace StormDiversMod.Items.Weapons
                 player.lifeRegen = 0;
                     Main.NewText("Defeat the Plantera you cheater >:(", 100, 100, 100);
                     Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 16);
-
                
                 return false;
            

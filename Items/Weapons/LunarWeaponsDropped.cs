@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Selenian Blades");
-            Tooltip.SetDefault("Can be thrown out and spin in place upon striking an enemy");
+            Tooltip.SetDefault("Spin in place upon striking an enemy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {

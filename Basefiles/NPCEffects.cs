@@ -26,7 +26,6 @@ namespace StormDiversMod.Basefiles
 {
     public class NPCEffects : GlobalNPC
     {
-
         public override bool InstancePerEntity => true;
 
         // npc.GetGlobalNPC<NPCEffects>().boulderDB = true; in debuff.cs
@@ -139,11 +138,11 @@ namespace StormDiversMod.Basefiles
                 npc.buffImmune[BuffType<UltraBurnDebuff>()] = true; //Ultra Burn
             }
             //All underground desert and sandstorm enemies are immune to Forbidden burn
-            if (npc.type == NPCID.SandSlime || npc.type == NPCID.Antlion || npc.type == NPCID.WalkingAntlion || npc.type == NPCID.GiantWalkingAntlion || npc.type == NPCID.FlyingAntlion || npc.type == NPCID.GiantFlyingAntlion || 
-                npc.type == NPCID.LarvaeAntlion || npc.type == NPCID.DesertBeast || npc.type == NPCID.DesertScorpionWalk || npc.type == NPCID.DesertScorpionWall || npc.type == NPCID.DesertLamiaDark || npc.type == NPCID.DesertLamiaLight || 
-                npc.type == NPCID.DesertDjinn ||  npc.type == NPCID.DesertGhoul || npc.type == NPCID.DesertGhoulCorruption || npc.type == NPCID.DesertGhoulCrimson || npc.type == NPCID.DesertGhoulHallow ||
-                npc.type == NPCID.TombCrawlerHead || npc.type == NPCID.TombCrawlerBody || npc.type == NPCID.TombCrawlerTail || npc.type == NPCID.DuneSplicerHead || npc.type == NPCID.DuneSplicerBody || npc.type == NPCID.DuneSplicerTail ||
-                npc.type == NPCID.SandElemental || npc.type == NPCID.SandShark || npc.type == NPCID.SandsharkCorrupt || npc.type == NPCID.SandsharkCrimson || npc.type == NPCID.SandsharkHallow || npc.type == NPCID.Tumbleweed
+            if (npc.type is NPCID.SandSlime or NPCID.Antlion or NPCID.WalkingAntlion or NPCID.GiantWalkingAntlion or NPCID.FlyingAntlion or NPCID.GiantFlyingAntlion or
+                NPCID.LarvaeAntlion or NPCID.DesertBeast or NPCID.DesertScorpionWalk or NPCID.DesertScorpionWall or NPCID.DesertLamiaDark or NPCID.DesertLamiaLight or
+                NPCID.DesertDjinn or NPCID.DesertGhoul or NPCID.DesertGhoulCorruption or NPCID.DesertGhoulCrimson or NPCID.DesertGhoulHallow or
+                NPCID.TombCrawlerHead or NPCID.TombCrawlerBody or NPCID.TombCrawlerTail or NPCID.DuneSplicerHead or NPCID.DuneSplicerBody or NPCID.DuneSplicerTail or
+                NPCID.SandElemental or NPCID.SandShark or NPCID.SandsharkCorrupt or NPCID.SandsharkCrimson or NPCID.SandsharkHallow or NPCID.Tumbleweed
                 )
             {
                 npc.buffImmune[BuffType<AridSandDebuff>()] = true;

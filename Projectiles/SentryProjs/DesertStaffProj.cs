@@ -304,7 +304,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
         }
-        bool lineOfSight;
         public override void AI()
         {
             Projectile.velocity.X = 0;

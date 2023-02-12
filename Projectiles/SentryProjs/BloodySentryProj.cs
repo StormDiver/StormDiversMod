@@ -43,7 +43,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         NPC target;
         NPC currenttarget = null; //Currently targetted enemy. uses so sentry looks at the correct one
-        bool floatup = true;
         
         public override void AI()
         {

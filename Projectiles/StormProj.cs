@@ -465,7 +465,7 @@ namespace StormDiversMod.Projectiles
 			{
 				extraTime = -100;
 				lightningSpeed = 2f;
-				dustYspeed = 20;
+				dustYspeed = 20; 
 
 			}
 		}

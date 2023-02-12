@@ -583,9 +583,9 @@ namespace StormDiversMod.Basefiles
                                     {
                                         Projectile.NewProjectile(null, target.Center, new Vector2(0, 0), ModContent.ProjectileType<HellSoulArmourProj>(), hellblazedmg, 0, Player.whoAmI);
                                         hellblazedmg = (hellblazedmg -= 80); //80 damage falloff per enemy, hits up to 15 enemies
+                                        //Dust.QuickDustLine(Player.Center, target.Center, 50, Color.MediumPurple); //centre to centre
                                     }
                                     //hellblazedmg = (hellblazedmg * 17) / 20; //15% damage falloff per enemy
-
                                 }
                             }
                         }
@@ -660,6 +660,8 @@ namespace StormDiversMod.Basefiles
                     int cryodamage = (int)Player.GetTotalDamage(DamageClass.Summon).ApplyTo(30); //36 with cryoset buffs alone
 
                     Projectile.NewProjectile(null, Main.MouseWorld, new Vector2(0, 0), ModContent.ProjectileType<FrostCryoArmourProj>(), cryodamage, 0, Player.whoAmI);
+                    Dust.QuickDustLine(Player.Center, Main.MouseWorld, 50, Color.LightSkyBlue); //centre to centre
+
                     //Kills oldest projectile when new is summoned
                     int cryoprojs = 0;
                     int oldestProjIndex = -1;

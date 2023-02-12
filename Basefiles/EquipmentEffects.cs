@@ -21,6 +21,7 @@ using StormDiversMod.Projectiles;
 
 using Terraria.DataStructures;
 using Terraria.Audio;
+using NVorbis.Contracts;
 
 namespace StormDiversMod.Basefiles
 {
@@ -382,11 +383,18 @@ namespace StormDiversMod.Basefiles
                 }
                 if (soulBoots)
                 {
-                    Player.vanityRocketBoots = 2;
                     Player.rocketBoots = 1;
-                    //Player.socialShadowRocketBoots = true;
+                    if (Main.dayTime)
+                    {
+                        Player.vanityRocketBoots = 2;
+                    }
+                    else
+                    {
+                        Player.vanityRocketBoots = 1;
+                        Player.socialShadowRocketBoots = true;
+                    }
                 }
-                
+
                 if (Player.moveSpeed > 1)
                 {
                     Player.moveSpeed = 1;
@@ -673,8 +681,9 @@ namespace StormDiversMod.Basefiles
             //For the Heavy Boots===========================
             if (bootFall)
             {
-                Player.rocketBoots = 1;
-
+                Player.rocketBoots = 1;            
+                Player.vanityRocketBoots = 1;
+                
                 if (Player.controlDown && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
 
