@@ -646,7 +646,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                     if (i == 0)
                     {
                         vector = new Vector2(Projectile.scale) * (0.5f + num);
-                        DelegateMethods.c_1 = new Color(113, 251, 255, 0) * 0.5f;
+                        DelegateMethods.c_1 = new Color(34, 221, 151, 0) * 0.5f;
                     }
                     else
                     {
@@ -808,6 +808,14 @@ namespace StormDiversMod.NPCs.NPCProjs
 					}
 				}*/
             }
+            /*{
+                float num = base.Projectile.rotation + (float)Math.PI / 2f + ((Main.rand.Next(2) == 1) ? (-1f) : 1f) * ((float)Math.PI / 2f);
+                float num2 = (float)Main.rand.NextDouble() * 2f + 2;
+                Vector2 vector = new Vector2((float)Math.Cos(num) * num2, (float)Math.Sin(num) * num2);
+                int num3 = Dust.NewDust(base.Projectile.oldPos[base.Projectile.oldPos.Length - 1], 0, 0, 229, vector.X, vector.Y);
+                Main.dust[num3].noGravity = true;
+                Main.dust[num3].scale = 1.7f;
+            }*/
         }
         public override void Kill(int timeLeft)
         {

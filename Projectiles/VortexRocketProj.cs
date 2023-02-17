@@ -8,7 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
-
+using Mono.Cecil;
+using static Terraria.ModLoader.PlayerDrawLayer;
+using StormDiversMod.Basefiles;
+using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.Projectiles
 {
@@ -364,5 +367,5 @@ namespace StormDiversMod.Projectiles
             }
         }
     }
-
+    
 }

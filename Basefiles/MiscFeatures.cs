@@ -50,7 +50,7 @@ namespace StormDiversMod.Basefiles
             if ((
                 Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LightDarkSword>() ||
                 Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexLauncher>() ||
-                Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexShotgun>() ||
+                //Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexShotgun>() ||
                 Player.HeldItem.type == ModContent.ItemType<Items.Weapons.ShroomiteLauncher>()
                 )
                 && Player.altFunctionUse == 2 && Player.controlUseTile && Player.itemAnimation == 1)

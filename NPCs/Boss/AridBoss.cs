@@ -358,7 +358,18 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.dontTakeDamage = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.damage = 30;
+                    if (!Main.expertMode)
+                    {
+                        NPC.damage = 40;
+                    }
+                    if (Main.expertMode && !Main.masterMode)
+                    {
+                        NPC.damage = 60;
+                    }
+                    if (Main.masterMode)
+                    {
+                        NPC.damage = 90;
+                    }            
                     NPC.netUpdate = true;
                 }
 

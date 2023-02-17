@@ -63,7 +63,10 @@ namespace StormDiversMod.Items.Weapons
             float scale = 1f - (Main.rand.NextFloat() * .4f);
             perturbedSpeed = perturbedSpeed * scale;
 
-            if (scale > 0.85f)
+            float scale100 = scale * 100; // times 100 to prevent it rounding to 0 
+            int damagemulti = (int)scale100 + 20; //Convert float to int
+            damage *= damagemulti; // Multiple damage by damage 2 then divide it by 100 in projectile shoot
+            /*if (scale > 0.85f)
             {
                 damage = (damage * 20) / 17;
 
@@ -72,10 +75,12 @@ namespace StormDiversMod.Items.Weapons
             {
                 damage = (damage * 17) / 20;
 
-            }
-            //Main.NewText("Tester " + scale, 0, 204, 170);
+            }*/
+            //Main.NewText("Tester " + scale, 0, 204, 170); //Inital Scale
+            //Main.NewText("Tester " + damage1, 0, 204, 170); //Times 100
+            //Main.NewText("Tester " + damage22, 0, 204, 170); //Rounded and extra 20
 
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage / 100, knockback, player.whoAmI);
      
             pitch = scale - 1;
 

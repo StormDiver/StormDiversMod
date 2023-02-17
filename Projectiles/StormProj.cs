@@ -619,7 +619,7 @@ namespace StormDiversMod.Projectiles
 				if (i == 0)
 				{
 					vector = new Vector2(Projectile.scale) * (0.5f + num);
-					DelegateMethods.c_1 = new Color(113, 251, 255, 0) * 0.5f;
+					DelegateMethods.c_1 = new Color(34, 221, 151, 0) * 0.5f;
 				}
 				else
 				{

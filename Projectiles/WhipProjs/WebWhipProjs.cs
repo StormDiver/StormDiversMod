@@ -78,10 +78,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 
 		}
 		public override bool PreDraw(ref Color lightColor)
-		{
-
-			
-
+		{			
 			List<Vector2> list = new List<Vector2>();
 			Projectile.FillWhipControlPoints(Projectile, list);
 
