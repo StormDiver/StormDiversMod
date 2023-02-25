@@ -87,7 +87,7 @@ namespace StormDiversMod.NPCs
         float xpos = 0;
         bool xassend;
         float speed = 3;
-        float inertia = 30;     
+        float inertia = 30;
         public override void AI()
         {
             NPC.buffImmune[BuffID.OnFire] = true;
@@ -137,7 +137,7 @@ namespace StormDiversMod.NPCs
             NPC.TargetClosest();
             NPC.rotation = NPC.velocity.X / 25;
 
-           
+
             if (!player.dead)
             {
                 Vector2 idlePosition = player.Center + new Vector2(0, ypos);
@@ -165,19 +165,16 @@ namespace StormDiversMod.NPCs
 
             }
 
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
             if ((distanceX <= 75f && distanceX >= -75f) && (distanceY <= 500f && distanceY >= 0f) && Collision.CanHitLine(NPC.Center, 0, 0, player.Center, 0, 0) && !player.dead)
             {
-                
-                    int damage = 13; // The damage your projectile deals.
-                    float knockBack = 1;
-                    int type = ModContent.ProjectileType<NPCs.NPCProjs.MeteorDropperProj>();
+                int damage = 13; // The damage your projectile deals.
+                float knockBack = 1;
+                int type = ModContent.ProjectileType<NPCs.NPCProjs.MeteorDropperProj>();
 
-                    firerate++;
+                firerate++;
                 float xprojpos = (Main.rand.NextFloat(-10, 10));
                 if (firerate >= 25)
                 {

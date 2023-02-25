@@ -39,10 +39,7 @@ namespace StormDiversMod.Items.Accessory
             {
                 NPC target = Main.npc[i];
                
-                float distanceX = player.Center.X - target.Center.X;
-                float distanceY = player.Center.Y - target.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-                if (distance < 250 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(player.Center, 0, 0, target.Center, 0, 0))
+                if (Vector2.Distance(player.Center, target.Center) <= 250 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(player.Center, 0, 0, target.Center, 0, 0))
                 {
                     if (skulltime >= 45)
                     {

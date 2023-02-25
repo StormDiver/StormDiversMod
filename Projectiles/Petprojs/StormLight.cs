@@ -91,18 +91,13 @@ namespace StormDiversMod.Projectiles.Petprojs
             {
                 Projectile.timeLeft = 2;
             }
-
-
-
-            float distanceX = player.Center.X - Projectile.Center.X;
-            float distanceY = player.Center.Y - Projectile.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
             Projectile.rotation = Projectile.velocity.X / 20;
-
 
             xpostion = 50 * -player.direction; //Moves to the front of the player
             Projectile.spriteDirection = player.direction; //Flips sprite
+
+            float distance = Vector2.Distance(player.Center, Projectile.Center);
+
             movespeed = distance / 15 + 0.5f; //Moves faster the further away it is
 
             //To make bop up and down

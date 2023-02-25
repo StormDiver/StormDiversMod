@@ -194,38 +194,21 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                 for (int i = 0; i < 100; i++)
                 {
-                    Player target = Main.player[i];
-                    //If the npc is hostile
-
-                    //Get the shoot trajectory from the Projectile and target
-                    float shootToX = target.Center.X - Projectile.Center.X;
-                    float shootToY = target.Center.Y - Projectile.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                    //If the distance between the live targeted npc and the Projectile is less than 480 pixels
-                    if (distance < 1200f && target.active && Projectile.ai[0] >= 120)
-                    {
-
-                        distance = 0.5f / distance;
-
-                        //Multiply the distance by a multiplier proj faster
-                        shootToX *= distance * 12;
-                        shootToY *= distance * 0;
-
-                        //Set the velocities to the shoot values
-                        Projectile.velocity.X = shootToX;
-                        Projectile.velocity.Y = shootToY;
-                    }
+                    Player target = Main.player[i];              
                     
-                        Projectile.velocity.Y = 4f;
-                  
-
-                }
-                
+                    if (Vector2.Distance(target.Center, Projectile.Center) < 2000 && Projectile.ai[0] >= 120)
+                    {
+                        float projspeed = 9f;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                        //Set the velocities to the shoot values
+                        Projectile.velocity.X = velocity.X;
+                        if (Projectile.velocity.Y < 6)
+                        {
+                            Projectile.velocity.Y += 0.1f;
+                        }
+                    }
+                }             
             }
-
-
-
         }
         /* private void AdjustMagnitude(ref Vector2 vector)
          {

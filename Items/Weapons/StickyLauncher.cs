@@ -65,12 +65,8 @@ namespace StormDiversMod.Items.Weapons
             return true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            float shootToX = Main.MouseWorld.X - player.Center.X;
-            float shootToY = Main.MouseWorld.Y - player.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-            shootvelo = distance / 500f + 0.2f; //Faster shoot speed at further distances
+        {        
+            shootvelo = Vector2.Distance(Main.MouseWorld, player.Center) / 500f + 0.2f; //Faster shoot speed at further distances
             if (shootvelo > 1.5f) //Caps the speed multipler at 1.5x
             {
                 shootvelo = 1.5f;

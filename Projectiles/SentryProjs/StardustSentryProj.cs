@@ -99,37 +99,16 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 }
 
-                //Getting the shooting trajectory
-                float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
-                
-
-                if (distance < 700 && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)  
-                {
-                   
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 700 && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)  
+                {             
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
                         target.TargetClosest(true);
                         if (Projectile.ai[1] > 40)
                         {
                             //supershot++;
-
-
-                            //Dividing the factor of 2f which is the desired velocity by distance
-                            //distance = 1.6f / distance;
-
-                            //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                            //shootToX *= distance * 3.5f;
-                            //shootToY *= distance * 3.5f;
-
-                            
                             for (int j = 0; j < 3; j++)
                             {
-
-
                                 float speedX = 0f;
                                 float speedY = -4.5f;
                                 
@@ -159,15 +138,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 dust2.velocity *= 2;
                             }
                         }
-                    }
-                    /*if (supershot > 4)
-                    {
-                        target.TargetClosest(true);
-                        Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, shootToX * 3, shootToY * 3, mod.ProjectileType("StardustSentryProj3"), (int) (Projectile.damage * 2f), (int)(Projectile.knockBack * 2), Main.myPlayer, 0f, 0f); //Spawning a projectile mod.ProjectileType("FlamethrowerProj") is an example of how to spawn a modded Projectile. if you want to shot a terraria prjectile add instead ProjectileID.Nameofterrariaprojectile
-                        Main.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 60);
-                        supershot = 0;
-
-                    }*/
+                    }                 
                 }
             }
 

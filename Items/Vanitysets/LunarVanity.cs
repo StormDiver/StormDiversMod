@@ -26,7 +26,7 @@ namespace StormDiversMod.Items.Vanitysets
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow"),
-                Color = () => Color.White * 0.75f
+                Color = () => Color.White
 
             });
         }
@@ -106,7 +106,7 @@ namespace StormDiversMod.Items.Vanitysets
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             if (!Main.dedServ)
             {
-                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.75f);
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75));
             }
         }
 
@@ -158,7 +158,7 @@ namespace StormDiversMod.Items.Vanitysets
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow"),
-                Color = () => Color.White * 0.75f
+                Color = () => Color.White
             });
 
         }
@@ -212,7 +212,7 @@ namespace StormDiversMod.Items.Vanitysets
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow"),
-                Color = () => Color.White * 0.75f
+                Color = () => Color.White 
             });
         }
 
@@ -287,7 +287,7 @@ namespace StormDiversMod.Items.Vanitysets
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             if (!Main.dedServ)
             {
-                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.75f);
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) );
             }
         }
 
@@ -339,7 +339,7 @@ namespace StormDiversMod.Items.Vanitysets
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow"),
-                Color = () => Color.White * 0.75f
+                Color = () => Color.White 
             });
         }
 
@@ -392,7 +392,7 @@ namespace StormDiversMod.Items.Vanitysets
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow"),
-                Color = () => Color.White * 0.75f
+                Color = () => Color.White 
             });
         }
 
@@ -468,7 +468,7 @@ namespace StormDiversMod.Items.Vanitysets
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             if (!Main.dedServ)
             {
-                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.75f);
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) );
             }
         }
 
@@ -520,7 +520,7 @@ namespace StormDiversMod.Items.Vanitysets
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow"),
-                Color = () => Color.White * 0.75f
+                Color = () => Color.White 
             });
         }
 
@@ -574,7 +574,7 @@ namespace StormDiversMod.Items.Vanitysets
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
                 ,
-                Color = () => Color.White * 0.75f
+                Color = () => Color.White 
             });
         }
 
@@ -649,7 +649,7 @@ namespace StormDiversMod.Items.Vanitysets
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             if (!Main.dedServ)
             {
-                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.75f);
+                BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) );
             }
         }
 
@@ -701,7 +701,7 @@ namespace StormDiversMod.Items.Vanitysets
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow"),
-                Color = () => Color.White * 0.75f
+                Color = () => Color.White 
             });
         }
 

@@ -210,22 +210,15 @@ namespace StormDiversMod.Projectiles.Minions
 
 					
 				}
-				//Getting the shooting trajectory
-				float shootToX = targetNPC.X - Projectile.Center.X;
-				float shootToY = targetNPC.Y - Projectile.Center.Y;
-				float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
+				
 				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
 				{
 					if (!Main.dedServ)
-					{
-						distance = 1.6f / distance;
+					{					
+                        float projspeed = 12;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-						//Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-						shootToX *= distance * 9f;
-						shootToY *= distance * 9f;
-
-						Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
 						for (int i = 0; i < 10; i++)
 						{

@@ -97,29 +97,17 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 }
                 target.TargetClosest(true);
-              
-                //Getting the shooting trajectory
-                float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
-
-                if (distance < 900f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+           
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 900f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
                    
                     if (Projectile.ai[1] > 45)
                     {
                         currenttarget = target;
                         animate = true;
-
-                        //Dividing the factor of 2f which is the desired velocity by distance
-                        distance = 1.6f / distance;
-
-                        //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                        shootToX *= distance * 10f;
-                        shootToY *= distance * 10f;
-
+                        float projspeed = 18;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                      
                         for (int j = 0; j < 60; j++)
                         {
                             float speedY = -3.5f;
@@ -138,37 +126,24 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         }
 
-
                         SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
                         float numberProjectiles = 3;
                         float rotation = MathHelper.ToRadians(4);
                         for (int l = 0; l < numberProjectiles; l++)
                         {
 
-                            Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedBy(MathHelper.Lerp(-rotation, rotation, l / (numberProjectiles - 1)));
+                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, l / (numberProjectiles - 1)));
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
                                 ModContent.ProjectileType<StormSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
-                        /*for (int l = 0; l < 3; l++)
-                        {
-                            Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(12));
-
-
-                            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
-                                ModContent.ProjectileType<StormSentryProj2>(), Projectile.damage, .5f, Projectile.owner);
-                        }*/
-
-
+                       
                         Projectile.ai[1] = 0;
                     }
                     if (currenttarget != null)
                     {
                         Projectile.rotation = ((currenttarget.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
-                    }
-                   
-                }
-               
-
+                    }                 
+                }            
             }
             if (animate)
             {
@@ -216,7 +191,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public void AnimateProjectile() 
         {
-
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 4)
             {
@@ -230,7 +204,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Projectile.frame = 0;
                 animate = false;
             }
-
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

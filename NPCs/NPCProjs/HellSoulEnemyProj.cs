@@ -76,36 +76,21 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                 }
             }
-            if (Projectile.ai[0] >= homerandom && Projectile.ai[0] <= homerandom + 45)
+            if (Projectile.ai[0] == homerandom)
             {
                 for (int i = 0; i < 200; i++)
                 {
                     Player target = Main.player[i];
-                    //If the npc is hostile
 
-                    //Get the shoot trajectory from the Projectile and target
-                    float shootToX = target.Center.X - Projectile.Center.X;
-                    float shootToY = target.Center.Y - Projectile.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                    //If the distance between the live targeted npc and the Projectile is less than 480 pixels
-                    if (distance < 2000f && target.active)
+                    if (Vector2.Distance(target.Center, Projectile.Center) < 2000f && target.active)
                     {
+                        float projspeed = 3f;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                        distance = 0.5f / distance;
-
-                        //Multiply the distance by a multiplier proj faster
-                        shootToX *= distance * 5f;
-                        shootToY *= distance * 5f;
-
-                        //Set the velocities to the shoot values
-                        Projectile.velocity.X = shootToX;
-                        Projectile.velocity.Y = shootToY;
+                        Projectile.velocity.X = velocity.X;
+                        Projectile.velocity.Y = velocity.Y;
                     }
-
                 }
-                
-
             }
 
         }

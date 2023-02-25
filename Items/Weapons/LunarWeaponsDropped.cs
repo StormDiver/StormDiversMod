@@ -129,7 +129,7 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 5f;
             Item.useTurn = false;
             Item.shoot = ModContent.ProjectileType<Projectiles.VortexShotgunGun>();
-            Item.shootSpeed = 15f;
+            Item.shootSpeed = 22f;
             //Item.UseSound = SoundID.Item12;
             Item.noMelee = true;
             //Item.noUseGraphic = true;
@@ -138,7 +138,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(0, 2);
+            return new Vector2(-4, 2);
         }
         /*
         public override bool AltFunctionUse(Player player)

@@ -23,6 +23,7 @@ using Terraria.ModLoader.IO;
 using StormDiversMod.Buffs;
 
 using StormDiversMod.Items.Pets;
+using System.Runtime.InteropServices;
 
 namespace StormDiversMod.NPCs.Boss
 {
@@ -105,7 +106,8 @@ namespace StormDiversMod.NPCs.Boss
         }
         float speed = 10;
         float inertia = 40;
-        float distanceToIdlePosition; //distance to player
+        float distanceToIdlePosition; //distance to movement positon
+        float distance; //Distance to player
 
         bool halflife;//Half health
 
@@ -115,9 +117,6 @@ namespace StormDiversMod.NPCs.Boss
         int projcount; //Number of projs if applicable
         float projvelocity; //Velocity of projectiles
 
-        float distanceX;//}
-        float distanceY;//}
-        float distance; //}Distance between boss and player for projectiles
         public static int phase2HeadSlot = -1;
         public override void Load()
         {
@@ -163,7 +162,8 @@ namespace StormDiversMod.NPCs.Boss
             }
 
 
-            //======================================================MOVEMENT==============================================================================================         
+            //======================================================MOVEMENT==============================================================================================
+
             Player player = Main.player[NPC.target]; //Code to move towards player
 
             if (!player.dead)
@@ -212,18 +212,12 @@ namespace StormDiversMod.NPCs.Boss
                 }
             }
             //====================================================================================================================================================
-
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            distanceX = player.Center.X - NPC.Center.X;
-            distanceY = player.Center.Y - NPC.Center.Y;
-            distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
+            distance = Vector2.Distance(player.Center, NPC.Center);
 
             if (distance > 10000 && NPC.ai[3] != 0)// Despawn if too far away
             {
                 NPC.active = false;
             }
-
       
             if (!halflife && NPC.life <= NPC.lifeMax / 2) //at half life
             {
@@ -939,15 +933,8 @@ namespace StormDiversMod.NPCs.Boss
                         }
                     }
                 }
-                /*for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    if (Main.npc[i].type == ModContent.NPCType<AridBossMinion>())
-                    {
-                        NPC Minion = Main.npc[i];
-                        Dust.QuickDustLine(NPC.Center, player.Center, 50, Color.Orange);
-                    }
-                }*/
-                for (int i = 0; i < 8; i++) //shield visual
+               
+                /*for (int i = 0; i < 8; i++) //shield visual, now uses glowing pulse effect
                 {
                     double deg2 = Main.rand.Next(0, 360); //The degrees
                     double rad2 = deg2 * (Math.PI / 180); //Convert degrees to radians
@@ -967,7 +954,7 @@ namespace StormDiversMod.NPCs.Boss
                     dust3.noGravity = true;
                     dust3.scale = 0.5f;
                     dust3.velocity *= 0.5f;
-                }
+                }*/
 
                 if (NPC.CountNPCS(ModContent.NPCType<AridBossMinion>()) == 0) // 60 seconds after last minion killed next attack
                 {
@@ -1268,6 +1255,20 @@ namespace StormDiversMod.NPCs.Boss
                     Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
                     Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                 }
+                float speen1 = 9f + 3f * (float)Math.Cos((float)Math.PI * 2f * Main.GlobalTimeWrappedHourly);
+                Vector2 spinningpoint5 = Vector2.UnitX * speen1;
+
+                Color color2 = Color.Orange * (speen1 / 12f) * 0.8f;
+                color2.A /= 3;
+                if (NPC.dontTakeDamage) //shield visual
+                {
+                    for (float speen2 = 0f; speen2 < (float)Math.PI * 2f; speen2 += (float)Math.PI / 2f)
+                    {
+                        Vector2 finalpos = NPC.position + new Vector2(0, 30) + spinningpoint5.RotatedBy(speen2);
+                        spriteBatch.Draw(texture, new Vector2(finalpos.X - screenPos.X + (float)(NPC.width / 2) * NPC.scale, finalpos.Y - screenPos.Y + (float)NPC.height * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 6), NPC.frame, color2, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    }
+                }
+                
             }
             return true;
         }

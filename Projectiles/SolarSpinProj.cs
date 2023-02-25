@@ -148,8 +148,8 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
     public class SelenianReflect : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
-        
-    
+
+
         public bool reflected;
         public override void AI(Projectile projectile)
         {
@@ -175,14 +175,8 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                         {
                             //Player player = Main.player[npc.target];
 
-                            float distanceX = player.Center.X - projectile.Center.X;
-                            float distanceY = player.Center.Y - projectile.Center.Y;
-                            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
-
-                            if (distance <= 100 && !reflected)
+                            if (Vector2.Distance(player.Center, projectile.Center) <= 100 && !reflected)
                             {
-
                                 int choice = Main.rand.Next(2);
                                 if (choice == 0)
                                 {
@@ -217,6 +211,6 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
 
             }
         }
-      
+
     }
 }

@@ -144,19 +144,12 @@ namespace StormDiversMod.NPCs
             NPC.spriteDirection = NPC.direction;
             NPC.velocity.Y *= 0.96f;
 
-
-
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
             if (player.dead || ((!player.ZoneJungle || !player.ZoneRockLayerHeight) && !NPC.downedPlantBoss)) //Now flees if the player leaves the Underground Jungle pre plant
             {
                 NPC.velocity.Y = 8;
             }
 
-            if (distance <= 700f)
+            if (Vector2.Distance(player.Center, NPC.Center) <= 700f)
             {
                 NPC.ai[2]++;
 

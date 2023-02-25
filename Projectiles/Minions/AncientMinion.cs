@@ -209,11 +209,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 
 				}
-				//Getting the shooting trajectory
-				float shootToX = targetNPC.X - Projectile.Center.X;
-				float shootToY = targetNPC.Y - Projectile.Center.Y;
-				float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
+				
 				if (Vector2.Distance(Projectile.Center, targetNPC) < 200f && Collision.CanHit(Projectile.Center, 0, 0, targetNPC, 0, 0)) //Slow down if close
 				{
 					shooting = true;
@@ -233,13 +229,10 @@ namespace StormDiversMod.Projectiles.Minions
 
 					if (!Main.dedServ)
 					{
-						distance = 1.6f / distance;
+                        float projspeed = 6;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-						//Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-						shootToX *= distance * 4f;
-						shootToY *= distance * 4f;
-
-						Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<AncientMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<AncientMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
 						for (int i = 0; i < 10; i++)
 						{

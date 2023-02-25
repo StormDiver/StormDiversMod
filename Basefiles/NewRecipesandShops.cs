@@ -397,7 +397,17 @@ namespace StormDiversMod.Basefiles
 
                     }
                     break;
-            }       
+            }
+            switch (type)
+            {
+                case NPCID.Cyborg:
+                    if (NPC.downedPlantBoss)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<MagicArrow>());
+                        nextSlot++;
+                    }
+                    break;
+            }
 
             switch (type)
             {

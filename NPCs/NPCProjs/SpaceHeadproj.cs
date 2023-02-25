@@ -83,19 +83,9 @@ namespace StormDiversMod.NPCs.NPCProjs
                     Player player = Main.player[i];
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-
-                        //target = Main.MouseWorld;
-                        //target.TargetClosest(true);
-                        float shootToX = player.position.X - Projectile.Center.X;
-                        float shootToY = player.position.Y - Projectile.Center.Y;
-                        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-
-
-                        distance = 3f / distance;
-                        shootToX *= distance * 6;
-                        shootToY *= distance * 6;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<NPCs.NPCProjs.SpaceHeadProj2>(), Projectile.damage, Projectile.knockBack);
+                        float projspeed = 25;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<NPCs.NPCProjs.SpaceHeadProj2>(), Projectile.damage, Projectile.knockBack);
 
                         Projectile.Kill();
                     }

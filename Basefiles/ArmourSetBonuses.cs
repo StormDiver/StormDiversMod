@@ -321,7 +321,6 @@ namespace StormDiversMod.Basefiles
             {           
                 float distanceX = Player.Center.X - Main.MouseWorld.X;
                 float distanceY = Player.Center.Y - Main.MouseWorld.Y;
-                float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
                 int xcursor = (int)(Main.MouseWorld.X / 16);
                 int ycursor = (int)(Main.MouseWorld.Y / 16);
@@ -570,14 +569,11 @@ namespace StormDiversMod.Basefiles
 
                         for (int i = 0; i < 200; i++)
                         {
-                            NPC target = Main.npc[i];
-                            float distanceX = Player.Center.X - target.Center.X;
-                            float distanceY = Player.Center.Y - target.Center.Y;
-                            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+                            NPC target = Main.npc[i];                       
                             bool lineOfSight = Collision.CanHitLine(target.position, target.width, target.height, Player.position, Player.width, Player.height);
                             if (!target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && StormDiversMod.ArmourSpecialHotkey.JustPressed)
                             {
-                                if ((distance < 500 && lineOfSight) || (distance < 200 && !lineOfSight))
+                                if ((Vector2.Distance(Player.Center, target.Center) <= 500 && lineOfSight) || (Vector2.Distance(Player.Center, target.Center) <= 200 && !lineOfSight))
                                 {
                                     if (hellblazedmg > 0) //only summon projectile if enemy will take damage
                                     {

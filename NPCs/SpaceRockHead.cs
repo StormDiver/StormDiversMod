@@ -14,7 +14,6 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod.NPCs
-
 {
     public class SpaceRockHead : ModNPC
     {
@@ -38,7 +37,6 @@ namespace StormDiversMod.NPCs
             NPC.lifeMax = 750;
             NPC.noGravity = true;
 
-
             NPC.HitSound = SoundID.NPCHit7;
             NPC.DeathSound = SoundID.NPCDeath43;
             NPC.knockBackResist = 0.1f;
@@ -47,7 +45,6 @@ namespace StormDiversMod.NPCs
 
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.SpaceRockHeadBannerItem>();
-
            
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
@@ -73,13 +70,11 @@ namespace StormDiversMod.NPCs
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             if (NPC.downedGolemBoss)
             {
                 return SpawnCondition.Sky.Chance * 0.4f;
             }
-            return SpawnCondition.Sky.Chance * 0f;
-            
+            return SpawnCondition.Sky.Chance * 0f;            
         }
         int shoottime = 0;
 
@@ -96,15 +91,10 @@ namespace StormDiversMod.NPCs
             NPC.buffImmune[BuffID.Confused] = true;
 
             shoottime++;
-           
-
+ 
             Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             
-            if (distance  <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 if (shoottime >= 240)
                 {
@@ -116,9 +106,7 @@ namespace StormDiversMod.NPCs
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-
                     SoundEngine.PlaySound(SoundID.Item13, NPC.Center);
-
 
                     for (int i = 0; i < 4; i++)
                     {
@@ -130,9 +118,7 @@ namespace StormDiversMod.NPCs
                             perturbedSpeed = perturbedSpeed * scale;
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                         }
-                    }
-
-                    
+                    }                   
                     movetime = 30;
                     shoottime = 0;
                 }
@@ -141,8 +127,6 @@ namespace StormDiversMod.NPCs
             {
                 shoottime = 150;
             }
-
-
             if (movetime > 0)
             {
                 NPC.velocity.X = 0;
@@ -165,13 +149,9 @@ namespace StormDiversMod.NPCs
                 int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 0, NPC.velocity.X, NPC.velocity.Y, 0, default, 0.5f);
             }
         }
-
-
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            
-               
-            
+                                    
         }
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -195,9 +175,7 @@ namespace StormDiversMod.NPCs
                 for (int i = 0; i < 25; i++)
                 {
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 6);
-                }
-              
-
+                }             
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -212,12 +190,20 @@ namespace StormDiversMod.NPCs
             npcLoot.Add(isExpert);
 
         }
-       
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/SpaceRockHead");
+            Color color = new Color(179, 151, 238, 40);
+            float scaleFactor13 = 0.5f + (NPC.GetAlpha(color).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+            for (int num149 = 0; num149 < 4; num149++)
+            {
+                spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 5) + NPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            }
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
+        }
         public override Color? GetAlpha(Color lightColor)
         {
-
             return Color.White;
-
         }
 
     }

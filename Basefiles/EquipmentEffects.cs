@@ -98,6 +98,11 @@ namespace StormDiversMod.Basefiles
 
         public bool mushroomSuper; //Player has the enchnated mushroom equipped
 
+        public bool heartpotion; //Player has taken a heart potion
+
+        public bool superHeartpotion; //Player has taken a super heart potion
+
+
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the SPooky Core has fired its flames or not
@@ -125,6 +130,7 @@ namespace StormDiversMod.Basefiles
         public int dropdust; //Cooldown for urn dust
         public int coraldrop; //Cooldown for coral emblem drops
         public bool stormBossProj; // wheter the projectile for the storm coil has been spawned
+        public int shroomtime; //For cahnneling ranged weapons with Shroomite launcher
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -161,6 +167,8 @@ namespace StormDiversMod.Basefiles
             stormBossAccess = false;
             aridBossAccess = false;
             mushroomSuper = false;
+            heartpotion = false;
+            superHeartpotion = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -595,15 +603,7 @@ namespace StormDiversMod.Basefiles
                     NPC target = Main.npc[i];
                     var player = Main.LocalPlayer;
 
-                    float shootToX = target.position.X + (float)target.width * 0.5f - Player.Center.X;
-                    float shootToY = target.position.Y + (float)target.height * 0.5f - Player.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-
-                    /*float distanceX = Player.Center.X - target.Center.X;
-                    float distanceY = Player.Center.Y - target.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));*/
-                    if (distance < distancehealth && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Player.Center, 0, 0, target.Center, 0, 0))
+                    if (Vector2.Distance(Player.Center, target.Center) <= distancehealth && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Player.Center, 0, 0, target.Center, 0, 0))
                     {
                         if (!target.buffImmune[(BuffType<SpookedDebuff>())])
                         {                      
@@ -811,33 +811,32 @@ namespace StormDiversMod.Basefiles
             // For the Shroomite Launcher Accessory
             if (shroomaccess)
             {
-                if (Player.itemTime > 1 && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
+                shroomtime++;
+                if (((Player.HeldItem.type == ItemID.VortexBeater && Player.channel && shroomtime >= 7) || Player.HeldItem.type != ItemID.VortexBeater && Player.itemTime == 1) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
                 {
 
+                    shroomshotCount++;
+                    //Main.NewText("Pls work " + shroomtime + " | " + shroomshotCount, 0, 204, 170); //Inital Scale
 
-                    if (!shotrocket) //If the rocket hasn't already been fired this use then it it fire it
+                    shroomtime = 0;
+
+                    if (shroomshotCount >= 5) //Every 5 shots fires a rocket
                     {
-                        shroomshotCount++;
-                        if (shroomshotCount >= 5) //Every 5 shots fires a rocket
-                        {
 
-                            shroomshotCount = 0; //Resets the shot count
-                            float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
-                            float velocity = 13f;
-                            int type = ModContent.ProjectileType<ShroomSetRocketProj>();
-                            int damage = (int)(Player.HeldItem.damage * 2f);
-                            Projectile.NewProjectile(null, Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
+                        shroomshotCount = 0; //Resets the shot count
+                        float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
+                        float velocity = 13f;
+                        int type = ModContent.ProjectileType<ShroomSetRocketProj>();
+                        int damage = (int)(Player.HeldItem.damage * 2f);
+                        Projectile.NewProjectile(null, Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
 
-                            SoundEngine.PlaySound(SoundID.Item92, Player.Center);
-                        }
-
+                        SoundEngine.PlaySound(SoundID.Item92, Player.Center);
                     }
-                    shotrocket = true; //This prevents a rocket from spawning every frame
                 }
-                else
-                {
-                    shotrocket = false; //Once the usetime is back to 0 this bool can be set to false again
-                }
+            }
+            else
+            {
+                shroomtime = 0;
             }
             //For betsy's Flame ======================
             if (flameCore)
@@ -848,7 +847,7 @@ namespace StormDiversMod.Basefiles
                 }
                 Player.runAcceleration += 0.25f;
 
-                if ((Player.itemAnimation == 1 && Player.HeldItem.damage >= 1 && Player.HeldItem.ammo == 0 && !shotflame) || (Player.HeldItem.channel && Player.channel && flamecooldown <= 0)) //weapon is in use
+                if ((Player.itemAnimation == 1 && Player.HeldItem.damage >= 1 && Player.HeldItem.ammo == 0) || (Player.HeldItem.channel && Player.channel && flamecooldown <= 0)) //weapon is in use
                 {
 
                     if (Main.rand.Next(3) == 0)
@@ -892,13 +891,7 @@ namespace StormDiversMod.Basefiles
 
                     }
                     flamecooldown = Player.HeldItem.useTime; //cooldown for channeling weapons
-                    shotflame = true;
-                }
-                else
-                {
-                    shotflame = false;
-                }
-
+                }       
             }
             //For wooden necklace=======================
             if (woodNecklace)
@@ -1040,13 +1033,8 @@ namespace StormDiversMod.Basefiles
                 for (int i = 0; i < 200; i++)
                 {
                     NPC target = Main.npc[i];
-                    var player = Main.MouseWorld;
 
-                    float shootToX = target.position.X + (float)target.width * 0.5f - Main.MouseWorld.X;
-                    float shootToY = target.position.Y + (float)target.height * 0.5f - Main.MouseWorld.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                    if (distance < 90 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Main.MouseWorld, 0, 0, target.Center, 0, 0))
+                    if (Vector2.Distance(Main.MouseWorld, target.Center) <= 90 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Main.MouseWorld, 0, 0, target.Center, 0, 0))
                     {
                         if (!target.buffImmune[(BuffType<AridCoreDebuff>())])
                         {

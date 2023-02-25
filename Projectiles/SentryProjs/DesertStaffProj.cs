@@ -78,14 +78,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 NPC target = Main.npc[i];
 
-                //Getting the shooting trajectory
-                float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
-
-                if (distance < 260f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 260f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
                 {
 
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
@@ -93,7 +86,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         if (Projectile.ai[1] > 80)
                         {
                             AnimateProjectile();
-
 
                             float numberProjectiles = 12;
                             float rotation = MathHelper.ToRadians(180);

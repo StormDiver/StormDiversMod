@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Terraria.Enums;
+using System.Transactions;
 
 namespace StormDiversMod.Projectiles
 {
@@ -152,21 +153,13 @@ namespace StormDiversMod.Projectiles
             Player player = Main.player[Projectile.owner];
 
             if (Projectile.owner == Main.myPlayer)
-            {
-                float shootToX = player.Center.X - Projectile.Center.X;
-                float shootToY = player.Center.Y - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                bool lineOfSight = Collision.CanHitLine(player.Center, 0, 0, Projectile.position, Projectile.width, Projectile.height);
-
-                distance = 3f / distance;
-                shootToX *= distance * 5;
-                shootToY *= distance * 5;
-
-                Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
+            {         
+                float projspeed = 10;
+                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
 
                 Projectile.velocity.X = perturbedSpeed.X;
                 Projectile.velocity.Y = perturbedSpeed.Y;
-
 
             }
             

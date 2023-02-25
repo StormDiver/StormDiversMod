@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Summons
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.Text = line.Text + "\nThe Signal appears to be blocked by the souls of the mechanical bosses"; //Unusable pre mechs
+                        line.Text = line.Text + "\n[c/00FFA5:The Signal appears to be blocked by the souls of the mechanical bosses]"; //Unusable pre mechs
                     }
                 }
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Summons
 
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.Text = line.Text + "\nVery Buggy on multiplayer!\nFor the best experience fight the boss on single player!"; //multiplayer sucks
+                        line.Text = line.Text + "\n[c/ffa500:Very Buggy on multiplayer!]\n[c/ffa500:For the best experience fight the boss on single player!]"; //multiplayer sucks
                     }
                 }
             }

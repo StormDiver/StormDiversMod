@@ -22,7 +22,6 @@ namespace StormDiversMod.Items.BossTrophy
 	{
 		// Sets the associated NPC this treasure bag is dropped from
 		//public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Treasure Bag (Ancient Husk)");
@@ -149,7 +148,6 @@ namespace StormDiversMod.Items.BossTrophy
 	{
 		// Sets the associated NPC this treasure bag is dropped from
 		//public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Treasure Bag (Overloaded Scandrone)");

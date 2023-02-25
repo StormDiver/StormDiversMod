@@ -230,16 +230,8 @@ namespace StormDiversMod.Projectiles.Minions
 					Vector2 direction = targetCenter - Projectile.Center;
 					direction.Normalize();
 					direction *= speed;
-					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-
-					
-
+					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;				
 				}
-
-				//Getting the shooting trajectory
-				float shootToX = targetNPC.X - Projectile.Center.X;
-				float shootToY = targetNPC.Y - Projectile.Center.Y;
-				float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
 
 				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 550f)
 				{
@@ -254,23 +246,20 @@ namespace StormDiversMod.Projectiles.Minions
 
 						if (Projectile.ai[1] > 60)
 						{
-							distance = 1.6f / distance;
-
-							//Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-							shootToX *= distance * 6f;
-							shootToY *= distance * 6f;
-
+                            float projspeed = 12;
+                            Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                           
 							float numberProjectiles = 3;
 							float rotation = MathHelper.ToRadians(10);
 							for (int j = 0; j < numberProjectiles; j++)
 							{
 
-								Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+								Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
 								Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), 
 									new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenSpiritMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 							}
-							Projectile.velocity.X = shootToX * -0.18f;
-							Projectile.velocity.Y = shootToY * -0.18f;
+							Projectile.velocity.X = velocity.X * -0.18f;
+							Projectile.velocity.Y = velocity.Y * -0.18f;
 
 							SoundEngine.PlaySound(SoundID.Item30 with{Volume = 0.75f, Pitch = 0.5f}, Projectile.Center);
 

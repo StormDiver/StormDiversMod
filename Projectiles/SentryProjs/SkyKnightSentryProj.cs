@@ -114,28 +114,15 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 }
 
-                //Getting the shooting trajectory
-                float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
-
-
-                if (distance < 500f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.CanBeChasedBy() && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0) && Collision.CanHitLine(Projectile.Center, 0, 0, player.Center, 0, 0))
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 500f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.CanBeChasedBy() && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0) && Collision.CanHitLine(Projectile.Center, 0, 0, player.Center, 0, 0))
                 {
-
-                    distance = 1.6f / distance;
-
-                    //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                    shootToX *= distance * 7f;
-                    shootToY *= distance * 7f;
-
-
+                    float projspeed = 12;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                   
                     if (shoottime > 60)
                     {
 
-                        Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(8));
+                        Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SkyKnightSentryProj2>(), 40, Projectile.knockBack, Projectile.owner);
 
@@ -144,7 +131,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         shoottime = 0;
                         animate = true;
                     }
-
 
                 }
 

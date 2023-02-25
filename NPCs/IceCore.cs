@@ -55,9 +55,6 @@ namespace StormDiversMod.NPCs
            Banner = NPC.type;
            BannerItem = ModContent.ItemType<Banners.IceCoreBannerItem>();
 
-           
-
-
             NPC.rarity = 2;
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
@@ -96,14 +93,12 @@ namespace StormDiversMod.NPCs
             {
                 return SpawnCondition.Cavern.Chance * 0f;
             }
-        }
-        
+        }    
       
         float ypos = -150;
-        //float movespeed = 3f; //Speed of the npc
-        //bool staggered;
         float speed = 3;
         float inertia = 55;
+        float distance;
         public override bool? CanFallThroughPlatforms()
         {
             return true;
@@ -131,6 +126,8 @@ namespace StormDiversMod.NPCs
             }
             NPC.velocity = move;
             */
+            distance = Vector2.Distance(player.Center, NPC.Center);
+
             if (!player.dead)
             {
                 Vector2 idlePosition = player.Center + new Vector2(0, ypos);
@@ -147,11 +144,7 @@ namespace StormDiversMod.NPCs
 
             NPC.velocity.Y *= 0.96f;
            
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-            if (!Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            if (!Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) || NPC.ai[3] == 1)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -159,7 +152,6 @@ namespace StormDiversMod.NPCs
                     ypos = 0;
                     NPC.noTileCollide = true;
                     NPC.netUpdate = true;
-
                 }
             }
             else
@@ -170,7 +162,6 @@ namespace StormDiversMod.NPCs
                     ypos = -150;
                     NPC.noTileCollide = false;
                     NPC.netUpdate = true;
-
                 }
 
             }
@@ -230,7 +221,6 @@ namespace StormDiversMod.NPCs
             if (NPC.ai[3] == 1)//phase
             {
                 NPC.rotation += (float)NPC.direction * -0.5f;
-                NPC.velocity *= 0.9f;
                 NPC.ai[1]++;//Phasetime
                 if (distance <= 500f)
                 {

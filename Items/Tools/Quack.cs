@@ -48,13 +48,8 @@ namespace StormDiversMod.Items.Tools
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                float shootToX = Main.MouseWorld.X - player.Center.X;
-                float shootToY = Main.MouseWorld.Y - player.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                
-
-                pitch = distance / 500 - 0.6f; //Lowest possible pitch is -0.6f;
+               
+                pitch = Vector2.Distance(Main.MouseWorld, player.Center) / 500 - 0.6f; //Lowest possible pitch is -0.6f;
                 if (pitch > 0.8f) //Caps the pitch at 0.8f;
                 {
                     pitch = 0.8f;

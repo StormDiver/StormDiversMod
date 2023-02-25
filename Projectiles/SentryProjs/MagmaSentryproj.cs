@@ -34,28 +34,29 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = -5;
             DrawOriginOffsetY = 2;
-            Projectile.aiStyle = 2;
+            Projectile.aiStyle = -1;
             Projectile.DamageType = DamageClass.Summon;
 
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
      
         bool animate = false;
         NPC target;
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-        {
-           
+        {          
             fallThrough = false;
 
             return true;
         }
         public override void AI()
         {
-            //Projectile.velocity.Y = 10;
+            if (Projectile.velocity.Y < 20)
+            {
+                Projectile.velocity.Y += 0.5f;
+            }
 
             Projectile.ai[0]++; //spawntime
             if (Projectile.ai[0] <= 3)
@@ -76,16 +77,14 @@ namespace StormDiversMod.Projectiles.SentryProjs
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
-           
-                if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 10, Projectile.Top.Y), 20, 20, 6, 0, 0, 130, default, 1.5f);
 
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 0.5f;
-                }
-            
+            if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
+            {
+                int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 10, Projectile.Top.Y), 20, 20, 6, 0, 0, 130, default, 1.5f);
 
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                Main.dust[dust].velocity *= 0.5f;
+            }        
           
             Projectile.ai[1]++;//shottitme
             //Getting the npc to fire at
@@ -100,33 +99,20 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 else
                 {
                     target = Main.npc[i];
-
                 }
-                //Getting the shooting trajectory
-                float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y + 14;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
-
-                if (distance < 750f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
+              
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 750f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
                 {
 
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
                         target.TargetClosest(true);
+                        float projspeed = 12;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y - 14)) * projspeed;
 
-                        
                         if (Projectile.ai[1] > 75)
                         {
                             animate = true;
-
-                            //Dividing the factor of 2f which is the desired velocity by distance
-                            distance = 2f / distance;
-
-                            //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                            shootToX *= distance * 5f;
-                            shootToY *= distance * 5f;
 
                             for (int j = 0; j < 30; j++)
                             {
@@ -136,7 +122,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 Main.dust[dust].velocity *= 2f;
                             }
 
-                            Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
+                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
 
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Top.Y + 14), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<MagmaSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 

@@ -172,15 +172,13 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Up");
-            Description.SetDefault("Max life is increased by 40");
-
+            DisplayName.SetDefault("Heart Collector");
+            Description.SetDefault("Enemies drop hearts more often on death");
         }
-
         public override void Update(Player player, ref int buffIndex)
         {
-            
-            player.statLifeMax2 += 40;
+            // player.statLifeMax2 += 40;
+            player.GetModPlayer<EquipmentEffects>().heartpotion = true;
         }
     }
     //___________________________________________________________________
@@ -188,15 +186,13 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Fruit Up");
-            Description.SetDefault("Max life is increased by 50");
-
+            DisplayName.SetDefault("Super Heart Collector");
+            Description.SetDefault("Enemies have a chance to drop a super heart on death");
         }
-
         public override void Update(Player player, ref int buffIndex)
         {
-
-            player.statLifeMax2 += 50;
+            //player.statLifeMax2 += 50;
+            player.GetModPlayer<EquipmentEffects>().superHeartpotion = true;
         }
     }
     //___________________________________________________________________

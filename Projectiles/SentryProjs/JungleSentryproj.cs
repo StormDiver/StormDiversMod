@@ -33,28 +33,28 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = -20;
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.aiStyle = 2;
+            Projectile.aiStyle = -1;
             DrawOriginOffsetY = 2;
 
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
       
         bool animate = false;
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
-
             fallThrough = false;
 
             return true;
         }
         public override void AI()
         {
-            
-            
+            if (Projectile.velocity.Y < 20)
+            {
+                Projectile.velocity.Y += 0.5f;
+            }
 
             Projectile.ai[0]++;//spawntime
             if (Projectile.ai[0] <= 3)
@@ -92,15 +92,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
             {
 
                 NPC target = Main.npc[i];
-
-                //Getting the shooting trajectory
-                float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
-
-                if (distance < 300f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
+          
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 300f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
                 {
 
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))

@@ -491,32 +491,17 @@ namespace StormDiversMod.Projectiles
 
             if (charge == 50)
             {
-
-
                 SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
                
                 //for (int i = 0; i < 10; i++)
                 if (Projectile.owner == Main.myPlayer)
-                {
-                    //target = Main.MouseWorld;
-                    //target.TargetClosest(true);
-                    float shootToX = Main.MouseWorld.X - Projectile.Center.X;
-                    float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                    bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
-
-
-                    distance = 3f / distance;
-                    shootToX *= distance * 7;
-                    shootToY *= distance * 7;
-                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<HellSoulMagicProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                {               
+                    float projspeed = 25;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<HellSoulMagicProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     Projectile.Kill();
-
                 }
-
-
             }
-
         }
        
         public override bool OnTileCollide(Vector2 oldVelocity)

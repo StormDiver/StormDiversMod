@@ -21,6 +21,11 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
+using StormDiversMod.Projectiles;
+using static Humanizer.In;
+using static Terraria.ModLoader.PlayerDrawLayer;
+using IL.Terraria.GameContent.Bestiary;
+using StormDiversMod.NPCs;
 
 namespace StormDiversMod.Basefiles
 {
@@ -90,6 +95,9 @@ namespace StormDiversMod.Basefiles
 
         public bool WhiptagSpaceRock; //Asteroid Whip
         int spacerockwhipcooldown;
+
+
+        public int arrowcooldown; //Cooldown for magic Arrow
 
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
@@ -195,8 +203,7 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
                 }
 
-            }
-        
+            }     
             //speen________________________________________________
             {
                 if (derplaunched)
@@ -250,26 +257,23 @@ namespace StormDiversMod.Basefiles
             }
             //______________
 
-            if (player.GetModPlayer<EquipmentEffects>().heartSteal) //For the Jar of hearts
+            if (player.GetModPlayer<EquipmentEffects>().heartSteal && !player.dead) //For the Jar of hearts
             {
                 if (!npc.SpawnedFromStatue && npc.life <= (npc.lifeMax * 0.50f) && !npc.friendly && npc.lifeMax > 5 && !npc.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
                 {
-
                     if (!npc.GetGlobalNPC<NPCEffects>().heartStolen)//Makes sure this only happens once
                     {
                         if (!npc.boss) //non bosses
                         {
-                            if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and drop a heart
+                            if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and to heal player
                             {
-                                if (Main.netMode == 0)
-                                {
-                                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
-                                }
-                                else
-                                {
-                                    Main.LocalPlayer.statLife += 20;
-                                    Main.LocalPlayer.HealEffect(20, true);
-                                }
+                                //Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());                            
+                                //Main.LocalPlayer.statLife += 20;
+                                //Main.LocalPlayer.HealEffect(20, true);                               
+
+                                Main.player[Main.myPlayer].lifeSteal -= 20;
+                                Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 20); //Damage
+
                                 //Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("TESTER."), new Color(224, 141, 255));
 
                                 SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
@@ -289,18 +293,9 @@ namespace StormDiversMod.Basefiles
                         }
                         else //for bosses
                         {
-                            for (int i = 0; i < 3; i++)
-                            {
-                                if (Main.netMode == 0)
-                                {
-                                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
-                                }
-                                else
-                                {
-                                    Main.LocalPlayer.statLife += 20;
-                                    Main.LocalPlayer.HealEffect(20, true);
-                                }
-                            }
+                            Main.player[Main.myPlayer].lifeSteal -= 20;
+                            Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 50); //Damage
+
                             SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
                             for (int i = 0; i < 15; i++)
                             {
@@ -309,19 +304,16 @@ namespace StormDiversMod.Basefiles
                             }
                             npc.AddBuff(ModContent.BuffType<HeartDebuff>(), 3600);
                             npc.GetGlobalNPC<NPCEffects>().heartStolen = true;
-
                         }
                     }
                 }
             }
-            /*float distanceX = player.Center.X - npc.Center.X;
-            float distanceY = player.Center.Y - npc.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+            /*
             bool lineOfSight = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height);
             if (Main.LocalPlayer.HasBuff(BuffType<BloodBuff>()) && !npc.friendly && npc.lifeMax > 5) //If the player has taken a blood potion and the NPC is within a certian radius of the player
             {
 
-                if (distance < 140 && lineOfSight)
+                if (Vector2.Distance(Player.Center, target.Center) <= 140 && lineOfSight)
                 {
 
                     npc.AddBuff(mod.BuffType("BloodDebuff"), 2);
@@ -349,10 +341,54 @@ namespace StormDiversMod.Basefiles
             {
                 spacerockwhipcooldown++;
             }
+
+            if (arrowcooldown > 0)
+            {
+                arrowcooldown--;
+            }
         }
         public override void SetDefaults(NPC npc)
         {
 
+        }
+        public override void OnKill(NPC npc)
+        {
+            var player = Main.LocalPlayer;
+            if (player.GetModPlayer<EquipmentEffects>().heartpotion) //For the Heart Potion
+            {
+                if (!npc.SpawnedFromStatue && !npc.friendly && npc.lifeMax > 5 && !npc.boss && player.statLife < player.statLifeMax2)
+                {
+                    if (Main.rand.Next(5) == 0)
+                    {
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.Heart);
+                    }
+                }
+                if (npc.boss)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.Heart);
+                    }
+                }
+            }
+            if (player.GetModPlayer<EquipmentEffects>().superHeartpotion) //For the Super Heart Potion
+            {
+
+                if (!npc.SpawnedFromStatue && !npc.friendly && npc.lifeMax > 5 && !npc.boss && player.statLife < player.statLifeMax2)
+                {
+                    if (Main.rand.Next(8) == 0)
+                    {
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                    }
+                }
+                if (npc.boss)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                    }
+                }
+            }
         }
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
@@ -843,23 +879,14 @@ namespace StormDiversMod.Basefiles
 
                             target.TargetClosest(true);
 
-                            //Getting the shooting trajectory
-                            float shootToX = target.position.X + (float)target.width * 0.5f - npc.Center.X;
-                            float shootToY = target.position.Y + (float)target.height * 0.5f - npc.Center.Y;
-                            float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                            if (distance < 400f && distance > 15f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0))
+                            if (Vector2.Distance(npc.Center, target.Center) <= 400f && Vector2.Distance(npc.Center, target.Center) > 15f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0))
                             {
                                 if (forbiddenwhipcooldown >= 10)
                                 {
-                                    //Dividing the factor of 2f which is the desired velocity by distance
-                                    distance = 1.6f / distance;
-
-                                    //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                                    shootToX *= distance * 2f;
-                                    shootToY *= distance * 2f;
-
-                                    int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<Projectiles.WhipProjs.DesertWhipProj2>(), 10, 0, Main.myPlayer);
+                                    float projspeed = 5;
+                                    Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(npc.Center.X, npc.Center.Y)) * projspeed;
+                                    
+                                    int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.WhipProjs.DesertWhipProj2>(), 10, 0, Main.myPlayer);
 
                                     forbiddenwhipcooldown = 0;
                                 }

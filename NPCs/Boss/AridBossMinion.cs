@@ -188,11 +188,9 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.spriteDirection = -1;
 
             }
-            //Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             
+            float distance = Vector2.Distance(player.Center, NPC.Center);
+
             if (distance  <= 600f)
             {
                 if (shoottime >= 100)

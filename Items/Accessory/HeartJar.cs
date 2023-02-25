@@ -27,82 +27,42 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart Emblem");
-            Tooltip.SetDefault("Most enemies have a chance to drop a super heart when they fall below half life, bosses always drop 3 hearts\nEnemies that drop the heart lose life rapidly\nIncreases maximum health by 20");
+            DisplayName.SetDefault("Life Emblem");
+            Tooltip.SetDefault("Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            foreach (TooltipLine line in tooltips)
-            {              
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                {
-
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                    {
-                        line.Text = "Most enemies have a chance to heal you for 20 health when they fall below half life, bosses always heal you for 60 health"; //multiplayer sucks
-                    }
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                    {
-                        line.Text = "Enemies that grant you health lose life rapidly"; //multiplayer sucks
-                    }
-                }
-            }
         }
         public override void SetDefaults()
         {
             Item.width = 22;
             Item.height = 26;
-
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Green;
             
             Item.accessory = true;
             Item.canBePlacedInVanityRegardlessOfConditions = true;
-
         }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EquipmentEffects>().heartSteal = true;
             player.statLifeMax2 += 20;
-        }
-
-       
-         
+        }          
     }
     public class HeartJarPS : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Philosopher's Heart");
-            Tooltip.SetDefault("Reduces the cooldown of healing potions by 25%\nMost enemies have a chance to drop a super heart when they fall below half life, bosses always drop 3 hearts\nEnemies that drop the heart lose life rapidly\nIncreases maximum health by 20");
+            Tooltip.SetDefault("Reduces the cooldown of healing potions by 25%\nEnemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            foreach (TooltipLine line in tooltips)
-            {
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                {
-
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                    {
-                        line.Text = "Most enemies have a chance to heal you for 20 health when they fall below half life, bosses always heal you for 60 health"; //multiplayer sucks
-                    }
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                    {
-                        line.Text = "Enemies that grant you health lose life rapidly"; //multiplayer sucks
-                    }
-                }
-            }
-        }
+        }     
         public override void SetDefaults()
         {
             Item.width = 22;

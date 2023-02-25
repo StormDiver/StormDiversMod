@@ -21,6 +21,7 @@ using StormDiversMod.Projectiles;
 
 using Terraria.DataStructures;
 using Terraria.Audio;
+using System.Configuration;
 
 namespace StormDiversMod.Basefiles
 {
@@ -34,11 +35,11 @@ namespace StormDiversMod.Basefiles
 
         public int playerimmunetime; //makes player immune to damage
         public override void ResetEffects() //Resets bools if the item is unequipped
-        { 
+        {
             screenshaker = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
-        { 
+        {
             templeWarning = 0;
             shaketimer = 0;
         }
@@ -74,14 +75,14 @@ namespace StormDiversMod.Basefiles
                 Main.screenPosition += new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5));
                 shaketimer--;
             }
-           
+
 
         }
-      
+
         public override void PostUpdateEquips() //Updates every frame
         {
             //Detect if player is in Temple and immediatly summon up to 12 Guardians
-            
+
             if (Player.ZoneJungle && Player.ZoneRockLayerHeight && !NPC.downedPlantBoss) //This code is only active when certain criteia is met, sadly the zonelizardtemple doesn't work
             {
                 int xtilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
@@ -113,7 +114,7 @@ namespace StormDiversMod.Basefiles
                                 {
                                     NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
                                 }
-                            }                          
+                            }
                         }
                         if (templeWarning >= 300)
                         {
@@ -126,7 +127,7 @@ namespace StormDiversMod.Basefiles
                         //Player.AddBuff(BuffID.Darkness, 2);
                     }
                 }
-                
+
             }
             else
             {
@@ -159,6 +160,39 @@ namespace StormDiversMod.Basefiles
     }
     public class Itemchanges : GlobalItem
     {
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            /*if (item.type == ItemID.MagnetSphere)
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "UseMana")
+                    {
+                        line.Text = line.Text + "\nRIP Leinfors";
+                    }
+                }
+            }*/
+            if (item.type is ItemID.LeinforsHat or ItemID.LeinforsShirt or ItemID.LeinforsPants or ItemID.LeinforsAccessory)
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                    {
+                        line.Text = line.Text + "\n[c/8a00d1: Rest in Piece Leinfors]";
+                    }
+                }
+            }
+            if (item.type is ItemID.LeinforsWings)
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                    {
+                        line.Text = line.Text + "\n[c/8a00d1:Rest in Piece Leinfors]";
+                    }
+                }
+            }
+        }
         /*public override bool CanUseItem(Item item, Player player) //use this to disable the RoD if you want 
         {
             if (item.type == ItemID.RodofDiscord)
@@ -174,6 +208,6 @@ namespace StormDiversMod.Basefiles
             }
             return true;
         }*/
-       
+
     }
 }

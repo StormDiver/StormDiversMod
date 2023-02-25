@@ -104,24 +104,16 @@ namespace StormDiversMod.NPCs
             }
 
             Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-            
-            if (distance  <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+           
+            if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 if (shoottime >= 100)
                 {
                     if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
                     {
-                        
+                        var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, 3, 113);
 
-                            var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, 3, 113);
-
-                            dust.noGravity = true;
-                        
-
+                        dust.noGravity = true;
                     }
                     NPC.velocity.X = 0;
                     NPC.velocity.Y = 0;

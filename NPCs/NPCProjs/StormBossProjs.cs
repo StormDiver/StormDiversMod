@@ -179,31 +179,29 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                 }
             }
-            if (Projectile.ai[0] >= homerandom && Projectile.ai[0] <= homerandom + 45)
+            if (Projectile.ai[0] == homerandom)
             {
+                for (int i = 0; i < 10; i++)
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -2f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    var dust3 = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust3.noGravity = true;
+
+                    dust3.scale = 1f;
+
+                }
                 for (int i = 0; i < 200; i++)
                 {
                     Player target = Main.player[i];
-                    //If the npc is hostile
-
-                    //Get the shoot trajectory from the Projectile and target
-                    float shootToX = target.Center.X - Projectile.Center.X;
-                    float shootToY = target.Center.Y - Projectile.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                    //If the distance between the live targeted npc and the Projectile is less than 480 pixels
-                    if (distance < 2000f && target.active)
+                   
+                    if (Vector2.Distance(target.Center, Projectile.Center) < 2000f && target.active)
                     {
+                        float projspeed = 6.5f;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                        distance = 0.5f / distance;
-
-                        //Multiply the distance by a multiplier proj faster
-                        shootToX *= distance * 10f;
-                        shootToY *= distance * 10f;
-
-                        //Set the velocities to the shoot values
-                        Projectile.velocity.X = shootToX;
-                        Projectile.velocity.Y = shootToY;
+                        Projectile.velocity.X = velocity.X;
+                        Projectile.velocity.Y = velocity.Y;
                     }
 
                 }
@@ -335,38 +333,32 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                 }
             }
-            if (Projectile.ai[0] >= homerandom && Projectile.ai[0] <= homerandom + 45)
+
+            if (Projectile.ai[0] == homerandom)
             {
+                for (int i = 0; i < 20; i++)
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    var dust3 = Dust.NewDustDirect(Projectile.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust3.noGravity = true;
+
+                    dust3.scale = 1f;
+
+                }
                 for (int i = 0; i < 200; i++)
                 {
-                    
-                        Player target = Main.player[i];
-                        //If the npc is hostile
+                    Player target = Main.player[i];
 
-                        //Get the shoot trajectory from the Projectile and target
-                        float shootToX = target.Center.X - Projectile.Center.X;
-                        float shootToY = target.Center.Y - Projectile.Center.Y;
-                        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
+                    if (Vector2.Distance(target.Center, Projectile.Center) < 2000f && target.active)
+                    {
+                        float projspeed = 8f;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                        //If the distance between the live targeted npc and the Projectile is less than 480 pixels
-                        if (distance < 2000f && target.active)
-                        {
-
-                            distance = 0.5f / distance;
-
-                            //Multiply the distance by a multiplier proj faster
-                            shootToX *= distance * 12f;
-                            shootToY *= distance * 12f;
-
-                            //Set the velocities to the shoot values
-                            Projectile.velocity.X = shootToX;
-                            Projectile.velocity.Y = shootToY;
-                        }
+                        Projectile.velocity.X = velocity.X;
+                        Projectile.velocity.Y = velocity.Y;
                     }
-
-                
-
-
+                }
             }
             if (Projectile.timeLeft <= 3)
             {
@@ -859,13 +851,9 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override bool? CanDamage() => false;
 
-
-        float shootToX;
-        float shootToY;
-
         float xPos;
         float yPos;
-
+        Vector2 velocity;
         Vector2 rotation;
         
         Player player;
@@ -937,15 +925,9 @@ namespace StormDiversMod.NPCs.NPCProjs
                             Main.dust[dust2].noGravity = true;
                         }
                     if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        shootToX = player.Center.X - Projectile.Center.X;
-                        shootToY = player.Center.Y - Projectile.Center.Y;
-                        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                        distance = 3f / distance;
-                        shootToX *= distance * 2;
-                        shootToY *= distance * 2;
-
+                    {                      
+                        float projspeed = 6;
+                        velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
                         xPos = Projectile.Center.X - player.Center.X;
                         yPos = Projectile.Center.Y - player.Center.Y;
@@ -998,7 +980,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 if (Projectile.ai[1] == 0) //aim indicator
                 {
                     Dust dust;
-                    dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(shootToX * 2f + Projectile.velocity.X, shootToY * 2f + Projectile.velocity.Y), 0, new Color(255, 255, 255), 2f);
+                    dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(velocity.X * 2f + Projectile.velocity.X, velocity.Y * 2f + Projectile.velocity.Y), 0, new Color(255, 255, 255), 2f);
                     dust.noGravity = true;
                     dust.velocity *= 1.5f;
                 }
@@ -1013,7 +995,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             if (Projectile.ai[0] == 72) //Fire lightning
             {
                
-                    for (int j = 0; j < 50; j++)
+                    for (int j = 0; j < 30; j++)
                     {
                         float speedY = -3f;
 
@@ -1028,7 +1010,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                     if (Projectile.ai[1] == 0)
                     {
                         float ai = Main.rand.Next(25);
-                        int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX * 1.15f, shootToY * 1.15f),
+                        int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X * 1.15f, velocity.Y * 1.15f),
                         ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
                         Main.projectile[projID].scale = 1f;
                         Main.projectile[projID].tileCollide = false;
@@ -1043,14 +1025,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                         Main.projectile[projID].tileCollide = false;
                     }
                 }
-                /*else if (Main.netMode == 2)//server, just fire normal projectile as lightning doesn't want to work 
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        int projID = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX * 2f, shootToY * 2f),
-                               ModContent.ProjectileType<NPCs.NPCProjs.StormBossBolt>(), Projectile.damage, .5f);
-                    }
-                }*/
+                
                 SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
 
             }

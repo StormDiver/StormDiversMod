@@ -67,10 +67,8 @@ namespace StormDiversMod.Projectiles
 				Projectile.ai[1] = 0; //reset shoottime
 				Projectile.localAI[1] = 0; //First frame to get postion
 				if (Projectile.owner == Main.myPlayer)
-				{
-					float distanceX = player.Center.X - Projectile.Center.X;
-					float distanceY = player.Center.Y - Projectile.Center.Y;
-					float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+				{				
+					float distance = Vector2.Distance(player.Center, Projectile.Center);
 
 					Projectile.localAI[0] += 3;  //Rotation
 
@@ -106,15 +104,12 @@ namespace StormDiversMod.Projectiles
 						mousepos = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y); //Set position 
 					}
 
-					float distanceX = mousepos.X - Projectile.Center.X;
-					float distanceY = mousepos.Y - Projectile.Center.Y;
-					float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+					float distance = Vector2.Distance(mousepos, Projectile.Center);
 
 					Projectile.ai[1]++; //increase shoottime
 					Projectile.localAI[0] = -10; //Reset rotation
 					Projectile.localAI[1]++; //First frame to get postion
-					
-
+				
 
 					movespeed = distance / 8 + 1.5f;
 				}

@@ -194,13 +194,7 @@ namespace StormDiversMod.Projectiles
                         {
                             //Player player = Main.player[npc.target];
 
-                            float distanceX = player.Center.X - projectile.Center.X;
-                            float distanceY = player.Center.Y - projectile.Center.Y;
-                            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
-                            { }
-
-                            if (distance >= 140 && distance <= 160 && !projCheck)
+                            if (Vector2.Distance(player.Center, projectile.Center) >= 140 && Vector2.Distance(player.Center, projectile.Center) <= 160 && !projCheck)
                             {
                                 int choice = Main.rand.Next(7);
                                 if (choice == 0)

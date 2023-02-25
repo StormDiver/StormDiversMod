@@ -103,16 +103,11 @@ namespace StormDiversMod.NPCs
 
             Player player = Main.player[NPC.target];
             NPC.TargetClosest(true);
-
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+           
             bool lineofsight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
 
-            if ((distance <= 1000f && lineofsight) || (distance <= 300f && !lineofsight))
-            {
-                
+            if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight) || (Vector2.Distance(player.Center, NPC.Center) <= 300f && !lineofsight))
+            {           
                 if (shoottime >= 210)//fires the projectiles
                 {
 
@@ -123,16 +118,11 @@ namespace StormDiversMod.NPCs
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
 
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
-
-
-
                     }
                     SoundEngine.PlaySound(SoundID.Item28, NPC.Center);
 
@@ -249,23 +239,25 @@ namespace StormDiversMod.NPCs
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 135);
                     dust.velocity *= 2;
                 }
-
-
             }
         }
-
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-
             npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Weapons.SpiritStaff>(), 4, 3));
-
-
-
         }
-    
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/FrozenSoul");
+            Color color = new Color(175, 242, 243, 40);
+            float scaleFactor13 = 0.5f + (NPC.GetAlpha(color).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+            for (int num149 = 0; num149 < 4; num149++)
+            {
+                spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 14) + NPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            }
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
+        }
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.LightBlue;
             color.A = 150;
             return color;

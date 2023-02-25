@@ -71,9 +71,7 @@ namespace StormDiversMod.Projectiles
 
             }
 
-            float distanceX = mousepos.X - Projectile.Center.X;
-            float distanceY = mousepos.Y - Projectile.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+            float distance = Vector2.Distance(mousepos, Projectile.Center);
 
             movespeed = distance / 30;
             

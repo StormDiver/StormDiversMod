@@ -109,6 +109,7 @@ namespace StormDiversMod
     {
         public override void AI(Projectile projectile)
         {
+           
         }
             /*if (projectile.type == ProjectileID.VampireKnife)
             {
@@ -159,6 +160,10 @@ namespace StormDiversMod
             {
                 projectile.timeLeft = 36000;
             }
+            /*if (projectile.type == ProjectileID.ChlorophyteBullet)
+            {
+                projectile.penetrate = -1;
+            }*/
         }
         public override void Kill(Projectile projectile, int timeLeft)
         {

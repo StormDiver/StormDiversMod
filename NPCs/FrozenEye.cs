@@ -99,16 +99,11 @@ namespace StormDiversMod.NPCs
                 Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);
             }
 
-            Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+            Player player = Main.player[NPC.target];         
 
             NPC.rotation = (player.MountedCenter - NPC.Center).ToRotation();
 
-
-            if (distance  <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 
                 if (shoottime >= 130 + Main.rand.Next(60))
@@ -121,8 +116,7 @@ namespace StormDiversMod.NPCs
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-
-                    
+                  
                         
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

@@ -130,8 +130,8 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 18f;
 
             Item.useAmmo = AmmoID.Rocket;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 26;
+            Item.useAnimation = 26;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
 

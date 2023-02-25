@@ -14,8 +14,9 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 
 namespace StormDiversMod.NPCs
-
 {
+    [AutoloadBossHead]
+
     public class HellMiniBoss : ModNPC
     {
         public override void SetStaticDefaults()
@@ -56,6 +57,8 @@ namespace StormDiversMod.NPCs
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
             };
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
+
+            NPC.BossBar = Main.BigBossProgressBar.NeverValid;        
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -91,6 +94,8 @@ namespace StormDiversMod.NPCs
        
         int phase = 0; //0 = phase 1, 1 = phase 2, 2 = phase 3
 
+        float distance;
+
         public override void AI()
         {
             NPC.buffImmune[BuffID.OnFire] = true;
@@ -107,12 +112,9 @@ namespace StormDiversMod.NPCs
             }
             NPC.rotation = NPC.velocity.X / 100;
 
-
             Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+            distance = Vector2.Distance(player.Center, NPC.Center);
+
             if (phase == 0) //phase1 _________________________________________________________________________________________________________________________
             {
                 NPC.defense = 15;
@@ -266,9 +268,7 @@ namespace StormDiversMod.NPCs
                 {
                     if (shoottime >= 60)
                     {
-
                         int type = ModContent.NPCType<HellMiniBossMinion>();
-
 
                         SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -377,6 +377,16 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) it will spawn this
             {
+                NPC.velocity.X = 0f;
+                NPC.velocity.Y = 0f;
+                NPC.noTileCollide = true;
+                NPC.alpha = 255;
+                NPC.position = NPC.Center;
+
+                NPC.width = 100; //So loot is dropped over a larger area
+                NPC.height = 100;
+                NPC.Center = NPC.position;
+
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore1").Type, 1f);
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore2").Type, 1f);
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("HellMiniBossGore3").Type, 1f);
@@ -410,15 +420,19 @@ namespace StormDiversMod.NPCs
 
             }
         }
+        public override void OnKill()
+        {
+            
+        }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule isExpert = new LeadingConditionRule(new Conditions.IsExpert());
 
-            isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 15, 24));
+            //isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 15, 24));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SoulFire>(), 1, 12, 20));
 
-            /*int itemType = ModContent.ItemType<Items.Materials.SoulFire>();
+            int itemType = ModContent.ItemType<Items.Materials.SoulFire>();
             var parameters = new DropOneByOne.Parameters()
             {
                 ChanceNumerator = 1,
@@ -429,14 +443,27 @@ namespace StormDiversMod.NPCs
                 MaximumItemDropsCount = 24,
             };
 
-            isExpert.OnSuccess(new DropOneByOne(itemType, parameters));*/
-
-
+            isExpert.OnSuccess(new DropOneByOne(itemType, parameters));
+           
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);
 
         }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture2 = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/HellMiniBoss");
 
+            float speen1 = 9f + 3f * (float)Math.Cos((float)Math.PI * 2f * Main.GlobalTimeWrappedHourly);
+            Vector2 spinningpoint5 = Vector2.UnitX * speen1;
+            Color color = Color.Purple * (speen1 / 12f) * 0.8f;
+            color.A /= 3;
+            for (float speen2 = 0f; speen2 < (float)Math.PI * 2f; speen2 += (float)Math.PI / 2f)
+            {
+                Vector2 finalpos = NPC.position + new Vector2(0, 8) + spinningpoint5.RotatedBy(speen2);
+                spriteBatch.Draw(texture2, new Vector2(finalpos.X - screenPos.X + (float)(NPC.width / 2) * NPC.scale, finalpos.Y - screenPos.Y + (float)NPC.height * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale), NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
+        }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 
         {

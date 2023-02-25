@@ -153,11 +153,8 @@ namespace StormDiversMod.NPCs
                 NPC.direction = -1;
 
             }
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-            
+            float distanceY = player.Center.Y - NPC.Center.Y;          
             
             if ((distanceX <= 600f && distanceX >= -600f) && (distanceY <= 200f && distanceY >= -200f))
             {
@@ -298,7 +295,6 @@ namespace StormDiversMod.NPCs
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-
             Main.instance.LoadProjectile(NPC.type);
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/ScanDrone");
 
@@ -309,10 +305,7 @@ namespace StormDiversMod.NPCs
                 Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
-
             return true;
-
         }
-
     }
 }

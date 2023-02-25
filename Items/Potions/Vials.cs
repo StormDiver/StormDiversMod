@@ -139,8 +139,8 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Vial");
-            Tooltip.SetDefault("Temporarily increases maximum health by 40");
+            DisplayName.SetDefault("Heart Vial");
+            Tooltip.SetDefault("Enemies will drop a heart on death more often, bosses also drop more hearts");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
 
         }
@@ -162,7 +162,31 @@ namespace StormDiversMod.Items.Potions
             Item.buffType = BuffType<Buffs.HeartBuff>(); //Specify an existing buff to be applied when used.
             Item.buffTime = 28800;
         }
+        public override bool CanUseItem(Player player)
+        {
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
 
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\n[c/ff2500:Doesn't work on Multiplayer]"; //multiplayer sucks
+                    }
+                }
+            }
+        }
 
         public override void AddRecipes()
         {
@@ -176,18 +200,16 @@ namespace StormDiversMod.Items.Potions
             recipe.Register();
 
         }
-
     }
     public class FruitHeartPotion : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Fruit Vial");
-            Tooltip.SetDefault("Temporarily increases maximum health by 50");
+            DisplayName.SetDefault("Super Heart Vial");
+            Tooltip.SetDefault("Enemies will have a chance to drop a super heart on death that heals for 50, bosses always drop 2");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
 
         }
-
         public override void SetDefaults()
         {
             Item.width = 24;
@@ -205,17 +227,40 @@ namespace StormDiversMod.Items.Potions
             Item.buffType = BuffType<Buffs.FruitHeartBuff>(); //Specify an existing buff to be applied when used.
             Item.buffTime = 28800;
         }
+        public override bool CanUseItem(Player player)
+        {
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
 
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = line.Text + "\n[c/ff2500:Doesn't work on Multiplayer]"; //multiplayer sucks
+                    }
+                }
+            }
+        }
 
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<FruitHeartPotion>(), 2);
-            recipe.AddIngredient(ModContent.ItemType<HeartPotion>(), 2);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<FruitHeartPotion>(), 1);
+            recipe.AddIngredient(ItemID.BottledWater, 1);
+            recipe.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 1);
             recipe.AddIngredient(ItemID.LifeFruit);
             recipe.AddTile(TileID.Bottles);
             recipe.Register();
-
-
         }
 
     }

@@ -139,8 +139,6 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 8;
             Projectile.light = 0.1f;
-
-
             //Projectile.CloneDefaults(297);
             //aiType = 297;
 
@@ -225,17 +223,9 @@ namespace StormDiversMod.Projectiles
                 if (Projectile.owner == Main.myPlayer)
                 {
                     {
-                        //target = Main.MouseWorld;
-                        //target.TargetClosest(true);
-                        float shootToX = Main.MouseWorld.X - Projectile.Center.X;
-                        float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
-                        float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                        bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, Projectile.position, Projectile.width, Projectile.height);
-
-                        distance = 3f / distance;
-                        shootToX *= distance * 8;
-                        shootToY *= distance * 8;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SpectreStaffSpinProj2>(), (int)(Projectile.damage * 2f), Projectile.knockBack + 2, Projectile.owner);
+                        float projspeed = 30;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<SpectreStaffSpinProj2>(), (int)(Projectile.damage * 2f), Projectile.knockBack + 2, Projectile.owner);
                         Projectile.Kill();
                     }
                 }

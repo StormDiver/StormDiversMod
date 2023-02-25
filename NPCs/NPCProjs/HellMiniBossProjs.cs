@@ -174,9 +174,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
         }
-
-
-
+        float speed = 5;
+        float inertia = 30;
+        float distanceToIdlePosition; //distance to player
         public override void AI()
         {
 
@@ -190,47 +190,47 @@ namespace StormDiversMod.NPCs.NPCProjs
             dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 173, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
             dust.noGravity = true;
             dust.fadeIn = 1f;
+            /*if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 180)
+            {
+                for (int i = 0; i < 200; i++)
+                {
+                    Player target = Main.player[i];
+                    Vector2 idlePosition = Main.player[i].Center;
+                    Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
+                    distanceToIdlePosition = vectorToIdlePosition.Length();
 
-
+                    //if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
+                    {
+                        if (distanceToIdlePosition > 10f)
+                        {
+                            vectorToIdlePosition.Normalize();
+                            vectorToIdlePosition *= speed;
+                        }
+                        Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                    }
+                }
+            }*/
             //Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-           
-            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 180)
+
+            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 210)
             {
 
                 for (int i = 0; i < 100; i++)
                 {
                     Player target = Main.player[i];
-                    //If the npc is hostile
-
-                    //Get the shoot trajectory from the Projectile and target
-                    float shootToX = target.Center.X - Projectile.Center.X;
-                    float shootToY = target.Center.Y - Projectile.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                    //If the distance between the live targeted npc and the Projectile is less than 480 pixels
-                    if (distance < 750f && target.active)
-                    {
-
-                        distance = 0.5f / distance;
-
-                        //Multiply the distance by a multiplier proj faster
-                        shootToX *= distance * 7;
-                        shootToY *= distance * 6;
-
-                        //Set the velocities to the shoot values
-                        Projectile.velocity.X = shootToX;
-                        Projectile.velocity.Y = shootToY;
-                    }
                     
-                        
-                  
-
-                }
-                
+                    //If the distance between the live targeted npc and the Projectile is less than 480 pixels
+                    if (Vector2.Distance(target.Center, Projectile.Center) < 750f && target.active)
+                    {                       
+                        float projspeed = 4.5f;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                        //Set the velocities to the shoot values
+                        Projectile.velocity.X = velocity.X;
+                        Projectile.velocity.Y = velocity.Y;
+                    }                                     
+                }               
             }
-
             AnimateProjectile();
-
 
         }
         /* private void AdjustMagnitude(ref Vector2 vector)

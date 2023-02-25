@@ -12,6 +12,8 @@ using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.Basefiles;
+using Newtonsoft.Json.Linq;
+using System.Collections;
 
 namespace StormDiversMod.NPCs
 
@@ -82,13 +84,9 @@ namespace StormDiversMod.NPCs
         int firerate = 0;
         public override void AI()
         {
-         
-
             Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
             
             if ((distanceX <= 100f && distanceX >= -100f) && (distanceY <= 0f && distanceY >= -500f) && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
@@ -161,18 +159,26 @@ namespace StormDiversMod.NPCs
                 }
             }
         }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture2 = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/NebulaDerp");
 
+            float speen1 = 9f + 3f * (float)Math.Cos((float)Math.PI * 2f * Main.GlobalTimeWrappedHourly);
+            Vector2 spinningpoint5 = Vector2.UnitX * speen1;
+            Color color = Color.Teal * (speen1 / 12f) * 0.8f;
+            color.A /= 2;
+            for (float speen2 = 0f; speen2 < (float)Math.PI * 2f; speen2 += (float)Math.PI / 2f)
+            {
+                Vector2 finalpos = NPC.position + new Vector2(0, 10) + spinningpoint5.RotatedBy(speen2);
+                spriteBatch.Draw(texture2, new Vector2(finalpos.X - screenPos.X + (float)(NPC.width / 2) * NPC.scale, finalpos.Y - screenPos.Y + (float)NPC.height * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale), NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
+        }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/NebulaDerp_Glow");
-
-            spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-        
+            spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);  
         }
-        
-       
-
     }
 
 }

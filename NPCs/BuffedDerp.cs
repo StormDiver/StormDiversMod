@@ -19,7 +19,6 @@ namespace StormDiversMod.NPCs
     {
         public override bool InstancePerEntity => true;
 
-
         public override void SetDefaults(NPC npc)
         {
             if (!GetInstance<ConfigurationsGlobal>().PreventBuffedDerps)
@@ -50,14 +49,9 @@ namespace StormDiversMod.NPCs
                     }
                     //npc.rotation = npc.velocity.X / 15;
 
+                    Player player = Main.player[npc.target];                   
 
-                    Player player = Main.player[npc.target];
-                    Vector2 target = npc.HasPlayerTarget ? player.Center : Main.npc[npc.target].Center;
-                    float distanceX = player.Center.X - npc.Center.X;
-                    float distanceY = player.Center.Y - npc.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
-                    if (distance <= 800f && Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height))
+                    if (Vector2.Distance(player.Center, npc.Center) <= 800f && Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height))
                     {
                         if (shoottime >= 90)
                         {

@@ -22,6 +22,8 @@ namespace StormDiversMod.NPCs
         {
             DisplayName.SetDefault("Storm Hopper"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 3; // make sure to set this for your modnpcs.
+            NPCID.Sets.TrailingMode[NPC.type] = 3;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 5;
         }
         public override void SetDefaults()
         {
@@ -86,16 +88,11 @@ namespace StormDiversMod.NPCs
         int shoottime = 0;
         public override void AI()
         {
-            shoottime++;
-            
+            shoottime++;        
 
             Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-           
-            if (distance <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+                   
+            if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 if (shoottime >= 180 && NPC.velocity.Y == 0)
                 {
@@ -172,9 +169,20 @@ namespace StormDiversMod.NPCs
             spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         
         }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Main.instance.LoadProjectile(NPC.type);
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/StormDerp");
 
-       
-
+            //Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, NPC.height * 0.5f);
+            for (int k = 0; k < NPC.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-4, 0);
+                Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return true;
+        }
     }
 
 }

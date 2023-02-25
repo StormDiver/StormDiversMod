@@ -94,7 +94,7 @@ namespace StormDiversMod.NPCs
         bool attacking;
         int sounddelay;
         int ypos = -150;
-
+        float distance;
         float speed = 3;
         float inertia = 70;
         public override bool? CanFallThroughPlatforms()
@@ -121,6 +121,7 @@ namespace StormDiversMod.NPCs
             }
             NPC.velocity = move;
             */
+            distance = Vector2.Distance(player.Center, NPC.Center);
             if (!player.dead)
             {             
                 Vector2 idlePosition = player.Center + new Vector2(0, ypos);
@@ -141,13 +142,7 @@ namespace StormDiversMod.NPCs
             NPC.velocity.X *= 0.99f;
 
             NPC.velocity.Y *= 0.96f;
-            
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-          
-           
+               
             //NPC.ai[2] = staggertime;
 
             int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;

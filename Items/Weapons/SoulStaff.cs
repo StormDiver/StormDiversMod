@@ -94,36 +94,29 @@ namespace StormDiversMod.Items.Weapons
 
                 position.X = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);
                 position.Y = Main.MouseWorld.Y - (int)(Math.Sin(rad) * dist);
-
+                float projspeed = 20;
+                Vector2 projvelocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(position.X, position.Y)) * projspeed;
                 //For the direction
-
-                float shootToX = Main.MouseWorld.X - position.X;
-                float shootToY = Main.MouseWorld.Y - position.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                distance = 3f / distance;
-                shootToX *= distance * 7;
-                shootToY *= distance * 7;
 
                 //int choice = Main.rand.Next(3);
                 //Summon all 3 types of soul
                 if (choice == 0)
                 {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SoulsProj>(), damage, knockback, player.whoAmI, 0, 2); //Might
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(projvelocity.X, projvelocity.Y), ModContent.ProjectileType<SoulsProj>(), damage, knockback, player.whoAmI, 0, 2); //Might
                     dusttype = 56;
                     dustscale = 1;                
                     choice++;
                 }
                 else if (choice == 1)
                 {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SoulsProj>(), damage, knockback, player.whoAmI, 0, 1); //Sight
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(projvelocity.X, projvelocity.Y), ModContent.ProjectileType<SoulsProj>(), damage, knockback, player.whoAmI, 0, 1); //Sight
                     dusttype = 110;
                     dustscale = 0.9f;
                     choice++;
                 }
                 else if (choice == 2)
                 {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(shootToX, shootToY), ModContent.ProjectileType<SoulsProj>(), damage, knockback, player.whoAmI, 0, 0); //Fright
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(projvelocity.X, projvelocity.Y), ModContent.ProjectileType<SoulsProj>(), damage, knockback, player.whoAmI, 0, 0); //Fright
                     dusttype = 170;
                     dustscale = 1.1f;
                     choice = 0;

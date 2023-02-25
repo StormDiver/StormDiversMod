@@ -101,12 +101,9 @@ namespace StormDiversMod.NPCs
             shoottime++;
 
             Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+           
             bool lineofsight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
-            if ((distance <= 1000f && lineofsight)|| (distance <= 300f && !lineofsight))
+            if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight)|| (Vector2.Distance(player.Center, NPC.Center) <= 300f && !lineofsight))
             {
                 if (shoottime >= 250)//starts the casting animation
                 {
@@ -237,28 +234,30 @@ namespace StormDiversMod.NPCs
                 {
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 5);
                     dust.scale = 1f;
-                }
-              
-
+                }            
             }
         }
-
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-
             npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Materials.CrackedHeart>(), 2, 1));
-
-
-
         }
-           
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/HellSoul");
+            Color color = new Color(251, 79, 3, 40);
+            float scaleFactor13 = 0.5f + (NPC.GetAlpha(color).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+            for (int num149 = 0; num149 < 4; num149++)
+            {
+                spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 13) + NPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            }
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
+        }
         /*public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Texture2D texture = mod.GetTexture("NPCs/GraniteMiniBoss_Glow");
             Vector2 drawPos = new Vector2(0, 2) + NPC.Center - Main.screenPosition;
 
             spriteBatch.Draw(texture, drawPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-
 
         }*/
         public override Color? GetAlpha(Color lightColor)

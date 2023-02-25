@@ -558,32 +558,7 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
-            /*for (int i = 0; i < 200; i++)
-            {
-                NPC target = Main.npc[i];
-                //If the npc is hostile
-
-                //Get the shoot trajectory from the projectile and target
-                float shootToX = target.Center.X - Projectile.Center.X;
-                float shootToY = target.Center.Y - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                //If the distance between the live targeted npc and the projectile is less than 480 pixels
-                if (distance < 300f && target.active)
-                {
-
-                    distance = 0.5f / distance;
-
-                    //Multiply the distance by a multiplier proj faster
-                    shootToX *= distance * 12;
-                    shootToY *= distance * 12;
-
-                    //Set the velocities to the shoot values
-                    Projectile.velocity.X = shootToX;
-                    Projectile.velocity.Y = shootToY;
-                }
-
-            }*/
+          
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

@@ -94,6 +94,7 @@ namespace StormDiversMod.NPCs
 
         int groundtime;
 
+        bool onasphalt;
         Player player;
         public override bool? CanFallThroughPlatforms()
         {
@@ -114,22 +115,20 @@ namespace StormDiversMod.NPCs
                 NPC.buffImmune[k] = true;
             }
             player = Main.player[NPC.target];
-            //Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+            float distance = Vector2.Distance(player.Center, NPC.Center);
             feartime ++;
           
             //NPC.spriteDirection = NPC.direction;
 
             int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
             int ytilepos = (int)(NPC.Bottom.Y / 16) + 0;
-            var tilePos = NPC.Bottom.ToTileCoordinates16();
-
-          
+            var tilePos = NPC.Bottom.ToTileCoordinates16();     
 
             if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
             {
+                onasphalt = true;
                 moveatspeed = 15 + ((distanceX * distanceX) / 500); //speed increases the further away it is
                 if ((NPC.velocity.X > 5 || NPC.velocity.X < -5) && NPC.velocity.Y == 0) 
                 {
@@ -147,6 +146,10 @@ namespace StormDiversMod.NPCs
             }
             else
             {
+                if (NPC.velocity.Y == 0)
+                {
+                    onasphalt = false;
+                }
                 moveatspeed = 10 + ((distanceX * distanceX) / 500); //speed icreases the further away it is
 
                 if (moveatspeed > 10) //movement speed cap
@@ -191,7 +194,6 @@ namespace StormDiversMod.NPCs
                         attackmode = true;
                         dociletime = 300;
 
-
                     }
                     else //if cannot detect player begin docile cooldown
                     {
@@ -209,7 +211,7 @@ namespace StormDiversMod.NPCs
                         {
                             groundtime = 0;
                         }
-                        if (NPC.velocity.Y == 0)//on ground or shortly after jumping have full movement control
+                        if (NPC.velocity.Y == 0 || onasphalt)//on ground or shortly after jumping have full movement control
                         {
                             
                             if (distanceX <= -20)
@@ -227,30 +229,28 @@ namespace StormDiversMod.NPCs
                             oldmovespeed = NPC.velocity.X;
                             
                         }
-                        else //in air remove its control
+                        else //in air lower its speed control
                         {
                             if (distanceX <= -30)
                             {
-                                NPC.velocity.X = -moveatspeed / 2 + (player.velocity.X * 0.25f);
+                                NPC.velocity.X = -moveatspeed / 2 + (player.velocity.X * 0.5f);
                             }
                             if (distanceX >= 30)
                             {
-                                NPC.velocity.X = +moveatspeed / 2 + (player.velocity.X * 0.25f);
+                                NPC.velocity.X = +moveatspeed / 2 + (player.velocity.X * 0.5f);
                             }
                             if (distanceX < 40 && distanceX > -40)
                             {
                                 NPC.velocity.X *= 0.5f;
                             }
 
-                        }
-                     
+                        }                    
 
                         if ((distanceX >= -50 && distanceX <= 50) && !jump && NPC.velocity.Y == 0 && player.position.Y + 40 < NPC.position.Y) //jump to attack player
                         {
                             NPC.velocity.Y = -12 + jumpheight;
                             jump = true;
-
-                           
+                      
                         }
 
                         if (!jump && NPC.velocity.Y == 0 && !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && player.position.Y - 10 < NPC.position.Y) //Jump if cannot detect player

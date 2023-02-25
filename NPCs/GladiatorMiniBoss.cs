@@ -96,12 +96,8 @@ namespace StormDiversMod.NPCs
                 Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);
             }
             Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
-            if (distance <= 800f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+          
+            if (Vector2.Distance(player.Center, NPC.Center) <= 800f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
                 
             {
 
@@ -230,13 +226,20 @@ namespace StormDiversMod.NPCs
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-        
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Accessory.GladiatorAccess>(), 3, 2));
-
-            
+        {      
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Accessory.GladiatorAccess>(), 3, 2));         
         }
-       
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/GladiatorMiniBoss");
+            Color color = new Color(253, 239, 142, 40);
+            float scaleFactor13 = 0.5f + (NPC.GetAlpha(color).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+            for (int num149 = 0; num149 < 4; num149++)
+            {
+                spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 5) + NPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            }
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
+        }
         public override Color? GetAlpha(Color lightColor)
         {
 

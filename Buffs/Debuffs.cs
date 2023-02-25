@@ -315,9 +315,6 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
 
-
-
-
         }
     }
     //_______________________________________________
@@ -328,21 +325,13 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Launched");
             Description.SetDefault("You have been launched into the air by the power of the Derplings");
             Main.debuff[Type] = true;
-
         }
-
         public override void Update(Player player, ref int buffIndex)
         {
-
-
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-
             npc.GetGlobalNPC<NPCEffects>().derplaunched = true;
-
-
-
         }
     }
     //_______________________________________________

@@ -57,25 +57,25 @@ namespace StormDiversMod.Projectiles
             {
                 angle -= 0.5f; //takes 90 frames to charge
                 extravel += 0.01f;
-                Projectile.damage += 5; //Extra 450 damage from base, + additonal 25% at max charge (100 + 450 = 550 * 1.2 = 660),
+                Projectile.damage += 5; //Extra 450 damage from base, + additonal 10% at max charge (100 + 450 = 550 * 1.2 = 605),
                                         //4.5 bullets on average, add addition 30 frame cooldown everytime, fewer bullet will likely hit at lower charges
                                         //(base damage X Shots per second X 4.5)
                                         //~900dps  at no charge, (2 shots per second, 100 base damage)
                                         //~1125dps at half second charge (1 shot per second, 250 base damage)
                                         //~1188dps at second charge (0.66 shots per second, 400 base damage)
                                         //~1238dps almost full charge, (0.5 shots per second, 550 base damage)
-                                        //~1485dps at max charge (~0.5 shots per second, 660 base damage)
+                                        //~1361dps at max charge (~0.5 shots per second, 605 base damage)
             }
             if (angle <= 0.5f)//Charge up time is 100 frames as angle starts at 50
             {
                 maxcharge = true;
             }
-            //Projectile.soundDelay--;
-            if (Projectile.soundDelay <= 0 && !maxcharge) //Charge up sound and effect
+            Projectile.ai[1]++; //1 frame delay so particles always appear at end
+            if (Projectile.soundDelay <= 0 && !maxcharge && Projectile.ai[1] > 1) //Charge up sound and effect
             {
                 sound += 0.2f;
 
-                SoundEngine.PlaySound(SoundID.Item33 with { Volume = 0.2f, Pitch = sound, MaxInstances = 1 }, base.Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.5f, Pitch = sound, MaxInstances = 0 }, base.Projectile.position);
                 for (int i = 0; i < 10; i++)
                 {
                     int dust2 = Dust.NewDust(Projectile.position + Projectile.velocity * Main.rand.Next(6, 10) * 0.1f, Projectile.width, Projectile.height, 229, 0f, 0f, 80, default(Color), 0.75f);
@@ -86,10 +86,9 @@ namespace StormDiversMod.Projectiles
                 }
                 Projectile.soundDelay = 15;
             }
-
             //Main.NewText("Tester " + angle, 0, 204, 170); //Inital Scale
 
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 10f; // Position of end of barrel
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 15f; // Position of end of barrel
 
             if (Collision.CanHit(Projectile.position, 0, 0, Projectile.position + muzzleOffset, 0, 0))
             {
@@ -99,7 +98,7 @@ namespace StormDiversMod.Projectiles
             {
                 if (Projectile.soundDelay <= 0)
                 {
-                    SoundEngine.PlaySound(SoundID.Item33 with { Volume = 0.2f, Pitch = 1, MaxInstances = 0, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, base.Projectile.position);
+                    SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.6f, Pitch = 1, MaxInstances = 0, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, base.Projectile.position);
                     Projectile.soundDelay = 8;
                 }
                 Vector2 dustspeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
@@ -196,7 +195,7 @@ namespace StormDiversMod.Projectiles
             float speed = 14f;
             int Damage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             float KnockBack = player.inventory[player.selectedItem].knockBack;
-            if (canShoot)
+            if (canShoot && Collision.CanHit(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, new Vector2(player.Center.X, player.Center.Y), 0, 0))
             {             
                 player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, true);
                 if (projToShoot == ProjectileID.Bullet && maxcharge)
@@ -206,7 +205,7 @@ namespace StormDiversMod.Projectiles
                 int numberProjectiles = 4 + Main.rand.Next(2); ; //This defines how many projectiles to shot.
                 for (int i = 0; i < numberProjectiles; i++)
                 {            
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f).RotatedByRandom(MathHelper.ToRadians(angle));    
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f).RotatedByRandom(MathHelper.ToRadians(angle));    
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2((perturbedSpeed.X * extravel), (float)(perturbedSpeed.Y * extravel)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = 10;
@@ -215,8 +214,10 @@ namespace StormDiversMod.Projectiles
                     {
                         Main.projectile[projID].extraUpdates += 1;
                         Main.projectile[projID].knockBack *= 2;
-                        Main.projectile[projID].damage = Projectile.damage + (int)(Projectile.damage / 5); //20% extra damage
+                        Main.projectile[projID].damage = Projectile.damage + (int)(Projectile.damage / 10); //10% extra damage
 
+                        //player.velocity.X += perturbedSpeed.X * -0.25f;
+                        //player.velocity.Y += perturbedSpeed.Y * -0.25f;
                     }
                 }           
                 if (maxcharge) //extra dust for maxcharge

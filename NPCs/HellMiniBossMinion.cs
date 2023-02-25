@@ -89,18 +89,13 @@ namespace StormDiversMod.NPCs
             NPC.rotation = NPC.velocity.X / 100;
 
 
-            Player player = Main.player[NPC.target];
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+            Player player = Main.player[NPC.target];           
             
-            if (distance  <= 800f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            if (Vector2.Distance(player.Center, NPC.Center) <= 800f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 if (shoottime >=  120)
                 {
-
-                   
+                  
                     shooting = true;
                     if (Main.rand.Next(5) == 0)
                     {
@@ -253,29 +248,36 @@ namespace StormDiversMod.NPCs
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-           
+        {          
             npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Materials.SoulFire>(), 3, 2));          
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture2 = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/HellMiniBossMinion");
 
+            float speen1 = 9f + 3f * (float)Math.Cos((float)Math.PI * 2f * Main.GlobalTimeWrappedHourly);
+            Vector2 spinningpoint5 = Vector2.UnitX * speen1;
+            Color color = Color.Purple * (speen1 / 12f) * 0.8f;
+            color.A /= 3;
+            for (float speen2 = 0f; speen2 < (float)Math.PI * 2f; speen2 += (float)Math.PI / 2f)
+            {
+                Vector2 finalpos = NPC.position + new Vector2(0, 0) + spinningpoint5.RotatedBy(speen2);
+                spriteBatch.Draw(texture2, new Vector2(finalpos.X - screenPos.X + (float)(NPC.width / 2) * NPC.scale, finalpos.Y - screenPos.Y + (float)NPC.height * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale), NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
         }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/HellMiniBossMinion_Glow");
             Vector2 drawPos = new Vector2(0, -2) + NPC.Center - Main.screenPosition;
 
             spriteBatch.Draw(texture, drawPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-
-
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 200;
             return color;
-
         }
-
     }
 }

@@ -218,12 +218,7 @@ namespace StormDiversMod.Projectiles.Minions
 					
 
 				}
-
-				//Getting the shooting trajectory
-				float shootToX = targetNPC.X - Projectile.Center.X;
-				float shootToY = targetNPC.Y - Projectile.Center.Y;
-				float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
+				
 				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 550f)
 				{
 					var dust2 = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 2, Projectile.Center.Y - 2), 4, 4, 6, 0, 0);
@@ -235,30 +230,22 @@ namespace StormDiversMod.Projectiles.Minions
 				if (Projectile.ai[1] > 60 && Vector2.Distance(Projectile.Center, targetCenter) < 550f)
 				{
 					if (!Main.dedServ)
-					{
-
-						
+					{						
 						xpos = Main.rand.Next(-30, 30);
-							ypos = Main.rand.Next(-100, -75);
+						ypos = Main.rand.Next(-100, -75);
 
-							distance = 1.6f / distance;
+                        float projspeed = 18;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-							//Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-							shootToX *= distance * 8f;
-							shootToY *= distance * 8f;
-
-							float numberProjectiles = 1;
+                        float numberProjectiles = 1;
 							float rotation = MathHelper.ToRadians(0);
 							for (int j = 0; j < numberProjectiles; j++)
 							{
 
-								Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+								Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
 								Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), 
 									new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LizardMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 							}
-
-							//Projectile.velocity.X = shootToX * -0.18f;
-							//Projectile.velocity.Y = shootToY * -0.18f;
 
 							SoundEngine.PlaySound(SoundID.Item33 with {Volume = 0.25f, Pitch = 0.25f }, Projectile.Center);
 

@@ -33,30 +33,29 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            Projectile.aiStyle = 2;
+            Projectile.aiStyle = -1;
             Projectile.DamageType = DamageClass.Summon;
             DrawOffsetX = -2;
             DrawOriginOffsetY = 4;
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
-
             fallThrough = false;
 
             return true;
         }
-        bool animate; //Animate every shot
+        bool animate = false; //Animate every shot
         NPC target;
         public override void AI()
         {
-            Player player = Main.player[Projectile.owner];
-
-            player.UpdateMaxTurrets();
+            if (Projectile.velocity.Y < 20)
+            {
+                Projectile.velocity.Y += 0.5f;
+            }         
 
             Projectile.ai[0]++;//spawntime
             if (Projectile.ai[0] <= 3)
@@ -73,6 +72,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
             Projectile.rotation = 0;
 
+            Main.player[Projectile.owner].UpdateMaxTurrets();
 
             if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
@@ -83,11 +83,12 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
         
             Projectile.ai[1]++;//Shoottime
-                     
+
+            Player player = Main.player[Projectile.owner];
+
             //Getting the npc to fire at
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-
                 if (player.HasMinionAttackTargetNPC)
                 {
                     target = Main.npc[player.MinionAttackTargetNPC];
@@ -95,35 +96,21 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 else
                 {
                     target = Main.npc[i];
+                }      
 
-                }
-                target.TargetClosest(true);
-              
-                //Getting the shooting trajectory
-                float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X + 6;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y + 16;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
-
-                if (distance < 750f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 750f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
+                    target.TargetClosest(true);
+                    float projspeed = 15;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y - 16)) * projspeed;
+
                     if (Projectile.ai[1] == 57)
                     {
                         animate = true;
-                        Projectile.frame = 0;
                     }
 
                     if (Projectile.ai[1] > 75)
-                    {
-
-                        //Dividing the factor of 2f which is the desired velocity by distance
-                        distance = 1.6f / distance;
-
-                        //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                        shootToX *= distance * 12f;
-                        shootToY *= distance * 12f;
-
+                    {                
                         for (int j = 0; j < 60; j++)
                         {
                             float speedY = -1.5f;
@@ -144,12 +131,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         }
 
-
                         SoundEngine.PlaySound(SoundID.Item48, Projectile.Center);
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - 6, Projectile.Center.Y - 16), new Vector2(shootToX, shootToY),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - 6, Projectile.Center.Y - 16), new Vector2(velocity.X, velocity.Y),
                             ModContent.ProjectileType<FrostSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-
 
                         Projectile.ai[1] = 0;
                     }
@@ -159,35 +144,33 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }        
 
             Projectile.frameCounter++;
-
-            if (animate)//frames 0-3 when firing
+         
+            if (animate) //frames 4-7 when firing
             {
-
                 if (Projectile.frameCounter >= 6)
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
-
                 }
-                if (Projectile.frame >= 4)
+                if (Projectile.frame <= 3)
                 {
-
                     Projectile.frame = 4;
+                }
+                if (Projectile.frame >= 8)
+                {
                     animate = false;
                 }
             }
-            else //frames 4-7 when idle
+            if (!animate)//frames 0-3 when idle
             {
+                if (Projectile.frame >= 4 || Projectile.frame < 0)
+                {
+                    Projectile.frame = 0;
+                }
                 if (Projectile.frameCounter >= 6)
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
-
-                }
-                if (Projectile.frame <= 3 || Projectile.frame >= 8)
-                {
-
-                    Projectile.frame = 4;
                 }
             }
         }
@@ -253,7 +236,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
         }
     
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;

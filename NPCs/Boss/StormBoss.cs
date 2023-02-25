@@ -101,7 +101,7 @@ namespace StormDiversMod.NPCs.Boss
         }
     
         float movespeed = 5f; //Speed of the npc
-
+        float distance; //distance to player
         bool rotateright = false; //What side is the player on so it can rotate in the right direction
 
         bool charge = false; //s the boss doing any charge attack? If so ignore defualt movement
@@ -112,10 +112,6 @@ namespace StormDiversMod.NPCs.Boss
         bool animateclaws; //Wheter the claws move
 
         int projdamage; //Damage of all projectiles
-
-        float distanceX;//}
-        float distanceY;//}
-        float distance; //}Distance between boss and player
 
         int portalamount; //how many portals to summon
 
@@ -173,6 +169,8 @@ namespace StormDiversMod.NPCs.Boss
             Player player = Main.player[NPC.target]; //Code to move towards player
             //Main movement, xpos and ypos change per attack, code ignroed when charging
 
+            distance = Vector2.Distance(player.Center, NPC.Center);
+
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (!charge && !player.dead)
@@ -191,12 +189,7 @@ namespace StormDiversMod.NPCs.Boss
             }
             NPC.noTileCollide = true;
 
-            //Main targettign code for projectiles
-
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            distanceX = player.Center.X - NPC.Center.X;
-            distanceY = player.Center.Y - NPC.Center.Y;
-            distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
+            //Main targetting code for projectiles          
 
             if (distance > 2000 && !player.dead && NPC.ai[3] != 0 && Main.netMode != NetmodeID.MultiplayerClient)//Speed up if too far away
             {
@@ -242,7 +235,7 @@ namespace StormDiversMod.NPCs.Boss
             {
                 double deg = Main.rand.Next(0, 360); //The degrees
                 double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                double dist = 75; //Distance away from the player
+                double dist = 75; //distance away from the player
                 float dustx = NPC.Center.X - (int)(Math.Cos(rad) * dist);
                 float dusty = NPC.Center.Y - (int)(Math.Sin(rad) * dist);
                 if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, NPC.position, NPC.width, NPC.height))//no dust unless lien of sight
@@ -738,7 +731,7 @@ namespace StormDiversMod.NPCs.Boss
                 if (NPC.ai[0] > 12 || (halflife && NPC.ai[0] > 9))
                 {
                     SoundEngine.PlaySound(SoundID.Item95 with { Volume = 1f, Pitch = 0.2f }, NPC.Center);
-                    for (int i = 0; i < 50; i++)
+                    for (int i = 0; i < 30; i++)
                     {
                         float speedY = -3f;
 
@@ -817,7 +810,7 @@ namespace StormDiversMod.NPCs.Boss
                     if ((NPC.ai[0] >= 90 || (halflife && NPC.ai[0] >= 75)) && NPC.localAI[0] <= 300)//One extra portal below half life
                     {
                         SoundEngine.PlaySound(SoundID.Item121, NPC.Center);
-                        for (int i = 0; i < 100; i++)
+                        for (int i = 0; i < 50; i++)
                         {
                             float speedY = -10f;
 
@@ -833,7 +826,7 @@ namespace StormDiversMod.NPCs.Boss
                             {
                                 double deg = Main.rand.Next(0, 360); //The degrees
                                 double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                                double dist = 350; //Distance away from the player
+                                double dist = 350; //distance away from the player
 
 
                                 float positionX = player.Center.X - (int)(Math.Cos(rad) * dist);
@@ -933,7 +926,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     //if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        for (int i = 0; i < 100; i++)
+                        for (int i = 0; i < 50; i++)
                         {
                             float speedY = -5.5f;
 
@@ -1368,6 +1361,27 @@ namespace StormDiversMod.NPCs.Boss
                         Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                     }
                 }
+                Color color2 = new Color(34, 221, 151, 40);
+                float scaleFactor13 = 0.5f + (NPC.GetAlpha(color2).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+                if (charge)
+                {
+                    for (int num149 = 0; num149 < 4; num149++)
+                    {
+                        spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 32) + NPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                    }
+                }
+                /*float speen1 = 9f + 3f * (float)Math.Cos((float)Math.PI * 2f * Main.GlobalTimeWrappedHourly);
+                Vector2 spinningpoint5 = Vector2.UnitX * speen1;
+                Color color2 = Color.Turquoise * (speen1 / 12f) * 0.8f;
+                color2.A /= 3;
+                if (halflife)
+                {
+                    for (float speen2 = 0f; speen2 < (float)Math.PI * 2f; speen2 += (float)Math.PI / 2f)
+                    {
+                        Vector2 finalpos = NPC.position + new Vector2(0, 30) + spinningpoint5.RotatedBy(speen2);
+                        spriteBatch.Draw(texture, new Vector2(finalpos.X - screenPos.X + (float)(NPC.width / 2) * NPC.scale, finalpos.Y - screenPos.Y + (float)NPC.height * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale), NPC.frame, color2, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    }
+                }*/
             }
                 return true;        
         }

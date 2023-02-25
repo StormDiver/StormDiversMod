@@ -102,16 +102,7 @@ namespace StormDiversMod.NPCs
             Player player = Main.player[NPC.target];
             NPC.TargetClosest();
            
-
-
-            Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-            float distanceX = player.Center.X - NPC.Center.X;
-            float distanceY = player.Center.Y - NPC.Center.Y;
-            float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
-
-           
-
-            if (distance <= 700f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            if (Vector2.Distance(player.Center, NPC.Center) <= 700f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
 
                 shoottime++;

@@ -141,23 +141,12 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 SoundEngine.PlaySound(SoundID.Item13, Projectile.position);
 
                 Projectile.penetrate = -1;
-                //Get the shoot trajectory from the Projectile and target
-                float shootToX = Main.MouseWorld.X - Projectile.Center.X;
-                float shootToY = Main.MouseWorld.Y - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-
-                //If the distance between the live targeted npc and the Projectile is less than 480 pixels
-
-
-                distance = 0.5f / distance;
-
-                //Multiply the distance by a multiplier proj faster
-                shootToX *= distance * 70f;
-                shootToY *= distance * 70f;
-
+               
+                float projspeed = 35;
+                Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
                 //Set the velocities to the shoot values
-                Projectile.velocity.X = shootToX;
-                Projectile.velocity.Y = shootToY;
+                Projectile.velocity.X = velocity.X;
+                Projectile.velocity.Y = velocity.Y;
             }
             if (Projectile.ai[1] >= 45)
             {

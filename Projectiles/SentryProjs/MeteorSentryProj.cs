@@ -101,13 +101,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         target = Main.npc[i];
 
                     }
-                    //Getting the shooting trajectory
-                    float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                    float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
-                    float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                    //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                    //If the distance between the projectile and the live target is active
-
+                 
                     float distanceX = target.position.X + ((float)target.width * 0.5f) - Projectile.Center.X;
                     float distanceY = target.position.Y + ((float)target.height * 0.5f) - Projectile.Center.Y;
 
@@ -134,30 +128,19 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         if (Projectile.ai[1] > 60)
                         {
-
-                            //Dividing the factor of 2f which is the desired velocity by distance
-                            distance = 2f / distance;
-
-                            //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                            shootToX *= distance * 10f;
-                            shootToY *= distance * 10f;
-
-                               Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
+                            float projspeed = 20;
+                            Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                          
+                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
 
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Bottom.Y - 10), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<MeteorSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                             SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
 
                             Projectile.ai[1] = 0;
-                        }
-
-                       
-                    }
-
-                  
-
+                        }                     
+                    }                
                 }
             }
-
 
             //Animation
             { 

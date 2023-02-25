@@ -14,8 +14,8 @@ using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.NPCs
-
 {
+    [AutoloadBossHead]
     public class MoonDerp : ModNPC
     {
         public override void SetStaticDefaults()
@@ -38,7 +38,7 @@ namespace StormDiversMod.NPCs
 
             NPC.width = 60;
             NPC.height = 42;
-            
+          
             NPC.damage = 125;
 
             NPC.defense = 60;
@@ -53,8 +53,10 @@ namespace StormDiversMod.NPCs
             NPC.rarity = 5;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.MoonDerpBannerItem>();
-            
+            //NPC.boss = true;
+            NPC.BossBar = Main.BigBossProgressBar.NeverValid;
         }
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
@@ -69,6 +71,23 @@ namespace StormDiversMod.NPCs
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             NPC.lifeMax = (int)(NPC.lifeMax / 3 * 2);
+        }
+        public static int phase2HeadSlot = -1;
+
+        public override void Load()
+        {
+            // We want to give it a second boss head icon, so we register one
+            string texture = BossHeadTexture + "_Phase2"; // Texture name
+            phase2HeadSlot = Mod.AddBossHeadTexture(texture, -1); // -1 because we already have one registered via the [AutoloadBossHead] attribute, it would overwrite it otherwise
+        }
+        public override void BossHeadSlot(ref int index)
+        {
+            int slot = phase2HeadSlot;
+            if (halflife3 && slot != -1)
+            {
+                // If the boss is in its second stage, display the other head icon instead
+                index = slot;
+            }
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -91,7 +110,7 @@ namespace StormDiversMod.NPCs
         float movespeed = 8f; //Speed of the npc
 
         
-        public int poschoice = 1; 
+        public int poschoice = 1;
         public override void AI()
         {
             //NPC.ai[0] = Xpos
@@ -109,7 +128,7 @@ namespace StormDiversMod.NPCs
                 {
                     NPC.ai[0] = 0f;
                     NPC.ai[1] = -150f;
-                    
+
 
                 }
                 else if (NPC.ai[2] == 1) // left
@@ -153,31 +172,23 @@ namespace StormDiversMod.NPCs
                 NPC.spriteDirection = NPC.direction;
             }
             NPC.TargetClosest();
-                Vector2 moveTo = player.Center;
-                Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]); //Postion around player
-                float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
-                if (magnitude > movespeed)
-                {
-                    move *= movespeed / magnitude;
-                }
-                NPC.velocity = move;
-            
-               
-            
+            Vector2 moveTo = player.Center;
+            Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]); //Postion around player
+            float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+            if (magnitude > movespeed)
+            {
+                move *= movespeed / magnitude;
+            }
+            NPC.velocity = move;
 
-            NPC.rotation = NPC.velocity.X / 12 ;
+            NPC.rotation = NPC.velocity.X / 12;
             //NPC.velocity.Y *= 0.96f;
-            
-                Vector2 target = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
-                float distanceX = player.Center.X - NPC.Center.X;
-                float distanceY = player.Center.Y - NPC.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(distanceX * distanceX + distanceY * distanceY));
 
-                if (player.dead)
-                {
-                    NPC.velocity.Y = -8;
-                }
-            if (distance <= 1000f) //&& Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height)
+            if (player.dead)
+            {
+                NPC.velocity.Y = -8;
+            }
+            if (Vector2.Distance(player.Center, NPC.Center) <= 1000f) //&& Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height)
             {
                 NPC.ai[3]++;
 
@@ -204,7 +215,7 @@ namespace StormDiversMod.NPCs
                                 perturbedSpeed = perturbedSpeed * scale;
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
 
-                                
+
                             }
                             SoundEngine.PlaySound(SoundID.Item124, NPC.Center);
                         }
@@ -274,19 +285,19 @@ namespace StormDiversMod.NPCs
                 }
 
                 SoundEngine.PlaySound(SoundID.Zombie101, NPC.Center);
-                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
-                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
-                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);
-                    Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
+                Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
+                Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore6").Type, 1f);
+                Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore3").Type, 1f);
+                Gore.NewGore(null, NPC.Center, NPC.velocity, Mod.Find<ModGore>("MoonDerpGore4").Type, 1f);
 
-                    for (int i = 0; i < 20; i++)
-                    {
-                        var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 156);
+                for (int i = 0; i < 20; i++)
+                {
+                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 156);
 
-                    }
-                
+                }
+
                 //NPC.damage = NPC.damage / 10 * 14;  //Would be 40% extra damage but too OP
-            
+
             }
         }
         int npcframe = 0;
@@ -457,8 +468,20 @@ namespace StormDiversMod.NPCs
                 Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
 
+            Texture2D texture2 = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/MoonDerp_Glow");
+            float speen1 = 9f + 3f * (float)Math.Cos((float)Math.PI * 2f * Main.GlobalTimeWrappedHourly);
+            Vector2 spinningpoint5 = Vector2.UnitX * speen1;
+            Color color2 = Color.LightSeaGreen * (speen1 / 12f) * 0.8f;
+            color2.A /= 3;
+            if (halflife3)
+            {
+                for (float speen2 = 0f; speen2 < (float)Math.PI * 2f; speen2 += (float)Math.PI / 2f)
+                {
+                    Vector2 finalpos = NPC.position + new Vector2(0, 30) + spinningpoint5.RotatedBy(speen2);
+                    spriteBatch.Draw(texture, new Vector2(finalpos.X - screenPos.X + (float)(NPC.width / 2) * NPC.scale, finalpos.Y - screenPos.Y + (float)NPC.height * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale - 16), NPC.frame, color2, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                }
+            }
             return true;
-
         }
     }
 }

@@ -90,32 +90,20 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 }
 
-                //Getting the shooting trajectory
-                float shootToX = target.position.X + (float)target.width * 0.5f - Projectile.Center.X;
-                float shootToY = target.position.Y + (float)target.height * 0.5f - Projectile.Center.Y;
-                float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
-                //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
-                //If the distance between the projectile and the live target is active
-
-                if (distance < 500f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 500f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
+                    float projspeed = 8;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                        distance = 1.6f / distance;
+                    if (Projectile.ai[1] > 12)
+                    {
 
-                        //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-                        shootToX *= distance * 4f;
-                        shootToY *= distance * 4f;
-
-                        
-                        if (Projectile.ai[1] > 12)
-                        {
-
-                            Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(8));
+                        Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<IceSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
 
-                            Projectile.ai[1] = 0;
-                        }
+                        Projectile.ai[1] = 0;
+                    }
 
                     //localai[1] , 0 = core closes, 1 = Open core, 2 = Keep core open, 3= close core
 
