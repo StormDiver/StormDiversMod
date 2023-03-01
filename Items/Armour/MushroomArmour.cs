@@ -112,6 +112,7 @@ namespace StormDiversMod.Items.Armour
         {
             //player.GetDamage(DamageClass.Ranged) += 0.02f;
             //player.GetCritChance(DamageClass.Ranged) += 2;
+            //player.GetDamage(DamageClass.Ranged).Flat += 1f;
             player.GetModPlayer<EquipmentEffects>().mushChestplate = true;
 
         }

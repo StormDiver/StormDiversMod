@@ -21,8 +21,8 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
         public override void SetDefaults()
         {
            
-            Projectile.width = 260;     
-            Projectile.height = 260;      
+            Projectile.width = 200;     
+            Projectile.height = 200;      
             Projectile.friendly = true;    
             Projectile.penetrate = -1;    
             Projectile.tileCollide = false; 
@@ -113,6 +113,15 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Main.dust[dust].noGravity = true;
             
         }
+        public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
+        {
+            hitbox.Width = 260;
+            hitbox.Height = 260;
+            hitbox.X -= (hitbox.Width - Projectile.width) / 2;
+            hitbox.Y -= (hitbox.Height - Projectile.height) / 2;
+            base.ModifyDamageHitbox(ref hitbox);
+        }
+
         public override void PostDraw(Color lightColor)
         {
             Main.instance.LoadProjectile(Projectile.type);

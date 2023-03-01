@@ -190,12 +190,11 @@ namespace StormDiversMod.NPCs.NPCProjs
             dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 173, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
             dust.noGravity = true;
             dust.fadeIn = 1f;
-            /*if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 180)
+            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 180)
             {
-                for (int i = 0; i < 200; i++)
-                {
-                    Player target = Main.player[i];
-                    Vector2 idlePosition = Main.player[i].Center;
+               
+                    //Player target = Main.player;
+                    Vector2 idlePosition = Main.LocalPlayer.Center;
                     Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
                     distanceToIdlePosition = vectorToIdlePosition.Length();
 
@@ -208,11 +207,11 @@ namespace StormDiversMod.NPCs.NPCProjs
                         }
                         Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
                     }
-                }
-            }*/
+                
+            }
             //Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
-            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 210)
+            /*if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 180)
             {
 
                 for (int i = 0; i < 100; i++)
@@ -222,14 +221,14 @@ namespace StormDiversMod.NPCs.NPCProjs
                     //If the distance between the live targeted npc and the Projectile is less than 480 pixels
                     if (Vector2.Distance(target.Center, Projectile.Center) < 750f && target.active)
                     {                       
-                        float projspeed = 4.5f;
+                        float projspeed = 4f;
                         Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
                         //Set the velocities to the shoot values
                         Projectile.velocity.X = velocity.X;
                         Projectile.velocity.Y = velocity.Y;
                     }                                     
                 }               
-            }
+            }*/
             AnimateProjectile();
 
         }

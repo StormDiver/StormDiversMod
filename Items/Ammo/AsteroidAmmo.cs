@@ -23,7 +23,7 @@ namespace StormDiversMod.Items.Ammo
             Item.height = 36;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 20);
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Cyan;
 
             //Item.melee = true;
             Item.DamageType = DamageClass.Ranged;
@@ -71,7 +71,7 @@ namespace StormDiversMod.Items.Ammo
             Item.height = 20;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 20);
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Cyan;
 
 
             Item.DamageType = DamageClass.Ranged;

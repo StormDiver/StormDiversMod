@@ -44,7 +44,6 @@ namespace StormDiversMod.NPCs
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.BabyDerpBannerItem>();
 
-
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
@@ -61,10 +60,12 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("It's a Baby Derpling, how cute.")
             });
         }
+        
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * 0.5f);
             NPC.damage = (int)(NPC.damage * 0.5f);
+
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -75,8 +76,7 @@ namespace StormDiversMod.NPCs
             }
             return SpawnCondition.SurfaceJungle.Chance * 0f;
         }
-
-
+       
         public override void HitEffect(int hitDirection, double damage)
         {
             SoundEngine.PlaySound(SoundID.NPCHit22 with {Volume = 0.7f, Pitch = 0.4f}, NPC.Center);

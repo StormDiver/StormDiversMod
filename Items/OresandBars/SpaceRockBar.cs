@@ -41,8 +41,6 @@ namespace StormDiversMod.Items.OresandBars
         }
         public override void AddRecipes()
         {
-
-
             CreateRecipe()
             //.AddIngredient(ItemID.ChlorophyteBar, 1)
             .AddIngredient(ModContent.ItemType<Items.Materials.SpaceRock>(), 3)

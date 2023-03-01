@@ -14,6 +14,7 @@ using StormDiversMod.Basefiles;
 using static Terraria.ModLoader.ModContent;
 using static System.Formats.Asn1.AsnWriter;
 using static Humanizer.In;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles
 {
@@ -45,28 +46,35 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage() => false;
 
-        float angle = 45;
+        float angle = 18.3f; //additonal 0.3 as first frame isn't counted
         float extravel = 1f;
         float sound = -0.5f;
         bool maxcharge;
+        public override void OnSpawn(IEntitySource source)
+        {
+            var player = Main.player[Projectile.owner];
+            Projectile.damage = 90; //starts off at 90, but then ranged buffs are applied after charge
+        }
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
 
             if (!maxcharge) //charge up, lower angle, add velocity to bullets, and increase damage
             {
-                angle -= 0.5f; //takes 90 frames to charge
+                angle -= 0.3f; //takes 90 frames to charge
                 extravel += 0.01f;
-                Projectile.damage += 5; //Extra 450 damage from base, + additonal 10% at max charge (100 + 450 = 550 * 1.2 = 605),
-                                        //4.5 bullets on average, add addition 30 frame cooldown everytime, fewer bullet will likely hit at lower charges
-                                        //(base damage X Shots per second X 4.5)
-                                        //~900dps  at no charge, (2 shots per second, 100 base damage)
-                                        //~1125dps at half second charge (1 shot per second, 250 base damage)
-                                        //~1188dps at second charge (0.66 shots per second, 400 base damage)
-                                        //~1238dps almost full charge, (0.5 shots per second, 550 base damage)
-                                        //~1361dps at max charge (~0.5 shots per second, 605 base damage)
+                //Projectile.damage = (Projectile.damage * 102) / 100; //gains 2% damage every frame, reaches 505 with musket balls
+
+                Projectile.damage += 4; //Extra 240 damage from base, (90 + 240 = 330 + extra 15% at max charge for 380),                                
+                                        //~900 dps at  0 frame charge (2    shots per second, 90  base damage)
+                                        //~997 dps at 15 frame charge (1.33 shots per second, 150 base damage)
+                                        //~1050dps at 30 frame charge (1    shot  per second, 210 base damage)
+                                        //~1080dps at 45 frame charge (0.8  shots per second, 270 base damage)
+                                        //~1089dps at 60 frame charge (0.66 shots per second, 330 base damage)                                     
+                                        //~1250dps at 60 frame charge (0.66  shots per second, 380 base damage) (Bonus 15% damage (+1))
+                                        //ranged damage buffs are applied afterwards
             }
-            if (angle <= 0.5f)//Charge up time is 100 frames as angle starts at 50
+            if (angle <= 0.3f)//Charge up time is 60 frames as angle starts at 27.3
             {
                 maxcharge = true;
             }
@@ -84,10 +92,13 @@ namespace StormDiversMod.Projectiles
                     Main.dust[dust2].velocity *= 0.2f;
                     //Main.dust[dust2].velocity.Y = (float)(-Main.rand.Next(7, 13)) * 0.15f;
                 }
-                Projectile.soundDelay = 15;
+                Projectile.soundDelay = 10;
             }
-            //Main.NewText("Tester " + angle, 0, 204, 170); //Inital Scale
-
+            //Main.NewText("Tester " + Projectile.damage, 0, 204, 170); //Inital Scale
+            if (maxcharge)
+            {
+                //Main.NewText("TesterMax " + Projectile.damage * 1.15f, 0, 204, 170); //Inital Scale
+            }
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 15f; // Position of end of barrel
 
             if (Collision.CanHit(Projectile.position, 0, 0, Projectile.position + muzzleOffset, 0, 0))
@@ -99,7 +110,7 @@ namespace StormDiversMod.Projectiles
                 if (Projectile.soundDelay <= 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.6f, Pitch = 1, MaxInstances = 0, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, base.Projectile.position);
-                    Projectile.soundDelay = 8;
+                    Projectile.soundDelay = 7;
                 }
                 Vector2 dustspeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
 
@@ -143,6 +154,8 @@ namespace StormDiversMod.Projectiles
                 }
                 else
                 {
+                    Projectile.damage = (int)player.GetTotalDamage(DamageClass.Ranged).ApplyTo(Projectile.damage); //make sure damage updates are applied
+
                     Projectile.Kill();
                 }
             }
@@ -202,8 +215,7 @@ namespace StormDiversMod.Projectiles
                 {
                     projToShoot = ProjectileID.MoonlordBullet;
                 }
-                int numberProjectiles = 4 + Main.rand.Next(2); ; //This defines how many projectiles to shot.
-                for (int i = 0; i < numberProjectiles; i++)
+                for (int i = 0; i < 5; i++)//5 projectiles
                 {            
                     Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f).RotatedByRandom(MathHelper.ToRadians(angle));    
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2((perturbedSpeed.X * extravel), (float)(perturbedSpeed.Y * extravel)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
@@ -214,7 +226,7 @@ namespace StormDiversMod.Projectiles
                     {
                         Main.projectile[projID].extraUpdates += 1;
                         Main.projectile[projID].knockBack *= 2;
-                        Main.projectile[projID].damage = Projectile.damage + (int)(Projectile.damage / 10); //10% extra damage
+                        Main.projectile[projID].damage = (int)(Projectile.damage * 1.15f) + 1; //15% extra damage
 
                         //player.velocity.X += perturbedSpeed.X * -0.25f;
                         //player.velocity.Y += perturbedSpeed.Y * -0.25f;

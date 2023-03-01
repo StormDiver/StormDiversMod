@@ -171,8 +171,8 @@ namespace StormDiversMod.Projectiles
         public override void SetDefaults()
         {
 
-            Projectile.width = 158;
-            Projectile.height = 158;
+            Projectile.width = 126;
+            Projectile.height = 126;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -257,6 +257,14 @@ namespace StormDiversMod.Projectiles
             int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135);  //this is the dust that this projectile will spawn
             Main.dust[dust].velocity /= 1f;
            
+        }
+        public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
+        {
+            hitbox.Width = 160;
+            hitbox.Height = 160;
+            hitbox.X -= (hitbox.Width - Projectile.width) / 2;
+            hitbox.Y -= (hitbox.Height - Projectile.height) / 2;
+            base.ModifyDamageHitbox(ref hitbox);
         }
         public override bool PreDraw(ref Color lightColor)
         {

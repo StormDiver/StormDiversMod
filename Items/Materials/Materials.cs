@@ -281,7 +281,7 @@ namespace StormDiversMod.Items.Materials
             Item.height = 20;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 30, 0);
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Cyan;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
             ItemID.Sets.ItemIconPulse[Item.type] = true;
         }

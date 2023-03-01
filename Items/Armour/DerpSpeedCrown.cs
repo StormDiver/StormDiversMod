@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Messenger's Crown");
-            Tooltip.SetDefault("Increases maximum movement speed");
+            Tooltip.SetDefault("Increases movement speed and acceleration");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
@@ -31,14 +31,16 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Blue;
-            Item.defense = 2;
+            Item.defense = 4;
         }
 
         public override void UpdateEquip(Player player)
         {
             player.maxRunSpeed += 2;
+            player.runAcceleration *= 1.25f;
+            player.runSlowdown = 0.8f;
             //player.moveSpeed += 0.10f;
-            
+
         }
 
         public override void ArmorSetShadows(Player player)
@@ -55,15 +57,24 @@ namespace StormDiversMod.Items.Armour
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return true;
+            return (body.type == ItemID.GoldChainmail && legs.type == ItemID.GoldGreaves ) || (body.type == ItemID.PlatinumChainmail && legs.type == ItemID.PlatinumGreaves);
+
         }
 
         public override void UpdateArmorSet(Player player)
         {
-          
-
+            if (player.armor[1].type == ItemID.GoldChainmail && player.armor[2].type == ItemID.GoldGreaves)
+            {
+                player.setBonus = "3 defense";
+                player.statDefense += 3;
+            }
+            else if (player.armor[1].type == ItemID.PlatinumChainmail && player.armor[2].type == ItemID.PlatinumGreaves)
+            {
+                player.setBonus = "5 defense";
+                player.statDefense += 5;
+            }
         }
- 
+
         public override void AddRecipes()
         {
             CreateRecipe()

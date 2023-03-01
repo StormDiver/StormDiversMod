@@ -9,7 +9,7 @@ using StormDiversMod.Buffs;
 using StormDiversMod.Basefiles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles.WhipProjs
 {
@@ -176,7 +176,19 @@ namespace StormDiversMod.Projectiles.WhipProjs
 
 		}
 		int rotate;
-		public override void AI()
+        public override void OnSpawn(IEntitySource source)
+        {
+            for (int i = 0; i < 25; i++)
+            {
+
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 6);
+                dust.scale = 1.2f;
+                dust.noGravity = true;
+                dust.velocity *= 3;
+            }
+            base.OnSpawn(source);
+        }
+        public override void AI()
 		{
 			var player = Main.player[Projectile.owner];
 

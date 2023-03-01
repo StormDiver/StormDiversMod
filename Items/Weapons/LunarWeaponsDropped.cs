@@ -108,14 +108,13 @@ namespace StormDiversMod.Items.Weapons
         {
             Item.useAmmo = AmmoID.Bullet;
 
-            Item.damage = 100; //Extra 450 damage from base, + additonal 25% at max charge (100 + 450 = 550 * 1.2 = 660),
-                               //4.5 bullets on average, add addition 30 frame cooldown everytime, fewer bullet will likely hit at lower charges
-                               //(base damage X Shots per second X 4.5)
-                               //~900dps  at no charge, (2 shots per second, 100 base damage)
-                               //~1125dps at half second charge (1 shot per second, 250 base damage)
-                               //~1188dps at second charge (0.66 shots per second, 400 base damage)
-                               //~1238dps almost full charge, (0.5 shots per second, 550 base damage)
-                               //~1485dps at max charge (~0.5 shots per second, 660 base damage)
+            Item.damage = 90; //Extra 240 damage from base, (90 + 240 = 330 + extra 15% at max charge for 380),                                
+                              //~900 dps at  0 frame charge (2    shots per second, 90  base damage)
+                              //~997 dps at 15 frame charge (1.33 shots per second, 150 base damage)
+                              //~1050dps at 30 frame charge (1    shot  per second, 210 base damage)
+                              //~1080dps at 45 frame charge (0.8  shots per second, 270 base damage)
+                              //~1089dps at 60 frame charge (0.66 shots per second, 330 base damage)                                     
+                              //~1250dps at 60 frame charge (0.66  shots per second, 380 base damage) (Bonus 15% damage (+1))
             Item.DamageType = DamageClass.Ranged;
 
             Item.width = 30;
