@@ -34,6 +34,12 @@ namespace StormDiversMod.Basefiles
         public int templeWarning; //Warning until Temple Guardians spawn
 
         public int playerimmunetime; //makes player immune to damage
+
+        public int ninelives; //how many kills with the sickle, up to 9
+        public int ninelivescooldown; //cooldown to remove a soul
+        public float ninedmg;  //increase in melee damage
+        public bool explosionfall; //Player has been launched by a stickybomb
+
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             screenshaker = false;
@@ -42,6 +48,11 @@ namespace StormDiversMod.Basefiles
         {
             templeWarning = 0;
             shaketimer = 0;
+            ninelives = 0;
+            ninelivescooldown = 0;
+            ninedmg = 0;
+            explosionfall = false;
+
         }
 
         //===============================================================================================================
@@ -58,11 +69,8 @@ namespace StormDiversMod.Basefiles
             {
                 Player.itemAnimationMax = Player.itemAnimation = Player.HeldItem.useAnimation;
             }
-
-
             return base.PreItemCheck();
         }
-
         public override void ModifyScreenPosition()//screenshaker
         {
             if (screenshaker)
@@ -75,10 +83,7 @@ namespace StormDiversMod.Basefiles
                 Main.screenPosition += new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5));
                 shaketimer--;
             }
-
-
         }
-
         public override void PostUpdateEquips() //Updates every frame
         {
             //Detect if player is in Temple and immediatly summon up to 12 Guardians
@@ -127,7 +132,6 @@ namespace StormDiversMod.Basefiles
                         //Player.AddBuff(BuffID.Darkness, 2);
                     }
                 }
-
             }
             else
             {
@@ -141,12 +145,99 @@ namespace StormDiversMod.Basefiles
             {
                 playerimmunetime = 0;
             }
+
+            if (ninelivescooldown > 0)
+            {
+                ninelivescooldown--;
+            }
+            if (ninelivescooldown == 0)
+            {
+                if (ninelives > 0) //once cooldown is met remove 1 soul
+                {
+                    ninelives--;
+                    ninelivescooldown = 90; //  1.5 seconds per soul
+
+                    //Main.NewText("" + ninelives, 204, 101, 22);
+                }
+            }
+            //Main.NewText("ninelivescooldown" + ninelivescooldown, 204, 101, 22);
+            if (Player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>())
+            {
+                Player.GetDamage(DamageClass.Melee) += 0.05f * ninelives; //increase damage from 5-45%
+                Player.GetCritChance(DamageClass.Melee) += 2 * ninelives; //increase crit from 2-18%
+
+            }
+            /*if (ninelives == 9)
+            {
+                Player.GetDamage(DamageClass.Melee) += 0.1f; //extra 10% damage (55% total)
+                Player.GetCritChance(DamageClass.Melee) += 5; //extra 5% crit (32% total)
+            }*/
+
+            if (explosionfall)//Coorect fall damage when launched via sticky bomb
+            {
+                if (Player.velocity.Y > 0)
+                {
+                    Player.fallStart = (int)Player.tileTargetY;
+                    //Main.NewText("plswork" + Player.tileTargetY, 204, 101, 22);
+
+                    explosionfall = false;
+                }
+            }
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
             if (proj.type == ModContent.ProjectileType<StompBootProj2>() && target.type != NPCID.TargetDummy) //10 frames of immunity
             {
                 playerimmunetime = 10;
+            }
+            //nine lives
+            if (proj.type == ModContent.ProjectileType<TheSickleProj>() || proj.type == ModContent.ProjectileType<TheSickleProj2>())
+            {          
+                //regular enemies 1 soul 
+                if (!target.SpawnedFromStatue && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.life <= 0)
+                {
+                    ninelivescooldown = 600; //Reset cooldown to 10 seconds, even at max amount
+                    if (ninelives < 9) //Spawn up to 9
+                    {
+                        ninelives++;//increase counter
+
+                        int nineproj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<TheSickleProj3>(), 0, 0, Player.whoAmI, 0, ninelives - 1);//changes ai[1] field for different angles
+                       
+                        SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = -1f, MaxInstances = 0 }, target.Center); ;
+
+                        for (int i = 0; i < 20; i++)
+                        {
+                            var dust = Dust.NewDustDirect(target.position, target.width, target.height, 31);
+                            dust.noGravity = true;
+                            dust.velocity *= 3;
+                            dust.scale = 1.5f;
+
+                        }
+                        //Main.NewText("" + ninelives, 204, 101, 22);
+                    }
+                }
+                if ((target.type == ModContent.NPCType<NPCs.HellMiniBoss>()) && target.life <= 0) //Soul Cauldron give all souls
+                {
+                    ninelivescooldown = 600; //Reset cooldown to 10 seconds, even at max amount
+                    for (int i = 0; i < 8; i++) //Because you get one from normal means
+                    {
+                        if (ninelives < 9)
+                        {
+                            ninelives++;//increase counter
+                            //Main.NewText("" + ninelives, 204, 101, 22);
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<TheSickleProj3>(), 0, 0, Player.whoAmI, 0, ninelives - 1);//changes ai[1] field for different angles
+
+                            for (int j = 0; j < 20; j++)
+                            {
+                                var dust = Dust.NewDustDirect(target.position, target.width, target.height, 31);
+                                dust.noGravity = true;
+                                dust.velocity *= 3;
+                                dust.scale = 1.5f;
+
+                            }
+                        }
+                    }
+                }
             }
         }
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)

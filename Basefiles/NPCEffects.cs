@@ -128,7 +128,10 @@ namespace StormDiversMod.Basefiles
 
         }
         public override void AI(NPC npc)
-        {
+        {        
+            //Don't forget to remove
+            //npc.dontTakeDamage = false;
+
             //Debuff immunities
             if (npc.boss)
             {

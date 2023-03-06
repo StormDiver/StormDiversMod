@@ -53,8 +53,8 @@ Mods: {
 			}
 
 			FruitHeartBuff: {
-				DisplayName: Life Fruit Up
-				Description: Max life is increased by 50
+				DisplayName: Super Heart Collector
+				Description: Enemies have a chance to drop a super heart on death
 			}
 
 			GladiatorAccessBuff: {
@@ -83,8 +83,8 @@ Mods: {
 			}
 
 			HeartBuff: {
-				DisplayName: Life Up
-				Description: Max life is increased by 40
+				DisplayName: Heart Collector
+				Description: Enemies drop hearts more often on death
 			}
 
 			HeartDebuff: {
@@ -349,7 +349,7 @@ Mods: {
 				DisplayName: Bloody Treads
 				Tooltip:
 					'''
-					The wearer can run up to 40mph
+					The wearer can run up to 36mph
 					Increases acceleration
 					Leaves behind a damaging trail of blood when running along the ground
 					'''
@@ -466,11 +466,11 @@ Mods: {
 			}
 
 			HeartJar: {
-				DisplayName: Heart Emblem
+				DisplayName: Life Emblem
 				Tooltip:
 					'''
-					Most enemies have a chance to drop a super heart when they fall below half life, bosses always drop 3 hearts
-					Enemies that drop the heart lose life rapidly
+					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50
+					Enemies that that grant you health lose life rapidly
 					Increases maximum health by 20
 					'''
 			}
@@ -480,8 +480,8 @@ Mods: {
 				Tooltip:
 					'''
 					Reduces the cooldown of healing potions by 25%
-					Most enemies have a chance to drop a super heart when they fall below half life, bosses always drop 3 hearts
-					Enemies that drop the heart lose life rapidly
+					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50
+					Enemies that that grant you health lose life rapidly
 					Increases maximum health by 20
 					'''
 			}
@@ -533,7 +533,7 @@ Mods: {
 				DisplayName: Soul Striders
 				Tooltip:
 					'''
-					Greatly increases movement speed up to 50mph
+					Greatly increases movement speed up to 46mph
 					Increases acceleration, and allows flight
 					'Speed throughout the day and the night'
 					'''
@@ -797,7 +797,7 @@ Mods: {
 
 			DerplingBCrown: {
 				DisplayName: Messenger's Crown
-				Tooltip: Increases maximum movement speed
+				Tooltip: Increases movement speed and acceleration
 			}
 
 			DerplingBHeadgear: {
@@ -1249,8 +1249,8 @@ Mods: {
 			}
 
 			FruitHeartPotion: {
-				DisplayName: Life Fruit Vial
-				Tooltip: Temporarily increases maximum health by 50
+				DisplayName: Super Heart Vial
+				Tooltip: Enemies will have a chance to drop a super heart on death that heals for 50, bosses always drop 2
 			}
 
 			GunPotion: {
@@ -1259,8 +1259,8 @@ Mods: {
 			}
 
 			HeartPotion: {
-				DisplayName: Life Vial
-				Tooltip: Temporarily increases maximum health by 40
+				DisplayName: Heart Vial
+				Tooltip: Enemies will drop a heart on death more often, bosses also drop more hearts
 			}
 
 			ShroomitePotion: {
@@ -1471,7 +1471,7 @@ Mods: {
 
 			SuperHeartPickup: {
 				DisplayName: Super Heart
-				Tooltip: Heals 25 health when picked up
+				Tooltip: Heals 50 health when picked up
 			}
 
 			TeddyBear: {
@@ -1961,7 +1961,7 @@ Mods: {
 
 			LunarSelenianBlade: {
 				DisplayName: Selenian Blades
-				Tooltip: Can be thrown out and spin in place upon striking an enemy
+				Tooltip: Spin in place upon striking an enemy
 			}
 
 			LunarSolarSpin: {
@@ -2004,8 +2004,18 @@ Mods: {
 				DisplayName: Storm Diver Shotgun
 				Tooltip:
 					'''
-					Stolen from the Legendary Storm Divers
-					Right click to convert bullets into luminite bullets
+					Can be charged up to increase accuracy and damage
+					Gains additional damage, speed, and knockback at max charge
+					'Stolen from the Legendary Storm Divers'
+					'''
+			}
+
+			MagicArrow: {
+				DisplayName: High Tech Seeking Arrow
+				Tooltip:
+					'''
+					Targets all enemies in range when used, returns to you when not in use.
+					'I'm Mary Poppins Y'all'
 					'''
 			}
 
@@ -2265,6 +2275,7 @@ Mods: {
 				Tooltip:
 					'''
 					Summons magical controllable daggers
+					Can be moved through tiles carefully
 					Maximum of 5 can be controlled at any time
 					'''
 			}
@@ -2312,8 +2323,9 @@ Mods: {
 				Tooltip:
 					'''
 					Fires out up to 16 Spiky Bombs that stick to surfaces can be detonated by right clicking while holding the weapon
-					Right clicking while holding DOWN will unstick all bombs and make them explode on enemy impact
+					Right clicking while holding UP will unstick all bombs and make them explode on enemy impact
 					Shoots further depending on your cursor location
+					Can be used to sticky-jump, also works on enemies and Town NPCs
 					Uses rockets as ammo
 					'''
 			}
@@ -2377,6 +2389,17 @@ Mods: {
 					'''
 					Rapidly fires out darts
 					50% chance not to consume darts
+					'''
+			}
+
+			TheSickle: {
+				DisplayName: Nine Lives
+				Tooltip:
+					'''
+					Left Click to use as a spinning weapon, Right Click to throw both blades in succession
+					Kill enemies to collect up to 9 souls, each collected soul increases the damage and crit chance of the weapon
+					Souls will begin to escape if no enemies are killed within 10 seconds
+					'Pick it up. Pick. It. Up'
 					'''
 			}
 
@@ -2671,13 +2694,13 @@ Mods: {
 			BeetleGloveProj.DisplayName: Mini Beetle
 			BeetleProj.DisplayName: Beetle
 			BeetleShellProj.DisplayName: Beetle Shell
-			BeetleSpearProj.DisplayName: Beetle Spear
+			BeetleSpearProj.DisplayName: Beetle Lance
 			BeetleYoyoProj.DisplayName: Beetle Yoyo
 			BetsyFlameProj.DisplayName: Betsy's Flame
 			BloodBootProj.DisplayName: Blood Boot Trail
 			BloodDropProj.DisplayName: Blood Drop
 			BloodGrenadeProj.DisplayName: Blood Grenade
-			BloodSpearProj.DisplayName: Blood Spear
+			BloodSpearProj.DisplayName: Heart Piercer
 			BloodSwordProj.DisplayName: Blood Trial
 			BloodyBulletProj.DisplayName: Bloody Bullet
 			BloodyBulletProj2.DisplayName: Blood Bullet Drop
@@ -2692,7 +2715,7 @@ Mods: {
 			CultistBowProj.DisplayName: Ice mist arrow
 			CultistBowProj2.DisplayName: Ice mist spike
 			CultistLazorProj.DisplayName: Cultist Laser
-			CultistSpearProj.DisplayName: Cultist Spear
+			CultistSpearProj.DisplayName: Lunatic Spear of Fire
 			CultistSpearProj2.DisplayName: Fireball Blast
 			CultistTomeProj.DisplayName: Cultist Star
 			CursedHammerProj.DisplayName: Cursed Hammer
@@ -2705,7 +2728,7 @@ Mods: {
 			DesertBowProj.DisplayName: Forbidden Fury Arrow
 			DesertJarProj.DisplayName: Forbidden Dust Trail
 			DesertJarProj2.DisplayName: Forbidden Dust Orbit
-			DesertSpearProj.DisplayName: Forbidden Spear
+			DesertSpearProj.DisplayName: Forbidden Pike
 			DesertSpearTipProj.DisplayName: Forbidden Spear Dust
 			DesertSpellProj.DisplayName: Forbidden Sand
 			DestroyerFlailProj.DisplayName: Vaporiser Flail
@@ -2755,9 +2778,10 @@ Mods: {
 			LizardFlameProj.DisplayName: Lihzahrd Flame
 			LizardSpellProj.DisplayName: Lihzahrd Fire Orb
 			LizardSpinnerProj.DisplayName: Lihzahrd Spinner
+			MagicArrowProj.DisplayName: Magic Arrow
 			MagicMushArmourProj.DisplayName: Magical Mushroom
 			MagicMushProj.DisplayName: Magical Mushroom
-			MeteorSpearProj.DisplayName: Meteor Spear
+			MeteorSpearProj.DisplayName: Space Spear
 			MeteorSpearProj2.DisplayName: Meteor Fragment
 			AncientMinionProj.DisplayName: Ancient Arid Minion
 			AncientMinionProj2.DisplayName: Ancient Arid Minion Projectile
@@ -2863,6 +2887,9 @@ Mods: {
 			StormLightningProj.DisplayName: Overloaded Lightning
 			SwordDarkProj.DisplayName: Dark Essence
 			SwordLightProj.DisplayName: Light Essence
+			TheSickleProj.DisplayName: Nine Lives Sickle Spinner
+			TheSickleProj2.DisplayName: Nine Lives Sickle Thrown
+			TheSickleProj3.DisplayName: Nine Lives Soul
 			ThrowingKnifeBouncyProj.DisplayName: Bouncy Knife
 			ThrowingSilverKniveProj.DisplayName: Silver Throwing Knive
 			ThrowingTungstenKniveProj.DisplayName: Tungsten Throwing Knive
@@ -2883,13 +2910,14 @@ Mods: {
 			SpaceRockDrillSawProj.DisplayName: Asteroid DrillSaw
 			SpaceRockJackhammerProj.DisplayName: Asteroid Jackhammer
 			TurtleShellProj.DisplayName: Turtle Shell
-			TurtleSpearProj.DisplayName: Turtle Spear
+			TurtleSpearProj.DisplayName: Turtle Pike
 			TurtleYoyoProj.DisplayName: Turtle Yoyo
 			TurtleYoyoProj2.DisplayName: Turtle Yoyo
 			VortexiaProj.DisplayName: Large Vortex
 			VortexiaProj2.DisplayName: Homing Vortex
 			VortexRocketProj.DisplayName: Vortex Rocket
 			VortexRocketProj2.DisplayName: Vortex Rocket
+			VortexShotgunGun.DisplayName: Storm Diver Shotgun
 			WebProj.DisplayName: Web
 			BloodWhipProj.DisplayName: Blood Whip Proj
 			BloodWhipProj2.DisplayName: Bloody whip Orb
@@ -2900,20 +2928,20 @@ Mods: {
 			WebWhipProj.DisplayName: Web Whip Proj
 			WoodenBoltProj.DisplayName: CrossBow Bolt
 			WoodPointyStickProj.DisplayName: Pointy Stick
-			TRAEBeetleSpear.DisplayName: T R A E Beetle Spear
-			TRAEBeetleSpearThrow.DisplayName: T R A E Beetle Spear Throw
-			TRAEBloodySpear.DisplayName: T R A E Bloody Spear
-			TRAEBloodySpearThrow.DisplayName: T R A E Bloody Spear Throw
-			TRAECultistSpear.DisplayName: T R A E Cultist Spear
-			TRAECultistSpearThrow.DisplayName: T R A E Cultist Spear Throw
-			TRAEDesertSpear.DisplayName: T R A E Desert Spear
-			TRAEDesertSpearThrow.DisplayName: T R A E Desert Spear Throw
-			TRAEGladiatorSpear.DisplayName: T R A E Gladiator Spear
-			TRAEGladiatorSpearThrow.DisplayName: T R A E Gladiator Spear Throw
-			TRAEMeteorSpear.DisplayName: T R A E Meteor Spear
-			TRAEMeteorSpearThrow.DisplayName: T R A E Meteor Spear Throw
-			TRAETurtleSpear.DisplayName: T R A E Turtle Spear
-			TRAETurtleSpearThrow.DisplayName: T R A E Turtle Spear Throw
+			TRAEBeetleSpear.DisplayName: Beetle Lance
+			TRAEBeetleSpearThrow.DisplayName: Beetle Lance Thrown
+			TRAEBloodySpear.DisplayName: Heart Piercer
+			TRAEBloodySpearThrow.DisplayName: Heart Piercer Thrown
+			TRAECultistSpear.DisplayName: Luanatic Spear of Fire
+			TRAECultistSpearThrow.DisplayName: Luanatic Spear of Fire Thrown
+			TRAEDesertSpear.DisplayName: Forbidden Pike
+			TRAEDesertSpearThrow.DisplayName: Forbidden Pike Thrown
+			TRAEGladiatorSpear.DisplayName: Gladiator Glaive
+			TRAEGladiatorSpearThrow.DisplayName: Gladiator Glaive Thrown
+			TRAEMeteorSpear.DisplayName: Space Spear
+			TRAEMeteorSpearThrow.DisplayName: Space Spear Thrown
+			TRAETurtleSpear.DisplayName: Turtle Pike
+			TRAETurtleSpearThrow.DisplayName: Turtle Pike Thrown
 		}
 
 		Tiles: {

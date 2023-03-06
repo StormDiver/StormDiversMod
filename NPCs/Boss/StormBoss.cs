@@ -1227,8 +1227,19 @@ namespace StormDiversMod.NPCs.Boss
             potionType = ItemID.GreaterHealingPotion;
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
-        {          
-                //target.AddBuff(ModContent.BuffType<Buffs.ScanDroneDebuff>(), 800);          
+        {
+            if (!Main.expertMode)
+            {
+                //No Debuff
+            }
+            if (Main.expertMode && !Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 240); //4 seconds
+            }
+            if (Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 480); //8 seconds
+            }
         }
         public override void HitEffect(int hitDirection, double damage)
         {  

@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Spear");
+            DisplayName.SetDefault("Beetle Lance");
         }
 
         public override void SetDefaults()

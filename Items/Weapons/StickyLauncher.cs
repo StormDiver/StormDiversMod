@@ -17,8 +17,8 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spiky Bomb Launcher");
-            Tooltip.SetDefault("Fires out up to 16 Spiky Bombs that stick to surfaces can be detonated by right clicking while holding the weapon\nRight clicking while holding DOWN will unstick all bombs and make them explode on enemy impact" +
-                "\nShoots further depending on your cursor location\nUses rockets as ammo");
+            Tooltip.SetDefault("Fires out up to 16 Spiky Bombs that stick to surfaces can be detonated by right clicking while holding the weapon\nRight clicking while holding UP will unstick all bombs and make them explode on enemy impact" +
+                "\nShoots further depending on your cursor location\nCan be used to sticky-jump, also works on enemies and Town NPCs\nUses rockets as ammo");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

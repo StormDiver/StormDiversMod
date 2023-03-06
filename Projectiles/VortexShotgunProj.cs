@@ -53,7 +53,7 @@ namespace StormDiversMod.Projectiles
         public override void OnSpawn(IEntitySource source)
         {
             var player = Main.player[Projectile.owner];
-            Projectile.damage = 90; //starts off at 90, but then ranged buffs are applied after charge
+            Projectile.damage = player.HeldItem.damage; //starts off at 90, but then ranged buffs are applied after charge
         }
         public override void AI()
         {

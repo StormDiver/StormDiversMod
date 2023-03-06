@@ -19,7 +19,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Spear");
+            DisplayName.SetDefault("Lunatic Spear of Fire");
         }
 
         public override void SetDefaults()

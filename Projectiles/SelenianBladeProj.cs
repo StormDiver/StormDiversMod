@@ -38,8 +38,8 @@ namespace StormDiversMod.Projectiles
             AIType = 106;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            DrawOffsetX = 0;
-            DrawOriginOffsetY = 0;
+            DrawOffsetX = -5;
+            DrawOriginOffsetY = -5;
             Projectile.penetrate = -1;
         }
 
@@ -49,8 +49,8 @@ namespace StormDiversMod.Projectiles
         {
 
 
-            Projectile.width = 36;
-            Projectile.height = 36;
+            Projectile.width = 26;
+            Projectile.height = 26;
 
             int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);  //this is the dust that this projectile will spawn
             Main.dust[dust].velocity /= 1f;
@@ -95,32 +95,30 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             //Main.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 2);
             for (int i = 0; i < 10; i++)
-            {
-                 
+            {               
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
                 dust.scale = 2f;
                 dust.noGravity = true;
-
             }
-            return true;
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.velocity.X = -oldVelocity.X * 1f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 1f;
+            }
+            return false;
         }
 
         public override void Kill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
-
-
-
             }
-
-
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -130,7 +128,7 @@ namespace StormDiversMod.Projectiles
             Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
-                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(-5f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }

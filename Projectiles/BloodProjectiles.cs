@@ -187,7 +187,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Spear");
+            DisplayName.SetDefault("Heart Piercer");
         }
 
         public override void SetDefaults()

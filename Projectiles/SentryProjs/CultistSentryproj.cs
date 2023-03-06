@@ -67,27 +67,22 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
 
             Projectile.velocity.X = 0;
-            Projectile.velocity.Y = 0;
-            
+            Projectile.velocity.Y = 0;            
            
             Main.player[Projectile.owner].UpdateMaxTurrets();
 			if (!Main.dedServ)
 			{
 				Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
 			}
-            
-                if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 24, Projectile.Center.Y - 24), 48, 48, 226, 0, 0, 130, default, 1f);
 
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 0.5f;
-                }
-            
-            //else
-            {
-                //Projectile.ai[0] += 1f;
-            }
+			if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
+			{
+				int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 24, Projectile.Center.Y - 24), 48, 48, 226, 0, 0, 130, default, 1f);
+
+				Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+				Main.dust[dust].velocity *= 0.5f;
+			}     
+     
             if (Projectile.alpha < 10)
             {
                 Projectile.ai[1]++; //Shoottime
@@ -96,7 +91,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             //Getting the npc to fire at
             for (int i = 0; i < 200; i++)
             {
-
                 if (player.HasMinionAttackTargetNPC)
                 {
                     target = Main.npc[player.MinionAttackTargetNPC];
@@ -158,7 +152,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 }
             }
-
 
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 6)

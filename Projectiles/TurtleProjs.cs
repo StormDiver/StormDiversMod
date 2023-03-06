@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Turtle Spear");
+            DisplayName.SetDefault("Turtle Pike");
         }
 
         public override void SetDefaults()

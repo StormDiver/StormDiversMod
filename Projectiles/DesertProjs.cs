@@ -155,7 +155,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Spear");
+            DisplayName.SetDefault("Forbidden Pike");
         }
 
         public override void SetDefaults()

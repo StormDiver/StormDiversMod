@@ -18,7 +18,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Spear");
+            DisplayName.SetDefault("Space Spear");
 
         }
 

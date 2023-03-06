@@ -102,7 +102,6 @@ namespace StormDiversMod.Basefiles
 
         public bool superHeartpotion; //Player has taken a super heart potion
 
-
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the SPooky Core has fired its flames or not
@@ -131,6 +130,7 @@ namespace StormDiversMod.Basefiles
         public int coraldrop; //Cooldown for coral emblem drops
         public bool stormBossProj; // wheter the projectile for the storm coil has been spawned
         public int shroomtime; //For cahnneling ranged weapons with Shroomite launcher
+
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -188,7 +188,7 @@ namespace StormDiversMod.Basefiles
             stormBossProj = false;
             flamecooldown = 0;
         }
-   
+
         //===============================================================================================================
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
@@ -242,7 +242,8 @@ namespace StormDiversMod.Basefiles
         }
        
         public override void PostUpdateEquips() //Updates every frame
-        { 
+        {
+            
             //Reduces ints if they are above 0 and not in the equip field
 
             if (frostSpike)
@@ -1388,7 +1389,11 @@ namespace StormDiversMod.Basefiles
         }
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit) //Hit by any projectile
         {
-
+           /* if (proj.type == ModContent.ProjectileType<Projectiles.StickyBombProj>())
+            {
+                proj.damage = 10;
+               
+            }*/
         }
      
         public override bool CanConsumeAmmo(Item weapon, Item ammo)

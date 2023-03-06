@@ -60,9 +60,17 @@ namespace StormDiversMod.Projectiles
                 return true;
             }
         }
-        
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            fallThrough = false;
+
+            return true;
+        }
+
         public override void AI()
         {
+            var player = Main.player[Projectile.owner];
+
             boomtime++;
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
@@ -83,7 +91,34 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
                 //Projectile.hostile = true;
+  
+                //launch player
+                float distance = Vector2.Distance(player.Center, Projectile.Center);
+                if (distance <= Projectile.width / 2 + 25 && !player.mount.Active)
+                {
+                    float launchspeed = 12;
+                    Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X, player.Center.Y)) * launchspeed;
+                    player.GetModPlayer<MiscFeatures>().explosionfall = true;
 
+                    player.velocity.X = -launchvelocity.X * 2.5f;
+                    player.velocity.Y = -launchvelocity.Y * 2.5f;
+                    //player.fallStart = 0;
+                }
+                for (int i = 0; i < 200; i++)//for town npcs
+                {
+                    NPC target = Main.npc[i];
+
+                    float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                    if (npcdistance <= Projectile.width / 2 + 25 && (target.friendly || target.CountsAsACritter))
+                    {
+                        float npclaunchspeed = 12;
+                        Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                        target.velocity.X = -npclaunchvelocity.X * 1.5f;
+                        target.velocity.Y = -npclaunchvelocity.Y * 2f;
+                    }
+                }
             }
             else
             {
@@ -109,12 +144,11 @@ namespace StormDiversMod.Projectiles
                 Projectile.knockBack = 0;
 
             }
-            var player = Main.player[Projectile.owner];
 
             //Projectile.damage = (int)player.GetTotalDamage(DamageClass.Ranged).ApplyTo(Projectile.originalDamage);
+            //^Ignores ammo damage sadly
 
-
-            if ((player.controlUseTile && !player.controlDown && player.HeldItem.type == ModContent.ItemType<Items.Weapons.StickyLauncher>() && boomtime > 30) || player.dead) //will go BOOM
+            if ((player.controlUseTile && !player.controlUp && player.HeldItem.type == ModContent.ItemType<Items.Weapons.StickyLauncher>() && boomtime > 30) || player.dead) //will go BOOM
             {
                 if (Projectile.timeLeft > 3)
                 {
@@ -125,7 +159,7 @@ namespace StormDiversMod.Projectiles
                     player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }
             }
-            if ((player.controlUseTile && player.controlDown && !unstick && stick)) //will unstick
+            if ((player.controlUseTile && player.controlUp && !unstick && stick)) //will unstick
             {
                 SoundEngine.PlaySound(SoundID.Item108, Projectile.Center);
                 Projectile.velocity.Y = -2;
@@ -171,6 +205,13 @@ namespace StormDiversMod.Projectiles
                     Projectile.timeLeft = 3;
                 }
             }
+            if (target.knockBackResist != 0)
+            {
+                float launchspeed = 12;
+                Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * launchspeed;
+                target.velocity.X = -launchvelocity.X * 0.75f;
+                target.velocity.Y = -launchvelocity.Y * 1.5f;
+            }
         }
 
         public override void Kill(int timeLeft)
@@ -201,16 +242,8 @@ namespace StormDiversMod.Projectiles
                 dust.velocity *= 2.5f;
 
             }
-            /*for (int i = 0; i < 25; i++) //Grey dust fade
-            {
-
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
-                Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].noGravity = true;
-            }*/
+           
         }
-
     }
    
 }

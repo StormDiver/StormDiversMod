@@ -43,10 +43,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.aiStyle = -1;
             //aiType = ProjectileID.VortexBeaterRocket;
             
-
-        }
-        
-       
+        }          
         
         public override void AI()
         {
@@ -67,9 +64,17 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (Main.rand.Next(2) == 0)
+            if (!Main.expertMode)
             {
-                //target.AddBuff(BuffID.Electrified, 60);
+                //No Debuff
+            }
+            if (Main.expertMode && !Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 150);
+            }
+            if (Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 300);
             }
         }
 
@@ -203,17 +208,24 @@ namespace StormDiversMod.NPCs.NPCProjs
                         Projectile.velocity.X = velocity.X;
                         Projectile.velocity.Y = velocity.Y;
                     }
-
                 }
-
-
             }
-
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            //target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 300);
+            if (!Main.expertMode)
+            {
+                //No Debuff
+            }
+            if (Main.expertMode && !Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 150);
+            }
+            if (Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 300);
+            }
 
             Projectile.Kill();
         }
@@ -246,9 +258,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                     int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 229, default, 1.5f);
                     Main.dust[dust2].noGravity = true;
                 }*/
-
-            
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -262,11 +271,8 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
-        }
-     
+        }    
     }
     //__________________________
     public class StormBossMineLarge : ModProjectile
@@ -374,7 +380,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.height = 150;
                 Projectile.Center = Projectile.position;
 
-
                 Projectile.knockBack = 6f;
 
             }
@@ -385,6 +390,18 @@ namespace StormDiversMod.NPCs.NPCProjs
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
+            }
+            if (!Main.expertMode)
+            {
+                //No Debuff
+            }
+            if (Main.expertMode && !Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 150);
+            }
+            if (Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 300);
             }
         }
 
@@ -518,6 +535,19 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 Projectile.timeLeft = 3;
             }
+
+            if (!Main.expertMode)
+            {
+                //No Debuff
+            }
+            if (Main.expertMode && !Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 150);
+            }
+            if (Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 300);
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
 
@@ -574,11 +604,9 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Overloaded ScanDrone Lightning");
-
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 22;
             Projectile.height = 22;
             Projectile.hostile = true;
@@ -594,7 +622,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.localNPCHitCooldown = 75;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 1;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
-
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -621,7 +648,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             return false;
         }
-
 
         public override bool PreDraw(ref Color lightColor)
         {
@@ -808,6 +834,21 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Main.dust[num3].noGravity = true;
                 Main.dust[num3].scale = 1.7f;
             }*/
+        }
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (!Main.expertMode)
+            {
+                //No Debuff
+            }
+            if (Main.expertMode && !Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 150);
+            }
+            if (Main.masterMode)
+            {
+                target.AddBuff(BuffID.Electrified, 300);
+            }
         }
         public override void Kill(int timeLeft)
         {
@@ -1042,9 +1083,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                     Projectile.Kill();
                 }
             }
-          
-
-
 
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 5) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
@@ -1057,24 +1095,14 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = (byte)Projectile.alpha;
             return color;
-
         }
 
         public override void Kill(int timeLeft)
         {
-
-            /*
-                        Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
-
-                        */
-
+            //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
         }
-
-    
-
     }
 }

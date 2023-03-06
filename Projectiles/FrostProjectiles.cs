@@ -243,8 +243,9 @@ namespace StormDiversMod.Projectiles
 
             Projectile.Center = player.MountedCenter;
             Projectile.position.X += player.width / 2 * player.direction;
-            
-            //Projectile.spriteDirection = player.direction;
+            Projectile.position.Y += player.height / 10;
+
+            Projectile.spriteDirection = player.direction;
             
             Projectile.rotation += 0.15f * player.direction; //this is the projectile rotation/spinning speed
            
@@ -267,15 +268,8 @@ namespace StormDiversMod.Projectiles
             base.ModifyDamageHitbox(ref hitbox);
         }
         public override bool PreDraw(ref Color lightColor)
-        {
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/FrostSpinProj");
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, new Vector2(texture.Width / 2, texture.Height / 2), 1f, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
-            return false;
-        }
-        public override void PostDraw(Color lightColor)
-        {
+        {           
             Main.instance.LoadProjectile(Projectile.type);
-            var player = Main.player[Projectile.owner];
 
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
@@ -284,8 +278,9 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
+            return true;
         }
 
     }
