@@ -32,7 +32,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 24;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 10, 0, 0);
-            Item.rare = ItemRarityID.LightPurple;
+            Item.rare = ItemRarityID.Yellow;
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = 100;
@@ -107,7 +107,7 @@ namespace StormDiversMod.Items.Weapons
             .AddIngredient(ItemID.Sickle, 2)
             .AddIngredient(ItemID.SoulofNight, 15)
             .AddIngredient(ItemID.Ectoplasm, 15)
-            .AddTile(TileID.Anvils)
+            .AddTile(TileID.MythrilAnvil)
             .Register();
         }
        

@@ -274,7 +274,7 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 300;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
 
@@ -284,7 +284,6 @@ namespace StormDiversMod.Projectiles
 
         }
         int damagetime;
-
     
         public override bool? CanDamage()
         {
@@ -297,7 +296,6 @@ namespace StormDiversMod.Projectiles
                 return true;
             }
         }
-
         public override void AI()
         {
             damagetime++;
@@ -312,7 +310,7 @@ namespace StormDiversMod.Projectiles
                 }
             }
 
-                AnimateProjectile();
+            AnimateProjectile();
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = Projectile.position;
@@ -320,15 +318,14 @@ namespace StormDiversMod.Projectiles
             dust.noGravity = true;
             dust.scale = 0.8f;
             if (damagetime > 60)
-            {
-
+            {             
                 if (Projectile.localAI[0] == 0f)
                 {
                     AdjustMagnitude(ref Projectile.velocity);
                     Projectile.localAI[0] = 1f;
                 }
                 Vector2 move = Vector2.Zero;
-                float distance = 550f;
+                float distance = 750f;
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {
@@ -351,13 +348,12 @@ namespace StormDiversMod.Projectiles
                             }
                             
                         }
-                    }
-                   
+                    }                  
                 }
                 if (target)
                 {
                     AdjustMagnitude(ref move);
-                    Projectile.velocity = (15 * Projectile.velocity + move) / 14f;
+                    Projectile.velocity = (15 * Projectile.velocity + move) / 16f;
                     AdjustMagnitude(ref Projectile.velocity);
                 }
                 else
@@ -378,9 +374,9 @@ namespace StormDiversMod.Projectiles
             if (damagetime > 60)
             {
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 13f)
+                if (magnitude > 17f)
                 {
-                    vector *= 13f / magnitude;
+                    vector *= 17f / magnitude;
                 }
             }
         }

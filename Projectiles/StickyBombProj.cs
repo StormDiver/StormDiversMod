@@ -46,18 +46,13 @@ namespace StormDiversMod.Projectiles
         bool unstick; //Bool for if you unstick the bombs
         public override bool? CanDamage()
         {
-            if (unstick)
+            if (unstick || boomed)
             {
                 return true;
-            }
-            if (!boomed)
-            {
-                return false;
-
             }
             else
             {
-                return true;
+                return false;
             }
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -70,6 +65,18 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
+            /*if (!stick || unstick)
+            {
+                if (Projectile.velocity.Y < 0)
+                {
+                    Projectile.velocity.Y *= 0.97f;
+                }
+                if (Projectile.velocity.Y > -1.5f && Projectile.velocity.Y < 20)
+                {
+                    Projectile.velocity.Y += 0.4f;
+                }
+                Projectile.rotation += Projectile.velocity.X / 5;
+            }*/
 
             boomtime++;
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
@@ -96,13 +103,15 @@ namespace StormDiversMod.Projectiles
                 float distance = Vector2.Distance(player.Center, Projectile.Center);
                 if (distance <= Projectile.width / 2 + 25 && !player.mount.Active)
                 {
-                    float launchspeed = 12;
-                    Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X, player.Center.Y)) * launchspeed;
-                    player.GetModPlayer<MiscFeatures>().explosionfall = true;
+                    if (Collision.CanHit(player.Center, 0, 0, Projectile.Center, 0, 0))
+                    {
+                        float launchspeed = 12;
+                        Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X, player.Center.Y)) * launchspeed;
+                        player.GetModPlayer<MiscFeatures>().explosionfall = true;
 
-                    player.velocity.X = -launchvelocity.X * 2.5f;
-                    player.velocity.Y = -launchvelocity.Y * 2.5f;
-                    //player.fallStart = 0;
+                        player.velocity.X = -launchvelocity.X * 2.5f;
+                        player.velocity.Y = -launchvelocity.Y * 2.5f;
+                    }
                 }
                 for (int i = 0; i < 200; i++)//for town npcs
                 {
@@ -112,11 +121,14 @@ namespace StormDiversMod.Projectiles
 
                     if (npcdistance <= Projectile.width / 2 + 25 && (target.friendly || target.CountsAsACritter))
                     {
-                        float npclaunchspeed = 12;
-                        Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+                        if (Collision.CanHit(target.Center, 0, 0, Projectile.Center, 0, 0))
+                        {
+                            float npclaunchspeed = 12;
+                            Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
 
-                        target.velocity.X = -npclaunchvelocity.X * 1.5f;
-                        target.velocity.Y = -npclaunchvelocity.Y * 2f;
+                            target.velocity.X = -npclaunchvelocity.X * 1.5f;
+                            target.velocity.Y = -npclaunchvelocity.Y * 2f;
+                        }
                     }
                 }
             }

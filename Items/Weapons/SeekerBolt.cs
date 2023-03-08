@@ -26,7 +26,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useTime = 14;
             Item.useAnimation = 14;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.value = Item.sellPrice(0, 3, 0, 0);
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
