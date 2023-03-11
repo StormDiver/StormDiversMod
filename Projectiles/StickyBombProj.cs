@@ -234,13 +234,11 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 30; i++) //Orange particles
             {
-                Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -8f).RotatedByRandom(MathHelper.ToRadians(360));
 
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
-
-                dust.scale = 1.5f;
-                dust.fadeIn = 1.5f;
+                dust.scale = 2f;
 
             }
             for (int i = 0; i < 35; i++) //Grey dust circle
@@ -254,7 +252,6 @@ namespace StormDiversMod.Projectiles
                 dust.velocity *= 2.5f;
 
             }
-           
         }
     }
    

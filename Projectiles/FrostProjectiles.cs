@@ -122,25 +122,14 @@ namespace StormDiversMod.Projectiles
 
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Projectile.owner);
             //Main.projectile[proj].scale = 1;
-
-            /*for (int i = 0; i < 50; i++) //Frost particles
-            {
-                Vector2 perturbedSpeed = new Vector2(0, -6f).RotatedByRandom(MathHelper.ToRadians(360));
-
-                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 156, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 2f);
-                Main.dust[dustIndex].noGravity = true;
-
-
-            }*/
-            for (int i = 0; i < 30; i++)
+         
+            for (int i = 0; i < 30; i++) //Frost dust
             {
                 Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
 
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 156, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
-
                 dust.scale = 1.5f;
-                dust.fadeIn = 1.5f;
 
             }
             for (int i = 0; i < 20; i++) //Grey dust circle

@@ -93,9 +93,7 @@ namespace StormDiversMod
             ModLoader.TryGetMod("Wikithis", out Mod wikithis);
             if (wikithis != null && !Main.dedServ)
             {
-                // Alternatively, you can use this instead, if your wiki is on terrariamods.fandom.com
-                wikithis.Call(0, this, "terrariamods.fandom.com$Storm_Diver%27s_Additions_Mod");
-                // wikithis.Call("AddModURL", this, "terrariamods.fandom.com/wiki/Storm_Diver%27s_Additions_Mod");
+                wikithis.Call("AddModURL", this, "terrariamods.wiki.gg$Storm's_Additions_Mod");
             }
         }
         public override void Unload()

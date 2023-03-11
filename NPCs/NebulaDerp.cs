@@ -164,12 +164,12 @@ namespace StormDiversMod.NPCs
             Texture2D texture2 = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/NebulaDerp");
 
             float speen1 = 9f + 3f * (float)Math.Cos((float)Math.PI * 2f * Main.GlobalTimeWrappedHourly);
-            Vector2 spinningpoint5 = Vector2.UnitX * speen1;
+            Vector2 spinningpoint = Vector2.UnitX * speen1;
             Color color = Color.Teal * (speen1 / 12f) * 0.8f;
             color.A /= 2;
             for (float speen2 = 0f; speen2 < (float)Math.PI * 2f; speen2 += (float)Math.PI / 2f)
             {
-                Vector2 finalpos = NPC.position + new Vector2(0, 10) + spinningpoint5.RotatedBy(speen2);
+                Vector2 finalpos = NPC.position + new Vector2(0, 10) + spinningpoint.RotatedBy(speen2);
                 spriteBatch.Draw(texture2, new Vector2(finalpos.X - screenPos.X + (float)(NPC.width / 2) * NPC.scale, finalpos.Y - screenPos.Y + (float)NPC.height * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale), NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
             return base.PreDraw(spriteBatch, screenPos, drawColor);

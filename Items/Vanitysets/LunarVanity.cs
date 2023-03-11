@@ -153,7 +153,7 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Storm Diver legs");
+            DisplayName.SetDefault("Storm Diver Legs");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
@@ -334,7 +334,7 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Selenian legs");
+            DisplayName.SetDefault("Selenian Legs");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
@@ -515,7 +515,7 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Predictor legs");
+            DisplayName.SetDefault("Predictor Legs");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
@@ -696,7 +696,7 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Stargazer legs");
+            DisplayName.SetDefault("Stargazer Legs");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {

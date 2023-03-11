@@ -1217,7 +1217,7 @@ namespace StormDiversMod.Basefiles
 
                     SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances= 0 }, target.Center);
 
-                    float numberProjectiles = 3 + Main.rand.Next(3);
+                    float numberProjectiles = 3 + Main.rand.Next(2);
 
                     for (int i = 0; i < numberProjectiles; i++)
                     {
@@ -1228,7 +1228,7 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 35, 1, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 30, 1, Player.whoAmI);
 
                     }
                     for (int i = 0; i < 25; i++)

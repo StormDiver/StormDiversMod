@@ -1492,7 +1492,7 @@ Mods: {
 			}
 
 			PredictorBody.DisplayName: Predictor Body
-			PredictorLegs.DisplayName: Predictor legs
+			PredictorLegs.DisplayName: Predictor Legs
 
 			SelenianBMask: {
 				DisplayName: Selenian Head
@@ -1500,7 +1500,7 @@ Mods: {
 			}
 
 			SelenianBody.DisplayName: Selenian Body
-			SelenianLegs.DisplayName: Selenian legs
+			SelenianLegs.DisplayName: Selenian Legs
 
 			StargazerBMask: {
 				DisplayName: Stargazer Head
@@ -1508,7 +1508,7 @@ Mods: {
 			}
 
 			StargazerBody.DisplayName: Stargazer Body
-			StargazerLegs.DisplayName: Stargazer legs
+			StargazerLegs.DisplayName: Stargazer Legs
 
 			StormDiverBMask: {
 				DisplayName: Storm Diver Mask
@@ -1516,7 +1516,7 @@ Mods: {
 			}
 
 			StormDiverBody.DisplayName: Storm Diver Body
-			StormDiverLegs.DisplayName: Storm Diver legs
+			StormDiverLegs.DisplayName: Storm Diver Legs
 
 			TheClaymanMask: {
 				DisplayName: Clayman

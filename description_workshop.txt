@@ -24,7 +24,7 @@ There's over 300 total modded items for you to discover; including weapons, acce
 [b]This mod has limited compatibility with the TRAE project mod, some items have been tweaked, mana consumption has been increased, and spears have their functionality from TRAE. Note that some TRAE-exculsive items may not affect items in this mod correctly.[/b]
 
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
-Check out the Mod wiki here: https://terrariamods.fandom.com/wiki/Storm_Diver%27s_Additions_Mod
+Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod
 
 Creator, coder, and main spriter: [b]Storm A[/b]
 Spriter and playtester: [b]KittKatt[/b]

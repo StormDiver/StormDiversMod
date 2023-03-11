@@ -278,7 +278,7 @@ namespace StormDiversMod.Projectiles
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
 
-            Projectile.aiStyle = 0;
+            //Projectile.aiStyle = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
 

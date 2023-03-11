@@ -240,8 +240,8 @@ namespace StormDiversMod.Items.Weapons
 
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<BloodPotion>(), 5);
-            recipe.AddIngredient(ItemID.Grenade, 5);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BloodPotion>(), 10);
+            recipe.AddIngredient(ItemID.Grenade, 10);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();

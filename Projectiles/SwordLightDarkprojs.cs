@@ -292,11 +292,7 @@ namespace StormDiversMod.Projectiles
 
             }
 
-
-
         }
-
-
         public override Color? GetAlpha(Color lightColor)
         {
             if (Projectile.timeLeft > 3)

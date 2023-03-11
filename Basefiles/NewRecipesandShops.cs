@@ -351,6 +351,12 @@ namespace StormDiversMod.Basefiles
                         shop.item[nextSlot].SetDefaults(ItemID.RocketI);
                         nextSlot++;
                     }
+
+                    if (NPC.downedBoss3)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<StickyBomb>());
+                        nextSlot++;
+                    }
                     break;
             }
        
