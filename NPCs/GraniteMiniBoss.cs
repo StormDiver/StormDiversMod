@@ -38,14 +38,14 @@ namespace StormDiversMod.NPCs
             NPC.damage = 25;
             
             NPC.defense = 12;
-            NPC.lifeMax = 160;
+            NPC.lifeMax = 220;
             NPC.noGravity = true;
             NPC.rarity = 2;
 
 
             NPC.HitSound = SoundID.NPCHit7;
             NPC.DeathSound = SoundID.NPCDeath44;
-            NPC.knockBackResist = 0.6f;
+            NPC.knockBackResist = 0.5f;
             NPC.value = Item.buyPrice(0, 0, 50, 0);
             NPC.gfxOffY = -2;
            Banner = NPC.type;
@@ -183,7 +183,7 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(int hitDirection, double damage)
         {
-            shoottime = 60;
+            shoottime = 80;
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers

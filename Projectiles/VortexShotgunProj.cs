@@ -15,6 +15,7 @@ using static Terraria.ModLoader.ModContent;
 using static System.Formats.Asn1.AsnWriter;
 using static Humanizer.In;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Projectiles
 {
@@ -86,7 +87,7 @@ namespace StormDiversMod.Projectiles
                 SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.5f, Pitch = sound, MaxInstances = 0 }, base.Projectile.position);
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust2 = Dust.NewDust(Projectile.position + Projectile.velocity * Main.rand.Next(6, 10) * 0.1f, Projectile.width, Projectile.height, 229, 0f, 0f, 80, default(Color), 0.75f);
+                    int dust2 = Dust.NewDust(Projectile.position + new Vector2(0, -2) + Projectile.velocity * Main.rand.Next(6, 10) * 0.1f, Projectile.width, Projectile.height, 229, 0f, 0f, 80, default(Color), 0.75f);
                     Main.dust[dust2].position.X -= 4f;
                     Main.dust[dust2].noGravity = true;
                     Main.dust[dust2].velocity *= 0.2f;
@@ -110,13 +111,21 @@ namespace StormDiversMod.Projectiles
                 if (Projectile.soundDelay <= 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.6f, Pitch = 1, MaxInstances = 0, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, base.Projectile.position);
+
+                    /*ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y - 2),
+
+                    }, player.whoAmI);*/
+
                     Projectile.soundDelay = 7;
                 }
                 Vector2 dustspeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
 
-                int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-5, -5), 0, 0, 229, dustspeed.X * 0.25f, dustspeed.Y * 0.25f, 229, default, 1.5f);
+                int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-5, -7), 0, 0, 229, dustspeed.X * 0.25f, dustspeed.Y * 0.25f, 229, default, 1.5f);
                 Main.dust[dust2].noGravity = true;
                 Main.dust[dust2].scale = 1f;
+               
             }
 
             Projectile.frameCounter++;
@@ -218,7 +227,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 5; i++)//5 projectiles
                 {            
                     Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f).RotatedByRandom(MathHelper.ToRadians(angle));    
-                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2((perturbedSpeed.X * extravel), (float)(perturbedSpeed.Y * extravel)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 2), new Vector2((perturbedSpeed.X * extravel), (float)(perturbedSpeed.Y * extravel)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = 10;
 
@@ -240,9 +249,9 @@ namespace StormDiversMod.Projectiles
 
                         Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                        int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 229, default, 1.5f);
+                        int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y - 2), Projectile.width, Projectile.height, 229, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 229, default, 1.5f);
                         Main.dust[dust2].noGravity = true;
-
+                      
                     }
                 }
             }

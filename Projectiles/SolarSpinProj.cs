@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Projectiles     //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
@@ -178,9 +179,9 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                         {
                             //Player player = Main.player[npc.target];
 
-                            if (Vector2.Distance(player.Center, projectile.Center) <= 100 && !reflected)
+                            if (Vector2.Distance(player.Center, projectile.Center) <= 120 && !reflected)
                             {
-                                int choice = Main.rand.Next(2);
+                                int choice = Main.rand.Next(0, 2);
                                 if (choice == 0)
                                 {
                                     SoundEngine.PlaySound(SoundID.Item56, projectile.Center);
@@ -192,6 +193,13 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
 
 
                                         projectile.velocity.Y *= -1f;
+                                        for (int i = 0; i < 1; i++)
+                                        {
+                                            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
+                                            {
+                                                PositionInWorld = projectile.Center,
+                                            }, projectile.whoAmI);
+                                        }
 
                                         projectile.friendly = true;
                                         projectile.hostile = false;

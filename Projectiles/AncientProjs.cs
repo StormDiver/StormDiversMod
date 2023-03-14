@@ -16,8 +16,6 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Ancient Sand Explosion");
             Main.projFrames[Projectile.type] = 7;
-
-
         }
 
         public override void SetDefaults()
@@ -33,7 +31,6 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 50;
             Projectile.penetrate = -1;
 
-
             Projectile.tileCollide = true;
             Projectile.scale = 1f;
             Projectile.knockBack = 0;
@@ -45,8 +42,6 @@ namespace StormDiversMod.Projectiles
             //Projectile.usesIDStaticNPCImmunity = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
-
-
         }
 
         public override void AI()
@@ -134,13 +129,9 @@ namespace StormDiversMod.Projectiles
             return false;
         }
         public override void Kill(int timeLeft)
-        {
-
-           
-          
+        {                 
 
         }
-
     }
     //_______________________________________
     public class AncientKnivesProj : ModProjectile
@@ -177,9 +168,7 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
         }
 
-
         int spinspeed = 0;
-
         public override void AI()
         {
 
@@ -191,7 +180,6 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.timeLeft <= 15)
             {
-
                 spinspeed++;
                 Projectile.rotation = (0.4f * spinspeed) * Projectile.direction;
 
@@ -200,7 +188,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.alpha += 17;
                 Projectile.light -= 0.01f;
             }
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -223,8 +210,7 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 0.5f;
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-           
+        public override void OnHitPvp(Player target, int damage, bool crit)         
         {
             target.AddBuff(BuffID.OnFire, 180);
 
@@ -234,16 +220,10 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 0.5f;
             }
         }
-
-
         public override void Kill(int timeLeft)
         {
-            
-            
+                      
         }
-
-
-
     }
     //___________________________________________________________________________
     public class AncientFlameProj : ModProjectile
@@ -252,11 +232,9 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Ancient Sand Stream");
             Main.projFrames[Projectile.type] = 4;
-
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 300;
             Projectile.height = 300;
             Projectile.friendly = true;
@@ -289,7 +267,6 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             Projectile.rotation += 0.1f;
-
 
             if (Main.rand.Next(10) == 0) //dust spawn sqaure increases with hurtbox size
             {
@@ -337,19 +314,13 @@ namespace StormDiversMod.Projectiles
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             
-
-                target.AddBuff(BuffID.OnFire, 180);
-
-
-
-            
+           target.AddBuff(BuffID.OnFire, 180);       
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
            
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
-
         {
             target.AddBuff(BuffID.OnFire, 180);
         }
@@ -368,7 +339,6 @@ namespace StormDiversMod.Projectiles
         {
             DisplayName.SetDefault("Ancient Sand Explosion");
             Main.projFrames[Projectile.type] = 7;
-
         }
 
         public override void SetDefaults()
@@ -380,8 +350,8 @@ namespace StormDiversMod.Projectiles
             Projectile.light = 0.1f;
             Projectile.friendly = true;
 
-            Projectile.timeLeft = 21;
-            Projectile.penetrate = -1;
+            Projectile.timeLeft = 4;
+            Projectile.penetrate = 3;
 
             Projectile.tileCollide = true;
             Projectile.scale = 1f;
@@ -391,22 +361,13 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.alpha = 255;
-            DrawOffsetX = 75;
-            DrawOriginOffsetY = 75;
+            DrawOffsetX = 25;
+            DrawOriginOffsetY = 25;
         }
         public override bool? CanDamage()
-        {
-            if (Projectile.timeLeft > 17 && Projectile.timeLeft <= 20)//No damage on first frame spawned
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        {         
+            return true;     
         }
-     
-
         public override bool? CanHitNPC(NPC target)
         {
             if (target.GetGlobalNPC<NPCEffects>().aridimmunetime > 0 || target.friendly) //Npcs immune to explosion when activating it
@@ -427,19 +388,11 @@ namespace StormDiversMod.Projectiles
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
 
-            if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
-            {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 138, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
-
-                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                Main.dust[dust].velocity *= 0.5f;
-                int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
-            }
-            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft == 20)
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft == 3)
             {
                 Projectile.alpha = 0;
 
-                Projectile.scale = 2.5f;
+                //Projectile.scale = 1.7f;
                 Projectile.velocity.X = 0f;
                 Projectile.velocity.Y = 0f;
                 Projectile.tileCollide = false;
@@ -447,30 +400,27 @@ namespace StormDiversMod.Projectiles
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
 
-                Projectile.width = 250;
-                Projectile.height = 250;
+                Projectile.width = 150;
+                Projectile.height = 150;
                 Projectile.Center = Projectile.position;
-
-
 
                 Projectile.knockBack = 6f;
 
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 40; i++)
                 {
 
                     var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 138);
                     dust.noGravity = true;
                     dust.scale = 1.5f;
-                    dust.velocity *= 5f;
+                    dust.velocity *= 4f;
                     dust.fadeIn = 1f;
 
                 }
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 40; i++)
                 {
-
-                    float speedY = -2f;
+                    float speedY = -1.5f;
 
                     Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
                     var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 55, perturbedSpeed.X, perturbedSpeed.Y);
@@ -479,7 +429,6 @@ namespace StormDiversMod.Projectiles
                     dust.scale = 1.5f;
                     dust.velocity *= 4f;
                     dust.fadeIn = 1f;
-
                 }
                 /*
                 for (int i = 0; i < 50; i++)
@@ -489,10 +438,7 @@ namespace StormDiversMod.Projectiles
                     dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 55, 0f, 0f, 0, default, 1f)];
                     dust.noGravity = true;
                     dust.scale = 1f;
-
-
                 }*/
-
             }
             if (Projectile.timeLeft <= 20)
             {
@@ -512,7 +458,6 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(BuffID.OnFire, 180);
         }
         public override void OnHitPvp(Player target, int damage, bool crit)
-
         {
             target.AddBuff(BuffID.OnFire, 180);
         }
@@ -523,11 +468,8 @@ namespace StormDiversMod.Projectiles
         }
         public override void Kill(int timeLeft)
         {
-
-            
-
-
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionAridProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.6f;
         }
-
     }
 }

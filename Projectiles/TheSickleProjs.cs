@@ -17,6 +17,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
 using StormDiversMod.Projectiles.SentryProjs;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Projectiles
 {
@@ -252,19 +253,28 @@ namespace StormDiversMod.Projectiles
         bool escaped;
         public override void AI()
         {
+            Player player = Main.player[Projectile.owner];
+
             if (Projectile.ai[0] == 1)
             {
-                for (int i = 0; i < 20; i++)
+                /*for (int i = 0; i < 20; i++)
                 {
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 31);
                     dust.noGravity = true;
                     dust.scale = 1f;
 
+                }*/
+                for (int i = 0; i < 1; i++)
+                {
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
+
+                    }, player.whoAmI);
                 }
             }
 
             Projectile.ai[0]++;
-            Player player = Main.player[Projectile.owner];
 
             if (Projectile.ai[1] == 0)          
                 degrees = 0;
@@ -298,11 +308,12 @@ namespace StormDiversMod.Projectiles
                 if (!escaped)//mark soul as escaped
                 {
                     Projectile.timeLeft = 300;
-                    for (int i = 0; i < 10; i++)
+                    
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.StellarTune, new ParticleOrchestraSettings
                     {
-                        var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 31);
-                        dust.noGravity = true;
-                    }
+                        PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
+
+                    }, player.whoAmI);
                     SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = 0.5f, MaxInstances = 0 }, Projectile.Center);
                     escaped = true;
                 }        

@@ -21,8 +21,7 @@ using StormDiversMod.Projectiles;
 
 using Terraria.DataStructures;
 using Terraria.Audio;
-
-
+using Terraria.GameContent.Drawing;
 namespace StormDiversMod.Basefiles
 {
 
@@ -67,7 +66,7 @@ namespace StormDiversMod.Basefiles
         public int santankcharge; //Charging up the santank missle
         public int santankmissleup; //Adds one to the charge every 10 frames
         public bool santanktrigger; //Has the player triggered the missiles
-        public int cryosetcooldown; //Colldown for Cryo set bonus
+        public int cryosetcooldown; //Cooldown for Cryo set bonus
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -362,6 +361,7 @@ namespace StormDiversMod.Basefiles
                                 dust.noGravity = true;
                                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                             }
+
                             //effects to cover up teleport
                             //Player.teleportTime = 0.1f;
                             /*NPC.ResetNetOffsets();
@@ -436,6 +436,7 @@ namespace StormDiversMod.Basefiles
                                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
 
                             }
+                            
                             SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1 }, Player.Center);
                         }
                     }
@@ -463,7 +464,7 @@ namespace StormDiversMod.Basefiles
                 Player.autoJump = true;
                 Player.maxFallSpeed *= 1.5f;
                 //Creates the wave upon jumping
-                if (Player.velocity.Y == 0 && derplinglaunchcooldown >= 60)
+                if (Player.velocity.Y == 0 && derplinglaunchcooldown >= 60 && !Player.mount.Active)
                 {
                     Player.AddBuff(ModContent.BuffType<DerpBuff>(), 2);
 
@@ -903,11 +904,11 @@ namespace StormDiversMod.Basefiles
 
             if (aridCritSet)
             {
-                if (crit)
+                if (crit & !target.friendly && target.lifeMax > 5)
                 {
                     target.GetGlobalNPC<NPCEffects>().aridimmunetime = 10; //target immune to explosion for 10 frames
 
-                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), damage, 0, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 0, Player.whoAmI);
                 }
             }
         }
@@ -917,7 +918,7 @@ namespace StormDiversMod.Basefiles
             if (shadowflameSet)
             {
 
-                if (ProjectileID.Sets.IsAWhip[proj.type] == true)
+                if (ProjectileID.Sets.IsAWhip[proj.type] == true && proj.owner == Main.myPlayer)
                 {
                     if (!target.buffImmune[BuffID.ShadowFlame])
                     {
@@ -935,7 +936,7 @@ namespace StormDiversMod.Basefiles
             }
             if (cryoSet)
             {
-                if (ProjectileID.Sets.SentryShot[proj.type] == true || proj.sentry)
+                if ((ProjectileID.Sets.SentryShot[proj.type] == true || proj.sentry) && proj.owner == Main.myPlayer)
                 {
                     target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
                     for (int i = 0; i < 10; i++)
@@ -985,7 +986,7 @@ namespace StormDiversMod.Basefiles
             //Arid armour with projectiles
             if (aridCritSet)
             {
-                if (crit)
+                if (crit && !target.friendly && target.lifeMax > 5)
                 {
                     target.GetGlobalNPC<NPCEffects>().aridimmunetime = 10; //target immune to explosion for 10 frames
 

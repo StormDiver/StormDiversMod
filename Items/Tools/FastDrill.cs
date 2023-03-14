@@ -26,7 +26,7 @@ namespace StormDiversMod.Items.Tools
             Item.width = 40;
             Item.height = 22;
         
-            Item.useTime = 5;
+            Item.useTime = 6;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 2, 0, 0);
@@ -37,7 +37,7 @@ namespace StormDiversMod.Items.Tools
             Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.FastDrillProj>();
             Item.shootSpeed = 27f;
             Item.pick = 50;
-            Item.tileBoost = -1;
+            Item.tileBoost = -2;
             Item.UseSound = SoundID.Item23;
             Item.noMelee = true;
             Item.noUseGraphic = true; 
@@ -82,7 +82,7 @@ namespace StormDiversMod.Items.Tools
             Item.noUseGraphic = true;
             Item.channel = true;
             Item.autoReuse = true;
-
+            Item.tileBoost = -1;
 
         }
         public override void AddRecipes()

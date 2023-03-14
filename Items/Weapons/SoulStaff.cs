@@ -10,7 +10,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using StormDiversMod.Basefiles;
-
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -121,7 +121,7 @@ namespace StormDiversMod.Items.Weapons
                     dustscale = 1.1f;
                     choice = 0;
                 }
-                
+
                 //SoundEngine.PlaySound(SoundID.Item8 with{Volume = 0.5f, Pitch = 0.5f}, position);
 
                 //For the dust

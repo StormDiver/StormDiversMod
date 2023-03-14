@@ -22,6 +22,7 @@ using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using System.Configuration;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Basefiles
 {
@@ -39,7 +40,7 @@ namespace StormDiversMod.Basefiles
         public int ninelivescooldown; //cooldown to remove a soul
         public float ninedmg;  //increase in melee damage
         public bool explosionfall; //Player has been launched by a stickybomb
-
+        public int explosionflame; //How long to have flames under the player's feet after being launched
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             screenshaker = false;
@@ -172,9 +173,17 @@ namespace StormDiversMod.Basefiles
                 Player.GetDamage(DamageClass.Melee) += 0.1f; //extra 10% damage (55% total)
                 Player.GetCritChance(DamageClass.Melee) += 5; //extra 5% crit (32% total)
             }*/
-
-            if (explosionfall)//Coorect fall damage when launched via sticky bomb
+            if (explosionflame > 0)
             {
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.FlameWaders, new ParticleOrchestraSettings
+                {
+                    PositionInWorld = new Vector2(Player.Center.X, Player.Bottom.Y)
+                }, Player.whoAmI);
+                explosionflame--;
+            }
+            if (explosionfall)//Correct fall damage when launched via sticky bomb
+            {
+               
                 if (Player.velocity.Y > 0)
                 {
                     Player.fallStart = (int)Player.tileTargetY;
@@ -205,13 +214,21 @@ namespace StormDiversMod.Basefiles
                        
                         SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = -1f, MaxInstances = 0 }, target.Center); ;
 
-                        for (int i = 0; i < 20; i++)
+                        /*for (int i = 0; i < 20; i++)
                         {
                             var dust = Dust.NewDustDirect(target.position, target.width, target.height, 31);
                             dust.noGravity = true;
                             dust.velocity *= 3;
                             dust.scale = 1.5f;
 
+                        }*/
+                        for (int i = 0; i < 3; i++)
+                        {
+                            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                            {
+                                PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
+
+                            }, Player.whoAmI);
                         }
                         //Main.NewText("" + ninelives, 204, 101, 22);
                     }

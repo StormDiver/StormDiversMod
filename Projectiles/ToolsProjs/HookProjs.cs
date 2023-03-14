@@ -191,7 +191,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 				}
 			}
 			
-			return hooksOut <= 2;
+			return hooksOut <= 3;
 		}
 
         //Return true if it is like: Hook, CandyCaneHook, BatHook, GemHooks
@@ -219,7 +219,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 					}
 				}
 			}
-			if (hooksOut > 2)
+			if (hooksOut > 3)
 			{
 				Main.projectile[oldestHookIndex].Kill();
 			}
@@ -228,12 +228,12 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 		// Amethyst Hook is 300, Static Hook is 600.
 		public override float GrappleRange()
 		{
-			return 496;
+			return 464;
 		}
 
 		public override void NumGrappleHooks(Player player, ref int numHooks)
 		{
-			numHooks = 2; // The amount of hooks that can be shot out
+			numHooks = 3; // The amount of hooks that can be shot out
 		}
 
 		// default is 11, Lunar is 24

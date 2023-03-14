@@ -40,7 +40,7 @@ namespace StormDiversMod.NPCs
             NPC.damage = 35;
             NPC.lavaImmune = true;
             NPC.defense = 12;
-            NPC.lifeMax = 180;
+            NPC.lifeMax = 350;
             NPC.noGravity = true;
            
             NPC.rarity = 1;
@@ -48,7 +48,7 @@ namespace StormDiversMod.NPCs
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath6;
-            NPC.knockBackResist = 0.7f;
+            NPC.knockBackResist = 0.4f;
             NPC.value = Item.buyPrice(0, 0, 25, 0);
 
            Banner = NPC.type;
@@ -105,7 +105,7 @@ namespace StormDiversMod.NPCs
             bool lineofsight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
             if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight)|| (Vector2.Distance(player.Center, NPC.Center) <= 300f && !lineofsight))
             {
-                if (shoottime >= 250)//starts the casting animation
+                if (shoottime >= 180)//starts the casting animation
                 {
                     //NPC.velocity.X = 0;
                     NPC.velocity.Y *= 0f;
@@ -123,7 +123,7 @@ namespace StormDiversMod.NPCs
                 {
                     casting = false;
                 }
-                if (shoottime >= 300)//fires the projectiles
+                if (shoottime >= 220)//fires the projectiles
                 {
 
 
@@ -196,7 +196,7 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(int hitDirection, double damage)
         {
-            shoottime = 140;
+            shoottime = 120;
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
@@ -234,7 +234,15 @@ namespace StormDiversMod.NPCs
                 {
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 5);
                     dust.scale = 1f;
-                }            
+                }
+                for (int i = 0; i < 30; i++)
+                {
+
+                    int dustIndex = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 31, 0f, 0f, 100, default, 1f);
+                    Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dustIndex].noGravity = true;
+                }
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)

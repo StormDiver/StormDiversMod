@@ -22,8 +22,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 9;
+            Projectile.height = 9;
  
             Projectile.friendly = true;
             Projectile.hostile = false;
@@ -35,8 +35,8 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 99999;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            DrawOffsetX = -1;
-            DrawOriginOffsetY = -1;
+            DrawOffsetX = -7;
+            DrawOriginOffsetY = -7;
             //Projectile.ContinuouslyUpdateDamage = true;
 
         }
@@ -93,7 +93,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 200;
                 Projectile.Center = Projectile.position;
 
-
                 Projectile.knockBack = 3f;
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
@@ -101,13 +100,14 @@ namespace StormDiversMod.Projectiles
   
                 //launch player
                 float distance = Vector2.Distance(player.Center, Projectile.Center);
-                if (distance <= Projectile.width / 2 + 25 && !player.mount.Active)
+                if (distance <= Projectile.width / 2 + 25 && distance >= 1 && !player.mount.Active)
                 {
                     if (Collision.CanHit(player.Center, 0, 0, Projectile.Center, 0, 0))
                     {
                         float launchspeed = 12;
                         Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X, player.Center.Y)) * launchspeed;
                         player.GetModPlayer<MiscFeatures>().explosionfall = true;
+                        player.GetModPlayer<MiscFeatures>().explosionflame = 60;
 
                         player.velocity.X = -launchvelocity.X * 2.5f;
                         player.velocity.Y = -launchvelocity.Y * 2.5f;
@@ -119,12 +119,13 @@ namespace StormDiversMod.Projectiles
 
                     float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
 
-                    if (npcdistance <= Projectile.width / 2 + 25 && (target.friendly || target.CountsAsACritter))
+                    if (npcdistance <= Projectile.width / 2 + 25 && distance >= 1 && (target.friendly || target.CountsAsACritter))
                     {
                         if (Collision.CanHit(target.Center, 0, 0, Projectile.Center, 0, 0))
                         {
                             float npclaunchspeed = 12;
                             Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+                            target.GetGlobalNPC<NPCEffects>().explosionNPCflame = 60;
 
                             target.velocity.X = -npclaunchvelocity.X * 1.5f;
                             target.velocity.Y = -npclaunchvelocity.Y * 2f;
@@ -208,6 +209,23 @@ namespace StormDiversMod.Projectiles
             stick = true;
             return false;
         }
+        public override void OnHitPvp(Player target, int damage, bool crit)
+        {
+            if (unstick)
+            {
+                if (Projectile.timeLeft > 3)
+                {
+                    Projectile.timeLeft = 3;
+                }
+            }
+            float launchspeed = 12;
+            Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * launchspeed;
+            target.GetModPlayer<MiscFeatures>().explosionfall = true;
+            target.GetModPlayer<MiscFeatures>().explosionflame = 60;
+
+            target.velocity.X = -launchvelocity.X * 2f;
+            target.velocity.Y = -launchvelocity.Y * 2f;
+        }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (unstick)
@@ -217,11 +235,13 @@ namespace StormDiversMod.Projectiles
                     Projectile.timeLeft = 3;
                 }
             }
-            if (target.knockBackResist != 0)
+            if (target.knockBackResist != 0 && !target.friendly && target.lifeMax > 5)
             {
                 float launchspeed = 12;
                 Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * launchspeed;
-                target.velocity.X = -launchvelocity.X * 0.75f;
+                target.GetGlobalNPC<NPCEffects>().explosionNPCflame = 30;
+
+                target.velocity.X = -launchvelocity.X * 1f;
                 target.velocity.Y = -launchvelocity.Y * 1.5f;
             }
         }
@@ -241,16 +261,15 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 2f;
 
             }
-            for (int i = 0; i < 35; i++) //Grey dust circle
+            for (int i = 0; i < 50; i++) //Grey dust circle
             {
-                Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -8f).RotatedByRandom(MathHelper.ToRadians(360));
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
 
                 //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-                dust.scale = 2f;
-                dust.velocity *= 2.5f;
-
+                dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
             }
         }
     }

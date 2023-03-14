@@ -21,7 +21,7 @@ namespace StormDiversMod.Items.Vanitysets
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Storm Diver Mask");
-            Tooltip.SetDefault("Can you even see out of this thing?");
+            Tooltip.SetDefault("'Can you even see out of this thing?'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -207,7 +207,7 @@ namespace StormDiversMod.Items.Vanitysets
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Selenian Head");
-            Tooltip.SetDefault("No, you cannot reflect projectiles!");
+            Tooltip.SetDefault("'No, you cannot reflect projectiles!'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -387,7 +387,7 @@ namespace StormDiversMod.Items.Vanitysets
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Predictor Head");
-            Tooltip.SetDefault("Unfortunately this will not increase your brain power");
+            Tooltip.SetDefault("'Unfortunately this will not increase your brain power'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -568,7 +568,7 @@ namespace StormDiversMod.Items.Vanitysets
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Stargazer Head");
-            Tooltip.SetDefault("Note, this will not actually allow you to see stars any better");
+            Tooltip.SetDefault("'Note, this will not actually allow you to see stars any better'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {

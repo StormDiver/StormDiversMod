@@ -232,27 +232,26 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1f;
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 15; i++)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-                dust.scale = 1.5f;
-
+                dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                dust.fadeIn = 1.0f + (float)Main.rand.Next(5) * 0.1f;
 
             }
             
             for (int i = 0; i < 20; i++)
             {
-
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
 
                 dust2.scale = 1f;
                 dust2.velocity *= 2;
             }
-
+            
         }
         public override bool PreDraw(ref Color lightColor)
         {

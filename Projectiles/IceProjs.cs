@@ -98,7 +98,7 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 30; i++) //frost dust
             {
-                Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
 
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 156, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
@@ -106,15 +106,14 @@ namespace StormDiversMod.Projectiles
 
             }
 
-            for (int i = 0; i < 20; i++) //Grey dust circle
+            for (int i = 0; i < 30; i++) //Grey dust circle
             {
-                Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
 
-                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-                dust.scale = 2f;
-                dust.velocity *= 2f;
+                dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
 
             }
         }

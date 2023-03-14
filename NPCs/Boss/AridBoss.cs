@@ -234,7 +234,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (Main.netMode != NetmodeID.Server)//Drop some gore when changing phase
                 {
-                    int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y + 20), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, Main.myPlayer);
+                    int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y + 20), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionAridProj>(), 0, 0, Main.myPlayer);
                     Main.projectile[proj].scale = 1f;
                     SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
                     SoundEngine.PlaySound(SoundID.Item74, NPC.Center);
@@ -1183,7 +1183,7 @@ namespace StormDiversMod.NPCs.Boss
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
                 NPC.velocity *= 0.5f;
-                int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, Main.myPlayer);
+                int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionAridProj>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 1.75f;
                 if (Main.netMode != NetmodeID.Server)
                 {

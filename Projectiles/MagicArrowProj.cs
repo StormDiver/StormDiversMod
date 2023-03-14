@@ -9,6 +9,7 @@ using StormDiversMod.Basefiles;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using On.Terraria.Graphics;
 
 namespace StormDiversMod.Projectiles
 {
@@ -44,6 +45,8 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
+            player.Center = Projectile.Center; //Funni follow
+            player.velocity.Y = -0.1f;
             Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
 
             for (int i = 0; i < 10; i++)
@@ -69,7 +72,7 @@ namespace StormDiversMod.Projectiles
             Vector2 playerdistance = new Vector2(player.Center.X, player.Center.Y - 10) - Projectile.Center;
             float distanceToplayer = playerdistance.Length();
 
-            if (player.channel && !player.dead) //if holdin down button target enemies
+            if (player.channel && !player.dead) //if holding down button target enemies
             {
 
                 Vector2 move = Vector2.Zero;
@@ -110,6 +113,10 @@ namespace StormDiversMod.Projectiles
 
                     player.channel = false;
                 }
+            }
+            if (distanceToplayer > 2000)
+            {
+                Projectile.Kill();
             }
            
             /*player.manaRegenDelay = 60; //prevent mana from regenerating

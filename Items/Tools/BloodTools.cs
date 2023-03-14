@@ -26,7 +26,7 @@ namespace StormDiversMod.Items.Tools
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 40;
 			Item.height = 42;
-			Item.useTime = 13;
+			Item.useTime = 11;
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Swing;
             Item.value = Item.sellPrice(0, 0, 75, 0);
@@ -38,7 +38,8 @@ namespace StormDiversMod.Items.Tools
             Item.useTurn = true;
             Item.knockBack = 3;
             Item.scale = 1.1f;
-            
+            Item.tileBoost = 1;
+
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -82,7 +83,7 @@ namespace StormDiversMod.Items.Tools
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
             Item.height = 48;
-            Item.useTime = 17;
+            Item.useTime = 16;
             Item.useAnimation = 35;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.value = Item.sellPrice(0, 0, 75, 0);
@@ -93,6 +94,7 @@ namespace StormDiversMod.Items.Tools
             Item.useTurn = true;
             Item.knockBack = 7;
             Item.scale = 1.25f;
+            Item.tileBoost = 1;
 
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)

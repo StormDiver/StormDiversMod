@@ -38,14 +38,14 @@ namespace StormDiversMod.NPCs
             NPC.damage = 30;
             
             NPC.defense = 5;
-            NPC.lifeMax = 150;
+            NPC.lifeMax = 200;
             
             NPC.rarity = 2;
             
 
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.knockBackResist = 0.9f;
+            NPC.knockBackResist = 0.7f;
             NPC.value = Item.buyPrice(0, 0, 50, 0);
 
            Banner = NPC.type;

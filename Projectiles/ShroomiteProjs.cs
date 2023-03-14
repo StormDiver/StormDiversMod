@@ -98,26 +98,24 @@ namespace StormDiversMod.Projectiles
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionShroomiteProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1f;
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 20; i++) //Blue particles
             {
+                Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 206, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
-                dust.scale = 1.5f;
-                dust.velocity *= 4f;
-                dust.fadeIn = 1f;
+                dust.scale = 3f;
 
             }
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 20; i++) //Grey dust circle
             {
+                Vector2 perturbedSpeed = new Vector2(0, -3f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 206);
+                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-
-                dust.scale = 2f;
-                dust.velocity *= 4f;
-                dust.fadeIn = 1f;
-
+                dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
             }
 
             if (Projectile.owner == Main.myPlayer)
@@ -174,15 +172,9 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
 
             Projectile.timeLeft = 450;
-
         }
-        
-
         public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-
-           
-             
+        {        
                 //Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
                 if (Projectile.velocity.X != oldVelocity.X)
@@ -216,7 +208,6 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
 
-
         }
 
         public override void Kill(int timeLeft)
@@ -226,26 +217,24 @@ namespace StormDiversMod.Projectiles
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionShroomiteProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1f;
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 20; i++) //Blue particles
             {
+                Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 206, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
-                dust.scale = 1.5f;
-                dust.velocity *= 4f;
-                dust.fadeIn = 1f;
+                dust.scale = 3f;
 
             }
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 20; i++) //Grey dust circle
             {
+                Vector2 perturbedSpeed = new Vector2(0, -3f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 206);
+                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                 dust.noGravity = true;
-
-                dust.scale = 2f;
-                dust.velocity *= 4f;
-                dust.fadeIn = 1f;
-
+                dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
             }
             if (Projectile.owner == Main.myPlayer)
             {
@@ -429,28 +418,26 @@ namespace StormDiversMod.Projectiles
             Main.projectile[proj].scale = 1.33f;
 
             Projectile.alpha = 255;
-            for (int i = 0; i < 20; i++)
+
+            for (int i = 0; i < 30; i++) //Blue particles
             {
+                Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31);
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 206, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
-                dust.scale = 2f;
-                dust.velocity *= 4f;
-                dust.fadeIn = 1f;
-
-            }
-            for (int i = 0; i < 20; i++)
-            {
-
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 206);
-                dust.noGravity = true;
-
                 dust.scale = 3f;
-                dust.velocity *= 4f;
-                dust.fadeIn = 1.5f;
 
             }
-         
+            for (int i = 0; i < 30; i++) //Grey dust circle
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
+
+                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust.noGravity = true;
+                dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+            }        
 
             Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
             Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);

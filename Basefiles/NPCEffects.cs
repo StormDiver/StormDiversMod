@@ -26,6 +26,7 @@ using static Humanizer.In;
 using static Terraria.ModLoader.PlayerDrawLayer;
 using IL.Terraria.GameContent.Bestiary;
 using StormDiversMod.NPCs;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Basefiles
 {
@@ -98,6 +99,9 @@ namespace StormDiversMod.Basefiles
 
 
         public int arrowcooldown; //Cooldown for magic Arrow
+
+        public int explosionNPCflame; //How long to have flames under the enemy feet after being launched
+
 
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
@@ -348,6 +352,16 @@ namespace StormDiversMod.Basefiles
             if (arrowcooldown > 0)
             {
                 arrowcooldown--;
+            }
+
+            //explode
+            if (explosionNPCflame > 0)
+            {
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.FlameWaders, new ParticleOrchestraSettings
+                {
+                    PositionInWorld = new Vector2(npc.Center.X, npc.Bottom.Y)
+                }, player.whoAmI);
+                explosionNPCflame--;
             }
         }
         public override void SetDefaults(NPC npc)
@@ -769,7 +783,7 @@ namespace StormDiversMod.Basefiles
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             var player = Main.player[projectile.owner];
-
+            
             if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
             {
                 if (npc.HasBuff(BuffID.ShadowFlame))
@@ -782,9 +796,9 @@ namespace StormDiversMod.Basefiles
             {
                 crit = false;
             }
-            if (projectile.type == ModContent.ProjectileType<Projectiles.HellSoulArmourProj>()) //No crit from hellsoul explosion
+            if (projectile.type == ModContent.ProjectileType<Projectiles.HellSoulArmourProj>() || projectile.type == ModContent.ProjectileType<Projectiles.AncientArmourProj>()) //No crit from hellsoul explosion
             {
-                if (npc.aiStyle == 6) //Worms take reduced damage
+                if (npc.aiStyle == 6 || npc.type == NPCID.TheDestroyerBody) //Worms take reduced damage
                 {
                     damage = (int)(damage * 0.5f);
                 }

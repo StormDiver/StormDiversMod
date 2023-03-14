@@ -38,12 +38,12 @@ namespace StormDiversMod.NPCs
             NPC.damage = 30;
            
             NPC.defense = 10;
-            NPC.lifeMax = 180;
+            NPC.lifeMax = 250;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath6;
-            NPC.knockBackResist = 0.85f;
+            NPC.knockBackResist = 0.6f;
             NPC.value = Item.buyPrice(0, 0, 50, 0);
             NPC.rarity = 2;
 
@@ -221,7 +221,6 @@ namespace StormDiversMod.NPCs
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
                 }
-
 
             }
         }

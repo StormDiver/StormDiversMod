@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Shroom Mask");
-            Tooltip.SetDefault("3% increased ranged critical strike chance\nThere's not mushroom in there");
+            Tooltip.SetDefault("3% increased ranged critical strike chance\n'There's not mushroom in there'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
