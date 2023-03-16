@@ -77,7 +77,7 @@ namespace StormDiversMod.Items.Materials
             DisplayName.SetDefault("Granite Power Cell");
 
             Tooltip.SetDefault("Seems to be pulsing with energy");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 15;
 
         }
 
@@ -114,7 +114,7 @@ namespace StormDiversMod.Items.Materials
             
            
                 Tooltip.SetDefault("Used to create Items of a fallen Gladiator");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 15;
 
         }
 

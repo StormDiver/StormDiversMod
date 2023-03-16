@@ -45,8 +45,8 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
-            player.Center = Projectile.Center; //Funni follow
-            player.velocity.Y = -0.1f;
+            //player.Center = Projectile.Center; //Funni follow
+            //player.velocity.Y = -0.1f;
             Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
 
             for (int i = 0; i < 10; i++)

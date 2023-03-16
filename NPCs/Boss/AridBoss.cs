@@ -24,6 +24,7 @@ using StormDiversMod.Buffs;
 
 using StormDiversMod.Items.Pets;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
 namespace StormDiversMod.NPCs.Boss
 {
@@ -144,16 +145,15 @@ namespace StormDiversMod.NPCs.Boss
                 // For visuals regarding NPC position, netOffset has to be concidered to make visuals align properly
                 NPC.position += NPC.netOffset;
                 NPC.position -= NPC.netOffset;
-            }      
+            }
             //===============AI fields================
-
-            //NPC.ai[0] = Shootime
-            //NPC.ai[1 and 2] = (Attack dependant)
+            //NPC.ai[0] = time until next attack
+            //NPC.ai[1] = X postion
+            //NPC.ai[2] = Y postion
             //NPC.ai[3] = Phase
-            //NPC.localAI[0] = time until next attack
+            //NPC.localAI[0] = Shootime
             //NPC.localAI[1] = death counter despawn
-            //NPC.localAI[2] = X postion
-            //NPC.localAI[3] = Y postion
+            //NPC.LocalAI[2 and 3] = (Attack dependant)
 
             //========================================
             if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
@@ -170,7 +170,7 @@ namespace StormDiversMod.NPCs.Boss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Vector2 idlePosition = player.Center + new Vector2(NPC.localAI[2], NPC.localAI[3]);
+                    Vector2 idlePosition = player.Center + new Vector2(NPC.ai[1], NPC.ai[2]);
                     Vector2 vectorToIdlePosition = idlePosition - NPC.Center;
                     distanceToIdlePosition = vectorToIdlePosition.Length();
 
@@ -223,10 +223,10 @@ namespace StormDiversMod.NPCs.Boss
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.localAI[0] = 180;
-                    NPC.ai[0] = 0;//Reset all ai values
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
+                    NPC.ai[0] = 180;
+                    NPC.localAI[0] = 0;//Reset all ai values
+                    NPC.localAI[2] = 0; 
+                    NPC.localAI[3] = 0; 
 
                     NPC.velocity *= 0;
                     NPC.ai[3] = 0;
@@ -298,8 +298,8 @@ namespace StormDiversMod.NPCs.Boss
                 if (NPC.ai[3] == 0) //No attacks when first summoned
                 {
 
-                    NPC.localAI[2] = 0;
-                    NPC.localAI[3] = -150;
+                    NPC.ai[1] = 0;
+                    NPC.ai[2] = -150;
                     if (distanceToIdlePosition > 300f)
                     {
                         // Speed up the boss if it's away from the player
@@ -322,12 +322,12 @@ namespace StormDiversMod.NPCs.Boss
 
                     }
 
-                    NPC.localAI[0]++;  //count to first attack               
-                    if (NPC.localAI[0] >= 300 && Main.netMode != NetmodeID.MultiplayerClient) //Change to first attack
+                    NPC.ai[0]++;  //count to first attack               
+                    if (NPC.ai[0] >= 300 && Main.netMode != NetmodeID.MultiplayerClient) //Change to first attack
                     {
                         NPC.ai[3]++;
 
-                        NPC.localAI[0] = 0;
+                        NPC.ai[0] = 0;
                         NPC.netUpdate = true;
                     }
                 }
@@ -341,7 +341,7 @@ namespace StormDiversMod.NPCs.Boss
             }          
 
             //DEBUG
-           /*var dustt = Dust.NewDustDirect(new Vector2(player.Center.X + NPC.localAI[2], player.Center.Y + NPC.localAI[3]), 0, 0, 138);
+           /*var dustt = Dust.NewDustDirect(new Vector2(player.Center.X + NPC.ai[1], player.Center.Y + NPC.ai[2]), 0, 0, 138);
             dustt.velocity *= 0;
             dustt.noGravity = true;*/
         }
@@ -349,6 +349,8 @@ namespace StormDiversMod.NPCs.Boss
         {
             if (NPC.ai[3] == 1) //Attack 1, sweep over player firing sandblasts, only explode below half life
             {
+                //NPC.localAI[2] = Side;
+
                 NPC.dontTakeDamage = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -367,48 +369,48 @@ namespace StormDiversMod.NPCs.Boss
                     NPC.netUpdate = true;
                 }
 
-                NPC.localAI[0]++;
+                NPC.ai[0]++;
 
                
-                if (NPC.localAI[0] == 1)//Xpos
+                if (NPC.ai[0] == 1)//Xpos
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         if (NPC.position.X > player.position.X)
                         {
-                            NPC.localAI[2] = -300;
+                            NPC.ai[1] = -300;
 
-                            NPC.ai[1] = 1; //Move to right;
+                            NPC.localAI[2] = 1; //Move to right;
                         }
                         else
                         {
-                            NPC.localAI[2] = 300;
+                            NPC.ai[1] = 300;
 
-                            NPC.ai[1] = 0; //Move to left;
+                            NPC.localAI[2] = 0; //Move to left;
                         }
                         NPC.netUpdate = true;
                     }
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (NPC.ai[1] == 1)//Move depending on picked side
+                    if (NPC.localAI[2] == 1)//Move depending on picked side
                     {
-                        NPC.localAI[2] -= 3;
+                        NPC.ai[1] -= 3;
 
-                        if (NPC.localAI[2] <= -300)
+                        if (NPC.ai[1] <= -300)
                         {
-                            NPC.ai[1] = 0; //Move to left;
+                            NPC.localAI[2] = 0; //Move to left;
                         }
                     }
                     else
                     {
-                        NPC.localAI[2] += 3;
-                        if (NPC.localAI[2] >= 300)
+                        NPC.ai[1] += 3;
+                        if (NPC.ai[1] >= 300)
                         {
-                            NPC.ai[1] = 1; //Move to right;
+                            NPC.localAI[2] = 1; //Move to right;
                         }
                     }
-                    NPC.localAI[3] = -300;
+                    NPC.ai[2] = -300;
                     NPC.netUpdate = true;
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -447,8 +449,8 @@ namespace StormDiversMod.NPCs.Boss
                     projcount = 1;
                 }
 
-                NPC.ai[0]++;
-                if (NPC.ai[0] > 55 || (halflife && NPC.ai[0] > 30)) //telegraphing
+                NPC.localAI[0]++;
+                if (NPC.localAI[0] > 55 || (halflife && NPC.localAI[0] > 30)) //telegraphing
                 {
                     float speedY = -3f;
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
@@ -459,7 +461,7 @@ namespace StormDiversMod.NPCs.Boss
                     int dust2 = Dust.NewDust(NPC.Center, 0, 0, 55, dustvelocity.X + NPC.velocity.X, dustvelocity.Y + NPC.velocity.Y, 100, default, 1f);
                     Main.dust[dust2].noGravity = true;
                 }
-                if (NPC.ai[0] > 75 || (halflife && NPC.ai[0] > 50))
+                if (NPC.localAI[0] > 75 || (halflife && NPC.localAI[0] > 50))
                 {
                     animateattack = true;
                     SoundEngine.PlaySound(SoundID.Item20 with { Volume = 1.5f, Pitch = 00f }, NPC.Center);
@@ -495,19 +497,19 @@ namespace StormDiversMod.NPCs.Boss
                             }
                         }
                     }
-                    NPC.ai[0] = 0;
+                    NPC.localAI[0] = 0;
                 }
 
-                if (NPC.localAI[0] > (600 + Main.rand.Next(300)) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[0] > (600 + Main.rand.Next(300)) && Main.netMode != NetmodeID.MultiplayerClient)
                 //Change to next attack
                 {
-                    NPC.ai[0] = 0;//Reset all ai values
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
+                    NPC.localAI[0] = 0;//Reset all ai values
+                    NPC.localAI[2] = 0;
+                    NPC.localAI[3] = 0;
 
 
                     NPC.ai[3]++;
-                    NPC.localAI[0] = 0;
+                    NPC.ai[0] = 0;
                     NPC.netUpdate = true;
                 }
             }
@@ -515,23 +517,23 @@ namespace StormDiversMod.NPCs.Boss
             //________________________________________________________________________________________________________________________
             if (NPC.ai[3] == 2)//attack 2, fly next to play and throw out knives, faster firing below half health
             {
-                NPC.localAI[0]++;
+                NPC.ai[0]++;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.localAI[3] = -100; //Ypos
+                    NPC.ai[2] = -100; //Ypos
                     NPC.netUpdate = true;
                 }
-                if (NPC.localAI[0] == 1)//Xpos
+                if (NPC.ai[0] == 1)//Xpos
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         if (NPC.position.X > player.position.X)
                         {
-                            NPC.localAI[2] = 450;                        
+                            NPC.ai[1] = 450;                        
                         }
                         else
                         {
-                            NPC.localAI[2] = -450;
+                            NPC.ai[1] = -450;
                         }
                         NPC.netUpdate = true;
                     }
@@ -572,10 +574,10 @@ namespace StormDiversMod.NPCs.Boss
                     projvelocity = 10f;
                     projcount = 3;
                 }
-                if (NPC.localAI[0] > 90)
+                if (NPC.ai[0] > 90)
                 {
-                    NPC.ai[0]++;
-                    if (NPC.ai[0] > 55 || (halflife && NPC.ai[0] > 30))
+                    NPC.localAI[0]++;
+                    if (NPC.localAI[0] > 55 || (halflife && NPC.localAI[0] > 30))
                     {
                         float speedY = -3f;
                         Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
@@ -588,7 +590,7 @@ namespace StormDiversMod.NPCs.Boss
                         Main.dust[dust2].noGravity = true;
                     }
 
-                    if (NPC.ai[0] > 75 || (halflife && NPC.ai[0] > 50))
+                    if (NPC.localAI[0] > 75 || (halflife && NPC.localAI[0] > 50))
                     {
                         animateattack = true;
                         SoundEngine.PlaySound(SoundID.Item17 with { Volume = 1f, Pitch = 0f }, NPC.Center);
@@ -616,19 +618,19 @@ namespace StormDiversMod.NPCs.Boss
                                 ModContent.ProjectileType<NPCs.NPCProjs.AridBossShardProj>(), projdamage, 1);
                             }
                         }
-                        NPC.ai[0] = 0;
+                        NPC.localAI[0] = 0;
                     }
                 }
 
-                if (NPC.localAI[0] > (450 + Main.rand.Next(150)) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[0] > (450 + Main.rand.Next(150)) && Main.netMode != NetmodeID.MultiplayerClient)
                 //Change to next attack
                 {
-                    NPC.ai[0] = 0;//Reset all ai values
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
+                    NPC.localAI[0] = 0;//Reset all ai values
+                    NPC.localAI[2] = 0;
+                    NPC.localAI[3] = 0;
 
                     NPC.ai[3]++;
-                    NPC.localAI[0] = 0;
+                    NPC.ai[0] = 0;
                     NPC.netUpdate = true;
                 }
 
@@ -640,16 +642,16 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     NPC.ai[3]++;
                 }
-                NPC.localAI[0]++;
+                NPC.ai[0]++;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.localAI[2] = 0; //Xpos
-                    NPC.localAI[3] = 0; //Ypos
+                    NPC.ai[1] = 0; //Xpos
+                    NPC.ai[2] = 0; //Ypos
                     NPC.netUpdate = true;
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (NPC.localAI[0] <= 60)
+                    if (NPC.ai[0] <= 60)
                     {
                         speed = 0f;
                         inertia = 10f;
@@ -681,7 +683,7 @@ namespace StormDiversMod.NPCs.Boss
                     projvelocity = 2.5f;
 
                 }
-                if (NPC.localAI[0] < 90)
+                if (NPC.ai[0] < 90)
                 {
                     float speedY = -6f;
 
@@ -690,11 +692,11 @@ namespace StormDiversMod.NPCs.Boss
                     int dust2 = Dust.NewDust(NPC.Center, 0, 0, 55, dustspeed.X, dustspeed.Y, 100, default, 1f);
                     Main.dust[dust2].noGravity = true;
                 }
-                if (NPC.localAI[0] >= 90)
+                if (NPC.ai[0] >= 90)
                 {
-                    NPC.ai[0]++;
+                    NPC.localAI[0]++;
 
-                    if (NPC.ai[0] > 5)
+                    if (NPC.localAI[0] > 5)
                     {
                         animateattack = true;
                         SoundEngine.PlaySound(SoundID.Item13 with { Volume = 1f, Pitch = 0f }, NPC.Center);
@@ -710,20 +712,20 @@ namespace StormDiversMod.NPCs.Boss
                                 ModContent.ProjectileType<NPCs.NPCProjs.AridBossFlameProj>(), projdamage, 1);
 
                         }
-                        NPC.ai[0] = 0;
+                        NPC.localAI[0] = 0;
                     }
                 }
 
-                if (NPC.localAI[0] > (360) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[0] > (360) && Main.netMode != NetmodeID.MultiplayerClient)
                 //Change to next attack
                 {
-                    NPC.ai[0] = 0;//Reset all ai values
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
+                    NPC.localAI[0] = 0;//Reset all ai values
+                    NPC.localAI[2] = 0;
+                    NPC.localAI[3] = 0;
 
 
                     NPC.ai[3]++;
-                    NPC.localAI[0] = 0;
+                    NPC.ai[0] = 0;
                     NPC.netUpdate = true;
                 }
 
@@ -731,11 +733,11 @@ namespace StormDiversMod.NPCs.Boss
             //________________________________________________________________________________________________________________________
             if (NPC.ai[3] == 4)//attack 4, summon minions
             {           
-                 NPC.localAI[0]++;
+                 NPC.ai[0]++;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.localAI[2] = 0; //Xpos
-                    NPC.localAI[3] = 0; //Ypos
+                    NPC.ai[1] = 0; //Xpos
+                    NPC.ai[2] = 0; //Ypos
                     NPC.netUpdate = true;
                 }
 
@@ -759,7 +761,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     projcount = 2;
                 }
-                if (NPC.localAI[0] <= 90)
+                if (NPC.ai[0] <= 90)
                 {
                     float speedY = -6f;
 
@@ -769,7 +771,7 @@ namespace StormDiversMod.NPCs.Boss
                     Main.dust[dust2].noGravity = true;
                 }
 
-                if (NPC.localAI[0] == 60)
+                if (NPC.ai[0] == 60)
                 {
                     animateattack = true;
                     SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = 0.2f }, NPC.Center);
@@ -797,58 +799,60 @@ namespace StormDiversMod.NPCs.Boss
                     }
                 }
 
-                if (NPC.localAI[0] > (90) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[0] > (90) && Main.netMode != NetmodeID.MultiplayerClient)
                 //Change to next attack
                 {
                     SoundEngine.PlaySound(SoundID.Item45 with { Volume = 1f, Pitch = 0.25f }, NPC.Center);
 
-                    NPC.ai[0] = 0;//Reset all ai values
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
+                    NPC.localAI[0] = 0;//Reset all ai values
+                    NPC.localAI[2] = 0;
+                    NPC.localAI[3] = 0;
 
                     NPC.ai[3]++;
                     
 
-                    NPC.localAI[0] = 0;
+                    NPC.ai[0] = 0;
                     NPC.netUpdate = true;
                 }
 
             }
             //_______________________________________________
             if (NPC.ai[3] == 5)//attack 5, orbit player until minions are defeated, fires sand blasts below half health
-            {              
- 
+            {
+                //NPC.localAI[2] = rotation
+                //NPC.localAI[3] = rotation direction
+
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (NPC.ai[2] == 0)//Loop round once then switc direction
+                    if (NPC.localAI[3] == 0)//Loop round once then switc direction
                     {
-                        NPC.ai[1]++;//rotation
+                        NPC.localAI[2]++;//rotation
 
-                        if (NPC.ai[1] >= 550)
+                        if (NPC.localAI[2] >= 550)
                         {
-                            NPC.ai[2] = 1; //Rotate anti clockwise;
+                            NPC.localAI[3] = 1; //Rotate anti clockwise;
                         }
                     }
                     else
                     {
-                        NPC.ai[1]--;//rotation
-                        if (NPC.ai[1] <= 0)
+                        NPC.localAI[2]--;//rotation
+                        if (NPC.localAI[2] <= 0)
                         {
-                            NPC.ai[2] = 0; //Rotate clockwise;
+                            NPC.localAI[3] = 0; //Rotate clockwise;
                         }
                     }
                     NPC.netUpdate = true;
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    double deg = (NPC.ai[1]);
+                    double deg = (NPC.localAI[2]);
                     double rad = deg * (Math.PI / 180);
                     double dist = 400; //Distance away from the player
 
                     //position
 
-                    NPC.localAI[2] = (int)(Math.Cos(rad) * dist);
-                    NPC.localAI[3] = (int)(Math.Sin(rad) * dist);
+                    NPC.ai[1] = (int)(Math.Cos(rad) * dist);
+                    NPC.ai[2] = (int)(Math.Sin(rad) * dist);
                     NPC.netUpdate = true;
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -894,8 +898,8 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (distance > 200) // no firing if near player
                     {
-                        NPC.ai[0]++;
-                        if (NPC.ai[0] > 70) //telegraphing
+                        NPC.localAI[0]++;
+                        if (NPC.localAI[0] > 70) //telegraphing
                         {
                             float speedY = -3f;
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
@@ -906,7 +910,7 @@ namespace StormDiversMod.NPCs.Boss
                             int dust2 = Dust.NewDust(NPC.Center, 0, 0, 55, dustvelocity.X + NPC.velocity.X, dustvelocity.Y + NPC.velocity.Y, 100, default, 1f);
                             Main.dust[dust2].noGravity = true;
                         }
-                        if (NPC.ai[0] > 90)
+                        if (NPC.localAI[0] > 90)
                         {
                             animateattack = true;
                             SoundEngine.PlaySound(SoundID.Item20 with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
@@ -929,7 +933,7 @@ namespace StormDiversMod.NPCs.Boss
                                     ModContent.ProjectileType<NPCs.NPCProjs.AridBossSandProj>(), projdamage, 0);
 
                             }
-                            NPC.ai[0] = 0;
+                            NPC.localAI[0] = 0;
                         }
                     }
                 }
@@ -958,21 +962,21 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (NPC.CountNPCS(ModContent.NPCType<AridBossMinion>()) == 0) // 60 seconds after last minion killed next attack
                 {
-                    NPC.localAI[0]++;
+                    NPC.ai[0]++;
                 }
-                if (NPC.localAI[0] >= 60 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[0] >= 60 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     SoundEngine.PlaySound(SoundID.Item45 with { Volume = 1f, Pitch = -0.3f }, NPC.Center);
 
                     NPC.dontTakeDamage = false;
 
-                    NPC.ai[0] = 0;//Reset all ai values
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
+                    NPC.localAI[0] = 0;//Reset all ai values
+                    NPC.localAI[2] = 0;
+                    NPC.localAI[3] = 0;
 
                     NPC.ai[3]++;
 
-                    NPC.localAI[0] = 0;
+                    NPC.ai[0] = 0;
                     NPC.netUpdate = true;
                 }
             }
@@ -989,11 +993,11 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     NPC.ai[3] = 1;
                 }
-                NPC.localAI[0]++;
+                NPC.ai[0]++;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.localAI[2] = 0; //Xpos
-                    NPC.localAI[3] = -300; //Ypos
+                    NPC.ai[1] = 0; //Xpos
+                    NPC.ai[2] = -300; //Ypos
                     NPC.netUpdate = true;
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -1033,10 +1037,10 @@ namespace StormDiversMod.NPCs.Boss
                     projcount = 2;
 
                 }
-                if (NPC.localAI[0] > 120 && NPC.localAI[0] <= 600)
+                if (NPC.ai[0] > 120 && NPC.ai[0] <= 600)
                 {
-                    NPC.ai[0]++;
-                    if (NPC.ai[0] > 20) //telegraphing
+                    NPC.localAI[0]++;
+                    if (NPC.localAI[0] > 20) //telegraphing
                     {
                         float speedY = -3f;
                         Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
@@ -1046,7 +1050,7 @@ namespace StormDiversMod.NPCs.Boss
                         int dust2 = Dust.NewDust(NPC.Center, 0, 0, 55, 0 + NPC.velocity.X, projvelocity + NPC.velocity.Y, 100, default, 1f);
                         Main.dust[dust2].noGravity = true;
                     }
-                    if (NPC.ai[0] > 40)
+                    if (NPC.localAI[0] > 40)
                     {
                         animateattack = true;
                         SoundEngine.PlaySound(SoundID.Item20 with { Volume = 1.5f, Pitch = 00f }, NPC.Center);
@@ -1068,20 +1072,20 @@ namespace StormDiversMod.NPCs.Boss
                                 ModContent.ProjectileType<NPCs.NPCProjs.AridBossSandProj>(), projdamage, 1, Main.myPlayer, 0, 0);
                             }
                         }
-                        NPC.ai[0] = 0;
+                        NPC.localAI[0] = 0;
                     }
                 }
-                if (NPC.localAI[0] > (700) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[0] > (700) && Main.netMode != NetmodeID.MultiplayerClient)
                 //Change to next attack
                 {
-                    NPC.ai[0] = 0;//Reset all ai values
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 0;
+                    NPC.localAI[0] = 0;//Reset all ai values
+                    NPC.localAI[2] = 0;
+                    NPC.localAI[3] = 0;
 
                     //NPC.ai[3]++;
                     NPC.ai[3] = 1;
 
-                    NPC.localAI[0] = 0;
+                    NPC.ai[0] = 0;
                     NPC.netUpdate = true;
                 }
             }

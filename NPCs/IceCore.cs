@@ -49,7 +49,7 @@ namespace StormDiversMod.NPCs
 
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
-            NPC.knockBackResist = 0.35f;
+            NPC.knockBackResist = 0.6f;
             NPC.value = Item.buyPrice(0, 1, 0, 0);
             NPC.gfxOffY = 0;
            Banner = NPC.type;
@@ -96,8 +96,8 @@ namespace StormDiversMod.NPCs
         }    
       
         float ypos = -150;
-        float speed = 3;
-        float inertia = 55;
+        float speed = 2;
+        float inertia = 40;
         float distance;
         public override bool? CanFallThroughPlatforms()
         {
@@ -140,15 +140,15 @@ namespace StormDiversMod.NPCs
             }
 
             NPC.spriteDirection = NPC.direction;
-            NPC.velocity.X *= 0.99f;
+            //NPC.velocity.X *= 0.99f;
 
-            NPC.velocity.Y *= 0.96f;
+            //NPC.velocity.Y *= 0.96f;
            
             if (!Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) || NPC.ai[3] == 1)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    speed = 3.5f;
+                    speed = 2f;
                     ypos = 0;
                     NPC.noTileCollide = true;
                     NPC.netUpdate = true;
@@ -158,7 +158,7 @@ namespace StormDiversMod.NPCs
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    speed = 5f;
+                    speed = 3f;
                     ypos = -150;
                     NPC.noTileCollide = false;
                     NPC.netUpdate = true;

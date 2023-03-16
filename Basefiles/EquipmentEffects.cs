@@ -1014,32 +1014,37 @@ namespace StormDiversMod.Basefiles
                     double dist = 90; //Distance away from the cursor
                     float dustx = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);
                     float dusty = Main.MouseWorld.Y - (int)(Math.Sin(rad) * dist);
-                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                    if (Player == Main.LocalPlayer)
                     {
-                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, 0, 0);
-                        dust.noGravity = true;
-                        dust.velocity *= 0;
-                        dust.scale = 1f;
-                        
-                    }
-                    Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(dustx, dusty)) * 10; //slight predictive 
-                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
-                    {
-                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, velocity.X, velocity.Y);
-                        dust.noGravity = true;
-                        dust.velocity *= 0.5f;
-                        dust.scale = 0.75f;
+                        if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                        {
+                            var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, 0, 0);
+                            dust.noGravity = true;
+                            dust.velocity *= 0;
+                            dust.scale = 1f;
+
+                        }
+                        Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(dustx, dusty)) * 10; //slight predictive 
+                        if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                        {
+                            var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, velocity.X, velocity.Y);
+                            dust.noGravity = true;
+                            dust.velocity *= 0.5f;
+                            dust.scale = 0.75f;
+                        }
                     }
                 }
                 for (int i = 0; i < 200; i++)
                 {
                     NPC target = Main.npc[i];
-
-                    if (Vector2.Distance(Main.MouseWorld, target.Center) <= 90 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Main.MouseWorld, 0, 0, target.Center, 0, 0))
+                    if (Player == Main.LocalPlayer)
                     {
-                        if (!target.buffImmune[(BuffType<AridCoreDebuff>())])
+                        if (Vector2.Distance(Main.MouseWorld, target.Center) <= 90 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Main.MouseWorld, 0, 0, target.Center, 0, 0))
                         {
-                            target.AddBuff(ModContent.BuffType<AridCoreDebuff>(), 2);
+                            if (!target.buffImmune[(BuffType<AridCoreDebuff>())])
+                            {
+                                target.AddBuff(ModContent.BuffType<AridCoreDebuff>(), 2);
+                            }
                         }
                     }
                 }

@@ -418,13 +418,13 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.GraniteFlyer || npc.type == NPCID.GraniteGolem)
             {
 
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Materials.GraniteCore>(), 3, 2));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Materials.GraniteCore>(), 2, 1));
 
             }
             if (npc.type == NPCID.GreekSkeleton)
             {
 
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Materials.RedSilk>(), 3, 2));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Materials.RedSilk>(), 2, 1));
 
             }
             if (npc.type == NPCID.ZombieEskimo || npc.type == NPCID.ArmedZombieEskimo)

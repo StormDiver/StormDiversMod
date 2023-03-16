@@ -80,7 +80,6 @@ namespace StormDiversMod.NPCs.Boss
             //NPC.damage = (int)(NPC.damage * 0.75f);
         }
         
-        int shoottime = 0;
         bool shooting;
         public override void OnSpawn(IEntitySource source)
         {
@@ -94,8 +93,8 @@ namespace StormDiversMod.NPCs.Boss
                 Main.dust[dust2].noGravity = true;
             }
 
-            NPC.ai[1] = Main.rand.Next(0, 360);
-            NPC.ai[2] = Main.rand.Next(0, 2);
+            NPC.localAI[1] = Main.rand.Next(0, 360); //Rotation
+            NPC.localAI[2] = Main.rand.Next(0, 2); //Distance
         }
         float speed = 9;
         float inertia = 40;
@@ -103,11 +102,19 @@ namespace StormDiversMod.NPCs.Boss
 
         public override void AI()
         {
+            //===============AI fields================
+            //NPC.ai[1] = X postion
+            //NPC.ai[2] = Y postion
+            //NPC.localAI[0] = Shootime
+            //NPC.localAI[1] = Rotation
+            //NPC.LocalAI[2] = Direction
+
+            //========================================
+
             NPC.noTileCollide = true;
             NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
             NPC.buffImmune[BuffID.Confused] = true;
-
-            shoottime++;
+            NPC.localAI[0]++;//Shoot time
             NPC.rotation = NPC.velocity.X / 50;
             if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
             {
@@ -117,25 +124,25 @@ namespace StormDiversMod.NPCs.Boss
 
             if (!player.dead)
             {
-                if (NPC.ai[2] == 0)
+                if (NPC.localAI[2] == 0)//Direction 
                 {
-                    NPC.ai[1] -= 2;
+                    NPC.localAI[1] -= 2;
                 }
                 else
                 {
-                    NPC.ai[1] += 2;
+                    NPC.localAI[1] += 2;
 
                 }
-                double deg = (NPC.ai[1]);
+                double deg = (NPC.localAI[1]);
                 double rad = deg * (Math.PI / 180);
                 double dist = 150; //Distance away from the player
 
                 //position
-                NPC.localAI[2] = (int)(Math.Cos(rad) * dist);
-                NPC.localAI[3] = (int)(Math.Sin(rad) * dist);
+                NPC.ai[1] = (int)(Math.Cos(rad) * dist); //X pos
+                NPC.ai[2] = (int)(Math.Sin(rad) * dist); //Y pos
 
 
-                Vector2 idlePosition = player.Center + new Vector2(NPC.localAI[2], NPC.localAI[3]);
+                Vector2 idlePosition = player.Center + new Vector2(NPC.ai[1], NPC.ai[2]);
                 Vector2 vectorToIdlePosition = idlePosition - NPC.Center;
                 //distanceToIdlePosition = vectorToIdlePosition.Length();
 
@@ -193,7 +200,7 @@ namespace StormDiversMod.NPCs.Boss
 
             if (distance  <= 600f)
             {
-                if (shoottime >= 100)
+                if (NPC.localAI[0] >= 100)
                 {                
                     float speedY = -2f;
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
@@ -204,7 +211,7 @@ namespace StormDiversMod.NPCs.Boss
                     int dust2 = Dust.NewDust(NPC.Center, 0, 0, 55, dustvelocity.X + NPC.velocity.X, dustvelocity.Y + NPC.velocity.Y, 100, default, 1f);
                     Main.dust[dust2].noGravity = true;
                 }
-                if (shoottime >= 120)
+                if (NPC.localAI[0] >= 120)
                 {
                     shooting = true;
 
@@ -234,12 +241,12 @@ namespace StormDiversMod.NPCs.Boss
                         }
                     }
                                       
-                    shoottime = 0;
+                    NPC.localAI[0] = 0;
                 }
             }
             else
             {
-                shoottime = 70;
+                NPC.localAI[0] = 70;
                 shooting = false;
 
             }
