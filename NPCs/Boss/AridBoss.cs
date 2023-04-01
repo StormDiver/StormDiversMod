@@ -45,11 +45,13 @@ namespace StormDiversMod.NPCs.Boss
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
         }
         public override void SetDefaults()
         {
 
-            Main.npcFrameCount[NPC.type] = 16;
+            Main.npcFrameCount[NPC.type] = 17;
 
             NPC.width = 62;
             NPC.height = 100;
@@ -119,6 +121,7 @@ namespace StormDiversMod.NPCs.Boss
         float projvelocity; //Velocity of projectiles
 
         public static int phase2HeadSlot = -1;
+        bool deathani;
         public override void Load()
         {
             // We want to give it a second boss head icon, so we register one
@@ -134,7 +137,25 @@ namespace StormDiversMod.NPCs.Boss
                 index = slot;
             }
         }
+        public override bool CheckDead() //For death animation
+        {
+            if (!deathani)
+            {
+                NPC.ai[3] = 0;
+                NPC.ai[0] = 0;
+                NPC.localAI[0] = 0;//Reset all ai values
 
+                NPC.damage = 0;
+                NPC.life = NPC.lifeMax;
+                //NPC.life = 100;
+                NPC.dontTakeDamage = true;
+                NPC.netUpdate = true;
+                deathani = true;
+                return false;
+
+            }
+            return true;
+        }
         public override void AI()
         {          
             NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
@@ -166,7 +187,7 @@ namespace StormDiversMod.NPCs.Boss
 
             Player player = Main.player[NPC.target]; //Code to move towards player
 
-            if (!player.dead)
+            if (!player.dead && !deathani)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -245,7 +266,7 @@ namespace StormDiversMod.NPCs.Boss
                 halflife = true;
             }
 
-            if (player.dead)//When player is dead fly down
+            if (player.dead && !deathani)//When player is dead fly down
             {
                 NPC.ai[3] = 0;
 
@@ -270,6 +291,68 @@ namespace StormDiversMod.NPCs.Boss
             {
                 NPC.localAI[1] = 0;
             }
+            //________________________________________________________________________
+            if (deathani) //DEATH ANIMATION=============================================================
+            {
+                NPC.dontTakeDamage = true;
+                NPC.ai[0]++;
+                NPC.frameCounter++;
+
+                NPC.rotation = NPC.velocity.X / 50;
+                NPC.velocity *= 0.95f;
+                if (NPC.ai[0] == 1)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (Main.netMode != NetmodeID.Server)
+                        {
+                            int goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                            Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f;
+                            Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
+                            goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                            Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1f;
+                            Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
+                            goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                            Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f;
+                            Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
+                            goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                            Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1f;
+                            Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
+                        }
+                        SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = 0f }, NPC.Center);
+
+                    }
+                }
+                if (NPC.ai[0] % 12 == 0)
+                {
+                    int xprojpos = Main.rand.Next(-25, 25);
+                    int yprojpos = Main.rand.Next(-40, 40);
+
+                    int ProjID = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + xprojpos, NPC.Center.Y + yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionAridProj>(), 0, 0, Main.myPlayer);
+                    Main.projectile[ProjID].scale = 0.6f;
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        float speedY = -3f;
+
+                        Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        int dust2 = Dust.NewDust(new Vector2(NPC.Center.X + xprojpos, NPC.Center.Y + yprojpos), 0, 0, 55, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                        Main.dust[dust2].noGravity = true;
+                    }
+
+                    Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    SoundEngine.PlaySound(SoundID.Item14 with { Volume = 0.75f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
+
+                }
+                if (NPC.ai[0] >= 180)
+                {
+                    NPC.life = 0;
+                    NPC.HitEffect(0, 0);
+                    NPC.checkDead();
+                }
+            }
             //dusts
             if (!halflife)
             {
@@ -293,7 +376,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
             }
 
-            if (!player.dead)//begin AI
+            if (!player.dead && !deathani)//begin AI
             {
                 if (NPC.ai[3] == 0) //No attacks when first summoned
                 {
@@ -1097,7 +1180,7 @@ namespace StormDiversMod.NPCs.Boss
             NPC.frame.Y = npcframe * frameHeight;
             //NPC.spriteDirection = NPC.direction;
             NPC.frameCounter++;
-            if (!halflife) //above half health
+            if (!halflife && !deathani) //above half health
             {
                 if (!animateattack)
                 {                 
@@ -1130,7 +1213,7 @@ namespace StormDiversMod.NPCs.Boss
                     }
                 }
             }          
-            if (halflife)
+            if (halflife && !deathani)
             {
                 if (!animateattack)
                 {
@@ -1163,6 +1246,13 @@ namespace StormDiversMod.NPCs.Boss
                     }
                 }
             }
+            if (deathani)
+            {
+                npcframe = 16;
+            }
+
+
+
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
@@ -1184,7 +1274,7 @@ namespace StormDiversMod.NPCs.Boss
                 int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 138, dustspeed.X, dustspeed.Y, 100, default, 1f);
                 Main.dust[dust2].noGravity = true;
             }
-            if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
+            if (NPC.life <= 0 && deathani)          //this make so when the npc has 0 life(dead) he will spawn this
             {
                 NPC.velocity *= 0.5f;
                 int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionAridProj>(), 0, 0, Main.myPlayer);
@@ -1264,7 +1354,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 Color color2 = Color.Orange * (speen1 / 12f) * 0.8f;
                 color2.A /= 3;
-                if (NPC.dontTakeDamage) //shield visual
+                if (NPC.dontTakeDamage && !deathani) //shield visual
                 {
                     for (float speen2 = 0f; speen2 < (float)Math.PI * 2f; speen2 += (float)Math.PI / 2f)
                     {

@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Tools
             DisplayName.SetDefault("Santa's Drill");
             Tooltip.SetDefault("'For use on those who have been naughty'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            ItemID.Sets.IsDrill[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -44,11 +44,7 @@ namespace StormDiversMod.Items.Tools
             Item.channel = true; 
             Item.autoReuse = true;
             Item.tileBoost = 0;
-
-
         }
-
-
 
         public override void AddRecipes()
         {
@@ -73,7 +69,7 @@ namespace StormDiversMod.Items.Tools
             DisplayName.SetDefault("Santa's Chainsaw");
             Tooltip.SetDefault("'For use on those who have been naughty'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            ItemID.Sets.IsChainsaw[Item.type] = true;
         }
 
         public override void SetDefaults()

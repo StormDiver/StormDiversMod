@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Tools
             DisplayName.SetDefault("Derpling Drill");
             Tooltip.SetDefault("'Drill through the ground'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            ItemID.Sets.IsDrill[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -45,9 +45,7 @@ namespace StormDiversMod.Items.Tools
             Item.autoReuse = true;
             
             
-        }
-
-       
+        }    
 
         public override void AddRecipes()
         {
@@ -67,7 +65,7 @@ namespace StormDiversMod.Items.Tools
             DisplayName.SetDefault("Derpling Chainsaw");
             Tooltip.SetDefault("'Cut down the trees'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            ItemID.Sets.IsChainsaw[Item.type] = true;
         }
 
         public override void SetDefaults()

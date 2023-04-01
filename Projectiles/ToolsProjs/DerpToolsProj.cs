@@ -35,8 +35,6 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             DrawOffsetX = 8;
             DrawOriginOffsetY = 0;
             //Projectile.ContinuouslyUpdateDamage = true;
-
-
         }
 
         public override void AI()
@@ -53,14 +51,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-
-           
-
+        {       
 
         }
-
-
 
         public override void OnHitPvp(Player target, int damage, bool crit)
         {
@@ -77,7 +70,6 @@ namespace StormDiversMod.Projectiles.ToolsProjs
                 Projectile.frameCounter = 0;
             }
         }
-
 
     }
     public class DerpChainProj : ModProjectile

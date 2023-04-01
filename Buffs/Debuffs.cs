@@ -285,6 +285,7 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Twilight Warped");
             Description.SetDefault("You are unable to perform another Twilight Warp");
             Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 
         }
 
@@ -460,6 +461,8 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Forbidden Whip tag");
             Description.SetDefault("You have been tagged by the Forbidden Whip");
             Main.debuff[Type] = true;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+
         }
         public override void Update(Player player, ref int buffIndex)
         {
@@ -477,6 +480,8 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Asteroid Whip tag");
             Description.SetDefault("You have been tagged by the Asteroid Belt");
             Main.debuff[Type] = true;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -495,6 +500,8 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Bloody Whip tag");
             Description.SetDefault("You have been tagged by The Bloody Spine");
             Main.debuff[Type] = true;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -513,6 +520,8 @@ namespace StormDiversMod.Buffs
             DisplayName.SetDefault("Spider Whip tag");
             Description.SetDefault("You have been tagged by The Spider Whip");
             Main.debuff[Type] = true;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -556,6 +565,43 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().aridCoreDebuff = true;
+        }
+    }
+    //_________________________________________________________________
+    public class YouCantEscapeDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("You can't escape me!");
+            Description.SetDefault("Even death cannot save you from the pain");
+            Main.debuff[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+        }
+    }
+    //_________________________________________________________________
+    public class PainlessDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Pain Cooldown");
+            Description.SetDefault("Your pain will end if you die");
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
         }
     }
 }

@@ -25,8 +25,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 14;
+            Projectile.width = 18;
+            Projectile.height = 18;
             Projectile.light = 0f;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -201,6 +201,85 @@ namespace StormDiversMod.Projectiles
 
             return true;
 
+        }
+    }
+    public class PainProj2 : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Painful Core");
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.light = 0f;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Generic;
+            Projectile.timeLeft = 30;
+            Projectile.aiStyle = 0;
+            Projectile.scale = 1f;
+            Projectile.tileCollide = false;
+        }
+        float xPos;
+        float yPos;
+        public override bool? CanDamage()
+        {
+            return false;
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            var player = Main.player[Projectile.owner];
+
+            xPos = Projectile.Center.X - player.Center.X;
+            yPos = Projectile.Center.Y - player.Center.Y;
+        }
+        public override void AI()
+        {
+            var player = Main.player[Projectile.owner];
+            if (Projectile.ai[0] == 1)
+            {
+                Projectile.timeLeft = 50;
+                Projectile.rotation += 0.05f;
+            }
+            else
+            {
+                Projectile.position.X = player.Center.X + xPos;
+                Projectile.position.Y = player.Center.Y + yPos;
+
+            }
+        }
+        public override void Kill(int timeLeft)
+        {
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.White;
+            color.A = 150;
+            return color;
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (Projectile.ai[0] == 1)
+            {
+                Main.instance.LoadProjectile(Projectile.type);
+                Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+                Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+                for (int k = 0; k < Projectile.oldPos.Length; k++)
+                {
+                    Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                    Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                    Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                }
+            }
+            return true;
         }
     }
 }

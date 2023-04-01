@@ -16,7 +16,7 @@ namespace StormDiversMod.Items.Accessory
         {
             
             DisplayName.SetDefault("Celestial Barrier");
-            Tooltip.SetDefault("Grants immunity to debuffs inflicted by Extra-Terrestrial creatures\nTaking heavy damage greatly increases health regeneration while protecting you\nDuration depends on the amount of damage received");
+            Tooltip.SetDefault("Taking heavy damage regenerates the lost life over several seconds while granting additonal defense\nGrants immunity to debuffs inflicted by Extra-Terrestrial creatures");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -58,8 +58,6 @@ namespace StormDiversMod.Items.Accessory
             .AddIngredient(ItemID.FragmentStardust, 20)
             .AddTile(TileID.LunarCraftingStation)
             .Register();
-         
-
            
         }
         public override Color? GetAlpha(Color lightColor)

@@ -28,7 +28,7 @@ namespace StormDiversMod.Buffs
             particle--;
            
             {
-                player.statDefense += 50;
+                player.statDefense += 25;
 
                 player.lifeRegen += 30;
                 if (particle <= 0)
@@ -581,6 +581,26 @@ namespace StormDiversMod.Buffs
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0.5f;
             }
+        }
+    }
+
+    //_________________________________________________________________
+    public class PainBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Pain Extender");
+            Description.SetDefault("You will get to experience pain all over again on death");
+            Main.debuff[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
         }
     }
 }

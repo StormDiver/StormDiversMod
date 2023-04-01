@@ -27,8 +27,9 @@ namespace StormDiversMod
 {
 	public class StormDiversMod : Mod //For most important things
 	{
-        public override void PostSetupContent() //For boss checklist
+        public override void PostSetupContent()
         {
+            //For boss checklist
             if (ModLoader.HasMod("BossChecklist"))//DON'T FORGET THIS!!!!!!!
             {
                 Mod bossChecklist = ModLoader.GetMod("BossChecklist");
@@ -44,7 +45,8 @@ namespace StormDiversMod
 
                         ModContent.ItemType<Items.Summons.StormBossSummoner>(), "Summoned by using a Storm Beacon once all 3 mechs have been defeated",
                         "Overloaded Scandrone returns to its home planet (and didn't die on the way home)",
-                        (SpriteBatch sb, Rectangle rect, Color color) => {
+                        (SpriteBatch sb, Rectangle rect, Color color) =>
+                        {
                             Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
                             Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
                             sb.Draw(texture, centered, color);
@@ -61,24 +63,44 @@ namespace StormDiversMod
 
                        ModContent.ItemType<Items.Summons.AridBossSummon>(), "Summoned by using a Cracked Horn at any time while in a desert",
                        "The Ancient Husk returns to the depths of the desert",
-                       (SpriteBatch sb, Rectangle rect, Color color) => {
+                       (SpriteBatch sb, Rectangle rect, Color color) =>
+                       {
                            Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/AridBoss_Image").Value;
                            Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
                            sb.Draw(texture, centered, color);
                        }
                        );
+
+                    /*bossChecklist.Call
+                       ("AddBoss", this, "Ultimate Pain", ModContent.NPCType<NPCs.Boss.ThePainBoss>(), 19f, (Func<bool>)(() => StormWorld.painBossDown), () => true,
+                       new List<int> { ModContent.ItemType<Items.BossTrophy.UltimateBossTrophy>(), ModContent.ItemType<Items.BossTrophy.UltimateBossRelic>(), ModContent.ItemType<Items.Pets.UltimateBossPetItem>(),
+                        ModContent.ItemType<Items.BossTrophy.UltimateBossBag>(), ModContent.ItemType<Items.Accessory.DeathCore>(), //vanity
+                       
+                        ModContent.ItemType<Items.Vanitysets.ThePainMask>()},
+
+                       ModContent.ItemType<Items.Vanitysets.ThePainMask>(), "Summoned by using Thepain post Moon Lord",
+                       "You copuldn;t handle the pain huh?",
+                       (SpriteBatch sb, Rectangle rect, Color color) => {
+                           Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/ThePainBoss_Image").Value;
+                           Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+                           sb.Draw(texture, centered, color);
+                       }
+                       );*/
                 }
             }
-
+            //4eum
             if (ModLoader.TryGetMod("ThoriumMod", out Mod thoriumMod))
             {
                 thoriumMod.Call("AddMartianItemID", ModContent.ItemType<SuperDartLauncher>());
                 thoriumMod.Call("AddFlailProjectileID", ModContent.ProjectileType<Projectiles.DestroyerFlailProj>());
 
             }
-
+            //Bosses as NPCs
+            if (ModLoader.TryGetMod("BossesAsNPCs", out Mod bossesAsNPCs))
+            {
+                bossesAsNPCs.Call("AddToShop", "WithDiv", "Dreadnautilus", ModContent.ItemType<Items.Weapons.BloodySentry>(), () => true, 0.125f);
+            }
         }
-
         public static ModKeybind ArmourSpecialHotkey;
         public override void Load()
         {

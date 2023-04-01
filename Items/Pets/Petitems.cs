@@ -269,5 +269,47 @@ namespace StormDiversMod.Items.Pets
             return false;
         }      
     }
+    public class UltimateBossPetItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("TheCute");
+            Tooltip.SetDefault("Summons something cute and painless");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.UseSound = SoundID.Item2;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
+            Item.noMelee = true;
+            Item.width = 24;
+            Item.height = 22;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+
+            Item.shoot = ProjectileType<UltimateBossPetProj>();
+            Item.buffType = BuffType<UltimateBossPetBuff>();
+            Item.rare = ItemRarityID.Red;
+            Item.master = true;
+        }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+            {
+                player.AddBuff(Item.buffType, 3600, true);
+            }
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+
+            player.AddBuff(Item.buffType, 2); // The item applies the buff, the buff spawns the projectile
+
+            return false;
+        }
+    }
 }
 

@@ -23,6 +23,9 @@ using Terraria.DataStructures;
 using Terraria.Audio;
 using System.Configuration;
 using Terraria.GameContent.Drawing;
+using StormDiversMod.Items.Vanitysets;
+using Terraria.GameContent.ItemDropRules;
+using rail;
 
 namespace StormDiversMod.Basefiles
 {
@@ -41,6 +44,7 @@ namespace StormDiversMod.Basefiles
         public float ninedmg;  //increase in melee damage
         public bool explosionfall; //Player has been launched by a stickybomb
         public int explosionflame; //How long to have flames under the player's feet after being launched
+
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             screenshaker = false;
@@ -53,7 +57,6 @@ namespace StormDiversMod.Basefiles
             ninelivescooldown = 0;
             ninedmg = 0;
             explosionfall = false;
-
         }
 
         //===============================================================================================================
@@ -175,10 +178,20 @@ namespace StormDiversMod.Basefiles
             }*/
             if (explosionflame > 0)
             {
-                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.FlameWaders, new ParticleOrchestraSettings
+                if (Player.gravDir == 1)
                 {
-                    PositionInWorld = new Vector2(Player.Center.X, Player.Bottom.Y)
-                }, Player.whoAmI);
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.FlameWaders, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Player.Center.X, Player.Bottom.Y)
+                    }, Player.whoAmI);
+                }
+                else
+                {
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.FlameWaders, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Player.Center.X, Player.Top.Y)
+                    }, Player.whoAmI);
+                }
                 explosionflame--;
             }
             if (explosionfall)//Correct fall damage when launched via sticky bomb
@@ -192,6 +205,13 @@ namespace StormDiversMod.Basefiles
                     explosionfall = false;
                 }
             }
+            //Main.NewText("Pain = " + (100 - (Player.statDefense * 0.75f) * (1 - Player.endurance)), 204, 101, 22);
+            
+            if (NPC.CountNPCS(ModContent.NPCType<NPCs.Boss.ThePainBoss>()) == 0)
+            {
+                Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>()); 
+            }
+            //Main.NewText("Pain is " + paintime, 220, 63, 139);
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
@@ -205,7 +225,7 @@ namespace StormDiversMod.Basefiles
                 //regular enemies 1 soul 
                 if (!target.SpawnedFromStatue && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.life <= 0)
                 {
-                    ninelivescooldown = 600; //Reset cooldown to 10 seconds, even at max amount
+                    ninelivescooldown = 540; //Reset cooldown to 9 seconds, even at max amount
                     if (ninelives < 9) //Spawn up to 9
                     {
                         ninelives++;//increase counter
@@ -235,7 +255,7 @@ namespace StormDiversMod.Basefiles
                 }
                 if ((target.type == ModContent.NPCType<NPCs.HellMiniBoss>()) && target.life <= 0) //Soul Cauldron give all souls
                 {
-                    ninelivescooldown = 600; //Reset cooldown to 10 seconds, even at max amount
+                    ninelivescooldown = 540; //Reset cooldown to 9 seconds, even at max amount
                     for (int i = 0; i < 8; i++) //Because you get one from normal means
                     {
                         if (ninelives < 9)
@@ -257,13 +277,140 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
+        String Paintext = "";    
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>() && !Player.immune)
+            {
+                //paintime = 3600;
+                //Player.statDefense = 0; //ignores all DR
+                //Player.endurance = 0;
+                //damage = (Player.statLife / 3); //Deals 1/3 the player's
+                if (Player.statLife < Player.statLifeMax2 / 3)//Deals 75% damage below 33% life
+                {
+                    damage = damage * 3 / 4;      
+                }
+            }
+        }
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        {
+            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>())
+            {
+                if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
+                {
+                    int choice = Main.rand.Next(0, 6);
+
+                    if (Main.rand.Next(1) == 0)
+                    {
+                        if (choice == 0)
+                            Paintext = "That looked very Painful!";
+                        else if (choice == 1)
+                            Paintext = "Enjoy the pain!";
+                        else if (choice == 2)
+                            Paintext = "Are you enjoying this?";
+                        else if (choice == 3)
+                            Paintext = "How does the pain feel?";
+                        else if (choice == 4)
+                            Paintext = "Skill issue!";
+                        else if (choice == 5)
+                            Paintext = "You seem to be in a lot of pain!";
+                        
+                        for (int i = 0; i < 200; i++)//message also appears from boss
+                        {
+                            NPC painTarget = Main.npc[i];
+                            if (painTarget.type == ModContent.NPCType<NPCs.Boss.ThePainBoss>())
+                            {
+                                CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                            }
+                        }
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText(Paintext, 175, 17, 96);
+                        }
+
+                        Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
+
+                        /*else if (damage >= 12 && damage < 50)
+                            Paintext = "Hmm you're taking a lot of pain!";
+                        else if (damage > 1 && damage < 12)
+                            Paintext = "Ok maybe too much pain";
+                        else if (damage == 1)
+                            Paintext = "Because how can you suffer if you're dead?";*/
+                    }
+                }        
+            }
+            base.OnHitByProjectile(proj, damage, crit);
+        }
+        String Suffertext;
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (Player.HasBuff(ModContent.BuffType<YouCantEscapeDebuff>()) && !Player.HasBuff(ModContent.BuffType<PainBuff>())) //Save you from death once, won't activate if accessory does
+            {
+                Suffertext = "HOW CAN YOU SUFFER IF YOU'RE DEAD???";
+                for (int i = 0; i < 200; i++)//message also appears from boss
+                {
+                    NPC painTarget = Main.npc[i];
+                    if (painTarget.type == ModContent.NPCType<NPCs.Boss.ThePainBoss>())
+                    {
+                        CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.HotPink, Suffertext, true);
+                    }
+                }
+                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj2>(), 0, 0, Main.myPlayer);
+                Main.projectile[proj].scale = 2.5f;
+                SoundEngine.PlaySound(SoundID.Item74 with { Volume = 2f, Pitch = 0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                SoundEngine.PlaySound(SoundID.Item109 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Suffertext), new Color(220, 63, 139));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText(Suffertext, 220, 63, 139);
+                }
+
+                for (int i = 0; i < 100; i++)
+                {
+                    float speedY = -8f;
+
+                    Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    int dust2 = Dust.NewDust(Player.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.5f);
+                    //Main.dust[dust2].noGravity = true;
+                }
+                for (int i = 0; i < 6; i++)
+                {
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.StellarTune, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Player.Center.X, Player.Center.Y)
+                    }, Player.whoAmI);
+
+                }
+                Player.HealEffect(Player.statLifeMax2, true);
+
+                Player.statLife = Player.statLifeMax2;
+                Player.immuneTime = 120;
+                Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>());
+                return false;
+            }
+            return true;
+        }
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             if (playerimmunetime > 0)
             {
                 return false;
             }
+           
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
+        }
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        {
+            
         }
     }
     public class Itemchanges : GlobalItem
@@ -301,6 +448,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
+        
         /*public override bool CanUseItem(Item item, Player player) //use this to disable the RoD if you want 
         {
             if (item.type == ItemID.RodofDiscord)

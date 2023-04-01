@@ -22,6 +22,7 @@ using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using NVorbis.Contracts;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Basefiles
 {
@@ -38,7 +39,9 @@ namespace StormDiversMod.Basefiles
 
         public bool stormBossPet; //The player has the Scandrone Pet
 
-        public bool aridBossPet; //The player has the Ancuent Husk Pet
+        public bool aridBossPet; //The player has the Ancient Husk Pet
+
+        public bool painBossPet; //The player has the Painful pet
 
 
         public bool shroombuff; //The Player has the Ranged enhancement potion buff
@@ -102,6 +105,8 @@ namespace StormDiversMod.Basefiles
 
         public bool superHeartpotion; //Player has taken a super heart potion
 
+        public bool DeathCore; //Player has Ultimate Pain equipped
+
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the SPooky Core has fired its flames or not
@@ -130,7 +135,7 @@ namespace StormDiversMod.Basefiles
         public int coraldrop; //Cooldown for coral emblem drops
         public bool stormBossProj; // wheter the projectile for the storm coil has been spawned
         public int shroomtime; //For cahnneling ranged weapons with Shroomite launcher
-
+        public int paintime; //Cooldown for reliving pain
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -139,6 +144,8 @@ namespace StormDiversMod.Basefiles
             twilightPet = false;
             stormBossPet = false;
             aridBossPet = false;
+            painBossPet = false;
+
             shroombuff = false;
             flameCore = false;
             frostSpike = false;
@@ -169,6 +176,7 @@ namespace StormDiversMod.Basefiles
             mushroomSuper = false;
             heartpotion = false;
             superHeartpotion = false;
+            DeathCore = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -187,6 +195,7 @@ namespace StormDiversMod.Basefiles
             coraldrop = 0;
             stormBossProj = false;
             flamecooldown = 0;
+            paintime = 0;
         }
 
         //===============================================================================================================
@@ -273,6 +282,27 @@ namespace StormDiversMod.Basefiles
             if (bearcool > 0)
             {
                 bearcool--;
+            }
+            if (paintime > 0)
+            {
+                //Player.lifeRegen = 0;
+                //Player.lifeRegenCount = 0;
+                paintime--;
+            }
+            else
+            {
+                Player.ClearBuff(ModContent.BuffType<PainlessDebuff>());
+                if (DeathCore)
+                {
+                    Player.AddBuff(ModContent.BuffType<PainBuff>(), 2);
+
+                    if (Main.rand.Next(10) == 0)
+                    {
+                        int xprojpos = Main.rand.Next(-40, 40);
+                        int yprojpos = Main.rand.Next(-40, 40);
+                        int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X + xprojpos, Player.Center.Y - yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainProj2>(), 0, 0, Main.myPlayer);
+                    }
+                }
             }
             //======================================================================================Accessories/other======================================================================================
             if (beetleFist && Player.HeldItem.CountsAsClass(DamageClass.Melee))
@@ -1119,19 +1149,14 @@ namespace StormDiversMod.Basefiles
             //Grant buff for celestial barrier based on incoming damage======================
             if (lunarBarrier)
             {
-
-
-                if (((attackdmg >= 75 && Main.expertMode) || (attackdmg >= 50 && !Main.expertMode)) && attackdmg < Player.statLife)
+                if (((attackdmg >= 100 && Main.masterMode) || (attackdmg >= 80 && Main.expertMode && !Main.masterMode) || (attackdmg >= 60 && !Main.expertMode)) && attackdmg < Player.statLife)
                 {
-
-
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<CelestialBuff>()))
                     {
                         SoundEngine.PlaySound(SoundID.Item122, Player.Center);
                         Player.AddBuff(ModContent.BuffType<CelestialBuff>(), (int)(attackdmg * 4f));
 
                     }
-
                 }
                 /*if (attackdmg >= 60 && !Main.expertMode && !Player.HasBuff(ModContent.BuffType<CelestialBuff>()))
                 {
@@ -1189,17 +1214,78 @@ namespace StormDiversMod.Basefiles
             {
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
                 {
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
                     CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.DeepPink, "Thepain!", true);
 
                 }
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
                 {
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
                     CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", true);
 
                 }
             }
+        }
+        //Prevent Death
+        String Suffertext;
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (paintime == 0 && DeathCore && damage < 9999) //Save you from death once
+            {
+                Suffertext = "Live to suffer another day!";
+                CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.HotPink, Suffertext, true);
+                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainProj>(), 0, 0, Main.myPlayer);
+                Main.projectile[proj].scale = 2.5f;
+
+                float numberProjectiles = 24;
+                float rotation = MathHelper.ToRadians(180);
+                //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
+                for (int j = 0; j < numberProjectiles; j++)
+                {
+                    float speedX = 0f;
+                    float speedY = 20f;
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainProj2>(), 0, 0, Main.myPlayer, 1);
+                }
+                SoundEngine.PlaySound(SoundID.Item109 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Suffertext), new Color(220, 63, 139));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText(Suffertext, 220, 63, 139);
+                }
+
+                for (int i = 0; i < 100; i++)
+                {
+                    float speedY = -8f;
+
+                    Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    int dust2 = Dust.NewDust(Player.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.5f);
+                    //Main.dust[dust2].noGravity = true;
+                }
+                for (int i = 0; i < 6; i++)
+                {
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.StellarTune, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Player.Center.X, Player.Center.Y)
+                    }, Player.whoAmI);
+                    
+                }
+                Player.HealEffect(Player.statLifeMax2, true);                               
+                Player.statLife = Player.statLifeMax2; //restore life
+                Player.immuneTime = 120;
+                //Player.ClearBuff(ModContent.BuffType<PainBuff>()); //Buff will go away on its own after 1 frame, allows it to satck with Pain boss
+                Player.AddBuff(ModContent.BuffType<PainlessDebuff>(), 9000);
+
+                paintime = 9000; // 2.5 minutes (150 seconds)
+                return false;
+            }
+            return true;
         }
         //===================================Other hooks======================================
 
@@ -1209,7 +1295,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
                 {
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
                     CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", true);
 
                 }
@@ -1265,7 +1351,7 @@ namespace StormDiversMod.Basefiles
         {
             /*if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
             {
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
             }*/
             /*if (heartSteal) //For the Jar of hearts
             {

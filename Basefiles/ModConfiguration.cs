@@ -45,7 +45,7 @@ namespace StormDiversMod.Basefiles
 
         [Header("Enemy Misc")]
 
-        [Label("Overloaded Scandrone acts as a Plantera Alternative")]
+        [Label("Overloaded Scandrone acts as a Plantera alternative")]
         [Tooltip("This will make defeating Overloaded Scandrone activate everything that defeating the Plantera would")]
         [DefaultValue(false)]
         //[ReloadRequired] //No reload required as it just prevents a single bool being activated
@@ -56,6 +56,12 @@ namespace StormDiversMod.Basefiles
         //[ReloadRequired] //No reload required 
         [DefaultValue(false)]
         public bool PreventBuffedDerps { get; set; }
+
+        [Label("Prevent Boss weather changes")]
+        [Tooltip("This will prevent bosses in the mod from chaing the weather when alive")]
+        //[ReloadRequired] //No reload required 
+        [DefaultValue(false)]
+        public bool PreventBossStorm { get; set; }
 
         //This will be added if Rho's Playground is ever deleted
         /*[Label("Remove damage variance")]

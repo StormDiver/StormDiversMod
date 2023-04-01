@@ -64,18 +64,18 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (!Main.expertMode)
+            /*if (!Main.expertMode)
             {
                 //No Debuff
             }
             if (Main.expertMode && !Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 150);
+                target.AddBuff(BuffID.Electrified, 60);
             }
             if (Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 300);
-            }
+                target.AddBuff(BuffID.Electrified, 120);
+            }*/
         }
 
         public override void Kill(int timeLeft)
@@ -214,18 +214,18 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (!Main.expertMode)
+            /*if (!Main.expertMode)
             {
                 //No Debuff
             }
             if (Main.expertMode && !Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 150);
+                target.AddBuff(BuffID.Electrified, 60);
             }
             if (Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 300);
-            }
+                target.AddBuff(BuffID.Electrified, 120);
+            }*/
 
             Projectile.Kill();
         }
@@ -391,18 +391,18 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 Projectile.timeLeft = 3;
             }
-            if (!Main.expertMode)
+            /*if (!Main.expertMode)
             {
                 //No Debuff
             }
             if (Main.expertMode && !Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 150);
+                target.AddBuff(BuffID.Electrified, 60);
             }
             if (Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 300);
-            }
+                target.AddBuff(BuffID.Electrified, 120);
+            }*/
         }
 
         public override void Kill(int timeLeft)
@@ -536,18 +536,18 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.timeLeft = 3;
             }
 
-            if (!Main.expertMode)
+            /*if (!Main.expertMode)
             {
                 //No Debuff
             }
             if (Main.expertMode && !Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 150);
+                target.AddBuff(BuffID.Electrified, 60);
             }
             if (Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 300);
-            }
+                target.AddBuff(BuffID.Electrified, 120);
+            }*/
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
 
@@ -843,11 +843,11 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             if (Main.expertMode && !Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 150);
+                target.AddBuff(BuffID.Electrified, 90); //1.5
             }
             if (Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 300);
+                target.AddBuff(BuffID.Electrified, 180); //3
             }
         }
         public override void Kill(int timeLeft)

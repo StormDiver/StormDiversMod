@@ -117,7 +117,7 @@ namespace StormDiversMod.Items.Armour
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Ancient Twilight Robe");
-            Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlighlty increases player acceleration");
+            Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlightly increases player acceleration");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
             if (!Main.dedServ)

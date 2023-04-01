@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Tools
             DisplayName.SetDefault("Mini Drill");
             Tooltip.SetDefault("'Speeds up your mining experience'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            ItemID.Sets.IsDrill[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -55,7 +55,7 @@ namespace StormDiversMod.Items.Tools
             DisplayName.SetDefault("Mega Drill");
             Tooltip.SetDefault("'Greatly speeds up your mining experience'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            ItemID.Sets.IsDrill[Item.type] = true;
         }
 
         public override void SetDefaults()

@@ -15,7 +15,8 @@ namespace StormDiversMod.Items.Tools
             DisplayName.SetDefault("Asteroid DrillSaw");
             Tooltip.SetDefault("'Not to be confused with the SawDrill'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            ItemID.Sets.IsChainsaw[Item.type] = true;
+            ItemID.Sets.IsDrill[Item.type] = true;
         }
 
         public override void SetDefaults()

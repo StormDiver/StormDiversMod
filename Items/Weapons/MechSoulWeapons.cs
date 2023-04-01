@@ -110,7 +110,7 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.SawBladeChain>();
             Item.shootSpeed = 50f;
             Item.axe = 30;
-            Item.tileBoost = 2;
+            Item.tileBoost = 0;
             Item.UseSound = SoundID.Item23;
             Item.noMelee = true;
             Item.noUseGraphic = true;

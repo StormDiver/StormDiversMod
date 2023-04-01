@@ -82,7 +82,6 @@ namespace StormDiversMod.Items.Armour
             {
                 keyName = list[0];
             }
-
             player.setBonus = "Press '" + keyName + "' to warp to the cursor's location within a limited range\nWarping has a hard 8 second cooldown\n'Teleporting is just dashing at the speed of light'"; 
 
             //player.endurance += 0.1f;
@@ -109,7 +108,6 @@ namespace StormDiversMod.Items.Armour
     }
     //___________________________________________________________________________________________________________________________
     [AutoloadEquip(EquipType.Body)]
-    
     public class NightsChainmail : ModItem
     {     
         public override void SetStaticDefaults()
@@ -117,7 +115,7 @@ namespace StormDiversMod.Items.Armour
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Twilight Robe");
-            Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlighlty increases player acceleration");
+            Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlightly increases player acceleration");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
             if (!Main.dedServ)

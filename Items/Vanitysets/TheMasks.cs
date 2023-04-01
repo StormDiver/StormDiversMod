@@ -8,6 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Basefiles;
 using Terraria.Audio;
+using StormDiversMod.NPCs.NPCProjs;
 
 namespace StormDiversMod.Items.Vanitysets
 {
@@ -28,16 +29,14 @@ namespace StormDiversMod.Items.Vanitysets
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Blue;
-            Item.vanity = true;           
+            Item.vanity = true;
         }
-        public override void UpdateEquip(Player player)
-        {
-        }
+      
         public override bool OnPickup(Player player)
         {
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ThePainSound") with { Volume = 1.5f }, player.Center);
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f }, player.Center);
             }
             return base.OnPickup(player);
         }
@@ -69,7 +68,7 @@ namespace StormDiversMod.Items.Vanitysets
         {
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Sounds/ClayManSound") with { Volume = 1.5f }, player.Center);
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f }, player.Center);
             }
             return base.OnPickup(player);
         }

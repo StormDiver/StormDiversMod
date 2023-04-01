@@ -22,10 +22,9 @@ namespace StormDiversMod.Items.Weapons
             if (item.type == ItemID.StoneBlock || item.type == ItemID.EbonstoneBlock || item.type == ItemID.CrimstoneBlock || item.type == ItemID.PearlstoneBlock)
             {
                 item.ammo = ItemID.StoneBlock;
-                item.notAmmo = true;              
+                item.notAmmo = true;
             }
         }
-        
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             /*foreach (TooltipLine line in tooltips)
@@ -41,16 +40,16 @@ namespace StormDiversMod.Items.Weapons
         }
       
     }
-        public class StoneThrower : ModItem
+    public class StoneThrower : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Stone Cannon");
             Tooltip.SetDefault("Fire out all your unwanted stone at your foes");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-           
+
         }
-      
+
         public override void SetDefaults()
         {
             Item.width = 40;
@@ -78,7 +77,7 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item61;
 
-            
+
             //Item.crit = 0;
             Item.knockBack = 5f;
 
@@ -96,9 +95,7 @@ namespace StormDiversMod.Items.Weapons
                     {
                         line.Text = line.Text + "\nRequires Compact Boulders, craft more with stone";
                     }
-                   
                 }
-
             }
         }
         public override Vector2? HoldoutOffset()
@@ -130,10 +127,10 @@ namespace StormDiversMod.Items.Weapons
          .AddTile(TileID.Anvils)
          .Register();
 
-         
-           
+
+
         }
-       
+
     }
     //_______________________________________________________________________________
     public class StoneThrowerHard : ModItem

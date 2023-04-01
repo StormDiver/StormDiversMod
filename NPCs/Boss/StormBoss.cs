@@ -22,6 +22,7 @@ using Terraria.Localization;
 using Terraria.ModLoader.IO;
 
 using StormDiversMod.Items.Pets;
+using StormDiversMod.Projectiles;
 
 namespace StormDiversMod.NPCs.Boss
 {
@@ -41,7 +42,9 @@ namespace StormDiversMod.NPCs.Boss
             };
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCID.Sets.MPAllowedEnemies[Type] = true;           
+            NPCID.Sets.MPAllowedEnemies[Type] = true;
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -78,7 +81,7 @@ namespace StormDiversMod.NPCs.Boss
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
 
 				// Sets the description of this NPC that is listed in the bestiary.
 				new FlavorTextBestiaryInfoElement("A terrifying experiment that escaped from the vortex homeworld prematurely, infused with tons of lunar energy, " +
@@ -118,6 +121,8 @@ namespace StormDiversMod.NPCs.Boss
         public static int phase2HeadSlot = -1;
         public static int phase3HeadSlot = -1;
 
+        bool deathani;
+
         public override void Load()
         {
             string texture = BossHeadTexture + "_Phase2"; // Texture Name
@@ -141,7 +146,25 @@ namespace StormDiversMod.NPCs.Boss
                 index = slot2;
             }
         }
+        public override bool CheckDead() //For death animation
+        {
+            if (!deathani)
+            {
+                NPC.ai[3] = 0;
+                NPC.ai[0] = 0;
+                NPC.localAI[0] = 0;//Reset all ai values
 
+                NPC.damage = 0;
+                NPC.life = NPC.lifeMax;
+                //NPC.life = 100;
+                NPC.dontTakeDamage = true;
+                NPC.netUpdate = true;
+                deathani = true;
+                return false;
+
+            }
+            return true;
+        }
         public override void AI()
         {
             NPC.buffImmune[BuffID.Confused] = true;
@@ -173,7 +196,7 @@ namespace StormDiversMod.NPCs.Boss
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (!charge && !player.dead)
+                if (!charge && !player.dead && !deathani)
                 {
                     Vector2 moveTo = player.Center;
                     Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[1], NPC.ai[2]); //Postion around player
@@ -247,7 +270,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
             }*/
             //____________________________________________________________________________________________________________________________________
-            if (!player.dead)
+            if (!player.dead && !deathani)
             {
                 if (NPC.ai[3] == 0) //No attacks when first summoned, or when changing to phase 3
                 {
@@ -310,7 +333,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
             }
             //____________________________________________________________________________________________________________________________________
-            if (player.dead)//When player is dead fly away
+            if (player.dead && !deathani)//When player is dead fly away
             {
                 NPC.ai[3] = 0;
 
@@ -330,60 +353,150 @@ namespace StormDiversMod.NPCs.Boss
                 if (NPC.localAI[1] > 180)
                 {
                     NPC.active = false;
-                }               
+                }
             }
             else
             {
                 NPC.localAI[1] = 0;
             }
-
-            if (!halflife && NPC.life < NPC.lifeMax / 2) //Below half health new attack
+            //________________________________________________________________________
+            if (deathani) //DEATH ANIMATION=============================================================
             {
-                NPC.localAI[0] = 0;//rest cooldown for attacks
-                SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
-                //if (Main.netMode != NetmodeID.MultiplayerClient)
+                NPC.dontTakeDamage = true;
+                NPC.ai[0]++;
+                NPC.rotation = NPC.ai[0] / 3;
+                NPC.velocity *= 0.95f;
+                if (NPC.ai[0] % 8 == 0)
                 {
-                    for (int i = 0; i < 50; i++)
+                    int xprojpos = Main.rand.Next(-25, 25);
+                    int yprojpos = Main.rand.Next(-25, 25);
+
+                    int ProjID = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + xprojpos, NPC.Center.Y + yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Main.myPlayer);
+                    Main.projectile[ProjID].scale = 0.6f;
+
+                    for (int i = 0; i < 10; i++)
                     {
+                        float speedY = -1f;
 
-                        var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 226);
-                        dust.noGravity = true;
-                        dust.fadeIn = 1;
-                        dust.scale = 1.5f;
+                        Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        int dust2 = Dust.NewDust(new Vector2(NPC.Center.X + xprojpos, NPC.Center.Y + yprojpos), 0, 0, 156, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                        Main.dust[dust2].noGravity = true;
                     }
-                }             
-                halflife = true;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(360));
+                    
+                        float ai = Main.rand.Next(100);
+                        int projID = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, 0),
+                            ModContent.ProjectileType<NPCs.NPCProjs.StormBossLightning>(), 0, .5f, Main.myPlayer, perturbedSpeed.ToRotation(), ai);
+                        Main.projectile[projID].scale = 0.75f;
+                    }
+                    //SoundEngine.PlaySound(SoundID.Item14 with { Volume = 1f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.Item96, NPC.Center);
+
+                }
+               
+                if (NPC.ai[0] >= 180)
+                {
+                    NPC.life = 0;
+                    NPC.HitEffect(0, 0);
+                    NPC.checkDead();
+                }
             }
-            if (!lowlife && NPC.life < NPC.lifeMax / 10 && Main.expertMode) //Below 10% health one attack, expert+ only
+            //Weather effects
+            if (!GetInstance<ConfigurationsGlobal>().PreventBossStorm)
             {
-                NPC.dontTakeDamage = true; //immune to damage for short time
-
-                SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
-
-                if (Main.netMode != NetmodeID.Server)//Drop some gore when changing phase
+                if (!player.dead && !deathani)
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore4").Type, 1f);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
+                    if (Main.cloudAlpha < 0.97f)
+                    {
+                        Main.cloudAlpha += 0.03f;
+                    }
+                    if (Main.cloudAlpha >= 0.97f)
+                    {
+                        Main.cloudAlpha = 0.98f;
+                    }
+                    if (Main.windSpeedTarget < 0.7f)
+                    {
+                        Main.windSpeedTarget += 0.02f;
+                    }
+                    //Main.NewText("pain " + Main.cloudAlpha, 175, 17, 96);
                 }
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                else if (deathani)
                 {
-                    //rest everything
-                    charge = false;
-                    NPC.localAI[0] = 0;
-                    NPC.localAI[2] = 0;
-                    NPC.localAI[3] = 0;                   
-                   
-                    NPC.ai[3] = 0; //Revert to passive mode, when passive mode is over it will go to attack 5
-                    NPC.ai[0] = 0;
-                    NPC.velocity *= 0.5f;
-                    movespeed = 12f;
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = -200;
-                    NPC.netUpdate = true;
+                    if (Main.cloudAlpha > 0.01f)
+                    {
+                        Main.cloudAlpha -= 0.005f;
+                    }
+                    if (Main.windSpeedTarget > 0f)
+                    {
+                        Main.windSpeedTarget -= 0.005f;
+                    }
                 }
-                lowlife = true;
+                else if (player.dead) //clear twice as quickly if player dies
+                {
+                    if (Main.cloudAlpha > 0.02f)
+                    {
+                        Main.cloudAlpha -= 0.01f;
+                    }
+                    if (Main.windSpeedTarget > 0f)
+                    {
+                        Main.windSpeedTarget -= 0.01f;
+                    }
+                }
             }
+            //Main.maxRaining = 1;
 
+            if (!deathani)
+            {
+                if (!halflife && NPC.life < NPC.lifeMax / 2) //Below half health new attack
+                {
+                    NPC.localAI[0] = 0;//rest cooldown for attacks
+                    SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
+                    //if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        for (int i = 0; i < 50; i++)
+                        {
+
+                            var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 226);
+                            dust.noGravity = true;
+                            dust.fadeIn = 1;
+                            dust.scale = 1.5f;
+                        }
+                    }
+                    halflife = true;
+                }
+                if (!lowlife && NPC.life < NPC.lifeMax / 10 && Main.expertMode) //Below 10% health one attack, expert+ only
+                {
+                    NPC.dontTakeDamage = true; //immune to damage for short time
+
+                    SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
+
+                    if (Main.netMode != NetmodeID.Server)//Drop some gore when changing phase
+                    {
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore4").Type, 1f);
+                        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore5").Type, 1f);
+                    }
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        //rest everything
+                        charge = false;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[2] = 0;
+                        NPC.localAI[3] = 0;
+
+                        NPC.ai[3] = 0; //Revert to passive mode, when passive mode is over it will go to attack 5
+                        NPC.ai[0] = 0;
+                        NPC.velocity *= 0.5f;
+                        movespeed = 12f;
+                        NPC.ai[1] = 0;
+                        NPC.ai[2] = -200;
+                        NPC.netUpdate = true;
+                    }
+                    lowlife = true;
+                }
+            }
             if (halflife && !lowlife) //Below half life new particle effect
             {
                 if (Main.rand.Next(5) == 0)
@@ -1210,7 +1323,7 @@ namespace StormDiversMod.NPCs.Boss
                     }
                 }
             }
-            if (lowlife)
+            if (lowlife || deathani)
             {
                 NPC.frameCounter++;
                 if (NPC.frameCounter > 6)
@@ -1236,11 +1349,11 @@ namespace StormDiversMod.NPCs.Boss
             }
             if (Main.expertMode && !Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 240); //4 seconds
+                target.AddBuff(BuffID.Electrified, 150); //2.5 seconds
             }
             if (Main.masterMode)
             {
-                target.AddBuff(BuffID.Electrified, 480); //8 seconds
+                target.AddBuff(BuffID.Electrified, 300); //5 seconds
             }
         }
         public override void HitEffect(int hitDirection, double damage)
@@ -1261,11 +1374,31 @@ namespace StormDiversMod.NPCs.Boss
                 int dust2 = Dust.NewDust(NPC.Center, 0, 0, 229, dustspeed.X, dustspeed.Y, 229, default, 1.5f);
                 Main.dust[dust2].noGravity = true;
             }
-            if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
+            if (NPC.life <= 0 && deathani)          //this make so when the npc has 0 life(dead) he will spawn this
             {
+                SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 1f, Pitch = -0.5f, MaxInstances = -1 }, NPC.Center);
+
                 NPC.velocity *= 0.5f;
                 int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 1.75f;
+
+                float numberProjectiles = 16;
+                float rotation = MathHelper.ToRadians(180);
+                for (int j = 0; j < numberProjectiles; j++) //Lightning is just for visuals
+                {
+
+                    Vector2 perturbedSpeed = new Vector2(0, 2f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+
+                    float ai = Main.rand.Next(100);
+                    int projID = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+                        ModContent.ProjectileType<NPCs.NPCProjs.StormBossLightning>(), 0, 0, Main.myPlayer, perturbedSpeed.ToRotation(), ai);
+
+                    Main.projectile[projID].tileCollide = false;
+                    Main.projectile[projID].scale = 0.8f;
+
+
+                }
+
                 if (Main.netMode != NetmodeID.Server)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("StormBossGore1").Type, 1f);
