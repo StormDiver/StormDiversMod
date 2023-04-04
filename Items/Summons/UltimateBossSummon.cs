@@ -26,7 +26,7 @@ namespace StormDiversMod.Items.Summons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mysterious Emblem");
-            Tooltip.SetDefault("Summons the ultimate boss, make sure you're prepared for all the pain.");
+            Tooltip.SetDefault("Summons the ultimate boss, make sure you're prepared for all the pain\n[c/af1160:April Fools Boss, still worth fighting though]");
             ItemID.Sets.SortingPriorityBossSpawns[Item.type] = 13; // This helps sort inventory know this is a boss summoning Item
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
         }     
@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Summons
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
 
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                     {
                         line.Text = line.Text + "\n[c/ffa500:Very Buggy on multiplayer!]\n[c/ffa500:For the best experience fight the boss on single player!]"; //multiplayer sucks
                     }

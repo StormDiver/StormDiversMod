@@ -183,36 +183,37 @@ namespace StormDiversMod.NPCs.NPCProjs
                         }
                     }
                 }
-                if (Projectile.ai[0] == 4) //Dust warning for horizontal ones
+            }
+            if (Projectile.ai[0] == 4) //Dust warning for horizontal ones
+            {
+                if (Projectile.ai[1] < 5)
                 {
-                    if (Projectile.ai[1] < 5)
+                    for (int i = 0; i < 100; i++)
                     {
-                        for (int i = 0; i < 100; i++)
+                        if (Projectile.velocity.X > 0)
                         {
-                            if (Projectile.velocity.X > 0)
-                            {
-                                int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 550, 0, 72, 0f, 0f, 0, default, 1f);
-                                Main.dust[dust].noGravity = true;
-                                Main.dust[dust].velocity *= 0;
-                            }
-                            else
-                            {
-                                int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 550, Projectile.Center.Y), 550, 0, 72, 0f, 0f, 0, default, 1f);
-                                Main.dust[dust].noGravity = true;
-                                Main.dust[dust].velocity *= 0;
-                            }
+                            int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 550, 0, 72, 0f, 0f, 0, default, 1f);
+                            Main.dust[dust].noGravity = true;
+                            Main.dust[dust].velocity *= 0;
+                        }
+                        else
+                        {
+                            int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 550, Projectile.Center.Y), 550, 0, 72, 0f, 0f, 0, default, 1f);
+                            Main.dust[dust].noGravity = true;
+                            Main.dust[dust].velocity *= 0;
                         }
                     }
                 }
-                if (Projectile.ai[0] == 5) //Cross attack
-                {
-                    Projectile.timeLeft--;
-                }
-                if (!NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.ThePainBoss>())) //remove all proejctiles if boss is dead
-                {
-                    Projectile.Kill();
-                }
             }
+            if (Projectile.ai[0] == 5) //Cross attack
+            {
+                Projectile.timeLeft--;
+            }
+            if (!NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.ThePainBoss>())) //remove all proejctiles if boss is dead
+            {
+                Projectile.Kill();
+            }
+
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {

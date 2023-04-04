@@ -211,17 +211,17 @@ namespace StormDiversMod.NPCs.Boss
             {
                 if (NPC.localAI[1] == 60)
                 {
-                    if (Main.getGoodWorld)
-                    {
-                        Paintext = "You are not worthy!";
-                    }
-                    else if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
+                    if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
                     {
                         Paintext = "Even when cheating, you still lose!!!!";
                     }
                     else if (StormWorld.painBossDown)
                     {
                         Paintext = "You handled it once before, but not this time!";
+                    }
+                    else if (Main.getGoodWorld)
+                    {
+                        Paintext = "You are not worthy!";
                     }
                     else
                     {
@@ -295,18 +295,18 @@ namespace StormDiversMod.NPCs.Boss
                     SoundEngine.PlaySound(SoundID.Item14 with { Volume = 1f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                 }
                 if (NPC.ai[0] == 120)
-                {
-                    if (Main.getGoodWorld)
-                    {
-                        Paintext = "You....are.....Worthy!";
-                    }
-                    else if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
+                {                
+                    if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
                     {
                         Paintext = "CHEATER!!!!";
                     }
                     else if (StormWorld.painBossDown)
                     {
                         Paintext = "Well... you did it... again...";
+                    }
+                    else if (Main.getGoodWorld)
+                    {
+                        Paintext = "You....are.....Worthy!";
                     }
                     else
                     {
@@ -361,20 +361,20 @@ namespace StormDiversMod.NPCs.Boss
                     if (NPC.ai[0] == 180 && Main.netMode != NetmodeID.MultiplayerClient) //taunt text and heal
                     {
                         if (lifeleft == 0)//phase 1
-                        {
-                            if (Main.getGoodWorld)
-                            {
-                                Paintext = "You must prove your worth...";
-                            }
-                            else if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
+                        {                           
+                            if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>())) //Player cheating >:(
                             {
                                 Paintext = "Wh...Why do you have that...";
                             }
-                            else if (StormWorld.painBossDown)
+                            else if (StormWorld.painBossDown) //After defeating it
                             {
                                 Paintext = "I see you've handled pain before...";
                             }
-                            else
+                            else if (Main.getGoodWorld) //For the worthy tryhards
+                            {
+                                Paintext = "You must prove your worth...";
+                            }
+                            else //Before defeating it
                             {
                                 Paintext = "Ready to experience Pain...";
                             }
@@ -384,17 +384,17 @@ namespace StormDiversMod.NPCs.Boss
                         }
                         if (lifeleft == 1)//phase 2
                         {
-                            if (Main.getGoodWorld)
-                            {
-                                Paintext = "Are you sure you're worthy...";
-                            }
-                            else if(!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
+                            if(!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
                             {
                                 Paintext = "Hey that's cheating...";
                             }
                             else if (StormWorld.painBossDown)
                             {
                                 Paintext = "Well I'll still show you pain...";
+                            }
+                            else if (Main.getGoodWorld)
+                            {
+                                Paintext = "Are you sure you're worthy...";
                             }
                             else
                             {
@@ -405,18 +405,18 @@ namespace StormDiversMod.NPCs.Boss
                             SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 2f, Pitch = -0.15f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                         }
                         else if (lifeleft == 2)//phase 3
-                        {
-                            if (Main.getGoodWorld)
-                            {
-                                Paintext = "You still need to prove more than that...";
-                            }
-                            else if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
+                        {                     
+                            if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
                             {
                                 Paintext = "Come on fight me fairly first...";
                             }
                             else if (StormWorld.painBossDown)
                             {
                                 Paintext = "Let's keep going...";
+                            }
+                            else if (Main.getGoodWorld)
+                            {
+                                Paintext = "You still need to prove more than that...";
                             }
                             else
                             {
@@ -427,18 +427,18 @@ namespace StormDiversMod.NPCs.Boss
                             SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 2f, Pitch = -0.3f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                         }
                         else if (lifeleft == 3)//phase 4
-                        {
-                            if (Main.getGoodWorld)
-                            {
-                                Paintext = "You might be worthy after all...";
-                            }
-                            else if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
+                        {             
+                            if (!StormWorld.painBossDown && player.HasItem(ModContent.ItemType<PainSword>()))
                             {
                                 Paintext = "Please..........";
                             }
                             else if (StormWorld.painBossDown)
                             {
                                 Paintext = "This still hurts me...";
+                            }
+                            else if (Main.getGoodWorld)
+                            {
+                                Paintext = "You might be worthy after all...";
                             }
                             else
                             {

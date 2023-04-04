@@ -332,7 +332,7 @@ namespace StormDiversMod.Basefiles
                             Main.NewText(Paintext, 175, 17, 96);
                         }
 
-                        Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
+                        //Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
 
                         /*else if (damage >= 12 && damage < 50)
                             Paintext = "Hmm you're taking a lot of pain!";

@@ -366,7 +366,10 @@ namespace StormDiversMod.Basefiles
         }
         public override void SetDefaults(NPC npc)
         {
-
+            /*if (npc.type == NPCID.BloodNautilus)
+            {
+                npc.GivenName = "Micheal";
+            }*/
         }
         public override void OnKill(NPC npc)
         {

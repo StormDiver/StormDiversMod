@@ -71,21 +71,21 @@ namespace StormDiversMod
                        }
                        );
 
-                    /*bossChecklist.Call
-                       ("AddBoss", this, "Ultimate Pain", ModContent.NPCType<NPCs.Boss.ThePainBoss>(), 19f, (Func<bool>)(() => StormWorld.painBossDown), () => true,
+                    bossChecklist.Call
+                       ("AddBoss", this, "Ultimate Pain (April Fools Boss)", ModContent.NPCType<NPCs.Boss.ThePainBoss>(), 19f, (Func<bool>)(() => StormWorld.painBossDown), () => true,
                        new List<int> { ModContent.ItemType<Items.BossTrophy.UltimateBossTrophy>(), ModContent.ItemType<Items.BossTrophy.UltimateBossRelic>(), ModContent.ItemType<Items.Pets.UltimateBossPetItem>(),
                         ModContent.ItemType<Items.BossTrophy.UltimateBossBag>(), ModContent.ItemType<Items.Accessory.DeathCore>(), //vanity
                        
                         ModContent.ItemType<Items.Vanitysets.ThePainMask>()},
 
-                       ModContent.ItemType<Items.Vanitysets.ThePainMask>(), "Summoned by using Thepain post Moon Lord",
-                       "You copuldn;t handle the pain huh?",
+                       ModContent.ItemType<Items.Summons.UltimateBossSummoner>(), "Summoned by using Mysterious Emblem post Moon Lord",
+                       "You couldn't handle the pain huh?",
                        (SpriteBatch sb, Rectangle rect, Color color) => {
                            Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/ThePainBoss_Image").Value;
                            Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
                            sb.Draw(texture, centered, color);
                        }
-                       );*/
+                       );
                 }
             }
             //4eum

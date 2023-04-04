@@ -127,6 +127,16 @@ Mods: {
 				Description: Increases damage dealt and reduces damage taken by 6
 			}
 
+			PainBuff: {
+				DisplayName: Pain Extender
+				Description: You will get to experience pain all over again on death
+			}
+
+			PainlessDebuff: {
+				DisplayName: Pain Cooldown
+				Description: Your pain will end if you die
+			}
+
 			RainBuff: {
 				DisplayName: Sprinting in the rain
 				Description: Your movement speed is increased
@@ -256,6 +266,11 @@ Mods: {
 				Description: Reduces damage taken by 4
 			}
 
+			YouCantEscapeDebuff: {
+				DisplayName: You can't escape me!
+				Description: Even death cannot save you from the pain
+			}
+
 			AncientMinionBuff: {
 				DisplayName: Ancient Arid Minion
 				Description: An Ancient Arid minion will fight for you
@@ -315,6 +330,11 @@ Mods: {
 				DisplayName: Twilight Figure
 				Description: A strange hooded figure lights your way
 			}
+
+			UltimateBossPetBuff: {
+				DisplayName: TheCute
+				Description: So Cute, would never inflict any pain
+			}
 		}
 
 		Items: {
@@ -368,15 +388,23 @@ Mods: {
 				DisplayName: Celestial Barrier
 				Tooltip:
 					'''
+					Taking heavy damage regenerates the lost life over several seconds while granting additonal defense
 					Grants immunity to debuffs inflicted by Extra-Terrestrial creatures
-					Taking heavy damage greatly increases health regeneration while protecting you
-					Duration depends on the amount of damage received
 					'''
 			}
 
 			CoralEmblem: {
 				DisplayName: Whirlpool Emblem
 				Tooltip: Using most weapons summons a water orb from the sky that travels towards the cursor's location
+			}
+
+			DeathCore: {
+				DisplayName: Ultimate Pain Core
+				Tooltip:
+					'''
+					Saves you from death once every 2.5 minutes
+					'Live to suffer another day'
+					'''
 			}
 
 			DerpEye: {
@@ -672,7 +700,7 @@ Mods: {
 
 			DualArrow: {
 				DisplayName: Dual Arrow
-				Tooltip: Two arrows tied together, has a chance to spilt in midair
+				Tooltip: Two arrows tied together, has a chance to split in midair
 			}
 
 			FrostArrow: {
@@ -916,7 +944,7 @@ Mods: {
 				Tooltip:
 					'''
 					3% increased ranged critical strike chance
-					There's not mushroom in there
+					'There's not mushroom in there'
 					'''
 			}
 
@@ -945,7 +973,7 @@ Mods: {
 					'''
 					6% increased damage
 					3% increased critical strike chance
-					Slighlty increases player acceleration
+					Slightly increases player acceleration
 					'''
 			}
 
@@ -974,7 +1002,7 @@ Mods: {
 					'''
 					6% increased damage
 					3% increased critical strike chance
-					Slighlty increases player acceleration
+					Slightly increases player acceleration
 					'''
 			}
 
@@ -1124,6 +1152,14 @@ Mods: {
 			StormBossRelic.DisplayName: Overloaded Scandrone Relic
 			StormBossTrophy.DisplayName: Overloaded Scandrone Trophy
 
+			UltimateBossBag: {
+				DisplayName: Treasure Bag (Ultimate Pain)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			UltimateBossRelic.DisplayName: Ultimate Pain Relic
+			UltimateBossTrophy.DisplayName: Ultimate Pain Trophy
+
 			TheGoodBoyItem: {
 				DisplayName: The Best Boy
 				Tooltip: "'You will be missed'"
@@ -1233,6 +1269,11 @@ Mods: {
 				Tooltip: Summons a mysterious figure to light your way
 			}
 
+			UltimateBossPetItem: {
+				DisplayName: TheCute
+				Tooltip: Summons something cute and painless
+			}
+
 			BarrierPotion: {
 				DisplayName: Endurance Healing Potion
 				Tooltip: Reduces the damage of the next incoming attack by 25%
@@ -1297,6 +1338,11 @@ Mods: {
 				Tooltip: Signals a powerful foe
 			}
 
+			UltimateBossSummoner: {
+				DisplayName: Mysterious Emblem
+				Tooltip: Summons the ultimate boss, make sure you're prepared for all the pain.
+			}
+
 			Aircan: {
 				DisplayName: Compressed Air Can
 				Tooltip:
@@ -1318,7 +1364,7 @@ Mods: {
 
 			DerpHook: {
 				DisplayName: Derpling Hook
-				Tooltip: Can fire out 3 hooks simultaneously, 2 can be attached at a time
+				Tooltip: Can fire out 4 hooks simultaneously, 3 can be attached at a time
 			}
 
 			DerplingChainsaw: {
@@ -1488,7 +1534,7 @@ Mods: {
 
 			PredictorBMask: {
 				DisplayName: Predictor Head
-				Tooltip: Unfortunately this will not increase your brain power
+				Tooltip: "'Unfortunately this will not increase your brain power'"
 			}
 
 			PredictorBody.DisplayName: Predictor Body
@@ -1496,7 +1542,7 @@ Mods: {
 
 			SelenianBMask: {
 				DisplayName: Selenian Head
-				Tooltip: No, you cannot reflect projectiles!
+				Tooltip: "'No, you cannot reflect projectiles!'"
 			}
 
 			SelenianBody.DisplayName: Selenian Body
@@ -1504,7 +1550,7 @@ Mods: {
 
 			StargazerBMask: {
 				DisplayName: Stargazer Head
-				Tooltip: Note, this will not actually allow you to see stars any better
+				Tooltip: "'Note, this will not actually allow you to see stars any better'"
 			}
 
 			StargazerBody.DisplayName: Stargazer Body
@@ -1512,7 +1558,7 @@ Mods: {
 
 			StormDiverBMask: {
 				DisplayName: Storm Diver Mask
-				Tooltip: Can you even see out of this thing?
+				Tooltip: "'Can you even see out of this thing?'"
 			}
 
 			StormDiverBody.DisplayName: Storm Diver Body
@@ -2158,11 +2204,7 @@ Mods: {
 
 			PainSword: {
 				DisplayName: The Pain Giver
-				Tooltip:
-					'''
-					Inflicts unimaginable pain
-					But not as much pain as I will inflict upon you for having this
-					'''
+				Tooltip: You went through unimaginable pain to get this, now you can inflict that pain upon your enemies
 			}
 
 			ProtoLauncher: {
@@ -2398,7 +2440,7 @@ Mods: {
 					'''
 					Left Click to use as a spinning weapon, Right Click to throw both blades in succession
 					Kill enemies to collect up to 9 souls, each collected soul increases the damage and crit chance of the weapon
-					Souls will begin to escape if no enemies are killed within 10 seconds
+					Souls will begin to escape if no enemies are killed within 9 seconds
 					'Pick it up. Pick. It. Up'
 					'''
 			}
@@ -2608,6 +2650,7 @@ Mods: {
 			AridBoss.DisplayName: Ancient Husk
 			AridBossMinion.DisplayName: Ancient Spirit
 			StormBoss.DisplayName: Overloaded Scandrone
+			ThePainBoss.DisplayName: Ultimate Pain
 			DerpMimic.DisplayName: Perfectly Normal Derpling
 			FrozenEye.DisplayName: Frozen Eyefish
 			FrozenSoul.DisplayName: Frozen Spirit
@@ -2666,6 +2709,8 @@ Mods: {
 			StormBossMine.DisplayName: Overloaded ScanDrone Mine
 			StormBossMineLarge.DisplayName: Overloaded ScanDrone Large Mine
 			StormDerpProj.DisplayName: Vortex Spike
+			ThePainBossProj.DisplayName: Very Painful Projectile
+			ThePainBossProj2.DisplayName: Explosion Extreme Pain
 			VortCannonProj.DisplayName: Vortexian Rocket
 			AsteroidArrowProj.DisplayName: Asteroid Arrow
 			AsteroidBulletProj.DisplayName: Asteroid Bullet
@@ -2736,6 +2781,7 @@ Mods: {
 			DestroyerFlailProj3.DisplayName: Vaporiser Spike
 			EnchantedSwordProj.DisplayName: Enchanted Sword
 			EnchantedSwordProj2.DisplayName: Enchanted Sword
+			ExplosionAridProj.DisplayName: Explosion Arid
 			ExplosionDarkProj.DisplayName: Explosion Dark
 			ExplosionFrostProj.DisplayName: Explosion Frost
 			ExplosionGenericProj.DisplayName: Explosion Generic
@@ -2801,11 +2847,13 @@ Mods: {
 			OceanSmallProj.DisplayName: Small Water Bolt
 			OceanSpellProj.DisplayName: Magic Water Orb
 			PainProj.DisplayName: Painful Projectile
+			PainProj2.DisplayName: Painful Core
 			AridBossPetProj.DisplayName: Liberated Husk
 			GoldDerpie.DisplayName: Golden Derpie
 			StormBossPetProj.DisplayName: Baby Overloaded Scandrone
 			StormLightProj.DisplayName: Baby Storm Diver
 			TwilightPetProj.DisplayName: Twilight light
+			UltimateBossPetProj.DisplayName: TheCute
 			PredictorBrainProj.DisplayName: Nebula Brain Bolt
 			PredictorBrainProj2.DisplayName: Nebula Brain Bolt
 			PrimeAccessProj.DisplayName: Mechanical Spike ball
