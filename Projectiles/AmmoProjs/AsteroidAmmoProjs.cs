@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Bullet");
+            //DisplayName.SetDefault("Asteroid Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -52,9 +52,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
         
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X, target.Center.Y - 400), new Vector2(target.velocity.X * 0.5f, 10), ModContent.ProjectileType<Projectiles.SpaceFragment>(), (int)(Projectile.damage * 0.15f), Projectile.knockBack / 2, Projectile.owner);
             Main.projectile[projID].DamageType = DamageClass.Ranged;
             Main.projectile[projID].penetrate = 1;
@@ -93,7 +92,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Arrow");
+            //DisplayName.SetDefault("Asteroid Arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -158,7 +157,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {

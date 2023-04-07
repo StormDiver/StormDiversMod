@@ -31,7 +31,7 @@ namespace StormDiversMod.NPCs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded Scandrone"); // Automatic from .lang files
+            //DisplayName.SetDefault("Overloaded Scandrone"); // Automatic from .lang files
                                                  // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
@@ -88,16 +88,16 @@ namespace StormDiversMod.NPCs.Boss
                 "this empowered Scandrone is capable of unleashing a range of powerful attacks onto foes.")
             });
         }
-      
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale); //60K
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment); //60K
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale); //85K 
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossAdjustment); //85K 
 
             }
             NPC.damage = (int)(NPC.damage * 0.75f);
@@ -1341,7 +1341,7 @@ namespace StormDiversMod.NPCs.Boss
         {
             potionType = ItemID.GreaterHealingPotion;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (!Main.expertMode)
             {
@@ -1356,7 +1356,7 @@ namespace StormDiversMod.NPCs.Boss
                 target.AddBuff(BuffID.Electrified, 300); //5 seconds
             }
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {  
             for (int i = 0; i < 8; i++)
             {

@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Derpling Mask");
-            Tooltip.SetDefault("10% increased damage\n5% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Derpling Mask");
+            //Tooltip.SetDefault("10% increased damage\n5% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -96,9 +96,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Ancient Derpling Helmet");
-            Tooltip.SetDefault("10% increased damage\n5% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Ancient Derpling Helmet");
+            //Tooltip.SetDefault("10% increased damage\n5% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -172,9 +172,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Derpling Breastplate");
-            Tooltip.SetDefault("7% increased damage\n6% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Derpling Breastplate");
+            //Tooltip.SetDefault("7% increased damage\n6% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -213,9 +213,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Derpling Greaves");
-            Tooltip.SetDefault("6% increased damage and critical strike chance\nGrants immunity to fall damage");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Derpling Greaves");
+            //Tooltip.SetDefault("6% increased damage and critical strike chance\nGrants immunity to fall damage");
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()

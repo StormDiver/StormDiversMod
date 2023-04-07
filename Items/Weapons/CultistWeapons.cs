@@ -18,10 +18,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunatic Spear of Fire");
-            Tooltip.SetDefault("Summons blazing fire balls each stab");
+            //DisplayName.SetDefault("Lunatic Spear of Fire");
+            //Tooltip.SetDefault("Summons blazing fire balls each stab");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -29,6 +29,7 @@ namespace StormDiversMod.Items.Weapons
             });
 
             ItemID.Sets.Spears[Item.type] = true;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CultistBow>();
 
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -91,15 +92,17 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunatic Bow of Ice");
-            Tooltip.SetDefault("Fires out an ice arrow that rains down icicles on impact\nIce arrows slow down enemies on direct hit");
+            //DisplayName.SetDefault("Lunatic Bow of Ice");
+            //Tooltip.SetDefault("Fires out an ice arrow that rains down icicles on impact\nIce arrows slow down enemies on direct hit");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CultistTome>();
+
         }
         public override void SetDefaults()
         {
@@ -171,15 +174,17 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunatic Spell of Ancient Light");
-            Tooltip.SetDefault("Summons ancient light that seeks out enemies");
+            //DisplayName.SetDefault("Lunatic Spell of Ancient Light");
+            //Tooltip.SetDefault("Summons ancient light that seeks out enemies");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CultistStaff>();
+
         }
         public override void SetDefaults()
         {
@@ -248,19 +253,21 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunatic Staff of Lightning");
-            Tooltip.SetDefault("Summons a lightning orb sentry that rapidly fires lightning bolts at enemies\nRight click to target a specific enemy"); 
+            //DisplayName.SetDefault("Lunatic Staff of Lightning");
+            //Tooltip.SetDefault("Summons a lightning orb sentry that rapidly fires lightning bolts at enemies\nRight click to target a specific enemy"); 
             Item.staff[Item.type] = true;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
 
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CultistSpear>();
+
         }
         public override void SetDefaults()
         {

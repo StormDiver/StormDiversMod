@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody Bullet");      
+            //DisplayName.SetDefault("Bloody Bullet");      
         }
 
         public override void SetDefaults()
@@ -100,7 +100,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Bullet Drop");
+            //DisplayName.SetDefault("Blood Bullet Drop");
         }
         public override void SetDefaults()
         {

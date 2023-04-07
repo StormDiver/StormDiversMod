@@ -21,10 +21,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nine Lives");
-            Tooltip.SetDefault("Left Click to use as a spinning weapon, Right Click to throw both blades in succession\nKill enemies to collect up to 9 souls, each collected soul increases the damage and crit chance of the weapon" +
-                "\nSouls will begin to escape if no enemies are killed within 9 seconds\n'Pick it up. Pick. It. Up'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;  
+            //DisplayName.SetDefault("Nine Lives");
+            //Tooltip.SetDefault("Left Click to use as a spinning weapon, Right Click to throw both blades in succession\nKill enemies to collect up to 9 souls, each collected soul increases the damage and crit chance of the weapon" +
+                //"\nSouls will begin to escape if no enemies are killed within 9 seconds\n'Pick it up. Pick. It. Up'");
+            Item.ResearchUnlockCount = 1;  
         }
         public override void SetDefaults()
         {

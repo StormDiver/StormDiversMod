@@ -804,10 +804,9 @@ namespace StormDiversMod.Basefiles
         //=====================For taking damage from any source===========================================
 
         int attackdmg = 0;//This is for how much damage the player takes
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
-          
-            attackdmg = (int)damage; //Int for the damage taken
+            attackdmg = (int)info.Damage; //Int for the damage taken
 
             //For Space Armour with Mask (Defence)
             int defencedmg = 100 + (attackdmg * 2); //Boulder damage
@@ -818,7 +817,7 @@ namespace StormDiversMod.Basefiles
             int defenceknb = 6; //Boulder Knockback
             float defenceVeloX = Player.velocity.X * 0.25f;
 
-            if (spaceRockDefence && Player.HasBuff(ModContent.BuffType<SpaceRockDefence>()) && damage >= 2)
+            if (spaceRockDefence && Player.HasBuff(ModContent.BuffType<SpaceRockDefence>()) && attackdmg >= 2)
             {
                 if (!GetInstance<ConfigurationsIndividual>().NoShake)
                 {
@@ -849,14 +848,10 @@ namespace StormDiversMod.Basefiles
 
             }
 
-
-
         }
         //===================================Other hooks======================================
-
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             //For the Soul Fire armour setbonus with true melee
             /*if (hellSoulSet && hellblazetime == 0)
             {
@@ -904,20 +899,19 @@ namespace StormDiversMod.Basefiles
 
             if (aridCritSet)
             {
-                if (crit & !target.friendly && target.lifeMax > 5)
+                if (hit.Crit & !target.friendly && target.lifeMax > 5)
                 {
                     target.GetGlobalNPC<NPCEffects>().aridimmunetime = 10; //target immune to explosion for 10 frames
 
-                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 0, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damageDone), 0, Player.whoAmI);
                 }
             }
         }
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             //ShadowFlame armour
             if (shadowflameSet)
             {
-
                 if (ProjectileID.Sets.IsAWhip[proj.type] == true && proj.owner == Main.myPlayer)
                 {
                     if (!target.buffImmune[BuffID.ShadowFlame])
@@ -986,25 +980,22 @@ namespace StormDiversMod.Basefiles
             //Arid armour with projectiles
             if (aridCritSet)
             {
-                if (crit && !target.friendly && target.lifeMax > 5)
+                if (hit.Crit && !target.friendly && target.lifeMax > 5)
                 {
                     target.GetGlobalNPC<NPCEffects>().aridimmunetime = 10; //target immune to explosion for 10 frames
 
-                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damage * 2f), 0, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damageDone), 0, Player.whoAmI);
                 }
             }
 
         }
-
-        public override void OnHitByNPC(NPC npc, int damage, bool crit) //Hit by melee only
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
-
+            base.OnHitByNPC(npc, hurtInfo);
         }
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit) //Hit by any projectile
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
-
+            base.OnHitByProjectile(proj, hurtInfo);
         }
-
     }
-
 }

@@ -17,9 +17,10 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Arid Mask");
-            Tooltip.SetDefault("5% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Arid Mask");
+            //Tooltip.SetDefault("5% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AridChestplate>();
 
         }
 
@@ -76,9 +77,10 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Arid Breastplate");
-            Tooltip.SetDefault("Increases critical strike damage by 10%");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Arid Breastplate");
+            //Tooltip.SetDefault("Increases critical strike damage by 10%");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AridGreaves>();
 
         }
 
@@ -105,9 +107,10 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Arid Greaves");
-            Tooltip.SetDefault("5% increased critical strike chance\n12% increased movement speed");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Arid Greaves");
+            //Tooltip.SetDefault("5% increased critical strike chance\n12% increased movement speed");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AridBMask>();
 
         }
 

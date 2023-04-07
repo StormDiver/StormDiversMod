@@ -19,7 +19,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunatic Spear of Fire");
+            //DisplayName.SetDefault("Lunatic Spear of Fire");
         }
 
         public override void SetDefaults()
@@ -116,7 +116,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
           
         }
@@ -136,7 +136,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fireball Blast");
+            //DisplayName.SetDefault("Fireball Blast");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -191,7 +191,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -251,7 +251,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice mist arrow");
+            //DisplayName.SetDefault("Ice mist arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -289,7 +289,7 @@ namespace StormDiversMod.Projectiles
             dust.scale = 1.5f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 300);
         }
@@ -339,7 +339,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice mist spike");
+            //DisplayName.SetDefault("Ice mist spike");
         }
         public override void SetDefaults()
         {
@@ -378,17 +378,17 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 120);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 120);
+            if (info.PvP)
+            {
+                target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 120);
+            }
         }
-
-
         public override bool OnTileCollide(Vector2 oldVelocity)
 
         {
@@ -415,7 +415,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Star");
+            //DisplayName.SetDefault("Cultist Star");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
@@ -517,7 +517,7 @@ namespace StormDiversMod.Projectiles
             return false;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             for (int i = 0; i < 10; i++)

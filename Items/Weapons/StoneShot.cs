@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Compact Boulder");
-            Tooltip.SetDefault("You might have trouble throwing these far");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Compact Boulder");
+            //Tooltip.SetDefault("You might have trouble throwing these far");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

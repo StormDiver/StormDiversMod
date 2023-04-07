@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Solar Spinner");
+            //DisplayName.SetDefault("Solar Spinner");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
         }
@@ -35,7 +35,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.localNPCHitCooldown = 20;
             Projectile.timeLeft = 9999999;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             {
                 target.AddBuff(BuffID.Daybreak, 600);

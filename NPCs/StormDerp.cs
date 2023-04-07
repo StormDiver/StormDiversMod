@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Storm Hopper"); // Automatic from .lang files
+            //DisplayName.SetDefault("Storm Hopper"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 3; // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
@@ -65,11 +65,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A Derpling that has been corrupted by Vortex energy, allowing it to possess a fraction of the Vortex Pillar’s power.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
+       
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies)
@@ -127,7 +123,7 @@ namespace StormDiversMod.NPCs
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             shoottime = 90;
             if (Main.netMode == NetmodeID.Server)

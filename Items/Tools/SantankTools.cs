@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Santa's Drill");
-            Tooltip.SetDefault("'For use on those who have been naughty'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Santa's Drill");
+            //Tooltip.SetDefault("'For use on those who have been naughty'");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsDrill[Item.type] = true;
         }
 
@@ -66,9 +66,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Santa's Chainsaw");
-            Tooltip.SetDefault("'For use on those who have been naughty'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Santa's Chainsaw");
+            //Tooltip.SetDefault("'For use on those who have been naughty'");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsChainsaw[Item.type] = true;
         }
 
@@ -121,9 +121,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Santa's Jackhammer");
-            Tooltip.SetDefault("'For use on those who have been naughty'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Santa's Jackhammer");
+            //Tooltip.SetDefault("'For use on those who have been naughty'");
+            Item.ResearchUnlockCount = 1;
 
         }
 

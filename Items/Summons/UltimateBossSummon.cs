@@ -25,10 +25,10 @@ namespace StormDiversMod.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mysterious Emblem");
-            Tooltip.SetDefault("Summons the ultimate boss, make sure you're prepared for all the pain\n[c/af1160:April Fools Boss, still worth fighting though]");
+            //DisplayName.SetDefault("Mysterious Emblem");
+            //Tooltip.SetDefault("Summons the ultimate boss, make sure you're prepared for all the pain\n[c/af1160:April Fools Boss, still worth fighting though]");
             ItemID.Sets.SortingPriorityBossSpawns[Item.type] = 13; // This helps sort inventory know this is a boss summoning Item
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            Item.ResearchUnlockCount = 3;
         }     
         public override void SetDefaults()
         {
@@ -99,7 +99,7 @@ namespace StormDiversMod.Items.Summons
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.ThePainBoss>());
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.ThePainBoss>());
                 }
             }
 

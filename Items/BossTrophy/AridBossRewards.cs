@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.BossTrophy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Husk Trophy");
+			//DisplayName.SetDefault("Ancient Husk Trophy");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -50,18 +50,18 @@ namespace StormDiversMod.Items.BossTrophy
 			AddMapEntry(new Color(120, 85, 60), Language.GetText("MapObject.Trophy"));
 			DustType = 7;
 		}
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		/*public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<AridBossTrophy>());
-		}
+		}*/
 	}
 	//___________________________RELIC
 	public class AridBossRelic : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Husk Relic");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Ancient Husk Relic");
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -133,7 +133,7 @@ namespace StormDiversMod.Items.BossTrophy
 			AddMapEntry(new Color(233, 207, 94), Language.GetText("MapObject.Relic"));
 		}
 		
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		/*public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			int placeStyle = frameX / FrameWidth;
 
@@ -151,7 +151,7 @@ namespace StormDiversMod.Items.BossTrophy
 				// Spawn the item
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, itemType);
 			}
-		}
+		}*/
 
 		public override bool CreateDust(int i, int j, ref int type)
 		{

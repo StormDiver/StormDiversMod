@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hunter's Blade");
-            Tooltip.SetDefault("A large throwable blade that homes into enemies when within range");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Hunter's Blade");
+            //Tooltip.SetDefault("A large throwable blade that homes into enemies when within range");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()

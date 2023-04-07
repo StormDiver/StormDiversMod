@@ -19,7 +19,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Star Warrior Sentry");
+            //DisplayName.SetDefault("Star Warrior Sentry");
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -221,7 +221,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Star Warrior Star");
+            //DisplayName.SetDefault("Star Warrior Star");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
         }
@@ -326,7 +326,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
   
             

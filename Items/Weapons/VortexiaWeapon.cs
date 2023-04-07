@@ -17,11 +17,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vortexia");
-            Tooltip.SetDefault("Summons a damaging vortex that summons smaller homing vortexes\n'Relic of a lost era'");
+            //DisplayName.SetDefault("Vortexia");
+            //Tooltip.SetDefault("Summons a damaging vortex that summons smaller homing vortexes\n'Relic of a lost era'");
             Item.staff[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {

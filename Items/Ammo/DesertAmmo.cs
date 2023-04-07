@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Bullet");
-            Tooltip.SetDefault("Creates a small cloud of forbidden dust on tile impact");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Forbidden Bullet");
+            //Tooltip.SetDefault("Creates a small cloud of forbidden dust on tile impact");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()
@@ -55,9 +55,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Arrow");
-            Tooltip.SetDefault("Speeds up after a short delay, ignoring gravity and dealing extra damage.");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Forbidden Arrow");
+            //Tooltip.SetDefault("Speeds up after a short delay, ignoring gravity and dealing extra damage.");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Flametrap");
+            //DisplayName.SetDefault("Lihzahrd Flametrap");
             Main.npcFrameCount[NPC.type] = 4;
 
 
@@ -67,11 +67,6 @@ namespace StormDiversMod.NPCs
 				// Sets the description of this NPC that is listed in the bestiary.
 				new FlavorTextBestiaryInfoElement("Simple flame turrets designed to protect the secrets of the temple.")
             });
-        }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
         }
        
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -188,13 +183,13 @@ namespace StormDiversMod.NPCs
 
         }
         
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
 
 
 
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

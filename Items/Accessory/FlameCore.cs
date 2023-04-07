@@ -14,11 +14,11 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Betsy's Flame");
-            Tooltip.SetDefault("Summons homing flames when using any weapon\nIncreases acceleration");
+            //DisplayName.SetDefault("Betsy's Flame");
+            //Tooltip.SetDefault("Summons homing flames when using any weapon\nIncreases acceleration");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void PostUpdate()
@@ -37,7 +37,7 @@ namespace StormDiversMod.Items.Accessory
            
             Item.accessory = true;
             Item.expert = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
         //int particle = 5;

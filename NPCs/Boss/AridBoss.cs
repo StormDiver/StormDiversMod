@@ -25,6 +25,7 @@ using StormDiversMod.Buffs;
 using StormDiversMod.Items.Pets;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using Steamworks;
 
 namespace StormDiversMod.NPCs.Boss
 {
@@ -33,7 +34,7 @@ namespace StormDiversMod.NPCs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Husk"); // Automatic from .lang files
+            //DisplayName.SetDefault("Ancient Husk"); // Automatic from .lang files
                                                      // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 4;
@@ -92,16 +93,16 @@ namespace StormDiversMod.NPCs.Boss
             });
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //10K Classic
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale); //14K
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossAdjustment); //14K
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f * bossLifeScale); //18K 
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f * bossAdjustment); //18K 
 
             }
             //30/45/66
@@ -1258,11 +1259,11 @@ namespace StormDiversMod.NPCs.Boss
         {
             potionType = ItemID.HealingPotion;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
 
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
            
             for (int i = 0; i < 6; i++)

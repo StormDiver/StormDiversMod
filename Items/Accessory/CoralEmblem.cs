@@ -15,14 +15,14 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Whirlpool Emblem");
-            Tooltip.SetDefault("Using most weapons summons a water orb from the sky that travels towards the cursor's location");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Whirlpool Emblem");
+            //Tooltip.SetDefault("Using most weapons summons a water orb from the sky that travels towards the cursor's location");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
         {
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
             Item.width = 20;
             Item.height = 20;

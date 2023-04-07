@@ -19,7 +19,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Surged Granite Core"); 
+            //DisplayName.SetDefault("Surged Granite Core"); 
                                                            
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
@@ -67,11 +67,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A floating orb of pure granite energy that guards the granite biomes.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
+    
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -175,13 +171,13 @@ namespace StormDiversMod.NPCs
         }
 
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             
                
             
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             shoottime = 80;
             if (Main.netMode == NetmodeID.Server)

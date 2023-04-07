@@ -24,10 +24,10 @@ namespace StormDiversMod.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Storm Beacon");
-            Tooltip.SetDefault("Signals a powerful foe");
+            //DisplayName.SetDefault("Storm Beacon");
+            //Tooltip.SetDefault("Signals a powerful foe");
             ItemID.Sets.SortingPriorityBossSpawns[Item.type] = 13; // This helps sort inventory know this is a boss summoning Item.
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            Item.ResearchUnlockCount = 3;
 
 
         }
@@ -107,7 +107,7 @@ namespace StormDiversMod.Items.Summons
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.StormBoss>());
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.StormBoss>());
 
                 }
             }

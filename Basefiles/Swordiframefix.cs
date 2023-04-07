@@ -13,14 +13,14 @@ namespace StormDiversMod.Basefiles
     public class BladeImmunePlayer : ModPlayer
     {
         NPC justHit = null;
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (item.type == ModContent.ItemType<BloodSword>() || item.type == ModContent.ItemType<HellSoulSword>() || item.type == ModContent.ItemType<LightDarkSword>() || item.type == ModContent.ItemType<EyeSword>())
             {
                 justHit = target;
             }
         }
-        public override bool? CanHitNPC(Item item, NPC target)
+        public override bool? CanHitNPCWithItem(Item item, NPC target)
         {
             if (item.type == ModContent.ItemType<BloodSword>() || item.type == ModContent.ItemType<HellSoulSword>() || item.type == ModContent.ItemType<LightDarkSword>() || item.type == ModContent.ItemType<EyeSword>())
             {
@@ -29,7 +29,7 @@ namespace StormDiversMod.Basefiles
                     return false;
                 }
             }
-            return base.CanHitNPC(item, target);
+            return base.CanHitNPCWithItem(item, target);
         }
         public override void PostItemCheck()
         {

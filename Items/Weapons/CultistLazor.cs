@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mysterious Cultist Hood");
-            Tooltip.SetDefault("Charge up and fire a damaging laser from this strange cultist hood that rapidly drains mana\nWait, What!?");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Mysterious Cultist Hood");
+            //Tooltip.SetDefault("Charge up and fire a damaging laser from this strange cultist hood that rapidly drains mana\nWait, What!?");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()

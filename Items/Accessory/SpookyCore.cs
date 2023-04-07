@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Emblem");
-            Tooltip.SetDefault("Creates an aura of fear around you that affects enemies\nHas a greater range the lower on health you are");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Spooky Emblem");
+            //Tooltip.SetDefault("Creates an aura of fear around you that affects enemies\nHas a greater range the lower on health you are");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -31,7 +31,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

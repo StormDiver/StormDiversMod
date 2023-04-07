@@ -21,7 +21,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Cauldron"); // Automatic from .lang files
+            //DisplayName.SetDefault("Soul Cauldron"); // Automatic from .lang files
                                                       // make sure to set this for your modnpcs.
 
         }
@@ -71,11 +71,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A cauldron filled with hundreds of burning souls, doomed to spend eternity in hell.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
+      
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -357,12 +353,12 @@ namespace StormDiversMod.NPCs
             }
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 300);
 
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

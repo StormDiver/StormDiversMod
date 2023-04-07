@@ -18,10 +18,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Rifle");
-            Tooltip.SetDefault("Converts regular bullets into Granite Bullets that pierce once");
+            //DisplayName.SetDefault("Granite Rifle");
+            //Tooltip.SetDefault("Converts regular bullets into Granite Bullets that pierce once");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -109,11 +109,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Scepter");
-            Tooltip.SetDefault("Fires out a bunch of energy bolts");
+            //DisplayName.SetDefault("Granite Scepter");
+            //Tooltip.SetDefault("Fires out a bunch of energy bolts");
             Item.staff[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -204,12 +204,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Surge");
-            //Tooltip.SetDefault("Attack enemies");
+            //DisplayName.SetDefault("The Surge");
+            ////Tooltip.SetDefault("Attack enemies");
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 30;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

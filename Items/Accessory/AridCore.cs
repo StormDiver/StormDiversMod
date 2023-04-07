@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Scarab");
-            Tooltip.SetDefault("Creates an Arid aura around the cursor, enemies within the aura take extra damage");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Ancient Scarab");
+            //Tooltip.SetDefault("Creates an Arid aura around the cursor, enemies within the aura take extra damage");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -29,7 +29,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Orange;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
             Item.expert = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

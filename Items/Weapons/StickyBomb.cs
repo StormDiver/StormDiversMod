@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spike Bomb");
-            Tooltip.SetDefault("Explodes into many damaging spikes\nDoes not destroy tiles");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Spike Bomb");
+            //Tooltip.SetDefault("Explodes into many damaging spikes\nDoes not destroy tiles");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

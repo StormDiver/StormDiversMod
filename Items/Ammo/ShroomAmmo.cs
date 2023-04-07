@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Arrow");
-            Tooltip.SetDefault("Can pierce once\nLeaves behind a trail of damaging mushrooms");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Shroomite Arrow");
+            //Tooltip.SetDefault("Leaves behind a trail of damaging mushrooms/nCan pierce once");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()
@@ -61,9 +61,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Bullet");
-            Tooltip.SetDefault("Ricochets off walls and pierces enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Shroomite Bullet");
+            //Tooltip.SetDefault("Ricochets off walls thrice and pierces twice");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

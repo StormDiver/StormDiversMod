@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Remote Sentry Detonator");
-            Tooltip.SetDefault("Removes all of your placed sentries");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Remote Sentry Detonator");
+            //Tooltip.SetDefault("Removes all of your placed sentries");
+            Item.ResearchUnlockCount = 1;
 
 
         }

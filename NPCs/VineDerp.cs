@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Camouflaged Derpling"); 
+            //DisplayName.SetDefault("Camouflaged Derpling"); 
             Main.npcFrameCount[NPC.type] = 24; 
         }
         public override void SetDefaults()
@@ -63,11 +63,6 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("An elder Derpling that disguises itself as jungle terrain, ready to ambush nearby prey.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (NPC.downedPlantBoss && !NPC.AnyNPCs(ModContent.NPCType<VineDerp>()))
@@ -82,7 +77,7 @@ namespace StormDiversMod.NPCs
         }
 
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

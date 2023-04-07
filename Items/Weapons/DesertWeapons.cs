@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Forbidden Pike"); 
-			Tooltip.SetDefault("Unleash the power of the forbidden sands");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Forbidden Pike"); 
+			//Tooltip.SetDefault("Unleash the power of the forbidden sands");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.Spears[Item.type] = true;
 
         }
@@ -98,9 +98,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Fury");
-            Tooltip.SetDefault("Converts all arrows to Ancient Forbidden arrows that rain down the heat of the Desert");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Forbidden Fury");
+            //Tooltip.SetDefault("Converts all arrows to Ancient Forbidden arrows that rain down the heat of the Desert");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -160,9 +160,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Storm");
-            Tooltip.SetDefault("Summons the Forbidden sands");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Forbidden Storm");
+            //Tooltip.SetDefault("Summons the Forbidden sands");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -232,12 +232,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Staff");
-            Tooltip.SetDefault("Summons a floating Forbidden Sentry that blasts sand in all directions");
+            //DisplayName.SetDefault("Forbidden Staff");
+            //Tooltip.SetDefault("Summons a floating Forbidden Sentry that blasts sand in all directions");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             //Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -295,9 +295,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Whip");
-            Tooltip.SetDefault("6% summon tag critical strike chance\nYour summons will focus struck enemies\nForbidden sand jumps from the targeted enemy when hit by summons");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Forbidden Whip");
+            //Tooltip.SetDefault("6% summon tag critical strike chance\nYour summons will focus struck enemies\nForbidden sand jumps from the targeted enemy when hit by summons");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

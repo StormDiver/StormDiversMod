@@ -24,10 +24,10 @@ namespace StormDiversMod.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cracked Horn");
-            Tooltip.SetDefault("Seems to be cursed, use with caution");
+            //DisplayName.SetDefault("Cracked Horn");
+            //Tooltip.SetDefault("Seems to be cursed, use with caution");
             ItemID.Sets.SortingPriorityBossSpawns[Item.type] = 13; // This helps sort inventory know this is a boss summoning Item
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            Item.ResearchUnlockCount = 3;
         }     
         public override void SetDefaults()
         {
@@ -110,7 +110,7 @@ namespace StormDiversMod.Items.Summons
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.AridBoss>());
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.AridBoss>());
 
                 }
             }

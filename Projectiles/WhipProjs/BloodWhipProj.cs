@@ -38,7 +38,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 			set => Projectile.ai[0] = value;
 		}
        
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<WhiptagBloodDebuff>(), 240);
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
@@ -147,7 +147,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bloody whip Orb");
+			//DisplayName.SetDefault("Bloody whip Orb");
 		}
 		public override void SetDefaults()
 		{

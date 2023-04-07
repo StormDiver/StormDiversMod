@@ -18,10 +18,10 @@ namespace StormDiversMod.Items.OresandBars
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Bar");
-            Tooltip.SetDefault("Used in the creation of frozen armor and weapons");
+            //DisplayName.SetDefault("Frost Bar");
+            //Tooltip.SetDefault("Used in the creation of frozen armor and weapons");
             ItemID.Sets.SortingPriorityMaterials[Item.type] = 80;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            Item.ResearchUnlockCount = 25;
 
         }
 
@@ -67,7 +67,7 @@ namespace StormDiversMod.Items.OresandBars
             AddMapEntry(new Color(0, 255, 255), Language.GetText("Frost Bar")); // localized text for "Metal Bar"
         }
 
-        public override bool Drop(int i, int j)
+        /*public override bool Drop(int i, int j)
         {
             Tile t = Main.tile[i, j];
             int style = t.TileFrameX / 18;
@@ -76,7 +76,7 @@ namespace StormDiversMod.Items.OresandBars
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemType<IceBar>());
             }
             return base.Drop(i, j);
-        }
+        }*/
     }
     //___________________________________________________________________________
     
@@ -97,8 +97,8 @@ namespace StormDiversMod.Items.OresandBars
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Frost Ore");
+            LocalizedText name = CreateMapEntryName();
+            //name.SetDefault("Frost Ore");
             AddMapEntry(new Color(0, 255, 255), name);
 
             DustType = 92;

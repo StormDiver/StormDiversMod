@@ -13,7 +13,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shockwave");
+            //DisplayName.SetDefault("Shockwave");
         }
         public override void SetDefaults()
         {
@@ -75,7 +75,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stompwave");
+            //DisplayName.SetDefault("Stompwave");
         }
         public override void SetDefaults()
         {

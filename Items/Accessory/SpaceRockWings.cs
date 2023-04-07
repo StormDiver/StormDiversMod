@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Wings");
-            Tooltip.SetDefault("Allows flight and slow fall\nHas a fast horizontal movement and acceleration");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Wings");
+            //Tooltip.SetDefault("Allows flight and slow fall\nHas a fast horizontal movement and acceleration");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Cyan;
            
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

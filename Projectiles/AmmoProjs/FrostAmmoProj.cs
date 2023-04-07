@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Bullet");
+            //DisplayName.SetDefault("Frost Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -66,7 +66,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -108,7 +108,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Bullet");
+            //DisplayName.SetDefault("Frost Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -152,7 +152,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -193,7 +193,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Arrow");
+            //DisplayName.SetDefault("Frost Arrow");
         }
 
         public override void SetDefaults()

@@ -11,7 +11,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Sand");
+            //DisplayName.SetDefault("Forbidden Sand");
         }
         public override void SetDefaults()
         {
@@ -53,7 +53,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             return;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
    
             target.AddBuff(ModContent.BuffType<Buffs.AridSandDebuff>(), 180);

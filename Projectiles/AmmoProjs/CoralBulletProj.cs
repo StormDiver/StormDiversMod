@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coral Bullet");
+            //DisplayName.SetDefault("Coral Bullet");
 
         }
         public override void SetDefaults()
@@ -25,7 +25,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.width = 2;
             Projectile.height = 2;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 2;
             Projectile.extraUpdates = 1;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 60;
@@ -35,12 +35,11 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
             AIType = ProjectileID.Bullet;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
         public override void AI()
         {
-          
-
             if (Main.rand.Next(4) == 0)
             {
                 Dust dust;
@@ -50,19 +49,26 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 dust.noGravity = true;
 
             }
-          
-
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Wet, 300);
+            SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
+            for (int i = 0; i < 5; i++)
+            {
 
+                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 25);
+                dust.scale = 0.7f;
+            }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.Wet, 300);
+            if (info.PvP)
+            {
+                target.AddBuff(BuffID.Wet, 300);
+            }
+            base.OnHitPlayer(target, info);
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
 
         {
@@ -73,7 +79,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
                 for (int i = 0; i < 5; i++)
                 {
@@ -81,12 +86,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                     var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 25);
                     dust.scale = 0.7f;
                 }
-
-            }
-           
-        }
-        
+            }         
+        }       
     }
-    //________________________________________________________
-   
+    //________________________________________________________ 
 }

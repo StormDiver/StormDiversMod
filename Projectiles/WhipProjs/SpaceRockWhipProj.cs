@@ -37,7 +37,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 			set => Projectile.ai[0] = value;
 		}
        
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<WhiptagSpaceRockDebuff>(), 240);
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
@@ -153,7 +153,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Asteroid Whip Fragment");
+			//DisplayName.SetDefault("Asteroid Whip Fragment");
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 		}
@@ -218,7 +218,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 
 			}
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 
 		}

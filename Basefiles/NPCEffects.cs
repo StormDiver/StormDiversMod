@@ -24,7 +24,6 @@ using System;
 using StormDiversMod.Projectiles;
 using static Humanizer.In;
 using static Terraria.ModLoader.PlayerDrawLayer;
-using IL.Terraria.GameContent.Bestiary;
 using StormDiversMod.NPCs;
 using Terraria.GameContent.Drawing;
 
@@ -85,6 +84,8 @@ namespace StormDiversMod.Basefiles
 
         //Whip tags
 
+        public int WhiptagCrit; //Crit percentage for ship stacking
+
         public bool WhiptagWeb; //Spider Whip
         int webwhipcooldown;
 
@@ -137,9 +138,11 @@ namespace StormDiversMod.Basefiles
             //npc.dontTakeDamage = false;
 
             //Debuff immunities
-            if (npc.boss)
+            if (npc.boss || NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == true)
             {
                 npc.buffImmune[(BuffType<BeetleDebuff>())] = true;
+                npc.buffImmune[(BuffType<WebDebuff>())] = true;
+
             }
             if (npc.buffImmune[BuffID.Frostburn] == true) //all enemies immune to frost burn are immune to the Cryoburn and Ultra Freeze
             {
@@ -164,23 +167,23 @@ namespace StormDiversMod.Basefiles
             }
             
             //slowdown enemies
-            if (beetled && !npc.boss)
+            if (beetled && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
             {
                 npc.velocity.X *= 0.92f;
                 npc.velocity.Y *= 0.92f;
 
             }
-            if (webDebuff && !npc.boss)
+            if (webDebuff && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
             {
                 npc.velocity.X *= 0.92f;
 
             }
-            if (spookedDebuff && !npc.boss)
+            if (spookedDebuff && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
             {
                 npc.velocity.X *= 0.96f;
 
             }
-            if (ultrafrostDebuff && !npc.boss)
+            if (ultrafrostDebuff && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
             {
                 npc.velocity.X *= 0.93f;
 
@@ -783,40 +786,41 @@ namespace StormDiversMod.Basefiles
             }
 
         }
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
+
             var player = Main.player[projectile.owner];
             
             if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
             {
                 if (npc.HasBuff(BuffID.ShadowFlame))
                 {
-                    damage += 5;
+                    modifiers.FlatBonusDamage += 5;
                 }
             }
 
             if (projectile.type == ModContent.ProjectileType<Projectiles.AncientArmourProj>()) //No crit from arid explosion
             {
-                crit = false;
+                modifiers.DisableCrit();
             }
             if (projectile.type == ModContent.ProjectileType<Projectiles.HellSoulArmourProj>() || projectile.type == ModContent.ProjectileType<Projectiles.AncientArmourProj>()) //No crit from hellsoul explosion
             {
                 if (npc.aiStyle == 6 || npc.type == NPCID.TheDestroyerBody) //Worms take reduced damage
                 {
-                    damage = (int)(damage * 0.5f);
+                    modifiers.FinalDamage *= 0.5f;
                 }
-                crit = false;
+                modifiers.DisableCrit();
             }
             if (npc.type == NPCType<NPCs.DerpMimic>()) //Takes 666 less damage
             {
-                damage -= 666;
+                modifiers.FinalDamage.Flat -= 666;
 
             }
             if (npc.type == NPCType<NPCs.Boss.StormBoss>()) //75% damage from homing projectiles
             {
                 if (ProjectileID.Sets.CultistIsResistantTo[projectile.type])
                 {
-                    damage = (damage * 3) / 4;
+                    modifiers.FinalDamage *= 0.75f;
                 }
             }
 
@@ -824,15 +828,15 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.masterMode)
                 {
-                    damage *= 6;
+                    modifiers.FinalDamage *= 6;
                 }
                 else if (Main.expertMode && !Main.masterMode)
                 {
-                    damage *= 4;
+                    modifiers.FinalDamage *= 4;
                 }
                 else
                 {
-                    damage *= 2;
+                    modifiers.FinalDamage *= 2;
 
                 }
             }
@@ -840,7 +844,7 @@ namespace StormDiversMod.Basefiles
             if (player.GetModPlayer<EquipmentEffects>().aridBossAccess == true && aridCoreDebuff) //Ancient Emblem extra damage
             {
                 //damage = damage + ((damage * 20) / 17);
-                damage = (damage * 23) / 20; //15% extra damage
+                modifiers.FinalDamage *= 1.15f; //15% extra damage
 
             }
 
@@ -850,7 +854,7 @@ namespace StormDiversMod.Basefiles
                 //Spider Whip
                 if (WhiptagWeb)
                 {
-                    damage += 3; //tag damage
+                    modifiers.FlatBonusDamage += 3; //tag damage
 
                     if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC]) //summon projectile
                     {
@@ -865,9 +869,9 @@ namespace StormDiversMod.Basefiles
                 if (WhiptagBlood)
                 {
                     //damage += 5; //tag damage
-                    if (Main.rand.Next(100) <= 4 && !crit) //tag crit
+                    if (Main.rand.Next(100) <= WhiptagCrit) //tag crit (4)
                     {
-                        crit = true;
+                        modifiers.SetCrit();
                     }
                     if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC]) //summon projectile
                     {
@@ -884,9 +888,9 @@ namespace StormDiversMod.Basefiles
                 if (WhiptagForbidden)
                 {
                     //damage += 4; //tag damage
-                    if (Main.rand.Next(100) <= 6 && !crit) //tag crit
+                    if (Main.rand.Next(100) <= WhiptagCrit) //tag crit (6)
                     {
-                        crit = true;
+                        modifiers.SetCrit();
                     }
 
                     if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC])
@@ -916,10 +920,10 @@ namespace StormDiversMod.Basefiles
                 }
                 if (WhiptagSpaceRock)
                 {
-                    damage += 5; //tag damage
-                    if (Main.rand.Next(100) <= 15 && !crit) //tag crit
+                    modifiers.FlatBonusDamage += 5; //tag damage
+                    if (Main.rand.Next(100) <= WhiptagCrit) //tag crit (15)
                     {
-                        crit = true;
+                        modifiers.SetCrit();
                     }
 
                     if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC]) //summon projectile
@@ -941,69 +945,73 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
-            if (crit) //crit damage increases
+            if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
             {
-                if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
-                {
-                    damage = (int)(damage * 1.1f);
-                }
-                if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
-                {
-                    damage = (int)(damage * 1.15f);
-                }
-                if (player.GetModPlayer<EquipmentEffects>().derpEyeGolem == true)
-                {
-                    damage = (int)(damage * 1.15f);
-                }
+                //damage = (int)(damage * 1.1f);
+                modifiers.CritDamage *= 1.1f;
             }
-           
+            if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
+            {
+                //damage = (int)(damage * 1.15f);
+                modifiers.CritDamage *= 1.15f;
+            }
+            if (player.GetModPlayer<EquipmentEffects>().derpEyeGolem == true)
+            {
+                //damage = (int)(damage * 1.15f);
+                modifiers.CritDamage *= 1.15f;
+            }
         }
-        
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        //        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
+            base.ModifyHitByItem(npc, player, item, ref modifiers);
+
             if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
             {
                 if (npc.HasBuff(BuffID.ShadowFlame))
                 {
-                    damage += 5;
+                    modifiers.FlatBonusDamage += 5;
                 }
             }
             if (npc.type == NPCType<NPCs.DerpMimic>()) //Takes 666 less damage
             {
-                 damage -= 666;
+                modifiers.FinalDamage.Flat -= 666;
 
             }
-            if (crit)
+
+            if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
             {
-                if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
-                {
-                    damage = (int)(damage * 1.1f);
-                }
-                if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
-                {
-                    damage = (int)(damage * 1.2f);
-                }
-
+                //damage = (int)(damage * 1.1f);
+                modifiers.CritDamage += 0.1f;
             }
+            if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
+            {
+                //damage = (int)(damage * 1.15f);
+                modifiers.CritDamage += 0.15f;
+            }
+            if (player.GetModPlayer<EquipmentEffects>().derpEyeGolem == true)
+            {
+                //damage = (int)(damage * 1.15f);
+                modifiers.CritDamage += 0.15f;
+            }
+        }
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
+        {
+            base.OnHitPlayer(npc, target, hurtInfo);
+        }
+        public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            base.OnHitByItem(npc, player, item, hit, damageDone);
+        }
 
-        }
-        
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
+            base.OnHitByProjectile(npc, projectile, hit, damageDone);
         }
-        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        public override void HitEffect(NPC npc, NPC.HitInfo hit)
         {
-
-        }
-        //Ditto, but from player projectiles
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
-        {
-            var player = Main.player[projectile.owner];
-          
-        }
-        public override void HitEffect(NPC npc, int hitDirection, double damage)
-        {
-
+            
         }
 
     }

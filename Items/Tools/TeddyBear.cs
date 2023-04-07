@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Teddy Bear");
-            Tooltip.SetDefault("Hug the bear to regenerate life\n'Full of love'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Teddy Bear");
+            //Tooltip.SetDefault("Hug the bear to regenerate life\n'Full of love'");
+            Item.ResearchUnlockCount = 1;
 
 
         }

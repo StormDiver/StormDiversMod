@@ -16,10 +16,10 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Insulated Cuffs");
-            Tooltip.SetDefault("All weapons have a chance to inflict frostburn upon attacked enemies\n'Redirect the coldness into your foes'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            //DisplayName.SetDefault("Insulated Cuffs");
+            //Tooltip.SetDefault("All weapons have a chance to inflict frostburn upon attacked enemies\n'Redirect the coldness into your foes'");
+            Item.ResearchUnlockCount = 1;
+            
 
         }
         public override void SetDefaults()
@@ -74,8 +74,10 @@ namespace StormDiversMod.Items.Accessory
             }
             
         }
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockBack, bool crit) //PvE
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            //public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) //PvE
+
             var player = Main.player[projectile.owner];
 
             if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
@@ -85,28 +87,28 @@ namespace StormDiversMod.Items.Accessory
                     target.AddBuff(BuffID.Frostburn, 120);
                 }
             }
-            
-        }
-        public override void OnHitPvp(Projectile projectile, Player target, int damage, bool crit) //Pvp
-        {
-            var player = Main.player[projectile.owner];
 
-            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
+        }
+        public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
+        {
+            if (info.PvP)
             {
-                if (projectile.owner == Main.myPlayer && projectile.friendly)
+                var player = Main.player[projectile.owner];
+
+                if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
                 {
-                    target.AddBuff(BuffID.Frostburn, 120);
-                    //target.AddBuff(mod.BuffType("SuperFrostBurn"), 600);
+                    if (projectile.owner == Main.myPlayer && projectile.friendly)
+                    {
+                        target.AddBuff(BuffID.Frostburn, 120);
+                        //target.AddBuff(mod.BuffType("SuperFrostBurn"), 600);
+                    }
                 }
             }
-
         }
-
-
     }
     public class BlueCuffsMelee : GlobalItem
     {
-        public override void OnHitNPC(Item Item, Player player, NPC target, int damage, float knockBack, bool crit) //PvE
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
@@ -118,7 +120,7 @@ namespace StormDiversMod.Items.Accessory
             }
 
         }
-        public override void OnHitPvp(Item Item, Player player, Player target, int damage, bool crit) //PvP
+        public override void OnHitPvp(Item item, Player player, Player target, Player.HurtInfo hurtInfo)
         {
             if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
             {
@@ -127,7 +129,6 @@ namespace StormDiversMod.Items.Accessory
                     target.AddBuff(BuffID.Frostburn, 180);
                 }
             }
-
         }
         public override void MeleeEffects(Item Item, Player player, Rectangle hitbox) //Dust Effects
         {

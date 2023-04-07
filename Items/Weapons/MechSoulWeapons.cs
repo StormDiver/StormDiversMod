@@ -21,9 +21,9 @@ namespace StormDiversMod.Items.Weapons
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Vaporizer");
-            Tooltip.SetDefault("Fires out 8 spikes continuously while spinning");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("The Vaporizer");
+            //Tooltip.SetDefault("Fires out 8 spikes continuously while spinning");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -82,9 +82,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Shredder");
-            Tooltip.SetDefault("Shreds any enemy that it comes into contact with\nEmits sparks that linger on the ground");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("The Shredder");
+            //Tooltip.SetDefault("Shreds any enemy that it comes into contact with\nEmits sparks that linger on the ground");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -146,9 +146,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Seeker");
-            Tooltip.SetDefault("Summons explosive bolts that can be guided towards the cursor when holding right click\nRequires Prototype Grenades, purchase more from the Demolitionist");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("The Seeker");
+            //Tooltip.SetDefault("Summons explosive bolts that can be guided towards the cursor when holding right click\nRequires Prototype Grenades, purchase more from the Demolitionist");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -220,10 +220,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Obliterator");
-            Tooltip.SetDefault("Fires out spinning skulls that will home onto any enemy they touch");
+            //DisplayName.SetDefault("The Obliterator");
+            //Tooltip.SetDefault("Fires out spinning skulls that will home onto any enemy they touch");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

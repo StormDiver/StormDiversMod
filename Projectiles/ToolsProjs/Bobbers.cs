@@ -30,7 +30,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Derpling Bobber");
+			//DisplayName.SetDefault("Derpling Bobber");
 		}
 
 		public override void SetDefaults()

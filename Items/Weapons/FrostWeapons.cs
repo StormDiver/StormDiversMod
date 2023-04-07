@@ -15,9 +15,9 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Frozen Polestar"); 
-			Tooltip.SetDefault("Spins around and knocks enemies in the direction you're facing\nInflicts cryoburn on enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Frozen Polestar"); 
+			//Tooltip.SetDefault("Spins around and knocks enemies in the direction you're facing\nInflicts cryoburn on enemies");
+            Item.ResearchUnlockCount = 1;
         }
 
 		public override void SetDefaults() 
@@ -61,9 +61,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Frizbee");
-            Tooltip.SetDefault("Throws out a frizbee that shatters on impact");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Frost Frizbee");
+            //Tooltip.SetDefault("Throws out a frizbee that shatters on impact");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -112,9 +112,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Launcher");
-            Tooltip.SetDefault("Fires out impact-exploding grenades that inflict CryoBurn\nRequires Prototype Grenades, purchase more from the Demolitionist");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Frost Launcher");
+            //Tooltip.SetDefault("Fires out impact-exploding grenades that inflict CryoBurn\nRequires Prototype Grenades, purchase more from the Demolitionist");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -181,9 +181,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cryofreezer");
-            Tooltip.SetDefault("Fires out a stream of super cold gas which inflicts CryoBurn\nUses gel for ammo\nIgnores 15 points of enemy defense");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Cryofreezer");
+            //Tooltip.SetDefault("Fires out a stream of super cold gas which inflicts CryoBurn\nUses gel for ammo\nIgnores 15 points of enemy defense");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -251,12 +251,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frostspike Staff");
-            Tooltip.SetDefault("Summons a frost sentry that fires piercing icicles at high speed at enemies");
+            //DisplayName.SetDefault("Frostspike Staff");
+            //Tooltip.SetDefault("Summons a frost sentry that fires piercing icicles at high speed at enemies");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             //Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

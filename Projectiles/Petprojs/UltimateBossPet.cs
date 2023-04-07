@@ -18,8 +18,8 @@ namespace StormDiversMod.Projectiles.Petprojs
     {
         public override void SetStaticDefaults()
         {           
-            DisplayName.SetDefault("TheCute");
-            Description.SetDefault("So Cute, would never inflict any pain");
+            //DisplayName.SetDefault("TheCute");
+            //Description.SetDefault("So Cute, would never inflict any pain");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }
@@ -41,7 +41,7 @@ namespace StormDiversMod.Projectiles.Petprojs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("TheCute");
+            //DisplayName.SetDefault("TheCute");
             Main.projFrames[Projectile.type] = 7;
             Main.projPet[Projectile.type] = true;
         }

@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stone Boulder");
+            //DisplayName.SetDefault("Stone Boulder");
         }
         public override void SetDefaults()
         {
@@ -82,7 +82,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hard Stone Boulder");
+            //DisplayName.SetDefault("Hard Stone Boulder");
         }
         public override void SetDefaults()
         {
@@ -161,7 +161,7 @@ namespace StormDiversMod.Projectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -170,13 +170,14 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            for (int i = 0; i < 10; i++)
+            if (info.PvP)
             {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
+                for (int i = 0; i < 10; i++)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
+                }
             }
         }
 
@@ -213,7 +214,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Stone Boulder");
+            //DisplayName.SetDefault("Flaming Stone Boulder");
         }
         public override void SetDefaults()
         {
@@ -253,7 +254,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 600);
@@ -264,15 +265,18 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 55);
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 800);
-            for (int i = 0; i < 10; i++)
+            if (info.PvP)
             {
+            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 800);
+                for (int i = 0; i < 10; i++)
+                {
 
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 55);
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 55);
+
+                }
             }
         }
 
@@ -354,7 +358,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stone Fragment");
+            //DisplayName.SetDefault("Stone Fragment");
         }
         public override void SetDefaults()
         {
@@ -388,7 +392,7 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation += (float)Projectile.direction * -0.2f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
@@ -421,7 +425,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Fragment");
+            //DisplayName.SetDefault("Flaming Fragment");
         }
         public override void SetDefaults()
         {
@@ -457,18 +461,17 @@ namespace StormDiversMod.Projectiles
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 180);
             Projectile.damage = (Projectile.damage * 9) / 10;
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 400);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 400);
         }
-
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 

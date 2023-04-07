@@ -24,7 +24,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Grenade");
+            //DisplayName.SetDefault("Frost Grenade");
         }
 
         public override void SetDefaults()
@@ -92,7 +92,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
 
@@ -110,10 +110,10 @@ namespace StormDiversMod.Projectiles
 
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
         }
 
         public override void Kill(int timeLeft)
@@ -151,7 +151,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frozen Polestar");
+            //DisplayName.SetDefault("Frozen Polestar");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
@@ -172,7 +172,7 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 9999999;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var player = Main.player[Projectile.owner];
             if (Main.rand.Next(1) == 0) // the chance
@@ -182,10 +182,10 @@ namespace StormDiversMod.Projectiles
 
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
         }
         // float hitbox = 150;
         // bool hitboxup;
@@ -277,7 +277,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Frizbee");
+            //DisplayName.SetDefault("Frost Frizbee");
         }
         public override void SetDefaults()
         {
@@ -313,7 +313,7 @@ namespace StormDiversMod.Projectiles
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
             for (int i = 0; i < 20; i++)
@@ -348,16 +348,10 @@ namespace StormDiversMod.Projectiles
             Projectile.Kill();
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            
-                {
-                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
-
-                }
-        
-            
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -405,7 +399,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost");
+            //DisplayName.SetDefault("Frost");
             Main.projFrames[Projectile.type] = 4;
 
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
@@ -489,7 +483,7 @@ namespace StormDiversMod.Projectiles
             hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
             base.ModifyDamageHitbox(ref hitbox);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             var player = Main.player[Projectile.owner];
@@ -499,10 +493,10 @@ namespace StormDiversMod.Projectiles
               
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -534,7 +528,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Fragment");
+            //DisplayName.SetDefault("Frost Fragment");
         }
         public override void SetDefaults()
         {
@@ -564,17 +558,17 @@ namespace StormDiversMod.Projectiles
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
 
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
         }
 
 
@@ -604,7 +598,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cryo Cloud");
+            //DisplayName.SetDefault("Cryo Cloud");
         }
         public override void SetDefaults()
         {

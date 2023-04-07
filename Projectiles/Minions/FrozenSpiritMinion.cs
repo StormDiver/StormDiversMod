@@ -16,8 +16,8 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frozen Spirit Minion");
-			Description.SetDefault("A Frozen Spirit minion will fight for you");
+			//DisplayName.SetDefault("Frozen Spirit Minion");
+			//Description.SetDefault("A Frozen Spirit minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -42,7 +42,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frozen Spirit Minion");
+			//DisplayName.SetDefault("Frozen Spirit Minion");
 			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -371,7 +371,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frozen Spirit Shard");
+			//DisplayName.SetDefault("Frozen Spirit Shard");
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
@@ -408,7 +408,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Main.rand.Next(2) == 0)
 			{

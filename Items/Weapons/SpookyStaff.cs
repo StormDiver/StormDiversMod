@@ -17,10 +17,10 @@ namespace StormDiversMod.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Staff");
-            Tooltip.SetDefault("Rains homing fire from the sky");
+            //DisplayName.SetDefault("Spooky Staff");
+            //Tooltip.SetDefault("Rains homing fire from the sky");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

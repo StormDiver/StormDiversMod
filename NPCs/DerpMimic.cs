@@ -23,7 +23,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Perfectly Normal Derpling");
+            //DisplayName.SetDefault("Perfectly Normal Derpling");
             Main.npcFrameCount[NPC.type] = 12;
             NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
             NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -33,6 +33,9 @@ namespace StormDiversMod.NPCs
                  NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, bestiaryData);
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
+            NPCID.Sets.ShimmerImmunity[NPC.type] = true;
+            NPCID.Sets.CanHitPastShimmer[NPC.type] = true;
+            NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
         }
         public override void SetDefaults()
         {
@@ -53,15 +56,14 @@ namespace StormDiversMod.NPCs
             NPC.knockBackResist = 0f;
             Item.buyPrice(0, 0, 0, 0);
             NPC.gfxOffY = -2;
-            
         }
-        
-       
+
+
         /* public override float SpawnChance(NPCSpawnInfo spawnInfo)
          {
 
          }*/
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             if (Main.expertMode && !Main.masterMode)
             {
@@ -296,7 +298,7 @@ namespace StormDiversMod.NPCs
         }
         int npcframe = 0;
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (target.dead)
             {
@@ -355,7 +357,7 @@ namespace StormDiversMod.NPCs
 
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             /*if (Main.netMode == NetmodeID.Server)
             {

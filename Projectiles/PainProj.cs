@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Painful Projectile");
+            //DisplayName.SetDefault("Painful Projectile");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -137,7 +137,7 @@ namespace StormDiversMod.Projectiles
             }
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.timeLeft > 3)
             {
@@ -207,7 +207,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Painful Core");
+            //DisplayName.SetDefault("Painful Core");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;

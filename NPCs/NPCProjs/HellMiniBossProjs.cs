@@ -15,7 +15,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Bolt");
+            //DisplayName.SetDefault("HellSoul Bolt");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             Main.projFrames[Projectile.type] = 4;
@@ -87,7 +87,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.frameCounter = 0;
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             for (int i = 0; i < 15; i++)
             {
@@ -139,7 +139,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Giant Flame");
+            //DisplayName.SetDefault("HellSoul Giant Flame");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             Main.projFrames[Projectile.type] = 4;
@@ -250,7 +250,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.frameCounter = 0;
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 300);
 

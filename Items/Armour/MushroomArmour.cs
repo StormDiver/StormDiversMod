@@ -18,9 +18,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Shroom Mask");
-            Tooltip.SetDefault("3% increased ranged critical strike chance\n'There's not mushroom in there'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroom Mask");
+            //Tooltip.SetDefault("3% increased ranged critical strike chance\n'There's not mushroom in there'");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -90,9 +90,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Shroom Chestplate");
-            Tooltip.SetDefault("Increases ranged damage by 1");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroom Chestplate");
+            //Tooltip.SetDefault("Increases ranged damage by 1");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
@@ -141,9 +141,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Shroom Greaves");
-            Tooltip.SetDefault("3% increased ranged critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroom Greaves");
+            //Tooltip.SetDefault("3% increased ranged critical strike chance");
+            Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow")

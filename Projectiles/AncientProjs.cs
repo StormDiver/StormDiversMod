@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Sand Explosion");
+            //DisplayName.SetDefault("Ancient Sand Explosion");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -113,15 +113,17 @@ namespace StormDiversMod.Projectiles
                 return false;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //target.AddBuff(mod.BuffType("AridSandDebuff"), 180);
             target.AddBuff(BuffID.OnFire, 180);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.OnFire, 180);
+            if (info.PvP)
+            {
+                target.AddBuff(BuffID.OnFire, 180);
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -138,7 +140,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Throwing Knife");
+            //DisplayName.SetDefault("Ancient Throwing Knife");
 
         }
 
@@ -199,7 +201,7 @@ namespace StormDiversMod.Projectiles
             }
             return true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire, 180);
 
@@ -210,14 +212,17 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 0.5f;
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)         
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.OnFire, 180);
-
-            for (int i = 0; i < 5; i++)
+            if (info.PvP)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 138);
-                dust.scale = 0.5f;
+                target.AddBuff(BuffID.OnFire, 180);
+
+                for (int i = 0; i < 5; i++)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 138);
+                    dust.scale = 0.5f;
+                }
             }
         }
         public override void Kill(int timeLeft)
@@ -230,7 +235,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Sand Stream");
+            //DisplayName.SetDefault("Ancient Sand Stream");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -310,19 +315,18 @@ namespace StormDiversMod.Projectiles
             hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
             base.ModifyDamageHitbox(ref hitbox);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             
            target.AddBuff(BuffID.OnFire, 180);       
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-           
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            target.AddBuff(BuffID.OnFire, 180);
+            if (info.PvP)
+            {
+                target.AddBuff(BuffID.OnFire, 180);
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -337,7 +341,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Sand Explosion");
+            //DisplayName.SetDefault("Ancient Sand Explosion");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -452,14 +456,17 @@ namespace StormDiversMod.Projectiles
             }
         }
     
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //target.AddBuff(mod.BuffType("AridSandDebuff"), 180);
             target.AddBuff(BuffID.OnFire, 180);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.OnFire, 180);
+            if (info.PvP)
+            {
+                target.AddBuff(BuffID.OnFire, 180);
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

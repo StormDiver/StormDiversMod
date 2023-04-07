@@ -18,7 +18,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Spinner");
+            //DisplayName.SetDefault("Lihzahrd Spinner");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -120,7 +120,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.velocity.X *= 0.1f;
             Projectile.velocity.Y *= 0.1f;
@@ -175,7 +175,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Flame");
+            //DisplayName.SetDefault("Lihzahrd Flame");
             Main.projFrames[Projectile.type] = 4;
 
         }
@@ -257,7 +257,7 @@ namespace StormDiversMod.Projectiles
             hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
             base.ModifyDamageHitbox(ref hitbox);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             var player = Main.player[Projectile.owner];
@@ -268,10 +268,10 @@ namespace StormDiversMod.Projectiles
 
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
         }
         int reflect = 3;
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -313,7 +313,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Fire Orb");
+            //DisplayName.SetDefault("Lihzahrd Fire Orb");
         }
         public override void SetDefaults()
         {
@@ -349,17 +349,17 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.damage = (Projectile.damage * 19) / 20;
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
         }
         int reflect = 4;
         public override bool OnTileCollide(Vector2 oldVelocity)

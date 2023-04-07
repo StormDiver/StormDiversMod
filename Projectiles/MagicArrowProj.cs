@@ -9,7 +9,6 @@ using StormDiversMod.Basefiles;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
-using On.Terraria.Graphics;
 
 namespace StormDiversMod.Projectiles
 {
@@ -17,7 +16,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magic Arrow");
+            //DisplayName.SetDefault("Magic Arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -202,7 +201,7 @@ namespace StormDiversMod.Projectiles
                  vector *= 50f / magnitude;
              }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item1 with { Volume = 1f, Pitch = 0.5f, MaxInstances = 3, }, Projectile.position);
 

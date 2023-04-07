@@ -19,9 +19,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Granite Mask");
-            Tooltip.SetDefault("2% increased melee damage and critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Granite Mask");
+            //Tooltip.SetDefault("2% increased melee damage and critical strike chance");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -113,9 +113,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Granite Chestplate");
-            Tooltip.SetDefault("4% increased melee damage\n10% increased melee speed");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Granite Chestplate");
+            //Tooltip.SetDefault("4% increased melee damage\n10% increased melee speed");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -153,9 +153,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Granite Greaves");
-            Tooltip.SetDefault("2% increased melee damage and critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Granite Greaves");
+            //Tooltip.SetDefault("2% increased melee damage and critical strike chance");
+            Item.ResearchUnlockCount = 1;
 
         }
 

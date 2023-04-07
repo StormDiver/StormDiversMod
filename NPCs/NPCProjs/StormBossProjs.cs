@@ -15,7 +15,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded ScanDrone Bolt");
+            //DisplayName.SetDefault("Overloaded ScanDrone Bolt");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             //Main.projFrames[Projectile.type] = 5;
@@ -62,7 +62,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
            
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             /*if (!Main.expertMode)
             {
@@ -122,7 +122,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded ScanDrone Mine");
+            //DisplayName.SetDefault("Overloaded ScanDrone Mine");
            
         }
 
@@ -212,7 +212,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             /*if (!Main.expertMode)
             {
@@ -279,7 +279,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded ScanDrone Large Mine");
+            //DisplayName.SetDefault("Overloaded ScanDrone Large Mine");
 
         }
 
@@ -385,7 +385,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Projectile.timeLeft > 3)
             {
@@ -466,7 +466,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded ScanDrone Bomb");
+            //DisplayName.SetDefault("Overloaded ScanDrone Bomb");
         }
 
         public override void SetDefaults()
@@ -529,7 +529,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Projectile.timeLeft > 3)
             {
@@ -603,7 +603,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded ScanDrone Lightning");
+            //DisplayName.SetDefault("Overloaded ScanDrone Lightning");
         }
         public override void SetDefaults()
         {
@@ -835,7 +835,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Main.dust[num3].scale = 1.7f;
             }*/
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (!Main.expertMode)
             {
@@ -868,7 +868,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded Scandrone Portal");
+            //DisplayName.SetDefault("Overloaded Scandrone Portal");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             Main.projFrames[Projectile.type] = 4;
         }

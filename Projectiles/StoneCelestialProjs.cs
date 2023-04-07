@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles
     {
       public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Solar Stone Boulder");
+            //DisplayName.SetDefault("Solar Stone Boulder");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -54,7 +54,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 1000);
            
@@ -65,15 +65,15 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
-            for (int i = 0; i < 10; i++)
+            if (info.PvP)
             {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
+                target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
+                for (int i = 0; i < 10; i++)
+                { 
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
+                }
             }
         }
         int reflect = 2;
@@ -166,7 +166,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vortex Stone Boulder");
+            //DisplayName.SetDefault("Vortex Stone Boulder");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -204,7 +204,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 1000);
             for (int i = 0; i < 10; i++)
@@ -224,15 +224,17 @@ namespace StormDiversMod.Projectiles
 
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
-            for (int i = 0; i < 10; i++)
+            if (info.PvP)
             {
+                target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
+                for (int i = 0; i < 10; i++)
+                {
 
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
+                }
             }
         }
 
@@ -329,7 +331,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nebula Stone Boulder");
+            //DisplayName.SetDefault("Nebula Stone Boulder");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -370,7 +372,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 1000);
             for (int i = 0; i < 10; i++)
@@ -380,15 +382,17 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
-            for (int i = 0; i < 10; i++)
+            if (info.PvP)
             {
+                target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
+                for (int i = 0; i < 10; i++)
+                {
 
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
+                }
             }
         }
 
@@ -486,7 +490,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stardust Stone Boulder");
+            //DisplayName.SetDefault("Stardust Stone Boulder");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -541,7 +545,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 1000);
             for (int i = 0; i < 10; i++)
@@ -551,15 +555,17 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
-            for (int i = 0; i < 10; i++)
+            if (info.PvP)
             {
+                target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
+                for (int i = 0; i < 10; i++)
+                {
 
-                 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
+                }
             }
         }
 
@@ -654,7 +660,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Celestial Fragment");
+            //DisplayName.SetDefault("Celestial Fragment");
             Main.projFrames[Projectile.type] = 4;
 
         }
@@ -708,7 +714,7 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation += (float)Projectile.direction * -0.2f;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
             for (int i = 0; i < 3; i++)
@@ -719,15 +725,17 @@ namespace StormDiversMod.Projectiles
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 240);
-            for (int i = 0; i < 3; i++)
+            if (info.PvP)
             {
+                target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 240);
+                for (int i = 0; i < 3; i++)
+                {
 
 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, dusttype);
+                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, dusttype);
+                }
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)

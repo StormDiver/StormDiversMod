@@ -16,8 +16,8 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Super Heart");
-            Tooltip.SetDefault("Heals 50 health when picked up");
+            //DisplayName.SetDefault("Super Heart");
+            //Tooltip.SetDefault("Heals 50 health when picked up");
         
         }
         public override void SetDefaults()

@@ -13,9 +13,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Iron Shot");
-            Tooltip.SetDefault("Heavy bullet that obeys gravity and has a strong knockback");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Iron Shot");
+            //Tooltip.SetDefault("Heavy bullet that obeys gravity and has a strong knockback");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()
@@ -59,9 +59,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lead Shot");
-            Tooltip.SetDefault("Heavy bullet that obeys gravity and has a strong knockback");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Lead Shot");
+            //Tooltip.SetDefault("Heavy bullet that obeys gravity and has a strong knockback");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

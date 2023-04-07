@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
        
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stardust Sentry");
+            //DisplayName.SetDefault("Stardust Sentry");
             Main.projFrames[Projectile.type] = 4;
             //ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
@@ -248,7 +248,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Golden Flow Invader");
+            //DisplayName.SetDefault("Golden Flow Invader");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -368,7 +368,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
  
         }
@@ -451,7 +451,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fast Golden Flow Invader");
+            //DisplayName.SetDefault("Fast Golden Flow Invader");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -501,7 +501,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         }
        
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.damage -= (Projectile.damage / 20);

@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Seed");
+            //DisplayName.SetDefault("Flaming Seed");
         }
         public override void SetDefaults()
         {
@@ -48,14 +48,15 @@ namespace StormDiversMod.Projectiles
      
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<SuperBurnDebuff>(), 300);
             Projectile.damage = (Projectile.damage * 9 / 10);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<SuperBurnDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<SuperBurnDebuff>(), 300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

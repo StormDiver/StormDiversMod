@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Generic");
+            //DisplayName.SetDefault("Explosion Generic");
             Main.projFrames[Projectile.type] = 7;
 
         }
@@ -57,7 +57,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Dark");
+            //DisplayName.SetDefault("Explosion Dark");
             Main.projFrames[Projectile.type] = 7;
 
         }
@@ -93,7 +93,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Frost");
+            //DisplayName.SetDefault("Explosion Frost");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -135,7 +135,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Shroomite");
+            //DisplayName.SetDefault("Explosion Shroomite");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -177,7 +177,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Vortex");
+            //DisplayName.SetDefault("Explosion Vortex");
             Main.projFrames[Projectile.type] = 7;
 
         }
@@ -220,7 +220,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Soul");
+            //DisplayName.SetDefault("Explosion Soul");
             Main.projFrames[Projectile.type] = 7;
 
         }
@@ -262,7 +262,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Pain");
+            //DisplayName.SetDefault("Explosion Pain");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -304,7 +304,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Arid");
+            //DisplayName.SetDefault("Explosion Arid");
             Main.projFrames[Projectile.type] = 7;
         }
 

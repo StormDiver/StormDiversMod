@@ -19,9 +19,9 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Scandrone Mask");
-            //Tooltip.SetDefault("Boss Mask?");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Scandrone Mask");
+            ////Tooltip.SetDefault("Boss Mask?");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -69,9 +69,9 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Ancient Husk Mask");
-            //Tooltip.SetDefault("Boss Mask?");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Ancient Husk Mask");
+            ////Tooltip.SetDefault("Boss Mask?");
+            Item.ResearchUnlockCount = 1;
             //ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {

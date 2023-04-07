@@ -18,9 +18,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Martian Dart Launcher");
-            Tooltip.SetDefault("Rapidly fires out darts\n50% chance not to consume darts");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Martian Dart Launcher");
+            //Tooltip.SetDefault("Rapidly fires out darts\n50% chance not to consume darts");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

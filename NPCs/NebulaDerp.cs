@@ -22,7 +22,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Brain Hopper"); // Automatic from .lang files
+            //DisplayName.SetDefault("Brain Hopper"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 3; // make sure to set this for your modnpcs.
         }
         public override void SetDefaults()
@@ -126,7 +126,7 @@ namespace StormDiversMod.NPCs
      
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             firerate = -30;
             if (Main.netMode == NetmodeID.Server)

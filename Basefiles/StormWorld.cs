@@ -276,6 +276,10 @@ namespace StormDiversMod.Basefiles
             }*/
 
         }
+        public override void ModifyGameTipVisibility(IReadOnlyList<GameTipData> gameTips)
+        {
+            // If you wish to add your OWN tips, then you have to put them in the stupid Localization file which is stupid and stupid.
+        }
     }
     public class WorldOre : GlobalNPC
     {

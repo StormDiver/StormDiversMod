@@ -1,6 +1,16 @@
 
 Mods: {
 	StormDiversMod: {
+		"Keybinds.Armor Special Ability.DisplayName": Armor Special Ability
+
+		GameTips: {
+			ExampleTip0: Having trouble defeating bosses? Simply lower their health to 0 while keeping yours above 0.
+			ExampleTip1: You can avoid enemy attacks by moving out of the way!
+			ExampleTip2: You can jump by pressing the jump button!
+			ExampleTip3: If you want to deal damage, use a weapon that deals damage
+			ExampleTip4: Having trouble staying alive? Skill issue!
+		}
+
 		Buffs: {
 			AridCoreDebuff: {
 				DisplayName: Arid Aura
@@ -730,7 +740,11 @@ Mods: {
 
 			OceanShard: {
 				DisplayName: Coral Bullet
-				Tooltip: Unaffected by water but has a limited range
+				Tooltip:
+					'''
+					Unaffected by water but has a limited range
+					Pierces once
+					'''
 			}
 
 			ProtoGrenade: {
@@ -742,14 +756,14 @@ Mods: {
 				DisplayName: Shroomite Arrow
 				Tooltip:
 					'''
-					Can pierce once
 					Leaves behind a trail of damaging mushrooms
+					Can pierce once
 					'''
 			}
 
 			ShroomBullet: {
 				DisplayName: Shroomite Bullet
-				Tooltip: Ricochets off walls and pierces enemies
+				Tooltip: Ricochets off walls thrice and pierces twice
 			}
 
 			AridBMask: {
@@ -1016,7 +1030,10 @@ Mods: {
 					'''
 			}
 
-			RainBoots.DisplayName: Rain Boots
+			RainBoots: {
+				DisplayName: Rain Boots
+				Tooltip: ""
+			}
 
 			SantankBMask: {
 				DisplayName: Santank Mask
@@ -1141,24 +1158,45 @@ Mods: {
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
-			AridBossRelic.DisplayName: Ancient Husk Relic
-			AridBossTrophy.DisplayName: Ancient Husk Trophy
+			AridBossRelic: {
+				DisplayName: Ancient Husk Relic
+				Tooltip: ""
+			}
+
+			AridBossTrophy: {
+				DisplayName: Ancient Husk Trophy
+				Tooltip: ""
+			}
 
 			StormBossBag: {
 				DisplayName: Treasure Bag (Overloaded Scandrone)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
-			StormBossRelic.DisplayName: Overloaded Scandrone Relic
-			StormBossTrophy.DisplayName: Overloaded Scandrone Trophy
+			StormBossRelic: {
+				DisplayName: Overloaded Scandrone Relic
+				Tooltip: ""
+			}
+
+			StormBossTrophy: {
+				DisplayName: Overloaded Scandrone Trophy
+				Tooltip: ""
+			}
 
 			UltimateBossBag: {
 				DisplayName: Treasure Bag (Ultimate Pain)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
-			UltimateBossRelic.DisplayName: Ultimate Pain Relic
-			UltimateBossTrophy.DisplayName: Ultimate Pain Trophy
+			UltimateBossRelic: {
+				DisplayName: Ultimate Pain Relic
+				Tooltip: ""
+			}
+
+			UltimateBossTrophy: {
+				DisplayName: Ultimate Pain Trophy
+				Tooltip: ""
+			}
 
 			TheGoodBoyItem: {
 				DisplayName: The Best Boy
@@ -1340,7 +1378,11 @@ Mods: {
 
 			UltimateBossSummoner: {
 				DisplayName: Mysterious Emblem
-				Tooltip: Summons the ultimate boss, make sure you're prepared for all the pain.
+				Tooltip:
+					'''
+					Summons the ultimate boss, make sure you're prepared for all the pain
+					[c/af1160:April Fools Boss, still worth fighting though]
+					'''
 			}
 
 			Aircan: {
@@ -1437,8 +1479,15 @@ Mods: {
 				Tooltip: Can mine Meteorite
 			}
 
-			GraniteAxe.DisplayName: Granite Axe
-			GraniteHammer.DisplayName: Granite Hammer
+			GraniteAxe: {
+				DisplayName: Granite Axe
+				Tooltip: ""
+			}
+
+			GraniteHammer: {
+				DisplayName: Granite Hammer
+				Tooltip: ""
+			}
 
 			GranitePick: {
 				DisplayName: Granite Pickaxe
@@ -1529,40 +1578,75 @@ Mods: {
 					'''
 			}
 
-			BossMaskAridBoss.DisplayName: Ancient Husk Mask
-			BossMaskStormBoss.DisplayName: Scandrone Mask
+			BossMaskAridBoss: {
+				DisplayName: Ancient Husk Mask
+				Tooltip: ""
+			}
+
+			BossMaskStormBoss: {
+				DisplayName: Scandrone Mask
+				Tooltip: ""
+			}
 
 			PredictorBMask: {
 				DisplayName: Predictor Head
 				Tooltip: "'Unfortunately this will not increase your brain power'"
 			}
 
-			PredictorBody.DisplayName: Predictor Body
-			PredictorLegs.DisplayName: Predictor Legs
+			PredictorBody: {
+				DisplayName: Predictor Body
+				Tooltip: ""
+			}
+
+			PredictorLegs: {
+				DisplayName: Predictor Legs
+				Tooltip: ""
+			}
 
 			SelenianBMask: {
 				DisplayName: Selenian Head
 				Tooltip: "'No, you cannot reflect projectiles!'"
 			}
 
-			SelenianBody.DisplayName: Selenian Body
-			SelenianLegs.DisplayName: Selenian Legs
+			SelenianBody: {
+				DisplayName: Selenian Body
+				Tooltip: ""
+			}
+
+			SelenianLegs: {
+				DisplayName: Selenian Legs
+				Tooltip: ""
+			}
 
 			StargazerBMask: {
 				DisplayName: Stargazer Head
 				Tooltip: "'Note, this will not actually allow you to see stars any better'"
 			}
 
-			StargazerBody.DisplayName: Stargazer Body
-			StargazerLegs.DisplayName: Stargazer Legs
+			StargazerBody: {
+				DisplayName: Stargazer Body
+				Tooltip: ""
+			}
+
+			StargazerLegs: {
+				DisplayName: Stargazer Legs
+				Tooltip: ""
+			}
 
 			StormDiverBMask: {
 				DisplayName: Storm Diver Mask
 				Tooltip: "'Can you even see out of this thing?'"
 			}
 
-			StormDiverBody.DisplayName: Storm Diver Body
-			StormDiverLegs.DisplayName: Storm Diver Legs
+			StormDiverBody: {
+				DisplayName: Storm Diver Body
+				Tooltip: ""
+			}
+
+			StormDiverLegs: {
+				DisplayName: Storm Diver Legs
+				Tooltip: ""
+			}
 
 			TheClaymanMask: {
 				DisplayName: Clayman
@@ -1886,7 +1970,10 @@ Mods: {
 				Tooltip: Fires out a bunch of energy bolts
 			}
 
-			GraniteYoyo.DisplayName: The Surge
+			GraniteYoyo: {
+				DisplayName: The Surge
+				Tooltip: ""
+			}
 
 			HarpyBow: {
 				DisplayName: Feathered Bow

@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellsoul Arrow");
+            //DisplayName.SetDefault("Hellsoul Arrow");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
@@ -98,15 +98,16 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
         public override void Kill(int timeLeft)
         {
@@ -156,7 +157,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellsoul Bullet");
+            //DisplayName.SetDefault("Hellsoul Bullet");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -203,7 +204,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -216,9 +217,10 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
             Projectile.damage= Projectile.damage / 10 *  8;
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
     
         public override void Kill(int timeLeft)
@@ -264,7 +266,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellsoul Blade");
+            //DisplayName.SetDefault("Hellsoul Blade");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -386,7 +388,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -399,9 +401,10 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
             Projectile.damage = Projectile.damage / 10 * 9;
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
   
         public override void Kill(int timeLeft)
@@ -448,7 +451,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellsoul Flare");
+            //DisplayName.SetDefault("Hellsoul Flare");
             Main.projFrames[Projectile.type] = 4;
 
         }
@@ -505,15 +508,16 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
         public override void Kill(int timeLeft)
         {
@@ -558,7 +562,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellsoul Flare");
+            //DisplayName.SetDefault("Hellsoul Flare");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -604,7 +608,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -616,9 +620,10 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
            
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
   
         public override void Kill(int timeLeft)
@@ -664,7 +669,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Blast");
+            //DisplayName.SetDefault("HellSoul Blast");
         }
         public override void SetDefaults()
         {
@@ -693,7 +698,7 @@ namespace StormDiversMod.Projectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }

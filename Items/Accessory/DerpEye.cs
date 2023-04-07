@@ -15,9 +15,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye of the Derpling");
-            Tooltip.SetDefault("Greatly increases luck\nIncreases critical strike damage by 15%\n'Lucky you'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Eye of the Derpling");
+            //Tooltip.SetDefault("Greatly increases luck\nIncreases critical strike damage by 15%\n'Lucky you'");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Pink;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 
@@ -42,9 +42,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye of the Jungle");
-            Tooltip.SetDefault("10% increased critical strike chance\nGreatly increases luck\nIncreases critical strike damage by 15%");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Eye of the Jungle");
+            //Tooltip.SetDefault("10% increased critical strike chance\nGreatly increases luck\nIncreases critical strike damage by 15%");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -55,7 +55,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Lime;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

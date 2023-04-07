@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chaos Arrow");
+            //DisplayName.SetDefault("Chaos Arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
         }
@@ -75,7 +75,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {

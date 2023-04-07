@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Web");
+            //DisplayName.SetDefault("Web");
 
         }
         public override void SetDefaults()
@@ -68,18 +68,13 @@ namespace StormDiversMod.Projectiles
             }
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //stick = true;
             Projectile.damage = (Projectile.damage * 9) / 10;
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            //target.AddBuff(BuffID.Wet, 300);
-            //stick = true;
-        }
-
+      
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);

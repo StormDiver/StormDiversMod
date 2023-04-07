@@ -15,7 +15,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moonling Bolt");
+            //DisplayName.SetDefault("Moonling Bolt");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -81,7 +81,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             
          
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             for (int i = 0; i < 15; i++)
             {
@@ -139,7 +139,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moonling Eye");
+            //DisplayName.SetDefault("Moonling Eye");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -218,7 +218,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                  vector *= 4f / magnitude;
              }
          }*/
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             Projectile.Kill();
         }

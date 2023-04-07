@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Seeker Bolt");
+            //DisplayName.SetDefault("Seeker Bolt");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -153,7 +153,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (Projectile.timeLeft > 3)
@@ -230,7 +230,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mechanical ChainSaw");
+            //DisplayName.SetDefault("Mechanical ChainSaw");
             Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
@@ -275,7 +275,7 @@ namespace StormDiversMod.Projectiles
             AnimateProjectile();
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
           
@@ -310,7 +310,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vaporiser Flail");
+            //DisplayName.SetDefault("Vaporiser Flail");
         }
         public override void SetDefaults()
         {
@@ -520,7 +520,7 @@ namespace StormDiversMod.Projectiles
            
             return true;
         }*/
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var player = Main.player[Projectile.owner];
 
@@ -559,7 +559,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Destroyer Flail Unused");
+            //DisplayName.SetDefault("Destroyer Flail Unused");
         }
         public override void SetDefaults()
         {
@@ -583,7 +583,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
            
 
@@ -643,7 +643,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vaporiser Spike");
+            //DisplayName.SetDefault("Vaporiser Spike");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -684,7 +684,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.Kill();
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
@@ -722,7 +722,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Prime Skull");
+            //DisplayName.SetDefault("Prime Skull");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
         }
@@ -826,7 +826,7 @@ namespace StormDiversMod.Projectiles
             }
          }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             reflect = true; //Once this projectile has hit an enemy it will home in and bounce off walls
            

@@ -20,7 +20,7 @@ namespace StormDiversMod.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Storm Portal");
+			//DisplayName.SetDefault("Storm Portal");
 			Main.projFrames[Projectile.type] = 1;
 		}
 		public override void SetDefaults()
@@ -279,7 +279,7 @@ namespace StormDiversMod.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Overloaded Knife");
+			//DisplayName.SetDefault("Overloaded Knife");
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 		}
@@ -322,7 +322,7 @@ namespace StormDiversMod.Projectiles
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
@@ -333,7 +333,7 @@ namespace StormDiversMod.Projectiles
 			Vector2 rotation = -new Vector2(target.Center.X - xpos, target.Center.Y - 500) + target.Center;
 
 			int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - xpos, target.Center.Y - 500), new Vector2(xpos * 0.02f, 5),
-				ModContent.ProjectileType<Projectiles.StormLightningProj>(), damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
+				ModContent.ProjectileType<Projectiles.StormLightningProj>(), Projectile.damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
 			Main.projectile[projID].scale = 1;
 			Main.projectile[projID].penetrate = 2;
 			Main.projectile[projID].timeLeft = 600;
@@ -392,7 +392,7 @@ namespace StormDiversMod.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Overloaded Grenade");
+			//DisplayName.SetDefault("Overloaded Grenade");
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 		}
@@ -465,7 +465,7 @@ namespace StormDiversMod.Projectiles
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 
 
@@ -547,7 +547,7 @@ namespace StormDiversMod.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Overloaded Lightning");
+			//DisplayName.SetDefault("Overloaded Lightning");
 			ProjectileID.Sets.SentryShot[Projectile.type] = true;
 
 		}
@@ -765,7 +765,7 @@ namespace StormDiversMod.Projectiles
 				}
 			}
 		}
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Projectile.damage = (Projectile.damage * 8) / 10;
         }
@@ -786,7 +786,7 @@ namespace StormDiversMod.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Overloaded Lightning Explosion");
+			//DisplayName.SetDefault("Overloaded Lightning Explosion");
 
 		}
 
@@ -824,12 +824,7 @@ namespace StormDiversMod.Projectiles
             }
 		}
 	
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			
-		}
-		public override void OnHitPvp(Player target, int damage, bool crit)
-
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			
 		}

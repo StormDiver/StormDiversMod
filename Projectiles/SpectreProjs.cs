@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Bolt");
+            //DisplayName.SetDefault("Spectre Bolt");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -70,7 +70,7 @@ namespace StormDiversMod.Projectiles
                
             }       
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 20; i++)
             {
@@ -116,7 +116,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Orb");
+            //DisplayName.SetDefault("Spectre Orb");
             //Main.projFrames[Projectile.type] = 4;
 
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
@@ -289,7 +289,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Orb");
+            //DisplayName.SetDefault("Spectre Orb");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
@@ -326,7 +326,7 @@ namespace StormDiversMod.Projectiles
 
             lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -379,7 +379,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Dagger");
+            //DisplayName.SetDefault("Spectre Dagger");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -503,7 +503,7 @@ namespace StormDiversMod.Projectiles
                 vector *= 20f / magnitude;
             }*/
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -564,7 +564,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Dagger");
+            //DisplayName.SetDefault("Spectre Dagger");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
@@ -605,7 +605,7 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;          
         }
        
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 3; i++)
             {

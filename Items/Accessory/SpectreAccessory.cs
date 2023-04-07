@@ -26,11 +26,11 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Skull");
-            Tooltip.SetDefault("Mana usage is negated when under the effects of mana sickness\nIncreases maximum mana by 40");
+            //DisplayName.SetDefault("Spectre Skull");
+            //Tooltip.SetDefault("Mana usage is negated when under the effects of mana sickness\nIncreases maximum mana by 40");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 
@@ -94,12 +94,12 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magnet Skull Flower");
-            Tooltip.SetDefault("8% reduced mana usage\nAutomatically use mana potions when needed\nIncreases pickup range for mana stars" +
-                "\nMana usage is negated when under the effects of mana sickness\nIncreases maximum mana by 40");
+            //DisplayName.SetDefault("Magnet Skull Flower");
+            //Tooltip.SetDefault("8% reduced mana usage\nAutomatically use mana potions when needed\nIncreases pickup range for mana stars" +
+                //"\nMana usage is negated when under the effects of mana sickness\nIncreases maximum mana by 40");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(10, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -129,7 +129,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

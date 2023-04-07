@@ -15,7 +15,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Red Soul");
+            //DisplayName.SetDefault("Red Soul");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -95,7 +95,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         }
      
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 300);
 

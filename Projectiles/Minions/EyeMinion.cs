@@ -16,8 +16,8 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Servant of Cthulhu Minion");
-			Description.SetDefault("A Servant of Cthulhu minion will fight for you");
+			//DisplayName.SetDefault("Servant of Cthulhu Minion");
+			//Description.SetDefault("A Servant of Cthulhu minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -42,7 +42,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Servant of Cthulhu Minion");
+			//DisplayName.SetDefault("Servant of Cthulhu Minion");
 			Main.projFrames[Projectile.type] = 6;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 

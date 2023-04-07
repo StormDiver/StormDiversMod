@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spiky Bomb");
+            //DisplayName.SetDefault("Spiky Bomb");
         }
 
         public override void SetDefaults()
@@ -179,14 +179,6 @@ namespace StormDiversMod.Projectiles
                 unstick = true;
             }
         }
-            
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            damage /= 4;
-            target.velocity.Y = -15;
-        }
-
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (!unstick)
@@ -209,24 +201,27 @@ namespace StormDiversMod.Projectiles
             stick = true;
             return false;
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            if (unstick)
+            if (info.PvP)
             {
-                if (Projectile.timeLeft > 3)
+                if (unstick)
                 {
-                    Projectile.timeLeft = 3;
+                    if (Projectile.timeLeft > 3)
+                    {
+                        Projectile.timeLeft = 3;
+                    }
                 }
-            }
-            float launchspeed = 12;
-            Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * launchspeed;
-            target.GetModPlayer<MiscFeatures>().explosionfall = true;
-            target.GetModPlayer<MiscFeatures>().explosionflame = 60;
+                float launchspeed = 12;
+                Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * launchspeed;
+                target.GetModPlayer<MiscFeatures>().explosionfall = true;
+                target.GetModPlayer<MiscFeatures>().explosionflame = 60;
 
-            target.velocity.X = -launchvelocity.X * 2f;
-            target.velocity.Y = -launchvelocity.Y * 2f;
+                target.velocity.X = -launchvelocity.X * 2f;
+                target.velocity.Y = -launchvelocity.Y * 2f;
+            }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (unstick)
             {

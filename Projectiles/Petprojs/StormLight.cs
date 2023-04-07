@@ -20,8 +20,8 @@ namespace StormDiversMod.Projectiles.Petprojs
         public override void SetStaticDefaults()
         {
             
-            DisplayName.SetDefault("Baby Storm Diver");
-            Description.SetDefault("It's not cute, it's not!!!");
+            //DisplayName.SetDefault("Baby Storm Diver");
+            //Description.SetDefault("It's not cute, it's not!!!");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }
@@ -42,7 +42,7 @@ namespace StormDiversMod.Projectiles.Petprojs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baby Storm Diver");
+            //DisplayName.SetDefault("Baby Storm Diver");
             Main.projFrames[Projectile.type] = 8;
             Main.projPet[Projectile.type] = true;
         }

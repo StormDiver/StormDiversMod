@@ -22,7 +22,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frigid Snowflake");
+            //DisplayName.SetDefault("Frigid Snowflake");
             Main.npcFrameCount[NPC.type] = 9;
 
 
@@ -73,12 +73,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A frozen creature that lurks in the underground ice biome, waiting to rain down sharp icicles upon any unsuspecting terrarian.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
-        
+       
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -321,12 +316,12 @@ namespace StormDiversMod.NPCs
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Chilled, 600);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             NPC.ai[2] = 0;
 

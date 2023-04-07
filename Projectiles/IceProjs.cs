@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Grenade");
+            //DisplayName.SetDefault("Ice Grenade");
         }
 
         public override void SetDefaults()
@@ -75,7 +75,7 @@ namespace StormDiversMod.Projectiles
             
             return true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (Projectile.timeLeft > 3)
@@ -123,7 +123,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Icicle");
+            //DisplayName.SetDefault("Icicle");
 
         }
 
@@ -161,7 +161,7 @@ namespace StormDiversMod.Projectiles
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(5) == 0)
             {

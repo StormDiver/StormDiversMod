@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chlorophyte Dart Shotgun");
-            Tooltip.SetDefault("Fires out a burst of darts");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Chlorophyte Dart Shotgun");
+            //Tooltip.SetDefault("Fires out a burst of darts");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -112,10 +112,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chlorophyte Scepter");
-            Tooltip.SetDefault("Fires out a stream of damaging spore dust");
+            //DisplayName.SetDefault("Chlorophyte Scepter");
+            //Tooltip.SetDefault("Fires out a stream of damaging spore dust");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()

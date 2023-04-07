@@ -38,7 +38,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 			set => Projectile.ai[0] = value;
 		}
        
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<WhiptagForbiddenDebuff>(), 240);
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
@@ -157,7 +157,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Forbidden Whip Dust");
+			//DisplayName.SetDefault("Forbidden Whip Dust");
 		}
 
 		public override void SetDefaults()
@@ -207,15 +207,15 @@ namespace StormDiversMod.Projectiles.WhipProjs
 			
 			return;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
 			Projectile.damage = (Projectile.damage * 8) / 10;
 		}
-		public override void OnHitPvp(Player target, int damage, bool crit)
-
-		{
-			target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{

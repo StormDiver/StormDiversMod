@@ -1123,15 +1123,15 @@ namespace StormDiversMod.Basefiles
         //=====================For taking damage from any source===========================================
 
         int attackdmg = 0;//This is for how much damage the player takes
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter) //When you take damage for whatever reason
+        public override void OnHurt(Player.HurtInfo info)
         {
             Player.ClearBuff(ModContent.BuffType<HeartBarrierBuff>()); //Removes buff on hit
 
 
-            attackdmg = (int)damage; //Int for the damage taken
+            attackdmg = info.Damage; //Int for the damage taken
 
             //triggers the granite accessory buff for 5 seconds, and it cannot be refreshed until the 10 second timer hjas ran out
-            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>()) && granitebufftime == 600 && damage > 1)
+            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>()) && granitebufftime == 600 && attackdmg > 1)
             {
                 Player.AddBuff(ModContent.BuffType<GraniteAccessBuff>(), 240);
                 SoundEngine.PlaySound(SoundID.NPCHit41 with { Volume = 1f, Pitch = -0.3f }, Player.Center);
@@ -1175,7 +1175,7 @@ namespace StormDiversMod.Basefiles
             }
             if (frostSpike)
             {
-                if (frosttime >= 360 && damage > 1)
+                if (frosttime >= 360 && attackdmg > 1)
                 {
                     
                     SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.2f, Pitch = -0.5f}, Player.Center);
@@ -1288,8 +1288,7 @@ namespace StormDiversMod.Basefiles
             return true;
         }
         //===================================Other hooks======================================
-
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
@@ -1303,17 +1302,14 @@ namespace StormDiversMod.Basefiles
             //for the Beetle Gauntlet
             if (beetleFist)
             {
-                if (!Player.dead && crit)
+                if (!Player.dead && hit.Crit)
                 {
-
                     SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances= 0 }, target.Center);
 
                     float numberProjectiles = 3 + Main.rand.Next(2);
 
                     for (int i = 0; i < numberProjectiles; i++)
                     {
-
-
                         float speedX = 0f;
                         float speedY = -12f;
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
@@ -1340,14 +1336,10 @@ namespace StormDiversMod.Basefiles
                         dust.scale = 1;
 
                     }
-
-
                 }
-
-            }
-         
+            }         
         }
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             /*if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
             {
@@ -1386,7 +1378,7 @@ namespace StormDiversMod.Basefiles
             //for the Beetle Gauntlet
             if (beetleFist)
             {            
-                if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
+                if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && hit.Crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
                 {
                     SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances = 0 }, target.Center);
 
@@ -1423,45 +1415,45 @@ namespace StormDiversMod.Basefiles
 
                     }
 
-
                 }
                 
             }
         }
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
+           
             //For vanity sound, remove hurt sound here, play sound in hurt hook
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() ||
                 Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
                 {
-                    playSound = false;
+                    modifiers.DisableSound();
                 }
             }
 
             if (woodNecklace && Player.ZoneForest)
             {
-                damage -= 4;
+                modifiers.FinalDamage.Flat -= 4;
             }
             //for Enchanted Mushroom
             if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff1>()))
             {
-                damage -= 1;
+                modifiers.FinalDamage.Flat -= 1;
             }
             else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff2>()))
             {
-                damage -= 2;
+                modifiers.FinalDamage.Flat -= 2;
 
             }
             else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff3>()))
             {
-                damage -= 4;
+                modifiers.FinalDamage.Flat -= 4;
 
             }
             else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
             {
-                damage -= 6;
+                modifiers.FinalDamage.Flat -= 6;
 
             }
             /*if (damage >= Player.statLife && Player.statLife > 1)
@@ -1471,14 +1463,12 @@ namespace StormDiversMod.Basefiles
 
             }*/         
 
-            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
-      
-        public override void OnHitByNPC(NPC npc, int damage, bool crit) //Hit by melee only
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
-
+            
         }
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit) //Hit by any projectile
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
            /* if (proj.type == ModContent.ProjectileType<Projectiles.StickyBombProj>())
             {

@@ -20,11 +20,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Pain Giver");
-            Tooltip.SetDefault("You went through unimaginable pain to get this, now you can inflict that pain upon your enemies");
+            //DisplayName.SetDefault("The Pain Giver");
+            //Tooltip.SetDefault("You went through unimaginable pain to get this, now you can inflict that pain upon your enemies");
             Item.staff[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

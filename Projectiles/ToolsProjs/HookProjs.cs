@@ -31,8 +31,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eyeball Hook");
-		}
+            //DisplayName.SetDefault("Eyeball Hook");
+            ProjectileID.Sets.SingleGrappleHook[Type] = true;
+        }
 		public override void SetDefaults()
 		{
 			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst); // Copies the attributes of the Amethyst hook's projectile.
@@ -59,10 +60,6 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 		}*/
 
 		//Return true if it is like: Hook, CandyCaneHook, BatHook, GemHooks
-		public override bool? SingleGrappleHook(Player player)
-		{
-			return true;
-		}
 
 		// Use this to kill oldest hook. For hooks that kill the oldest when shot, not when the newest latches on: Like SkeletronHand
 		// You can also change the projectile like: Dual Hook, Lunar Hook
@@ -167,7 +164,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Derpling Hook");
+			//DisplayName.SetDefault("Derpling Hook");
 		}
 		public override void SetDefaults()
 		{
@@ -195,10 +192,6 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 		}
 
         //Return true if it is like: Hook, CandyCaneHook, BatHook, GemHooks
-        public override bool? SingleGrappleHook(Player player)
-		 {
-			return false;
-		 }
 
 		// Use this to kill oldest hook. For hooks that kill the oldest when shot, not when the newest latches on: Like SkeletronHand
 		// You can also change the projectile like: Dual Hook, Lunar Hook
@@ -303,8 +296,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lightning Hook");
-		}
+            //DisplayName.SetDefault("Lightning Hook");
+            ProjectileID.Sets.SingleGrappleHook[Type] = true;
+        }
 		public override void SetDefaults()
 		{
 			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst); // Copies the attributes of the Amethyst hook's projectile.
@@ -337,10 +331,6 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 		}*/
 
 		//Return true if it is like: Hook, CandyCaneHook, BatHook, GemHooks
-		public override bool? SingleGrappleHook(Player player)
-		{
-			return true;
-		}
 
 		// Use this to kill oldest hook. For hooks that kill the oldest when shot, not when the newest latches on: Like SkeletronHand
 		// You can also change the projectile like: Dual Hook, Lunar Hook

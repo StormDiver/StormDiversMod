@@ -18,10 +18,10 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Rain Boots");
-            //Tooltip.SetDefault("Rain");
+            //DisplayName.SetDefault("Rain Boots");
+            ////Tooltip.SetDefault("Rain");
             ArmorIDs.Legs.Sets.OverridesLegs[Item.legSlot] = false;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
 

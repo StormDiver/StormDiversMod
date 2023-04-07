@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magma Orb Sentry");
+            //DisplayName.SetDefault("Magma Orb Sentry");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -185,7 +185,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magma Fire Orb");
+            //DisplayName.SetDefault("Magma Fire Orb");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -230,7 +230,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.damage = (Projectile.damage * 9) / 10;

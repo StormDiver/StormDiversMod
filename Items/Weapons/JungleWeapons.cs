@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mossy Repeater");
-            Tooltip.SetDefault("Seems a little old and neglected, but should still work");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Mossy Repeater");
+            //Tooltip.SetDefault("Seems a little old and neglected, but should still work");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -99,12 +99,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Jungle Tree Staff");
-            Tooltip.SetDefault("Summons a jungle tree that launches out a bunch of thorn balls");
+            //DisplayName.SetDefault("Jungle Tree Staff");
+            //Tooltip.SetDefault("Summons a jungle tree that launches out a bunch of thorn balls");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             //Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

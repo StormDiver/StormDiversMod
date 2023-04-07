@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Bullet");
+            //DisplayName.SetDefault("Granite Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -70,7 +70,7 @@ namespace StormDiversMod.Projectiles
             }
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 15; i++)
             {
@@ -110,7 +110,7 @@ namespace StormDiversMod.Projectiles
         //unused
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Spear");
+            //DisplayName.SetDefault("Granite Spear");
         }
 
         public override void SetDefaults()
@@ -206,7 +206,7 @@ namespace StormDiversMod.Projectiles
         //unused
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Spear Orb");
+            //DisplayName.SetDefault("Granite Spear Orb");
 
 
         }
@@ -256,15 +256,10 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-
-        }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
 
         {
@@ -288,7 +283,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Energy Orb");
+            //DisplayName.SetDefault("Granite Energy Orb");
 
 
         }
@@ -331,15 +326,10 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-
-        }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
 
         {
@@ -363,7 +353,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Yoyo");
+            //DisplayName.SetDefault("Granite Yoyo");
             ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 4f;
 
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 160f;
@@ -414,7 +404,7 @@ namespace StormDiversMod.Projectiles
             return true;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }

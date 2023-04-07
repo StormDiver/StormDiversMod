@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Hemoglobin Helmet");
-            Tooltip.SetDefault("4% increased melee damage and critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Hemoglobin Helmet");
+            //Tooltip.SetDefault("4% increased melee damage and critical strike chance");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -83,9 +83,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Hemoglobin Breastplate");
-            Tooltip.SetDefault("6% increased melee damage\n12% increased melee speed");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Hemoglobin Breastplate");
+            //Tooltip.SetDefault("6% increased melee damage\n12% increased melee speed");
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -120,9 +120,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Hemoglobin Greaves");
-            Tooltip.SetDefault("6% increased melee critical strike chance\n12% increased movement speed");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Hemoglobin Greaves");
+            //Tooltip.SetDefault("6% increased melee critical strike chance\n12% increased movement speed");
+            Item.ResearchUnlockCount = 1;
 
         }
 

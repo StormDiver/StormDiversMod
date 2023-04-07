@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Arrow");
-            Tooltip.SetDefault("Slightly attracted towards enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Meteor Arrow");
+            //Tooltip.SetDefault("Slightly attracted towards enemies");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

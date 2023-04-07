@@ -19,7 +19,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Silver Throwing Knive");
+            //DisplayName.SetDefault("Silver Throwing Knive");
 
         }
 
@@ -90,7 +90,7 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9 / 10);
         }
@@ -115,7 +115,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tungsten Throwing Knive");
+            //DisplayName.SetDefault("Tungsten Throwing Knive");
             
         }
 
@@ -185,7 +185,7 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9 / 10);
         }
@@ -211,7 +211,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bouncy Knife");
+            //DisplayName.SetDefault("Bouncy Knife");
         }
         public override void SetDefaults()
         {
@@ -281,7 +281,7 @@ namespace StormDiversMod.Projectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.damage = (Projectile.damage * 8) / 10;

@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Betsy's Flame");
+            //DisplayName.SetDefault("Betsy's Flame");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
             Main.projFrames[Projectile.type] = 4;
@@ -100,7 +100,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);

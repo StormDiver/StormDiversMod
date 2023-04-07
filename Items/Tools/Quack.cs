@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rubber Duck");
-            Tooltip.SetDefault("'QUACK!'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Rubber Duck");
+            //Tooltip.SetDefault("'QUACK!'");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()

@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("High Tech Seeking Arrow");
-            Tooltip.SetDefault("Targets all enemies in range when used, returns to you when not in use.\n'I'm Mary Poppins Y'all'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("High Tech Seeking Arrow");
+            //Tooltip.SetDefault("Targets all enemies in range when used, returns to you when not in use.\n'I'm Mary Poppins Y'all'");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

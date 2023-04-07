@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Prototype Launcher");
-            Tooltip.SetDefault("Fires out impact-exploding grenades that have a small chance to prematurely explode into shrapnel\nRequires Prototype Grenades, purchase more from the Demolitionist");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Prototype Launcher");
+            //Tooltip.SetDefault("Fires out impact-exploding grenades that have a small chance to prematurely explode into shrapnel\nRequires Prototype Grenades, purchase more from the Demolitionist");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

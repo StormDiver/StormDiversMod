@@ -11,9 +11,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bouncy Arrow");
-            Tooltip.SetDefault("Super bouncy");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99; 
+            //DisplayName.SetDefault("Bouncy Arrow");
+            //Tooltip.SetDefault("Super bouncy");
+            Item.ResearchUnlockCount = 99; 
         }
         public override void SetDefaults()
         {

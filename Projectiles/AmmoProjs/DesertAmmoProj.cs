@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Bullet");
+            //DisplayName.SetDefault("Forbidden Bullet");
           
         }
 
@@ -84,7 +84,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Arrow");
+            //DisplayName.SetDefault("Forbidden Arrow");
         }
 
         public override void SetDefaults()

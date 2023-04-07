@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Duck");
+            //DisplayName.SetDefault("Mini Duck");
             
         }
 
@@ -69,7 +69,7 @@ namespace StormDiversMod.Projectiles
 
           
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             for (int i = 0; i < 10; i++)
@@ -106,7 +106,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Solar Duck");
+            //DisplayName.SetDefault("Mini Solar Duck");
         }
 
         public override void SetDefaults()
@@ -185,7 +185,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (Projectile.timeLeft > 3)
@@ -248,7 +248,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Vortex Duck");
+            //DisplayName.SetDefault("Mini Vortex Duck");
         }
 
         public override void SetDefaults()
@@ -311,7 +311,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             for (int i = 0; i < 10; i++)
@@ -379,7 +379,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Nebula Duck");
+            //DisplayName.SetDefault("Mini Nebula Duck");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
         }
@@ -476,7 +476,7 @@ namespace StormDiversMod.Projectiles
                 vector *= 10f / magnitude;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             for (int i = 0; i < 10; i++)
@@ -520,7 +520,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Stardust Duck");
+            //DisplayName.SetDefault("Mini Stardust Duck");
             
         }
 
@@ -598,7 +598,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             for (int i = 0; i < 10; i++)
@@ -647,7 +647,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Mini Stardust Duck");
+            //DisplayName.SetDefault("Mini Mini Stardust Duck");
 
         }
 
@@ -691,7 +691,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 8) / 10;
             for (int i = 0; i < 10; i++)

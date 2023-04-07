@@ -22,9 +22,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Flame Wings");
-            Tooltip.SetDefault("Allows flight and slow fall\nHold UP to ascend faster");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Hell Flame Wings");
+            //Tooltip.SetDefault("Allows flight and slow fall\nHold UP to ascend faster");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Accessory
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

@@ -10,7 +10,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Solar Fireball");
+            //DisplayName.SetDefault("Solar Fireball");
             Main.projFrames[Projectile.type] = 2;
         }
 
@@ -67,7 +67,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             
             return false;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<Buffs.UltraBurnDebuff>(), 180);
 

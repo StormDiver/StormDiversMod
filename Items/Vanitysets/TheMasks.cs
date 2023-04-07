@@ -18,9 +18,10 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("ThePain");
-            Tooltip.SetDefault("When the pain is too much");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("ThePain");
+            //Tooltip.SetDefault("When the pain is too much");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TheClaymanMask>();
         }
     
         public override void SetDefaults()
@@ -48,9 +49,11 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Clayman");
-            Tooltip.SetDefault("Sliently judge everybody around you");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Clayman");
+            //Tooltip.SetDefault("Sliently judge everybody around you");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ThePainMask>();
+
         }
         public override void SetDefaults()
         {

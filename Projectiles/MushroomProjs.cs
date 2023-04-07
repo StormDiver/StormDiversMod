@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magical Mushroom");
+            //DisplayName.SetDefault("Magical Mushroom");
         }
 
         public override void SetDefaults()
@@ -79,7 +79,7 @@ namespace StormDiversMod.Projectiles
         }
     
         
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
           
             for (int i = 0; i < 10; i++)
@@ -128,7 +128,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magical Mushroom");
+            //DisplayName.SetDefault("Magical Mushroom");
         }
 
         public override void SetDefaults()
@@ -189,7 +189,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             for (int i = 0; i < 10; i++)

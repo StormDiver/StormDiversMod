@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Sentry");
+            //DisplayName.SetDefault("Ice Sentry");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -222,7 +222,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Stream");
+            //DisplayName.SetDefault("Frost Stream");
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -259,17 +259,17 @@ namespace StormDiversMod.Projectiles.SentryProjs
             return;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
 
             target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 180);
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 180);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 180);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

@@ -16,8 +16,8 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Temple Guardian Minion");
-			Description.SetDefault("A mini Temple Guardian minion will fight for you");
+			//DisplayName.SetDefault("Temple Guardian Minion");
+			//Description.SetDefault("A mini Temple Guardian minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -42,7 +42,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Temple Guardian Minion");
+			//DisplayName.SetDefault("Temple Guardian Minion");
 			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -354,7 +354,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Temple Minion Laser");
+			//DisplayName.SetDefault("Temple Minion Laser");
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
@@ -398,7 +398,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Projectile.damage = (Projectile.damage * 9) / 10;
 			for (int i = 0; i < 15; i++)

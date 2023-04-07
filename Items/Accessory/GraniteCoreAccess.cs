@@ -15,11 +15,11 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             
-            DisplayName.SetDefault("Granite Core");
-            Tooltip.SetDefault("Taking more than 1 damage increases damage by 50% for 4 seconds\nHas a 10 second cooldown afterwards");
+            //DisplayName.SetDefault("Granite Core");
+            //Tooltip.SetDefault("Taking more than 1 damage increases damage by 50% for 4 seconds\nHas a 10 second cooldown afterwards");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void PostUpdate()
@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Blue;
             
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
 
         }

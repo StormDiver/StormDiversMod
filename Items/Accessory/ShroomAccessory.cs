@@ -24,9 +24,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Launcher Attachment");
-            Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroomite Launcher Attachment");
+            //Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 
@@ -78,9 +78,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Launcher Scope");
-            Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets\nIncreases view range for guns (Right click to zoom out)\n10% increased ranged damage and critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroomite Launcher Scope");
+            //Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets\nIncreases view range for guns (Right click to zoom out)\n10% increased ranged damage and critical strike chance");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -108,7 +108,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

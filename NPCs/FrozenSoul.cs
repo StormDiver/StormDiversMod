@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frozen Spirit");
+            //DisplayName.SetDefault("Frozen Spirit");
             Main.npcFrameCount[NPC.type] = 8;
 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
@@ -188,14 +188,14 @@ namespace StormDiversMod.NPCs
 
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
 
             target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 300);
 
 
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             //shoottime = 80;
             shooting = false;

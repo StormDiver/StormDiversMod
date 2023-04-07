@@ -21,9 +21,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bow of the Wyverns");
-            Tooltip.SetDefault("Fires 3 arrows in an even spread\nGrants additional speed to all arrows");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Bow of the Wyverns");
+            //Tooltip.SetDefault("Fires 3 arrows in an even spread\nGrants additional speed to all arrows");
+            Item.ResearchUnlockCount = 1;
 
             
         }

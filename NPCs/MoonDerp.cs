@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moonling"); // Automatic from .lang files
+            //DisplayName.SetDefault("Moonling"); // Automatic from .lang files
                                                 // make sure to set this for your modnpcs.
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
@@ -68,7 +68,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A Derpling that has been corrupted by lunar energy, allowing it to possess a fraction of the Moon Lord’s power.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax / 3 * 2);
         }
@@ -337,7 +337,7 @@ namespace StormDiversMod.NPCs
 
         }
         int choice;
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

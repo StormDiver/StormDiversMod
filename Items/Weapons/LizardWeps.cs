@@ -19,9 +19,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Sawblade");
-            Tooltip.SetDefault("Throw out spinning sawblades that linger in place\nLimit of 6 sawblades at a time, right click to remove all thrown sawblades");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Lihzahrd Sawblade");
+            //Tooltip.SetDefault("Throw out spinning sawblades that linger in place\nLimit of 6 sawblades at a time, right click to remove all thrown sawblades");
+            Item.ResearchUnlockCount = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -117,9 +117,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Flamer");
-            Tooltip.SetDefault("Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water\nUses gel for ammo\nIgnores 20 points of enemy defense");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Lihzahrd Flamer");
+            //Tooltip.SetDefault("Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water\nUses gel for ammo\nIgnores 20 points of enemy defense");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -240,10 +240,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Flameburst Tome");
-            Tooltip.SetDefault("Summons a burst of ricocheting fireballs");
+            //DisplayName.SetDefault("Lihzahrd Flameburst Tome");
+            //Tooltip.SetDefault("Summons a burst of ricocheting fireballs");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -350,11 +350,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Guardian Staff");
-            Tooltip.SetDefault("Summons a mini Temple Guardian to fight for you");
+            //DisplayName.SetDefault("Lihzahrd Guardian Staff");
+            //Tooltip.SetDefault("Summons a mini Temple Guardian to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

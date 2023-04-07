@@ -13,10 +13,10 @@ namespace StormDiversMod.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Derpling Fishing Rod");
-			Tooltip.SetDefault("Fires multiple lines at once");
+			//DisplayName.SetDefault("Derpling Fishing Rod");
+			//Tooltip.SetDefault("Fires multiple lines at once");
 			//ItemID.Sets.CanFishInLava[Item.type] = true;
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults()

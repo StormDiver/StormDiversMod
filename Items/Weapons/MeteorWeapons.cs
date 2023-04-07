@@ -16,11 +16,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Space Saucer Staff");
-            Tooltip.SetDefault("Summons a floating saucer that fires lasers at enemies below\nRight click to target a specific enemy");
+            //DisplayName.SetDefault("Space Saucer Staff");
+            //Tooltip.SetDefault("Summons a floating saucer that fires lasers at enemies below\nRight click to target a specific enemy");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
             //Item.staff[Item.type] = true;
         }
@@ -92,9 +92,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Space Bow");
-            Tooltip.SetDefault("Rains arrows from the sky\nAllows Meteor Arrows to pass through tiles");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Space Bow");
+            //Tooltip.SetDefault("Rains arrows from the sky\nAllows Meteor Arrows to pass through tiles");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -179,9 +179,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Space Spear");
-            Tooltip.SetDefault("Striking an enemy summons 2 meteor fragments from the sky");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Space Spear");
+            //Tooltip.SetDefault("Striking an enemy summons 2 meteor fragments from the sky");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.Spears[Item.type] = true;
 
         }

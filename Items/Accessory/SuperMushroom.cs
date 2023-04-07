@@ -16,11 +16,11 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             
-            DisplayName.SetDefault("Enchanted Mushroom");
-            Tooltip.SetDefault("Increases damage dealt and reduces damage taken when losing health");
+            //DisplayName.SetDefault("Enchanted Mushroom");
+            //Tooltip.SetDefault("Increases damage dealt and reduces damage taken when losing health");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -51,7 +51,7 @@ namespace StormDiversMod.Items.Accessory
             
             Item.accessory = true;
             Item.maxStack = 1;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
         //int dustchance;

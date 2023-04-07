@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magic Water Orb");
+            //DisplayName.SetDefault("Magic Water Orb");
             Main.projFrames[Projectile.type] = 5;
 
         }
@@ -55,13 +55,14 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Wet, 300);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.Wet, 300);
+            if (info.PvP)
+                target.AddBuff(BuffID.Wet, 300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -119,7 +120,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Small Water Bolt");
+            //DisplayName.SetDefault("Small Water Bolt");
         }
         public override void SetDefaults()
         {
@@ -152,14 +153,15 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation += (float)Projectile.direction * -0.2f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Wet, 180);
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.Wet, 180);
+            if (info.PvP)
+                target.AddBuff(BuffID.Wet, 180);
         }
 
 
@@ -191,7 +193,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coral Shard");
+            //DisplayName.SetDefault("Coral Shard");
 
         }
         public override void SetDefaults()
@@ -231,14 +233,15 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Wet, 300);
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.Wet, 300);
+            if (info.PvP)
+                target.AddBuff(BuffID.Wet, 300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

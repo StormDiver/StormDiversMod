@@ -15,10 +15,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Web Staff");
-            Tooltip.SetDefault("Fires out a blob of web that sticks to surfaces");
+            //DisplayName.SetDefault("Web Staff");
+            //Tooltip.SetDefault("Fires out a blob of web that sticks to surfaces");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -91,9 +91,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spider Whip");
-            Tooltip.SetDefault("3 summon tag damage\nYour summons will focus struck enemies\nThe targetted enemy has a chance to be slowed down when hit by summons");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Spider Whip");
+            //Tooltip.SetDefault("3 summon tag damage\nYour summons will focus struck enemies\nThe targetted enemy has a chance to be slowed down when hit by summons");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

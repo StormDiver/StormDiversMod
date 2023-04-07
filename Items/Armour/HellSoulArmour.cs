@@ -24,9 +24,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Inferno Soul Mask");
-            Tooltip.SetDefault("14% increased melee damage\n5% increased melee critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Inferno Soul Mask");
+            //Tooltip.SetDefault("14% increased melee damage\n5% increased melee critical strike chance");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -113,9 +113,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Inferno Soul Helmet");
-            Tooltip.SetDefault("10% increased ranged damage\n8% increased ranged critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Inferno Soul Helmet");
+            //Tooltip.SetDefault("10% increased ranged damage\n8% increased ranged critical strike chance");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -200,9 +200,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Inferno Soul Hood");
-            Tooltip.SetDefault("12% increased magic damage\n6% increased critical strike chance\nIncreases maximum mana by 60");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Inferno Soul Hood");
+            //Tooltip.SetDefault("12% increased magic damage\n6% increased critical strike chance\nIncreases maximum mana by 60");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -286,10 +286,10 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Inferno Soul Crown");
-            Tooltip.SetDefault("10% increased summoner damage\nIncreases maximum number of minions by 2");
+            //DisplayName.SetDefault("Inferno Soul Crown");
+            //Tooltip.SetDefault("10% increased summoner damage\nIncreases maximum number of minions by 2");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -373,9 +373,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Inferno Soul Breastplate");
-            Tooltip.SetDefault("7% increased damage\n6% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Inferno Soul Breastplate");
+            //Tooltip.SetDefault("7% increased damage\n6% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
@@ -425,9 +425,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Inferno Soul Greaves");
-            Tooltip.SetDefault("5% increased damage\n6% increased critical strike chance\n25% increased movement speed");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Inferno Soul Greaves");
+            //Tooltip.SetDefault("5% increased damage\n6% increased critical strike chance\n25% increased movement speed");
+            Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow")

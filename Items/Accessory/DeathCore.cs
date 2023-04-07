@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ultimate Pain Core");
-            Tooltip.SetDefault("Saves you from death once every 2.5 minutes\n'Live to suffer another day'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Ultimate Pain Core");
+            //Tooltip.SetDefault("Saves you from death once every 2.5 minutes\n'Live to suffer another day'");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -32,7 +32,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Red;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
             Item.expert = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

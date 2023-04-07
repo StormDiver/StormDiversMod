@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cracked Bullet");
-            Tooltip.SetDefault("Has a chance to shatter into 4 shards in flight");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Cracked Bullet");
+            //Tooltip.SetDefault("Has a chance to shatter into 4 shards in flight");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

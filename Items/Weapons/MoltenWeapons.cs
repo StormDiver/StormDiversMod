@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Molten Dagger"); 
-			Tooltip.SetDefault("Rapidly stab your foes");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Molten Dagger"); 
+			//Tooltip.SetDefault("Rapidly stab your foes");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -57,11 +57,11 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-       /* public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+       /* public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 300);
         }
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType < Buffs.SuperBurnDebuff>(), 300);
         }*/
@@ -88,9 +88,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Seed Launcher");
-            Tooltip.SetDefault("Sets seeds ablaze\nObtain more from the Witch Doctor");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Flaming Seed Launcher");
+            //Tooltip.SetDefault("Sets seeds ablaze\nObtain more from the Witch Doctor");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -123,6 +123,7 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 3f;
             Item.shootSpeed = 13f;
             Item.noMelee = true; //Does the weapon itself inflict damage?
+            
         }
         public override void HoldItem(Player player)
         {
@@ -169,34 +170,15 @@ namespace StormDiversMod.Items.Weapons
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
-        public class SeedShop : GlobalNPC
-        {
-            public override void SetupShop(int type, Chest shop, ref int nextSlot)
-            {
-                switch (type)
-                {
-                    case NPCID.WitchDoctor:
-
-                        if (Main.LocalPlayer.HasItem(ModContent.ItemType<MoltenSeedLauncher>()))
-                        {
-                            shop.item[nextSlot].SetDefaults(ItemID.Seed);
-                            nextSlot++;
-
-                        }
-
-                        break;
-                }
-            }
-        }
     }
     //_______________________________________________________________________________
     public class MoltenSpell : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magma Blast");
-            Tooltip.SetDefault("Summons an orb of lava that splashes on impact");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Magma Blast");
+            //Tooltip.SetDefault("Summons an orb of lava that splashes on impact");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -271,12 +253,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magma Orb Staff");
-            Tooltip.SetDefault("Summons a magma orb sentry that launches bouncing fireballs at enemies\nRight click to target a specific enemy");
+            //DisplayName.SetDefault("Magma Orb Staff");
+            //Tooltip.SetDefault("Summons a magma orb sentry that launches bouncing fireballs at enemies\nRight click to target a specific enemy");
             //Item.staff[Item.type] = true;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

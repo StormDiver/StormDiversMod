@@ -12,7 +12,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Air Blast");
+            //DisplayName.SetDefault("Air Blast");
         }
         public override void SetDefaults()
         {

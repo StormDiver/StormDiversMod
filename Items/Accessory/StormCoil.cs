@@ -18,12 +18,12 @@ namespace StormDiversMod.Items.Accessory
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded Storm Core");
-            Tooltip.SetDefault("Right click while holding UP to send a lightning portal to the cursor that zaps enemies\n" +
-                "Right click while holding DOWN to return the portal to you");
+            //DisplayName.SetDefault("Overloaded Storm Core");
+            //Tooltip.SetDefault("Right click while holding UP to send a lightning portal to the cursor that zaps enemies\n" +
+                //"Right click while holding DOWN to return the portal to you");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Lime;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
             Item.expert = true;
 
         }

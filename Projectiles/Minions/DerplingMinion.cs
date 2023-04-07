@@ -17,8 +17,8 @@ namespace StormDiversMod.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baby Derpling Minion");
-            Description.SetDefault("A buffed baby Derpling will fight for you");
+            //DisplayName.SetDefault("Baby Derpling Minion");
+            //Description.SetDefault("A buffed baby Derpling will fight for you");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
 
@@ -43,7 +43,7 @@ namespace StormDiversMod.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Minion");
+            //DisplayName.SetDefault("Derpling Minion");
             // Sets the amount of frames this minion has on its spritesheet
             Main.projFrames[Projectile.type] = 8;
             // This is necessary for right-click targeting
@@ -398,7 +398,7 @@ namespace StormDiversMod.Projectiles.Minions
 			//jump = true;
 			return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!Main.dedServ)
             {

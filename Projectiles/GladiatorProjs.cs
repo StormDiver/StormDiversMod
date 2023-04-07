@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gladiator Staff Beam");
+            //DisplayName.SetDefault("Gladiator Staff Beam");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -52,11 +52,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
@@ -103,7 +99,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gladiator Glaive");
+            //DisplayName.SetDefault("Gladiator Glaive");
         }
 
         public override void SetDefaults()
@@ -181,7 +177,7 @@ namespace StormDiversMod.Projectiles
             
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
                 
@@ -196,7 +192,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gladiator Spear Bolt");
+            //DisplayName.SetDefault("Gladiator Spear Bolt");
            
 
         }
@@ -240,15 +236,10 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            
-        }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
 
         {

@@ -37,7 +37,7 @@ namespace StormDiversMod.NPCs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ultimate Pain"); // Automatic from .lang files
+            //DisplayName.SetDefault("Ultimate Pain"); // Automatic from .lang files
                                                      // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 25;
@@ -97,16 +97,16 @@ namespace StormDiversMod.NPCs.Boss
             });
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //250K Classic
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale); //350000K
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossAdjustment); //350000K
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f * bossLifeScale); //450000K 
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f * bossAdjustment); //450000K 
 
             }
             //250/350/450
@@ -1084,7 +1084,7 @@ namespace StormDiversMod.NPCs.Boss
             
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, "How's that for Pain?", true);
             //UNUSED
@@ -1148,7 +1148,7 @@ namespace StormDiversMod.NPCs.Boss
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<Items.Pets.UltimateBossPetItem>(), 4));
             npcLoot.Add(notExpert);
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/PainSound") with { Volume = 1f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
             for (int i = 0; i < 10; i++)
@@ -1198,14 +1198,14 @@ namespace StormDiversMod.NPCs.Boss
         {
             NPC.SetEventFlagCleared(ref StormWorld.painBossDown, -1); //set boss downed      
         }
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             if (!StormWorld.painBossDown)
             {
                 if (projectile.type == ProjectileID.FinalFractal) //Zenith is cheating >:(
                 {
-                    damage = 1;
-                    crit = false;
+                    modifiers.FinalDamage.Flat = 1;
+                    modifiers.DisableCrit();
                     SoundEngine.PlaySound(SoundID.Item16 with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                     Paintext = "Zenith means no Pain >:(";
                     if (!Zenithtext)

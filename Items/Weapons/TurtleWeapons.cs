@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Giant Turtle Shell");
-            Tooltip.SetDefault("Toss the shells back at your foes\nGrants extra defense while attacking enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Giant Turtle Shell");
+            //Tooltip.SetDefault("Toss the shells back at your foes\nGrants extra defense while attacking enemies");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -65,9 +65,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Turtle Pike");
-            Tooltip.SetDefault("Grants extra defense while attacking enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Turtle Pike");
+            //Tooltip.SetDefault("Grants extra defense while attacking enemies");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.Spears[Item.type] = true;
 
         }
@@ -141,12 +141,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Spinning Tortoise");
-            Tooltip.SetDefault("Fires out yoyo heads randomly\nGrants extra defense while attacking enemies");
+            //DisplayName.SetDefault("The Spinning Tortoise");
+            //Tooltip.SetDefault("Fires out yoyo heads randomly\nGrants extra defense while attacking enemies");
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 25;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
 

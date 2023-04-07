@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Bullet");
-            Tooltip.SetDefault("Can pierce through walls, but scatters when doing so");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Frost Bullet");
+            //Tooltip.SetDefault("Can pierce through walls, but scatters when doing so");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()
@@ -57,9 +57,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Arrow");
-            Tooltip.SetDefault("Explodes into tiny shards on impact");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Frost Arrow");
+            //Tooltip.SetDefault("Explodes into tiny shards on impact");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

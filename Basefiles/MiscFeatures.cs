@@ -26,6 +26,7 @@ using Terraria.GameContent.Drawing;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.GameContent.ItemDropRules;
 using rail;
+using Terraria.WorldBuilding;
 
 namespace StormDiversMod.Basefiles
 {
@@ -213,8 +214,10 @@ namespace StormDiversMod.Basefiles
             }
             //Main.NewText("Pain is " + paintime, 220, 63, 139);
         }
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
-        {
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+        { 
+        //public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        
             if (proj.type == ModContent.ProjectileType<StompBootProj2>() && target.type != NPCID.TargetDummy) //10 frames of immunity
             {
                 playerimmunetime = 10;
@@ -277,9 +280,11 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
-        String Paintext = "";    
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        String Paintext = "";
+        //public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
+                
             if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>() && !Player.immune)
             {
                 //paintime = 3600;
@@ -288,13 +293,13 @@ namespace StormDiversMod.Basefiles
                 //damage = (Player.statLife / 3); //Deals 1/3 the player's
                 if (Player.statLife < Player.statLifeMax2 / 3)//Deals 75% damage below 33% life
                 {
-                    damage = damage * 3 / 4;      
+                    modifiers.FinalDamage *= 0.75f;      
                 }
             }
         }
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
-            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>())
+            /*if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>())
             {
                 if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
                 {
@@ -334,16 +339,9 @@ namespace StormDiversMod.Basefiles
 
                         //Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
 
-                        /*else if (damage >= 12 && damage < 50)
-                            Paintext = "Hmm you're taking a lot of pain!";
-                        else if (damage > 1 && damage < 12)
-                            Paintext = "Ok maybe too much pain";
-                        else if (damage == 1)
-                            Paintext = "Because how can you suffer if you're dead?";*/
                     }
-                }        
-            }
-            base.OnHitByProjectile(proj, damage, crit);
+                }    
+            }*/
         }
         String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -399,19 +397,26 @@ namespace StormDiversMod.Basefiles
             }
             return true;
         }
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             if (playerimmunetime > 0)
             {
-                return false;
             }
-           
-            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
+            base.ModifyHurt(ref modifiers);
         }
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override bool FreeDodge(Player.HurtInfo info)
         {
-            
+            if (playerimmunetime > 0)
+            {
+                return true;
+            }
+            else
+                return false;
         }
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            base.OnHurt(info);
+        }        
     }
     public class Itemchanges : GlobalItem
     {

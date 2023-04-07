@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Storm Diver Mask");
-            Tooltip.SetDefault("'Can you even see out of this thing?'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Storm Diver Mask");
+            //Tooltip.SetDefault("'Can you even see out of this thing?'");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow"),
@@ -102,8 +102,8 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Storm Diver Body");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Storm Diver Body");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75));
@@ -153,8 +153,8 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Storm Diver Legs");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Storm Diver Legs");
+            Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow"),
@@ -206,9 +206,9 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Selenian Head");
-            Tooltip.SetDefault("'No, you cannot reflect projectiles!'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Selenian Head");
+            //Tooltip.SetDefault("'No, you cannot reflect projectiles!'");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow"),
@@ -283,8 +283,8 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Selenian Body");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Selenian Body");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) );
@@ -334,8 +334,8 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Selenian Legs");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Selenian Legs");
+            Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow"),
@@ -386,9 +386,9 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Predictor Head");
-            Tooltip.SetDefault("'Unfortunately this will not increase your brain power'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Predictor Head");
+            //Tooltip.SetDefault("'Unfortunately this will not increase your brain power'");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow"),
@@ -464,8 +464,8 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Predictor Body");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Predictor Body");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) );
@@ -515,8 +515,8 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Predictor Legs");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Predictor Legs");
+            Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow"),
@@ -567,9 +567,9 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Stargazer Head");
-            Tooltip.SetDefault("'Note, this will not actually allow you to see stars any better'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Stargazer Head");
+            //Tooltip.SetDefault("'Note, this will not actually allow you to see stars any better'");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -645,8 +645,8 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Stargazer Body");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Stargazer Body");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) );
@@ -696,8 +696,8 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Stargazer Legs");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Stargazer Legs");
+            Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow"),

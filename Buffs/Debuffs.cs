@@ -16,8 +16,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Burn");
-            Description.SetDefault("The forbidden sand burns you");
+            //DisplayName.SetDefault("Forbidden Burn");
+            //Description.SetDefault("The forbidden sand burns you");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
         }
@@ -57,8 +57,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CryoBurn");
-            Description.SetDefault("It's like FrostBurn, but it hurts even more");
+            //DisplayName.SetDefault("CryoBurn");
+            //Description.SetDefault("It's like FrostBurn, but it hurts even more");
             Main.debuff[Type] = true;
             // Main.pvpBuff[Type] = true;
         }
@@ -95,8 +95,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Marked for target");
-            Description.SetDefault("All your defense has been taken away");
+            //DisplayName.SetDefault("Marked for target");
+            //Description.SetDefault("All your defense has been taken away");
             Main.debuff[Type] = true;
 
         }
@@ -114,8 +114,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunar Bouldered");
-            Description.SetDefault("Inflicts unimaginable pain, reduced movement speed and constant burning");
+            //DisplayName.SetDefault("Lunar Bouldered");
+            //Description.SetDefault("Inflicts unimaginable pain, reduced movement speed and constant burning");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
         }
@@ -167,8 +167,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Swarm");
-            Description.SetDefault("Beetles have greatly reduced your speed");
+            //DisplayName.SetDefault("Beetle Swarm");
+            //Description.SetDefault("Beetles have greatly reduced your speed");
             Main.debuff[Type] = true;
             // Main.pvpBuff[Type] = true;
         }
@@ -190,8 +190,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stolen Heart");
-            Description.SetDefault("You cannot live without a heart");
+            //DisplayName.SetDefault("Stolen Heart");
+            //Description.SetDefault("You cannot live without a heart");
             Main.debuff[Type] = true;
             // Main.pvpBuff[Type] = true;
         }
@@ -214,8 +214,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blazing Fire");
-            Description.SetDefault("This is fine");
+            //DisplayName.SetDefault("Blazing Fire");
+            //Description.SetDefault("This is fine");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
         }
@@ -247,8 +247,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("SoulBurn");
-            Description.SetDefault("This might not be fine");
+            //DisplayName.SetDefault("SoulBurn");
+            //Description.SetDefault("This might not be fine");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
         }
@@ -282,8 +282,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Twilight Warped");
-            Description.SetDefault("You are unable to perform another Twilight Warp");
+            //DisplayName.SetDefault("Twilight Warped");
+            //Description.SetDefault("You are unable to perform another Twilight Warp");
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
 
@@ -323,8 +323,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Launched");
-            Description.SetDefault("You have been launched into the air by the power of the Derplings");
+            //DisplayName.SetDefault("Launched");
+            //Description.SetDefault("You have been launched into the air by the power of the Derplings");
             Main.debuff[Type] = true;
         }
         public override void Update(Player player, ref int buffIndex)
@@ -340,8 +340,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Essence of Dark");
-            Description.SetDefault("You have been surrounded by the darkness");
+            //DisplayName.SetDefault("Essence of Dark");
+            //Description.SetDefault("You have been surrounded by the darkness");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
 
@@ -366,8 +366,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("UltraBurn");
-            Description.SetDefault("This most certainly is NOT fine!!!!");
+            //DisplayName.SetDefault("UltraBurn");
+            //Description.SetDefault("This most certainly is NOT fine!!!!");
             Main.debuff[Type] = true;
 
         }
@@ -400,8 +400,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("UltraFreeze");
-            Description.SetDefault("This really really REALLY hurts!!!!");
+            //DisplayName.SetDefault("UltraFreeze");
+            //Description.SetDefault("This really really REALLY hurts!!!!");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
         }
@@ -433,8 +433,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooked");
-            Description.SetDefault("You are overwhelmed by fear");
+            //DisplayName.SetDefault("Spooked");
+            //Description.SetDefault("You are overwhelmed by fear");
             Main.debuff[Type] = true;
 
         }
@@ -458,8 +458,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Whip tag");
-            Description.SetDefault("You have been tagged by the Forbidden Whip");
+            //DisplayName.SetDefault("Forbidden Whip tag");
+            //Description.SetDefault("You have been tagged by the Forbidden Whip");
             Main.debuff[Type] = true;
             BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
 
@@ -470,6 +470,8 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().WhiptagForbidden = true;
+            npc.GetGlobalNPC<NPCEffects>().WhiptagCrit += 6;
+
         }
     }
     //_________________________________________________________________
@@ -477,8 +479,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Whip tag");
-            Description.SetDefault("You have been tagged by the Asteroid Belt");
+            //DisplayName.SetDefault("Asteroid Whip tag");
+            //Description.SetDefault("You have been tagged by the Asteroid Belt");
             Main.debuff[Type] = true;
             BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
 
@@ -490,6 +492,8 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().WhiptagSpaceRock = true;
+            npc.GetGlobalNPC<NPCEffects>().WhiptagCrit += 15;
+
         }
     }
     //_________________________________________________________________
@@ -497,8 +501,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody Whip tag");
-            Description.SetDefault("You have been tagged by The Bloody Spine");
+            //DisplayName.SetDefault("Bloody Whip tag");
+            //Description.SetDefault("You have been tagged by The Bloody Spine");
             Main.debuff[Type] = true;
             BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
 
@@ -510,6 +514,8 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().WhiptagBlood = true;
+            npc.GetGlobalNPC<NPCEffects>().WhiptagCrit += 4;
+
         }
     }
     //_________________________________________________________________
@@ -517,8 +523,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spider Whip tag");
-            Description.SetDefault("You have been tagged by The Spider Whip");
+            //DisplayName.SetDefault("Spider Whip tag");
+            //Description.SetDefault("You have been tagged by The Spider Whip");
             Main.debuff[Type] = true;
             BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
 
@@ -537,8 +543,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cobwebbed");
-            Description.SetDefault("You are covered in webs which slow you down");
+            //DisplayName.SetDefault("Cobwebbed");
+            //Description.SetDefault("You are covered in webs which slow you down");
             Main.debuff[Type] = true;
         }
 
@@ -555,8 +561,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Arid Aura");
-            Description.SetDefault("You will take more damage");
+            //DisplayName.SetDefault("Arid Aura");
+            //Description.SetDefault("You will take more damage");
             Main.debuff[Type] = true;
         }
         public override void Update(Player player, ref int buffIndex)
@@ -572,8 +578,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("You can't escape me!");
-            Description.SetDefault("Even death cannot save you from the pain");
+            //DisplayName.SetDefault("You can't escape me!");
+            //Description.SetDefault("Even death cannot save you from the pain");
             Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
@@ -591,8 +597,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pain Cooldown");
-            Description.SetDefault("Your pain will end if you die");
+            //DisplayName.SetDefault("Pain Cooldown");
+            //Description.SetDefault("Your pain will end if you die");
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }

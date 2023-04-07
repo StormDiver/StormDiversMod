@@ -16,10 +16,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Globe");
-            Tooltip.SetDefault("Summons a floating asteroid boulder at the cursor's location that explodes into many fragments");
+            //DisplayName.SetDefault("Asteroid Globe");
+            //Tooltip.SetDefault("Summons a floating asteroid boulder at the cursor's location that explodes into many fragments");
             
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -95,9 +95,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Blade");
-            Tooltip.SetDefault("Rains down tiny asteroid fragments from the sky");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Blade");
+            //Tooltip.SetDefault("Rains down tiny asteroid fragments from the sky");
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -173,9 +173,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Blaster");
-            Tooltip.SetDefault("50% Chance not to consume Ammo\nFires out 2 bullets per shot");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Blaster");
+            //Tooltip.SetDefault("50% Chance not to consume Ammo\nFires out 2 bullets per shot");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -255,11 +255,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Staff");
-            Tooltip.SetDefault("Summons a mini Asteroid to fight for you");
+            //DisplayName.SetDefault("Asteroid Staff");
+            //Tooltip.SetDefault("Summons a mini Asteroid to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -326,9 +326,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Belt");
-            Tooltip.SetDefault("5 summon tag damage\n15% summon tag critical strike chance\nYour summons will focus struck enemies\nAsteroid fragments fall upon the targeted enemy when hit by summons");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Belt");
+            //Tooltip.SetDefault("5 summon tag damage\n15% summon tag critical strike chance\nYour summons will focus struck enemies\nAsteroid fragments fall upon the targeted enemy when hit by summons");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

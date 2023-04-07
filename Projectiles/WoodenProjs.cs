@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pointy Stick");
+            //DisplayName.SetDefault("Pointy Stick");
 
         }
         public override void SetDefaults()
@@ -138,7 +138,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CrossBow Bolt");
+            //DisplayName.SetDefault("CrossBow Bolt");
         }
 
         public override void SetDefaults()
@@ -179,7 +179,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             for (int i = 0; i < 5; i++)

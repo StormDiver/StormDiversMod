@@ -22,9 +22,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Twilight Hood");
-            Tooltip.SetDefault("6% increased damage\n10% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Twilight Hood");
+            //Tooltip.SetDefault("6% increased damage\n10% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
 
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -114,9 +114,9 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Twilight Robe");
-            Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlightly increases player acceleration");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Twilight Robe");
+            //Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlightly increases player acceleration");
+            Item.ResearchUnlockCount = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
             if (!Main.dedServ)
             {
@@ -170,9 +170,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Twilight Leggings");
-            Tooltip.SetDefault("3% increased damage\n2% increased critical strike chance\nSlightly increases jump speed and height");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Twilight Leggings");
+            //Tooltip.SetDefault("3% increased damage\n2% increased critical strike chance\nSlightly increases jump speed and height");
+            Item.ResearchUnlockCount = 1;
 
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {

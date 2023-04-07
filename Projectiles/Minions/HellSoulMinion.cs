@@ -16,8 +16,8 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("HellSoul Minion");
-			Description.SetDefault("A HellSoul minion will fight for you");
+			//DisplayName.SetDefault("HellSoul Minion");
+			//Description.SetDefault("A HellSoul minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -42,7 +42,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("HellSoul Minion");
+			//DisplayName.SetDefault("HellSoul Minion");
 			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -326,7 +326,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("HellSoul Minion Projectile");
+			//DisplayName.SetDefault("HellSoul Minion Projectile");
 			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -363,15 +363,16 @@ namespace StormDiversMod.Projectiles.Minions
 	
 		
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 
 			target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 120);
 
 		}
-		public override void OnHitPvp(Player target, int damage, bool crit)
-		{
-			target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 120);
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 120);
 		}
 		public override void Kill(int timeLeft)
 		{

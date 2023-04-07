@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Sky Orb");
+            //DisplayName.SetDefault("Spooky Sky Orb");
             
         }
         public override void SetDefaults()
@@ -119,7 +119,7 @@ namespace StormDiversMod.Projectiles
                 vector *= 10f / magnitude;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 600);
 

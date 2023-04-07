@@ -25,11 +25,12 @@ namespace StormDiversMod.Items.BossTrophy
 		//public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag (Ancient Husk)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
+			//DisplayName.SetDefault("Treasure Bag (Ancient Husk)");
+			//Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
 			ItemID.Sets.BossBag[Type] = true;
-			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true; 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
+
+            Item.ResearchUnlockCount = 3;
 		}
 
 		public override void SetDefaults()
@@ -151,11 +152,11 @@ namespace StormDiversMod.Items.BossTrophy
 		//public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag (Overloaded Scandrone)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
+			//DisplayName.SetDefault("Treasure Bag (Overloaded Scandrone)");
+			//Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
 			ItemID.Sets.BossBag[Type] = true; // This set is one that every boss bag should have, it, for example, lets our boss bag drop dev armor..
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 
 		public override void SetDefaults()
@@ -294,11 +295,11 @@ namespace StormDiversMod.Items.BossTrophy
         //public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treasure Bag (Ultimate Pain)");
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
+            //DisplayName.SetDefault("Treasure Bag (Ultimate Pain)");
+            //Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
             ItemID.Sets.BossBag[Type] = true; // This set is one that every boss bag should have, it, for example, lets our boss bag drop dev armor..
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            Item.ResearchUnlockCount = 3;
         }
 
         public override void SetDefaults()

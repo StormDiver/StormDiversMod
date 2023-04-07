@@ -12,6 +12,7 @@ using StormDiversMod;
 using StormDiversMod.Items.Materials;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using StormDiversMod.Items.Weapons;
 
 namespace StormDiversMod.Items.Armour
 {
@@ -23,14 +24,15 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Shadowflare Mask");
-            Tooltip.SetDefault("20% increased whip range\n10% increased whip speed\n8% increased summoner damage");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shadowflare Mask");
+            //Tooltip.SetDefault("20% increased whip range\n10% increased whip speed\n8% increased summoner damage");
+            Item.ResearchUnlockCount = 1;
 
             /* HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
              {
                  Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
              });*/
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShadowFlameChestplate>();
 
         }
 
@@ -114,12 +116,14 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Shadowflare Robe");
-            Tooltip.SetDefault("10% increased whip range\nIncreases maximum minions by 1\n8% increased summoner damage");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shadowflare Robe");
+            //Tooltip.SetDefault("10% increased whip range\nIncreases maximum minions by 1\n8% increased summoner damage");
+            Item.ResearchUnlockCount = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
 
             //BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 0) * 0.6f);
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShadowFlameGreaves>();
+
         }
 
         public override void SetDefaults()
@@ -160,19 +164,18 @@ namespace StormDiversMod.Items.Armour
     [AutoloadEquip(EquipType.Legs)]
     public class ShadowFlameGreaves : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Shadowflare Greaves");
-            Tooltip.SetDefault("10% increased whip range\n15% increased whip speed\n8% increased summoner damage");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shadowflare Greaves");
+            //Tooltip.SetDefault("10% increased whip range\n15% increased whip speed\n8% increased summoner damage");
+            Item.ResearchUnlockCount = 1;
 
             /* LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
              {
                  Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow")
              });*/
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShadowFlameBMask>();
         }
 
         public override void SetDefaults()

@@ -17,7 +17,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Very Painful Projectile");
+            //DisplayName.SetDefault("Very Painful Projectile");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -215,7 +215,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Projectile.timeLeft > 3)
             {
@@ -283,7 +283,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Extreme Pain");
+            //DisplayName.SetDefault("Explosion Extreme Pain");
             Main.projFrames[Projectile.type] = 7;
         }
 

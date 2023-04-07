@@ -16,12 +16,12 @@ namespace StormDiversMod.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Moonling Core");
-            Tooltip.SetDefault("Summons a Moonling that will try to kill you\nSafer to use near solid ground");
+            //DisplayName.SetDefault("Moonling Core");
+            //Tooltip.SetDefault("Summons a Moonling that will try to kill you\nSafer to use near solid ground");
             ItemID.Sets.SortingPriorityBossSpawns[Item.type] = 13; // This helps sort inventory know this is a boss summoning Item.
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(10, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            Item.ResearchUnlockCount = 3;
 
 
         }
@@ -81,7 +81,7 @@ namespace StormDiversMod.Items.Summons
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: ModContent.NPCType<NPCs.MoonDerp>());
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.MoonDerp>());
                 }
             }
            

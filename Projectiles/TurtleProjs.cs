@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Turtle Pike");
+            //DisplayName.SetDefault("Turtle Pike");
         }
 
         public override void SetDefaults()
@@ -93,7 +93,7 @@ namespace StormDiversMod.Projectiles
         }
 
        
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
             Player player = Main.player[Projectile.owner];
@@ -111,7 +111,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Turtle Shell");
+            //DisplayName.SetDefault("Turtle Shell");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -184,7 +184,7 @@ namespace StormDiversMod.Projectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -242,7 +242,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Turtle Yoyo");
+            //DisplayName.SetDefault("Turtle Yoyo");
             ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 10f;
 
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 250f;
@@ -299,7 +299,7 @@ namespace StormDiversMod.Projectiles
             }
             
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Player player = Main.player[Projectile.owner];
@@ -316,7 +316,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Turtle Yoyo");
+            //DisplayName.SetDefault("Turtle Yoyo");
 
         }
         public override void SetDefaults()

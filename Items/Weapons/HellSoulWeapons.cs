@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Fury");
-            Tooltip.SetDefault("Fires out a homing soul arrow every shot");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Hell Fury");
+            //Tooltip.SetDefault("Fires out a homing soul arrow every shot");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -98,9 +98,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The HellBlaster");
-            Tooltip.SetDefault("Fires out a blast of bullets alongside a piercing soul bullet");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("The HellBlaster");
+            //Tooltip.SetDefault("Fires out a blast of bullets alongside a piercing soul bullet");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -187,9 +187,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Blade");
-            Tooltip.SetDefault("Summons a soul blade flame every swing that homes into enemies after a delay");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Soul Blade");
+            //Tooltip.SetDefault("Summons a soul blade flame every swing that homes into enemies after a delay");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -274,7 +274,7 @@ namespace StormDiversMod.Items.Weapons
 
             return false;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -286,7 +286,7 @@ namespace StormDiversMod.Items.Weapons
             }
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 480);
         }
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType < Buffs.HellSoulFireDebuff>(), 480);
         }
@@ -311,10 +311,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hell Flare");
-            Tooltip.SetDefault("Summons multiple soul flames that charge towards the cursor");
+            //DisplayName.SetDefault("Hell Flare");
+            //Tooltip.SetDefault("Summons multiple soul flames that charge towards the cursor");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -408,11 +408,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Cauldron Staff");
-            Tooltip.SetDefault("Summons a HellSoul minion to fight for you");
+            //DisplayName.SetDefault("Soul Cauldron Staff");
+            //Tooltip.SetDefault("Summons a HellSoul minion to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

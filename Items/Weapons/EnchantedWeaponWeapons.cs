@@ -14,10 +14,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Blade of Light");
-            Tooltip.SetDefault("Summons mini Enchanted Swords that charge towards the cursor, and ricochet and pierce\n'Not to be confused with The Blade of Night'");
+            //DisplayName.SetDefault("The Blade of Light");
+            //Tooltip.SetDefault("Summons mini Enchanted Swords that charge towards the cursor, and ricochet and pierce\n'Not to be confused with The Blade of Night'");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -95,10 +95,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Soul Splitter");
-            Tooltip.SetDefault("Summons mini Crimson Axes that split into multiple axes\n'Split the souls of your foes'");
+            //DisplayName.SetDefault("The Soul Splitter");
+            //Tooltip.SetDefault("Summons mini Crimson Axes that split into multiple axes\n'Split the souls of your foes'");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -172,10 +172,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Dream Crusher");
-            Tooltip.SetDefault("Summons mini Cursed Hammers that rain down more hammers\n'Crush the dreams of your enemies'");
+            //DisplayName.SetDefault("The Dream Crusher");
+            //Tooltip.SetDefault("Summons mini Cursed Hammers that rain down more hammers\n'Crush the dreams of your enemies'");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

@@ -18,9 +18,10 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baby Derpling"); // Automatic from .lang files
+            //DisplayName.SetDefault("Baby Derpling"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 3; // make sure to set this for your modNPCs.
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -60,11 +61,13 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("It's a Baby Derpling, how cute.")
             });
         }
-        
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
+            //public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+
             NPC.lifeMax = (int)(NPC.lifeMax * 0.5f);
             NPC.damage = (int)(NPC.damage * 0.5f);
+            base.ApplyDifficultyAndPlayerScaling(numPlayers, balance, bossAdjustment);
 
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -76,8 +79,7 @@ namespace StormDiversMod.NPCs
             }
             return SpawnCondition.SurfaceJungle.Chance * 0f;
         }
-       
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             SoundEngine.PlaySound(SoundID.NPCHit22 with {Volume = 0.7f, Pitch = 0.4f}, NPC.Center);
             if (NPC.life <= 0)          //this make so when the NPC has 0 life(dead) he will spawn this

@@ -18,8 +18,8 @@ namespace StormDiversMod.Projectiles.Petprojs
     {
         public override void SetStaticDefaults()
         {           
-            DisplayName.SetDefault("Liberated Husk");
-            Description.SetDefault("Free at last, but it decides to stay with you");
+            //DisplayName.SetDefault("Liberated Husk");
+            //Description.SetDefault("Free at last, but it decides to stay with you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }
@@ -41,7 +41,7 @@ namespace StormDiversMod.Projectiles.Petprojs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Liberated Husk");
+            //DisplayName.SetDefault("Liberated Husk");
             Main.projFrames[Projectile.type] = 4;
             Main.projPet[Projectile.type] = true;
         }

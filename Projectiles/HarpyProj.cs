@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Harpy Feather");
+            //DisplayName.SetDefault("Harpy Feather");
             
         }
 
@@ -59,7 +59,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
             /*if (Main.rand.Next(2) == 0) // the chance
@@ -100,7 +100,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Big Harpy Feather");
+            //DisplayName.SetDefault("Big Harpy Feather");
            
         }
 
@@ -137,7 +137,7 @@ namespace StormDiversMod.Projectiles
 
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.damage = (Projectile.damage * 5) / 10;
@@ -178,7 +178,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Feather Arrow");
+            //DisplayName.SetDefault("Feather Arrow");
         }
 
         public override void SetDefaults()
@@ -222,7 +222,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             for (int i = 0; i < 5; i++)
@@ -251,7 +251,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Harpy Yoyo");
+            //DisplayName.SetDefault("Harpy Yoyo");
             ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 5f;
 
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 180f;
@@ -311,7 +311,7 @@ namespace StormDiversMod.Projectiles
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
