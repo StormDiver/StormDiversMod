@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Wooden Pendant");
-            //Tooltip.SetDefault("Reduces damage taken by 4 while in a forest"); //maybe trees drop more acorns, more wood??
+            //Tooltip.SetDefault("Reduces damage taken by 4 and slightly increases life regen while in a forest");
             Item.ResearchUnlockCount = 1;
         }
 

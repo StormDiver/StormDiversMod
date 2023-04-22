@@ -208,7 +208,7 @@ namespace StormDiversMod.Basefiles
             }
             //Main.NewText("Pain = " + (100 - (Player.statDefense * 0.75f) * (1 - Player.endurance)), 204, 101, 22);
             
-            if (NPC.CountNPCS(ModContent.NPCType<NPCs.Boss.ThePainBoss>()) == 0)
+            if (NPC.CountNPCS(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>()) == 0)
             {
                 Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>()); 
             }
@@ -285,21 +285,17 @@ namespace StormDiversMod.Basefiles
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
                 
-            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>() && !Player.immune)
+            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() && !Player.immune)
             {
                 //paintime = 3600;
                 //Player.statDefense = 0; //ignores all DR
                 //Player.endurance = 0;
                 //damage = (Player.statLife / 3); //Deals 1/3 the player's
-                if (Player.statLife < Player.statLifeMax2 / 3)//Deals 75% damage below 33% life
-                {
-                    modifiers.FinalDamage *= 0.75f;      
-                }
             }
         }
         public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
-            /*if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>())
+            /*if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>())
             {
                 if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
                 {
@@ -323,7 +319,7 @@ namespace StormDiversMod.Basefiles
                         for (int i = 0; i < 200; i++)//message also appears from boss
                         {
                             NPC painTarget = Main.npc[i];
-                            if (painTarget.type == ModContent.NPCType<NPCs.Boss.ThePainBoss>())
+                            if (painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())
                             {
                                 CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
                             }
@@ -346,18 +342,18 @@ namespace StormDiversMod.Basefiles
         String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (Player.HasBuff(ModContent.BuffType<YouCantEscapeDebuff>()) && !Player.HasBuff(ModContent.BuffType<PainBuff>())) //Save you from death once, won't activate if accessory does
+            /*if (Player.HasBuff(ModContent.BuffType<YouCantEscapeDebuff>()) && !Player.HasBuff(ModContent.BuffType<PainBuff>())) //Save you from death once, won't activate if accessory does
             {
                 Suffertext = "HOW CAN YOU SUFFER IF YOU'RE DEAD???";
                 for (int i = 0; i < 200; i++)//message also appears from boss
                 {
                     NPC painTarget = Main.npc[i];
-                    if (painTarget.type == ModContent.NPCType<NPCs.Boss.ThePainBoss>())
+                    if (painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())
                     {
                         CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.HotPink, Suffertext, true);
                     }
                 }
-                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj2>(), 0, 0, Main.myPlayer);
+                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 2.5f;
                 SoundEngine.PlaySound(SoundID.Item74 with { Volume = 2f, Pitch = 0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
                 SoundEngine.PlaySound(SoundID.Item109 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
@@ -394,7 +390,7 @@ namespace StormDiversMod.Basefiles
                 Player.immuneTime = 120;
                 Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>());
                 return false;
-            }
+            }*/
             return true;
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)

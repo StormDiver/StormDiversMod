@@ -27,9 +27,11 @@ namespace StormDiversMod.NPCs
                     npc.damage = 100;
                     npc.defense = 40;
                     npc.knockBackResist = 0.1f;
-                    NPCID.Sets.ShimmerTransformToNPC[npc.type] = ModContent.NPCType<DerpMimic>();
-
                 }
+            }
+            if (npc.type == NPCID.Derpling)
+            {
+                NPCID.Sets.ShimmerTransformToNPC[npc.type] = ModContent.NPCType<DerpMimic>();
             }
         }
 

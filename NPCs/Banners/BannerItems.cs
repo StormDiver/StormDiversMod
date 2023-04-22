@@ -41,6 +41,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Camouflaged Derpling Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Camouflaged Derpling");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 25;
 
         }
         public override void SetDefaults()
@@ -65,8 +66,8 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("ScanDrone Banner");
-            //Tooltip.SetDefault("Nearby players get a bonus against: ScanDrone");
+            //DisplayName.SetDefault("Scandrone Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Scandrone");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -229,7 +230,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Moonling Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Moonling");
             Item.ResearchUnlockCount = 1;
-
+            ItemID.Sets.KillsToBanner[Item.type] = 10;
         }
         public override void SetDefaults()
         {
@@ -316,6 +317,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Fallen Warrior Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Fallen Warrior");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 25;
 
         }
         public override void SetDefaults()
@@ -343,6 +345,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Surged Granite Core Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Surged Granite Core");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 25;
 
         }
         public override void SetDefaults()
@@ -395,6 +398,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Angry Mushroom Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Angry Mushroom");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 25;
 
         }
         public override void SetDefaults()
@@ -421,6 +425,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Temple Guardian Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Temple Guardian");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 25;
 
         }
         public override void SetDefaults()
@@ -447,6 +452,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Soul Cauldron Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Soul Cauldron");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 10;
 
         }
         public override void SetDefaults()
@@ -473,6 +479,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Frigid Snowflake Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Frigid Snowflake");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 25;
 
         }
         public override void SetDefaults()
@@ -499,6 +506,8 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Dune Blaster Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Dune Blaster");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 25;
+
         }
         public override void SetDefaults()
         {
@@ -599,6 +608,7 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             //DisplayName.SetDefault("Frozen Spirit Banner");
             //Tooltip.SetDefault("Nearby players get a bonus against: Frozen Spirit");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.KillsToBanner[Item.type] = 25;
 
         }
         public override void SetDefaults()
@@ -615,6 +625,58 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 0, 2, 0);
             Item.createTile = ModContent.TileType<FrozenSoulBannerPlace>();  //This defines what type of tile this Item will place
+            Item.placeStyle = 0;
+        }
+    }
+    public class ThePainSlimeBannerItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Pain Slime Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Pain Slime");
+            Item.ResearchUnlockCount = 1;
+
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 10;
+            Item.height = 24;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = ModContent.TileType<ThePainSlimeBannerPlaced>();  //This defines what type of tile this Item will place
+            Item.placeStyle = 0;
+        }
+    }
+    public class TheClaySlimeBannerItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Clay Slime Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Clay Slime");
+            Item.ResearchUnlockCount = 1;
+
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 10;
+            Item.height = 24;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = ModContent.TileType<TheClaySlimeBannerPlaced>();  //This defines what type of tile this Item will place
             Item.placeStyle = 0;
         }
     }

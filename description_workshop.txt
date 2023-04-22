@@ -7,21 +7,19 @@ There's over 300 total modded items for you to discover; including weapons, acce
 [*]Over 100 new unique weapons across all classes, including some minions and sentries
 [*]Over 30 new accessories, including new expert exclusive ones and some tinkers, and 4 wings
 [*]12 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
-[*]25 new enemies across the game, with banners and bestiary entries
-[*]2 new bosses, with one that can be fought in place of the Plantera (config option)
+[*]27 new enemies across the game, with banners and bestiary entries
+[*]3 new bosses, with one that can be fought in place of the Plantera (config option)
 [*]New ammo for guns and bows
 [*]Multiple new tools
 [*]New bars and other crafting materials
 [*]A bunch of different buffs and debuffs inflicted from a range of sources
 [*]9 new potions
-[*]4 new Vanity sets and a 2 special vanity masks
+[*]4 new Vanity sets and 3 special vanity masks
 [*]5 new pets
 [*]New recipes for certain uncraftable vanilla items
 [*]New Lizharhd Temple Defences (Can be disabled Pre-Plantera via Config)
 [*]Full Wikithis support
 [/list]
-
-[b]This mod has limited compatibility with the TRAE project mod, some items have been tweaked, mana consumption has been increased, and spears have their functionality from TRAE. Note that some TRAE-exculsive items may not affect items in this mod correctly.[/b]
 
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod

@@ -8,7 +8,7 @@ using Terraria.Localization;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Basefiles;
 using Terraria.GameContent.Creative;
-
+using StormDiversMod.Items.Materials;
 
 namespace StormDiversMod.Items.OresandBars
 {
@@ -20,7 +20,7 @@ namespace StormDiversMod.Items.OresandBars
             //Tooltip.SetDefault("Used in the creation of forbidden armor and weapons");
             ItemID.Sets.SortingPriorityMaterials[Item.type] = 80;
             Item.ResearchUnlockCount = 25;
-
+            ItemID.Sets.ExtractinatorMode[Item.type] = Item.type;
         }
 
         public override void SetDefaults()
@@ -38,7 +38,14 @@ namespace StormDiversMod.Items.OresandBars
             Item.consumable = true;
             Item.autoReuse = true;
         }
-
+        public override void ExtractinatorUse(int extractinatorBlockType, ref int resultType, ref int resultStack)
+        {
+            if (extractinatorBlockType == TileID.ChlorophyteExtractinator)
+            {
+                resultType = ModContent.ItemType<IceBar>();
+                resultStack = 1;
+            }
+        }
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -100,7 +107,7 @@ namespace StormDiversMod.Items.OresandBars
             AddMapEntry(new Color(238, 204, 34), name);
 
             DustType = 54;
-            ItemDrop = ModContent.ItemType<Items.Materials.DesertOre>();
+            ItemDrop = ModContent.ItemType<DesertOre>();
             HitSound = SoundID.Tink;
             MineResist = 4f;
             MinPick = 100;
@@ -108,7 +115,7 @@ namespace StormDiversMod.Items.OresandBars
 
         public override bool CanDrop(int i, int j)
         {
-            return false;
+            return true;
         }
     }
 }

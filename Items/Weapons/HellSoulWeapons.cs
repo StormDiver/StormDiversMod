@@ -267,7 +267,7 @@ namespace StormDiversMod.Items.Weapons
 
                 //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.HellSoulArmourProj>(), (int)(damage * 0.5f), (int)(knockback * 0.33f), player.whoAmI);
 
-                //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles - 1)));
                 //int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.5f), (int)(knockback * 0.33f), player.whoAmI);
             }
             SoundEngine.PlaySound(SoundID.Item8, player.Center);

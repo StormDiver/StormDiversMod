@@ -16,13 +16,13 @@ using ReLogic.Content;
 using StormDiversMod.Items.Weapons;
 using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.Items.Vanitysets;
+using StormDiversMod.Items.Furniture;
 
 namespace StormDiversMod.Items.BossTrophy
 {
 	public class AridBossBag : ModItem
 	{
 		// Sets the associated NPC this treasure bag is dropped from
-		//public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Treasure Bag (Ancient Husk)");
@@ -322,13 +322,15 @@ namespace StormDiversMod.Items.BossTrophy
             //expert
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.DeathCore>(), 1));
             //weapons        
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<PainSword>(), 1));
-           
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<PainStaff>(), 1));
+
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<PainMusicBoxitem>(), 10));
+
             //mask, always
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Vanitysets.ThePainMask>(), 1, 1));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Vanitysets.BossMaskUltimateBoss>(), 7, 1));
 
             //coins
-            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NPCs.Boss.ThePainBoss>()));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>()));
         }
 
         // Below is code for the visuals

@@ -15,7 +15,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Overloaded ScanDrone Bolt");
+            //DisplayName.SetDefault("Overloaded Scandrone Bolt");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             //Main.projFrames[Projectile.type] = 5;
@@ -122,7 +122,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Overloaded ScanDrone Mine");
+            //DisplayName.SetDefault("Overloaded Scandrone Mine");
            
         }
 
@@ -279,7 +279,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Overloaded ScanDrone Large Mine");
+            //DisplayName.SetDefault("Overloaded Scandrone Large Mine");
 
         }
 
@@ -466,7 +466,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Overloaded ScanDrone Bomb");
+            //DisplayName.SetDefault("Overloaded Scandrone Bomb");
         }
 
         public override void SetDefaults()
@@ -603,7 +603,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Overloaded ScanDrone Lightning");
+            //DisplayName.SetDefault("Overloaded Scandrone Lightning");
         }
         public override void SetDefaults()
         {
@@ -896,34 +896,38 @@ namespace StormDiversMod.NPCs.NPCProjs
         float yPos;
         Vector2 velocity;
         Vector2 rotation;
-        
+        Vector2 playerpos; //set pos pre fire
+
         Player player;
 
         int movespeed = 20;
+        float linewidth = 5;
+
         public override void AI()
         {
+            
             //projecile.ai[1], 0 for orbital portals, 1 for stright down portals
             Projectile.ai[0]++;
-  
-                if (Main.rand.Next(5) == 0)
-                {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center + new Vector2(-2, -2), 4, 4, 229, 0, 0);
-                    dust.noGravity = true;
-                    dust.scale = 1f;
+            if (Main.rand.Next(5) == 0)
+            {
 
-                }
-                if (Main.rand.Next(4) == 0)
-                {
-                   
-                        float speedY = -2f;
+                var dust = Dust.NewDustDirect(Projectile.Center + new Vector2(-2, -2), 4, 4, 229, 0, 0);
+                dust.noGravity = true;
+                dust.scale = 1f;
 
-                        Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+            }
+            if (Main.rand.Next(4) == 0)
+            {
 
-                        int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 229, dustspeed.X, dustspeed.Y, 229, default, 1.2f);
-                        Main.dust[dust2].noGravity = true;
-                    
-                }
+                float speedY = -2f;
+
+                Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 229, dustspeed.X, dustspeed.Y, 229, default, 1.2f);
+                Main.dust[dust2].noGravity = true;
+
+            }
 
             if (Projectile.ai[0] <= 60)//Increase opticaity and size
             {
@@ -1009,6 +1013,11 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                     Projectile.netUpdate = true;
                 }
+
+                for (int i = 0; i < 1; i++)
+                {
+                    playerpos = Main.player[i].Center;
+                }
                 //Projectile.position.X = (player.Center.X - (Projectile.width / 2)) + xPos;
                 //Projectile.position.Y = (player.Center.Y - (Projectile.height / 2)) + yPos;
             }
@@ -1018,25 +1027,31 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 72)
             {
-                if (Projectile.ai[1] == 0) //aim indicator
+                if (linewidth > 0.1f)
                 {
-                    Dust dust;
-                    dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(velocity.X * 2f + Projectile.velocity.X, velocity.Y * 2f + Projectile.velocity.Y), 0, new Color(255, 255, 255), 2f);
-                    dust.noGravity = true;
-                    dust.velocity *= 1.5f;
+                    linewidth -= 0.1f;
                 }
-                else if (Projectile.ai[1] == 1)
+                if (Main.rand.Next(3) == 0)
                 {
-                    Dust dust;
-                    dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(0, 5), 0, new Color(255, 255, 255), 2f);
-                    dust.noGravity = true;
-                    dust.velocity *= 1.5f;
+                    if (Projectile.ai[1] == 0) //aim indicator
+                    {
+                        Dust dust;
+                        dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(velocity.X * 2f + Projectile.velocity.X, velocity.Y * 2f + Projectile.velocity.Y), 0, new Color(255, 255, 255), 2f);
+                        dust.noGravity = true;
+                        dust.velocity *= 1.5f;
+                    }
+                    else if (Projectile.ai[1] == 1)
+                    {
+                        Dust dust;
+                        dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 229, new Vector2(0, 5), 0, new Color(255, 255, 255), 2f);
+                        dust.noGravity = true;
+                        dust.velocity *= 1.5f;
+                    }
                 }
             }
             if (Projectile.ai[0] == 72) //Fire lightning
             {
-               
-                    for (int j = 0; j < 30; j++)
+                for (int j = 0; j < 30; j++)
                     {
                         float speedY = -3f;
 
@@ -1092,7 +1107,21 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.frameCounter = 0;
             }
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (linewidth > 0.1f)
+            {
+                if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 72)
+                {
+                    if (Projectile.ai[1] == 0) //aim indicator
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X + 2.5f, Projectile.Center.Y + 2.5f), new Vector2(playerpos.X + 2.5f, playerpos.Y + 2.5f), Color.Turquoise, Color.Transparent, linewidth);
+                    else if (Projectile.ai[1] == 1)
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X + 2.5f, Projectile.Center.Y + 2.5f), new Vector2(Projectile.Center.X + 2.5f, Projectile.Center.Y + 500), Color.Turquoise, Color.Transparent, linewidth);
 
+                }
+            }
+            return base.PreDraw(ref lightColor);
+        }
         public override Color? GetAlpha(Color lightColor)
         {
             Color color = Color.White;

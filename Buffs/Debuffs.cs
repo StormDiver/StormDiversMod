@@ -574,7 +574,7 @@ namespace StormDiversMod.Buffs
         }
     }
     //_________________________________________________________________
-    public class YouCantEscapeDebuff : ModBuff
+    public class YouCantEscapeDebuff : ModBuff //Unused
     {
         public override void SetStaticDefaults()
         {
@@ -590,6 +590,8 @@ namespace StormDiversMod.Buffs
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
+            npc.GetGlobalNPC<NPCEffects>().painDebuff = true;
+
         }
     }
     //_________________________________________________________________
@@ -597,7 +599,7 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Pain Cooldown");
+            //DisplayName.SetDefault("Painbringer's Cooldown");
             //Description.SetDefault("Your pain will end if you die");
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

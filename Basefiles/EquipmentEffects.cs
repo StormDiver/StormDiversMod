@@ -105,7 +105,7 @@ namespace StormDiversMod.Basefiles
 
         public bool superHeartpotion; //Player has taken a super heart potion
 
-        public bool DeathCore; //Player has Ultimate Pain equipped
+        public bool DeathCore; //Player has Prignerbringer Core equipped
 
         //Ints and Bools activated from this file
 
@@ -300,7 +300,7 @@ namespace StormDiversMod.Basefiles
                     {
                         int xprojpos = Main.rand.Next(-40, 40);
                         int yprojpos = Main.rand.Next(-40, 40);
-                        int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X + xprojpos, Player.Center.Y - yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainProj2>(), 0, 0, Main.myPlayer);
+                        int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X + xprojpos, Player.Center.Y - yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainCoreProj>(), 0, 0, Main.myPlayer);
                     }
                 }
             }
@@ -929,9 +929,8 @@ namespace StormDiversMod.Basefiles
             {
                 if (Player.ZoneForest || Player.ZoneHallow && Player.ZoneOverworldHeight)
                 {
-
                     Player.AddBuff(ModContent.BuffType<WoodenBuff>(), 2);
-
+                    Player.lifeRegen += 1;
                 }
             }
 
@@ -1230,11 +1229,11 @@ namespace StormDiversMod.Basefiles
         String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (paintime == 0 && DeathCore && damage < 9999) //Save you from death once
+            if (paintime == 0 && DeathCore && damage <= 9999) //Save you from death once
             {
                 Suffertext = "Live to suffer another day!";
                 CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.HotPink, Suffertext, true);
-                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainProj>(), 0, 0, Main.myPlayer);
+                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainNofaceProj>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 2.5f;
 
                 float numberProjectiles = 24;
@@ -1244,11 +1243,10 @@ namespace StormDiversMod.Basefiles
                 {
                     float speedX = 0f;
                     float speedY = 20f;
-                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainProj2>(), 0, 0, Main.myPlayer, 1);
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles - 1)));
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainCoreProj>(), 0, 0, Main.myPlayer, 1);
                 }
                 SoundEngine.PlaySound(SoundID.Item109 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
 
                 if (Main.netMode == 2) // Server
                 {
@@ -1280,10 +1278,17 @@ namespace StormDiversMod.Basefiles
                 Player.statLife = Player.statLifeMax2; //restore life
                 Player.immuneTime = 120;
                 //Player.ClearBuff(ModContent.BuffType<PainBuff>()); //Buff will go away on its own after 1 frame, allows it to satck with Pain boss
-                Player.AddBuff(ModContent.BuffType<PainlessDebuff>(), 9000);
+                Player.AddBuff(ModContent.BuffType<PainlessDebuff>(), 7200);
 
-                paintime = 9000; // 2.5 minutes (150 seconds)
+                paintime = 7200; // 2 minutes (120 seconds)
                 return false;
+            }
+
+            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.UltimateFearMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.UltimateFearMask>())
+            {
+                playSound = false;
+
+                SoundEngine.PlaySound(SoundID.ScaryScream with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
             }
             return true;
         }
@@ -1430,6 +1435,7 @@ namespace StormDiversMod.Basefiles
                 {
                     modifiers.DisableSound();
                 }
+                
             }
 
             if (woodNecklace && Player.ZoneForest)
@@ -1464,6 +1470,7 @@ namespace StormDiversMod.Basefiles
             }*/         
 
         }
+        
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
             

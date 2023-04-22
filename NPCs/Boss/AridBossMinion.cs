@@ -24,6 +24,7 @@ namespace StormDiversMod.NPCs.Boss
             //DisplayName.SetDefault("Ancient Spirit"); 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
         public override void SetDefaults()
         {
@@ -62,7 +63,7 @@ namespace StormDiversMod.NPCs.Boss
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("Ghosts of the Ancient husk's victims, doomed to forever protect their new master in battle")
+				new FlavorTextBestiaryInfoElement("Ghosts of the Ancient husk's victims, doomed to forever protect their new master in battle.")
             });
         }
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)

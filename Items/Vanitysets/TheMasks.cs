@@ -76,4 +76,28 @@ namespace StormDiversMod.Items.Vanitysets
             return base.OnPickup(player);
         }
     }
+
+    [AutoloadEquip(EquipType.Head)]
+    public class UltimateFearMask : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            //DisplayName.SetDefault("Perfectly Normal mask");
+            //Tooltip.SetDefault("'Why's everybody looking at you like that, you're perfectly normal");
+            Item.ResearchUnlockCount = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.rare = ItemRarityID.Blue;
+            Item.vanity = true;
+        }
+        public override void ArmorSetShadows(Player player)
+        {
+
+        }
+    }
 }

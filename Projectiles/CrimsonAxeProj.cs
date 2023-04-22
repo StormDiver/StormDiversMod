@@ -159,31 +159,22 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             for (int i = 0; i < 10; i++)
             {
-
-                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 87);
                 dust.noGravity = true;
-                
-            }
 
-           
+            }
             if (Main.rand.Next(2) == 0) // the chance
             {
                 target.AddBuff(BuffID.Ichor, 600);
 
             }
-
-        
-    }
+        }
 
 
         public override void Kill(int timeLeft)
         {
-
-
 
             SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             for (int i = 0; i < 30; i++)

@@ -18,6 +18,8 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Items.Weapons;
 using StormDiversMod.Items.Pets;
 using StormDiversMod.NPCs.NPCProjs;
+using StormDiversMod.Items.Vanitysets;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Items.Summons
 {
@@ -32,8 +34,8 @@ namespace StormDiversMod.Items.Summons
         }     
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 32;
+            Item.width = 16;
+            Item.height = 24;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Red;
@@ -75,9 +77,10 @@ namespace StormDiversMod.Items.Summons
         }
         public override bool CanUseItem(Player player)
         {
-            return NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.ThePainBoss>());
+            return NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
             //return true;
         }
+        String Paintext = "";
         public override bool? UseItem(Player player)
         {
             if (player.whoAmI == Main.myPlayer)
@@ -85,21 +88,42 @@ namespace StormDiversMod.Items.Summons
                 SoundEngine.PlaySound(SoundID.Roar, player.Center);
                 if (player.gravDir == 1)
                 {
-                    int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<ThePainBossProj2>(), 0, 0, Main.myPlayer);
+                    int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                 }
                 else
                 {
-                    int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ModContent.ProjectileType<ThePainBossProj2>(), 0, 0, Main.myPlayer);
+                    int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
 
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.ThePainBoss>());
+                    NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
 
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.ThePainBoss>());
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
+                }
+                if (StormWorld.ultimateBossDown)
+                {
+                    Paintext = "Ready to experience pain again?";
+                }
+                else if (Main.getGoodWorld)
+                {
+                    Paintext = "Ready to prove your worth?";
+                }
+                else
+                {
+                    Paintext = "Ready to experience pain?";
+                }
+                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText(Paintext, 175, 17, 96);
                 }
             }
 
@@ -111,29 +135,22 @@ namespace StormDiversMod.Items.Summons
             return false;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-        {
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Summons/UltimateBossSummoner_Glow");
-
-            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
-                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-        }
-
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.LunarBar, 4)
-            .AddIngredient(ItemID.FragmentSolar, 2)
-            .AddIngredient(ItemID.FragmentVortex, 2)
-            .AddIngredient(ItemID.FragmentNebula, 2)
-            .AddIngredient(ItemID.FragmentStardust,2)
+            .AddIngredient(ModContent.ItemType<ThePainMask>(), 1)
+            .AddIngredient(ItemID.LunarBar, 5)
 
             .AddTile(TileID.LunarCraftingStation)
             .Register();
 
+        }*/
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.White;
+            color.A = 255;
+            return color;
+
         }
     }
-
-  
-    
 }

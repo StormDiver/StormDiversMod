@@ -287,7 +287,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Inferno Soul Crown");
-            //Tooltip.SetDefault("10% increased summoner damage\nIncreases maximum number of minions by 2");
+            //Tooltip.SetDefault("15% increased summoner damage\nIncreases maximum number of minions by 2");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -308,7 +308,7 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
 
-            player.GetDamage(DamageClass.Summon) += 0.10f;
+            player.GetDamage(DamageClass.Summon) += 0.15f;
             player.maxMinions += 2;
             if (!Main.dedServ)
             {

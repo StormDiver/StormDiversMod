@@ -98,12 +98,11 @@ namespace StormDiversMod.NPCs.Boss
             //10K Classic
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossAdjustment); //14K
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f); //14K
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f * bossAdjustment); //18K 
-
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f); //18K
             }
             //30/45/66
             NPC.damage = (int)(NPC.damage * 0.75f);
@@ -1104,7 +1103,7 @@ namespace StormDiversMod.NPCs.Boss
                 if (Main.masterMode) //Projectile changes
                 {
                     projdamage = 16; //96 on master
-                    projvelocity = 15f;
+                    projvelocity = 14f;
                     projcount = 4;
 
                 }
@@ -1117,7 +1116,7 @@ namespace StormDiversMod.NPCs.Boss
                 else
                 {
                     projdamage = 25; // 50 on normal
-                    projvelocity = 11f;
+                    projvelocity = 12f;
                     projcount = 2;
 
                 }

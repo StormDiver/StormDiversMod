@@ -102,7 +102,7 @@ namespace StormDiversMod.Projectiles
                 float distance = Vector2.Distance(player.Center, Projectile.Center);
                 if (distance <= Projectile.width / 2 + 25 && distance >= 1 && !player.mount.Active)
                 {
-                    if (Collision.CanHit(player.Center, 0, 0, Projectile.Center, 0, 0))
+                    //if (Collision.CanHit(player.Center, 0, 0, Projectile.Center, 0, 0))
                     {
                         float launchspeed = 12;
                         Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X, player.Center.Y)) * launchspeed;
@@ -121,7 +121,7 @@ namespace StormDiversMod.Projectiles
 
                     if (npcdistance <= Projectile.width / 2 + 25 && distance >= 1 && (target.friendly || target.CountsAsACritter))
                     {
-                        if (Collision.CanHit(target.Center, 0, 0, Projectile.Center, 0, 0))
+                        //if (Collision.CanHit(target.Center, 0, 0, Projectile.Center, 0, 0))
                         {
                             float npclaunchspeed = 12;
                             Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;

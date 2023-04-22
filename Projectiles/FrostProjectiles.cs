@@ -15,6 +15,7 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Microsoft.CodeAnalysis;
 
 
 namespace StormDiversMod.Projectiles
@@ -400,7 +401,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Frost");
-            Main.projFrames[Projectile.type] = 4;
+            //Main.projFrames[Projectile.type] = 4;
 
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
@@ -415,10 +416,12 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = false;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 125;
+            Projectile.timeLeft = 120;
             Projectile.extraUpdates = 3;
+            //Projectile.usesIDStaticNPCImmunity = true;
+            //Projectile.idStaticNPCHitCooldown = 6;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.scale = 0.1f;
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
@@ -427,7 +430,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage()
         {
-            if (Projectile.alpha < 30) // if dust is faded don't deal damage
+            if (Projectile.ai[0] == 0) // only on proj deals damage
             {
                 return true;
             }
@@ -439,48 +442,49 @@ namespace StormDiversMod.Projectiles
         int dustoffset;
         public override void AI()
         {
-            Projectile.rotation += 0.1f;
-          
-                if (Main.rand.Next(10) == 0) //dust spawn sqaure increases with hurtbox size
+            Projectile.rotation += Main.rand.NextFloat(0.05f, 0.1f); //speen
+
+            if (Main.rand.Next(10) == 0) //dust spawn sqaure increases with hurtbox size
             {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true; 
-                    Main.dust[dust].velocity *= 2.5f;
-                    //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
-                }
-           
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 2.5f;
+                //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
+            }
+
             if (Projectile.scale <= 1f)//increase size until specified amount
             {
-                dustoffset++; //makes dust expand with projectile, also used for hitbox
+                dustoffset += 2; //makes dust expand with projectile, also used for hitbox
 
-                Projectile.scale += 0.01f;
+                Projectile.scale += 0.02f;
             }
-            else//once the size has been reached begin to fade out and slow down
+            if (Projectile.timeLeft < 60) // fade out and slow down
             {
-                Projectile.alpha += 3;
+                Projectile.alpha += 10;
 
-
-                Projectile.velocity.X *= 0.97f;
-                Projectile.velocity.Y *= 0.97f;
                 //begin animation
-                Projectile.frameCounter++;
+                /*Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
-                }
+                }*/
             }
-            if (Projectile.alpha > 150 || Projectile.wet)//once faded enough or touches water kill projectile
+            if (Projectile.alpha > 255 || Projectile.wet)//once faded enough or touches water kill projectile
             {
                 Projectile.Kill();
             }
+
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {
-            hitbox.Width = dustoffset;
-            hitbox.Height = dustoffset;
-            hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
-            hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            if (Projectile.ai[0] == 0) // only on proj deals damage
+            {
+                hitbox.Width = dustoffset;
+                hitbox.Height = dustoffset;
+                hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
+                hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            }
             base.ModifyDamageHitbox(ref hitbox);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -488,9 +492,9 @@ namespace StormDiversMod.Projectiles
             Projectile.damage = (Projectile.damage * 9) / 10;
             var player = Main.player[Projectile.owner];
             if (Main.rand.Next(1) == 0) // the chance
-            {              
-                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
-              
+            {
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -505,22 +509,21 @@ namespace StormDiversMod.Projectiles
             //Projectile.Kill();
             return false;
         }
-        /*public override bool PreDraw(ref Color lightColor)
+        public override Color? GetAlpha(Color lightColor)
         {
-            Main.instance.LoadProjectile(Projectile.type);
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/Frostthrowerproj_Trial");
+            Color color = Color.LightBlue;
+            color.A = (Byte)Projectile.alpha;
+            return color;
 
-            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
-            {
-                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(-40, 0);
-                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
-            }
+        }
+        public override void PostDraw(Color lightColor)
+        {
+            /*Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Vector2 drawPos = new Vector2(0, 0) + Projectile.Center - Main.screenPosition;
 
-            return true;
-
-        }*/
+            Main.EntitySpriteDraw(texture, drawPos, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);*/
+            //spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, null, Color.White, projectile.rotation, projectile.Center, projectile.scale, projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
     }
     //___________________________________________________________________________________________________________________________________
     public class FrostAccessProj : ModProjectile
@@ -592,6 +595,7 @@ namespace StormDiversMod.Projectiles
 
             }
         }
+       
     }
     //___________________________
     public class FrostCryoArmourProj : ModProjectile

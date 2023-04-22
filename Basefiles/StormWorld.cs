@@ -29,7 +29,7 @@ namespace StormDiversMod.Basefiles
 
         public static bool stormBossDown; //when the Storm Boss is defeated
         public static bool aridBossDown; //when the Arid Boss is defeated
-        public static bool painBossDown; //when the Pain Boss is defeated
+        public static bool ultimateBossDown; //when the Pain Boss is defeated
 
 
         public override void OnWorldLoad()
@@ -43,7 +43,7 @@ namespace StormDiversMod.Basefiles
 
             stormBossDown = false;
             aridBossDown = false;
-            painBossDown = false;
+            ultimateBossDown = false;
 
         }
         public override void OnWorldUnload()
@@ -56,7 +56,7 @@ namespace StormDiversMod.Basefiles
 
             stormBossDown = false;
             aridBossDown = false;
-            painBossDown = false;
+            ultimateBossDown = false;
 
         }
         public override void SaveWorldData(TagCompound tag)
@@ -92,7 +92,7 @@ namespace StormDiversMod.Basefiles
             }
             if (aridBossDown)
             {
-                tag["painBossDown"] = true;
+                tag["ultimateBossDown"] = true;
             }
         }
         public override void LoadWorldData(TagCompound tag)
@@ -105,7 +105,7 @@ namespace StormDiversMod.Basefiles
 
             stormBossDown = tag.ContainsKey("stormBossDown");
             aridBossDown = tag.ContainsKey("aridBossDown");
-            painBossDown = tag.ContainsKey("painBossDown");
+            ultimateBossDown = tag.ContainsKey("ultimateBossDown");
 
         }
 
@@ -125,7 +125,7 @@ namespace StormDiversMod.Basefiles
 
             flags2[0] = stormBossDown;
             flags2[1] = aridBossDown;
-            flags2[2] = painBossDown;
+            flags2[2] = ultimateBossDown;
 
             writer.Write(flags2);
         }
@@ -143,7 +143,7 @@ namespace StormDiversMod.Basefiles
 
             stormBossDown = flags2[0];
             aridBossDown = flags2[1];
-            painBossDown = flags2[2];
+            ultimateBossDown = flags2[2];
         }
 
         public override void PreUpdateWorld()

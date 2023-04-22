@@ -11,7 +11,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("ScanDrone Bolt");
+            //DisplayName.SetDefault("Scandrone Bolt");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             Main.projFrames[Projectile.type] = 5;
@@ -38,12 +38,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.extraUpdates = 1;
             Projectile.aiStyle = -1;
             //aiType = ProjectileID.VortexBeaterRocket;
-            
-
+           
         }
-        
-       
-        
+  
         public override void AI()
         {
             for (int i = 0; i < 10; i++)

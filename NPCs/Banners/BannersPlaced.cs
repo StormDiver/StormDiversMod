@@ -99,7 +99,7 @@ namespace StormDiversMod.NPCs.Banners
                 TileObjectData.addTile(Type);
 
                 LocalizedText name = CreateMapEntryName();
-                //name.SetDefault("ScanDrone Banner");
+                //name.SetDefault("Scandrone Banner");
                 AddMapEntry(new Color(13, 88, 130), name);
             }
 
@@ -794,6 +794,74 @@ namespace StormDiversMod.NPCs.Banners
             if (closer)  //so if a player is close to the banner
             {
                 Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.FrozenSoul>()] = true;
+                Main.SceneMetrics.hasBanner = true;
+            }
+        }
+    }
+    public class ThePainSlimeBannerPlaced : ModTile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
+            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.StyleWrapLimit = 111;
+            TileObjectData.addTile(Type);
+
+            LocalizedText name = CreateMapEntryName();
+            //name.SetDefault("Pain Slime Banner");
+            AddMapEntry(new Color(13, 88, 130), name);
+        }
+
+        /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FrozenSoulBannerItem>());//this defines what to drop when this tile is destroyed
+        }*/
+
+        public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
+        {
+            if (closer)  //so if a player is close to the banner
+            {
+                Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.ThePainSlime>()] = true;
+                Main.SceneMetrics.hasBanner = true;
+            }
+        }
+    }
+    public class TheClaySlimeBannerPlaced : ModTile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
+            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.StyleWrapLimit = 111;
+            TileObjectData.addTile(Type);
+
+            LocalizedText name = CreateMapEntryName();
+            //name.SetDefault("Clay Slime Banner");
+            AddMapEntry(new Color(13, 88, 130), name);
+        }
+
+        /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FrozenSoulBannerItem>());//this defines what to drop when this tile is destroyed
+        }*/
+
+        public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
+        {
+            if (closer)  //so if a player is close to the banner
+            {
+                Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.TheClaySlime>()] = true;
                 Main.SceneMetrics.hasBanner = true;
             }
         }

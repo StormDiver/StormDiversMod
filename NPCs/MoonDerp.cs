@@ -30,12 +30,10 @@ namespace StormDiversMod.NPCs
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 4;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
-
         }
         public override void SetDefaults()
         {
             Main.npcFrameCount[NPC.type] = 8;
-
             NPC.width = 60;
             NPC.height = 42;
           

@@ -236,7 +236,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Ancient Sand Stream");
-            Main.projFrames[Projectile.type] = 4;
+            //Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
         {
@@ -246,10 +246,10 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = false;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 150;
-            Projectile.extraUpdates = 2;
+            Projectile.timeLeft = 100;
+            Projectile.extraUpdates = 3;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.scale = 0.1f;
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
@@ -259,7 +259,7 @@ namespace StormDiversMod.Projectiles
         
         public override bool? CanDamage()
         {
-            if (Projectile.alpha < 45)
+            if (Projectile.ai[0] == 0) // only on proj deals damage
             {
                 return true;
             }
@@ -271,7 +271,7 @@ namespace StormDiversMod.Projectiles
         int dustoffset;
         public override void AI()
         {
-            Projectile.rotation += 0.1f;
+            Projectile.rotation += Main.rand.NextFloat(0.1f, 0.15f); //speen
 
             if (Main.rand.Next(10) == 0) //dust spawn sqaure increases with hurtbox size
             {
@@ -283,36 +283,35 @@ namespace StormDiversMod.Projectiles
 
             if (Projectile.scale <= 1f)//increase size until specified amount
             {
-                dustoffset++;//makes dust expand with projectile, also used for hitbox
+                dustoffset += 2;//makes dust expand with projectile, also used for hitbox
 
-                Projectile.scale += 0.012f;
+                Projectile.scale += 0.024f;
             }
-            else//once the size has been reached begin to fade out and slow down
+            if (Projectile.timeLeft < 60) // fade out and slow down
             {
-                Projectile.alpha += 3;
-
-
-                Projectile.velocity.X *= 0.98f;
-                Projectile.velocity.Y *= 0.98f;
+                Projectile.alpha += 10;
                 //begin animation
-                Projectile.frameCounter++;
+                /*Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
-                }
+                }*/
             }
-            if (Projectile.alpha > 150 || Projectile.wet)//once faded enough or touches water kill projectile
+            if (Projectile.alpha > 255 || Projectile.wet)//once faded enough or touches water kill projectile
             {
                 Projectile.Kill();
             }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {
-            hitbox.Width = dustoffset;
-            hitbox.Height = dustoffset;
-            hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
-            hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            if (Projectile.ai[0] == 0) // only on proj deals damage
+            {
+                hitbox.Width = dustoffset;
+                hitbox.Height = dustoffset;
+                hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
+                hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            }
             base.ModifyDamageHitbox(ref hitbox);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -334,6 +333,12 @@ namespace StormDiversMod.Projectiles
             Projectile.velocity *= 0;
             //Projectile.Kill();
             return false;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.Gold;
+            color.A = (Byte)Projectile.alpha;
+            return color;
         }
     }
     //______________________________________________________________________________________________________

@@ -25,7 +25,6 @@ namespace StormDiversMod.Items.Accessory
 
         public override void SetDefaults()
         {
-
             Item.width = 30;
             Item.height = 30;
             Item.value = Item.sellPrice(0, 10, 0, 0);
@@ -33,7 +32,6 @@ namespace StormDiversMod.Items.Accessory
            
             Item.accessory = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
-            
 
         }
 

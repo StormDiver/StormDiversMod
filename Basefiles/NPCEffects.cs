@@ -26,6 +26,7 @@ using static Humanizer.In;
 using static Terraria.ModLoader.PlayerDrawLayer;
 using StormDiversMod.NPCs;
 using Terraria.GameContent.Drawing;
+using StormDiversMod.NPCs.Boss;
 
 namespace StormDiversMod.Basefiles
 {
@@ -61,6 +62,8 @@ namespace StormDiversMod.Basefiles
         public bool aridCoreDebuff; //Arid Aura
 
         public bool webDebuff; //Cobwebbed
+
+        public bool painDebuff; //For painbosses final phase
 
 
         //All this for a speen----------------------------------------------
@@ -121,6 +124,7 @@ namespace StormDiversMod.Basefiles
             spookedDebuff = false;
             aridCoreDebuff = false;
             webDebuff = false;
+            painDebuff = false;
 
             WhiptagWeb = false;
             WhiptagBlood = false;

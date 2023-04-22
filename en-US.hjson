@@ -1,4 +1,3 @@
-
 Mods: {
 	StormDiversMod: {
 		"Keybinds.Armor Special Ability.DisplayName": Armor Special Ability
@@ -138,12 +137,12 @@ Mods: {
 			}
 
 			PainBuff: {
-				DisplayName: Pain Extender
+				DisplayName: Painbringer's Curse
 				Description: You will get to experience pain all over again on death
 			}
 
 			PainlessDebuff: {
-				DisplayName: Pain Cooldown
+				DisplayName: Painbringer's Cooldown
 				Description: Your pain will end if you die
 			}
 
@@ -409,10 +408,10 @@ Mods: {
 			}
 
 			DeathCore: {
-				DisplayName: Ultimate Pain Core
+				DisplayName: The Painbringer Core
 				Tooltip:
 					'''
-					Saves you from death once every 2.5 minutes
+					Saves you from death once every 2 minutes
 					'Live to suffer another day'
 					'''
 			}
@@ -662,7 +661,7 @@ Mods: {
 
 			WoodNecklace: {
 				DisplayName: Wooden Pendant
-				Tooltip: Reduces damage taken by 4 while in a forest
+				Tooltip: Reduces damage taken by 4 and slightly increases life regen while in a forest
 			}
 
 			AsteroidArrow: {
@@ -901,7 +900,7 @@ Mods: {
 				DisplayName: Inferno Soul Crown
 				Tooltip:
 					'''
-					10% increased summoner damage
+					15% increased summoner damage
 					Increases maximum number of minions by 2
 					'''
 			}
@@ -1184,23 +1183,28 @@ Mods: {
 			}
 
 			UltimateBossBag: {
-				DisplayName: Treasure Bag (Ultimate Pain)
+				DisplayName: Treasure Bag (The Painbringer)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			UltimateBossRelic: {
-				DisplayName: Ultimate Pain Relic
+				DisplayName: The Painbringer Relic
 				Tooltip: ""
 			}
 
 			UltimateBossTrophy: {
-				DisplayName: Ultimate Pain Trophy
+				DisplayName: The Painbringer Trophy
 				Tooltip: ""
 			}
 
 			TheGoodBoyItem: {
 				DisplayName: The Best Boy
 				Tooltip: "'You will be missed'"
+			}
+
+			DerplingTrophyItem: {
+				DisplayName: Derpling Trophy
+				Tooltip: Obtained in a perfectly normal way
 			}
 
 			BloodDrop: {
@@ -1377,12 +1381,8 @@ Mods: {
 			}
 
 			UltimateBossSummoner: {
-				DisplayName: Mysterious Emblem
-				Tooltip:
-					'''
-					Summons the ultimate boss, make sure you're prepared for all the pain
-					[c/af1160:April Fools Boss, still worth fighting though]
-					'''
+				DisplayName: Mysterious Skull
+				Tooltip: Summons the Painbringer boss, make sure you're prepared
 			}
 
 			Aircan: {
@@ -2290,7 +2290,7 @@ Mods: {
 			}
 
 			PainSword: {
-				DisplayName: The Pain Giver
+				DisplayName: The Paingiver
 				Tooltip: You went through unimaginable pain to get this, now you can inflict that pain upon your enemies
 			}
 
@@ -2692,8 +2692,8 @@ Mods: {
 			}
 
 			ScanDroneBannerItem: {
-				DisplayName: ScanDrone Banner
-				Tooltip: Nearby players get a bonus against: ScanDrone
+				DisplayName: Scandrone Banner
+				Tooltip: Nearby players get a bonus against: Scandrone
 			}
 
 			SolarDerpBannerItem: {
@@ -2730,6 +2730,36 @@ Mods: {
 				DisplayName: Vortexian Cannon Banner
 				Tooltip: Nearby players get a bonus against: Vortexian Cannon
 			}
+
+			TheClaySlimeBannerItem: {
+				DisplayName: Clay Slime Banner
+				Tooltip: Nearby players get a bonus against: Clay Slime
+			}
+
+			ThePainSlimeBannerItem: {
+				DisplayName: Pain Slime Banner
+				Tooltip: Nearby players get a bonus against: Pain Slime
+			}
+
+			PainMusicBoxitem: {
+				DisplayName: Music Box (Pain Remix)
+				Tooltip: Play this to experience true pain
+			}
+
+			BossMaskUltimateBoss: {
+				DisplayName: The Painbringer Mask
+				Tooltip: ""
+			}
+
+			PainStaff: {
+				DisplayName: The Staff of The Painbringer
+				Tooltip: Summons multiple Judgment skulls in various patterns that seek out enemies and deliver pain
+			}
+
+			UltimateFearMask: {
+				DisplayName: Perfectly Normal Mask
+				Tooltip: Why's everybody looking at you like that, you're perfectly normal
+			}
 		}
 
 		NPCs: {
@@ -2737,7 +2767,7 @@ Mods: {
 			AridBoss.DisplayName: Ancient Husk
 			AridBossMinion.DisplayName: Ancient Spirit
 			StormBoss.DisplayName: Overloaded Scandrone
-			ThePainBoss.DisplayName: Ultimate Pain
+			TheUltimateBoss.DisplayName: The Painbringer
 			DerpMimic.DisplayName: Perfectly Normal Derpling
 			FrozenEye.DisplayName: Frozen Eyefish
 			FrozenSoul.DisplayName: Frozen Spirit
@@ -2754,7 +2784,7 @@ Mods: {
 			MushroomMiniBoss.DisplayName: Angry Mushroom
 			NebulaDerp.DisplayName: Brain Hopper
 			SandCore.DisplayName: Dune Blaster
-			ScanDrone.DisplayName: ScanDrone
+			ScanDrone.DisplayName: Scandrone
 			SolarDerp.DisplayName: Blazing Hopper
 			SpaceRockHead.DisplayName: Asteroid Orbiter
 			SpaceRockHeadLarge.DisplayName: Asteroid Charger
@@ -2763,6 +2793,9 @@ Mods: {
 			StormDerp.DisplayName: Storm Hopper
 			VineDerp.DisplayName: Camouflaged Derpling
 			VortexCannon.DisplayName: Vortexian Cannon
+			ThePainSlime.DisplayName: Pain Slime
+			TheClaySlime.DisplayName: Clay Slime
+			TheUltimateBossMinion.DisplayName: Shattered Crystal of Pain
 		}
 
 		Projectiles: {
@@ -2785,20 +2818,24 @@ Mods: {
 			MushroomMiniBossProj.DisplayName: Bouncing Mushroom
 			NebulaFlame.DisplayName: Nebula Flame
 			SandCoreProj.DisplayName: Forbidden Sand
-			ScanDroneProj.DisplayName: ScanDrone Bolt
+			ScanDroneProj.DisplayName: Scandrone Bolt
 			SolarDerpProj.DisplayName: Solar Fireball
 			SpaceHeadProj.DisplayName: Asteroid Bolt
 			SpaceHeadProj2.DisplayName: Asteroid Bolt
-			StormBossBolt.DisplayName: Overloaded ScanDrone Bolt
-			StormBossBomb.DisplayName: Overloaded ScanDrone Bomb
-			StormBossLightning.DisplayName: Overloaded ScanDrone Lightning
+			StormBossBolt.DisplayName: Overloaded Scandrone Bolt
+			StormBossBomb.DisplayName: Overloaded Scandrone Bomb
+			StormBossLightning.DisplayName: Overloaded Scandrone Lightning
 			StormBossLightningPortal.DisplayName: Overloaded Scandrone Portal
-			StormBossMine.DisplayName: Overloaded ScanDrone Mine
-			StormBossMineLarge.DisplayName: Overloaded ScanDrone Large Mine
+			StormBossMine.DisplayName: Overloaded Scandrone Mine
+			StormBossMineLarge.DisplayName: Overloaded Scandrone Large Mine
 			StormDerpProj.DisplayName: Vortex Spike
-			ThePainBossProj.DisplayName: Very Painful Projectile
-			ThePainBossProj2.DisplayName: Explosion Extreme Pain
+			TheUltimateBossProj.DisplayName: Skull of Judgement
+			TheUltimateBossProj2.DisplayName: Skull of Judgement
+			TheUltimateBossProj3.DisplayName: Shattered Shard
+			TheUltimateBossProj4.DisplayName: Explosion of Pain
 			VortCannonProj.DisplayName: Vortexian Rocket
+			TheClaySlimeProj.DisplayName: Clay Slime Blob
+			ThePainSlimeProj.DisplayName: Pain Slime Blob
 			AsteroidArrowProj.DisplayName: Asteroid Arrow
 			AsteroidBulletProj.DisplayName: Asteroid Bullet
 			BouncyArrowProj.DisplayName: Bouncy Arrow
@@ -2874,6 +2911,7 @@ Mods: {
 			ExplosionGenericProj.DisplayName: Explosion Generic
 			ExplosionHellSoulProj.DisplayName: Explosion Soul
 			ExplosionPainProj.DisplayName: Explosion Pain
+			ExplosionPainNofaceProj.DisplayName: Explosion Pain Faceless
 			ExplosionShroomiteProj.DisplayName: Explosion Shroomite
 			ExplosionVortexProj.DisplayName: Explosion Vortex
 			EyeStaffProj.DisplayName: Bouncing Eye
@@ -2934,7 +2972,8 @@ Mods: {
 			OceanSmallProj.DisplayName: Small Water Bolt
 			OceanSpellProj.DisplayName: Magic Water Orb
 			PainProj.DisplayName: Painful Projectile
-			PainProj2.DisplayName: Painful Core
+			PainCoreProj.DisplayName: Pain Skull
+			PainStaffProj.DisplayName: Judgment Skull
 			AridBossPetProj.DisplayName: Liberated Husk
 			GoldDerpie.DisplayName: Golden Derpie
 			StormBossPetProj.DisplayName: Baby Overloaded Scandrone
@@ -3097,7 +3136,7 @@ Mods: {
 			MushroomMiniBossBannerPlace.MapEntry: Angry Mushroom Banner
 			NebulaDerpBannerPlace.MapEntry: Brain Hopper Banner
 			SandCoreBannerPlace.MapEntry: Dune Blaster Banner
-			ScanDroneBannerPlace.MapEntry: ScanDrone Banner
+			ScanDroneBannerPlace.MapEntry: Scandrone Banner
 			SolarDerpBannerPlace.MapEntry: Blazing Hopper Banner
 			SpaceRockHeadBannerPlace.MapEntry: Asteroid Orbiter Banner
 			SpaceRockHeadLargeBannerPlace.MapEntry: Asteroid Charger Banner
@@ -3105,6 +3144,9 @@ Mods: {
 			StormDerpBannerPlace.MapEntry: Storm Hopper Banner
 			VineDerpBannerPlace.MapEntry: Camouflaged Derpling Banner
 			VortCannonBannerPlace.MapEntry: Vortexian Cannon Banner
+			TheClaySlimeBannerPlaced.MapEntry: Clay Slime Banner
+			ThePainSlimeBannerPlaced.MapEntry: Pain Slime Banner
+			PainMusicBoxPlaced.MapEntry: Music Box
 		}
 	}
 }

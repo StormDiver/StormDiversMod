@@ -589,7 +589,7 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Pain Extender");
+            //DisplayName.SetDefault("Painbringers Curse");
             //Description.SetDefault("You will get to experience pain all over again on death");
             Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

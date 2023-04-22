@@ -176,8 +176,9 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Lihzahrd Flame");
-            Main.projFrames[Projectile.type] = 4;
-
+            //Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
         public override void SetDefaults()
         {
@@ -187,10 +188,10 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 2000;
+            Projectile.timeLeft = 160;
             Projectile.extraUpdates = 4;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 60;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.scale = 0.1f;
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
@@ -199,7 +200,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage()
         {
-            if (Projectile.alpha < 30)
+            if (Projectile.ai[0] == 0) // only on proj deals damage
             {
                 return true;
             }
@@ -211,50 +212,47 @@ namespace StormDiversMod.Projectiles
         int dustoffset;
         public override void AI()
         {
-            Projectile.rotation += 0.1f; //speen
+            Projectile.rotation += Main.rand.NextFloat(0.05f, 0.1f); //speen
 
-
-            if (Main.rand.Next(10) == 0)  //dust spawn sqaure increases with hurtbox size
-            {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 6, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                Main.dust[dust].noGravity = true; 
-                Main.dust[dust].velocity *= 1.5f;
-            }
+                if (Main.rand.Next(10) == 0)  //dust spawn sqaure increases with hurtbox size
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 6, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.5f;
+                }
            
-
-            if (Projectile.scale <= 1.2f) //increase size until specified amount
+            if (Projectile.scale <= 1f) //increase size until specified amount
             {
-                dustoffset++;//makes dust expand with projectile, also used for hitbox
+                dustoffset += 2;//makes dust expand with projectile, also used for hitbox
 
-                Projectile.scale += 0.008f;
+                Projectile.scale += 0.02f;
             }
-            else //once the size has been reached begin to fade out and slow down
+            if (Projectile.timeLeft < 60) // fade out and slow down
             {
-                Projectile.alpha += 3;
-               
-            
-                Projectile.velocity.X *= 0.98f;
-                Projectile.velocity.Y *= 0.98f;
+                Projectile.alpha += 10;
 
                 //begin animation
-                Projectile.frameCounter++;
+                /*Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 10)
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
-                }
+                }*/
             }
-            if (Projectile.alpha > 150) //once faded enough kill projectile
+            if (Projectile.alpha > 255) //once faded enough kill projectile
             {
                 Projectile.Kill();
             }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {
-            hitbox.Width = dustoffset;
-            hitbox.Height = dustoffset;
-            hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
-            hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            if (Projectile.ai[0] == 0) //
+            {
+                hitbox.Width = dustoffset;
+                hitbox.Height = dustoffset;
+                hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
+                hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            }
             base.ModifyDamageHitbox(ref hitbox);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -263,9 +261,7 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
             if (Main.rand.Next(1) == 0) // the chance
             {
-                
-                    target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
-
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -297,15 +293,13 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        
-        /*public override Color? GetAlpha(Color lightColor)
+        public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.Orange;
-            color.A = 100;
+            color.A = (Byte)Projectile.alpha;
             return color;
+        }
 
-        }*/
     }
     //_____________________________________________
     public class LizardSpellProj : ModProjectile

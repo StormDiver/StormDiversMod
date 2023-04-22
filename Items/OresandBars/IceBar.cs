@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.OresandBars
             //Tooltip.SetDefault("Used in the creation of frozen armor and weapons");
             ItemID.Sets.SortingPriorityMaterials[Item.type] = 80;
             Item.ResearchUnlockCount = 25;
-
+            ItemID.Sets.ExtractinatorMode[Item.type] = Item.type;
         }
 
         public override void SetDefaults()
@@ -39,6 +39,15 @@ namespace StormDiversMod.Items.OresandBars
             Item.createTile = TileType<IceBarPlaced>();
             Item.consumable = true;
             Item.autoReuse = true;
+        }
+        public override void ExtractinatorUse(int extractinatorBlockType, ref int resultType, ref int resultStack)
+        {
+            if (extractinatorBlockType == TileID.ChlorophyteExtractinator)
+            {
+                resultType = ModContent.ItemType<DesertBar>();
+                resultStack = 1;
+
+            }
         }
         public override void AddRecipes()
         {

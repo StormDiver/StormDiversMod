@@ -72,16 +72,16 @@ namespace StormDiversMod
                        );
 
                     bossChecklist.Call
-                       ("AddBoss", this, "Ultimate Pain (April Fools Boss)", ModContent.NPCType<NPCs.Boss.ThePainBoss>(), 19f, (Func<bool>)(() => StormWorld.painBossDown), () => true,
+                       ("AddBoss", this, "The Painbringer", ModContent.NPCType<NPCs.Boss.TheUltimateBoss>(), 19f, (Func<bool>)(() => StormWorld.ultimateBossDown), () => true,
                        new List<int> { ModContent.ItemType<Items.BossTrophy.UltimateBossTrophy>(), ModContent.ItemType<Items.BossTrophy.UltimateBossRelic>(), ModContent.ItemType<Items.Pets.UltimateBossPetItem>(),
                         ModContent.ItemType<Items.BossTrophy.UltimateBossBag>(), ModContent.ItemType<Items.Accessory.DeathCore>(), //vanity
                        
                         ModContent.ItemType<Items.Vanitysets.ThePainMask>()},
 
-                       ModContent.ItemType<Items.Summons.UltimateBossSummoner>(), "Summoned by using Mysterious Emblem post Moon Lord",
+                       ModContent.ItemType<Items.Summons.UltimateBossSummoner>(), "Summoned by using Mysterious Skull post Moon Lord\n(Dropped from any enemy while wearing ThePain or Clayman mask post Moon Lord)",
                        "You couldn't handle the pain huh?",
                        (SpriteBatch sb, Rectangle rect, Color color) => {
-                           Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/ThePainBoss_Image").Value;
+                           Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/TheUltimateBoss_Image").Value;
                            Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
                            sb.Draw(texture, centered, color);
                        }
@@ -98,24 +98,19 @@ namespace StormDiversMod
             //Bosses as NPCs
             if (ModLoader.TryGetMod("BossesAsNPCs", out Mod bossesAsNPCs))
             {
-                bossesAsNPCs.Call("AddToShop", "WithDiv", "Dreadnautilus", ModContent.ItemType<Items.Weapons.BloodySentry>(), () => true, 0.125f);
+                bossesAsNPCs.Call("AddToShop", "WithDiv", "Dreadnautilus", ModContent.ItemType<Items.Weapons.BloodySentry>(), new List<Condition>(), 0.125f);
             }
         }
         public static ModKeybind ArmourSpecialHotkey;
         public override void Load()
         {
             ArmourSpecialHotkey = KeybindLoader.RegisterKeybind(this, "Armor Special Ability", "V");
-            /*if (GetInstance<ConfigurationsGlobal>().NoDamageSpread)
-            {
-                //!!All credit goes to Kojo's mod called Rho's Playground!!
-                On.Terraria.Main.DamageVar += (orig, damage, luck) => (int)Math.Round(damage * Main.rand.NextFloat(1, 1)); //No damage variance
-            }*/
-
             //Wikithis
             ModLoader.TryGetMod("Wikithis", out Mod wikithis);
             if (wikithis != null && !Main.dedServ)
             {
-                wikithis.Call("AddModURL", this, "terrariamods.wiki.gg$Storm's_Additions_Mod");
+                // wikithis.Call("AddModURL", this, "terrariamods.wiki.gg$Storm's_Additions_Mod");
+                wikithis.Call(0, this, "https://terrariamods.wiki.gg/wiki/Storm's_Additions_Mod/{}");
             }
         }
         public override void Unload()

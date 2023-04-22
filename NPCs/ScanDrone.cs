@@ -21,8 +21,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("ScanDrone"); // Automatic from .lang files
-                                                 // make sure to set this for your modnpcs.
+            //DisplayName.SetDefault("Scandrone"); 
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;

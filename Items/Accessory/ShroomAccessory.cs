@@ -83,22 +83,6 @@ namespace StormDiversMod.Items.Accessory
             Item.ResearchUnlockCount = 1;
 
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            foreach (TooltipLine line in tooltips)
-            {
-                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
-                {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                    {
-                        line.Text = "Increases ranged velocity and tightens gun spread\n10% increased ranged critical strike chance";
-                    }
-                   
-                   
-                }
-
-            }
-        }
         public override void SetDefaults()
         {
             Item.width = 34;
@@ -108,8 +92,6 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -119,14 +101,9 @@ namespace StormDiversMod.Items.Accessory
                 player.scope = true;
             }
             player.GetModPlayer<EquipmentEffects>().shroomaccess = true;
-            if (!ModLoader.HasMod("TRAEProject"))//No damage if TRAE
-            {
-                player.GetDamage(DamageClass.Ranged) += 0.1f;
-            }
-            if (ModLoader.HasMod("TRAEProject"))//bool if TRAE
-            {
-                player.GetModPlayer<TRAEchanges.RangedStats>().GunScope2 = true;
-            }
+
+            player.GetDamage(DamageClass.Ranged) += 0.1f;
+
             player.GetCritChance(DamageClass.Ranged) += 10;
 
         }

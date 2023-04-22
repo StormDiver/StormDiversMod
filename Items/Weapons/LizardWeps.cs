@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using StormDiversMod.Basefiles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -148,8 +149,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 3;
-            Item.useAnimation = 12;
+            Item.useTime = 5;
+            Item.useAnimation = 25;
         
             Item.useTurn = false;
             Item.autoReuse = true;
@@ -157,11 +158,11 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.UseSound = SoundID.Item34;
 
-            Item.damage = 35;
+            Item.damage = 50;
             Item.knockBack = 0.5f;
             Item.shoot = ModContent.ProjectileType<Projectiles.LizardFlameProj>();
 
-            Item.shootSpeed = 3f;
+            Item.shootSpeed = 4f;
 
             Item.useAmmo = AmmoID.Gel;
 
@@ -174,14 +175,38 @@ namespace StormDiversMod.Items.Weapons
         public override void HoldItem(Player player)
         {
         }
+        int alpha = 200;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 2;
+            
+            for (int i = 0; i < 2; i++) //trail effect
             {
-                position += muzzleOffset;
+                if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                    position += muzzleOffset * 10f;
+
+                int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
+                Main.projectile[proj1].alpha = alpha;
+                alpha -= 50;
+
             }
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI);                    
+            if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                position += muzzleOffset * 10f;
+            //middle proj deals damage
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, damage, knockback, player.whoAmI);
+            alpha -= 50;
+
+            for (int i = 0; i < 2; i++) //trail effect
+            {
+                if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                    position += muzzleOffset * 10f;
+                int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
+                Main.projectile[proj1].alpha = alpha;
+                alpha -= 50;
+
+            }
+            alpha = 200;
+
             /*if (!NPC.downedPlantBoss)
             {
                 for (int i = 0; i < 10; i++)
