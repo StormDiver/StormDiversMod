@@ -64,7 +64,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A slime that is constantly in pain, and wants to share it with you")
+				new FlavorTextBestiaryInfoElement("A slime that is constantly in pain, and wants to share it with you.")
             });
         }
 
@@ -204,7 +204,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A slime made of clay that judges everything it looks at")
+				new FlavorTextBestiaryInfoElement("A slime made of clay that judges everything it looks at.")
             });
         }
 

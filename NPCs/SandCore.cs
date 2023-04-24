@@ -90,7 +90,7 @@ namespace StormDiversMod.NPCs
         int sounddelay;
         int ypos = -150;
         float distance;
-        float speed = 3;
+        float speed = 2;
         float inertia = 50;
         public override bool? CanFallThroughPlatforms()
         {
@@ -156,7 +156,7 @@ namespace StormDiversMod.NPCs
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.noTileCollide = true;
-                    speed = 3f;
+                    speed = 2.2f;
                     ypos = 0;
                     NPC.netUpdate = true;
 

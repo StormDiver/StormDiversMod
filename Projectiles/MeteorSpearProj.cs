@@ -104,8 +104,8 @@ namespace StormDiversMod.Projectiles
             if (!meteorrain)
             {
                 SoundEngine.PlaySound(SoundID.Item45 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 200, target.Center.Y - 650), new Vector2(+3.5f, 10), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 200, target.Center.Y - 650), new Vector2(-3.5f, 10), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 200, target.Center.Y - 650), new Vector2(+6f, 20), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 200, target.Center.Y - 650), new Vector2(-6f, 20), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
 
                 meteorrain = true;
             }
@@ -139,7 +139,7 @@ namespace StormDiversMod.Projectiles
             Projectile.light = 0.4f;
             Projectile.scale = 1;
             Projectile.DamageType = DamageClass.Melee;
-
+            Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = true;

@@ -95,9 +95,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             //5 = Cross attack
             Projectile.ai[1]++;
 
-            if (Projectile.ai[1] < 50)
+            if (Projectile.ai[1] < 60)
             {
-                Projectile.velocity *= 1.05f;
+                Projectile.velocity *= 1.04f;
             }
             
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
@@ -295,9 +295,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.ai[1]++;
             if (Projectile.ai[0] == 3) //Accelerate
             {
-                if (Projectile.ai[1] < 50)
+                if (Projectile.ai[1] < 60)
                 {
-                    Projectile.velocity *= 1.05f;
+                    Projectile.velocity *= 1.04f;
                 }
             }
             Projectile.spriteDirection = Projectile.direction;
@@ -532,12 +532,11 @@ namespace StormDiversMod.NPCs.NPCProjs
                 linewidth -= 0.1f;
             }
             Projectile.ai[1]++;
-
             if (Projectile.ai[1] < 60)
             {
                 Projectile.velocity *= 1.04f;
             }
-           
+
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
             if (!NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())) //remove all proejctiles if boss is dead

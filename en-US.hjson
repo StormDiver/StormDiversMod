@@ -534,7 +534,11 @@ Mods: {
 
 			LightDarkWings: {
 				DisplayName: Harmonia Wings
-				Tooltip: Allows flight and slow fall
+				Tooltip:
+					'''
+					Allows flight and slow fall
+					Low flight time in exchange for high acceleration
+					'''
 			}
 
 			LunaticHood: {
@@ -1664,7 +1668,7 @@ Mods: {
 					'''
 					Fires out a stream of burning sand
 					Uses gel for ammo
-					Ignores 10 points of enemy defense
+					Ignores 5 points of enemy defense
 					'''
 			}
 
@@ -2758,7 +2762,7 @@ Mods: {
 
 			UltimateFearMask: {
 				DisplayName: Perfectly Normal Mask
-				Tooltip: Why's everybody looking at you like that, you're perfectly normal
+				Tooltip: "'Why's everybody looking at you like that, you're perfectly normal'"
 			}
 		}
 

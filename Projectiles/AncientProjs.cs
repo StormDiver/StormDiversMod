@@ -254,7 +254,7 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
             Projectile.light = 0.8f;
-            Projectile.ArmorPenetration = 10;
+            Projectile.ArmorPenetration = 5;
         }
         
         public override bool? CanDamage()

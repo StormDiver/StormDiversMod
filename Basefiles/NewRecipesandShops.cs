@@ -329,7 +329,7 @@ namespace StormDiversMod.Basefiles
                 shop.Add(ItemID.MiningPants, Condition.PlayerCarriesItem(ItemID.MiningHelmet));
 
                 shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<ProtoLauncher>()));
-                shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<ProtoLauncher>()));
+                shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<FrostLauncher>()));
                 shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<MechTheSeeker>()));
                 //lol idfc
 

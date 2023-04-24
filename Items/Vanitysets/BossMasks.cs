@@ -116,7 +116,7 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("The PainBringer Mask");
+            //DisplayName.SetDefault("The Painbringer Mask");
             ////Tooltip.SetDefault("Boss Mask?");
             Item.ResearchUnlockCount = 1;
             //ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;

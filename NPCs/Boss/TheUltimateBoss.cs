@@ -651,7 +651,7 @@ namespace StormDiversMod.NPCs.Boss
                 else
                     projdamage = 70; // 140 on normal
                     
-                if (NPC.ai[0] > 60) //Delay before firing
+                if (NPC.ai[0] > 90) //Delay before firing
                 {
                     NPC.localAI[0]++;
 
@@ -747,7 +747,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (NPC.ai[0] > 90) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 35 && lifeleft == 0) || (NPC.localAI[0] > 30 && lifeleft == 1) || (NPC.localAI[0] > 25 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 40 && lifeleft == 0) || (NPC.localAI[0] > 35 && lifeleft == 1) || (NPC.localAI[0] > 30 && lifeleft == 2))
                     {
 
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -960,7 +960,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     NPC.localAI[0]++;
 
-                    if ((NPC.localAI[0] > 60 && lifeleft == 0) || (NPC.localAI[0] > 50 && lifeleft == 1) || (NPC.localAI[0] > 45 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 60 && lifeleft == 0) || (NPC.localAI[0] > 55 && lifeleft == 1) || (NPC.localAI[0] > 50 && lifeleft == 2))
                     {
 
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -1137,7 +1137,7 @@ namespace StormDiversMod.NPCs.Boss
                 if (NPC.ai[0] > 90) //Delay before firing
                 {
                     NPC.localAI[0]++;
-                    if ((NPC.localAI[0] > 40 && lifeleft == 1) || (NPC.localAI[0] > 35 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 45 && lifeleft == 1) || (NPC.localAI[0] > 40 && lifeleft == 2))
                     {
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
@@ -1158,14 +1158,14 @@ namespace StormDiversMod.NPCs.Boss
                                 if (Main.rand.Next(2) == 0)//left to right
                                 {
                                     float posX = player.Center.X + Main.rand.NextFloat(-1050, -1050f);
-                                    float posY = player.Center.Y + Main.rand.NextFloat(-600f, 600f);
+                                    float posY = player.Center.Y + Main.rand.NextFloat(-800f, 800f);
 
                                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(posX, posY), new Vector2(projvelocity, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 4, 0);
                                 }
                                 else//right to left
                                 {
                                     float posX = player.Center.X + Main.rand.NextFloat(1050, 1050f);
-                                    float posY = player.Center.Y + Main.rand.NextFloat(-600f, 600f);
+                                    float posY = player.Center.Y + Main.rand.NextFloat(-800f, 800f);
 
                                     Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(posX, posY), new Vector2(-projvelocity, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 4, 0);
 
@@ -1269,7 +1269,7 @@ namespace StormDiversMod.NPCs.Boss
                             //Main.dust[dust2].noGravity = true;
                         }
                     }
-                    if (NPC.localAI[0] > 45)
+                    if (NPC.localAI[0] > 50)
                     {
 
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -1461,6 +1461,12 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.ai[0]++;
 
                 NPC.localAI[2] = 90f;//rotation
+
+                for (int k = 0; k < NPC.buffImmune.Length; k++)
+                {
+                    NPC.buffImmune[k] = true;
+                }
+
                 if (Main.netMode != NetmodeID.MultiplayerClient) //flee from player
                 {
                     if (distanceToIdlePosition < 250f)
@@ -1795,6 +1801,10 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
+            if (NPC.ai[3] == 10) //66% DR on final attack
+            {
+                modifiers.FinalDamage *= 0.33f;
+            }
             if (!StormWorld.ultimateBossDown)
             {
                 if (projectile.type == ProjectileID.FinalFractal) //Zenith is overpowered >:(

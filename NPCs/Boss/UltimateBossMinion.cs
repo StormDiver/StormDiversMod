@@ -211,22 +211,22 @@ namespace StormDiversMod.NPCs.Boss
             if (Main.getGoodWorld)
             {
                 projdamage = 70; //140/280/420 on ftw
-                projvelocity = 1.75f;
+                projvelocity = 1.4f;
             }
             else if (Main.masterMode)
             {
                 projdamage = 50; // 300 on master               
-                projvelocity = 1.5f;
+                projvelocity = 1.3f;
             }
             else if (Main.expertMode && !Main.masterMode)
             {
                 projdamage = 50; // 220 On expert
-                projvelocity = 1.35f;
+                projvelocity = 1.2f;
             }
             else
             {
                 projdamage = 70; // 140 on normal
-                projvelocity = 1.2f;
+                projvelocity = 1.1f;
             }
             //projectile count and spread
             if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBossMinion>()) == 4) 
@@ -275,11 +275,11 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (fastshoot) //fast shooting
                 {
-                    shootspeed = 3;
+                    shootspeed = 4;
                 }
                 else //normal shooting 
                 {
-                    shootspeed = 22 - (projcount * 2);
+                    shootspeed = 26 - (projcount * 2);
                 }
                 if (canshoot)
                 {

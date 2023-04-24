@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Arid Sandblaster");
-            //Tooltip.SetDefault("Fires out a stream of burning sand\nUses gel for ammo\nIgnores 10 points of enemy defense");
+            //Tooltip.SetDefault("Fires out a stream of burning sand\nUses gel for ammo\nIgnores 5 points of enemy defense");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AncientStaff>();
 
@@ -86,7 +86,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item34;
 
-            Item.damage = 18;
+            Item.damage = 16;
             Item.knockBack = 0f;
             Item.shoot = ModContent.ProjectileType<AncientFlameProj>(); 
 

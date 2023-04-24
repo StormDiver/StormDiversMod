@@ -201,13 +201,13 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 20;
+            Item.damage = 25;
             Item.crit = 0;
             Item.DamageType = DamageClass.Melee;
             Item.width = 50;
             Item.height = 64;
-            Item.useTime = 33;
-            Item.useAnimation = 33;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 0, 40, 0);
             Item.rare = ItemRarityID.Blue;

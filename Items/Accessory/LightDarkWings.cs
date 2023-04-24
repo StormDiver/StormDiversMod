@@ -21,7 +21,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Harmonia Wings");
-            //Tooltip.SetDefault("Allows flight and slow fall");
+            //Tooltip.SetDefault("Allows flight and slow fall\nLow flight time in exchange for high acceleration");
             Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
