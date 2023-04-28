@@ -282,6 +282,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         double dist = 0; //Distance away from the projectile
 
+        float projspeed = 2f;
         public override void AI()
         {
             if (linewidth > 0.1f)
@@ -290,6 +291,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             //Projectile.ai[0]
             //1 = Ring attack
+            //4 = Rapid summon attack
             //2 = Stationary
             //3 = Vertical
             Projectile.ai[1]++;
@@ -321,7 +323,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.knockBack = 6;
             }
 
-            if (Projectile.ai[0] == 1) //Circle Attack
+            if (Projectile.ai[0] == 1 || Projectile.ai[0] == 4) //Static then charge
             {
                 if (Projectile.ai[1] < 50) 
                 {
@@ -332,12 +334,26 @@ namespace StormDiversMod.NPCs.NPCProjs
                 {
 
                     SoundEngine.PlaySound(SoundID.Item42, Projectile.position);
+                    if (Projectile.ai[0] == 4)
+                    {
+                        if (Main.getGoodWorld)
+                            projspeed = 3f;
+                        else if (Main.masterMode)
+                            projspeed = 2.6f;
+                        else if (Main.expertMode && !Main.masterMode)
+                            projspeed = 2.3f;
+                        else
+                            projspeed = 2f;
+                    }
+                    else
+                    {
+                        projspeed = 2f;
+
+                    }
                     for (int i = 0; i < 1; i++)
                     {
                         Player player = Main.player[i];
                         //Dust.QuickDustLine(Projectile.Center, player.Center, 35, Color.DeepPink); //centre to centre
-
-                        float projspeed = 2f;
                         Vector2 velocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X, player.Center.Y)) * -projspeed;
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<TheUltimateBossProj>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, 10);
                         Projectile.Kill();
@@ -417,7 +433,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void Kill(int timeLeft)
         {
-            if (Projectile.ai[0] != 1) //Circle Attack
+            if (Projectile.ai[0] != 1 && Projectile.ai[0] != 4) //Circle Attack
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1.5f, Pitch = -0.5f, MaxInstances = -1 }, Projectile.Center);
 
@@ -532,7 +548,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 linewidth -= 0.1f;
             }
             Projectile.ai[1]++;
-            if (Projectile.ai[1] < 60)
+            if (Projectile.ai[1] < 50)
             {
                 Projectile.velocity *= 1.04f;
             }
@@ -558,7 +574,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 //Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
-            SoundEngine.PlaySound(SoundID.Item107 with { Volume = 1.5f, Pitch = 0.5f, MaxInstances = 3 }, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item107 with { Volume = 1.5f, Pitch = 0.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Projectile.Center);
         }
         public override Color? GetAlpha(Color lightColor)
         {

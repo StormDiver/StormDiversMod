@@ -32,7 +32,7 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CultistBow>();
 
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        /*public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             foreach (TooltipLine line in tooltips)
             {
@@ -45,7 +45,7 @@ namespace StormDiversMod.Items.Weapons
                 }
 
             }
-        }
+        }*/
         public override void SetDefaults()
         {
             Item.damage = 100;

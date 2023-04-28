@@ -987,17 +987,17 @@ namespace StormDiversMod.Basefiles
             if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
             {
                 //damage = (int)(damage * 1.1f);
-                modifiers.CritDamage += 0.1f;
+                modifiers.CritDamage *= 1.1f;
             }
             if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
             {
                 //damage = (int)(damage * 1.15f);
-                modifiers.CritDamage += 0.15f;
+                modifiers.CritDamage *= 1.15f;
             }
             if (player.GetModPlayer<EquipmentEffects>().derpEyeGolem == true)
             {
                 //damage = (int)(damage * 1.15f);
-                modifiers.CritDamage += 0.15f;
+                modifiers.CritDamage *= 1.15f;
             }
         }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)

@@ -91,17 +91,6 @@ namespace StormDiversMod.NPCs.Boss
                 int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
                 Main.dust[dust2].noGravity = true;
             }
-            if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) > 0)
-            {
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    if (Main.npc[i].type == ModContent.NPCType<TheUltimateBoss>())
-                    {
-                        target = Main.npc[i];
-                    }
-                }
-            }
-            else target = null;
         }
         int projdamage;
         float projvelocity;
@@ -113,7 +102,19 @@ namespace StormDiversMod.NPCs.Boss
         bool fastshoot = false;
         public override void AI()
         {
-            if (target == null || !target.active)
+            if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) > 0)
+            {
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (Main.npc[i].type == ModContent.NPCType<TheUltimateBoss>() && Main.npc[i].active)
+                    {
+                        target = Main.npc[i];
+                    }
+                }
+            }
+            else target = null;
+
+            if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) == 0)
             {
                 int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 0.8f;

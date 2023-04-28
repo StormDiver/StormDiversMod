@@ -93,7 +93,7 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.Spears[Item.type] = true;
 
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        /*public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             foreach (TooltipLine line in tooltips)
             {
@@ -106,7 +106,7 @@ namespace StormDiversMod.Items.Weapons
                 }
 
             }
-        }
+        }*/
         public override void SetDefaults()
         {
             Item.damage = 20;

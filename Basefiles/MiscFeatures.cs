@@ -27,12 +27,23 @@ using StormDiversMod.Items.Vanitysets;
 using Terraria.GameContent.ItemDropRules;
 using rail;
 using Terraria.WorldBuilding;
+using ReLogic.Peripherals.RGB;
+using StormDiversMod.Items.Furniture;
 
 namespace StormDiversMod.Basefiles
 {
 
     public class MiscFeatures : ModPlayer
     {
+        /*public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+        {
+            return new[] {
+                new Item(ModContent.ItemType<ThePainMask>()),
+                new Item(ModContent.ItemType<TheClaymanMask>()),
+                new Item(ModContent.ItemType<PainMusicBoxitem>())
+            };
+        }*/
+
         public bool screenshaker; //Weapons that shake the screen
         public int shaketimer; //How long to shake the screen for
 

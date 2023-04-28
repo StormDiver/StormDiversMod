@@ -1376,7 +1376,7 @@ namespace StormDiversMod.NPCs.Boss
                         }
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(xpos, ypos), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj2>(), projdamage, 1, Main.myPlayer, 1, -40);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(xpos, ypos), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj2>(), projdamage, 1, Main.myPlayer, 4, -20);
                         }
 
                         NPC.localAI[0] = 0;
@@ -1798,6 +1798,13 @@ namespace StormDiversMod.NPCs.Boss
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref StormWorld.ultimateBossDown, -1); //set boss downed      
+        }
+        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
+        {
+            if (NPC.ai[3] == 10) //66% DR on final attack
+            {
+                modifiers.FinalDamage *= 0.33f;
+            }
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
