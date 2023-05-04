@@ -283,25 +283,25 @@ namespace StormDiversMod.Basefiles
     }
     public class WorldOre : GlobalNPC
     {
-        /*public override void NPCLoot(NPC npc)
-        {
-            //set bools when the enemy is killed for the first time, these are saved at the top
-            if (npc.type == NPCID.IceGolem) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
+            /*public override void NPCLoot(NPC npc)
             {
-                if (!StormWorld.SpawnIceOre)
+                //set bools when the enemy is killed for the first time, these are saved at the top
+                if (npc.type == NPCID.IceGolem) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
                 {
-                    StormWorld.SpawnIceOre = true;
+                    if (!StormWorld.SpawnIceOre)
+                    {
+                        StormWorld.SpawnIceOre = true;
+                    }
                 }
-            }
-            if (npc.type == NPCID.SandElemental) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
-            {
-                if (!StormWorld.SpawnDesertOre)
+                if (npc.type == NPCID.SandElemental) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
                 {
+                    if (!StormWorld.SpawnDesertOre)
+                    {
 
-                    StormWorld.SpawnDesertOre = true;
+                        StormWorld.SpawnDesertOre = true;
+                    }
+
                 }
-
-            }
-        }*/
-    }
+            }*/
+        }
 }

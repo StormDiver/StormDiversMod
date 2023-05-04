@@ -32,6 +32,7 @@ namespace StormDiversMod.Basefiles
 {
     public class NPCEffects : GlobalNPC
     {
+
         public override bool InstancePerEntity => true;
 
         // npc.GetGlobalNPC<NPCEffects>().boulderDB = true; in debuff.cs

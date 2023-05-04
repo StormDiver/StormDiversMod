@@ -858,7 +858,7 @@ namespace StormDiversMod.Basefiles
                         float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
                         float velocity = 13f;
                         int type = ModContent.ProjectileType<ShroomSetRocketProj>();
-                        int damage = (int)(Player.HeldItem.damage * 2f);
+                        int damage = (int)Player.GetTotalDamage(DamageClass.Ranged).ApplyTo((int)(Player.HeldItem.damage * 2f));
                         Projectile.NewProjectile(null, Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
 
                         SoundEngine.PlaySound(SoundID.Item92, Player.Center);

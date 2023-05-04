@@ -40,13 +40,13 @@ namespace StormDiversMod.NPCs.Boss
            
             NPC.defense = 100;
             if (Main.getGoodWorld)
-                NPC.lifeMax = 80000;
+                NPC.lifeMax = 90000;
             else if (Main.masterMode)
-                NPC.lifeMax = 60000;
+                NPC.lifeMax = 70000;
             else if (Main.expertMode && !Main.masterMode)
-                NPC.lifeMax = 45000;
+                NPC.lifeMax = 50000;
             else
-                NPC.lifeMax = 30000;
+                NPC.lifeMax = 35000;
 
             NPC.HitSound = SoundID.Item25;
             NPC.DeathSound = SoundID.Item107;
@@ -280,7 +280,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 else //normal shooting 
                 {
-                    shootspeed = 26 - (projcount * 2);
+                    shootspeed = 24 - (projcount * 2);
                 }
                 if (canshoot)
                 {
