@@ -171,10 +171,6 @@ namespace StormDiversMod
         }*/
         public override void SetDefaults(Projectile projectile)
         {
-            if (projectile.timeLeft == Projectile.SentryLifeTime)
-            {
-                projectile.timeLeft = 36000;
-            }
             /*if (projectile.type == ProjectileID.ChlorophyteBullet)
             {
                 projectile.penetrate = -1;

@@ -129,7 +129,7 @@ namespace StormDiversMod.NPCs.Boss
         bool shooting; //should the attack use the shooting animation or not
         float movespeed = 1; //movespeed for attack 7
         int projspread; //spread for attack 10
-        int telegraph;
+        int teleporttime; // time till teleport
         Player player;
         public override bool CheckDead() //For death animation
         {
@@ -251,11 +251,75 @@ namespace StormDiversMod.NPCs.Boss
             }
             distance = Vector2.Distance(player.Center, NPC.Center);
 
-            if (distance > 10000 && NPC.ai[3] != 0)// Despawn if too far away
+            if (distance > 2000 && NPC.ai[3] != 0)// teleport if far away
+            {
+                teleporttime++;
+
+                for (int i = 0; i < 25; i++) //dust effect
+                {
+                    double deg = Main.rand.Next(0, 360); //The degrees
+                    double rad = deg * (Math.PI / 180); //Convert degrees to radians
+                    double dist = 120; //Distance away from the cursor
+                    float dustx = player.Center.X - (int)(Math.Cos(rad) * dist);
+                    float dusty = player.Center.Y - 400 - (int)(Math.Sin(rad) * dist);
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 72, 0, 0);
+                        dust.noGravity = true;
+                        dust.velocity *= 0;
+                        dust.scale = 1.25f;
+                    }
+                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - 400) - new Vector2(dustx, dusty)) * 25;
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 72, velocity.X, velocity.Y);
+                        dust.noGravity = true;
+                        dust.velocity *= 0.5f;
+                        dust.scale = 1.25f;
+                    }
+                }
+            }
+            else
+            {
+                teleporttime = 0;
+            }
+            if (teleporttime >= 15)
+            { 
+                NPC.ai[0] -= 30;
+                NPC.localAI[0] -= 30;
+                NPC.Center = new Vector2(player.Center.X, player.Center.Y - 400);
+                SoundEngine.PlaySound(SoundID.Item165 with { Volume = 1.5f, Pitch = 0.5f, MaxInstances = 1 }, NPC.Center);
+                SoundEngine.PlaySound(SoundID.Item131 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1 }, NPC.Center);
+
+                Dust.QuickDustLine(NPC.Center, new Vector2(NPC.oldPosition.X + NPC.width / 2, NPC.oldPosition.Y + NPC.height / 2), 152, Color.DeepPink); //centre to centre
+
+                Paintext = "You cannot escape the pain that easily!";
+
+                CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText(Paintext, 175, 17, 96);
+                }
+
+                for (int i = 0; i < 150; i++)
+                {
+                    float speedY = -8f;
+
+                    Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.5f);
+                    //Main.dust[dust2].noGravity = true;
+                }
+
+                teleporttime = 0;
+
+            }
+            if (distance > 20000 && NPC.ai[3] != 0)// Despawn if too far away
             {
                 NPC.active = false;
             }
-
             if (player.dead && !deathani)//When player is dead slow down, mock the player, then fly away
             {
                 if (NPC.localAI[1] == 60)
@@ -661,7 +725,6 @@ namespace StormDiversMod.NPCs.Boss
                         //Dust.QuickDustLine(new Vector2(player.Center.X - 54, player.Center.Y + 4), new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 35, Color.DeepPink); //centre to centre
                         //Dust.QuickDustLine(new Vector2(player.Center.X + 30, player.Center.Y + 58), new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 35, Color.DeepPink); //centre to centre
                         //Dust.QuickDustLine(new Vector2(player.Center.X - 30, player.Center.Y + 58), new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 35, Color.DeepPink); //centre to centre
-                        telegraph = 5;
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
                         for (int i = 0; i < 50; i++)

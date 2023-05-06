@@ -88,8 +88,6 @@ namespace StormDiversMod.Basefiles
 
         //Whip tags
 
-        public int WhiptagCrit; //Crit percentage for ship stacking
-
         public bool WhiptagWeb; //Spider Whip
         int webwhipcooldown;
 
@@ -874,7 +872,7 @@ namespace StormDiversMod.Basefiles
                 if (WhiptagBlood)
                 {
                     //damage += 5; //tag damage
-                    if (Main.rand.Next(100) <= WhiptagCrit) //tag crit (4)
+                    if (Main.rand.Next(100) <= 4)
                     {
                         modifiers.SetCrit();
                     }
@@ -893,7 +891,7 @@ namespace StormDiversMod.Basefiles
                 if (WhiptagForbidden)
                 {
                     //damage += 4; //tag damage
-                    if (Main.rand.Next(100) <= WhiptagCrit) //tag crit (6)
+                    if (Main.rand.Next(100) <= 6)
                     {
                         modifiers.SetCrit();
                     }
@@ -926,7 +924,7 @@ namespace StormDiversMod.Basefiles
                 if (WhiptagSpaceRock)
                 {
                     modifiers.FlatBonusDamage += 5; //tag damage
-                    if (Main.rand.Next(100) <= WhiptagCrit) //tag crit (15)
+                    if (Main.rand.Next(100) <= 15)
                     {
                         modifiers.SetCrit();
                     }

@@ -470,8 +470,6 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().WhiptagForbidden = true;
-            npc.GetGlobalNPC<NPCEffects>().WhiptagCrit += 6;
-
         }
     }
     //_________________________________________________________________
@@ -492,8 +490,6 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().WhiptagSpaceRock = true;
-            npc.GetGlobalNPC<NPCEffects>().WhiptagCrit += 15;
-
         }
     }
     //_________________________________________________________________
@@ -514,8 +510,6 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().WhiptagBlood = true;
-            npc.GetGlobalNPC<NPCEffects>().WhiptagCrit += 4;
-
         }
     }
     //_________________________________________________________________

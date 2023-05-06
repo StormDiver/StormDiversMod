@@ -53,6 +53,9 @@ namespace StormDiversMod.NPCs.Boss
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 0, 0);
             NPC.noGravity = true;
+
+            //NPC.boss = true;
+
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
@@ -102,6 +105,8 @@ namespace StormDiversMod.NPCs.Boss
         bool fastshoot = false;
         public override void AI()
         {
+            NPC.DiscourageDespawn(9999);
+
             if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) > 0)
             {
                 for (int i = 0; i < Main.maxNPCs; i++)
@@ -268,7 +273,12 @@ namespace StormDiversMod.NPCs.Boss
                 }
             }
 
-            float distance = Vector2.Distance(player.Center, NPC.Center);
+            //teleport to main npc if too far
+            float distance = Vector2.Distance(target.Center, NPC.Center);
+            if (distance > 1000)
+            {
+                NPC.Center = target.Center;
+            }
             NPC.localAI[2]++;
             if (NPC.localAI[2] >= 180 && !player.dead)
             {
@@ -280,7 +290,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 else //normal shooting 
                 {
-                    shootspeed = 24 - (projcount * 2);
+                    shootspeed = 21 - (projcount * 2);
                 }
                 if (canshoot)
                 {
