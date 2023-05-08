@@ -15,7 +15,7 @@ There's over 300 total modded items for you to discover; including weapons, acce
 [*]A bunch of different buffs and debuffs inflicted from a range of sources
 [*]9 new potions
 [*]4 new Vanity sets and 3 special vanity masks
-[*]5 new pets
+[*]6 new pets
 [*]New recipes for certain uncraftable vanilla items
 [*]New Lizharhd Temple Defences (Can be disabled Pre-Plantera via Config)
 [*]Full Wikithis support

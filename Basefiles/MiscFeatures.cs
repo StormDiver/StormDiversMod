@@ -104,7 +104,7 @@ namespace StormDiversMod.Basefiles
         {
             //Detect if player is in Temple and immediatly summon up to 12 Guardians
 
-            if (Player.ZoneJungle && Player.ZoneRockLayerHeight && !NPC.downedPlantBoss) //This code is only active when certain criteia is met, sadly the zonelizardtemple doesn't work
+            if (Player.ZoneJungle && !NPC.downedPlantBoss) //This code is only active when certain criteia is met, sadly the zonelizardtemple doesn't work
             {
                 int xtilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
                 int ytilepos = (int)(Player.position.Y + (float)(Player.height / 2)) / 16;

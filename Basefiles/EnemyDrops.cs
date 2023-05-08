@@ -16,6 +16,7 @@ using StormDiversMod.Items.Accessory;
 using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.ObjectData;
+using StormDiversMod.NPCs;
 
 namespace StormDiversMod.Basefiles
 {
@@ -187,15 +188,21 @@ namespace StormDiversMod.Basefiles
             }
 
             if ((Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || 
-                Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>()) && NPC.downedMoonlord)
+                Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>()) && NPC.downedMoonlord) //pan summoenr
             {
                 if (Main.rand.Next(40) == 0)
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
                 }
+                
             }
-                //No bestiary--------------------------------------------------------------------------------------------------------------------
-                if (Main.rand.Next(5000) < 1 & npc.lifeMax > 5)
+            if ((npc.type == ModContent.NPCType<ThePainSlime>() || npc.type == ModContent.NPCType<TheClaySlime>()) && Main.rand.Next(20) == 0)
+            {
+                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
+
+            }
+            //No bestiary--------------------------------------------------------------------------------------------------------------------
+            if (Main.rand.Next(5000) < 1 & npc.lifeMax > 5)
             {
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<ThePainMask>());
             }

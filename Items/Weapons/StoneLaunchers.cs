@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Stone Cannon");
             //Tooltip.SetDefault("Fire out all your unwanted stone at your foes");
             Item.ResearchUnlockCount = 1;
-
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -140,6 +140,8 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Mega Stone Cannon");
             //Tooltip.SetDefault("An upgraded stone cannon which makes stone far more deadly");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -232,6 +234,8 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Flaming Stone Cannon");
             //Tooltip.SetDefault("Superheats your stone into flaming stone boulders");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -337,6 +341,9 @@ namespace StormDiversMod.Items.Weapons
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
+
         }
         public override void SetDefaults()
         {

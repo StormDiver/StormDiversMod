@@ -187,18 +187,21 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             if (linewidth > 0.1f)
             {
-                if (Projectile.ai[0] is 0 or 3 or 5) //regular attack
-                    Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + projspeed.X, projpos.Y + projspeed.Y), Color.DeepPink, Color.Transparent, linewidth);
-
-                else if (Projectile.ai[0] is 2) //circle attack
-                    Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(playerpos.X, playerpos.Y), Color.DeepPink, Color.Transparent, linewidth);
-
-                else if (Projectile.ai[0] is 4) //horizonal attack
+                if (Main.netMode != NetmodeID.Server)
                 {
-                    if (Projectile.velocity.X > 0)
-                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + 1100, projpos.Y), Color.DeepPink, Color.Transparent, linewidth);
-                    else
-                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X - 1100, projpos.Y), Color.DeepPink, Color.Transparent, linewidth);
+                    if (Projectile.ai[0] is 0 or 3 or 5) //regular attack
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + projspeed.X, projpos.Y + projspeed.Y), Color.DeepPink, Color.Transparent, linewidth);
+
+                    else if (Projectile.ai[0] is 2) //circle attack
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(playerpos.X, playerpos.Y), Color.DeepPink, Color.Transparent, linewidth);
+
+                    else if (Projectile.ai[0] is 4) //horizonal attack
+                    {
+                        if (Projectile.velocity.X > 0)
+                            Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + 1100, projpos.Y), Color.DeepPink, Color.Transparent, linewidth);
+                        else
+                            Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X - 1100, projpos.Y), Color.DeepPink, Color.Transparent, linewidth);
+                    }
                 }
             }
             Main.instance.LoadProjectile(Projectile.type);
@@ -464,8 +467,11 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             if (linewidth > 0.1f)
             {
-                if (Projectile.ai[0] is 3)//vertical attack
-                    Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X, projpos.Y + 800), Color.DeepPink, Color.Transparent, linewidth);
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    if (Projectile.ai[0] is 3)//vertical attack
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X, projpos.Y + 800), Color.DeepPink, Color.Transparent, linewidth);
+                }
             }
             Main.instance.LoadProjectile(Projectile.type);
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
@@ -591,7 +597,10 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             if (linewidth > 0.1f)
             {
-                 Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + projspeed.X, projpos.Y + projspeed.Y), Color.DeepPink, Color.Transparent, linewidth);
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + projspeed.X, projpos.Y + projspeed.Y), Color.DeepPink, Color.Transparent, linewidth);
+                }
             }
             Main.instance.LoadProjectile(Projectile.type);
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;

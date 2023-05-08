@@ -447,6 +447,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (NPC.ai[3] == 0) //No attacks when first summoned
                 {
+                    NPC.dontTakeDamage = true;
                     shooting = false;
                     if (lifeleft == 0) //move above player at first, then below for other phases
                     {
@@ -476,7 +477,7 @@ namespace StormDiversMod.NPCs.Boss
 
                     NPC.ai[0]++;  //count to first attack
                     NPC.localAI[2] = 270; //Reset rotation
-                    if (NPC.ai[0] == 120 && Main.netMode != NetmodeID.MultiplayerClient && lifeleft > 0) //change visuals and create gore
+                    if (NPC.ai[0] == 120 && lifeleft > 0) //change visuals and create gore
                     {
                         if (lifeleft == 1)
                         {
@@ -568,6 +569,7 @@ namespace StormDiversMod.NPCs.Boss
 
                                 int npc4 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 30, (int)NPC.Center.Y + 58, type);
                                 Main.npc[npc4].localAI[1] = 270;
+                                NPC.netUpdate = true;
 
                             }
                             animation = 3; //increase animation
@@ -632,7 +634,6 @@ namespace StormDiversMod.NPCs.Boss
                     NPC.localAI[0] = 0;//Reset all ai values
 
                     lifeleft = 1;
-                    NPC.dontTakeDamage = true;
                     NPC.netUpdate = true;
 
                 }
@@ -643,7 +644,6 @@ namespace StormDiversMod.NPCs.Boss
                     NPC.localAI[0] = 0;//Reset all ai values
 
                     lifeleft = 2;
-                    NPC.dontTakeDamage = true;
                    
                     NPC.netUpdate = true;
 
@@ -657,7 +657,6 @@ namespace StormDiversMod.NPCs.Boss
                     NPC.localAI[0] = 0;//Reset all ai values
 
                     lifeleft = 3;
-                    NPC.dontTakeDamage = true;
                     NPC.netUpdate = true;
 
                 }
@@ -710,7 +709,7 @@ namespace StormDiversMod.NPCs.Boss
                 else if (Main.masterMode)
                     projdamage = 50; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 50; // 220 On expert
+                    projdamage = 55; // 220 On expert
                 else
                     projdamage = 70; // 140 on normal
                     
@@ -904,7 +903,7 @@ namespace StormDiversMod.NPCs.Boss
                 else if (Main.masterMode)
                     projdamage = 50; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 50; // 220 On expert
+                    projdamage = 55; // 220 On expert
                 else
                     projdamage = 70; // 140 on normal
 
@@ -1106,7 +1105,7 @@ namespace StormDiversMod.NPCs.Boss
                 else if (Main.masterMode)
                     projdamage = 50; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 50; // 220 On expert
+                    projdamage = 55; // 220 On expert
                 else
                     projdamage = 70; // 140 on normal
 
@@ -1284,21 +1283,26 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     movespeed += 0.5f;
                 }
-                Vector2 moveTo = player.Center;
-                Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[1], NPC.ai[2]); //Postion around player
-                float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
-                if (magnitude > movespeed)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    move *= movespeed / magnitude;
+                    Vector2 moveTo = player.Center;
+                    Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[1], NPC.ai[2]); //Postion around player
+                    float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+                    if (magnitude > movespeed)
+                    {
+                        move *= movespeed / magnitude;
+                    }
+                    NPC.velocity = move;
+                    NPC.netUpdate = true;
+
                 }
-                NPC.velocity = move;
                 //damage
                 if (Main.getGoodWorld)
                     projdamage = 70; //140/280/420 on ftw                          
                 else if (Main.masterMode)
                     projdamage = 50; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 50; // 220 On expert
+                    projdamage = 55; // 220 On expert
                 else
                     projdamage = 70; // 140 on normal
 
@@ -1557,7 +1561,7 @@ namespace StormDiversMod.NPCs.Boss
                 else if (Main.masterMode)
                     projdamage = 50; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 50; // 220 On expert
+                    projdamage = 55; // 220 On expert
                 else
                     projdamage = 70; // 140 on normal
                 if (NPC.ai[0] > 60)

@@ -187,32 +187,35 @@ namespace StormDiversMod.NPCs.Boss
 
             }
             //Movement
-
-            double deg = (NPC.localAI[1]);
-            double rad = deg * (Math.PI / 180);
-            double dist = 100; //Distance away from the npc
-
-            //position
-            NPC.ai[1] = (int)(Math.Cos(rad) * dist); //X pos
-            NPC.ai[2] = (int)(Math.Sin(rad) * dist); //Y pos
-
-            Vector2 idlePosition = target.Center + new Vector2(NPC.ai[1], NPC.ai[2]);
-            Vector2 vectorToIdlePosition = idlePosition - NPC.Center;
-            if (movespeed < 50)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                movespeed += 0.4f;
-            }
-            NPC.rotation = (target.Center - NPC.Center).ToRotation();
+                double deg = (NPC.localAI[1]);
+                double rad = deg * (Math.PI / 180);
+                double dist = 100; //Distance away from the npc
 
-            Vector2 moveTo = target.Center;
-            Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[1], NPC.ai[2]); //Postion around player
-            float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
-            if (magnitude > movespeed)
-            {
-                move *= movespeed / magnitude;
-            }
-            NPC.velocity = move;
+                //position
+                NPC.ai[1] = (int)(Math.Cos(rad) * dist); //X pos
+                NPC.ai[2] = (int)(Math.Sin(rad) * dist); //Y pos
 
+                Vector2 idlePosition = target.Center + new Vector2(NPC.ai[1], NPC.ai[2]);
+                Vector2 vectorToIdlePosition = idlePosition - NPC.Center;
+                if (movespeed < 50)
+                {
+                    movespeed += 0.4f;
+                }
+                NPC.rotation = (target.Center - NPC.Center).ToRotation();
+
+                Vector2 moveTo = target.Center;
+                Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[1], NPC.ai[2]); //Postion around player
+                float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+                if (magnitude > movespeed)
+                {
+                    move *= movespeed / magnitude;
+                }
+                NPC.velocity = move;
+                NPC.netUpdate = true;
+
+            }
             //Damage values and projspeed===============================
             if (Main.getGoodWorld)
             {
@@ -226,7 +229,7 @@ namespace StormDiversMod.NPCs.Boss
             }
             else if (Main.expertMode && !Main.masterMode)
             {
-                projdamage = 50; // 220 On expert
+                projdamage = 55; // 220 On expert
                 projvelocity = 1.2f;
             }
             else

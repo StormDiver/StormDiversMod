@@ -115,6 +115,8 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Frost Launcher");
             //Tooltip.SetDefault("Fires out impact-exploding grenades that inflict CryoBurn\nRequires Prototype Grenades, purchase more from the Demolitionist");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
+
         }
         public override void SetDefaults()
         {
