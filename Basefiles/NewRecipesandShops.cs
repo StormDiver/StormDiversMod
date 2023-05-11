@@ -396,10 +396,6 @@ namespace StormDiversMod.Basefiles
             {
                 shop.Add(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>()); //fine alway avalible 
             }
-            if (shop.NpcType == NPCID.WitchDoctor)
-            {
-                shop.Add(ItemID.Seed, Condition.PlayerCarriesItem(ModContent.ItemType<MoltenSeedLauncher>()));
-            }
         }
     }
 }

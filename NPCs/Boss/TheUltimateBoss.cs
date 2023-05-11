@@ -316,10 +316,10 @@ namespace StormDiversMod.NPCs.Boss
                 teleporttime = 0;
 
             }
-            if (distance > 20000 && NPC.ai[3] != 0)// Despawn if too far away
+            /*if (distance > 20000 && NPC.ai[3] != 0)// Despawn if too far away
             {
                 NPC.active = false;
-            }
+            }*/
             if (player.dead && !deathani)//When player is dead slow down, mock the player, then fly away
             {
                 if (NPC.localAI[1] == 60)

@@ -10,7 +10,9 @@ using StormDiversMod.Basefiles;
 
 using StormDiversMod.Items.Materials;
 using Terraria.GameContent.Creative;
-
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Items.Weapons;
+using System.Collections.Generic;
 
 namespace StormDiversMod.Items.OresandBars
 {
@@ -32,7 +34,7 @@ namespace StormDiversMod.Items.OresandBars
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 30, 0);
             Item.rare = ItemRarityID.Pink;
-            Item.useStyle = ItemUseStyleID.Swing;  
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = true;
             Item.useAnimation = 15;
             Item.useTime = 10;
@@ -88,7 +90,7 @@ namespace StormDiversMod.Items.OresandBars
         }*/
     }
     //___________________________________________________________________________
-    
+
     //___________________________________________________________________________
     public class IceOrePlaced : ModTile //Legacy Item, cannot be generated anymore or placed
     {
@@ -111,12 +113,14 @@ namespace StormDiversMod.Items.OresandBars
             AddMapEntry(new Color(0, 255, 255), name);
 
             DustType = 92;
-            ItemDrop = ModContent.ItemType<IceOre>();
+            //ItemDrop = ModContent.ItemType<IceOre>();
             HitSound = SoundID.Tink;
             MineResist = 4f;
             MinPick = 100;
         }
-
-
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            yield return new Item(ModContent.ItemType<IceOre>(), 1);
+        }
     }
 }

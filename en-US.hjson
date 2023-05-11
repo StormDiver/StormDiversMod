@@ -2236,7 +2236,8 @@ Mods: {
 				Tooltip:
 					'''
 					Sets seeds ablaze
-					Obtain more from the Witch Doctor
+					Allows the collection of seeds for ammo
+					50% chance not to consume seeds
 					'''
 			}
 

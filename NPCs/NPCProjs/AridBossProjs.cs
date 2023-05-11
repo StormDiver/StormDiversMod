@@ -23,7 +23,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.width = 12;
             Projectile.height = 12;
 
-            Projectile.aiStyle = 1;
+            Projectile.aiStyle = -1;
             Projectile.light = 0.9f;
             Projectile.friendly = false;
             Projectile.hostile = true;
@@ -36,7 +36,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.alpha = 255;
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
-            Projectile.aiStyle = -1;
         }
 
         public override void AI()

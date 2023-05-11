@@ -38,8 +38,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 38;
-            Item.useTime = 26;
-            Item.useAnimation = 26;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Swing;  
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = false;
-            Item.knockBack = 4;
+            Item.knockBack = 6;
             Item.shoot = ProjectileID.Mushroom;
             Item.shootSpeed = 35f;
         }

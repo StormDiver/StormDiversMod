@@ -9,6 +9,8 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Basefiles;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Items.Materials;
+using System.Collections.Generic;
+using StormDiversMod.Items.Weapons;
 
 namespace StormDiversMod.Items.OresandBars
 {
@@ -107,15 +109,15 @@ namespace StormDiversMod.Items.OresandBars
             AddMapEntry(new Color(238, 204, 34), name);
 
             DustType = 54;
-            ItemDrop = ModContent.ItemType<DesertOre>();
+            //ItemDrop = ModContent.ItemType<DesertOre>();
+            RegisterItemDrop(ModContent.ItemType<DesertOre>(), 1);
             HitSound = SoundID.Tink;
             MineResist = 4f;
             MinPick = 100;
         }
-
-        public override bool CanDrop(int i, int j)
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
         {
-            return true;
+            yield return new Item(ModContent.ItemType<DesertOre>(), 1);
         }
     }
 }

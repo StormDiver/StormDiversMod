@@ -1288,7 +1288,7 @@ namespace StormDiversMod.Basefiles
             {
                 playSound = false;
 
-                SoundEngine.PlaySound(SoundID.ScaryScream with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                SoundEngine.PlaySound(SoundID.ScaryScream with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
             }
             return true;
         }

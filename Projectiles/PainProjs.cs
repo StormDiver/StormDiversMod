@@ -355,7 +355,7 @@ namespace StormDiversMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = -0.5f, MaxInstances = -1 }, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f, Pitch = -0.5f, MaxInstances = 5}, Projectile.Center);
             //SoundEngine.PlaySound(SoundID.ScaryScream with{ Volume = 0.5f, Pitch = 1f}, Projectile.Center);
 
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionPainNofaceProj>(), 0, 0, Projectile.owner);

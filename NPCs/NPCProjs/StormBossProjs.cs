@@ -473,8 +473,6 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             Projectile.width = 18;
             Projectile.height = 18;
-
-            Projectile.aiStyle = 1;
             Projectile.light = 0.1f;
 
             Projectile.friendly = false;

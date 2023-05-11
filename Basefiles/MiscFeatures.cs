@@ -29,6 +29,7 @@ using rail;
 using Terraria.WorldBuilding;
 using ReLogic.Peripherals.RGB;
 using StormDiversMod.Items.Furniture;
+using StormDiversMod.Items.Weapons;
 
 namespace StormDiversMod.Basefiles
 {
@@ -477,5 +478,20 @@ namespace StormDiversMod.Basefiles
             return true;
         }*/
 
+    }
+
+    public class Seeddrops : GlobalTile
+    {
+        public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+            //seed drops for flaming seed launcher
+            var player = Main.LocalPlayer;
+            if (type == TileID.Plants)
+            {
+                if (player.HasItem(ModContent.ItemType<MoltenSeedLauncher>()))
+                    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemID.Seed);
+
+            }
+        }
     }
 }

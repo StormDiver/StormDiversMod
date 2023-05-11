@@ -97,7 +97,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<Projectiles.WhipProjs.WebWhipProj>(), 12, 0.5f, 3f, 30);
+            Item.DefaultToWhip(ModContent.ProjectileType<Projectiles.WhipProjs.WebWhipProj>(), 12, 0.5f, 3.5f, 30);
             Item.width = 30;
             Item.height = 20;
             Item.maxStack = 1;
