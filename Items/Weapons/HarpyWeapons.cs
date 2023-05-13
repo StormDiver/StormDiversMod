@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item8;
 
-            Item.damage = 11;
+            Item.damage = 12;
          
             Item.knockBack = 1f;
 
@@ -75,7 +75,7 @@ namespace StormDiversMod.Items.Weapons
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HarpyProj>(), damage, knockback, player.whoAmI);
             }
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.HarpyProj2>(), damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.HarpyProj2>(), (int)(damage * 1.5f), knockback, player.whoAmI);
 
             return false;
         }

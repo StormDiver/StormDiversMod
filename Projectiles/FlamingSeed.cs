@@ -31,6 +31,8 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
             Projectile.scale = 0.8f;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
         public override void AI()
         {

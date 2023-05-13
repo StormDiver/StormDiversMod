@@ -36,6 +36,8 @@ namespace StormDiversMod.Projectiles
           
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
+            Projectile.ArmorPenetration = 5;
+
         }
         public override void AI()
         {

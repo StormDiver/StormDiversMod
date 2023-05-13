@@ -24,7 +24,7 @@ There's over 300 total modded items for you to discover; including weapons, acce
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod
 
-Creator, coder, and main spriter: [b]Storm A[/b]
+Creator, coder, and main spriter: [b]TheStorm[/b]
 Spriter and playtester: [b]KittKatt[/b]
 
 [b]Important info: Tmodloader has a wing limit of 127, so if you get any errors related to wings you will need to disable some other mods that add wings.[/b]

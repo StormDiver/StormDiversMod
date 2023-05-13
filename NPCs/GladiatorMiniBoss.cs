@@ -70,15 +70,24 @@ namespace StormDiversMod.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
-            if (spawnInfo.Marble && !NPC.AnyNPCs(ModContent.NPCType<GladiatorMiniBoss>()) && NPC.downedBoss1)
+            if (!Main.remixWorld)
             {
-                return SpawnCondition.Cavern.Chance * 0.2f;
+                if (spawnInfo.Marble && !NPC.AnyNPCs(ModContent.NPCType<GladiatorMiniBoss>()) && NPC.downedBoss1)
+                {
+                    return SpawnCondition.Cavern.Chance * 0.2f;
+                }
+                else
+                    return SpawnCondition.Cavern.Chance * 0f;
             }
             else
-            return SpawnCondition.Cavern.Chance * 0f;
-    
-            
+            {
+                if (spawnInfo.Marble && !NPC.AnyNPCs(ModContent.NPCType<GladiatorMiniBoss>()) && NPC.downedBoss1)
+                {
+                    return SpawnCondition.Underground.Chance * 0.2f;
+                }
+                else
+                    return SpawnCondition.Underground.Chance * 0f;
+            }
         }
         int shoottime = 0;
 

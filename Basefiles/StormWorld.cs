@@ -90,7 +90,7 @@ namespace StormDiversMod.Basefiles
             {
                 tag["aridBossDown"] = true;
             }
-            if (aridBossDown)
+            if (ultimateBossDown)
             {
                 tag["ultimateBossDown"] = true;
             }

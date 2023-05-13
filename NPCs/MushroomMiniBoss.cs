@@ -70,14 +70,23 @@ namespace StormDiversMod.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
-            if (!NPC.AnyNPCs(ModContent.NPCType<MushroomMiniBoss>()) && NPC.downedBoss1 && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneGlowshroom)
+            if (!Main.remixWorld)
             {
-                return SpawnCondition.Cavern.Chance * 0.2f;
+                if (!NPC.AnyNPCs(ModContent.NPCType<MushroomMiniBoss>()) && NPC.downedBoss1 && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneGlowshroom)
+                {
+                    return SpawnCondition.Cavern.Chance * 0.2f;
+                }
+                else
+                    return SpawnCondition.Cavern.Chance * 0f;
             }
             else
             {
-                return SpawnCondition.Cavern.Chance * 0f;
+                if (!NPC.AnyNPCs(ModContent.NPCType<MushroomMiniBoss>()) && NPC.downedBoss1 && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneGlowshroom)
+                {
+                    return SpawnCondition.Underground.Chance * 0.2f;
+                }
+                else
+                    return SpawnCondition.Underground.Chance * 0f;
             }
 
         }
