@@ -196,7 +196,7 @@ namespace StormDiversMod.Basefiles
                 }
                 
             }
-            if ((npc.type == ModContent.NPCType<ThePainSlime>() || npc.type == ModContent.NPCType<TheClaySlime>()) && Main.rand.Next(20) == 0)
+            if ((npc.type == ModContent.NPCType<ThePainSlime>() || npc.type == ModContent.NPCType<TheClaySlime>()) && Main.rand.Next(20) == 0 && NPC.downedMoonlord)
             {
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
 
@@ -374,7 +374,7 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.Derpling)
             {
 
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 150, 100));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 100, 75));
 
             }
             if (npc.type == NPCID.CursedSkull)

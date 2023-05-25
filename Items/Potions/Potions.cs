@@ -15,7 +15,7 @@ namespace StormDiversMod.Items.Potions
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Marksmanship Potion");
-            //Tooltip.SetDefault("15% increased bullet damage");
+            //Tooltip.SetDefault("15% increased gun damage");
             Item.ResearchUnlockCount = 20;
 
         }

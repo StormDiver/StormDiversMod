@@ -87,7 +87,7 @@ namespace StormDiversMod.Items.Weapons
             Item.UseSound = SoundID.Item34;
 
             Item.damage = 16;
-            Item.knockBack = 0f;
+            Item.knockBack = 0.1f;
             Item.shoot = ModContent.ProjectileType<AncientFlameProj>(); 
 
             Item.shootSpeed = 3.5f;

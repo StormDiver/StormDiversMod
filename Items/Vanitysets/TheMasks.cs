@@ -53,7 +53,6 @@ namespace StormDiversMod.Items.Vanitysets
             //Tooltip.SetDefault("Sliently judge everybody around you");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ThePainMask>();
-
         }
         public override void SetDefaults()
         {

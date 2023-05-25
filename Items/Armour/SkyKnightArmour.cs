@@ -72,7 +72,6 @@ namespace StormDiversMod.Items.Armour
 
             CreateRecipe()
            .AddIngredient(ItemID.MeteoriteBar, 12)
-           .AddRecipeGroup("StormDiversMod:EvilMaterial", 10)
            .AddIngredient(ItemID.FallenStar, 5)
            .AddTile(TileID.Anvils)
            .Register();
@@ -124,7 +123,6 @@ namespace StormDiversMod.Items.Armour
         {
             CreateRecipe()
            .AddIngredient(ItemID.MeteoriteBar, 18)
-           .AddRecipeGroup("StormDiversMod:EvilMaterial", 15)
            .AddIngredient(ItemID.FallenStar, 8)
            .AddTile(TileID.Anvils)
            .Register();
@@ -175,7 +173,6 @@ namespace StormDiversMod.Items.Armour
         {
             CreateRecipe()
            .AddIngredient(ItemID.MeteoriteBar, 15)
-           .AddRecipeGroup("StormDiversMod:EvilMaterial", 12)
            .AddIngredient(ItemID.FallenStar, 7)
            .AddTile(TileID.Anvils)
            .Register();
