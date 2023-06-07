@@ -23,6 +23,7 @@ using Terraria.DataStructures;
 using Terraria.Audio;
 using NVorbis.Contracts;
 using Terraria.GameContent.Drawing;
+using Microsoft.CodeAnalysis;
 
 namespace StormDiversMod.Basefiles
 {
@@ -1295,6 +1296,14 @@ namespace StormDiversMod.Basefiles
         //===================================Other hooks======================================
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            //Insulated Cuffs
+            if (blueCuffs)
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    target.AddBuff(BuffID.Frostburn, 120);
+                }
+            }
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
@@ -1379,6 +1388,14 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }*/
+            //Insulated Cuffs
+            if (blueCuffs)
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    target.AddBuff(BuffID.Frostburn, 120);
+                }
+            }
 
             //for the Beetle Gauntlet
             if (beetleFist)

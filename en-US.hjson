@@ -691,7 +691,7 @@ Mods: {
 				DisplayName: Chaos Arrow
 				Tooltip:
 					'''
-					Ignores gravity, and ricochets off tiles, gaining speed and damage with every bounce
+					Teleports to the cursor after hitting an enemy, maintaining its velocity but losing 50% damage 
 					'Unleash the Chaos'
 					'''
 			}
@@ -2765,14 +2765,60 @@ Mods: {
 				DisplayName: Perfectly Normal Mask
 				Tooltip: "'Why's everybody looking at you like that, you're perfectly normal'"
 			}
+
+			TestBHead: {
+				DisplayName: Test Hood
+				Tooltip: Pain
+			}
+
+			TestChest: {
+				DisplayName: Test Chest
+				Tooltip: and
+			}
+
+			TestLeg: {
+				DisplayName: Test Leg
+				Tooltip: Suffering
+			}
 		}
 
 		NPCs: {
 			BabyDerp.DisplayName: Baby Derpling
-			AridBoss.DisplayName: Ancient Husk
+
+			AridBoss: {
+				DisplayName: Ancient Husk
+
+				BossChecklistIntegration: {
+					SpawnInfo: Summoned by using a [i:StormDiversMod/AridBossSummon] at any time while in a desert
+					DespawnMessage: The Ancient Husk returns to the depths of the desert
+				}
+			}
+
 			AridBossMinion.DisplayName: Ancient Spirit
-			StormBoss.DisplayName: Overloaded Scandrone
-			TheUltimateBoss.DisplayName: The Painbringer
+
+			StormBoss: {
+				DisplayName: Overloaded Scandrone
+
+				BossChecklistIntegration: {
+					SpawnInfo: Summoned by using a [i:StormDiversMod/StormBossSummoner] once all 3 mechs have been defeated
+					DespawnMessage: Overloaded Scandrone returns to its home planet (and didn't die on the way home)
+				}
+			}
+
+			TheUltimateBoss: {
+				DisplayName: The Painbringer
+
+				BossChecklistIntegration: {
+					SpawnInfo:
+						'''
+						Summoned by using a [i:StormDiversMod/UltimateBossSummoner] post Moon Lord
+						Dropped from any enemy while wearing ThePain or Clayman mask post Moon Lord
+						Also dropped from Clay and Pain Slimes post Moon Lord
+						'''
+					DespawnMessage: You couldn't handle the pain huh?
+				}
+			}
+
 			DerpMimic.DisplayName: Perfectly Normal Derpling
 			FrozenEye.DisplayName: Frozen Eyefish
 			FrozenSoul.DisplayName: Frozen Spirit

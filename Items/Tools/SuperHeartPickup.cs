@@ -31,6 +31,8 @@ namespace StormDiversMod.Items.Tools
             ItemID.Sets.IgnoresEncumberingStone[Item.type] = true;
             ItemID.Sets.IsAPickup[Item.type] = true;
             Item.noGrabDelay = 0;
+            Item.ResearchUnlockCount = 0;
+
         }
         public override bool GrabStyle(Player player)
         {        

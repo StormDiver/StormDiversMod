@@ -63,7 +63,7 @@ namespace StormDiversMod.NPCs
             NPC.honeyMovementSpeed = 1;
             NPC.lavaImmune = true;
 
-            NPC.despawnEncouraged = false;
+            NPC.despawnEncouraged = false;            
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -139,7 +139,22 @@ namespace StormDiversMod.NPCs
             float distance = Vector2.Distance(player.Center, NPC.Center);
             feartime++;
 
-            //NPC.spriteDirection = NPC.direction;
+            if (!player.dead && distance < 1750)
+            {
+                if (Main.GraveyardVisualIntensity < 1)
+                {
+                    Main.GraveyardVisualIntensity += 0.02f;
+                }
+            }
+            else
+            {
+                if (Main.GraveyardVisualIntensity > 0)
+                {
+                    Main.GraveyardVisualIntensity -= 0.02f;
+                }
+            }
+
+                //NPC.spriteDirection = NPC.direction;
 
             int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
             int ytilepos = (int)(NPC.Bottom.Y / 16) + 0;
@@ -186,6 +201,8 @@ namespace StormDiversMod.NPCs
 
             if (feartime > 120)
             {
+               
+
                 if (NPC.velocity.X > 0.1f)
                 {
                     NPC.spriteDirection = 1;

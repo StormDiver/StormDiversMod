@@ -23,6 +23,7 @@ using Terraria.ModLoader.IO;
 
 using StormDiversMod.Items.Pets;
 using StormDiversMod.Projectiles;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace StormDiversMod.NPCs.Boss
 {
@@ -1453,9 +1454,11 @@ namespace StormDiversMod.NPCs.Boss
                     Main.NewText("Screams are echoing from the dungeon...", 73, 201, 127);
                 }
             }
-           
+
+            Item.NewItem(new EntitySource_Loot(null), NPC.position, new Vector2(NPC.width, NPC.height), ItemID.RocketI, Main.rand.Next(50, 101)); //make rockets not appear in bestiary
+
         }
-        
+
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
@@ -1471,8 +1474,7 @@ namespace StormDiversMod.NPCs.Boss
             notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<StormKnife>(), ModContent.ItemType<StormLauncher>(), ModContent.ItemType<StormStaff>(), ModContent.ItemType<StormSentryStaff>()));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VortexiaWeapon>(), 10));
 
-            notExpert.OnSuccess(ItemDropRule.Common(ItemID.RocketI, 1, 50, 100)); //idk how to make it only drop along side launcher so :shrug:
-
+            //notExpert.OnSuccess(ItemDropRule.Common(ItemID.RocketI, 1, 50, 100)); //idk how to make it only drop along side launcher so :shrug:
 
             //expert and master loot
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.BossTrophy.StormBossBag>()));

@@ -60,7 +60,7 @@ namespace StormDiversMod.Items.Accessory
             {
                 if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
                 {
-                    if (projectile.owner == Main.myPlayer && projectile.friendly && !projectile.minion && !projectile.sentry && projectile.damage >= 1)
+                    if (projectile.owner == Main.myPlayer && projectile.friendly && !projectile.minion && !projectile.sentry && projectile.damage >= 1 && !projectile.npcProj && !projectile.hostile)
                     {
 
                         if (Main.rand.Next(4) < 2)
@@ -71,65 +71,11 @@ namespace StormDiversMod.Items.Accessory
                         }
                     }
                 }
-            }
-            
-        }
-        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            //public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) //PvE
-
-            var player = Main.player[projectile.owner];
-
-            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
-            {
-                if (projectile.owner == Main.myPlayer && projectile.friendly)
-                {
-                    target.AddBuff(BuffID.Frostburn, 120);
-                }
-            }
-
-        }
-        public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
-        {
-            if (info.PvP)
-            {
-                var player = Main.player[projectile.owner];
-
-                if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
-                {
-                    if (projectile.owner == Main.myPlayer && projectile.friendly)
-                    {
-                        target.AddBuff(BuffID.Frostburn, 120);
-                        //target.AddBuff(mod.BuffType("SuperFrostBurn"), 600);
-                    }
-                }
-            }
+            }   
         }
     }
     public class BlueCuffsMelee : GlobalItem
     {
-        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-
-            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
-            {
-                if (Main.rand.Next(4) == 0)
-                {
-                    target.AddBuff(BuffID.Frostburn, 180);
-                }
-            }
-
-        }
-        public override void OnHitPvp(Item item, Player player, Player target, Player.HurtInfo hurtInfo)
-        {
-            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
-            {
-                if (Main.rand.Next(4) == 0)
-                {
-                    target.AddBuff(BuffID.Frostburn, 180);
-                }
-            }
-        }
         public override void MeleeEffects(Item Item, Player player, Rectangle hitbox) //Dust Effects
         {
             if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)

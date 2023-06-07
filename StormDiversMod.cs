@@ -22,6 +22,8 @@ using Terraria.Enums;
 using ReLogic.Content;
 using StormDiversMod.Items.Weapons;
 using Terraria.GameContent.ItemDropRules;
+using StormDiversMod.NPCs.Boss;
+using StormDiversMod.Items.Summons;
 
 namespace StormDiversMod
 {
@@ -36,33 +38,35 @@ namespace StormDiversMod
                 if (bossChecklist != null)
                 {
                     bossChecklist.Call
-                        ("AddBoss", this, "Overloaded Scandrone", ModContent.NPCType<NPCs.Boss.StormBoss>(), 12f, (Func<bool>)(() => StormWorld.stormBossDown), () => true,
-                        new List<int> { ModContent.ItemType<Items.BossTrophy.StormBossTrophy>(), ModContent.ItemType<Items.BossTrophy.StormBossRelic>(), ModContent.ItemType<Items.Pets.StormBossPetItem>(),
-                        ModContent.ItemType<Items.BossTrophy.StormBossBag>(), ModContent.ItemType<Items.Accessory.StormCoil>(), //vanity
-                        //other
-                        //ModContent.ItemType<Items.Weapons.StormKnife>(), ModContent.ItemType<Items.Weapons.StormLauncher>(), ModContent.ItemType<Items.Weapons.StormStaff>(), ModContent.ItemType<Items.Weapons.StormSentryStaff>(),
-                        ModContent.ItemType<Items.Vanitysets.BossMaskStormBoss>()}, //ModContent.ItemType<Items.Tools.StormHook>(), ModContent.ItemType<Items.Accessory.StormWings>(),ItemID.TempleKey},
-
-                        ModContent.ItemType<Items.Summons.StormBossSummoner>(), "Summoned by using a Storm Beacon once all 3 mechs have been defeated",
-                        "Overloaded Scandrone returns to its home planet (and didn't die on the way home)",
-                        (SpriteBatch sb, Rectangle rect, Color color) =>
+                        ("LogBoss", 
+                        this, 
+                        nameof(StormBoss), 
+                        11.9f, 
+                        () => StormWorld.stormBossDown, 
+                        ModContent.NPCType<NPCs.Boss.StormBoss>(),
+                        new Dictionary<string, object>()
+                        {
+                            ["spawnItems"] = ModContent.ItemType<StormBossSummoner>(),
+                        },
+                            (SpriteBatch sb, Rectangle rect, Color color) =>
                         {
                             Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
                             Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
                             sb.Draw(texture, centered, color);
                         }
                         );
-                    // Additional bosses here
 
                     bossChecklist.Call
-                       ("AddBoss", this, "Ancient Husk", ModContent.NPCType<NPCs.Boss.AridBoss>(), 6.5f, (Func<bool>)(() => StormWorld.aridBossDown), () => true,
-                       new List<int> { ModContent.ItemType<Items.BossTrophy.AridBossTrophy>(), ModContent.ItemType<Items.BossTrophy.AridBossRelic>(), ModContent.ItemType<Items.Pets.AridBossPetItem>(),
-                        ModContent.ItemType<Items.BossTrophy.AridBossBag>(), ModContent.ItemType<Items.Accessory.AridCore>(), //vanity
-                       
-                        ModContent.ItemType<Items.Vanitysets.BossMaskAridBoss>()},
-
-                       ModContent.ItemType<Items.Summons.AridBossSummon>(), "Summoned by using a Cracked Horn at any time while in a desert",
-                       "The Ancient Husk returns to the depths of the desert",
+                       ("LogBoss",
+                        this,
+                        nameof(AridBoss),
+                        6.5f,
+                        () => StormWorld.aridBossDown,
+                        ModContent.NPCType<NPCs.Boss.AridBoss>(),
+                         new Dictionary<string, object>()
+                         {
+                             ["spawnItems"] = ModContent.ItemType<AridBossSummon>(),
+                         },
                        (SpriteBatch sb, Rectangle rect, Color color) =>
                        {
                            Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/AridBoss_Image").Value;
@@ -72,14 +76,16 @@ namespace StormDiversMod
                        );
 
                     bossChecklist.Call
-                       ("AddBoss", this, "The Painbringer", ModContent.NPCType<NPCs.Boss.TheUltimateBoss>(), 19f, (Func<bool>)(() => StormWorld.ultimateBossDown), () => true,
-                       new List<int> { ModContent.ItemType<Items.BossTrophy.UltimateBossTrophy>(), ModContent.ItemType<Items.BossTrophy.UltimateBossRelic>(), ModContent.ItemType<Items.Pets.UltimateBossPetItem>(),
-                        ModContent.ItemType<Items.BossTrophy.UltimateBossBag>(), ModContent.ItemType<Items.Accessory.DeathCore>(), //vanity
-                       
-                        ModContent.ItemType<Items.Vanitysets.ThePainMask>()},
-
-                       ModContent.ItemType<Items.Summons.UltimateBossSummoner>(), "Summoned by using Mysterious Skull post Moon Lord\n(Dropped from any enemy while wearing ThePain or Clayman mask post Moon Lord)",
-                       "You couldn't handle the pain huh?",
+                       ("LogBoss",
+                        this,
+                        nameof(TheUltimateBoss),
+                        19f,
+                        () => StormWorld.ultimateBossDown,
+                        ModContent.NPCType<NPCs.Boss.TheUltimateBoss>(),
+                         new Dictionary<string, object>()
+                         {
+                             ["spawnItems"] = ModContent.ItemType<UltimateBossSummoner>(),
+                         },
                        (SpriteBatch sb, Rectangle rect, Color color) => {
                            Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/TheUltimateBoss_Image").Value;
                            Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));

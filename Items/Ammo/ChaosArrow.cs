@@ -13,7 +13,7 @@ namespace StormDiversMod.Items.Ammo
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Chaos Arrow");
-            //Tooltip.SetDefault("Ignores gravity, and ricochets off tiles, gaining speed and damage with every bounce\n'Unleash the Chaos'");
+            //Tooltip.SetDefault("Teleports to the cursor after hitting an enemy, maintaining its velocity but losing 50% damage\n'Unleash the Chaos'");
             Item.ResearchUnlockCount = 99;
 
         }
@@ -27,9 +27,7 @@ namespace StormDiversMod.Items.Ammo
 
             Item.DamageType = DamageClass.Ranged;
 
-
-
-            Item.damage = 10;
+            Item.damage = 4;
 
             Item.knockBack = 1f;
             Item.consumable = true;

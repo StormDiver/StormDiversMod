@@ -25,11 +25,11 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.width = 14;
             Projectile.height = 14;
 
-            Projectile.aiStyle = 0;
+            Projectile.aiStyle = 1;
             Projectile.light = 0.3f;
             Projectile.friendly = true;
             Projectile.timeLeft = 450;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 2;
             Projectile.arrow = true;
             Projectile.tileCollide = true;
 
@@ -38,20 +38,37 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.arrow = true;
 
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 3;
 
             //DrawOffsetX = +13;
             DrawOriginOffsetY = 0;
         }
-        //int spinspeed = 0;
-
-        int reflect = 6;
+        bool teleported;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            reflect--;
 
+            /*for (int i = 0; i < 5; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
+                dust.scale = 1.1f;
+                dust.velocity *= 2;
+                dust.noGravity = true;
+            }
 
-            Projectile.damage = (Projectile.damage * 23) / 20; //15% extra damage
+            Projectile.position.X = Main.MouseWorld.X;
+            Projectile.position.Y = Main.MouseWorld.Y;
+
+            SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = 0.5f, MaxInstances = -1 }, Projectile.Center); ;
+
+            for (int i = 0; i < 5; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
+                dust.scale = 1.1f;
+                dust.velocity *= 2;
+                dust.noGravity = true;
+            }*/
+
+            /*Projectile.damage = (Projectile.damage * 23) / 20; //15% extra damage
             Projectile.knockBack += 1;
 
             if (Projectile.velocity.X != oldVelocity.X)
@@ -67,20 +84,37 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             {
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 248);
                 dust2.noGravity = true;
-            }
-            if (reflect > 0)
-            {
-                SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
-            }
-
-            return false;
+            }*/
+            return true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for (int i = 0; i < 10; i++)
+            if (teleported)
             {
-                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 248);
-                dust2.noGravity = true;
+                Projectile.Kill();
+            }
+            else
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 248);
+                    dust.scale = 1.1f;
+                    dust.noGravity = true;
+                }
+
+                Projectile.position.X = Main.MouseWorld.X;
+                Projectile.position.Y = Main.MouseWorld.Y;
+
+                SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = 0.5f, MaxInstances = -1 }, Projectile.Center); ;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 248);
+                    dust.scale = 1.1f;
+                    dust.noGravity = true;
+                }
+                Projectile.damage /= 2;
+                teleported = true;
             }
         }
         public override void AI()
@@ -89,16 +123,11 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //Projectile.rotation = (0.4f * spinspeed) * Projectile.direction;
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
-
             if (Main.rand.Next(5) == 0)
             {
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 248, 0f, 0f, 100, default, 0.7f);
                 Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
-            }
-            if (reflect <= 0)
-            {
-                Projectile.Kill();
             }
         }
 
@@ -123,9 +152,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
     }
 }

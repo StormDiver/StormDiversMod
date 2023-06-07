@@ -72,7 +72,6 @@ namespace StormDiversMod.Projectiles.Petprojs
             return true;
         }
 
-
         float movespeed = 12f; //Speed of the pet
 
         float xpostion = 50; // The picked x postion
@@ -80,9 +79,6 @@ namespace StormDiversMod.Projectiles.Petprojs
         bool teleport;
         bool yAssend;
         bool teleanimation;
-
-       
-
 
         public override void AI()
         {
