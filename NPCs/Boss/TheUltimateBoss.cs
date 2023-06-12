@@ -64,9 +64,8 @@ namespace StormDiversMod.NPCs.Boss
             NPC.noGravity = true;
             NPC.damage = 250; //250/350/450
 
-            NPC.defense = 150;
-            NPC.lifeMax = 400000;
-
+            NPC.defense = 100;
+            NPC.lifeMax = 300000;
             NPC.gfxOffY = 0;
 
             NPC.HitSound = SoundID.NPCHit2;
@@ -100,14 +99,14 @@ namespace StormDiversMod.NPCs.Boss
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            //400K Classic
+            //300K Classic
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f); //600,000 expert
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f); //450000K
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f); //840,000 Master
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f); //630000K 
             }
             //250/350/450
             NPC.damage = (int)(NPC.damage * 0.75f);

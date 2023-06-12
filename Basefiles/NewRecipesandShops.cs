@@ -134,18 +134,12 @@ namespace StormDiversMod.Basefiles
     {
         public override void AddRecipes()
         {
-            //Mining armour
-            /*Recipe recipe = Recipe.Create(ItemID.MiningShirt, 1);
-            recipe.AddIngredient(ItemID.Silk, 25);
-            recipe.AddRecipeGroup("StormDiversMod:GoldOres", 35);
-            recipe.AddTile(TileID.Loom);
+            //Night Vision Helmet
+            Recipe recipe = Recipe.Create(ItemID.NightVisionHelmet, 1);
+            recipe.AddRecipeGroup("StormDiversMod:GoldBars", 12);
+            recipe.AddIngredient(ModContent.ItemType<GraniteCore>(), 2);
+            recipe.AddTile(TileID.Anvils);
             recipe.Register();
-
-            recipe = Recipe.Create(ItemID.MiningPants, 1);
-            recipe.AddIngredient(ItemID.Silk, 20);
-            recipe.AddRecipeGroup("StormDiversMod:GoldOres", 30);
-            recipe.AddTile(TileID.Loom);
-            recipe.Register();*/
 
             //Gladiator gear
             Recipe recipe2 = Recipe.Create(ItemID.GladiatorHelmet, 1);

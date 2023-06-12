@@ -38,15 +38,15 @@ namespace StormDiversMod.NPCs.Boss
 
             NPC.damage = 0;//No contact damage
            
-            NPC.defense = 100;
+            NPC.defense = 75;
             if (Main.getGoodWorld)
-                NPC.lifeMax = 90000;
+                NPC.lifeMax = 80000;
             else if (Main.masterMode)
-                NPC.lifeMax = 70000;
+                NPC.lifeMax = 60000;
             else if (Main.expertMode && !Main.masterMode)
-                NPC.lifeMax = 50000;
+                NPC.lifeMax = 45000;
             else
-                NPC.lifeMax = 35000;
+                NPC.lifeMax = 30000;
 
             NPC.HitSound = SoundID.Item25;
             NPC.DeathSound = SoundID.Item107;
@@ -55,7 +55,6 @@ namespace StormDiversMod.NPCs.Boss
             NPC.noGravity = true;
 
             //NPC.boss = true;
-
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
@@ -280,7 +279,7 @@ namespace StormDiversMod.NPCs.Boss
             float distance = Vector2.Distance(target.Center, NPC.Center);
             if (distance > 1000)
             {
-                NPC.Center = target.Center;
+                NPC.position = target.Center;
             }
             NPC.localAI[2]++;
             if (NPC.localAI[2] >= 180 && !player.dead)

@@ -85,7 +85,6 @@ namespace StormDiversMod.Items.Vanitysets
             Item.value = Item.sellPrice(0, 0, 75, 0);
             Item.rare = ItemRarityID.Blue;
             Item.vanity = true;
-
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

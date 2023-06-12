@@ -1454,9 +1454,8 @@ namespace StormDiversMod.NPCs.Boss
                     Main.NewText("Screams are echoing from the dungeon...", 73, 201, 127);
                 }
             }
-
+            if (!Main.expertMode)
             Item.NewItem(new EntitySource_Loot(null), NPC.position, new Vector2(NPC.width, NPC.height), ItemID.RocketI, Main.rand.Next(50, 101)); //make rockets not appear in bestiary
-
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
