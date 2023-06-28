@@ -28,8 +28,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 14;
+            Projectile.height = 14;
 
 
             Projectile.light = 0.6f;
@@ -210,8 +210,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 18;
+            Projectile.height = 18;
 
 
             Projectile.light = 0.6f;
@@ -229,7 +229,7 @@ namespace StormDiversMod.Projectiles
             DrawOriginOffsetY = 0;
 
 
-            Projectile.extraUpdates = 3;
+            Projectile.extraUpdates = 2;
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;

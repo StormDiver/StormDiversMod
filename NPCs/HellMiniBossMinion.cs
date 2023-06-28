@@ -40,7 +40,6 @@ namespace StormDiversMod.NPCs
             NPC.defense = 10;
             NPC.lifeMax = 250;
 
-
             NPC.HitSound = SoundID.NPCHit3;
             NPC.DeathSound = SoundID.NPCDeath6;
             NPC.knockBackResist = 0.9f;
@@ -52,7 +51,7 @@ namespace StormDiversMod.NPCs
             };
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
-            //Banner = Item.NPCtoBanner(ModContent.NPCType<HellMiniBossMinion>());
+            Banner = Item.NPCtoBanner(ModContent.NPCType<HellMiniBoss>());
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {

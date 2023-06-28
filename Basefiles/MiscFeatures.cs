@@ -78,7 +78,7 @@ namespace StormDiversMod.Basefiles
             //Alt fire autouse
             if ((
                 Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LightDarkSword>() ||
-                Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexLauncher>() ||
+                //Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexLauncher>() ||
                 //Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexShotgun>() ||
                 Player.HeldItem.type == ModContent.ItemType<Items.Weapons.ShroomiteLauncher>()
                 )

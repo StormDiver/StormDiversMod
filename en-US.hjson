@@ -1453,9 +1453,23 @@ Mods: {
 				Tooltip: "'Greatly speeds up your mining experience'"
 			}
 
+			FishingRodCoral: {
+				DisplayName: Fisher of the Sea
+				Tooltip: Casts 2 lines at once
+			}
+
 			FishingRodDerpling: {
 				DisplayName: Derpling Fishing Rod
-				Tooltip: Fires multiple lines at once
+				Tooltip: Casts 3 lines at once
+			}
+
+			FishingRodLunar: {
+				DisplayName: Celestial Pole
+				Tooltip:
+					'''
+					Casts 4 lines at once
+					Allows fishing in lava
+					'''
 			}
 
 			FrostHamaxe: {
@@ -2132,8 +2146,8 @@ Mods: {
 				DisplayName: Vortex Launcher
 				Tooltip:
 					'''
-					Fires out a barrage of vortex rockets
-					Right click to fire a single faster, fully accurate, and more damaging rocket
+					Fires out a spread of vortex rockets
+					One will always be fully accurate, with a higher velocity and deals more damage
 					'''
 			}
 
@@ -2658,7 +2672,7 @@ Mods: {
 
 			HellMiniBossBannerItem: {
 				DisplayName: Soul Cauldron Banner
-				Tooltip: Nearby players get a bonus against: Soul Cauldron
+				Tooltip: Nearby players get a bonus against: Soul Cauldron and Soul Cauldron Servant
 			}
 
 			HellSoulBannerItem: {
@@ -2718,7 +2732,7 @@ Mods: {
 
 			StardustDerpBannerItem: {
 				DisplayName: Star Hopper Banner
-				Tooltip: Nearby players get a bonus against: Star Hopper
+				Tooltip: Nearby players get a bonus against: Star Hopper and Star Hopper Minion
 			}
 
 			StormDerpBannerItem: {
@@ -2766,19 +2780,38 @@ Mods: {
 				Tooltip: "'Why's everybody looking at you like that, you're perfectly normal'"
 			}
 
-			TestBHead: {
-				DisplayName: Test Hood
-				Tooltip: Pain
+			Oilcan: {
+				DisplayName: Oil Can
+				Tooltip:
+					'''
+					Cover your enemies in oil
+					Right click to set nearby oiled enemies ablaze
+					'Be careful when around town npcs'
+					'''
 			}
 
-			TestChest: {
-				DisplayName: Test Chest
-				Tooltip: and
+			SnowfallBMask: {
+				DisplayName: Snowfall Hood
+				Tooltip: 5% increased critical strike chance
 			}
 
-			TestLeg: {
-				DisplayName: Test Leg
-				Tooltip: Suffering
+			SnowfallChest: {
+				DisplayName: Snowfall Coat
+				Tooltip: Increases damage by a flat 1
+			}
+
+			SnowfallLeg: {
+				DisplayName: Snowfall Boots
+				Tooltip: 10% increased jump and movement speed
+			}
+
+			SantaBullet: {
+				DisplayName: Santa's Bullet
+				Tooltip:
+					'''
+					Ricochets twice, exploding on the third impact, or on impact with enemies
+					'You must be on the super naughty list to have one of these'
+					'''
 			}
 		}
 
@@ -3120,7 +3153,14 @@ Mods: {
 			ThrowingTungstenKniveProj.DisplayName: Tungsten Throwing Knive
 			TombProj.DisplayName: TombStone
 			AircanProj.DisplayName: Air Blast
+			OilCanProj.DisplayName: Oil Blob
+			BobberCoral.DisplayName: Coral Bobber
 			BobberDerpling.DisplayName: Derpling Bobber
+			BobberLunar.DisplayName: Lunar Bobber
+			BobberLunarNebula.DisplayName: Bobber Lunar Nebula
+			BobberLunarSolar.DisplayName: Bobber Lunar Solar
+			BobberLunarStardust.DisplayName: Bobber Lunar Stardust
+			BobberLunarVortex.DisplayName: Bobber Lunar Vortex
 			DerpChainProj.DisplayName: Derpling Chainsaw
 			DerpDrillProj.DisplayName: Derpling Drill
 			DerpJackProj.DisplayName: Derpling Jackhammer
@@ -3141,7 +3181,7 @@ Mods: {
 			VortexiaProj.DisplayName: Large Vortex
 			VortexiaProj2.DisplayName: Homing Vortex
 			VortexRocketProj.DisplayName: Vortex Rocket
-			VortexRocketProj2.DisplayName: Vortex Rocket
+			VortexRocketProj2.DisplayName: Vortex Rocket Large
 			VortexShotgunGun.DisplayName: Storm Diver Shotgun
 			WebProj.DisplayName: Web
 			BloodWhipProj.DisplayName: Blood Whip Proj
@@ -3153,20 +3193,8 @@ Mods: {
 			WebWhipProj.DisplayName: Web Whip Proj
 			WoodenBoltProj.DisplayName: CrossBow Bolt
 			WoodPointyStickProj.DisplayName: Pointy Stick
-			TRAEBeetleSpear.DisplayName: Beetle Lance
-			TRAEBeetleSpearThrow.DisplayName: Beetle Lance Thrown
-			TRAEBloodySpear.DisplayName: Heart Piercer
-			TRAEBloodySpearThrow.DisplayName: Heart Piercer Thrown
-			TRAECultistSpear.DisplayName: Luanatic Spear of Fire
-			TRAECultistSpearThrow.DisplayName: Luanatic Spear of Fire Thrown
-			TRAEDesertSpear.DisplayName: Forbidden Pike
-			TRAEDesertSpearThrow.DisplayName: Forbidden Pike Thrown
-			TRAEGladiatorSpear.DisplayName: Gladiator Glaive
-			TRAEGladiatorSpearThrow.DisplayName: Gladiator Glaive Thrown
-			TRAEMeteorSpear.DisplayName: Space Spear
-			TRAEMeteorSpearThrow.DisplayName: Space Spear Thrown
-			TRAETurtleSpear.DisplayName: Turtle Pike
-			TRAETurtleSpearThrow.DisplayName: Turtle Pike Thrown
+			SantaBulletProj.DisplayName: Santa's Bullet
+			SantaBulletProj2.DisplayName: Santa Bullet Proj2
 		}
 
 		Tiles: {

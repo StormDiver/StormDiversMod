@@ -49,8 +49,9 @@ namespace StormDiversMod.Basefiles
 
         public bool cryoSet; //Cryogenic armour
 
-
         public bool shadowflameSet; //Shadowflame armour 
+
+        public bool snowfallSet; //Snowfall armour
 
         //Ints and Bools activated from this file
 
@@ -82,6 +83,7 @@ namespace StormDiversMod.Basefiles
             aridCritSet = false;
             cryoSet = false;
             shadowflameSet = false;
+            snowfallSet = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -698,6 +700,32 @@ namespace StormDiversMod.Basefiles
             if (!cryoSet)
             {
                 cryosetcooldown = 0;
+            }
+
+            if (snowfallSet)
+            {
+                if (Player.controlJump && Player.velocity.Y > 0)
+                {
+                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 16);
+                    dust.scale = 1f;
+                    //dust.velocity *= 0;
+                    dust.noGravity = true;
+                    //dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+
+                    if (Player.controlUp)
+                    {
+                        Player.gravity = 0.1f;
+                        Player.maxFallSpeed *= 0.1f;
+                    }
+                    else
+                    {
+                        Player.gravity = 0.25f;
+                        Player.maxFallSpeed *= 0.25f;
+                    }
+                    Player.runAcceleration += 0.2f;
+                    Player.fallStart = (int)Player.tileTargetY;
+                    Player.slowFall = false;
+                }
             }
         }
         //=====================For attacking an enemy with anything===========================================

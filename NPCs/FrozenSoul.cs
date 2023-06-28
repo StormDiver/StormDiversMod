@@ -40,7 +40,7 @@ namespace StormDiversMod.NPCs
             NPC.damage = 50;
             NPC.lavaImmune = true;
             NPC.defense = 15;
-            NPC.lifeMax = 750;
+            NPC.lifeMax = 600;
             NPC.noGravity = true;
            
 
@@ -108,11 +108,11 @@ namespace StormDiversMod.NPCs
 
             if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight) || (Vector2.Distance(player.Center, NPC.Center) <= 300f && !lineofsight))
             {           
-                if (shoottime >= 210)//fires the projectiles
+                if (shoottime >= 240)//fires the projectiles
                 {
 
-                    float projectileSpeed = 8f; // The speed of your projectile (in pixels per second).
-                    int damage = 30; // The damage your projectile deals.
+                    float projectileSpeed = 7f; // The speed of your projectile (in pixels per second).
+                    int damage = 25; // The damage your projectile deals.
                     float knockBack = 2;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.FrozenSoulProj>();
 

@@ -24,11 +24,15 @@ using StormDiversMod.Items.Weapons;
 using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.NPCs.Boss;
 using StormDiversMod.Items.Summons;
+using System.Security.Policy;
+using StormDiversMod.Items.Armour;
 
 namespace StormDiversMod
 {
 	public class StormDiversMod : Mod //For most important things
 	{
+        public static int TwilightRobe;
+
         public override void PostSetupContent()
         {
             //For boss checklist
@@ -38,22 +42,24 @@ namespace StormDiversMod
                 if (bossChecklist != null)
                 {
                     bossChecklist.Call
-                        ("LogBoss", 
-                        this, 
-                        nameof(StormBoss), 
-                        11.9f, 
-                        () => StormWorld.stormBossDown, 
+                        ("LogBoss",
+                        this,
+                        nameof(StormBoss),
+                        11.9f,
+                        () => StormWorld.stormBossDown,
                         ModContent.NPCType<NPCs.Boss.StormBoss>(),
                         new Dictionary<string, object>()
                         {
                             ["spawnItems"] = ModContent.ItemType<StormBossSummoner>(),
-                        },
-                            (SpriteBatch sb, Rectangle rect, Color color) =>
-                        {
+                            ["collectibles"] = ItemID.MusicBoxBoss4,
+                            ["customPortrait"] = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
                             Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
                             Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
                             sb.Draw(texture, centered, color);
+                            }
                         }
+
                         );
 
                     bossChecklist.Call
@@ -66,13 +72,15 @@ namespace StormDiversMod
                          new Dictionary<string, object>()
                          {
                              ["spawnItems"] = ModContent.ItemType<AridBossSummon>(),
-                         },
-                       (SpriteBatch sb, Rectangle rect, Color color) =>
-                       {
-                           Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/AridBoss_Image").Value;
-                           Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
-                           sb.Draw(texture, centered, color);
-                       }
+                             ["collectibles"] = ItemID.MusicBoxBoss5,
+                             ["customPortrait"] = (SpriteBatch sb, Rectangle rect, Color color) =>
+                             {
+                                 Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/AridBoss_Image").Value;
+                                 Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+                                 sb.Draw(texture, centered, color);
+                             }
+                         }
+
                        );
 
                     bossChecklist.Call
@@ -85,12 +93,15 @@ namespace StormDiversMod
                          new Dictionary<string, object>()
                          {
                              ["spawnItems"] = ModContent.ItemType<UltimateBossSummoner>(),
-                         },
-                       (SpriteBatch sb, Rectangle rect, Color color) => {
-                           Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/TheUltimateBoss_Image").Value;
-                           Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
-                           sb.Draw(texture, centered, color);
-                       }
+                             ["collectibles"] = ItemID.MusicBoxLunarBoss,
+                             ["customPortrait"] = (SpriteBatch sb, Rectangle rect, Color color) =>
+                             {
+                                 Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/TheUltimateBoss_Image").Value;
+                                 Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+                                 sb.Draw(texture, centered, color);
+                             }
+                         }
+
                        );
                 }
             }
@@ -117,6 +128,11 @@ namespace StormDiversMod
             {
                 // wikithis.Call("AddModURL", this, "terrariamods.wiki.gg$Storm's_Additions_Mod");
                 wikithis.Call(0, this, "https://terrariamods.wiki.gg/wiki/Storm's_Additions_Mod/{}");
+            }
+
+            if (!Main.dedServ)
+            {
+                TwilightRobe = EquipLoader.AddEquipTexture(this, "StormDiversMod/Items/Armour/NightsChainmail_Robe", EquipType.Front, GetModItem(ItemType<NightsChainmail>()));
             }
         }
         public override void Unload()

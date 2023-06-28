@@ -156,12 +156,9 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         
         public override void AI()
         {
-
             spwmushroom--;
             if (Main.rand.Next(12) == 0)
             {
-                
-                
                 int speedX = 0;
                 int speedY = 0;
 
@@ -212,7 +209,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/ShroomArrowProj_Glow");
 
             //Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-
 
         }
         public override bool PreDraw(ref Color lightColor)

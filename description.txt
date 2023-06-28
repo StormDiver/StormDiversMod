@@ -24,6 +24,7 @@ Make sure to check the Steam page for the changelog, and the leave any comments 
 
 Creator, coder, and main spriter: [c/22DD97:TheStorm]
 Spriter and playtester: [c/EE59E3:KittKatt]
+Some additional sprites by: Charley#0571 
 
 Important info: Tmodloader has a wing limit of 127, so if you get any errors related to wings you will need to disable some other mods that add wings.
 

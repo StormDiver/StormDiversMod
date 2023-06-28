@@ -346,8 +346,10 @@ namespace StormDiversMod.Basefiles
             if (shop.NpcType == NPCID.Mechanic)
             {
                 shop.Add(ModContent.ItemType<Aircan>());
+                shop.Add(ModContent.ItemType<Oilcan>());
 
                 shop.Add(ItemID.CombatWrench);
+
             }
 
             if (shop.NpcType == NPCID.Steampunker)

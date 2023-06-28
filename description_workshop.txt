@@ -26,6 +26,7 @@ Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additio
 
 Creator, coder, and main spriter: [b]TheStorm[/b]
 Spriter and playtester: [b]KittKatt[/b]
+Some additional sprites by: Charley#0571 
 
 [b]Important info: Tmodloader has a wing limit of 127, so if you get any errors related to wings you will need to disable some other mods that add wings.[/b]
 

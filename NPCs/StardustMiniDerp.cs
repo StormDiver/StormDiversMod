@@ -38,18 +38,14 @@ namespace StormDiversMod.NPCs
             NPC.defense = 0;
             NPC.lifeMax = 100;
             NPC.noTileCollide = true;
-               
-        
             
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
             NPC.knockBackResist = -0.1f;
             Item.buyPrice(0, 0, 0, 0);
             NPC.noGravity = true;
-
             //Banner = Item.BannerToNPC(ModContent.NPCType<StardustDerp>());
-            //Banner = Item.NPCtoBanner(ModContent.NPCType<StardustDerp>());
-
+            Banner = Item.NPCtoBanner(ModContent.NPCType<StardustDerp>());
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary

@@ -249,6 +249,8 @@ namespace StormDiversMod.NPCs.Banners
             if (closer)  //so if a player is close to the banner
             {
                 Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.StardustDerp>()] = true;
+                Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.StardustMiniDerp>()] = true;
+
                 Main.SceneMetrics.hasBanner = true;
             }
         }
@@ -591,6 +593,8 @@ namespace StormDiversMod.NPCs.Banners
             if (closer)  //so if a player is close to the banner
             {      
                 Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.HellMiniBoss>()] = true;
+                Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.HellMiniBossMinion>()] = true;
+
                 Main.SceneMetrics.hasBanner = true;
             }
         }

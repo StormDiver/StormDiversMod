@@ -27,6 +27,8 @@ using static Terraria.ModLoader.PlayerDrawLayer;
 using StormDiversMod.NPCs;
 using Terraria.GameContent.Drawing;
 using StormDiversMod.NPCs.Boss;
+using System.Reflection.Metadata.Ecma335;
+using Terraria.WorldBuilding;
 
 namespace StormDiversMod.Basefiles
 {
@@ -80,7 +82,6 @@ namespace StormDiversMod.Basefiles
         public int aridimmunetime; //prevent arid armour explosion from hitting triggered enemy
 
         public int forbiddenimmunetime; //Prevent forbidden sand from bitten targetted enemy
-
 
         //For Heart Emblem
 
@@ -267,6 +268,7 @@ namespace StormDiversMod.Basefiles
                 {
                     forbiddenimmunetime--;
                 }
+               
             }
             //______________
 
@@ -793,7 +795,7 @@ namespace StormDiversMod.Basefiles
         {
 
             var player = Main.player[projectile.owner];
-            
+           
             if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
             {
                 if (npc.HasBuff(BuffID.ShadowFlame))

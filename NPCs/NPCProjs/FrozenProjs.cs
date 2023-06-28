@@ -101,7 +101,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.hostile = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 45 + Main.rand.Next(30);
+            Projectile.timeLeft = 80;
             Projectile.aiStyle = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -130,7 +130,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             Projectile.ai[1]++;
 
-            if (Projectile.ai[1] >= 10)
+            if (Projectile.ai[1] >= 20)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

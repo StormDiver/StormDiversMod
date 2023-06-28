@@ -470,8 +470,21 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.SantaNK1)
             {
 
-                isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 8, 12));
-                notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 6, 10));
+                //isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 12, 15));
+                notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 9, 12));
+
+                int itemType = ModContent.ItemType<Items.Materials.SantankScrap>();
+                var parameters = new DropOneByOne.Parameters()
+                {
+                    ChanceNumerator = 1,
+                    ChanceDenominator = 1,
+                    MinimumStackPerChunkBase = 1,
+                    MaximumStackPerChunkBase = 1,
+                    MinimumItemDropsCount = 12,
+                    MaximumItemDropsCount = 15,
+                };
+
+                isExpert.OnSuccess(new DropOneByOne(itemType, parameters));
 
             }
             //Pets-----------------------------------------------------------------------------------------------------------------------------------------------------------------

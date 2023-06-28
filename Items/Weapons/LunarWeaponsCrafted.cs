@@ -98,7 +98,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Vortex Launcher");
-            //Tooltip.SetDefault("Fires out a barrage of vortex rockets\nRight click to fire a single faster, fully accurate, and more damaging rocket");
+            //Tooltip.SetDefault("Fires out a spread of vortex rockets\nOne will always be fully accurate, with a higher velocity and deals more damage");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -140,27 +140,7 @@ namespace StormDiversMod.Items.Weapons
 
 
         }
-
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
-        public override bool CanUseItem(Player player)
-        {
-
-            if (player.altFunctionUse == 2)
-            {
-
-
-            }
-            else
-            {
-
-
-            }
-            return base.CanUseItem(player);
-
-        }
+       
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-8, 0);
@@ -168,49 +148,24 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
-
-            if (player.altFunctionUse == 2)
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 20f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
+                position += muzzleOffset;
+            }
 
-                Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 10f;
-                if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-                {
-                    position += muzzleOffset;
-                }
-
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y);
-                for (int i = 0; i < 2; i++)
-                {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj2>(), damage * 2, knockback, player.whoAmI);
-                }
-                SoundEngine.PlaySound(SoundID.Item92 with{Volume = 1f, Pitch = 0.5f}, player.Center);
+            int numberProjectiles = 4;
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15));
+                float scale = 1f - (Main.rand.NextFloat() * .2f);
+                perturbedSpeed = perturbedSpeed * scale;
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj>(), damage, knockback, player.whoAmI);
 
             }
-            else
-            {
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X * 1f, velocity.Y) * 1f, ModContent.ProjectileType<Projectiles.VortexRocketProj2>(), (int)(damage * 1.5f), knockback, player.whoAmI);
 
-                Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 20f;
-                if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-                {
-                    position += muzzleOffset;
-                }
-                /*if (type == ProjectileID.RocketI || type == ProjectileID.RocketII || type == ProjectileID.RocketIII || type == ProjectileID.RocketIV)
-                {
-                    type = mod.ProjectileType("VortexRocketProj");
-                }*/
-                int numberProjectiles = 5;
-                for (int i = 0; i < numberProjectiles; i++)
-                {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15));
-                    float scale = 1f - (Main.rand.NextFloat() * .2f);
-                    perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj>(), damage, knockback, player.whoAmI);
-
-                }
-                SoundEngine.PlaySound(SoundID.Item92, player.Center);
-
-            }
+            SoundEngine.PlaySound(SoundID.Item92, player.Center);
 
             return false;
         }
