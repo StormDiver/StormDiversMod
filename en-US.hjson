@@ -1607,7 +1607,7 @@ Mods: {
 			}
 
 			PredictorBMask: {
-				DisplayName: Predictor Head
+				DisplayName: Predictor Mask
 				Tooltip: "'Unfortunately this will not increase your brain power'"
 			}
 
@@ -1622,7 +1622,7 @@ Mods: {
 			}
 
 			SelenianBMask: {
-				DisplayName: Selenian Head
+				DisplayName: Selenian Mask
 				Tooltip: "'No, you cannot reflect projectiles!'"
 			}
 
@@ -1637,7 +1637,7 @@ Mods: {
 			}
 
 			StargazerBMask: {
-				DisplayName: Stargazer Head
+				DisplayName: Stargazer Mask
 				Tooltip: "'Note, this will not actually allow you to see stars any better'"
 			}
 
@@ -1813,7 +1813,7 @@ Mods: {
 
 			CultistTome: {
 				DisplayName: Lunatic Spell of Ancient Light
-				Tooltip: Summons ancient light that seeks out enemies
+				Tooltip: Summons multiple ancient lights that seek out enemies
 			}
 
 			DerplingGun: {

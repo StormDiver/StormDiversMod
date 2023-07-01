@@ -206,7 +206,7 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Selenian Head");
+            //DisplayName.SetDefault("Selenian Mask");
             //Tooltip.SetDefault("'No, you cannot reflect projectiles!'");
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -386,7 +386,7 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Predictor Head");
+            //DisplayName.SetDefault("Predictor Mask");
             //Tooltip.SetDefault("'Unfortunately this will not increase your brain power'");
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -567,7 +567,7 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Stargazer Head");
+            //DisplayName.SetDefault("Stargazer Mask");
             //Tooltip.SetDefault("'Note, this will not actually allow you to see stars any better'");
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()

@@ -139,7 +139,7 @@ namespace StormDiversMod.Items.Tools
             Item.useAnimation = 8;
             Item.useTime = 8;
             Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(0, 50, 0, 0);
+            Item.value = Item.sellPrice(0, 7, 50, 0);
             Item.rare = ItemRarityID.Red;
             Item.fishingPole = 100; // Sets the poles fishing power
             Item.shootSpeed = 20f; // Sets the speed in which the bobbers are launched. Wooden Fishing Pole is 9f and Golden Fishing Rod is 17f.

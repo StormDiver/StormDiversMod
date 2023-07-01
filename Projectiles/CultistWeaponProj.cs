@@ -428,7 +428,7 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 34;
             Projectile.height = 34;
             Projectile.friendly = true;
-            Projectile.penetrate = 10;
+            Projectile.penetrate = 5;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 180;
             Projectile.tileCollide = true;
@@ -443,7 +443,7 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             rotate++;
-            Projectile.rotation = rotate * 0.1f;
+            //Projectile.rotation = rotate * 0.1f;
             if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, 0, 0, 130, default, 1.5f);
@@ -452,8 +452,9 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dust].velocity *= 0.5f;
             }
 
-
-            if (Projectile.localAI[0] == 0f)
+            if (rotate > 15)
+            {
+                if (Projectile.localAI[0] == 0f)
                 {
                     AdjustMagnitude(ref Projectile.velocity);
                     Projectile.localAI[0] = 1f;
@@ -482,26 +483,24 @@ namespace StormDiversMod.Projectiles
                 if (target)
                 {
                     AdjustMagnitude(ref move);
-                    Projectile.velocity = (10 * Projectile.velocity + move) / 11f;
+                    Projectile.velocity = (10 * Projectile.velocity + move) / 10f;
                     AdjustMagnitude(ref Projectile.velocity);
                 }
-            
+            }
         }
 
         private void AdjustMagnitude(ref Vector2 vector)
         {
             
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 12f)
+                if (magnitude > 10f)
                 {
-                    vector *= 12f / magnitude;
+                    vector *= 10f / magnitude;
                 }
             
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
-
             Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
             if (Projectile.velocity.X != oldVelocity.X)
@@ -512,13 +511,11 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.velocity.Y = -oldVelocity.Y * 1f;
             }
-
-
             return false;
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.damage = (Projectile.damage * 9) / 10;
 
             for (int i = 0; i < 10; i++)
             {
@@ -551,11 +548,10 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.9f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.8f, SpriteEffects.None, 0);
             }
 
             return true;
-
         }
        
         public override Color? GetAlpha(Color lightColor)

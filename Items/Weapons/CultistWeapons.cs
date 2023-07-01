@@ -175,7 +175,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Lunatic Spell of Ancient Light");
-            //Tooltip.SetDefault("Summons ancient light that seeks out enemies");
+            //Tooltip.SetDefault("Summons multiple ancient lights that seek out enemies");
 
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -194,8 +194,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 28;
-            Item.useAnimation = 28;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useTurn = false;
             Item.autoReuse = true;
 
@@ -210,13 +210,13 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item9;
 
-            Item.damage = 60;
+            Item.damage = 40;
 
             Item.knockBack = 4f;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.CultistTomeProj>(); 
 
-            Item.shootSpeed = 15f;
+            Item.shootSpeed = 10f;
 
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
@@ -234,9 +234,13 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 2.5f;
             }
-            return true;
-            
-
+            int numberProjectiles = 3 + Main.rand.Next(2); ; //3-4
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+                Vector2 perturbedSpeed2 = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(25)); // 
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed2.X, perturbedSpeed2.Y), type, damage, knockback, player.whoAmI);
+            }
+            return false;
            
         }
         //Drop rate in NPCEffects/ Luantic Cultist treasure bag

@@ -6,7 +6,7 @@ This mod includes:
 
 -Over 100 new unique weapons across all classes, including some minions and sentries
 -Over 30 new accessories, including new expert exclusive ones and some tinkers, and 4 wings
--12 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
+-14 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
 -27 new enemies across the game, with banners and bestiary entries
 -3 new bosses, with one that can be fought in place of the Plantera (config option)
 -New ammo for guns and bows
