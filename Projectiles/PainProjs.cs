@@ -60,6 +60,7 @@ namespace StormDiversMod.Projectiles
         {
             var player = Main.player[Projectile.owner];
 
+
             if (Projectile.position.Y > Main.MouseWorld.Y && Projectile.ai[0] == 0)
             {
                 Projectile.tileCollide = true;

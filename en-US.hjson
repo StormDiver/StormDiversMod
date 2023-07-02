@@ -2310,7 +2310,20 @@ Mods: {
 
 			PainSword: {
 				DisplayName: The Paingiver
-				Tooltip: You went through unimaginable pain to get this, now you can inflict that pain upon your enemies
+				Tooltip:
+					'''
+					You went through unimaginable pain to get this, now you can inflict that pain upon your enemies
+					Right click while holding to cycle damage types
+					'''
+			}
+
+			PainStaff: {
+				DisplayName: The Staff of The Painbringer
+				Tooltip:
+					'''
+					Summons multiple Judgment skulls in various patterns that seek out enemies and deliver pain
+					Right click while holding to cycle damage types
+					'''
 			}
 
 			ProtoLauncher: {
@@ -2768,11 +2781,6 @@ Mods: {
 			BossMaskUltimateBoss: {
 				DisplayName: The Painbringer Mask
 				Tooltip: ""
-			}
-
-			PainStaff: {
-				DisplayName: The Staff of The Painbringer
-				Tooltip: Summons multiple Judgment skulls in various patterns that seek out enemies and deliver pain
 			}
 
 			UltimateFearMask: {

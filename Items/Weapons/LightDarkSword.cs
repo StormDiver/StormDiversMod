@@ -50,7 +50,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool AltFunctionUse(Player player)
         {
-            
             return true;
         }
         public override bool CanUseItem(Player player)

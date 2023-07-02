@@ -1,3 +1,5 @@
+Note this mod is in active development for 1.4.4, development on the 1.4.3 version has stopped and lacks some things that the 1.4.4 version has.
+
 [b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a decently sized content mod that adds unique content throughout different areas of the game where content seems lacking, along with unique items thrown in here and there. It even makes some hard to obtain vanilla items a little easier to get.
 
 There's over 300 total modded items for you to discover; including weapons, accessories, ammo, tools, armour, vanity sets, enemies, and more. Many are crafted with vanilla items, but some have their own modded ingredients added to the recipes.
