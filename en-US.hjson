@@ -1775,8 +1775,8 @@ Mods: {
 			}
 
 			ChloroStaff: {
-				DisplayName: Chlorophyte Scepter
-				Tooltip: Fires out a stream of damaging spore dust
+				DisplayName: Chlorophyte Spore Staff
+				Tooltip: Fires out a spore that explodes into multiple spore clouds at the cursor's location
 			}
 
 			CultistBow: {
@@ -3203,6 +3203,7 @@ Mods: {
 			WoodPointyStickProj.DisplayName: Pointy Stick
 			SantaBulletProj.DisplayName: Santa's Bullet
 			SantaBulletProj2.DisplayName: Santa Bullet Proj2
+			ExplosionChloroProj.DisplayName: Explosion Chloro Proj
 		}
 
 		Tiles: {

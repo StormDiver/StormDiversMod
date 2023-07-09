@@ -28,6 +28,6 @@ Creator, coder, and main spriter: [c/22DD97:TheStorm]
 Spriter and playtester: [c/EE59E3:KittKatt]
 Some additional sprites by: Charley#0571 
 
-Important info: Tmodloader has a wing limit of 127, so if you get any errors related to wings you will need to disable some other mods that add wings.
+Important info (1.4.3 only) : Tmodloader has a wing limit of 127, so if you get any errors related to wings you will need to disable some other mods that add wings.
 
 Also try out Storm's Tweaks Mod, makes a few small configurable changes to Terraria that may be useful

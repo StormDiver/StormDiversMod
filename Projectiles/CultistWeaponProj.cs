@@ -519,7 +519,7 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 10; i++)
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0, 0, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, 0, 0, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                 Main.dust[dust].noGravity = true;
             }
         }
@@ -528,12 +528,14 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);
-
-                for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
+                for (int i = 0; i < 30; i++) 
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0, 0, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 2.5f;
+                    Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 111, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+
                 }
 
             }
