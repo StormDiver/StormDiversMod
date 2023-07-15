@@ -22,6 +22,8 @@ using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using Terraria.GameContent.Drawing;
+using Terraria.Map;
+
 namespace StormDiversMod.Basefiles
 {
 
@@ -326,7 +328,7 @@ namespace StormDiversMod.Basefiles
                 int xcursor = (int)(Main.MouseWorld.X / 16);
                 int ycursor = (int)(Main.MouseWorld.Y / 16);
                 Tile tile = Main.tile[xcursor, ycursor];
-                if ((tile != null && !tile.HasTile || !Main.tileSolid[tile.TileType]) && !Player.HasBuff(ModContent.BuffType<TwilightDebuff>())) //Checks if mouse is in valid postion
+                if ((!tile.HasTile || !Main.tileSolid[tile.TileType]) && !Player.HasBuff(ModContent.BuffType<TwilightDebuff>())) //Checks if mouse is in valid postion
                 {
                     if (((distanceX < -xWarplimit || distanceX > xWarplimit || distanceY < -yWarplimit || distanceY > yWarplimit) && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) ||
                         (distanceX > -xWarplimit && distanceX < xWarplimit && distanceY > -yWarplimit && distanceY < yWarplimit)) //If there is no line of sight and cursor is past limit, don't allow teleport to prevent gettign stuck in blocks

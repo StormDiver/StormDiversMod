@@ -32,7 +32,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 24;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 10, 0, 0);
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.LightPurple;
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = 100;
@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.MeleeNoSpeed;
 
             Item.shoot = ModContent.ProjectileType<TheSickleProj2>();
-            Item.damage = 85;
+            Item.damage = 50;
             //Item.crit = 4;
             Item.knockBack = 2f;
             Item.shootSpeed = 1f;
@@ -106,7 +106,7 @@ namespace StormDiversMod.Items.Weapons
             CreateRecipe()
             .AddIngredient(ItemID.Sickle, 2)
             .AddIngredient(ItemID.SoulofNight, 15)
-            .AddIngredient(ItemID.Ectoplasm, 15)
+            .AddIngredient(ItemID.SoulofFright, 10)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

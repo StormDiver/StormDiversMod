@@ -109,7 +109,7 @@ namespace StormDiversMod.Projectiles
 
             }*/
 
-            if (player.controlUseTile && Projectile.ai[1] > 60 && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LizardSpinner>() || player.dead) 
+            if (player.controlUseTile && Projectile.ai[1] > 60 && player.noThrow == 0 && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LizardSpinner>() || player.dead) 
             {
                 if (Projectile.timeLeft > 60)
                 {

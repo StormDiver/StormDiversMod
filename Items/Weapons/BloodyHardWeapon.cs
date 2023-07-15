@@ -83,12 +83,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void AddRecipes()
         {
-
             //In new recipes with other hardmode blood moon recipes
-          
-
-
-
         }
 
     }

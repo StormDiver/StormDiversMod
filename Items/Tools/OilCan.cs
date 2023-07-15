@@ -76,8 +76,8 @@ namespace StormDiversMod.Items.Tools
             else
             {
                 Item.useStyle = ItemUseStyleID.Shoot;
-                Item.useTime = 12;
-                Item.useAnimation = 12;
+                Item.useTime = 15;
+                Item.useAnimation = 15;
             }
             return true;
         }
@@ -112,7 +112,7 @@ namespace StormDiversMod.Items.Tools
 
                     if (npcdistance <= 300 && target.HasBuff(BuffID.Oiled) && target.active && target.lifeMax >= 5 && !target.dontTakeDamage && Collision.CanHitLine(target.position, target.width, target.height, new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36), 0, 0))
                     {
-                        target.AddBuff(BuffID.OnFire, 1200);
+                        target.AddBuff(BuffID.OnFire, 600); //10 seconds
 
                         for (int j = 0; j < 15; j++) //Orange particles
                         {

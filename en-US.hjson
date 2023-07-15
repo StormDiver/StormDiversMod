@@ -625,7 +625,8 @@ Mods: {
 					'''
 					Allows flight
 					Hold DOWN to fall faster and create a shockwave upon hitting the ground
-					While falling faster you will damage any enemy you fall on
+					The shockwave will be larger and deal more damage the further you fall
+					While falling faster you will damage any enemy you fall on and avoid contact damage
 					'What did you think would happen if you attached an Anvil to a pair of boots?'
 					'''
 			}
@@ -636,7 +637,8 @@ Mods: {
 					'''
 					Allows flight and negates fall damage
 					Hold DOWN to fall faster and create a shockwave upon hitting the ground
-					While falling faster you will damage any enemy you fall on
+					The shockwave will be larger and deal more damage the further you fall
+					While falling faster you will damage any enemy you fall on and avoid contact damage
 					'''
 			}
 

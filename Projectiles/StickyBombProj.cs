@@ -161,7 +161,7 @@ namespace StormDiversMod.Projectiles
             //Projectile.damage = (int)player.GetTotalDamage(DamageClass.Ranged).ApplyTo(Projectile.originalDamage);
             //^Ignores ammo damage sadly
 
-            if ((player.controlUseTile && !player.controlUp && player.HeldItem.type == ModContent.ItemType<Items.Weapons.StickyLauncher>() && boomtime > 30) || player.dead) //will go BOOM
+            if ((player.controlUseTile && !player.controlUp && player.HeldItem.type == ModContent.ItemType<Items.Weapons.StickyLauncher>() && boomtime > 30 && player.noThrow == 0) || player.dead) //will go BOOM
             {
                 if (Projectile.timeLeft > 3)
                 {
@@ -172,7 +172,7 @@ namespace StormDiversMod.Projectiles
                     player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }
             }
-            if ((player.controlUseTile && player.controlUp && !unstick && stick)) //will unstick
+            if ((player.controlUseTile && player.noThrow == 0 && player.controlUp && !unstick && stick)) //will unstick
             {
                 SoundEngine.PlaySound(SoundID.Item108, Projectile.Center);
                 Projectile.velocity.Y = -2;

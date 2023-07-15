@@ -217,7 +217,7 @@ namespace StormDiversMod.Projectiles
 
             lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
 
-            if (player.controlUseTile && lineOfSight && currentdistance >= maxdistance) //will fire projectile once it reaches maximum orbit and has a line of sight with the player
+            if (player.controlUseTile && player.noThrow == 0 && lineOfSight && currentdistance >= maxdistance) //will fire projectile once it reaches maximum orbit and has a line of sight with the player
             {
 
                 if (Projectile.owner == Main.myPlayer)

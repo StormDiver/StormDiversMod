@@ -501,8 +501,6 @@ namespace StormDiversMod.Projectiles
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-
             if (Projectile.velocity.X != oldVelocity.X)
             {
                 Projectile.velocity.X = -oldVelocity.X * 1;

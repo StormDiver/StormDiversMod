@@ -174,7 +174,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity.X *= 0f;
                 stilltime++; //timer counts up while not moving
             }
-            if (stilltime >= 20) //once this time is reached it cannot stay still again
+            if (stilltime >= 15) //once this time is reached it cannot stay still again
             {
                 stillspin = false;
             }
@@ -183,7 +183,7 @@ namespace StormDiversMod.Projectiles
         {
             SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
 
-            if (stilltime < 20) //So the projectile doesn't stay still again
+            if (stilltime < 15) //So the projectile doesn't stay still again
             {
                 stillspin = true;
             }         

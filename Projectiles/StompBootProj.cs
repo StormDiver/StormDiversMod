@@ -25,7 +25,7 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = false;
             //Projectile.magic = true;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 40;
+            Projectile.timeLeft = 600;
             Projectile.extraUpdates = 1;
             Projectile.knockBack = 8f;
             Projectile.usesLocalNPCImmunity = true;
@@ -36,35 +36,24 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             Projectile.damage = (Projectile.damage * 100) / 101;
-            if (Projectile.ai[0] > 0f)  //this defines where the flames starts
+
+            if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
-                if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
-                {
+                Vector2 position = Projectile.position;
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Bottom.Y - 10), Projectile.width, 12, 31, 0f, 0f, 100, default, 100f);
 
-                    
-                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    Vector2 position = Projectile.position;
-                    int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Bottom.Y - 10), Projectile.width, 12, 31, 0f, 0f, 100, default, 100f);
-                    
-                    Main.dust[dustIndex].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].noGravity = true;
-                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 203);
-                 
-                    dust2.noGravity = true;
+                Main.dust[dustIndex].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                Main.dust[dustIndex].noGravity = true;
+                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 203);
 
-
-                }
+                dust2.noGravity = true;
             }
-            else
+            if (Projectile.damage == 0)
             {
-                Projectile.ai[0] += 1f;
+                Projectile.Kill();
             }
-            return;
         }
-        
-       
-        
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.Kill();
@@ -97,6 +86,12 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
+            if (Projectile.damage < 50) //10-60 damage
+            {
+                Projectile.damage += 1;
+            }
+            //Main.NewText("The stomp damage is: " + Projectile.damage, 110, 255, 100);
+
             var player = Main.player[Projectile.owner];
             Projectile.position.X = player.Center.X - 20;
             if (player.gravDir == 1)
@@ -120,6 +115,9 @@ namespace StormDiversMod.Projectiles
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             return false;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
         }
     }
     

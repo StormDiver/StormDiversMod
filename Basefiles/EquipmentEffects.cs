@@ -138,6 +138,9 @@ namespace StormDiversMod.Basefiles
         public int shroomtime; //For cahnneling ranged weapons with Shroomite launcher
         public int paintime; //Cooldown for reliving pain
 
+        public int bootdmg; //damage of the boots
+
+
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             goldDerpie = false;
@@ -709,7 +712,6 @@ namespace StormDiversMod.Basefiles
                 spikespawned = false;
             }
 
-
             //For the Heavy Boots===========================
             if (bootFall)
             {
@@ -718,23 +720,26 @@ namespace StormDiversMod.Basefiles
                 
                 if (Player.controlDown && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
-
                     //SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 15, 2, -0.5f);
-                    Player.gravity += 4;
-                    Player.maxFallSpeed *= 1.4f;
+                    Player.gravity += 1.2f;
+                    Player.maxFallSpeed *= 1.5f;
                     
                     Player.runAcceleration = 0.25f;
-                    if ((Player.velocity.Y > 12 && Player.gravDir == 1) || (Player.velocity.Y < -12 && Player.gravDir == -1))
+                    if ((Player.velocity.Y > 8 && Player.gravDir == 1) || (Player.velocity.Y < -8 && Player.gravDir == -1))
                     {
                         if (!falling)
                         {
                             Player.velocity.X *= 0.5f;
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 60, 6, Player.whoAmI);
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 10, 6, Player.whoAmI);
                         }
                         //immunity is in miscfeatures.cs
                         falling = true;
                         Player.noKnockback = true;
-                    
+
+                        if (bootdmg < 110) //(10-120 damage)
+                        bootdmg += 2;
+
+                        //Main.NewText("The damage is: " + bootdmg, 204, 101, 22);
                     }
 
                 }               
@@ -743,6 +748,7 @@ namespace StormDiversMod.Basefiles
                 {
                     if (!GetInstance<ConfigurationsIndividual>().NoShake)
                     {
+                        if (bootdmg >= 50)
                         Player.GetModPlayer<MiscFeatures>().screenshaker = true;
                     }
 
@@ -756,21 +762,24 @@ namespace StormDiversMod.Basefiles
                     }
                     if (Player.gravDir == 1)
                     {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
                     }
                     else
                     {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
                     }
                     SoundEngine.PlaySound(SoundID.Item14, Player.Center);
+                    bootdmg = 0;
                     falling = false;
 
                 }
                 if (!Player.controlDown || Player.controlJump || Player.mount.Active) //cancels stomp
                 {
                     falling = false;
+                    bootdmg = 0;
+
                 }
                 //If the player slows down too much then the stomp bool is cancelled
                 /*if ((Player.velocity.Y <= 2 && Player.gravDir == 1) || (Player.velocity.Y >= -2 && Player.gravDir == -1))

@@ -146,7 +146,7 @@ namespace StormDiversMod.Projectiles
 				int ycursor = (int)(Main.MouseWorld.Y / 16);
 				Tile tile = Main.tile[xcursor, ycursor];*/
 
-				if (player.controlUseTile && ((player.controlUp && Projectile.ai[0] == 0 && collision) || (player.controlDown && Projectile.ai[0] == 1)) && cooldown >= 30)//switch between passive and attack
+				if (player.controlUseTile && player.noThrow == 0 && ((player.controlUp && Projectile.ai[0] == 0 && collision) || (player.controlDown && Projectile.ai[0] == 1)) && cooldown >= 30)//switch between passive and attack
 				{
 					for (int i = 0; i < 25; i++)
 					{
@@ -161,7 +161,7 @@ namespace StormDiversMod.Projectiles
 					Projectile.ai[0]++;//Go to next movement postion
 				}
 
-				if (player.controlUseTile && player.controlUp && Projectile.ai[0] == 1 && collision && cooldown >= 30) //Change position in attack mode
+				if (player.controlUseTile && player.noThrow == 0 && player.controlUp && Projectile.ai[0] == 1 && collision && cooldown >= 30) //Change position in attack mode
 				{
 					Projectile.localAI[1] = 0; //reset mouse pos detecter
 					for (int i = 0; i < 25; i++)

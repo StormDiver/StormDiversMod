@@ -100,6 +100,7 @@ namespace StormDiversMod.Basefiles
                 Main.screenPosition += new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5));
                 shaketimer--;
             }
+
         }
         public override void PostUpdateEquips() //Updates every frame
         {
