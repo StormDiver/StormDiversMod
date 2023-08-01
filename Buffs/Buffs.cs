@@ -18,8 +18,8 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
           
-            DisplayName.SetDefault("Celestial Guardian");
-            Description.SetDefault("The powers of the Celestial spirits rapidly regenerate your life and grant additional defense");
+            //DisplayName.SetDefault("Celestial Guardian");
+            //Description.SetDefault("The powers of the Celestial spirits rapidly regenerate your life and grant additional defense");
         }
         int particle = 10;
         public override void Update(Player player, ref int buffIndex)
@@ -50,8 +50,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shelled");
-            Description.SetDefault("The power of the Turtle shell protects you");
+            //DisplayName.SetDefault("Shelled");
+            //Description.SetDefault("The power of the Turtle shell protects you");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -72,8 +72,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Enhancement");
-            Description.SetDefault("Increases ammo damage by 10%");
+            //DisplayName.SetDefault("Shroomite Enhancement");
+            //Description.SetDefault("Increases ammo damage by 10%");
         }
         // code in EquipmentEffects.cs
     }
@@ -83,8 +83,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Enhancement");
-            Description.SetDefault("Maximum mana increased by 60");
+            //DisplayName.SetDefault("Spectre Enhancement");
+            //Description.SetDefault("Maximum mana increased by 60");
         }
         public override void Update(Player player, ref int buffIndex)
         {
@@ -98,8 +98,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Enhancement");
-            Description.SetDefault("20 armor penetration for melee weapons");
+            //DisplayName.SetDefault("Beetle Enhancement");
+            //Description.SetDefault("20 armor penetration for melee weapons");
         }
         public override void Update(Player player, ref int buffIndex)
         {
@@ -112,8 +112,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Enhancement");
-            Description.SetDefault("Increases Minion damage and whip speed by 10%");
+            //DisplayName.SetDefault("Spooky Enhancement");
+            //Description.SetDefault("Increases Minion damage and whip speed by 10%");
         }
         public override void Update(Player player, ref int buffIndex)
         {
@@ -128,8 +128,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sprinting in the rain");
-            Description.SetDefault("Your movement speed is increased");
+            //DisplayName.SetDefault("Sprinting in the rain");
+            //Description.SetDefault("Your movement speed is increased");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -151,8 +151,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Spiked");
-            Description.SetDefault("Your movement speed and critical strike chance are greatly increased");
+            //DisplayName.SetDefault("Frost Spiked");
+            //Description.SetDefault("Your movement speed and critical strike chance are greatly increased");
             //Main.debuff[Type] = true;
         }
 
@@ -172,8 +172,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart Collector");
-            Description.SetDefault("Enemies drop hearts more often on death");
+            //DisplayName.SetDefault("Heart Collector");
+            //Description.SetDefault("Enemies drop hearts more often on death");
         }
         public override void Update(Player player, ref int buffIndex)
         {
@@ -186,8 +186,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Super Heart Collector");
-            Description.SetDefault("Enemies have a chance to drop a super heart on death");
+            //DisplayName.SetDefault("Super Heart Collector");
+            //Description.SetDefault("Enemies have a chance to drop a super heart on death");
         }
         public override void Update(Player player, ref int buffIndex)
         {
@@ -200,8 +200,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Barrier");
-            Description.SetDefault("The next incoming attack will be reduced by 25% and will deal no knockback");
+            //DisplayName.SetDefault("Life Barrier");
+            //Description.SetDefault("The next incoming attack will be reduced by 25% and will deal no knockback");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -225,8 +225,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Teddy Bear Love");
-            Description.SetDefault("The love of the Teddy bear increases life regen");
+            //DisplayName.SetDefault("Teddy Bear Love");
+            //Description.SetDefault("The love of the Teddy bear increases life regen");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -242,8 +242,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Barrier");
-            Description.SetDefault("Reduces damage taken by by 15% and grants immunity to knockback");
+            //DisplayName.SetDefault("Granite Barrier");
+            //Description.SetDefault("Reduces damage taken by by 15% and grants immunity to knockback");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -266,8 +266,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Surge");
-            Description.SetDefault("50% increased damage");
+            //DisplayName.SetDefault("Granite Surge");
+            //Description.SetDefault("50% increased damage");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -289,8 +289,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Warrior's Gift");
-            Description.SetDefault("20% increased critical strike chance");
+            //DisplayName.SetDefault("Warrior's Gift");
+            //Description.SetDefault("20% increased critical strike chance");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -314,8 +314,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Orbital Defense");
-            Description.SetDefault("25% damage reduction from the next attack\nTaking damage summons asteroid boulders from the sky");
+            //DisplayName.SetDefault("Orbital Defense");
+            //Description.SetDefault("25% damage reduction from the next attack\nTaking damage summons asteroid boulders from the sky");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -338,8 +338,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Orbital Strike");
-            Description.SetDefault("Your next attack will cause asteroid boulders to fall upon the attacked enemy");
+            //DisplayName.SetDefault("Orbital Strike");
+            //Description.SetDefault("Your next attack will cause asteroid boulders to fall upon the attacked enemy");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -361,8 +361,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Launch");
-            Description.SetDefault("In Terraria, Derpling launch you");
+            //DisplayName.SetDefault("Derpling Launch");
+            //Description.SetDefault("In Terraria, Derpling launch you");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -380,8 +380,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroom Power");
-            Description.SetDefault("Increases damage dealt and reduces damage taken by 1");
+            //DisplayName.SetDefault("Shroom Power");
+            //Description.SetDefault("Increases damage dealt and reduces damage taken by 1");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -402,8 +402,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroom Power");
-            Description.SetDefault("Increases damage dealt and reduces damage taken by 2");
+            //DisplayName.SetDefault("Shroom Power");
+            //Description.SetDefault("Increases damage dealt and reduces damage taken by 2");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -424,8 +424,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroom Power");
-            Description.SetDefault("Increases damage dealt and reduces damage taken by 4");
+            //DisplayName.SetDefault("Shroom Power");
+            //Description.SetDefault("Increases damage dealt and reduces damage taken by 4");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -446,8 +446,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroom Power");
-            Description.SetDefault("Increases damage dealt and reduces damage taken by 6");
+            //DisplayName.SetDefault("Shroom Power");
+            //Description.SetDefault("Increases damage dealt and reduces damage taken by 6");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -468,8 +468,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Star Warrior's Sentry");
-            Description.SetDefault("A Star sentry attacks for you");
+            //DisplayName.SetDefault("Star Warrior's Sentry");
+            //Description.SetDefault("A Star sentry attacks for you");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -482,8 +482,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ho-Ho-Homing Missile");
-            Description.SetDefault("Some of your missiles are ready to launch");
+            //DisplayName.SetDefault("Ho-Ho-Homing Missile");
+            //Description.SetDefault("Some of your missiles are ready to launch");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -496,8 +496,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ho-Ho-Homing Missile");
-            Description.SetDefault("Most of your missiles are ready to launch");
+            //DisplayName.SetDefault("Ho-Ho-Homing Missile");
+            //Description.SetDefault("Most of your missiles are ready to launch");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -510,8 +510,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ho-Ho-Homing Missile");
-            Description.SetDefault("All of your missiles are ready to launch");
+            //DisplayName.SetDefault("Ho-Ho-Homing Missile");
+            //Description.SetDefault("All of your missiles are ready to launch");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -524,8 +524,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Burst");
-            Description.SetDefault("Blood is oozing to burst out of you");
+            //DisplayName.SetDefault("Blood Burst");
+            //Description.SetDefault("Blood is oozing to burst out of you");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -539,8 +539,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Inferno Storm");
-            Description.SetDefault("The inferno flames are ready to be unleashed");
+            //DisplayName.SetDefault("Inferno Storm");
+            //Description.SetDefault("The inferno flames are ready to be unleashed");
             Main.buffNoTimeDisplay[Type] = true;
         }
         public override void Update(Player player, ref int buffIndex)
@@ -553,8 +553,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Marksmanship");
-            Description.SetDefault("15% increased bullet damage");
+            //DisplayName.SetDefault("Marksmanship");
+            //Description.SetDefault("15% increased bullet damage");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -568,8 +568,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forest Empowerment");
-            Description.SetDefault("Reduces damage taken by 4");
+            //DisplayName.SetDefault("Forest Empowerment");
+            //Description.SetDefault("Reduces damage taken by 4");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -589,9 +589,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pain Extender");
-            Description.SetDefault("You will get to experience pain all over again on death");
-            Main.debuff[Type] = true;
+            //DisplayName.SetDefault("Painbringers Curse");
+            //Description.SetDefault("You will get to experience pain all over again on death");
             Main.buffNoTimeDisplay[Type] = true;
 
         }

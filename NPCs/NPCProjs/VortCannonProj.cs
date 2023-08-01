@@ -11,7 +11,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vortexian Rocket");
+            //DisplayName.SetDefault("Vortexian Rocket");
             
         }
 
@@ -88,7 +88,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             
          
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Projectile.timeLeft > 3)
             {

@@ -5,30 +5,29 @@ There's over 300 total modded items for you to discover; including weapons, acce
 [u]This mod includes:[/u]
 [list]
 [*]Over 100 new unique weapons across all classes, including some minions and sentries
-[*]Over 30 new accessories, including new expert exclusive ones and some tinkers, and 4 wings
-[*]12 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
-[*]25 new enemies across the game, with banners and bestiary entries
-[*]2 new bosses, with one that can be fought in place of the Plantera (config option)
+[*]Over 40 new accessories, including new expert exclusive ones and some tinkers, and 4 wings
+[*]15 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
+[*]27 new enemies across the game, with banners and bestiary entries
+[*]3 new bosses, with one that can be fought in place of the Plantera (config option)
 [*]New ammo for guns and bows
 [*]Multiple new tools
 [*]New bars and other crafting materials
 [*]A bunch of different buffs and debuffs inflicted from a range of sources
 [*]9 new potions
-[*]4 new Vanity sets and a 2 special vanity masks
-[*]5 new pets
+[*]4 new Vanity sets and 3 special vanity masks
+[*]6 new pets
 [*]New recipes for certain uncraftable vanilla items
 [*]New Lizharhd Temple Defences (Can be disabled Pre-Plantera via Config)
 [*]Full Wikithis support
 [/list]
 
-[b]This mod has limited compatibility with the TRAE project mod, some items have been tweaked, mana consumption has been increased, and spears have their functionality from TRAE. Note that some TRAE-exculsive items may not affect items in this mod correctly.[/b]
-
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod
 
-Creator, coder, and main spriter: [b]Storm A[/b]
+Creator, coder, and main spriter: [b]TheStorm[/b]
 Spriter and playtester: [b]KittKatt[/b]
+Some additional sprites by: Charley#0571 
 
-[b]Important info: Tmodloader has a wing limit of 127, so if you get any errors related to wings you will need to disable some other mods that add wings.[/b]
+[b]Important info (1.4.3 only): Tmodloader has a wing limit of 127, so if you get any errors related to wings you will need to disable some other mods that add wings.[/b]
 
 Also try out Storm's Tweaks Mod, makes a few small configurable changes to Terraria that may be useful; https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250

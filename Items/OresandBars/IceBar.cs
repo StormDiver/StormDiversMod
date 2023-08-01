@@ -10,7 +10,9 @@ using StormDiversMod.Basefiles;
 
 using StormDiversMod.Items.Materials;
 using Terraria.GameContent.Creative;
-
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Items.Weapons;
+using System.Collections.Generic;
 
 namespace StormDiversMod.Items.OresandBars
 {
@@ -18,11 +20,11 @@ namespace StormDiversMod.Items.OresandBars
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Bar");
-            Tooltip.SetDefault("Used in the creation of frozen armor and weapons");
+            //DisplayName.SetDefault("Frost Bar");
+            //Tooltip.SetDefault("Used in the creation of frozen armor and weapons");
             ItemID.Sets.SortingPriorityMaterials[Item.type] = 80;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
-
+            Item.ResearchUnlockCount = 25;
+            ItemID.Sets.ExtractinatorMode[Item.type] = Item.type;
         }
 
         public override void SetDefaults()
@@ -32,13 +34,22 @@ namespace StormDiversMod.Items.OresandBars
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 30, 0);
             Item.rare = ItemRarityID.Pink;
-            Item.useStyle = ItemUseStyleID.Swing;  
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = true;
             Item.useAnimation = 15;
             Item.useTime = 10;
             Item.createTile = TileType<IceBarPlaced>();
             Item.consumable = true;
             Item.autoReuse = true;
+        }
+        public override void ExtractinatorUse(int extractinatorBlockType, ref int resultType, ref int resultStack)
+        {
+            if (extractinatorBlockType == TileID.ChlorophyteExtractinator)
+            {
+                resultType = ModContent.ItemType<DesertBar>();
+                resultStack = 1;
+
+            }
         }
         public override void AddRecipes()
         {
@@ -67,7 +78,7 @@ namespace StormDiversMod.Items.OresandBars
             AddMapEntry(new Color(0, 255, 255), Language.GetText("Frost Bar")); // localized text for "Metal Bar"
         }
 
-        public override bool Drop(int i, int j)
+        /*public override bool Drop(int i, int j)
         {
             Tile t = Main.tile[i, j];
             int style = t.TileFrameX / 18;
@@ -76,10 +87,10 @@ namespace StormDiversMod.Items.OresandBars
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemType<IceBar>());
             }
             return base.Drop(i, j);
-        }
+        }*/
     }
     //___________________________________________________________________________
-    
+
     //___________________________________________________________________________
     public class IceOrePlaced : ModTile //Legacy Item, cannot be generated anymore or placed
     {
@@ -97,17 +108,19 @@ namespace StormDiversMod.Items.OresandBars
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Frost Ore");
+            LocalizedText name = CreateMapEntryName();
+            //name.SetDefault("Frost Ore");
             AddMapEntry(new Color(0, 255, 255), name);
 
             DustType = 92;
-            ItemDrop = ModContent.ItemType<IceOre>();
+            //ItemDrop = ModContent.ItemType<IceOre>();
             HitSound = SoundID.Tink;
             MineResist = 4f;
             MinPick = 100;
         }
-
-
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            yield return new Item(ModContent.ItemType<IceOre>(), 1);
+        }
     }
 }

@@ -21,8 +21,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ScanDrone"); // Automatic from .lang files
-                                                 // make sure to set this for your modnpcs.
+            //DisplayName.SetDefault("Scandrone"); 
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
@@ -70,11 +69,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A small but fast creature used to find weaknesses in enemy defences and to exploit them.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
+      
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -239,13 +234,13 @@ namespace StormDiversMod.NPCs
             }
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             
                 target.AddBuff(ModContent.BuffType<Buffs.ScanDroneDebuff>(), 800);
             
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             shoottime = 0;
             shooting = false;

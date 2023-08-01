@@ -19,10 +19,10 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Star Warrior Visage");
-            Tooltip.SetDefault("7% increased damage");
+            //DisplayName.SetDefault("Star Warrior Visage");
+            //Tooltip.SetDefault("7% increased damage");
             //ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -72,7 +72,6 @@ namespace StormDiversMod.Items.Armour
 
             CreateRecipe()
            .AddIngredient(ItemID.MeteoriteBar, 12)
-           .AddRecipeGroup("StormDiversMod:EvilMaterial", 10)
            .AddIngredient(ItemID.FallenStar, 5)
            .AddTile(TileID.Anvils)
            .Register();
@@ -96,9 +95,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Star Warrior Platemail");
-            Tooltip.SetDefault("Increases your max number of sentries by 1\n4% increased damage");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Star Warrior Platemail");
+            //Tooltip.SetDefault("Increases your max number of sentries by 1\n4% increased damage");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
@@ -124,7 +123,6 @@ namespace StormDiversMod.Items.Armour
         {
             CreateRecipe()
            .AddIngredient(ItemID.MeteoriteBar, 18)
-           .AddRecipeGroup("StormDiversMod:EvilMaterial", 15)
            .AddIngredient(ItemID.FallenStar, 8)
            .AddTile(TileID.Anvils)
            .Register();
@@ -145,9 +143,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Star Warrior Greaves");
-            Tooltip.SetDefault("Increases your max number of sentries by 1\n4% increased damage");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Star Warrior Greaves");
+            //Tooltip.SetDefault("Increases your max number of sentries by 1\n4% increased damage");
+            Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow")
@@ -175,7 +173,6 @@ namespace StormDiversMod.Items.Armour
         {
             CreateRecipe()
            .AddIngredient(ItemID.MeteoriteBar, 15)
-           .AddRecipeGroup("StormDiversMod:EvilMaterial", 12)
            .AddIngredient(ItemID.FallenStar, 7)
            .AddTile(TileID.Anvils)
            .Register();

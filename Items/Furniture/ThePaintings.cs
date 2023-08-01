@@ -19,9 +19,9 @@ namespace StormDiversMod.Items.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Best Boy");
-            Tooltip.SetDefault("'You will be missed'");
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("The Best Boy");
+            //Tooltip.SetDefault("'You will be missed'");
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -59,9 +59,9 @@ namespace StormDiversMod.Items.Furniture
             TileID.Sets.DisableSmartCursor[Type] = true;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 96, 64, ModContent.ItemType<TheGoodBoyItem>());
-        }
+        }*/
     }
 }

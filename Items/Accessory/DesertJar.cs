@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pharaoh's Urn");
-            Tooltip.SetDefault("Two sand particles will orbit you at close range, damaging enemies\nLeaves behind a damaging trail of sand when moving fast enough");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Pharaoh's Urn");
+            //Tooltip.SetDefault("Two sand particles will orbit you at close range, damaging enemies\nLeaves behind a damaging trail of sand when moving fast enough");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Accessory
 
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

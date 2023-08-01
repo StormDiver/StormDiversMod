@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dual Arrow");
-            Tooltip.SetDefault("Two arrows tied together, has a chance to split in midair");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Dual Arrow");
+            //Tooltip.SetDefault("Two arrows tied together, has a chance to split in midair");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

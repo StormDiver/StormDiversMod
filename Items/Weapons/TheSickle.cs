@@ -21,10 +21,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nine Lives");
-            Tooltip.SetDefault("Left Click to use as a spinning weapon, Right Click to throw both blades in succession\nKill enemies to collect up to 9 souls, each collected soul increases the damage and crit chance of the weapon" +
-                "\nSouls will begin to escape if no enemies are killed within 9 seconds\n'Pick it up. Pick. It. Up'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;  
+            //DisplayName.SetDefault("Nine Lives");
+            //Tooltip.SetDefault("Left Click to use as a spinning weapon, Right Click to throw both blades in succession\nKill enemies to collect up to 9 souls, each collected soul increases the damage and crit chance of the weapon" +
+                //"\nSouls will begin to escape if no enemies are killed within 9 seconds\n'Pick it up. Pick. It. Up'");
+            Item.ResearchUnlockCount = 1;  
         }
         public override void SetDefaults()
         {
@@ -32,7 +32,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 24;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 10, 0, 0);
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.LightPurple;
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = 100;
@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.MeleeNoSpeed;
 
             Item.shoot = ModContent.ProjectileType<TheSickleProj2>();
-            Item.damage = 85;
+            Item.damage = 50;
             //Item.crit = 4;
             Item.knockBack = 2f;
             Item.shootSpeed = 1f;
@@ -106,7 +106,7 @@ namespace StormDiversMod.Items.Weapons
             CreateRecipe()
             .AddIngredient(ItemID.Sickle, 2)
             .AddIngredient(ItemID.SoulofNight, 15)
-            .AddIngredient(ItemID.Ectoplasm, 15)
+            .AddIngredient(ItemID.SoulofFright, 10)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

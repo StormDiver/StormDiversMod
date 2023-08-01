@@ -20,7 +20,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vortex Rocket");
+            //DisplayName.SetDefault("Vortex Rocket");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -28,8 +28,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 14;
+            Projectile.height = 14;
 
 
             Projectile.light = 0.6f;
@@ -103,7 +103,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (Projectile.timeLeft > 3)
@@ -202,7 +202,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vortex Rocket");
+            //DisplayName.SetDefault("Vortex Rocket");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -210,8 +210,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 18;
+            Projectile.height = 18;
 
 
             Projectile.light = 0.6f;
@@ -229,7 +229,7 @@ namespace StormDiversMod.Projectiles
             DrawOriginOffsetY = 0;
 
 
-            Projectile.extraUpdates = 3;
+            Projectile.extraUpdates = 2;
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
@@ -285,7 +285,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (Projectile.timeLeft > 3)

@@ -21,9 +21,10 @@ namespace StormDiversMod.NPCs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Spirit"); 
+            //DisplayName.SetDefault("Ancient Spirit"); 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+            NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
         public override void SetDefaults()
         {
@@ -62,10 +63,10 @@ namespace StormDiversMod.NPCs.Boss
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("Ghosts of the Ancient husk's victims, doomed to forever protect their new master in battle")
+				new FlavorTextBestiaryInfoElement("Ghosts of the Ancient husk's victims, doomed to forever protect their new master in battle.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //NA, has no health scaling so always 750
             if (Main.masterMode)
@@ -334,11 +335,11 @@ namespace StormDiversMod.NPCs.Boss
             }
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
                         
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

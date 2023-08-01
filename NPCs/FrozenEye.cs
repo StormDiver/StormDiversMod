@@ -19,7 +19,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frozen Eyefish");
+            //DisplayName.SetDefault("Frozen Eyefish");
             Main.npcFrameCount[NPC.type] = 8;
 
             //NPCID.Sets.DontDoHardmodeScaling[Type] = true;
@@ -191,14 +191,14 @@ namespace StormDiversMod.NPCs
             }
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
 
             target.AddBuff(BuffID.Chilled, 300);
 
 
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             shoottime = 60;
             if (Main.netMode == NetmodeID.Server)

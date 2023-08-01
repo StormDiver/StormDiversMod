@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Bomber"); 
+            //DisplayName.SetDefault("Meteor Bomber"); 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
         }
@@ -67,11 +67,6 @@ namespace StormDiversMod.NPCs
             });
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -244,11 +239,11 @@ namespace StormDiversMod.NPCs
                 }
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.OnFire, 600);
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             firerate = -30;
             if (Main.netMode == NetmodeID.Server)

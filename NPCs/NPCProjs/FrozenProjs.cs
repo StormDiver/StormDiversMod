@@ -19,7 +19,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Snowflake");
+            //DisplayName.SetDefault("Mini Snowflake");
 
         }
         public override void SetDefaults()
@@ -57,13 +57,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 }
             }
         }
-
-       
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
-        {
-        }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Frostburn, 180);
         }
@@ -95,7 +89,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Giant Snowflake");
+            //DisplayName.SetDefault("Giant Snowflake");
         }
         public override void SetDefaults()
         {
@@ -107,7 +101,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.hostile = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 45 + Main.rand.Next(30);
+            Projectile.timeLeft = 80;
             Projectile.aiStyle = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -136,7 +130,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             Projectile.ai[1]++;
 
-            if (Projectile.ai[1] >= 10)
+            if (Projectile.ai[1] >= 20)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -164,13 +158,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.ai[1] = 0;
             }
         }
-
-
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
-        {
-        }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 180);
         }

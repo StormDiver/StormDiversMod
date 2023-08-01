@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Prototype Grenade");
-            Tooltip.SetDefault("For use with certain launchers");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Prototype Grenade");
+            //Tooltip.SetDefault("For use with certain launchers");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()
@@ -37,14 +37,9 @@ namespace StormDiversMod.Items.Ammo
             Item.knockBack = 1f;
             Item.consumable = true;
 
-
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.ProtoGrenadeProj>();
             Item.shootSpeed = 3f;
             Item.ammo = Item.type;
         }
-       
-
-        
-       
     }
 }

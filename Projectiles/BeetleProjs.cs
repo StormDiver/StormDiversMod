@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Lance");
+            //DisplayName.SetDefault("Beetle Lance");
         }
 
         public override void SetDefaults()
@@ -117,7 +117,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Yoyo");
+            //DisplayName.SetDefault("Beetle Yoyo");
             //ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 15f;
 
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 300f;
@@ -170,7 +170,7 @@ namespace StormDiversMod.Projectiles
                 shoottime = 0;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
@@ -181,7 +181,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Shell");
+            //DisplayName.SetDefault("Beetle Shell");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
         }
@@ -216,7 +216,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
 
@@ -323,7 +323,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle");
+            //DisplayName.SetDefault("Beetle");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
             Main.projFrames[Projectile.type] = 4;
@@ -435,7 +435,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(3) == 0)
             {
@@ -482,7 +482,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Beetle");
+            //DisplayName.SetDefault("Mini Beetle");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
             Main.projFrames[Projectile.type] = 4;
@@ -595,7 +595,7 @@ namespace StormDiversMod.Projectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(4) == 0)
             {

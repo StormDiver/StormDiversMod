@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("TombStone");
+            //DisplayName.SetDefault("TombStone");
 
         }
         public override void SetDefaults()
@@ -66,7 +66,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
        
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 11, target.Top.Y - 15), new Vector2(0, -3), ModContent.ProjectileType<GhostProj>(), (int)(Projectile.damage * 1f), 1, Projectile.owner);
@@ -81,11 +81,6 @@ namespace StormDiversMod.Projectiles
             }
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            //target.AddBuff(BuffID.Wet, 300);
-        }
-
         int reflect = 4;
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -150,7 +145,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Ghost");
+            //DisplayName.SetDefault("Mini Ghost");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -209,7 +204,7 @@ namespace StormDiversMod.Projectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
            
             SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 0.5f, Pitch = 1f}, Projectile.Center);

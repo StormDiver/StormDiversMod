@@ -16,10 +16,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Duck Fracture");
-            Tooltip.SetDefault("Fires out mini ducks to attack your foes\n'May be prone to quacking'");
+            //DisplayName.SetDefault("Duck Fracture");
+            //Tooltip.SetDefault("Fires out mini ducks to attack your foes\n'May be prone to quacking'");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -101,10 +101,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Duck Quackture");
-            Tooltip.SetDefault("Summons a bunch of ducks enhanced by lunar energy\n'Incredibly prone to quacking'");
+            //DisplayName.SetDefault("Duck Quackture");
+            //Tooltip.SetDefault("Summons a bunch of ducks enhanced by lunar energy\n'Incredibly prone to quacking'");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

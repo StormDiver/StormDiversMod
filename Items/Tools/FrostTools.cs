@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Pickaxe");
-            Tooltip.SetDefault("Can mine Adamantite and Titanium");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Frost Pickaxe");
+            //Tooltip.SetDefault("Can mine Adamantite and Titanium");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -61,9 +61,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Hamaxe");
-            Tooltip.SetDefault("Strong enough to destroy Altars");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Frost Hamaxe");
+            //Tooltip.SetDefault("Strong enough to destroy Altars");
+            Item.ResearchUnlockCount = 1;
 
         }
 

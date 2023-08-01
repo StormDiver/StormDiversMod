@@ -18,7 +18,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Large Vortex");
+            //DisplayName.SetDefault("Large Vortex");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
@@ -75,7 +75,7 @@ namespace StormDiversMod.Projectiles
             return true;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             for (int i = 0; i < 10; i++)
@@ -135,7 +135,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Homing Vortex");
+            //DisplayName.SetDefault("Homing Vortex");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
@@ -253,7 +253,7 @@ namespace StormDiversMod.Projectiles
                 return true;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             for (int i = 0; i < 10; i++)

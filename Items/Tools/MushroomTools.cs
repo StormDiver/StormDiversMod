@@ -13,9 +13,9 @@ namespace StormDiversMod.Items.Tools
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Shroom Pickaxe"); 
-			Tooltip.SetDefault("Can mine Meteorite");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Shroom Pickaxe"); 
+			//Tooltip.SetDefault("Can mine Meteorite");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -73,9 +73,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroom Axe");
-            Tooltip.SetDefault("'Use the mushrooms to chop down the mushrooms'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroom Axe");
+            //Tooltip.SetDefault("'Use the mushrooms to chop down the mushrooms'");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -132,9 +132,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroom Hammer");
-            Tooltip.SetDefault("'The Hammush's little brother'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroom Hammer");
+            //Tooltip.SetDefault("'The Hammush's little brother'");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

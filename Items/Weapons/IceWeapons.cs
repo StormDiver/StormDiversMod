@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Grenade");
-            Tooltip.SetDefault("Inflicts frostburn on enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Ice Grenade");
+            //Tooltip.SetDefault("Inflicts frostburn on enemies");
+            Item.ResearchUnlockCount = 99;
         }
         public override void SetDefaults()
         {
@@ -67,11 +67,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Icicle Staff");
-            Tooltip.SetDefault("Rapidly shoots out damaging icicles");
+            //DisplayName.SetDefault("Icicle Staff");
+            //Tooltip.SetDefault("Rapidly shoots out damaging icicles");
             Item.staff[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
          
         }
         public override void SetDefaults()

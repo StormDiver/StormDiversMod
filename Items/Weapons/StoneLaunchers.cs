@@ -44,10 +44,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stone Cannon");
-            Tooltip.SetDefault("Fire out all your unwanted stone at your foes");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            //DisplayName.SetDefault("Stone Cannon");
+            //Tooltip.SetDefault("Fire out all your unwanted stone at your foes");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -126,20 +126,18 @@ namespace StormDiversMod.Items.Weapons
          .AddRecipeGroup(RecipeGroupID.IronBar, 25)
          .AddTile(TileID.Anvils)
          .Register();
-
-
-
         }
-
     }
     //_______________________________________________________________________________
     public class StoneThrowerHard : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mega Stone Cannon");
-            Tooltip.SetDefault("An upgraded stone cannon which makes stone far more deadly");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Mega Stone Cannon");
+            //Tooltip.SetDefault("An upgraded stone cannon which makes stone far more deadly");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -229,9 +227,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flaming Stone Cannon");
-            Tooltip.SetDefault("Superheats your stone into flaming stone boulders");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Flaming Stone Cannon");
+            //Tooltip.SetDefault("Superheats your stone into flaming stone boulders");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -329,14 +329,17 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Celestial Stone Cannon");
-            Tooltip.SetDefault("Empowers your stone with the power of the celestial fragments");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Celestial Stone Cannon");
+            //Tooltip.SetDefault("Empowers your stone with the power of the celestial fragments");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+
+            ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
+
         }
         public override void SetDefaults()
         {

@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Temple Guardian");
+            //DisplayName.SetDefault("Temple Guardian");
             Main.npcFrameCount[NPC.type] = 6;
 
 
@@ -75,11 +75,6 @@ namespace StormDiversMod.NPCs
 				// Sets the description of this NPC that is listed in the bestiary.
 				new FlavorTextBestiaryInfoElement("Fiercely guards the temple to keep out anyone who shouldn’t enter.")
             });
-        }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
         }
         
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -265,13 +260,13 @@ namespace StormDiversMod.NPCs
 
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
 
 
 
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

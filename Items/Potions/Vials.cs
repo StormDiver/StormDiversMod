@@ -15,9 +15,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Endurance Healing Potion");
-            Tooltip.SetDefault("Reduces the damage of the next incoming attack by 25%");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
+            //DisplayName.SetDefault("Endurance Healing Potion");
+            //Tooltip.SetDefault("Reduces the damage of the next incoming attack by 25%");
+            Item.ResearchUnlockCount = 30;
 
         }
         public override void SetDefaults()
@@ -63,9 +63,9 @@ namespace StormDiversMod.Items.Potions
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Enhanced Healing Potion");
-            Tooltip.SetDefault("Potion sickness lasts longer than normal");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
+            //DisplayName.SetDefault("Enhanced Healing Potion");
+            //Tooltip.SetDefault("Potion sickness lasts longer than normal");
+            Item.ResearchUnlockCount = 30;
 
         }
 
@@ -139,9 +139,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart Vial");
-            Tooltip.SetDefault("Enemies will drop a heart on death more often, bosses also drop more hearts");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
+            //DisplayName.SetDefault("Heart Vial");
+            //Tooltip.SetDefault("Enemies will drop a heart on death more often, bosses also drop more hearts");
+            Item.ResearchUnlockCount = 20;
 
         }
 
@@ -205,9 +205,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Super Heart Vial");
-            Tooltip.SetDefault("Enemies will have a chance to drop a super heart on death that heals for 50, bosses always drop 2");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
+            //DisplayName.SetDefault("Super Heart Vial");
+            //Tooltip.SetDefault("Enemies will have a chance to drop a super heart on death that heals for 50, bosses always drop 2");
+            Item.ResearchUnlockCount = 20;
 
         }
         public override void SetDefaults()

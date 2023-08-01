@@ -14,13 +14,15 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Eye Sored"); 
-			Tooltip.SetDefault("Launches a bouncing eyeball every swing");
+			//DisplayName.SetDefault("Eye Sored"); 
+			//Tooltip.SetDefault("Launches a bouncing eyeball every swing");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EyeGun>();
+
         }
 
-		public override void SetDefaults() 
+        public override void SetDefaults() 
 		{
 			Item.damage = 25;
 
@@ -58,10 +60,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Rifle");
-            Tooltip.SetDefault("Fires 2 bullets in rapid succession\nOnly the first shot consumes ammo");
+            //DisplayName.SetDefault("Eye Rifle");
+            //Tooltip.SetDefault("Fires 2 bullets in rapid succession\nOnly the first shot consumes ammo");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EyeStaff>();
+
         }
         public override void SetDefaults()
         {
@@ -121,11 +125,13 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Eyestalk");
-            Tooltip.SetDefault("Summons a piercing eyeball that ricochets back towards you");
+            //DisplayName.SetDefault("The Eyestalk");
+            //Tooltip.SetDefault("Summons a piercing eyeball that ricochets back towards you");
             Item.staff[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EyeMinion>();
+
         }
         public override void SetDefaults()
         {
@@ -177,12 +183,13 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eyeball Staff");
-            Tooltip.SetDefault("Summons a Servant of Cthulhu minion to fight for you");
+            //DisplayName.SetDefault("Eyeball Staff");
+            //Tooltip.SetDefault("Summons a Servant of Cthulhu minion to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<EyeSword>();
 
         }
         public override void SetDefaults()

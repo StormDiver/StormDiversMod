@@ -18,7 +18,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Drop");
+            //DisplayName.SetDefault("Blood Drop");
         }
         public override void SetDefaults()
         {
@@ -74,7 +74,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
@@ -96,7 +96,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Trial");
+            //DisplayName.SetDefault("Blood Trial");
         }
         public override void SetDefaults()
         {
@@ -149,7 +149,7 @@ namespace StormDiversMod.Projectiles
             return;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             SoundEngine.PlaySound(SoundID.NPCHit13, Projectile.Center);
@@ -187,7 +187,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart Piercer");
+            //DisplayName.SetDefault("Heart Piercer");
         }
 
         public override void SetDefaults()
@@ -270,7 +270,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart Attack Yoyo");
+            //DisplayName.SetDefault("Heart Attack Yoyo");
             ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 5f;
 
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 200f;
@@ -320,7 +320,7 @@ namespace StormDiversMod.Projectiles
             }
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
@@ -331,7 +331,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Yoyo trail");
+            //DisplayName.SetDefault("Blood Yoyo trail");
         }
         public override void SetDefaults()
         {
@@ -406,7 +406,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Boot Trail");
+            //DisplayName.SetDefault("Blood Boot Trail");
         }
         public override void SetDefaults()
         {
@@ -474,7 +474,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Grenade");
+            //DisplayName.SetDefault("Blood Grenade");
         }
 
         public override void SetDefaults()
@@ -515,7 +515,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.Kill();
         }

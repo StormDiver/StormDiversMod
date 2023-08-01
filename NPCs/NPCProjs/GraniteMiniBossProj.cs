@@ -14,7 +14,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Bolt");
+            //DisplayName.SetDefault("Granite Bolt");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -69,7 +69,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             dust2.noLight = true;
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
         
             for (int i = 0; i < 15; i++)

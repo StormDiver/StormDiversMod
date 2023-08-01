@@ -21,7 +21,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dune Blaster");
+            //DisplayName.SetDefault("Dune Blaster");
             Main.npcFrameCount[NPC.type] = 9;
 
 
@@ -70,12 +70,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A husk of hardened sand, capable of spewing out sand hot enough to melt anything it touches.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
-        
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -95,7 +90,7 @@ namespace StormDiversMod.NPCs
         int sounddelay;
         int ypos = -150;
         float distance;
-        float speed = 3;
+        float speed = 2;
         float inertia = 50;
         public override bool? CanFallThroughPlatforms()
         {
@@ -161,7 +156,7 @@ namespace StormDiversMod.NPCs
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.noTileCollide = true;
-                    speed = 3f;
+                    speed = 2.2f;
                     ypos = 0;
                     NPC.netUpdate = true;
 
@@ -262,12 +257,12 @@ namespace StormDiversMod.NPCs
             }
         }
     
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffType<AridSandDebuff>(), 300);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             NPC.ai[0] -= 30;
             attacking = false;

@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Boulder");
+            //DisplayName.SetDefault("Asteroid Boulder");
         }
         public override void SetDefaults()
         {
@@ -80,7 +80,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -136,7 +136,7 @@ namespace StormDiversMod.Projectiles
     { //For the armour set bonus
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Homing Boulder");
+            //DisplayName.SetDefault("Asteroid Homing Boulder");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
         }
@@ -248,15 +248,8 @@ namespace StormDiversMod.Projectiles
                 vector *= 5f / magnitude;
             }
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            /*if (target.defense <= 1000)
-            {
-                damage = damage + (int)(target.defense * 0.5f);
-            }*/
-        }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
         }
@@ -312,7 +305,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Fragment");
+            //DisplayName.SetDefault("Asteroid Fragment");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -382,7 +375,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }

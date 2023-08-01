@@ -18,14 +18,14 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gladiator's Glaive");
-            Tooltip.SetDefault("Slow but powerful");
+            //DisplayName.SetDefault("Gladiator's Glaive");
+            //Tooltip.SetDefault("Slow but powerful");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.Spears[Item.type] = true;
 
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        /*public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             foreach (TooltipLine line in tooltips)
             {
@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Weapons
                 }
 
             }
-        }
+        }*/
         public override void SetDefaults()
         {
             Item.damage = 21;
@@ -94,9 +94,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gladiator's Bow");
-            Tooltip.SetDefault("Fires arrows at a high velocity");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Gladiator's Bow");
+            //Tooltip.SetDefault("Fires arrows at a high velocity");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -160,10 +160,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gladiator's Staff");
-            Tooltip.SetDefault("Fires out a magical piercing beam");
+            //DisplayName.SetDefault("Gladiator's Staff");
+            //Tooltip.SetDefault("Fires out a magical piercing beam");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

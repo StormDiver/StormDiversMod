@@ -21,9 +21,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shrooword");
-            Tooltip.SetDefault("Summons a spinning mushroom onto attacked enemies\n'There's not mushroom to stand around'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shrooword");
+            //Tooltip.SetDefault("Summons a spinning mushroom onto attacked enemies\n'There's not mushroom to stand around'");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -38,8 +38,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 38;
-            Item.useTime = 26;
-            Item.useAnimation = 26;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Swing;  
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = false;
-            Item.knockBack = 4;
+            Item.knockBack = 6;
             Item.shoot = ProjectileID.Mushroom;
             Item.shootSpeed = 35f;
         }
@@ -68,12 +68,12 @@ namespace StormDiversMod.Items.Weapons
             }
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(null, new Vector2(player.Center.X + (50 * -player.direction), player.Center.Y - 100), new Vector2(-30 * -player.direction, 25), ProjectileID.Mushroom, (int)(damage * 0.75f), 1, player.whoAmI);
+            Projectile.NewProjectile(null, new Vector2(player.Center.X + (50 * -player.direction), player.Center.Y - 100), new Vector2(-30 * -player.direction, 25), ProjectileID.Mushroom, (int)(Item.damage * 0.75f), 1, player.whoAmI);
             
         }
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
         {
            
         }
@@ -102,9 +102,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroom Bow");
-            Tooltip.SetDefault("Fires out 2 arrows at once");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroom Bow");
+            //Tooltip.SetDefault("Fires out 2 arrows at once");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -177,10 +177,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mushy Staff");
-            Tooltip.SetDefault("Summons a ricocheting mushroom");
+            //DisplayName.SetDefault("Mushy Staff");
+            //Tooltip.SetDefault("Summons a ricocheting mushroom");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

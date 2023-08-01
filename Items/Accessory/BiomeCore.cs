@@ -15,12 +15,12 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             
-            DisplayName.SetDefault("Biome Core");
-            Tooltip.SetDefault("Taking more than 1 damage increases damage by 50% for 4 seconds with a 10 second cooldown afterwards" +
-                "\nWhile above 75% HP your critical strike chance is increased by 20%\nIncreases damage dealt and reduces damage taken when losing health");
+            //DisplayName.SetDefault("Biome Core");
+            //Tooltip.SetDefault("Taking more than 1 damage increases damage by 50% for 4 seconds with a 10 second cooldown afterwards" +
+                //"\nWhile above 75% HP your critical strike chance is increased by 20%\nIncreases damage dealt and reduces damage taken when losing health");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 8));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void PostUpdate()
         {
@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Orange;
             
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
 
         }

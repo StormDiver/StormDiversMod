@@ -16,10 +16,10 @@ namespace StormDiversMod.Items.OresandBars
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Bar");
-            Tooltip.SetDefault("Radiating with energy");
+            //DisplayName.SetDefault("Asteroid Bar");
+            //Tooltip.SetDefault("Radiating with energy");
             ItemID.Sets.SortingPriorityMaterials[Item.type] = 94;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            Item.ResearchUnlockCount = 25;
 
         }
 
@@ -81,7 +81,7 @@ namespace StormDiversMod.Items.OresandBars
             AddMapEntry(new Color(147, 112, 219), Language.GetText("Asteroid Bar")); // localized text for "Metal Bar"
         }
 
-        public override bool Drop(int i, int j)
+        /*public override bool Drop(int i, int j)
         {
             Tile t = Main.tile[i, j];
             int style = t.TileFrameX / 18;
@@ -90,7 +90,7 @@ namespace StormDiversMod.Items.OresandBars
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemType<SpaceRockBar>());
             }
             return base.Drop(i, j);
-        }
+        }*/
 
     }
    

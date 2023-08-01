@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Giant Beetle Shell");
-            Tooltip.SetDefault("Summons beetles on impact that attack and swarm your foes");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Giant Beetle Shell");
+            //Tooltip.SetDefault("Summons beetles on impact that attack and swarm your foes");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -88,12 +88,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Lance");
-            Tooltip.SetDefault("Summons beetles that attack and swarm your foes");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Beetle Lance");
+            //Tooltip.SetDefault("Summons beetles that attack and swarm your foes");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.Spears[Item.type] = true;
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        /*public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             foreach (TooltipLine line in tooltips)
             {
@@ -106,7 +106,7 @@ namespace StormDiversMod.Items.Weapons
                 }
 
             }
-        }
+        }*/
         public override void SetDefaults()
         {
             Item.damage = 100;
@@ -156,12 +156,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Thorax");
-            Tooltip.SetDefault("Summons beetles that attack and swarm your foes");
+            //DisplayName.SetDefault("The Thorax");
+            //Tooltip.SetDefault("Summons beetles that attack and swarm your foes");
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 30;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()

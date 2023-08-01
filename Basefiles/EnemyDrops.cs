@@ -16,6 +16,7 @@ using StormDiversMod.Items.Accessory;
 using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.ObjectData;
+using StormDiversMod.NPCs;
 
 namespace StormDiversMod.Basefiles
 {
@@ -170,7 +171,8 @@ namespace StormDiversMod.Basefiles
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.MoonlingSummoner>());
                 }
             }
-            if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight & !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneNormalUnderground && Main.IsItStorming && StormWorld.stormBossDown == false) //StormBoss Summoner
+            if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUnderworldHeight && !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight &&
+                !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneNormalUnderground && Main.IsItStorming && StormWorld.stormBossDown == false) //StormBoss Summoner
             {
                 if (Main.rand.Next(50) == 0)
                 {
@@ -183,6 +185,21 @@ namespace StormDiversMod.Basefiles
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.AridBossSummon>());
                 }
+            }
+
+            if ((Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || 
+                Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>()) && NPC.downedMoonlord) //pan summoenr
+            {
+                if (Main.rand.Next(25) == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
+                }
+                
+            }
+            if ((npc.type == ModContent.NPCType<ThePainSlime>() || npc.type == ModContent.NPCType<TheClaySlime>()) && Main.rand.Next(20) == 0 && NPC.downedMoonlord)
+            {
+                Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
+
             }
             //No bestiary--------------------------------------------------------------------------------------------------------------------
             if (Main.rand.Next(5000) < 1 & npc.lifeMax > 5)
@@ -357,7 +374,7 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.Derpling)
             {
 
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 150, 100));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DerpEye>(), 100, 75));
 
             }
             if (npc.type == NPCID.CursedSkull)
@@ -453,8 +470,21 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.SantaNK1)
             {
 
-                isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 8, 12));
-                notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 6, 10));
+                //isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 12, 15));
+                notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 9, 12));
+
+                int itemType = ModContent.ItemType<Items.Materials.SantankScrap>();
+                var parameters = new DropOneByOne.Parameters()
+                {
+                    ChanceNumerator = 1,
+                    ChanceDenominator = 1,
+                    MinimumStackPerChunkBase = 1,
+                    MaximumStackPerChunkBase = 1,
+                    MinimumItemDropsCount = 12,
+                    MaximumItemDropsCount = 15,
+                };
+
+                isExpert.OnSuccess(new DropOneByOne(itemType, parameters));
 
             }
             //Pets-----------------------------------------------------------------------------------------------------------------------------------------------------------------

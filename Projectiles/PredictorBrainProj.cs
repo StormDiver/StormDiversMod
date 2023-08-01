@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nebula Brain Bolt");
+            //DisplayName.SetDefault("Nebula Brain Bolt");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
@@ -142,7 +142,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nebula Brain Bolt");
+            //DisplayName.SetDefault("Nebula Brain Bolt");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
@@ -179,7 +179,7 @@ namespace StormDiversMod.Projectiles
             Main.dust[dust2].velocity *= -0.3f;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             for (int i = 0; i < 10; i++)

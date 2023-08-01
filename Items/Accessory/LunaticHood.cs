@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunatic Hood of Command");
-            Tooltip.SetDefault("Summons 2 mini cultists minions that fly next to you and fire shadow fireballs at enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Lunatic Hood of Command");
+            //Tooltip.SetDefault("Summons 2 mini cultists minions that fly next to you and fire shadow fireballs at enemies");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Accessory
 
             Item.accessory = true;
             Item.expert = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

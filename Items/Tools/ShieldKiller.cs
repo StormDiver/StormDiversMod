@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Celestial Globe");
-            Tooltip.SetDefault("Removes the shields from all active pillars");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Celestial Globe");
+            //Tooltip.SetDefault("Removes the shields from all active pillars");
+            Item.ResearchUnlockCount = 1;
 
 
         }

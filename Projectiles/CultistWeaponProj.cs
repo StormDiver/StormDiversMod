@@ -19,7 +19,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lunatic Spear of Fire");
+            //DisplayName.SetDefault("Lunatic Spear of Fire");
         }
 
         public override void SetDefaults()
@@ -116,7 +116,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
           
         }
@@ -136,7 +136,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fireball Blast");
+            //DisplayName.SetDefault("Fireball Blast");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -191,7 +191,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -251,7 +251,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice mist arrow");
+            //DisplayName.SetDefault("Ice mist arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -289,9 +289,16 @@ namespace StormDiversMod.Projectiles
             dust.scale = 1.5f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 300);
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (info.PvP)
+            {
+                target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 300);
+            }
         }
 
         public override void Kill(int timeLeft)
@@ -339,7 +346,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice mist spike");
+            //DisplayName.SetDefault("Ice mist spike");
         }
         public override void SetDefaults()
         {
@@ -378,17 +385,17 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 120);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 120);
+            if (info.PvP)
+            {
+                target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 120);
+            }
         }
-
-
         public override bool OnTileCollide(Vector2 oldVelocity)
 
         {
@@ -415,7 +422,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Star");
+            //DisplayName.SetDefault("Cultist Star");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
@@ -428,7 +435,7 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 34;
             Projectile.height = 34;
             Projectile.friendly = true;
-            Projectile.penetrate = 10;
+            Projectile.penetrate = 5;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 180;
             Projectile.tileCollide = true;
@@ -443,7 +450,7 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             rotate++;
-            Projectile.rotation = rotate * 0.1f;
+            //Projectile.rotation = rotate * 0.1f;
             if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, 0, 0, 130, default, 1.5f);
@@ -452,8 +459,9 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dust].velocity *= 0.5f;
             }
 
-
-            if (Projectile.localAI[0] == 0f)
+            if (rotate > 15)
+            {
+                if (Projectile.localAI[0] == 0f)
                 {
                     AdjustMagnitude(ref Projectile.velocity);
                     Projectile.localAI[0] = 1f;
@@ -482,28 +490,24 @@ namespace StormDiversMod.Projectiles
                 if (target)
                 {
                     AdjustMagnitude(ref move);
-                    Projectile.velocity = (10 * Projectile.velocity + move) / 11f;
+                    Projectile.velocity = (10 * Projectile.velocity + move) / 10f;
                     AdjustMagnitude(ref Projectile.velocity);
                 }
-            
+            }
         }
 
         private void AdjustMagnitude(ref Vector2 vector)
         {
             
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 12f)
+                if (magnitude > 10f)
                 {
-                    vector *= 12f / magnitude;
+                    vector *= 10f / magnitude;
                 }
             
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
-
-            Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-
             if (Projectile.velocity.X != oldVelocity.X)
             {
                 Projectile.velocity.X = -oldVelocity.X * 1;
@@ -512,17 +516,15 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.velocity.Y = -oldVelocity.Y * 1f;
             }
-
-
             return false;
-
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.damage = (Projectile.damage * 9) / 10;
 
             for (int i = 0; i < 10; i++)
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0, 0, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, 0, 0, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                 Main.dust[dust].noGravity = true;
             }
         }
@@ -531,12 +533,14 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);
-
-                for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
+                for (int i = 0; i < 30; i++) 
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0, 0, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 2.5f;
+                    Vector2 perturbedSpeed = new Vector2(0, -2.5f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 111, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+
                 }
 
             }
@@ -551,11 +555,10 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.9f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.8f, SpriteEffects.None, 0);
             }
 
             return true;
-
         }
        
         public override Color? GetAlpha(Color lightColor)

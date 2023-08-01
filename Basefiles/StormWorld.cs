@@ -29,7 +29,7 @@ namespace StormDiversMod.Basefiles
 
         public static bool stormBossDown; //when the Storm Boss is defeated
         public static bool aridBossDown; //when the Arid Boss is defeated
-        public static bool painBossDown; //when the Pain Boss is defeated
+        public static bool ultimateBossDown; //when the Pain Boss is defeated
 
 
         public override void OnWorldLoad()
@@ -43,7 +43,7 @@ namespace StormDiversMod.Basefiles
 
             stormBossDown = false;
             aridBossDown = false;
-            painBossDown = false;
+            ultimateBossDown = false;
 
         }
         public override void OnWorldUnload()
@@ -56,7 +56,7 @@ namespace StormDiversMod.Basefiles
 
             stormBossDown = false;
             aridBossDown = false;
-            painBossDown = false;
+            ultimateBossDown = false;
 
         }
         public override void SaveWorldData(TagCompound tag)
@@ -90,9 +90,9 @@ namespace StormDiversMod.Basefiles
             {
                 tag["aridBossDown"] = true;
             }
-            if (aridBossDown)
+            if (ultimateBossDown)
             {
-                tag["painBossDown"] = true;
+                tag["ultimateBossDown"] = true;
             }
         }
         public override void LoadWorldData(TagCompound tag)
@@ -105,7 +105,7 @@ namespace StormDiversMod.Basefiles
 
             stormBossDown = tag.ContainsKey("stormBossDown");
             aridBossDown = tag.ContainsKey("aridBossDown");
-            painBossDown = tag.ContainsKey("painBossDown");
+            ultimateBossDown = tag.ContainsKey("ultimateBossDown");
 
         }
 
@@ -125,7 +125,7 @@ namespace StormDiversMod.Basefiles
 
             flags2[0] = stormBossDown;
             flags2[1] = aridBossDown;
-            flags2[2] = painBossDown;
+            flags2[2] = ultimateBossDown;
 
             writer.Write(flags2);
         }
@@ -143,7 +143,7 @@ namespace StormDiversMod.Basefiles
 
             stormBossDown = flags2[0];
             aridBossDown = flags2[1];
-            painBossDown = flags2[2];
+            ultimateBossDown = flags2[2];
         }
 
         public override void PreUpdateWorld()
@@ -276,28 +276,32 @@ namespace StormDiversMod.Basefiles
             }*/
 
         }
+        public override void ModifyGameTipVisibility(IReadOnlyList<GameTipData> gameTips)
+        {
+            // If you wish to add your OWN tips, then you have to put them in the stupid Localization file which is stupid and stupid.
+        }
     }
     public class WorldOre : GlobalNPC
     {
-        /*public override void NPCLoot(NPC npc)
-        {
-            //set bools when the enemy is killed for the first time, these are saved at the top
-            if (npc.type == NPCID.IceGolem) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
+            /*public override void NPCLoot(NPC npc)
             {
-                if (!StormWorld.SpawnIceOre)
+                //set bools when the enemy is killed for the first time, these are saved at the top
+                if (npc.type == NPCID.IceGolem) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
                 {
-                    StormWorld.SpawnIceOre = true;
+                    if (!StormWorld.SpawnIceOre)
+                    {
+                        StormWorld.SpawnIceOre = true;
+                    }
                 }
-            }
-            if (npc.type == NPCID.SandElemental) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
-            {
-                if (!StormWorld.SpawnDesertOre)
+                if (npc.type == NPCID.SandElemental) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
                 {
+                    if (!StormWorld.SpawnDesertOre)
+                    {
 
-                    StormWorld.SpawnDesertOre = true;
+                        StormWorld.SpawnDesertOre = true;
+                    }
+
                 }
-
-            }
-        }*/
-    }
+            }*/
+        }
 }

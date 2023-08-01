@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Jungle Sentry");
+            //DisplayName.SetDefault("Jungle Sentry");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -162,14 +162,11 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //target.AddBuff(mod.BuffType("AridSandDebuff"), 300);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            //target.AddBuff(mod.BuffType("AridSandDebuff"), 300);
         }
         public override void Kill(int timeLeft)
         {
@@ -190,7 +187,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Jungle Thorn ball");
+            //DisplayName.SetDefault("Jungle Thorn ball");
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -219,7 +216,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
 

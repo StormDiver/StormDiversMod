@@ -18,11 +18,11 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Striders");
-            Tooltip.SetDefault("Greatly increases movement speed up to 46mph\nIncreases acceleration, and allows flight\n'Speed throughout the day and the night'");
+            //DisplayName.SetDefault("Soul Striders");
+            //Tooltip.SetDefault("Greatly increases movement speed up to 46mph\nIncreases acceleration, and allows flight\n'Speed throughout the day and the night'");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(10, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             ShoesLayer.RegisterData(Item.shoeSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Shoes")
@@ -49,7 +49,7 @@ namespace StormDiversMod.Items.Accessory
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Pink;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

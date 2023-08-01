@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mysterious Vine");
-            Tooltip.SetDefault("Seems to be infused with some strange energy");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Mysterious Vine");
+            //Tooltip.SetDefault("Seems to be infused with some strange energy");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -66,9 +66,9 @@ namespace StormDiversMod.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Suspicious Looking Helmet");
-            Tooltip.SetDefault("Summons something unthinkable");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Suspicious Looking Helmet");
+            //Tooltip.SetDefault("Summons something unthinkable");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -119,9 +119,9 @@ namespace StormDiversMod.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Strange Twilight Hood");
-            Tooltip.SetDefault("Summons a mysterious figure to light your way");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Strange Twilight Hood");
+            //Tooltip.SetDefault("Summons a mysterious figure to light your way");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -177,9 +177,9 @@ namespace StormDiversMod.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mysterious Device");
-            Tooltip.SetDefault("Summons a Baby Overloaded Scandrone\n'Scanning complete!'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Mysterious Device");
+            //Tooltip.SetDefault("Summons a Baby Overloaded Scandrone\n'Scanning complete!'");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -231,9 +231,9 @@ namespace StormDiversMod.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Glowing Horns");
-            Tooltip.SetDefault("Summons a liberated Husk that follows you");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Glowing Horns");
+            //Tooltip.SetDefault("Summons a liberated Husk that follows you");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -273,9 +273,9 @@ namespace StormDiversMod.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("TheCute");
-            Tooltip.SetDefault("Summons something cute and painless");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("TheCute");
+            //Tooltip.SetDefault("Summons something cute and painless");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

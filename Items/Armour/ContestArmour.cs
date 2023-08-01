@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Cryogenic Mask");
-            Tooltip.SetDefault("Increases your max number of sentries by 1\n7% increased damage\n'Cold and Misty'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Cryogenic Mask");
+            //Tooltip.SetDefault("Increases your max number of sentries by 1\n7% increased damage\n'Cold and Misty'");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -52,7 +52,7 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "Grants immunity to all cold themed debuffs\nMakes all sentries inflict Cryoburn\nPress '" + keyName + "' to summon a cryo cloud at the cursor that rains down icicles, requires a line of sight and has a 5 second cooldown";
+            player.setBonus = "Grants immunity to all cold themed debuffs\nMakes all sentries inflict Frostbite\nPress '" + keyName + "' to summon a cryo cloud at the cursor that rains down icicles, requires a line of sight and has a 5 second cooldown";
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
             player.buffImmune[BuffID.Frostburn] = true;
@@ -114,9 +114,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Cryogenic Chestplate");
-            Tooltip.SetDefault("8% increased damage\n6% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Cryogenic Chestplate");
+            //Tooltip.SetDefault("8% increased damage\n6% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -152,9 +152,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Cryogenic Greaves");
-            Tooltip.SetDefault("Increases your max number of sentries by 1\n7% increased damage\n10% increased movement speed");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Cryogenic Greaves");
+            //Tooltip.SetDefault("Increases your max number of sentries by 1\n7% increased damage\n10% increased movement speed");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -205,7 +205,7 @@ namespace StormDiversMod.Items.Armour
             }
 
         }
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockBack, bool crit) //PvE
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) //PvE
         {
            
         }

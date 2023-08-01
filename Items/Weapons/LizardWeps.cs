@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using StormDiversMod.Basefiles;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -19,9 +20,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Sawblade");
-            Tooltip.SetDefault("Throw out spinning sawblades that linger in place\nLimit of 6 sawblades at a time, right click to remove all thrown sawblades");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Lihzahrd Sawblade");
+            //Tooltip.SetDefault("Throw out spinning sawblades that linger in place\nLimit of 6 sawblades at a time, right click to remove all thrown sawblades");
+            Item.ResearchUnlockCount = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -98,7 +99,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.LunarTabletFragment, 16)
+            .AddIngredient(ItemID.LunarTabletFragment, 13)
             .AddTile(TileID.LihzahrdAltar)
             .Register();
 
@@ -117,9 +118,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Flamer");
-            Tooltip.SetDefault("Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water\nUses gel for ammo\nIgnores 20 points of enemy defense");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Lihzahrd Flamer");
+            //Tooltip.SetDefault("Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water\nUses gel for ammo\nIgnores 20 points of enemy defense");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -148,8 +149,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 3;
-            Item.useAnimation = 12;
+            Item.useTime = 5;
+            Item.useAnimation = 25;
         
             Item.useTurn = false;
             Item.autoReuse = true;
@@ -157,11 +158,11 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.UseSound = SoundID.Item34;
 
-            Item.damage = 35;
+            Item.damage = 50;
             Item.knockBack = 0.5f;
             Item.shoot = ModContent.ProjectileType<Projectiles.LizardFlameProj>();
 
-            Item.shootSpeed = 3f;
+            Item.shootSpeed = 4f;
 
             Item.useAmmo = AmmoID.Gel;
 
@@ -174,14 +175,38 @@ namespace StormDiversMod.Items.Weapons
         public override void HoldItem(Player player)
         {
         }
+        int alpha = 200;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 2;
+            
+            for (int i = 0; i < 2; i++) //trail effect
             {
-                position += muzzleOffset;
+                if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                    position += muzzleOffset * 10f;
+
+                int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
+                Main.projectile[proj1].alpha = alpha;
+                alpha -= 50;
+
             }
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X + player.velocity.X / 10, velocity.Y + player.velocity.Y / 10), type, damage, knockback, player.whoAmI);                    
+            if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                position += muzzleOffset * 10f;
+            //middle proj deals damage
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, damage, knockback, player.whoAmI);
+            alpha -= 50;
+
+            for (int i = 0; i < 2; i++) //trail effect
+            {
+                if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                    position += muzzleOffset * 10f;
+                int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
+                Main.projectile[proj1].alpha = alpha;
+                alpha -= 50;
+
+            }
+            alpha = 200;
+
             /*if (!NPC.downedPlantBoss)
             {
                 for (int i = 0; i < 10; i++)
@@ -222,7 +247,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
            CreateRecipe()
-           .AddIngredient(ItemID.LunarTabletFragment, 16)
+           .AddIngredient(ItemID.LunarTabletFragment, 13)
            .AddTile(TileID.LihzahrdAltar)
            .Register();
             
@@ -240,10 +265,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Flameburst Tome");
-            Tooltip.SetDefault("Summons a burst of ricocheting fireballs");
+            //DisplayName.SetDefault("Lihzahrd Flameburst Tome");
+            //Tooltip.SetDefault("Summons a burst of ricocheting fireballs");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -295,8 +320,6 @@ namespace StormDiversMod.Items.Weapons
             //Item.shoot = ProjectileID.BallofFire;
 
             Item.shootSpeed = 10f;
-
-
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override Vector2? HoldoutOffset()
@@ -324,17 +347,13 @@ namespace StormDiversMod.Items.Weapons
                 //Main.projectile[projID].timeLeft = 300;
             }
             return true;
-
-
-
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.LunarTabletFragment, 16)
+            .AddIngredient(ItemID.LunarTabletFragment, 13)
             .AddTile(TileID.LihzahrdAltar)
             .Register();
-
         }
         //Drop rate in NPCEffects/ Luantic Cultist treasure bag
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -350,11 +369,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Guardian Staff");
-            Tooltip.SetDefault("Summons a mini Temple Guardian to fight for you");
+            //DisplayName.SetDefault("Lihzahrd Guardian Staff");
+            //Tooltip.SetDefault("Summons a mini Temple Guardian to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -407,20 +426,15 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
             player.AddBuff(Item.buffType, 2);
-
             player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
 
             return false;
-
-
-
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ItemID.LunarTabletFragment, 16)
+           .AddIngredient(ItemID.LunarTabletFragment, 13)
            .AddTile(TileID.LihzahrdAltar)
            .Register();
         }

@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chlorophyte Dart Shotgun");
-            Tooltip.SetDefault("Fires out a burst of darts");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Chlorophyte Dart Shotgun");
+            //Tooltip.SetDefault("Fires out a burst of darts");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -47,7 +47,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-2, 0);
+            return new Vector2(-4, 0);
         }
         int accuracy;
        
@@ -55,7 +55,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 25f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 15f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
@@ -95,28 +95,23 @@ namespace StormDiversMod.Items.Weapons
             return false;
         }
 
-
         public override void AddRecipes()
         {
             CreateRecipe()
           .AddIngredient(ItemID.ChlorophyteBar, 12)
           .AddTile(TileID.MythrilAnvil)
           .Register();
-           
-
         }
-        
     }
     //___________________________________________________________________________________________
     public class ChloroStaff : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chlorophyte Scepter");
-            Tooltip.SetDefault("Fires out a stream of damaging spore dust");
+            //DisplayName.SetDefault("Chlorophyte Spore Staff");
+            //Tooltip.SetDefault("Fires out a spore that explodes into multiple spore clouds at the cursor's location");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -126,31 +121,29 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 10;
-            Item.useAnimation = 10;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
             {
-                Item.mana = 9;
+                Item.mana = 30;
             }
             else
             {
-                Item.mana = 6;
+                Item.mana = 20;
             }
-            Item.UseSound = SoundID.Item13;
+            Item.UseSound = SoundID.Item21;
 
-            Item.damage = 48;
+            Item.damage = 52;
 
-            Item.knockBack = 3f;
+            Item.knockBack = 1f;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.ChloroStaffProj>();
 
-            Item.shootSpeed = 10f;
-
-
+            Item.shootSpeed = 10;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -161,15 +154,13 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 15;
+            /*Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 15;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
-            }
+            }*/
 
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-            float scale = 1f - (Main.rand.NextFloat() * .1f);
-            perturbedSpeed = perturbedSpeed * scale;
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
 
             return false;

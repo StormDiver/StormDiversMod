@@ -19,56 +19,48 @@ using Terraria.UI;
 
 namespace StormDiversMod.Basefiles
 {
-    [Label("Global Configurations")]
+    //[Label("Global Configurations")]
     public class ConfigurationsGlobal : ModConfig //configuration settings
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
-        [Header("Enemy Spawning")]
+        [Header("EnemySpawning")]
 
-        [Label("Prevent modded pillar enemies from spawning")]
-        [Tooltip("This will prevent the new pillar enemies in this mod from spawning")]
+        //[Label("Prevent modded pillar enemies from spawning")]
+        //[Tooltip("This will prevent the new pillar enemies in this mod from spawning")]
         //[ReloadRequired] //No reload required as it just changes the spawn chance and doesn't disable the enemy itself
         [DefaultValue(false)]
         public bool PreventPillarEnemies { get; set; }
 
-        [Label("Disable Moonlings from naturally spawning")]
-        [Tooltip("Prevent Moonlings from spawning naturally in space post-Moon Lord, they can still be summoned via Moonling core")]
+        //[Label("Disable Moonlings from naturally spawning")]
+        //[Tooltip("Prevent Moonlings from spawning naturally in space post-Moon Lord, they can still be summoned via Moonling core")]
         //[ReloadRequired] //No
         [DefaultValue(false)]
         public bool NoMoonling4U { get; set; }
 
-        [Label("Disable Temple Guardians pre Plantera")]
-        [Tooltip("Prevent Temple Guardians from spawning when entering the temple pre-Plantera (Not recommended)")]
+        //[Label("Disable Temple Guardians pre Plantera")]
+        //[Tooltip("Prevent Temple Guardians from spawning when entering the temple pre-Plantera (Not recommended)")]
         //[ReloadRequired] //Sadly no
         [DefaultValue(false)]
         public bool SmellyPlayer { get; set; }
 
-        [Header("Enemy Misc")]
+        [Header("EnemyMisc")]
 
-        [Label("Overloaded Scandrone acts as a Plantera alternative")]
-        [Tooltip("This will make defeating Overloaded Scandrone activate everything that defeating the Plantera would")]
+        //[Label("Overloaded Scandrone acts as a Plantera alternative")]
+        //[Tooltip("This will make defeating Overloaded Scandrone activate everything that defeating the Plantera would")]
         [DefaultValue(false)]
         //[ReloadRequired] //No reload required as it just prevents a single bool being activated
         public bool StormBossSkipsPlant { get; set; }
 
-        [Label("Disable buffed Derplings")]
-        [Tooltip("This will prevent Derplings from gaining massively increased stats post-plantera")]
+        //[Label("Disable buffed Derplings")]
+        //[Tooltip("This will prevent Derplings from gaining massively increased stats post-plantera")]
         //[ReloadRequired] //No reload required 
         [DefaultValue(false)]
         public bool PreventBuffedDerps { get; set; }
 
-        [Label("Prevent Boss weather changes")]
-        [Tooltip("This will prevent bosses in the mod from chaing the weather when alive")]
+        //[Label("Prevent Boss weather changes")]
+        //[Tooltip("This will prevent bosses in the mod from chaing the weather when alive")]
         //[ReloadRequired] //No reload required 
         [DefaultValue(false)]
         public bool PreventBossStorm { get; set; }
-
-        //This will be added if Rho's Playground is ever deleted
-        /*[Label("Remove damage variance")]
-        [Tooltip("This will remove the random spread in all damage dealt and taken (Requires reload)")]
-        [ReloadRequired] //Yes
-        [DefaultValue(false)]
-        public bool NoDamageSpread { get; set; }*/
-
     }
 }

@@ -18,9 +18,9 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Bloody Blade"); 
-			Tooltip.SetDefault("Shoots out a trail of blood every other swing");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Bloody Blade"); 
+			//Tooltip.SetDefault("Shoots out a trail of blood every other swing");
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults() 
@@ -30,8 +30,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee; 
             Item.width = 35;
 			Item.height = 42;
-			Item.useTime = 20;
-			Item.useAnimation = 20;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
 			Item.useStyle = ItemUseStyleID.Swing;  
             Item.value = Item.sellPrice(0, 0, 75, 0);
             Item.rare = ItemRarityID.Green;
@@ -87,13 +87,13 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart Piercer");
-            Tooltip.SetDefault("Great for stabbing in a hurry");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Heart Piercer");
+            //Tooltip.SetDefault("Great for stabbing in a hurry");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.Spears[Item.type] = true;
 
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        /*public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             foreach (TooltipLine line in tooltips)
             {
@@ -106,7 +106,7 @@ namespace StormDiversMod.Items.Weapons
                 }
 
             }
-        }
+        }*/
         public override void SetDefaults()
         {
             Item.damage = 20;
@@ -158,12 +158,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Heart Attack");
-            Tooltip.SetDefault("Leaves behind a trail of damaging blood");
+            //DisplayName.SetDefault("The Heart Attack");
+            //Tooltip.SetDefault("Leaves behind a trail of damaging blood");
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 25;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -209,9 +209,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Grenade");
-            Tooltip.SetDefault("Bursts into multiple blood drops on destruction");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Blood Grenade");
+            //Tooltip.SetDefault("Bursts into multiple blood drops on destruction");
+            Item.ResearchUnlockCount = 99;
 
         }
 
@@ -253,9 +253,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Bloody Tendon");
-            Tooltip.SetDefault("4% summon tag critical strike chance\nYour summons will focus struck enemies\nDamaging blood orbs will orbit the targetted enemy when hit by summons");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("The Bloody Tendon");
+            //Tooltip.SetDefault("8% summon tag critical strike chance\nYour summons will focus struck enemies\nDamaging blood orbs will orbit the targetted enemy when hit by summons");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

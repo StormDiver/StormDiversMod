@@ -23,7 +23,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Storm Diver Shotgun");
+            //DisplayName.SetDefault("Storm Diver Shotgun");
             Main.projFrames[Projectile.type] = 1;
         }
         public override void SetDefaults()
@@ -93,6 +93,7 @@ namespace StormDiversMod.Projectiles
                     Main.dust[dust2].velocity *= 0.2f;
                     //Main.dust[dust2].velocity.Y = (float)(-Main.rand.Next(7, 13)) * 0.15f;
                 }
+
                 Projectile.soundDelay = 10;
             }
             //Main.NewText("Tester " + Projectile.damage, 0, 204, 170); //Inital Scale
@@ -112,20 +113,14 @@ namespace StormDiversMod.Projectiles
                 {
                     SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.6f, Pitch = 1, MaxInstances = 0, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, base.Projectile.position);
 
-                    /*ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, new ParticleOrchestraSettings
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueNightsEdge, new ParticleOrchestraSettings
                     {
                         PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y - 2),
 
-                    }, player.whoAmI);*/
-
+                    }, player.whoAmI);
+                  
                     Projectile.soundDelay = 7;
                 }
-                Vector2 dustspeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
-
-                int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-5, -7), 0, 0, 229, dustspeed.X * 0.25f, dustspeed.Y * 0.25f, 229, default, 1.5f);
-                Main.dust[dust2].noGravity = true;
-                Main.dust[dust2].scale = 1f;
-               
             }
 
             Projectile.frameCounter++;
@@ -194,6 +189,23 @@ namespace StormDiversMod.Projectiles
             //base.Projectile.velocity.X *= 1f + (float)Main.rand.Next(-3, 4) * 0.01f;        
             //================================================================================================================================================================================================================================================
         }
+        public static void DrawPrettyStarSparkle(float opacity, SpriteEffects dir, Vector2 drawpos, Color drawColor, Color shineColor, float flareCounter, float fadeInStart, float fadeInEnd, float fadeOutStart, float fadeOutEnd, float rotation, Vector2 scale, Vector2 fatness)
+        {
+            Texture2D texture = TextureAssets.Extra[98].Value;
+            Color bigShineColor = shineColor * opacity * 0.5f;
+            bigShineColor.A = 0;
+            Vector2 origin = texture.Size() / 2f;
+            Color smallShineColor = drawColor * 0.5f;
+            float brightness = Utils.GetLerpValue(fadeInStart, fadeInEnd, flareCounter, clamped: true) * Utils.GetLerpValue(fadeOutEnd, fadeOutStart, flareCounter, clamped: true);
+            Vector2 vector = new Vector2(fatness.X * 0.5f, scale.X) * brightness;
+            Vector2 vector2 = new Vector2(fatness.Y * 0.5f, scale.Y) * brightness;
+            bigShineColor *= brightness;
+            smallShineColor *= brightness;
+            Main.EntitySpriteDraw(texture, drawpos, null, bigShineColor, MathHelper.PiOver2 + rotation, origin, vector, dir, 0);
+            Main.EntitySpriteDraw(texture, drawpos, null, bigShineColor, rotation, origin, vector2, dir, 0);
+            Main.EntitySpriteDraw(texture, drawpos, null, smallShineColor, MathHelper.PiOver2 + rotation, origin, vector * 0.6f, dir, 0);
+            Main.EntitySpriteDraw(texture, drawpos, null, smallShineColor, rotation, origin, vector2 * 0.6f, dir, 0);
+        }
         public override void Kill(int timeLeft)
         {
             var player = Main.player[Projectile.owner];
@@ -243,7 +255,7 @@ namespace StormDiversMod.Projectiles
                 }           
                 if (maxcharge) //extra dust for maxcharge
                 {
-                    for (int i = 0; i < 30; i++)
+                    /*for (int i = 0; i < 30; i++)
                     {
                         float speedY = -1.5f;
 
@@ -252,7 +264,12 @@ namespace StormDiversMod.Projectiles
                         int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y - 2), Projectile.width, Projectile.height, 229, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 229, default, 1.5f);
                         Main.dust[dust2].noGravity = true;
                       
-                    }
+                    }*/
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TerraBlade, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y - 2),
+
+                    }, player.whoAmI);
                 }
             }
         }

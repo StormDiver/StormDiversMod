@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Pointy Wooden Stick"); 
-			Tooltip.SetDefault("'Poke it with a stick'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Pointy Wooden Stick"); 
+			//Tooltip.SetDefault("'Poke it with a stick'");
+            Item.ResearchUnlockCount = 1;
           
         }
 
@@ -48,11 +48,11 @@ namespace StormDiversMod.Items.Weapons
         {
            
         }
-       /* public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+       /* public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 300);
         }
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType < Buffs.SuperBurnDebuff>(), 300);
         }*/
@@ -69,9 +69,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wooden Crossbow");
-            Tooltip.SetDefault("Converts arrows into piercing crossbow bolts\n'Slow but powerful'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Wooden Crossbow");
+            //Tooltip.SetDefault("Converts arrows into piercing crossbow bolts\n'Slow but powerful'");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

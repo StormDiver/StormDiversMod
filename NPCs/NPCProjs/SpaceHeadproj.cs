@@ -14,7 +14,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Bolt");
+            //DisplayName.SetDefault("Asteroid Bolt");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             
         }
@@ -139,7 +139,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Bolt");
+            //DisplayName.SetDefault("Asteroid Bolt");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
@@ -181,7 +181,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         }
         
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             for (int i = 0; i < 10; i++)
             {

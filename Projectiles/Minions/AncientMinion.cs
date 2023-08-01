@@ -16,8 +16,8 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Arid Minion");
-			Description.SetDefault("An Ancient Arid minion will fight for you");
+			//DisplayName.SetDefault("Ancient Arid Minion");
+			//Description.SetDefault("An Ancient Arid minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -40,7 +40,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Arid Minion");
+			//DisplayName.SetDefault("Ancient Arid Minion");
 			Main.projFrames[Projectile.type] = 8;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 			Main.projPet[Projectile.type] = true;
@@ -361,7 +361,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Arid Minion Projectile");
+			//DisplayName.SetDefault("Ancient Arid Minion Projectile");
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
@@ -400,7 +400,7 @@ namespace StormDiversMod.Projectiles.Minions
 			return;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Projectile.damage = (Projectile.damage * 9) / 10;
 
@@ -409,14 +409,10 @@ namespace StormDiversMod.Projectiles.Minions
 
 
 		}
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-
-		}
-		public override void OnHitPvp(Player target, int damage, bool crit)
-
-		{
-			target.AddBuff(BuffID.OnFire, 180);
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (info.PvP)
+                target.AddBuff(BuffID.OnFire, 180);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

@@ -15,13 +15,13 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chaos Orb");
+            //DisplayName.SetDefault("Chaos Orb");
             
-                Tooltip.SetDefault("'Imbued with pure chaos'");
+                //Tooltip.SetDefault("'Imbued with pure chaos'");
            
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 5));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            Item.ResearchUnlockCount = 25;
 
         }
         public override bool GrabStyle(Player player)
@@ -74,10 +74,10 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Power Cell");
+            //DisplayName.SetDefault("Granite Power Cell");
 
-            Tooltip.SetDefault("Seems to be pulsing with energy");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 15;
+            //Tooltip.SetDefault("Seems to be pulsing with energy");
+            Item.ResearchUnlockCount = 15;
 
         }
 
@@ -110,11 +110,11 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Warrior Cloth");
+            //DisplayName.SetDefault("Warrior Cloth");
             
            
-                Tooltip.SetDefault("Used to create Items of a fallen Gladiator");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 15;
+                //Tooltip.SetDefault("Used to create Items of a fallen Gladiator");
+            Item.ResearchUnlockCount = 15;
 
         }
 
@@ -142,11 +142,11 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Insulated Fabric");
+            //DisplayName.SetDefault("Insulated Fabric");
             
            
-                Tooltip.SetDefault("Can be used to keep warm");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+                //Tooltip.SetDefault("Can be used to keep warm");
+            Item.ResearchUnlockCount = 25;
 
         }
 
@@ -173,9 +173,9 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Shell");
-            Tooltip.SetDefault("'Tough, but malleable'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            //DisplayName.SetDefault("Derpling Shell");
+            //Tooltip.SetDefault("'Tough, but malleable'");
+            Item.ResearchUnlockCount = 25;
 
         }
 
@@ -202,11 +202,11 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Broken Heart");
+            //DisplayName.SetDefault("Broken Heart");
 
-            Tooltip.SetDefault("'Almost devoid of life'");
+            //Tooltip.SetDefault("'Almost devoid of life'");
             ItemID.Sets.ItemIconPulse[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            Item.ResearchUnlockCount = 25;
 
         }
         public override void PostUpdate()
@@ -232,10 +232,10 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody Drop");
+            //DisplayName.SetDefault("Bloody Drop");
 
-            Tooltip.SetDefault("A drop of blood that's somehow able to hold its shape");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            //Tooltip.SetDefault("A drop of blood that's somehow able to hold its shape");
+            Item.ResearchUnlockCount = 25;
 
         }
 
@@ -265,13 +265,13 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Fragment");
+            //DisplayName.SetDefault("Asteroid Fragment");
 
-            Tooltip.SetDefault("Seems to be infused with some strange energy");
+            //Tooltip.SetDefault("Seems to be infused with some strange energy");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            Item.ResearchUnlockCount = 25;
 
         }
 
@@ -312,13 +312,13 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HellSoul Flame");
+            //DisplayName.SetDefault("HellSoul Flame");
 
-            Tooltip.SetDefault("A soul that never stops burning");
+            //Tooltip.SetDefault("A soul that never stops burning");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            Item.ResearchUnlockCount = 25;
 
         }
 
@@ -359,10 +359,10 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Shard");
+            //DisplayName.SetDefault("Frost Shard");
 
-            Tooltip.SetDefault("Retrieved from the depths of the frozen caves");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //Tooltip.SetDefault("Retrieved from the depths of the frozen caves");
+            Item.ResearchUnlockCount = 99;
 
         }
 
@@ -391,9 +391,9 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Shard");
-            Tooltip.SetDefault("Retrieved from the depths of the deserted caves");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Forbidden Shard");
+            //Tooltip.SetDefault("Retrieved from the depths of the deserted caves");
+            Item.ResearchUnlockCount = 99;
 
         }
 
@@ -421,9 +421,9 @@ namespace StormDiversMod.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mechanical Scrap");
-            Tooltip.SetDefault("All that remains of the mighty Santank");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            //DisplayName.SetDefault("Mechanical Scrap");
+            //Tooltip.SetDefault("All that remains of the mighty Santank");
+            Item.ResearchUnlockCount = 25;
 
         }
 

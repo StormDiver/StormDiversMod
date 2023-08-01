@@ -18,8 +18,8 @@ namespace StormDiversMod.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Minion");
-            Description.SetDefault("A mini Asteroid will fight for you");
+            //DisplayName.SetDefault("Asteroid Minion");
+            //Description.SetDefault("A mini Asteroid will fight for you");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
@@ -43,7 +43,7 @@ namespace StormDiversMod.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Minion");
+            //DisplayName.SetDefault("Asteroid Minion");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             Main.projPet[Projectile.type] = true;
@@ -303,7 +303,7 @@ namespace StormDiversMod.Projectiles.Minions
      
            
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (!Main.dedServ)

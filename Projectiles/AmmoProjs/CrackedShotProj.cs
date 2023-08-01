@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cracked Bullet");
+            //DisplayName.SetDefault("Cracked Bullet");
 
         }
 
@@ -102,7 +102,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cracked Bullet Shard");
+            //DisplayName.SetDefault("Cracked Bullet Shard");
         }
 
         public override void SetDefaults()

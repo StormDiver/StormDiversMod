@@ -12,7 +12,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Fragment");
+            //DisplayName.SetDefault("Meteor Fragment");
             Main.projFrames[Projectile.type] = 4;
 
         }
@@ -51,7 +51,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.OnFire, 180);
          }

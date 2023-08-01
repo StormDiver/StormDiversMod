@@ -18,10 +18,10 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Messenger's Crown");
-            Tooltip.SetDefault("Increases movement speed and acceleration");
+            //DisplayName.SetDefault("Messenger's Crown");
+            //Tooltip.SetDefault("Increases movement speed and acceleration");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
 

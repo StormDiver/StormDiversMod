@@ -13,9 +13,9 @@ namespace StormDiversMod.Items.Tools
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Bloody Pax"); 
-			Tooltip.SetDefault("'Try not to make a mess with this'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Bloody Pax"); 
+			//Tooltip.SetDefault("'Try not to make a mess with this'");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -70,9 +70,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody Hammer");
-            Tooltip.SetDefault("'Try not to leave blood stains on the wall'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Bloody Hammer");
+            //Tooltip.SetDefault("'Try not to leave blood stains on the wall'");
+            Item.ResearchUnlockCount = 1;
 
         }
 

@@ -14,7 +14,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Husk Sand");
+            //DisplayName.SetDefault("Ancient Husk Sand");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -23,7 +23,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.width = 12;
             Projectile.height = 12;
 
-            Projectile.aiStyle = 1;
+            Projectile.aiStyle = -1;
             Projectile.light = 0.9f;
             Projectile.friendly = false;
             Projectile.hostile = true;
@@ -36,7 +36,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.alpha = 255;
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
-            Projectile.aiStyle = -1;
         }
 
         public override void AI()
@@ -105,7 +104,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Husk Shard");
+            //DisplayName.SetDefault("Ancient Husk Shard");
         }
 
         public override void SetDefaults()
@@ -134,7 +133,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             dust.velocity *= 0;
         }
             
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {         
             for (int i = 0; i < 5; i++)
             {
@@ -159,7 +158,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Husk Sand Flame");
+            //DisplayName.SetDefault("Ancient Husk Sand Flame");
             Main.projFrames[Projectile.type] = 4;
 
         }
@@ -237,7 +236,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
             base.ModifyDamageHitbox(ref hitbox);
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {         
             target.AddBuff(BuffID.OnFire, 180);
         }

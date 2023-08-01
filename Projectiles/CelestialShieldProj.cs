@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Celestial Guardian");
+            //DisplayName.SetDefault("Celestial Guardian");
             Main.projFrames[Projectile.type] = 4;
 
         }

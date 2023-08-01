@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Sharpshooter");
-            Tooltip.SetDefault("33% Chance not to consume Ammo\nBuilds up accuracy over several seconds, dealing extra damage at full accuracy\nRight Click to zoom out");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroomite Sharpshooter");
+            //Tooltip.SetDefault("33% Chance not to consume Ammo\nBuilds up accuracy over several seconds, dealing extra damage at full accuracy\nRight Click to zoom out");
+            Item.ResearchUnlockCount = 1;
          
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -150,9 +150,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Fury");
-            Tooltip.SetDefault("Shoots out two additional super bouncy piercing arrows each shot");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroomite Fury");
+            //Tooltip.SetDefault("Shoots out two additional super bouncy piercing arrows each shot");
+            Item.ResearchUnlockCount = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -230,9 +230,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Launcher");
-            Tooltip.SetDefault("Fires Shroomite Rockets which explode into mushrooms\nRight click to fire Shroomite Grenades");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Shroomite Launcher");
+            //Tooltip.SetDefault("Fires Shroomite Rockets which explode into mushrooms\nRight click to fire Shroomite Grenades");
+            Item.ResearchUnlockCount = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {

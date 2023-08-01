@@ -27,11 +27,11 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Life Emblem");
-            Tooltip.SetDefault("Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
+            //DisplayName.SetDefault("Life Emblem");
+            //Tooltip.SetDefault("Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Green;
             
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -56,11 +56,11 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Philosopher's Heart");
-            Tooltip.SetDefault("Reduces the cooldown of healing potions by 25%\nEnemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
+            //DisplayName.SetDefault("Philosopher's Heart");
+            //Tooltip.SetDefault("Reduces the cooldown of healing potions by 25%\nEnemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }     
         public override void SetDefaults()
@@ -72,7 +72,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.LightRed;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

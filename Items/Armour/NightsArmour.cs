@@ -22,9 +22,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Twilight Hood");
-            Tooltip.SetDefault("6% increased damage\n10% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Twilight Hood");
+            //Tooltip.SetDefault("6% increased damage\n10% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
 
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -104,7 +104,8 @@ namespace StormDiversMod.Items.Armour
 
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-        }    
+        }
+      
     }
     //___________________________________________________________________________________________________________________________
     [AutoloadEquip(EquipType.Body)]
@@ -114,9 +115,9 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Twilight Robe");
-            Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlightly increases player acceleration");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Twilight Robe");
+            //Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlightly increases player acceleration");
+            Item.ResearchUnlockCount = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
             if (!Main.dedServ)
             {
@@ -160,6 +161,10 @@ namespace StormDiversMod.Items.Armour
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
 
+        public override void EquipFrameEffects(Player player, EquipType type)
+        {
+            player.front = (sbyte)StormDiversMod.TwilightRobe;
+        }
     }
     //______________________________________________________________________
     [AutoloadEquip(EquipType.Legs)]
@@ -170,9 +175,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Twilight Leggings");
-            Tooltip.SetDefault("3% increased damage\n2% increased critical strike chance\nSlightly increases jump speed and height");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Twilight Leggings");
+            //Tooltip.SetDefault("3% increased damage\n2% increased critical strike chance\nSlightly increases jump speed and height");
+            Item.ResearchUnlockCount = 1;
 
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {

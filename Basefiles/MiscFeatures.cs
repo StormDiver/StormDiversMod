@@ -26,12 +26,25 @@ using Terraria.GameContent.Drawing;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.GameContent.ItemDropRules;
 using rail;
+using Terraria.WorldBuilding;
+using ReLogic.Peripherals.RGB;
+using StormDiversMod.Items.Furniture;
+using StormDiversMod.Items.Weapons;
 
 namespace StormDiversMod.Basefiles
 {
 
     public class MiscFeatures : ModPlayer
     {
+        /*public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+        {
+            return new[] {
+                new Item(ModContent.ItemType<ThePainMask>()),
+                new Item(ModContent.ItemType<TheClaymanMask>()),
+                new Item(ModContent.ItemType<PainMusicBoxitem>())
+            };
+        }*/
+
         public bool screenshaker; //Weapons that shake the screen
         public int shaketimer; //How long to shake the screen for
 
@@ -65,7 +78,7 @@ namespace StormDiversMod.Basefiles
             //Alt fire autouse
             if ((
                 Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LightDarkSword>() ||
-                Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexLauncher>() ||
+                //Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexLauncher>() ||
                 //Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexShotgun>() ||
                 Player.HeldItem.type == ModContent.ItemType<Items.Weapons.ShroomiteLauncher>()
                 )
@@ -87,12 +100,13 @@ namespace StormDiversMod.Basefiles
                 Main.screenPosition += new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5));
                 shaketimer--;
             }
+
         }
         public override void PostUpdateEquips() //Updates every frame
         {
             //Detect if player is in Temple and immediatly summon up to 12 Guardians
 
-            if (Player.ZoneJungle && Player.ZoneRockLayerHeight && !NPC.downedPlantBoss) //This code is only active when certain criteia is met, sadly the zonelizardtemple doesn't work
+            if (Player.ZoneJungle && !NPC.downedPlantBoss) //This code is only active when certain criteia is met, sadly the zonelizardtemple doesn't work
             {
                 int xtilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
                 int ytilepos = (int)(Player.position.Y + (float)(Player.height / 2)) / 16;
@@ -207,14 +221,16 @@ namespace StormDiversMod.Basefiles
             }
             //Main.NewText("Pain = " + (100 - (Player.statDefense * 0.75f) * (1 - Player.endurance)), 204, 101, 22);
             
-            if (NPC.CountNPCS(ModContent.NPCType<NPCs.Boss.ThePainBoss>()) == 0)
+            if (NPC.CountNPCS(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>()) == 0)
             {
                 Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>()); 
             }
             //Main.NewText("Pain is " + paintime, 220, 63, 139);
         }
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
-        {
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+        { 
+        //public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        
             if (proj.type == ModContent.ProjectileType<StompBootProj2>() && target.type != NPCID.TargetDummy) //10 frames of immunity
             {
                 playerimmunetime = 10;
@@ -277,24 +293,22 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
-        String Paintext = "";    
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        //String Paintext = "";
+        //public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
-            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>() && !Player.immune)
+                
+            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() && !Player.immune)
             {
                 //paintime = 3600;
                 //Player.statDefense = 0; //ignores all DR
                 //Player.endurance = 0;
                 //damage = (Player.statLife / 3); //Deals 1/3 the player's
-                if (Player.statLife < Player.statLifeMax2 / 3)//Deals 75% damage below 33% life
-                {
-                    damage = damage * 3 / 4;      
-                }
             }
         }
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
-            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj>())
+            /*if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>())
             {
                 if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
                 {
@@ -318,7 +332,7 @@ namespace StormDiversMod.Basefiles
                         for (int i = 0; i < 200; i++)//message also appears from boss
                         {
                             NPC painTarget = Main.npc[i];
-                            if (painTarget.type == ModContent.NPCType<NPCs.Boss.ThePainBoss>())
+                            if (painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())
                             {
                                 CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
                             }
@@ -334,32 +348,25 @@ namespace StormDiversMod.Basefiles
 
                         //Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
 
-                        /*else if (damage >= 12 && damage < 50)
-                            Paintext = "Hmm you're taking a lot of pain!";
-                        else if (damage > 1 && damage < 12)
-                            Paintext = "Ok maybe too much pain";
-                        else if (damage == 1)
-                            Paintext = "Because how can you suffer if you're dead?";*/
                     }
-                }        
-            }
-            base.OnHitByProjectile(proj, damage, crit);
+                }    
+            }*/
         }
-        String Suffertext;
+        //String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (Player.HasBuff(ModContent.BuffType<YouCantEscapeDebuff>()) && !Player.HasBuff(ModContent.BuffType<PainBuff>())) //Save you from death once, won't activate if accessory does
+            /*if (Player.HasBuff(ModContent.BuffType<YouCantEscapeDebuff>()) && !Player.HasBuff(ModContent.BuffType<PainBuff>())) //Save you from death once, won't activate if accessory does
             {
                 Suffertext = "HOW CAN YOU SUFFER IF YOU'RE DEAD???";
                 for (int i = 0; i < 200; i++)//message also appears from boss
                 {
                     NPC painTarget = Main.npc[i];
-                    if (painTarget.type == ModContent.NPCType<NPCs.Boss.ThePainBoss>())
+                    if (painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())
                     {
                         CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.HotPink, Suffertext, true);
                     }
                 }
-                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.ThePainBossProj2>(), 0, 0, Main.myPlayer);
+                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 2.5f;
                 SoundEngine.PlaySound(SoundID.Item74 with { Volume = 2f, Pitch = 0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
                 SoundEngine.PlaySound(SoundID.Item109 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
@@ -396,22 +403,29 @@ namespace StormDiversMod.Basefiles
                 Player.immuneTime = 120;
                 Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>());
                 return false;
-            }
+            }*/
             return true;
         }
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             if (playerimmunetime > 0)
             {
-                return false;
             }
-           
-            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
+            base.ModifyHurt(ref modifiers);
         }
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override bool FreeDodge(Player.HurtInfo info)
         {
-            
+            if (playerimmunetime > 0)
+            {
+                return true;
+            }
+            else
+                return false;
         }
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            base.OnHurt(info);
+        }        
     }
     public class Itemchanges : GlobalItem
     {
@@ -465,5 +479,20 @@ namespace StormDiversMod.Basefiles
             return true;
         }*/
 
+    }
+
+    public class Seeddrops : GlobalTile
+    {
+        public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+            //seed drops for flaming seed launcher
+            var player = Main.LocalPlayer;
+            if (type == TileID.Plants)
+            {
+                if (player.HasItem(ModContent.ItemType<MoltenSeedLauncher>()))
+                    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemID.Seed);
+
+            }
+        }
     }
 }

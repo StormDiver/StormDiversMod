@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Iron Bullet");
+            //DisplayName.SetDefault("Iron Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -53,7 +53,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
@@ -79,7 +79,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lead Bullet");
+            //DisplayName.SetDefault("Lead Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -119,7 +119,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
            
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }

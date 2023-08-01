@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Light Essence");
+            //DisplayName.SetDefault("Light Essence");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -115,7 +115,7 @@ namespace StormDiversMod.Projectiles
 
         }
     
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             for (int i = 0; i < 10; i++)
@@ -180,7 +180,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dark Essence");
+            //DisplayName.SetDefault("Dark Essence");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -233,7 +233,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.knockBack = 6;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.timeLeft > 3)
             {

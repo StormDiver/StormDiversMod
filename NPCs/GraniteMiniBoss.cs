@@ -19,7 +19,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Surged Granite Core"); 
+            //DisplayName.SetDefault("Surged Granite Core"); 
                                                            
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
@@ -67,21 +67,26 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A floating orb of pure granite energy that guards the granite biomes.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
+    
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
-            if (spawnInfo.Granite && !NPC.AnyNPCs(ModContent.NPCType<GraniteMiniBoss>()) && NPC.downedBoss1)
+            if (!Main.remixWorld)
             {
-                return SpawnCondition.Cavern.Chance * 0.12f;
+                if (spawnInfo.Granite && !NPC.AnyNPCs(ModContent.NPCType<GraniteMiniBoss>()) && NPC.downedBoss1)
+                {
+                    return SpawnCondition.Cavern.Chance * 0.12f;
+                }
+                else
+                    return SpawnCondition.Cavern.Chance * 0f;
             }
             else
             {
-                return SpawnCondition.Cavern.Chance * 0f;
+                if (spawnInfo.Granite && !NPC.AnyNPCs(ModContent.NPCType<GraniteMiniBoss>()) && NPC.downedBoss1)
+                {
+                    return SpawnCondition.Underground.Chance * 0.12f;
+                }
+                else
+                    return SpawnCondition.Underground.Chance * 0f;
             }
         }
         int shoottime = 0;
@@ -175,13 +180,13 @@ namespace StormDiversMod.NPCs
         }
 
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             
                
             
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             shoottime = 80;
             if (Main.netMode == NetmodeID.Server)

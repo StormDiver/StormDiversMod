@@ -16,20 +16,21 @@ using ReLogic.Content;
 using StormDiversMod.Items.Weapons;
 using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.Items.Vanitysets;
+using StormDiversMod.Items.Furniture;
 
 namespace StormDiversMod.Items.BossTrophy
 {
 	public class AridBossBag : ModItem
 	{
 		// Sets the associated NPC this treasure bag is dropped from
-		//public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag (Ancient Husk)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
+			//DisplayName.SetDefault("Treasure Bag (Ancient Husk)");
+			//Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
 			ItemID.Sets.BossBag[Type] = true;
-			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true; 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
+
+            Item.ResearchUnlockCount = 3;
 		}
 
 		public override void SetDefaults()
@@ -151,11 +152,11 @@ namespace StormDiversMod.Items.BossTrophy
 		//public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag (Overloaded Scandrone)");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
+			//DisplayName.SetDefault("Treasure Bag (Overloaded Scandrone)");
+			//Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
 			ItemID.Sets.BossBag[Type] = true; // This set is one that every boss bag should have, it, for example, lets our boss bag drop dev armor..
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+			Item.ResearchUnlockCount = 3;
 		}
 
 		public override void SetDefaults()
@@ -294,11 +295,11 @@ namespace StormDiversMod.Items.BossTrophy
         //public override int BossBagNPC => ModContent.NPCType<NPCs.Boss.StormBoss>();
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treasure Bag (Ultimate Pain)");
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
+            //DisplayName.SetDefault("Treasure Bag (Ultimate Pain)");
+            //Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
             ItemID.Sets.BossBag[Type] = true; // This set is one that every boss bag should have, it, for example, lets our boss bag drop dev armor..
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            Item.ResearchUnlockCount = 3;
         }
 
         public override void SetDefaults()
@@ -321,13 +322,15 @@ namespace StormDiversMod.Items.BossTrophy
             //expert
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.DeathCore>(), 1));
             //weapons        
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<PainSword>(), 1));
-           
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<PainStaff>(), 1));
+
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<PainMusicBoxitem>(), 10));
+
             //mask, always
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Vanitysets.ThePainMask>(), 1, 1));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Vanitysets.BossMaskUltimateBoss>(), 7, 1));
 
             //coins
-            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NPCs.Boss.ThePainBoss>()));
+            itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>()));
         }
 
         // Below is code for the visuals

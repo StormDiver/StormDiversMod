@@ -11,6 +11,7 @@ using Terraria.GameContent.Creative;
 using StormDiversMod.Basefiles;
 using static Terraria.ModLoader.ModContent;
 using System.Collections.Generic;
+using StormDiversMod.Items.Vanitysets;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -18,15 +19,17 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lightning Knife");
-            Tooltip.SetDefault("Summons a powerful lightning bolt onto struck enemies");
+            //DisplayName.SetDefault("Lightning Knife");
+            //Tooltip.SetDefault("Summons a powerful lightning bolt onto struck enemies");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<StormLauncher>();
+
         }
 
         public override void SetDefaults()
@@ -70,14 +73,16 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded Lightning Launcher");
-            Tooltip.SetDefault("Fires out overloaded grenades that explode into a lightning blast\nUses regular rockets as ammo");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Overloaded Lightning Launcher");
+            //Tooltip.SetDefault("Fires out overloaded grenades that explode into a lightning blast\nUses regular rockets as ammo");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<StormStaff>();
+
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -169,15 +174,17 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lightning Scepter");
-            Tooltip.SetDefault("Rapidly fires out piercing lightning bolts");
+            //DisplayName.SetDefault("Lightning Scepter");
+            //Tooltip.SetDefault("Rapidly fires out piercing lightning bolts");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<StormSentryStaff>();
+
         }
         public override void SetDefaults()
         {
@@ -236,7 +243,7 @@ namespace StormDiversMod.Items.Weapons
             {
                
 
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles - 1)));
 
                 float ai = Main.rand.Next(100);
                 int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
@@ -275,19 +282,21 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded Staff");
-            Tooltip.SetDefault("Summons a Scandrone sentry that attacks enemies for you\nRight click to target a specific enemy");
+            //DisplayName.SetDefault("Overloaded Staff");
+            //Tooltip.SetDefault("Summons a Scandrone sentry that attacks enemies for you\nRight click to target a specific enemy");
             Item.staff[Item.type] = true;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
 
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<StormKnife>();
+
         }
         public override void SetDefaults()
         {

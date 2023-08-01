@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Equinox"); 
-			Tooltip.SetDefault("Left Click to fire out an essence of light that travels towards enemies at high speed\nRight click to fire out an essence of dark that surrounds enemies in darkness\n'Perfectly balanced, as all things should be'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Equinox"); 
+			//Tooltip.SetDefault("Left Click to fire out an essence of light that travels towards enemies at high speed\nRight click to fire out an essence of dark that surrounds enemies in darkness\n'Perfectly balanced, as all things should be'");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -50,7 +50,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool AltFunctionUse(Player player)
         {
-            
             return true;
         }
         public override bool CanUseItem(Player player)
@@ -59,7 +58,6 @@ namespace StormDiversMod.Items.Weapons
            
             return true;
         }
-       
 
         int dusttype;
         public override void MeleeEffects(Player player, Rectangle hitbox)

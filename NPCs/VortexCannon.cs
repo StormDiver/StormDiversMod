@@ -21,7 +21,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vortexian Cannon"); 
+            //DisplayName.SetDefault("Vortexian Cannon"); 
             Main.npcFrameCount[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
@@ -140,7 +140,7 @@ namespace StormDiversMod.NPCs
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             //shoottime = 100;
             if (Main.netMode == NetmodeID.Server)

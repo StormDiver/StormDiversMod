@@ -15,9 +15,9 @@ namespace StormDiversMod.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mechanical Repeater");
-            Tooltip.SetDefault("Rapidly fires arrows in bursts of three\nOnly the first shot consumes ammo");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Mechanical Repeater");
+            //Tooltip.SetDefault("Rapidly fires arrows in bursts of three\nOnly the first shot consumes ammo");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

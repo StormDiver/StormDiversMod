@@ -23,16 +23,20 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Perfectly Normal Derpling");
+            //DisplayName.SetDefault("Perfectly Normal Derpling");
             Main.npcFrameCount[NPC.type] = 12;
             NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
             NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
-                Hide = true // Hides this NPC from the bestiary
+                //Hide = true // Hides this NPC from the bestiary
+                Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
             };
                  NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, bestiaryData);
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
+            NPCID.Sets.ShimmerImmunity[NPC.type] = true;
+            NPCID.Sets.CanHitPastShimmer[NPC.type] = true;
+            NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
         }
         public override void SetDefaults()
         {
@@ -53,15 +57,30 @@ namespace StormDiversMod.NPCs
             NPC.knockBackResist = 0f;
             Item.buyPrice(0, 0, 0, 0);
             NPC.gfxOffY = -2;
-            
+            NPC.shimmerMovementSpeed = 1;
+            NPC.waterMovementSpeed = 1;
+            NPC.lavaMovementSpeed = 1;
+            NPC.honeyMovementSpeed = 1;
+            NPC.lavaImmune = true;
+
+            NPC.despawnEncouraged = false;            
         }
-        
-       
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Visuals.Rain,
+
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("A perfectly normal Derpling, nothing strange about it at all, you have nothing to worry ab-\nRUN!")
+            });
+        }
         /* public override float SpawnChance(NPCSpawnInfo spawnInfo)
          {
 
          }*/
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             if (Main.expertMode && !Main.masterMode)
             {
@@ -118,19 +137,34 @@ namespace StormDiversMod.NPCs
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
             float distance = Vector2.Distance(player.Center, NPC.Center);
-            feartime ++;
-          
-            //NPC.spriteDirection = NPC.direction;
+            feartime++;
+
+            if (!player.dead && distance < 1750)
+            {
+                if (Main.GraveyardVisualIntensity < 1)
+                {
+                    Main.GraveyardVisualIntensity += 0.02f;
+                }
+            }
+            else
+            {
+                if (Main.GraveyardVisualIntensity > 0)
+                {
+                    Main.GraveyardVisualIntensity -= 0.02f;
+                }
+            }
+
+                //NPC.spriteDirection = NPC.direction;
 
             int xtilepos = (int)(NPC.position.X + (float)(NPC.width / 2)) / 16;
             int ytilepos = (int)(NPC.Bottom.Y / 16) + 0;
-            var tilePos = NPC.Bottom.ToTileCoordinates16();     
+            var tilePos = NPC.Bottom.ToTileCoordinates16();
 
-            if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
+            if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt
             {
                 onasphalt = true;
                 moveatspeed = 15 + ((distanceX * distanceX) / 500); //speed increases the further away it is
-                if ((NPC.velocity.X > 5 || NPC.velocity.X < -5) && NPC.velocity.Y == 0) 
+                if ((NPC.velocity.X > 5 || NPC.velocity.X < -5) && NPC.velocity.Y == 0)
                 {
                     if (Main.rand.Next(3) == 0)
                     {
@@ -167,6 +201,8 @@ namespace StormDiversMod.NPCs
 
             if (feartime > 120)
             {
+               
+
                 if (NPC.velocity.X > 0.1f)
                 {
                     NPC.spriteDirection = 1;
@@ -178,7 +214,7 @@ namespace StormDiversMod.NPCs
                 }
                 if (!player.dead)
                 {
-                    
+
                     if (distance <= distancefear && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
                     {
                         if (!attackmode)
@@ -197,12 +233,12 @@ namespace StormDiversMod.NPCs
                     }
                     else //if cannot detect player begin docile cooldown
                     {
-                      
+
                         dociletime--;
                     }
                     if (attackmode) //When targetting the player
                     {
-                        
+
                         if (NPC.velocity.Y != 0)
                         {
                             groundtime++;
@@ -213,7 +249,7 @@ namespace StormDiversMod.NPCs
                         }
                         if (NPC.velocity.Y == 0 || onasphalt)//on ground or shortly after jumping have full movement control
                         {
-                            
+
                             if (distanceX <= -20)
                             {
                                 NPC.velocity.X = -moveatspeed + (player.velocity.X * 0.5f);
@@ -227,7 +263,7 @@ namespace StormDiversMod.NPCs
                                 NPC.velocity.X *= 0.5f;
                             }
                             oldmovespeed = NPC.velocity.X;
-                            
+
                         }
                         else //in air lower its speed control
                         {
@@ -244,13 +280,13 @@ namespace StormDiversMod.NPCs
                                 NPC.velocity.X *= 0.5f;
                             }
 
-                        }                    
+                        }
 
                         if ((distanceX >= -50 && distanceX <= 50) && !jump && NPC.velocity.Y == 0 && player.position.Y + 40 < NPC.position.Y) //jump to attack player
                         {
                             NPC.velocity.Y = -12 + jumpheight;
+
                             jump = true;
-                      
                         }
 
                         if (!jump && NPC.velocity.Y == 0 && !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && player.position.Y - 10 < NPC.position.Y) //Jump if cannot detect player
@@ -293,14 +329,21 @@ namespace StormDiversMod.NPCs
 
                 }
             }
+            else
+            {
+                if (NPC.velocity.Y < 5)
+                {
+                    NPC.velocity.Y += 0.5f;
+                }
+            }
         }
         int npcframe = 0;
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (target.dead)
             {
-                SoundEngine.PlaySound(SoundID.ScaryScream with{Volume = 1, Pitch = -1f}, NPC.Center);
+                SoundEngine.PlaySound(SoundID.ScaryScream with{Volume = 1, Pitch = -1f, MaxInstances = -1}, NPC.Center);
             }
         }
         public override void FindFrame(int frameHeight)
@@ -355,7 +398,7 @@ namespace StormDiversMod.NPCs
 
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             /*if (Main.netMode == NetmodeID.Server)
             {
@@ -416,7 +459,12 @@ namespace StormDiversMod.NPCs
                
             }
         }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Furniture.DerplingTrophyItem>(), 1));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Vanitysets.UltimateFearMask>(), 1));
 
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
 

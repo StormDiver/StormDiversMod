@@ -17,9 +17,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ultimate Pain Core");
-            Tooltip.SetDefault("Saves you from death once every 2.5 minutes\n'Live to suffer another day'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Ultimate Pain Core");
+            //Tooltip.SetDefault("Saves you from death once every 2 minutes\n'Live to suffer another day'");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -28,11 +28,11 @@ namespace StormDiversMod.Items.Accessory
             Item.width = 20;
             Item.height = 25;
 
-            Item.value = Item.sellPrice(0, 15, 0, 0);
+            Item.value = Item.sellPrice(0, 25, 0, 0);
             Item.rare = ItemRarityID.Red;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
             Item.expert = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -117,8 +117,12 @@ namespace StormDiversMod.Items.Accessory
                 spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(140, 120, 255, 77), rotation, frameOrigin, scale, SpriteEffects.None, 0);
             }
 
+            Texture2D texture2 = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Accessory/DeathCore_Glow");
+
+            spriteBatch.Draw(texture2, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture2.Height * 0.5f),
+                new Rectangle(0, 0, texture2.Width, texture2.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
             return true;
         }
     }
-    
+
 }

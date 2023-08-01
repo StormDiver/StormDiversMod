@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Rocket");
+            //DisplayName.SetDefault("Shroomite Rocket");
         }
 
         public override void SetDefaults()
@@ -84,7 +84,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
 
@@ -152,7 +152,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Grenade");
+            //DisplayName.SetDefault("Shroomite Grenade");
         }
 
         public override void SetDefaults()
@@ -205,7 +205,7 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
@@ -265,7 +265,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spinning Mushroom");
+            //DisplayName.SetDefault("Spinning Mushroom");
         }
 
         public override void SetDefaults()
@@ -297,7 +297,7 @@ namespace StormDiversMod.Projectiles
                 return true;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
         }
         public override void Kill(int timeLeft)
@@ -323,7 +323,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Launcher Attachment Rocket");
+            //DisplayName.SetDefault("Launcher Attachment Rocket");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -400,7 +400,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (Projectile.timeLeft > 3)
@@ -486,7 +486,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Glowing arrow");
+            //DisplayName.SetDefault("Shroomite Glowing arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -548,7 +548,7 @@ namespace StormDiversMod.Projectiles
           
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
 

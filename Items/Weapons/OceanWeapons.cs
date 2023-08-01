@@ -16,9 +16,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tidal Wave");
-            Tooltip.SetDefault("Summons an orb of water that splashes on impact");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Tidal Wave");
+            //Tooltip.SetDefault("Summons an orb of water that splashes on impact");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -84,9 +84,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blade of the Sea");
-            Tooltip.SetDefault("Fires out a blast of water each swing");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Blade of the Sea");
+            //Tooltip.SetDefault("Fires out a blast of water each swing");
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -131,11 +131,11 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Wet, 300);
         }
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Wet, 300);
         }
@@ -157,9 +157,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coral Blaster");
-            Tooltip.SetDefault("Converts bullets into pieces of coral that are not affected by water and obey gravity");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Coral Blaster");
+            //Tooltip.SetDefault("Converts bullets into pieces of coral that are not affected by water and obey gravity");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

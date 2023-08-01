@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.BossTrophy
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Overloaded Scandrone Trophy");
+			//DisplayName.SetDefault("Overloaded Scandrone Trophy");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults()
@@ -52,18 +52,18 @@ namespace StormDiversMod.Items.BossTrophy
 			DustType = 7;
 		}
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		/*public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<StormBossTrophy>());
-		}
+		}*/
 	}
 	//___________________________RELIC
 	public class StormBossRelic : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Overloaded Scandrone Relic");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Overloaded Scandrone Relic");
+			Item.ResearchUnlockCount = 1;
 		}
 		public override void SetDefaults()
 		{
@@ -134,7 +134,7 @@ namespace StormDiversMod.Items.BossTrophy
 			AddMapEntry(new Color(233, 207, 94), Language.GetText("MapObject.Relic"));
 		}
 		
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		/*public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			// This code here infers the placeStyle the tile was placed with. Only required if you go the Item.placeStyle approach. You just need Item.NewItem otherwise
 			// The placeStyle calculated here corresponds to whatever placeStyle you specified on your items that place this tile (Either through Item.placeTile or Item.DefaultToPlacableTile)
@@ -154,7 +154,7 @@ namespace StormDiversMod.Items.BossTrophy
 				// Spawn the item
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, itemType);
 			}
-		}
+		}*/
 
 		public override bool CreateDust(int i, int j, ref int type)
 		{

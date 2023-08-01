@@ -18,10 +18,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Storm");
-            Tooltip.SetDefault("Summons 3 damaging souls around the cursor that travel inwards each use");
+            //DisplayName.SetDefault("Soul Storm");
+            //Tooltip.SetDefault("Summons 3 damaging souls around the cursor that travel inwards each use");
             Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {

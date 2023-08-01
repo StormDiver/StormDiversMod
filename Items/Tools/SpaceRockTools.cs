@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid DrillSaw");
-            Tooltip.SetDefault("'Not to be confused with the SawDrill'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid DrillSaw");
+            //Tooltip.SetDefault("'Not to be confused with the SawDrill'");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsChainsaw[Item.type] = true;
             ItemID.Sets.IsDrill[Item.type] = true;
         }
@@ -36,7 +36,7 @@ namespace StormDiversMod.Items.Tools
        
             Item.useTurn = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.SpaceRockDrillSawProj>();
-            Item.shootSpeed = 45f;
+            Item.shootSpeed = 50;
             Item.pick = 210;
             Item.axe = 30;
             Item.tileBoost = 1;
@@ -55,7 +55,6 @@ namespace StormDiversMod.Items.Tools
             .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 9)
           .AddTile(TileID.MythrilAnvil)
           .Register();
-
            
         }
         public override Color? GetAlpha(Color lightColor)
@@ -68,9 +67,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Jackhammer");
-            Tooltip.SetDefault("'Great for smashing down walls'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Jackhammer");
+            //Tooltip.SetDefault("'Great for smashing down walls'");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -90,7 +89,7 @@ namespace StormDiversMod.Items.Tools
 
             Item.useTurn = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.SpaceRockJackhammerProj>();
-            Item.shootSpeed = 35f;
+            Item.shootSpeed = 40;
             Item.hammer = 100;
             Item.tileBoost = 1;
             Item.UseSound = SoundID.Item23;

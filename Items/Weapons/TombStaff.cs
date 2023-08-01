@@ -15,11 +15,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tombstone Staff");
-            Tooltip.SetDefault("Fires out magical tombstones that bounce around\nTombstones spawn a miniature ghost upon hitting an enemy");
+            //DisplayName.SetDefault("Tombstone Staff");
+            //Tooltip.SetDefault("Fires out magical tombstones that bounce around\nTombstones spawn a miniature ghost upon hitting an enemy");
             Item.staff[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

@@ -19,7 +19,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Laser");
+            //DisplayName.SetDefault("Cultist Laser");
           
         }
 
@@ -114,7 +114,7 @@ namespace StormDiversMod.Projectiles
         }
 
         // Set custom immunity time on hitting an NPC
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //target.immune[Projectile.owner] = 6;
             for (int i = 0; i < 20; i++)

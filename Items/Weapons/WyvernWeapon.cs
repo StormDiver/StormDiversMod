@@ -21,11 +21,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bow of the Wyverns");
-            Tooltip.SetDefault("Fires 3 arrows in an even spread\nGrants additional speed to all arrows");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-            
+            //DisplayName.SetDefault("Bow of the Wyverns");
+            //Tooltip.SetDefault("Fires 3 arrows in an even spread\nGrants additional speed to all arrows");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -73,7 +71,7 @@ namespace StormDiversMod.Items.Weapons
             for (int j = 0; j < numberProjectiles; j++)
             {
          
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles - 1)));
                 int proj = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
                 Main.projectile[proj].extraUpdates += 1;
             }

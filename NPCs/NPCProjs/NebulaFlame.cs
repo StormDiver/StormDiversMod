@@ -11,7 +11,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nebula Flame");
+            //DisplayName.SetDefault("Nebula Flame");
         }
         public override void SetDefaults()
         {
@@ -45,7 +45,7 @@ namespace StormDiversMod.NPCs.NPCProjs
            
             return;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
                         
         }

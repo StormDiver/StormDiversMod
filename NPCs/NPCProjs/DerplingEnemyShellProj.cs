@@ -15,7 +15,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Shell Shard");
+            //DisplayName.SetDefault("Derpling Shell Shard");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -78,7 +78,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             return false;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
 
 

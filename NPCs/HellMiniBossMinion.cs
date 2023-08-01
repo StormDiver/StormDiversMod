@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Cauldron Servant"); 
+            //DisplayName.SetDefault("Soul Cauldron Servant"); 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
         }
@@ -40,7 +40,6 @@ namespace StormDiversMod.NPCs
             NPC.defense = 10;
             NPC.lifeMax = 250;
 
-
             NPC.HitSound = SoundID.NPCHit3;
             NPC.DeathSound = SoundID.NPCDeath6;
             NPC.knockBackResist = 0.9f;
@@ -52,7 +51,7 @@ namespace StormDiversMod.NPCs
             };
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
-            //Banner = Item.NPCtoBanner(ModContent.NPCType<HellMiniBossMinion>());
+            Banner = Item.NPCtoBanner(ModContent.NPCType<HellMiniBoss>());
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -66,11 +65,6 @@ namespace StormDiversMod.NPCs
 				// Sets the description of this NPC that is listed in the bestiary.
 				new FlavorTextBestiaryInfoElement("The strongest of souls can be separated from the main cauldron, to assist it in battle.")
             });
-        }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
         }
         
         int shoottime = 0;
@@ -192,13 +186,13 @@ namespace StormDiversMod.NPCs
             
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             
                 target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 180);
             
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             
             shoottime = 70;

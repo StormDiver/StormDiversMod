@@ -44,7 +44,7 @@ namespace StormDiversMod.Basefiles
 
             group = new RecipeGroup(() => "Gold or Platinum Bar", new int[]
             {
-                ItemID.GoldBar,
+                ItemID.GoldBar, 
                 ItemID.PlatinumBar
             });
             RecipeGroup.RegisterGroup("StormDiversMod:GoldBars", group);
@@ -134,18 +134,12 @@ namespace StormDiversMod.Basefiles
     {
         public override void AddRecipes()
         {
-            //Mining armour
-            /*Recipe recipe = Recipe.Create(ItemID.MiningShirt, 1);
-            recipe.AddIngredient(ItemID.Silk, 25);
-            recipe.AddRecipeGroup("StormDiversMod:GoldOres", 35);
-            recipe.AddTile(TileID.Loom);
+            //Night Vision Helmet
+            Recipe recipe = Recipe.Create(ItemID.NightVisionHelmet, 1);
+            recipe.AddRecipeGroup("StormDiversMod:GoldBars", 12);
+            recipe.AddIngredient(ModContent.ItemType<GraniteCore>(), 2);
+            recipe.AddTile(TileID.Anvils);
             recipe.Register();
-
-            recipe = Recipe.Create(ItemID.MiningPants, 1);
-            recipe.AddIngredient(ItemID.Silk, 20);
-            recipe.AddRecipeGroup("StormDiversMod:GoldOres", 30);
-            recipe.AddTile(TileID.Loom);
-            recipe.Register();*/
 
             //Gladiator gear
             Recipe recipe2 = Recipe.Create(ItemID.GladiatorHelmet, 1);
@@ -258,7 +252,7 @@ namespace StormDiversMod.Basefiles
             recipe9.AddTile(TileID.MythrilAnvil);
             recipe9.Register();
 
-            recipe9 = Recipe.Create(ItemID.EldMelter, 1);
+            recipe9 = Recipe.Create(ItemID.ElfMelter, 1);
             recipe9.AddIngredient(ModContent.ItemType<SantankScrap>(), 18);
             recipe9.AddTile(TileID.MythrilAnvil);
             recipe9.Register();
@@ -318,178 +312,87 @@ namespace StormDiversMod.Basefiles
     //Shops_________________________
     public class ShopItems : GlobalNPC
     {
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        public override void ModifyShop(NPCShop shop)
         {
-           /* switch (type)
+            base.ModifyShop(shop);
+
+            if (shop.NpcType == NPCID.Demolitionist)
             {
-                case NPCID.ArmsDealer:                   
+                
+                shop.Add(ItemID.MiningShirt, Condition.PlayerCarriesItem(ItemID.MiningHelmet));
+                shop.Add(ItemID.MiningPants, Condition.PlayerCarriesItem(ItemID.MiningHelmet));
+                shop.Add(ModContent.ItemType<MineDetonate>(), Condition.DownedEyeOfCthulhu);
+                shop.Add(ModContent.ItemType<MineBomb>(), Condition.DownedEyeOfCthulhu);
 
-                    break;
-            }*/
-     
-            switch (type)
-            {
-                case NPCID.Demolitionist:
+                shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<ProtoLauncher>()));
+                shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<FrostLauncher>()));
+                shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<MechTheSeeker>()));
+                //lol idfc
 
-                    if (Main.LocalPlayer.HasItem(ItemID.MiningHelmet))
-
-                    {
-                        shop.item[nextSlot].SetDefaults(ItemID.MiningShirt);
-                        nextSlot++;
-                        shop.item[nextSlot].SetDefaults(ItemID.MiningPants);
-                        nextSlot++;
-                    }
-                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<ProtoLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<FrostLauncher>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<MechTheSeeker>()))
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<ProtoGrenade>());
-                        nextSlot++;
-
-                    }
-                 
-                    if (!GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant && Main.LocalPlayer.HasItem(ModContent.ItemType<StormLauncher>()))
-                    {
-                        shop.item[nextSlot].SetDefaults(ItemID.RocketI);
-                        nextSlot++;
-                    }
-
-                    if (NPC.downedBoss3)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<StickyBomb>());
-                        nextSlot++;
-                    }
-                    break;
-            }
-       
-            switch (type)
-            {
-                case NPCID.Merchant:
-
-                    if (NPC.downedBoss1)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Tools.Quack>());
-                        nextSlot++;
-
-                    }
-                    if (Main.raining)
-                    {
-                        shop.item[nextSlot].SetDefaults(ItemID.RainHat);
-                        nextSlot++;
-                        shop.item[nextSlot].SetDefaults(ItemID.RainCoat);
-                        nextSlot++;
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Armour.RainBoots>());
-                        nextSlot++;
-                    }
-                    break;
-            }
-            switch (type)
-            {
-                case NPCID.Mechanic:
-
-
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Aircan>());
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ItemID.CombatWrench);
-                    nextSlot++;
-                    break;
-            }
-            switch (type)
-            {
-                case NPCID.Steampunker:
-                    if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-                    {
-
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<MechanicalRepeater>());
-                        nextSlot++;
-
-                    }
-                    break;
-            }
-            switch (type)
-            {
-                case NPCID.Cyborg:
-                    if (NPC.downedPlantBoss)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<MagicArrow>());
-                        nextSlot++;
-                    }
-                    break;
+                if (!GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant) //shrug
+                {
+                    shop.Add(ItemID.RocketI, Condition.PlayerCarriesItem(ModContent.ItemType<StormLauncher>()));
+                }
+                
+                shop.Add(ModContent.ItemType<StickyBomb>(), Condition.DownedSkeletron);
             }
 
-            switch (type)
+            if (shop.NpcType == NPCID.Merchant)
             {
-                case NPCID.DyeTrader:
-                    {
+                shop.Add(ModContent.ItemType<Quack>(), Condition.DownedEyeOfCthulhu);
+             
+                shop.Add(ItemID.RainHat, Condition.InRain);
+                shop.Add(ItemID.RainCoat, Condition.InRain);
+                shop.Add(ModContent.ItemType<RainBoots>(), Condition.InRain);
+            }
+            if (shop.NpcType == NPCID.Mechanic)
+            {
+                shop.Add(ModContent.ItemType<Aircan>());
+                shop.Add(ModContent.ItemType<Oilcan>());
 
-                        shop.item[nextSlot].SetDefaults(ItemID.DyeTradersScimitar);
-                        nextSlot++;
-                    }
-                    break;
+                shop.Add(ItemID.CombatWrench);
+
             }
 
-            switch (type)
+            if (shop.NpcType == NPCID.Steampunker)
             {
-                case NPCID.Painter:
-                    {
-
-                        shop.item[nextSlot].SetDefaults(ItemID.PainterPaintballGun);
-                        nextSlot++;
-                    }
-                    break;
+                shop.Add(ModContent.ItemType<MechanicalRepeater>(), Condition.DownedSkeletronPrime, Condition.DownedDestroyer, Condition.DownedTwins);
             }
-            /*switch (type)
+
+            if (shop.NpcType == NPCID.Cyborg)
             {
-                case NPCID.DD2Bartender:
-                    {
-
-                        shop.item[nextSlot].SetDefaults(ItemID.AleThrowingGlove);
-                        nextSlot++;
-
-                    }
-                    break;
-            }*/
-            switch (type)
-            {
-                case NPCID.Stylist:
-                    {
-
-                        shop.item[nextSlot].SetDefaults(ItemID.StylistKilLaKillScissorsIWish);
-                        nextSlot++;
-                    }
-                    break;
+                shop.Add(ModContent.ItemType<MagicArrow>(), Condition.DownedPlantera);
             }
-            switch (type)
-            {
-                case NPCID.PartyGirl:
-                    {
-                        if (!Main.LocalPlayer.HasItem(ItemID.PartyGirlGrenade))
-                        {
-                            shop.item[nextSlot].SetDefaults(ItemID.PartyGirlGrenade);
-                            nextSlot++;
-                        }
-                    }
-                    break;
-            }
-        
-            switch (type)
-            {
-                case NPCID.Princess:
-                    {
 
-                        shop.item[nextSlot].SetDefaults(ItemID.PrincessWeapon);
-                        nextSlot++;
-
-                    }
-                    break;
-            }
-            switch (type)
+            if (shop.NpcType == NPCID.DyeTrader)
             {
-                case NPCID.BestiaryGirl:
-                    if (NPC.boughtDog)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>());
-                        nextSlot++;
-                    }
-                    break;
+                shop.Add(ItemID.DyeTradersScimitar);
+            }
+
+            if (shop.NpcType == NPCID.Painter)
+            {
+                shop.Add(ItemID.PainterPaintballGun);
+            }
+
+            if (shop.NpcType == NPCID.Stylist)
+            {
+                shop.Add(ItemID.StylistKilLaKillScissorsIWish);
+            }
+
+            if (shop.NpcType == NPCID.PartyGirl)
+            {
+                shop.Add(ItemID.PartyGirlGrenade); //fine have 2 I really dgaf        
+            }
+
+
+            if (shop.NpcType == NPCID.Princess)
+            {
+                shop.Add(ItemID.PrincessWeapon);          
+            }
+
+            if (shop.NpcType == NPCID.BestiaryGirl)
+            {
+                shop.Add(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>()); //fine alway avalible 
             }
         }
     }

@@ -18,9 +18,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Asteroid Helmet");
-            Tooltip.SetDefault("15% increased damage\n8% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Helmet");
+            //Tooltip.SetDefault("15% increased damage\n8% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head")
@@ -99,9 +99,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Asteroid Mask");
-            Tooltip.SetDefault("5% increased damage\nIncreases health regeneration and grants immunity to knockback");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Mask");
+            //Tooltip.SetDefault("5% increased damage\nIncreases health regeneration and grants immunity to knockback");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head")
@@ -178,9 +178,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Asteroid Chestplate");
-            Tooltip.SetDefault("7% increased damage\n5% increased critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Chestplate");
+            //Tooltip.SetDefault("7% increased damage\n5% increased critical strike chance");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 BodyGlowmaskPlayer.RegisterData(Item.bodySlot, () => new Color(255, 255, 255, 75) * 0.6f);
@@ -228,9 +228,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Asteroid Leggings");
-            Tooltip.SetDefault("6% increased damage\n5% increased critical strike chance\n50% increased movement speed");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Asteroid Leggings");
+            //Tooltip.SetDefault("6% increased damage\n5% increased critical strike chance\n50% increased movement speed");
+            Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs")

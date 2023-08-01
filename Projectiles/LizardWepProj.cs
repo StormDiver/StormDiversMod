@@ -9,7 +9,7 @@ using StormDiversMod.Basefiles;
 using StormDiversMod.Buffs;
 using Terraria.GameContent;
 using Terraria.Audio;
-
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles
 {
@@ -18,7 +18,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Spinner");
+            //DisplayName.SetDefault("Lihzahrd Spinner");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -109,7 +109,7 @@ namespace StormDiversMod.Projectiles
 
             }*/
 
-            if (player.controlUseTile && Projectile.ai[1] > 60 && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LizardSpinner>() || player.dead) 
+            if (player.controlUseTile && Projectile.ai[1] > 60 && player.noThrow == 0 && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LizardSpinner>() || player.dead) 
             {
                 if (Projectile.timeLeft > 60)
                 {
@@ -120,7 +120,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.velocity.X *= 0.1f;
             Projectile.velocity.Y *= 0.1f;
@@ -175,9 +175,10 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Flame");
-            Main.projFrames[Projectile.type] = 4;
-
+            //DisplayName.SetDefault("Lihzahrd Flame");
+            //Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
         public override void SetDefaults()
         {
@@ -187,10 +188,10 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 2000;
+            Projectile.timeLeft = 160;
             Projectile.extraUpdates = 4;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 60;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.scale = 0.1f;
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
@@ -199,7 +200,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage()
         {
-            if (Projectile.alpha < 30)
+            if (Projectile.ai[0] == 0) // only on proj deals damage
             {
                 return true;
             }
@@ -211,67 +212,62 @@ namespace StormDiversMod.Projectiles
         int dustoffset;
         public override void AI()
         {
-            Projectile.rotation += 0.1f; //speen
+            Projectile.rotation += Main.rand.NextFloat(0.05f, 0.1f); //speen
 
-
-            if (Main.rand.Next(10) == 0)  //dust spawn sqaure increases with hurtbox size
-            {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 6, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                Main.dust[dust].noGravity = true; 
-                Main.dust[dust].velocity *= 1.5f;
-            }
+                if (Main.rand.Next(10) == 0)  //dust spawn sqaure increases with hurtbox size
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 6, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.5f;
+                }
            
-
-            if (Projectile.scale <= 1.2f) //increase size until specified amount
+            if (Projectile.scale <= 1f) //increase size until specified amount
             {
-                dustoffset++;//makes dust expand with projectile, also used for hitbox
+                dustoffset += 2;//makes dust expand with projectile, also used for hitbox
 
-                Projectile.scale += 0.008f;
+                Projectile.scale += 0.02f;
             }
-            else //once the size has been reached begin to fade out and slow down
+            if (Projectile.timeLeft < 60) // fade out and slow down
             {
-                Projectile.alpha += 3;
-               
-            
-                Projectile.velocity.X *= 0.98f;
-                Projectile.velocity.Y *= 0.98f;
+                Projectile.alpha += 10;
 
                 //begin animation
-                Projectile.frameCounter++;
+                /*Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 10)
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
-                }
+                }*/
             }
-            if (Projectile.alpha > 150) //once faded enough kill projectile
+            if (Projectile.alpha > 255) //once faded enough kill projectile
             {
                 Projectile.Kill();
             }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {
-            hitbox.Width = dustoffset;
-            hitbox.Height = dustoffset;
-            hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
-            hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            if (Projectile.ai[0] == 0) //
+            {
+                hitbox.Width = dustoffset;
+                hitbox.Height = dustoffset;
+                hitbox.X -= dustoffset / 2 - (Projectile.width / 2);
+                hitbox.Y -= dustoffset / 2 - (Projectile.height / 2);
+            }
             base.ModifyDamageHitbox(ref hitbox);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             var player = Main.player[Projectile.owner];
             if (Main.rand.Next(1) == 0) // the chance
             {
-                
-                    target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
-
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
             }
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
         }
         int reflect = 3;
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -297,15 +293,13 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        
-        /*public override Color? GetAlpha(Color lightColor)
+        public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.Orange;
-            color.A = 100;
+            color.A = (Byte)Projectile.alpha;
             return color;
+        }
 
-        }*/
     }
     //_____________________________________________
     public class LizardSpellProj : ModProjectile
@@ -313,7 +307,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Fire Orb");
+            //DisplayName.SetDefault("Lihzahrd Fire Orb");
         }
         public override void SetDefaults()
         {
@@ -349,17 +343,17 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.damage = (Projectile.damage * 19) / 20;
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
 
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
         }
         int reflect = 4;
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -406,6 +400,209 @@ namespace StormDiversMod.Projectiles
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
+        }
+    }
+
+    //_________________
+    public class LizardArmourProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Lihzarhd Bomb");
+            Main.projFrames[Projectile.type] = 6;
+
+        }
+        public override void SetDefaults()
+        {
+            Projectile.width = 22;
+            Projectile.height = 22;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.ignoreWater = true;
+            Projectile.scale = 1f;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 120;
+            Projectile.ArmorPenetration = 10;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
+        }
+        public override bool? CanDamage()
+        {
+            if (Projectile.timeLeft > 3)
+                return false;
+            else
+                return true;
+        }
+        int direction;
+        int distance = 150;
+        float movespeed = 25;
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Main.rand.Next(2) == 0)
+            {
+                direction = -10;
+            }
+            else
+            {
+                direction = 10;
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust;
+                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                Vector2 position = Projectile.position;
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 170, 0f, 0f, 0, new Color(255, 255, 255), 0.75f)];
+                dust.noGravity = true;
+            }
+        }
+        NPC npc;
+        public override void AI()
+        {
+            Projectile.rotation += (float)Projectile.direction * -0.2f;
+
+            //distance stays at 120 for 30 frames, then closes in over 90 frames, also has detonation animation for the final 30 frames; 120 timeleft
+            if (distance > 0 && Projectile.timeLeft <= 90) //after 30 frames start to close for the rest of the lifetime
+                distance -= 2;
+
+            if (Projectile.timeLeft < 30) //When 30 frames are left switch dust
+            {
+                Dust dust;
+                Vector2 position = Projectile.position;
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 170, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust.noGravity = true;
+            }
+            else
+            {
+                if (Main.rand.Next(2) == 0)
+                {
+                    Dust dust;
+                    Vector2 position = Projectile.Center;
+                    dust = Terraria.Dust.NewDustPerfect(position, 170, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+                    dust.noGravity = true;
+                }
+            }
+
+            Player player = Main.player[Projectile.owner];
+            if (player.HasMinionAttackTargetNPC) //rotate targetted npc
+            {
+                npc = Main.npc[player.MinionAttackTargetNPC];
+
+                //Factors for calculations
+                double deg = (((double)Projectile.ai[1]) * direction) + 90; //The degrees, you can multiply Projectile.ai[1] to make it orbit faster, may be choppy depending on the value
+                double rad = deg * (Math.PI / 180); //Convert degrees to radians
+                double dist = distance; //Distance away from the npc, 
+
+                float posX = (int)(Math.Cos(rad) * dist);
+                float posY = (int)(Math.Sin(rad) * dist);
+
+                //Increase the counter/angle in degrees by 1 point, you can change the rate here too, but the orbit may look choppy depending on the value
+                Projectile.ai[1] += 1;
+
+                float projdistance = Vector2.Distance(npc.Center, Projectile.Center); //speed based on how far from npc
+                movespeed = projdistance / 5 + 2f;
+                if (movespeed > 15)
+                    movespeed = 15;
+
+                Vector2 moveTo = npc.Center;
+                Vector2 move = moveTo - Projectile.Center + new Vector2(posX, posY); //Postion around npc
+                float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+                if (magnitude > movespeed)
+                {
+                    move *= movespeed / magnitude;
+                }
+                Projectile.velocity = move;
+            }
+            else
+            {
+                Projectile.velocity *= 0.9f;
+                if (Projectile.timeLeft > 30) //explode if no targets
+                    Projectile.timeLeft = 30;
+            }
+
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
+            {
+                Projectile.tileCollide = false;
+                // Set to transparent. This projectile technically lives as  transparent for about 3 frames
+                Projectile.alpha = 255;
+                // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
+                Projectile.position = Projectile.Center;
+
+                Projectile.width = 160;
+                Projectile.height = 160;
+                Projectile.Center = Projectile.position;
+
+                Projectile.knockBack = 3f;
+                Projectile.velocity.X = 0;
+                Projectile.velocity.Y = 0;
+            }
+
+            Projectile.frameCounter++;
+            if (Projectile.timeLeft > 30)
+            {
+                if (Projectile.frameCounter >= 4)
+                {
+                    Projectile.frame++;
+                    Projectile.frame %= 4; // frame 0-3 normally
+                    Projectile.frameCounter = 0;
+                }
+            }
+            else
+            {
+                if (Projectile.frameCounter >= 3)
+                {
+                    Projectile.frame++;
+                    Projectile.frameCounter = 0;
+                }
+                if (Projectile.frame < 4 || Projectile.frame > 5) //frame 4-5 when about to kaboom
+                    Projectile.frame = 4;
+            }
+        }
+        public override void Kill(int timeLeft)
+        {
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1.4f;
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
+
+            for (int i = 0; i < 30; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -7.5f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 170, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
+                dust.scale = 2f;
+            }
+            for (int i = 0; i < 20; i++) //Grey dust circle
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -7.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
+
+                //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust.noGravity = true;
+                dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+            }
+        }
+        
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (!player.HasMinionAttackTargetNPC)
+            {
+                return true;
+            }
+            else
+            {
+                if (Projectile.timeLeft > 3)
+                {
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Main.npc[player.MinionAttackTargetNPC].Center.X, Main.npc[player.MinionAttackTargetNPC].Center.Y), Color.Gold, Color.Transparent, 3);
+                    }
+                }
+            }
+            return true;
         }
     }
 

@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stargazer Sentry");
+            //DisplayName.SetDefault("Stargazer Sentry");
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
         }
@@ -178,7 +178,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stargazer Laser");
+            //DisplayName.SetDefault("Stargazer Laser");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
@@ -232,7 +232,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.Kill();
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage -= (Projectile.damage / 10);
             for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn

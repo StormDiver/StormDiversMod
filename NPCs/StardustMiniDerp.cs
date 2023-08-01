@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Star Hopper Minion"); // Automatic from .lang files
+            //DisplayName.SetDefault("Star Hopper Minion"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 2; // make sure to set this for your modnpcs.
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
 
@@ -38,18 +38,14 @@ namespace StormDiversMod.NPCs
             NPC.defense = 0;
             NPC.lifeMax = 100;
             NPC.noTileCollide = true;
-               
-        
             
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
             NPC.knockBackResist = -0.1f;
             Item.buyPrice(0, 0, 0, 0);
             NPC.noGravity = true;
-
             //Banner = Item.BannerToNPC(ModContent.NPCType<StardustDerp>());
-            //Banner = Item.NPCtoBanner(ModContent.NPCType<StardustDerp>());
-
+            Banner = Item.NPCtoBanner(ModContent.NPCType<StardustDerp>());
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
@@ -71,14 +67,8 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("Mini Star Hoppers summoned using Stardust energy, very unstable and disappear upon contact.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
-
        
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -109,7 +99,7 @@ namespace StormDiversMod.NPCs
                 dustnpc = 0;
             }
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

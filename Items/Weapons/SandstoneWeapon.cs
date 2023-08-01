@@ -15,10 +15,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ancient Revolver");
-            Tooltip.SetDefault("Fires a burst of 6 bullets with only the first shot consuming ammo\nNeeds time to reload between bursts");
+            //DisplayName.SetDefault("Ancient Revolver");
+            //Tooltip.SetDefault("Fires a burst of 6 bullets with only the first shot consuming ammo\nNeeds time to reload between bursts");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

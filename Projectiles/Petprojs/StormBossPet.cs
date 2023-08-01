@@ -19,8 +19,8 @@ namespace StormDiversMod.Projectiles.Petprojs
         public override void SetStaticDefaults()
         {
             
-            DisplayName.SetDefault("Baby Overloaded Scandrone");
-            Description.SetDefault("Scanning and droning");
+            //DisplayName.SetDefault("Baby Overloaded Scandrone");
+            //Description.SetDefault("Scanning and droning");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }
@@ -41,7 +41,7 @@ namespace StormDiversMod.Projectiles.Petprojs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Baby Overloaded Scandrone");
+            //DisplayName.SetDefault("Baby Overloaded Scandrone");
             Main.projFrames[Projectile.type] = 4;
             Main.projPet[Projectile.type] = true;
         }

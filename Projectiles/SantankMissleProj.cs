@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ho-Ho-Homing missile");
+            //DisplayName.SetDefault("Ho-Ho-Homing missile");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
@@ -34,7 +34,7 @@ namespace StormDiversMod.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Ranged;
-
+            Projectile.extraUpdates = 1;
             Projectile.timeLeft = 180;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -179,7 +179,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             if (Projectile.timeLeft > 3)

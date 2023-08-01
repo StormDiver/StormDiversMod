@@ -18,9 +18,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody Treads");
-            Tooltip.SetDefault("The wearer can run up to 36mph\nIncreases acceleration\nLeaves behind a damaging trail of blood when running along the ground");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Bloody Treads");
+            //Tooltip.SetDefault("The wearer can run up to 36mph\nIncreases acceleration\nLeaves behind a damaging trail of blood when running along the ground");
+            Item.ResearchUnlockCount = 1;
        
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Accessory
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Green;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

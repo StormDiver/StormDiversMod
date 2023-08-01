@@ -13,9 +13,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Pickaxe");
-            Tooltip.SetDefault("Empowered with the burning souls of hell");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Soul Pickaxe");
+            //Tooltip.SetDefault("Empowered with the burning souls of hell");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -51,8 +51,8 @@ namespace StormDiversMod.Items.Tools
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
-        {
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {       
             for (int i = 0; i < 10; i++)
             {
 
@@ -63,7 +63,7 @@ namespace StormDiversMod.Items.Tools
             }
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 300);
         }
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 480);
         }
@@ -87,9 +87,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Hamaxe");
-            Tooltip.SetDefault("Empowered with the burning souls of hell");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Soul Hamaxe");
+            //Tooltip.SetDefault("Empowered with the burning souls of hell");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -127,7 +127,7 @@ namespace StormDiversMod.Items.Tools
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -139,7 +139,7 @@ namespace StormDiversMod.Items.Tools
             }
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 300);
         }
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 480);
         }

@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Harmonia Wings");
-            Tooltip.SetDefault("Allows flight and slow fall");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Harmonia Wings");
+            //Tooltip.SetDefault("Allows flight and slow fall\nLow flight time in exchange for high acceleration");
+            Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
                 WingsLayer.RegisterData(Item.wingSlot, new DrawLayerData()
@@ -43,7 +43,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.LightPurple;
            
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

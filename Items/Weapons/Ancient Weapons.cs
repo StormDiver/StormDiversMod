@@ -10,88 +10,15 @@ using Terraria.GameContent.Creative;
 
 namespace StormDiversMod.Items.Weapons
 {
-    public class AncientStaff : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Arid Sandblast Staff");
-            Tooltip.SetDefault("Creates an explosive blast of sand at the cursor's location");
-            Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-
-        }
-        public override void SetDefaults()
-        {
-            Item.width = 25;
-            Item.height = 30;
-            Item.maxStack = 1;
-            Item.value = Item.sellPrice(0, 1 , 0, 0);
-            Item.rare = ItemRarityID.Orange;
-            Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 24;
-            Item.useAnimation = 24;
-            Item.useTurn = false;
-            //Item.channel = true;
-            Item.DamageType = DamageClass.Magic;
-            Item.autoReuse = true;
-            Item.UseSound = SoundID.Item78;
-
-            Item.damage = 40;
-            //Item.crit = 4;
-            Item.knockBack = 1f;
-
-            Item.shoot = ModContent.ProjectileType<AncientStaffProj>();// mod.ProjectileType("AncientStaffProj");
-            
-            Item.shootSpeed = 1f;
-            if (ModLoader.HasMod("TRAEProject"))
-            {
-                Item.mana = 15;
-            }
-            else
-            {
-                Item.mana = 10;
-            }
-            Item.noMelee = true; //Does the weapon itself inflict damage?
-        }
-        public override bool CanUseItem(Player player)
-        {
-            if (Collision.CanHitLine(Main.MouseWorld, 1, 1, player.Center, 0, 0))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
-            Main.projectile[index].originalDamage = Item.damage;
-
-            return false;
-        }
-       
-        public override void MeleeEffects(Player player, Rectangle hitbox)
-        {
-            if (Main.rand.Next(4) == 0)
-            {
-                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6, 0f, 0f, 100, default, 1f);
-                Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].noGravity = true;
-            }
-        }
-    }
-    //______________________________________________________________________________________________________
+    
     public class AncientKnives : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Arid Knives");
-            Tooltip.SetDefault("Throw out several knives that pierce after spinning");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            //DisplayName.SetDefault("Arid Knives");
+            //Tooltip.SetDefault("Throw out several knives that pierce after spinning");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AncientFlame>();
 
         }
         public override void SetDefaults()
@@ -134,9 +61,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Arid Sandblaster");
-            Tooltip.SetDefault("Fires out a stream of burning sand\nUses gel for ammo\nIgnores 10 points of enemy defense");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Arid Sandblaster");
+            //Tooltip.SetDefault("Fires out a stream of burning sand\nUses gel for ammo\nIgnores 5 points of enemy defense");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AncientStaff>();
 
         }
         public override void SetDefaults()
@@ -148,21 +76,21 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 4;
-            Item.useAnimation = 13;
+            Item.useTime = 7;
+            Item.useAnimation = 28;
 
             Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Ranged;
 
-            Item.UseSound = SoundID.Item20;
+            Item.UseSound = SoundID.Item34;
 
-            Item.damage = 14;
-            Item.knockBack = 0f;
+            Item.damage = 16;
+            Item.knockBack = 0.1f;
             Item.shoot = ModContent.ProjectileType<AncientFlameProj>(); 
 
-            Item.shootSpeed = 2.5f;
+            Item.shootSpeed = 3.5f;
 
             Item.useAmmo = AmmoID.Gel;
 
@@ -174,16 +102,39 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void HoldItem(Player player)
         {
-        }     
+        }
+        int alpha = 200;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 2;
+            for (int i = 0; i < 2; i++) //trail effect
             {
-                position += muzzleOffset;
-            }
+                if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                    position += muzzleOffset * 10f;
 
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 6, velocity.Y + player.velocity.Y / 6), type, damage, knockback, player.whoAmI);
+                int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
+                Main.projectile[proj1].alpha = alpha;
+                alpha -= 50;
+
+            }
+            if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                position += muzzleOffset * 10f;
+
+            //middle proj deals damage
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, damage, knockback, player.whoAmI);
+            alpha -= 50;
+
+            for (int i = 0; i < 2; i++) //trail effect
+            {
+                if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
+                    position += muzzleOffset * 10f;
+
+                int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
+                Main.projectile[proj1].alpha = alpha;
+                alpha -= 50;
+
+            }
+            alpha = 200;
 
             return false;
         }
@@ -196,17 +147,92 @@ namespace StormDiversMod.Items.Weapons
         }
     }
     //____________________________________________________
+    public class AncientStaff : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Arid Sandblast Staff");
+            //Tooltip.SetDefault("Creates an explosive blast of sand at the cursor's location");
+            Item.staff[Item.type] = true;
+            Item.ResearchUnlockCount = 1;
+
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AncientMinion>();
+
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 25;
+            Item.height = 30;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
+            Item.useTurn = false;
+            //Item.channel = true;
+            Item.DamageType = DamageClass.Magic;
+            Item.autoReuse = true;
+            Item.UseSound = SoundID.Item78;
+
+            Item.damage = 40;
+            //Item.crit = 4;
+            Item.knockBack = 1f;
+
+            Item.shoot = ModContent.ProjectileType<AncientStaffProj>();// mod.ProjectileType("AncientStaffProj");
+
+            Item.shootSpeed = 1f;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 15;
+            }
+            else
+            {
+                Item.mana = 10;
+            }
+            Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override bool CanUseItem(Player player)
+        {
+            if (Collision.CanHitLine(Main.MouseWorld, 1, 1, player.Center, 0, 0))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
+            Main.projectile[index].originalDamage = Item.damage;
+
+            return false;
+        }
+
+        public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+            if (Main.rand.Next(4) == 0)
+            {
+                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6, 0f, 0f, 100, default, 1f);
+                Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
+                Main.dust[dustIndex].noGravity = true;
+            }
+        }
+    }
+    //______________________________________________________________________________________________________
     public class AncientMinion : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Arid Command Staff");
-            Tooltip.SetDefault("Summons an Ancient Arid Minion to fight for you");
+            //DisplayName.SetDefault("Arid Command Staff");
+            //Tooltip.SetDefault("Summons an Ancient Arid Minion to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
-
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AncientKnives>();
         }
 
         public override void SetDefaults()

@@ -18,9 +18,10 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("ThePain");
-            Tooltip.SetDefault("When the pain is too much");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("ThePain");
+            //Tooltip.SetDefault("When the pain is too much");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TheClaymanMask>();
         }
     
         public override void SetDefaults()
@@ -48,9 +49,10 @@ namespace StormDiversMod.Items.Vanitysets
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Clayman");
-            Tooltip.SetDefault("Sliently judge everybody around you");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Clayman");
+            //Tooltip.SetDefault("Sliently judge everybody around you");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ThePainMask>();
         }
         public override void SetDefaults()
         {
@@ -71,6 +73,30 @@ namespace StormDiversMod.Items.Vanitysets
                 SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f }, player.Center);
             }
             return base.OnPickup(player);
+        }
+    }
+
+    [AutoloadEquip(EquipType.Head)]
+    public class UltimateFearMask : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            //DisplayName.SetDefault("Perfectly Normal mask");
+            //Tooltip.SetDefault("'Why's everybody looking at you like that, you're perfectly normal");
+            Item.ResearchUnlockCount = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.rare = ItemRarityID.Blue;
+            Item.vanity = true;
+        }
+        public override void ArmorSetShadows(Player player)
+        {
+
         }
     }
 }

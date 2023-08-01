@@ -13,7 +13,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Shockwave");
+            //DisplayName.SetDefault("Derpling Shockwave");
         }
         public override void SetDefaults()
         {
@@ -61,7 +61,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!target.friendly && target.lifeMax > 5 && !target.boss  && target.knockBackResist != 0f)
             {

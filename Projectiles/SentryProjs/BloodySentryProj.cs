@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blood Urchin Sentry");
+            //DisplayName.SetDefault("Blood Urchin Sentry");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -158,7 +158,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Urchin Sentry Blood");
+            //DisplayName.SetDefault("Urchin Sentry Blood");
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -205,7 +205,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
     
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
         }
 

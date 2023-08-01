@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Damaging Soul");
+            //DisplayName.SetDefault("Damaging Soul");
             Main.projFrames[Projectile.type] = 12;
         }
         public override void SetDefaults()
@@ -85,7 +85,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
             {

@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Sentry Orb");
+            //DisplayName.SetDefault("Cultist Sentry Orb");
             Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -207,7 +207,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lunatic Lightning");
+			//DisplayName.SetDefault("Lunatic Lightning");
 			ProjectileID.Sets.SentryShot[Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
@@ -434,7 +434,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 			}
 
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Projectile.damage = (Projectile.damage * 9) / 10;
 

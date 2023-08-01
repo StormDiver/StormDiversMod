@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coral Bullet");
-            Tooltip.SetDefault("Unaffected by water but has a limited range");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Coral Bullet");
+            //Tooltip.SetDefault("Unaffected by water but has a limited range\nPierces once");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

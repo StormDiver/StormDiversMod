@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Marksmanship Potion");
-            Tooltip.SetDefault("15% increased bullet damage");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
+            //DisplayName.SetDefault("Marksmanship Potion");
+            //Tooltip.SetDefault("15% increased gun damage");
+            Item.ResearchUnlockCount = 20;
 
         }
 
@@ -55,9 +55,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shroomite Ammo Power Potion");
-            Tooltip.SetDefault("Increases ammo damage by 10%");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
+            //DisplayName.SetDefault("Shroomite Ammo Power Potion");
+            //Tooltip.SetDefault("Increases ammo damage by 10%");
+            Item.ResearchUnlockCount = 20;
         }
 
         public override void SetDefaults()
@@ -94,9 +94,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectre Empowerment Potion");
-            Tooltip.SetDefault("Increases maximum mana by 60");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
+            //DisplayName.SetDefault("Spectre Empowerment Potion");
+            //Tooltip.SetDefault("Increases maximum mana by 60");
+            Item.ResearchUnlockCount = 20;
 
         }
 
@@ -145,9 +145,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Penetration Potion");
-            Tooltip.SetDefault("Increases armor penetration of all melee weapons by 20");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
+            //DisplayName.SetDefault("Beetle Penetration Potion");
+            //Tooltip.SetDefault("Increases armor penetration of all melee weapons by 20");
+            Item.ResearchUnlockCount = 20;
 
         }
 
@@ -186,9 +186,9 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spooky Curse Potion");
-            Tooltip.SetDefault("Increases Summon damage and whip speed by 10%");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
+            //DisplayName.SetDefault("Spooky Curse Potion");
+            //Tooltip.SetDefault("Increases Summon damage and whip speed by 10%");
+            Item.ResearchUnlockCount = 20;
 
         }
 

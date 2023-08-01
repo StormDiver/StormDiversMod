@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Storm Wings");
-            Tooltip.SetDefault("Allows flight and slow fall\nHold DOWN and JUMP to hover");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Storm Wings");
+            //Tooltip.SetDefault("Allows flight and slow fall\nHold DOWN and JUMP to hover");
+            Item.ResearchUnlockCount = 1;
 
             if (!Main.dedServ)
             {
@@ -45,7 +45,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Lime;
            
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
         

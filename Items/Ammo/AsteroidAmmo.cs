@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Arrow");
-            Tooltip.SetDefault("Quickly charges towards the cursor after a short delay, pierces after charging");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Asteroid Arrow");
+            //Tooltip.SetDefault("Quickly charges towards the cursor after a short delay, pierces after charging");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()
@@ -60,9 +60,9 @@ namespace StormDiversMod.Items.Ammo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Bullet");
-            Tooltip.SetDefault("Summons a small asteroid fragment above struck enemies\nThe fragment deals low damage but ignores 50 defense");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Asteroid Bullet");
+            //Tooltip.SetDefault("Summons a small asteroid fragment above struck enemies\nThe fragment deals low damage but ignores 50 defense");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

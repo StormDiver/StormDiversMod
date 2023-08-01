@@ -18,10 +18,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloodshot Rifle");
-            Tooltip.SetDefault("Converts regular bullets into blood bullets that drop blood in flight\nRight Click to zoom out");
+            //DisplayName.SetDefault("Bloodshot Rifle");
+            //Tooltip.SetDefault("Converts regular bullets into blood bullets that drop blood in flight\nRight Click to zoom out");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -83,12 +83,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void AddRecipes()
         {
-
             //In new recipes with other hardmode blood moon recipes
-          
-
-
-
         }
 
     }
@@ -96,12 +91,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody Urchin Staff");
-            Tooltip.SetDefault("Summons a blood Urchin Sentry that rapidly spits defense-piercing blood streams at enemies");
+            //DisplayName.SetDefault("Bloody Urchin Staff");
+            //Tooltip.SetDefault("Summons a blood Urchin Sentry that rapidly spits defense-piercing blood streams at enemies");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             //Item.staff[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

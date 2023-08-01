@@ -26,7 +26,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nine Lives Sickle Spinner");
+            //DisplayName.SetDefault("Nine Lives Sickle Spinner");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
@@ -45,7 +45,7 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 20;
             Projectile.timeLeft = 9999999;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
 
@@ -127,7 +127,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nine Lives Sickle Thrown");
+            //DisplayName.SetDefault("Nine Lives Sickle Thrown");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
         }
@@ -174,16 +174,16 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity.X *= 0f;
                 stilltime++; //timer counts up while not moving
             }
-            if (stilltime >= 20) //once this time is reached it cannot stay still again
+            if (stilltime >= 15) //once this time is reached it cannot stay still again
             {
                 stillspin = false;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
 
-            if (stilltime < 20) //So the projectile doesn't stay still again
+            if (stilltime < 15) //So the projectile doesn't stay still again
             {
                 stillspin = true;
             }         
@@ -226,7 +226,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nine Lives Soul");
+            //DisplayName.SetDefault("Nine Lives Soul");
             //Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
@@ -245,7 +245,7 @@ namespace StormDiversMod.Projectiles
         }
         float degrees;
         bool scaleup;
-        int shoottime;
+        //int shoottime;
         public override void OnSpawn(IEntitySource source)
         {
             base.OnSpawn(source);

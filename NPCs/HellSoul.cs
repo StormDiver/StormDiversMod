@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heartless Soul");
+            //DisplayName.SetDefault("Heartless Soul");
             Main.npcFrameCount[NPC.type] = 5;
 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
@@ -69,12 +69,6 @@ namespace StormDiversMod.NPCs
 				// Sets the description of this NPC that is listed in the bestiary.
 				new FlavorTextBestiaryInfoElement("A soul that has spent so long in the depths of hell that it has lost all hope, and more importantly, its heart.")
             });
-        }
-
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
         }
         
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -187,14 +181,14 @@ namespace StormDiversMod.NPCs
 
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
 
             target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 600);
 
 
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             shoottime = 120;
             if (Main.netMode == NetmodeID.Server)

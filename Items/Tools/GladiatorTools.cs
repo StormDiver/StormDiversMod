@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Tools
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Gladiator's Pickaxe"); 
-			Tooltip.SetDefault("Can mine Meteorite");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Gladiator's Pickaxe"); 
+			//Tooltip.SetDefault("Can mine Meteorite");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -62,9 +62,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gladiator's Waraxe");
-            Tooltip.SetDefault("Used to be a mighty weapon, now merely used to chop down trees");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Gladiator's Waraxe");
+            //Tooltip.SetDefault("Used to be a mighty weapon, now merely used to chop down trees");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -111,9 +111,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gladiator's Warhammer");
-            Tooltip.SetDefault("Used to be a mighty weapon, now merely used to smash down walls");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Gladiator's Warhammer");
+            //Tooltip.SetDefault("Used to be a mighty weapon, now merely used to smash down walls");
+            Item.ResearchUnlockCount = 1;
 
         }
 

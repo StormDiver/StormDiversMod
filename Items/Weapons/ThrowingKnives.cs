@@ -18,10 +18,10 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Silver Throwing Knife");
-            Tooltip.SetDefault("Ricochets off tiles");
+            //DisplayName.SetDefault("Silver Throwing Knife");
+            //Tooltip.SetDefault("Ricochets off tiles");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            Item.ResearchUnlockCount = 99;
         }
         public override void SetDefaults()
         {
@@ -62,9 +62,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tungsten Throwing Knife");
-            Tooltip.SetDefault("Ricochets off tiles");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Tungsten Throwing Knife");
+            //Tooltip.SetDefault("Ricochets off tiles");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()
@@ -107,9 +107,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bouncy Throwing Knife");
-            Tooltip.SetDefault("Very bouncy");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            //DisplayName.SetDefault("Bouncy Throwing Knife");
+            //Tooltip.SetDefault("Very bouncy");
+            Item.ResearchUnlockCount = 99;
 
         }
         public override void SetDefaults()

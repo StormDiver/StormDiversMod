@@ -23,6 +23,7 @@ using Terraria.DataStructures;
 using Terraria.Audio;
 using NVorbis.Contracts;
 using Terraria.GameContent.Drawing;
+using Microsoft.CodeAnalysis;
 
 namespace StormDiversMod.Basefiles
 {
@@ -81,6 +82,11 @@ namespace StormDiversMod.Basefiles
 
         public bool blueCuffs; //Player has insulated cuffs equipped
 
+        public bool blueClaws; //Player has glacial claws equipped
+
+        public bool spookyClaws; //Player has nightmare claws equipped
+
+
         public bool lunaticHood; //Player has the Luantic Hood equipped
 
         public bool beetleFist; //player has the Beetle gauntlet equipped
@@ -105,11 +111,11 @@ namespace StormDiversMod.Basefiles
 
         public bool superHeartpotion; //Player has taken a super heart potion
 
-        public bool DeathCore; //Player has Ultimate Pain equipped
+        public bool DeathCore; //Player has Prignerbringer Core equipped
 
         //Ints and Bools activated from this file
 
-        public bool shotflame; //Indicates whether the SPooky Core has fired its flames or not
+        public bool shotflame; //Indicates whether the Betsy Flame has fired its flames or not
         public bool spikespawned; //Wheter mechanical spieks ahev been spawned
         public bool falling; //Wheter the player is falling at speed
         public int stopfall; //If the player has stopped falling
@@ -136,6 +142,9 @@ namespace StormDiversMod.Basefiles
         public bool stormBossProj; // wheter the projectile for the storm coil has been spawned
         public int shroomtime; //For cahnneling ranged weapons with Shroomite launcher
         public int paintime; //Cooldown for reliving pain
+
+        public int bootdmg; //damage of the boots
+
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -164,6 +173,8 @@ namespace StormDiversMod.Basefiles
             derpEye = false;
             derpEyeGolem = false;
             blueCuffs = false;
+            blueClaws = false;
+            spookyClaws = false;
             lunaticHood = false;
             beetleFist = false;
             aridCritChest = false;
@@ -300,7 +311,7 @@ namespace StormDiversMod.Basefiles
                     {
                         int xprojpos = Main.rand.Next(-40, 40);
                         int yprojpos = Main.rand.Next(-40, 40);
-                        int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X + xprojpos, Player.Center.Y - yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainProj2>(), 0, 0, Main.myPlayer);
+                        int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X + xprojpos, Player.Center.Y - yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainCoreProj>(), 0, 0, Main.myPlayer);
                     }
                 }
             }
@@ -583,12 +594,12 @@ namespace StormDiversMod.Basefiles
                 }
             }
             //For Spooky Core======================
-            if (spooked)
+            if (spooked || spookyClaws)
             {
-                float distancehealth = 500 + ((Player.statLifeMax2 - Player.statLife) / 2);
-                if (distancehealth > 1000)
+                float distancehealth = 300 + ((Player.statLifeMax2 - Player.statLife) / 2);
+                if (distancehealth > 600)
                 {
-                    distancehealth = 1000;
+                    distancehealth = 600;
                 }
                 if (Main.rand.Next(5) == 0)
                 {
@@ -606,7 +617,7 @@ namespace StormDiversMod.Basefiles
                     }
                 }
                 //circle of dust
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     double deg = Main.rand.Next(0, 360); //The degrees
                     double rad = deg * (Math.PI / 180); //Convert degrees to radians
@@ -708,7 +719,6 @@ namespace StormDiversMod.Basefiles
                 spikespawned = false;
             }
 
-
             //For the Heavy Boots===========================
             if (bootFall)
             {
@@ -717,23 +727,26 @@ namespace StormDiversMod.Basefiles
                 
                 if (Player.controlDown && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
-
                     //SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 15, 2, -0.5f);
-                    Player.gravity += 4;
-                    Player.maxFallSpeed *= 1.4f;
+                    Player.gravity += 1.2f;
+                    Player.maxFallSpeed *= 1.5f;
                     
                     Player.runAcceleration = 0.25f;
-                    if ((Player.velocity.Y > 12 && Player.gravDir == 1) || (Player.velocity.Y < -12 && Player.gravDir == -1))
+                    if ((Player.velocity.Y > 8 && Player.gravDir == 1) || (Player.velocity.Y < -8 && Player.gravDir == -1))
                     {
                         if (!falling)
                         {
                             Player.velocity.X *= 0.5f;
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 60, 6, Player.whoAmI);
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 10, 6, Player.whoAmI);
                         }
                         //immunity is in miscfeatures.cs
                         falling = true;
                         Player.noKnockback = true;
-                    
+
+                        if (bootdmg < 110) //(10-120 damage)
+                        bootdmg += 2;
+
+                        //Main.NewText("The damage is: " + bootdmg, 204, 101, 22);
                     }
 
                 }               
@@ -742,6 +755,7 @@ namespace StormDiversMod.Basefiles
                 {
                     if (!GetInstance<ConfigurationsIndividual>().NoShake)
                     {
+                        if (bootdmg >= 50)
                         Player.GetModPlayer<MiscFeatures>().screenshaker = true;
                     }
 
@@ -755,21 +769,24 @@ namespace StormDiversMod.Basefiles
                     }
                     if (Player.gravDir == 1)
                     {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
                     }
                     else
                     {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), 40, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
                     }
                     SoundEngine.PlaySound(SoundID.Item14, Player.Center);
+                    bootdmg = 0;
                     falling = false;
 
                 }
                 if (!Player.controlDown || Player.controlJump || Player.mount.Active) //cancels stomp
                 {
                     falling = false;
+                    bootdmg = 0;
+
                 }
                 //If the player slows down too much then the stomp bool is cancelled
                 /*if ((Player.velocity.Y <= 2 && Player.gravDir == 1) || (Player.velocity.Y >= -2 && Player.gravDir == -1))
@@ -858,7 +875,7 @@ namespace StormDiversMod.Basefiles
                         float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
                         float velocity = 13f;
                         int type = ModContent.ProjectileType<ShroomSetRocketProj>();
-                        int damage = (int)(Player.HeldItem.damage * 2f);
+                        int damage = (int)Player.GetTotalDamage(DamageClass.Ranged).ApplyTo((int)(Player.HeldItem.damage * 2f));
                         Projectile.NewProjectile(null, Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
 
                         SoundEngine.PlaySound(SoundID.Item92, Player.Center);
@@ -929,9 +946,8 @@ namespace StormDiversMod.Basefiles
             {
                 if (Player.ZoneForest || Player.ZoneHallow && Player.ZoneOverworldHeight)
                 {
-
                     Player.AddBuff(ModContent.BuffType<WoodenBuff>(), 2);
-
+                    Player.lifeRegen += 1;
                 }
             }
 
@@ -1123,15 +1139,15 @@ namespace StormDiversMod.Basefiles
         //=====================For taking damage from any source===========================================
 
         int attackdmg = 0;//This is for how much damage the player takes
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter) //When you take damage for whatever reason
+        public override void OnHurt(Player.HurtInfo info)
         {
             Player.ClearBuff(ModContent.BuffType<HeartBarrierBuff>()); //Removes buff on hit
 
 
-            attackdmg = (int)damage; //Int for the damage taken
+            attackdmg = info.Damage; //Int for the damage taken
 
             //triggers the granite accessory buff for 5 seconds, and it cannot be refreshed until the 10 second timer hjas ran out
-            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>()) && granitebufftime == 600 && damage > 1)
+            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>()) && granitebufftime == 600 && attackdmg > 1)
             {
                 Player.AddBuff(ModContent.BuffType<GraniteAccessBuff>(), 240);
                 SoundEngine.PlaySound(SoundID.NPCHit41 with { Volume = 1f, Pitch = -0.3f }, Player.Center);
@@ -1175,7 +1191,7 @@ namespace StormDiversMod.Basefiles
             }
             if (frostSpike)
             {
-                if (frosttime >= 360 && damage > 1)
+                if (frosttime >= 360 && attackdmg > 1)
                 {
                     
                     SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.2f, Pitch = -0.5f}, Player.Center);
@@ -1230,11 +1246,11 @@ namespace StormDiversMod.Basefiles
         String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (paintime == 0 && DeathCore && damage < 9999) //Save you from death once
+            if (paintime == 0 && DeathCore && damage <= 9999) //Save you from death once
             {
                 Suffertext = "Live to suffer another day!";
                 CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.HotPink, Suffertext, true);
-                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainProj>(), 0, 0, Main.myPlayer);
+                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainNofaceProj>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 2.5f;
 
                 float numberProjectiles = 24;
@@ -1244,11 +1260,10 @@ namespace StormDiversMod.Basefiles
                 {
                     float speedX = 0f;
                     float speedY = 20f;
-                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainProj2>(), 0, 0, Main.myPlayer, 1);
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles - 1)));
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainCoreProj>(), 0, 0, Main.myPlayer, 1);
                 }
                 SoundEngine.PlaySound(SoundID.Item109 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
 
                 if (Main.netMode == 2) // Server
                 {
@@ -1279,18 +1294,45 @@ namespace StormDiversMod.Basefiles
                 Player.HealEffect(Player.statLifeMax2, true);                               
                 Player.statLife = Player.statLifeMax2; //restore life
                 Player.immuneTime = 120;
-                //Player.ClearBuff(ModContent.BuffType<PainBuff>()); //Buff will go away on its own after 1 frame, allows it to satck with Pain boss
-                Player.AddBuff(ModContent.BuffType<PainlessDebuff>(), 9000);
+                Player.ClearBuff(ModContent.BuffType<PainBuff>()); //Buff will go away on its own after 1 frame, allows it to satck with Pain boss
+                Player.AddBuff(ModContent.BuffType<PainlessDebuff>(), 7200);
 
-                paintime = 9000; // 2.5 minutes (150 seconds)
+                paintime = 7200; // 2 minutes (120 seconds)
                 return false;
+            }
+
+            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.UltimateFearMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.UltimateFearMask>())
+            {
+                playSound = false;
+
+                SoundEngine.PlaySound(SoundID.ScaryScream with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
             }
             return true;
         }
         //===================================Other hooks======================================
-
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //Hitting enemies with True Melee Only
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            //Insulated Cuffs
+            if (blueCuffs)
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    target.AddBuff(BuffID.Frostburn, 180);
+                }
+            }
+            //Glacial Claws
+            if (blueClaws)
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                }
+            }
+            //Nightmare Claws
+            if (spookyClaws)
+            {
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
+            }
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
@@ -1303,17 +1345,14 @@ namespace StormDiversMod.Basefiles
             //for the Beetle Gauntlet
             if (beetleFist)
             {
-                if (!Player.dead && crit)
+                if (!Player.dead && hit.Crit)
                 {
-
                     SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances= 0 }, target.Center);
 
                     float numberProjectiles = 3 + Main.rand.Next(2);
 
                     for (int i = 0; i < numberProjectiles; i++)
                     {
-
-
                         float speedX = 0f;
                         float speedY = -12f;
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
@@ -1340,14 +1379,10 @@ namespace StormDiversMod.Basefiles
                         dust.scale = 1;
 
                     }
-
-
                 }
-
-            }
-         
+            }         
         }
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) //Hitting enemy with any projectile
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             /*if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
             {
@@ -1382,11 +1417,31 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }*/
-
+            //Insulated Cuffs
+            if (blueCuffs)
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    target.AddBuff(BuffID.Frostburn, 120);
+                }
+            }
+            //Glacial Claws
+            if (blueClaws && (proj.CountsAsClass(DamageClass.Melee) || ProjectileID.Sets.IsAWhip[proj.type] == true) && proj.owner == Main.myPlayer)
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                }
+            }
+            //Nightmare Claws
+            if (spookyClaws && (proj.CountsAsClass(DamageClass.Melee) || ProjectileID.Sets.IsAWhip[proj.type] == true) && proj.owner == Main.myPlayer)
+            {
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
+            }
             //for the Beetle Gauntlet
             if (beetleFist)
             {            
-                if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
+                if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && hit.Crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
                 {
                     SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances = 0 }, target.Center);
 
@@ -1423,45 +1478,46 @@ namespace StormDiversMod.Basefiles
 
                     }
 
-
                 }
                 
             }
         }
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
+           
             //For vanity sound, remove hurt sound here, play sound in hurt hook
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() ||
                 Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
                 {
-                    playSound = false;
+                    modifiers.DisableSound();
                 }
+                
             }
 
             if (woodNecklace && Player.ZoneForest)
             {
-                damage -= 4;
+                modifiers.FinalDamage.Flat -= 4;
             }
             //for Enchanted Mushroom
             if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff1>()))
             {
-                damage -= 1;
+                modifiers.FinalDamage.Flat -= 1;
             }
             else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff2>()))
             {
-                damage -= 2;
+                modifiers.FinalDamage.Flat -= 2;
 
             }
             else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff3>()))
             {
-                damage -= 4;
+                modifiers.FinalDamage.Flat -= 4;
 
             }
             else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
             {
-                damage -= 6;
+                modifiers.FinalDamage.Flat -= 6;
 
             }
             /*if (damage >= Player.statLife && Player.statLife > 1)
@@ -1471,14 +1527,13 @@ namespace StormDiversMod.Basefiles
 
             }*/         
 
-            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
-      
-        public override void OnHitByNPC(NPC npc, int damage, bool crit) //Hit by melee only
+        
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
-
+            
         }
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit) //Hit by any projectile
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
            /* if (proj.type == ModContent.ProjectileType<Projectiles.StickyBombProj>())
             {

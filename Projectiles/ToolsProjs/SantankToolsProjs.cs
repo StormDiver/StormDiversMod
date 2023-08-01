@@ -13,7 +13,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Santank Drill");
+            //DisplayName.SetDefault("Santank Drill");
             Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
@@ -49,19 +49,9 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             AnimateProjectile();
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        { 
 
-           
-
-
-        }
-
-
-
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            
         }
 
         public void AnimateProjectile() // Call this every frame, for example in the AI method.
@@ -80,7 +70,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Santank Chainsaw");
+            //DisplayName.SetDefault("Santank Chainsaw");
             Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
@@ -134,7 +124,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Santank Jackhammer");
+            //DisplayName.SetDefault("Santank Jackhammer");
             Main.projFrames[Projectile.type] = 3;
         }
         public override void SetDefaults()

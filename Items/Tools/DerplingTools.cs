@@ -12,9 +12,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Drill");
-            Tooltip.SetDefault("'Drill through the ground'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Derpling Drill");
+            //Tooltip.SetDefault("'Drill through the ground'");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsDrill[Item.type] = true;
         }
 
@@ -62,9 +62,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Chainsaw");
-            Tooltip.SetDefault("'Cut down the trees'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Derpling Chainsaw");
+            //Tooltip.SetDefault("'Cut down the trees'");
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsChainsaw[Item.type] = true;
         }
 
@@ -111,9 +111,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Derpling Jackhammer");
-            Tooltip.SetDefault("'Smash down the walls'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Derpling Jackhammer");
+            //Tooltip.SetDefault("'Smash down the walls'");
+            Item.ResearchUnlockCount = 1;
 
         }
 

@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spinning bone");
+            //DisplayName.SetDefault("Spinning bone");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
         }
@@ -89,7 +89,7 @@ namespace StormDiversMod.Projectiles
                 vector *= 5f / magnitude;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
         }

@@ -21,7 +21,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Seeker Knife");
+            //DisplayName.SetDefault("Seeker Knife");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;

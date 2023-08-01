@@ -15,7 +15,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nebula Flame");
+            //DisplayName.SetDefault("Nebula Flame");
         }
         public override void SetDefaults()
         {
@@ -71,7 +71,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -102,7 +102,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nebula Flame");
+            //DisplayName.SetDefault("Nebula Flame");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -198,7 +198,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
         }
         

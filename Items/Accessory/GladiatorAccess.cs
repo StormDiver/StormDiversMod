@@ -15,9 +15,9 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             
-            DisplayName.SetDefault("Warrior's Trophy");
-            Tooltip.SetDefault("While above 75% HP your critical strike chance is increased by 20%");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Warrior's Trophy");
+            //Tooltip.SetDefault("While above 75% HP your critical strike chance is increased by 20%");
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -30,7 +30,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Blue;
             Item.accessory = true;
 
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

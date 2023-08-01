@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Sentry");
+            //DisplayName.SetDefault("Meteor Sentry");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -229,7 +229,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Sentry laser");
+            //DisplayName.SetDefault("Meteor Sentry laser");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
@@ -276,7 +276,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 5; i++)
             {

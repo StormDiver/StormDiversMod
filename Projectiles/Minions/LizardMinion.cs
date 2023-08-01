@@ -16,8 +16,8 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Temple Guardian Minion");
-			Description.SetDefault("A mini Temple Guardian minion will fight for you");
+			//DisplayName.SetDefault("Temple Guardian Minion");
+			//Description.SetDefault("A mini Temple Guardian minion will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -42,7 +42,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Temple Guardian Minion");
+			//DisplayName.SetDefault("Temple Guardian Minion");
 			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -230,35 +230,28 @@ namespace StormDiversMod.Projectiles.Minions
 				if (Projectile.ai[1] > 60 && Vector2.Distance(Projectile.Center, targetCenter) < 550f)
 				{
 					if (!Main.dedServ)
-					{						
+					{
 						xpos = Main.rand.Next(-30, 30);
 						ypos = Main.rand.Next(-100, -75);
 
-                        float projspeed = 18;
-                        Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+						float projspeed = 18;
+						Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                        float numberProjectiles = 1;
-							float rotation = MathHelper.ToRadians(0);
-							for (int j = 0; j < numberProjectiles; j++)
-							{
+						Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
+							new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LizardMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
-								Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-								Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), 
-									new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LizardMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-							}
+						SoundEngine.PlaySound(SoundID.Item33 with { Volume = 0.25f, Pitch = 0.25f }, Projectile.Center);
 
-							SoundEngine.PlaySound(SoundID.Item33 with {Volume = 0.25f, Pitch = 0.25f }, Projectile.Center);
+						for (int i = 0; i < 25; i++)
+						{
+							Vector2 dustSpeed = new Vector2(0, -2).RotatedByRandom(MathHelper.ToRadians(360));
 
-							for (int i = 0; i < 25; i++)
-							{
-								Vector2 perturbedSpeed = new Vector2(0, -2).RotatedByRandom(MathHelper.ToRadians(360));
+							int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 6, dustSpeed.X, dustSpeed.Y, 0, default, 1f);
+							Main.dust[dust2].noGravity = true;
+						}
+						Projectile.ai[1] = 0;
 
-								int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 6, perturbedSpeed.X, perturbedSpeed.Y, 0, default, 1f);
-								Main.dust[dust2].noGravity = true;
-							}
-							Projectile.ai[1] = 0;
-
-						
 					}
 				}
 			}
@@ -354,7 +347,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Temple Minion Laser");
+			//DisplayName.SetDefault("Temple Minion Laser");
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
@@ -398,7 +391,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Projectile.damage = (Projectile.damage * 9) / 10;
 			for (int i = 0; i < 15; i++)

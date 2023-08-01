@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bone Boomerang");
+            //DisplayName.SetDefault("Bone Boomerang");
         }
         public override void SetDefaults()
         {
@@ -45,7 +45,7 @@ namespace StormDiversMod.Projectiles
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
            

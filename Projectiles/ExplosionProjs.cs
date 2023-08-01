@@ -14,7 +14,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Generic");
+            //DisplayName.SetDefault("Explosion Generic");
             Main.projFrames[Projectile.type] = 7;
 
         }
@@ -57,7 +57,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Dark");
+            //DisplayName.SetDefault("Explosion Dark");
             Main.projFrames[Projectile.type] = 7;
 
         }
@@ -93,7 +93,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Frost");
+            //DisplayName.SetDefault("Explosion Frost");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -135,7 +135,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Shroomite");
+            //DisplayName.SetDefault("Explosion Shroomite");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -177,7 +177,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Vortex");
+            //DisplayName.SetDefault("Explosion Vortex");
             Main.projFrames[Projectile.type] = 7;
 
         }
@@ -220,7 +220,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Soul");
+            //DisplayName.SetDefault("Explosion Soul");
             Main.projFrames[Projectile.type] = 7;
 
         }
@@ -262,7 +262,49 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Pain");
+            //DisplayName.SetDefault("Explosion Pain");
+            Main.projFrames[Projectile.type] = 7;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 100;
+            Projectile.height = 100;
+            Projectile.friendly = true;
+            Projectile.timeLeft = 20;
+            Projectile.tileCollide = false;
+            Projectile.scale = 1.5f;
+            Projectile.aiStyle = -1;
+            Projectile.alpha = 0;
+            DrawOffsetX = 25;
+            DrawOriginOffsetY = 25;
+            Projectile.light = 0.9f;
+        }
+        public override bool? CanDamage()
+        {
+            return false;
+        }
+        public override void AI()
+        {
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 2) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+            }
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.Pink;
+            color.A = 255;
+            return color;
+        }
+    }
+    public class ExplosionPainNofaceProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Explosion Painless");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -304,7 +346,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion Arid");
+            //DisplayName.SetDefault("Explosion Arid");
             Main.projFrames[Projectile.type] = 7;
         }
 
@@ -339,6 +381,49 @@ namespace StormDiversMod.Projectiles
         {
             Color color = Color.White;
             color.A = 255;
+            return color;
+        }
+    }
+
+    public class ExplosionChloroProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Explosion Chlorophyte");
+            Main.projFrames[Projectile.type] = 7;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 100;
+            Projectile.height = 100;
+            Projectile.friendly = true;
+            Projectile.timeLeft = 20;
+            Projectile.tileCollide = false;
+            Projectile.scale = 1.5f;
+            Projectile.aiStyle = -1;
+            Projectile.alpha = 0;
+            DrawOffsetX = 25;
+            DrawOriginOffsetY = 25;
+        }
+        public override bool? CanDamage()
+        {
+            return false;
+        }
+        public override void AI()
+        {
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 2) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+            }
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.White;
+            color.A = 150;
             return color;
         }
     }

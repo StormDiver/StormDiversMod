@@ -12,10 +12,10 @@ namespace StormDiversMod.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eyeball Hook"); // The item's name in-game.
-			Tooltip.SetDefault("Fires out one long but slow hook");
+			//DisplayName.SetDefault("Eyeball Hook"); // The item's name in-game.
+			//Tooltip.SetDefault("Fires out one long but slow hook");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1; // Amount of this item needed to research and become available in Journey mode's duplication menu. Amount based on vanilla hooks' amount needed
+			Item.ResearchUnlockCount = 1; // Amount of this item needed to research and become available in Journey mode's duplication menu. Amount based on vanilla hooks' amount needed
 		}
 
 		public override void SetDefaults()
@@ -37,10 +37,10 @@ namespace StormDiversMod.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Derpling Hook"); // The item's name in-game.
-			Tooltip.SetDefault("Can fire out 4 hooks simultaneously, 3 can be attached at a time");
+			//DisplayName.SetDefault("Derpling Hook"); // The item's name in-game.
+			//Tooltip.SetDefault("Can fire out 4 hooks simultaneously, 3 can be attached at a time");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1; // Amount of this item needed to research and become available in Journey mode's duplication menu. Amount based on vanilla hooks' amount needed
+			Item.ResearchUnlockCount = 1; // Amount of this item needed to research and become available in Journey mode's duplication menu. Amount based on vanilla hooks' amount needed
 		}
 
 		public override void SetDefaults()
@@ -69,10 +69,10 @@ namespace StormDiversMod.Items.Tools
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lightning Hook"); // The item's name in-game.
-			Tooltip.SetDefault("Fires out a single fast hook");
+			//DisplayName.SetDefault("Lightning Hook"); // The item's name in-game.
+			//Tooltip.SetDefault("Fires out a single fast hook");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1; // Amount of this item needed to research and become available in Journey mode's duplication menu. Amount based on vanilla hooks' amount needed
+			Item.ResearchUnlockCount = 1; // Amount of this item needed to research and become available in Journey mode's duplication menu. Amount based on vanilla hooks' amount needed
 		}
 
 		public override void SetDefaults()

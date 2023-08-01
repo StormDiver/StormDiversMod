@@ -15,7 +15,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fallen Warrior Sword");
+            //DisplayName.SetDefault("Fallen Warrior Sword");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
 
@@ -64,15 +64,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-
-        }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
 
         {

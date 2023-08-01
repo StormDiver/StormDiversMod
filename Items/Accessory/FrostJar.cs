@@ -14,10 +14,10 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frozen Urn");
-            Tooltip.SetDefault("Multiple frost spikes explode out of you when taking more than 1 damage\nIncreases critical strike chance and movement speed for 6 seconds afterwards" +
-                "\nTwo frost particles will orbit you at close range, damaging enemies\nLeaves behind a damaging trail of frost when moving fast enough");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Frozen Urn");
+            //Tooltip.SetDefault("Multiple frost spikes explode out of you when taking more than 1 damage\nIncreases critical strike chance and movement speed for 6 seconds afterwards" +
+                //"\nTwo frost particles will orbit you at close range, damaging enemies\nLeaves behind a damaging trail of frost when moving fast enough");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -29,7 +29,7 @@ namespace StormDiversMod.Items.Accessory
 
            
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

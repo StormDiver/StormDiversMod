@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Charger"); // Automatic from .lang files
+            //DisplayName.SetDefault("Asteroid Charger"); // Automatic from .lang files
                                                         // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
@@ -67,11 +67,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A sentient asteroid boulder that is infused with strange extra-terrestrial energy, allowing it to charge towards whatever it chooses.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
+     
         public override bool? CanFallThroughPlatforms()
         {         
                 return true;
@@ -178,13 +174,13 @@ namespace StormDiversMod.NPCs
             NPC.frameCounter++;
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             
                
             
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -253,9 +249,9 @@ namespace StormDiversMod.NPCs
             }
             Color color2 = new Color(179, 151, 238, 40);
             float scaleFactor13 = 0.5f + (NPC.GetAlpha(color2).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
-            for (int num149 = 0; num149 < 4; num149++)
+            for (int i = 0; i < 4; i++)
             {
-                spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 9) + NPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 9) + NPC.velocity.RotatedBy((float)i * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             }
             return base.PreDraw(spriteBatch, screenPos, drawColor);     
         }

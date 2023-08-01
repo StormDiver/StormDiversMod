@@ -20,9 +20,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Santank Mask");
-            Tooltip.SetDefault("12% increased ranged damage\n8% increased ranged critical strike chance");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Santank Mask");
+            //Tooltip.SetDefault("12% increased ranged damage\n8% increased ranged critical strike chance");
+            Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
@@ -110,9 +110,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Santank Chestplate");
-            Tooltip.SetDefault("10% increased ranged damage and critical strike chance\n25% chance not to consume ammo");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Santank Chestplate");
+            //Tooltip.SetDefault("10% increased ranged damage and critical strike chance\n25% chance not to consume ammo");
+            Item.ResearchUnlockCount = 1;
 
         }
      
@@ -148,9 +148,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Santank Greaves");
-            Tooltip.SetDefault("8% increased ranged damage\n6% increased ranged critical strike chance\n25% increased movement speed");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Santank Greaves");
+            //Tooltip.SetDefault("8% increased ranged damage\n6% increased ranged critical strike chance\n25% increased movement speed");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)

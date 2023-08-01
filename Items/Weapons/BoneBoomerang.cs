@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Femurang");
-            Tooltip.SetDefault("3 can be thrown out at a time\n'What, you thought this was Humerus?'");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Femurang");
+            //Tooltip.SetDefault("3 can be thrown out at a time\n'What, you thought this was Humerus?'");
+            Item.ResearchUnlockCount = 1;
         }
     
         public override void SetDefaults()

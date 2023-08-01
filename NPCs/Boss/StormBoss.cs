@@ -23,6 +23,7 @@ using Terraria.ModLoader.IO;
 
 using StormDiversMod.Items.Pets;
 using StormDiversMod.Projectiles;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace StormDiversMod.NPCs.Boss
 {
@@ -31,7 +32,7 @@ namespace StormDiversMod.NPCs.Boss
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overloaded Scandrone"); // Automatic from .lang files
+            //DisplayName.SetDefault("Overloaded Scandrone"); // Automatic from .lang files
                                                  // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
@@ -88,16 +89,16 @@ namespace StormDiversMod.NPCs.Boss
                 "this empowered Scandrone is capable of unleashing a range of powerful attacks onto foes.")
             });
         }
-      
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossLifeScale); //60K
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f); //60K
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * bossLifeScale); //85K 
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f); //84K 
 
             }
             NPC.damage = (int)(NPC.damage * 0.75f);
@@ -1341,7 +1342,7 @@ namespace StormDiversMod.NPCs.Boss
         {
             potionType = ItemID.GreaterHealingPotion;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (!Main.expertMode)
             {
@@ -1356,7 +1357,7 @@ namespace StormDiversMod.NPCs.Boss
                 target.AddBuff(BuffID.Electrified, 300); //5 seconds
             }
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {  
             for (int i = 0; i < 8; i++)
             {
@@ -1453,9 +1454,10 @@ namespace StormDiversMod.NPCs.Boss
                     Main.NewText("Screams are echoing from the dungeon...", 73, 201, 127);
                 }
             }
-           
+            if (!Main.expertMode)
+            Item.NewItem(new EntitySource_Loot(null), NPC.position, new Vector2(NPC.width, NPC.height), ItemID.RocketI, Main.rand.Next(50, 101)); //make rockets not appear in bestiary
         }
-        
+
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
@@ -1471,8 +1473,7 @@ namespace StormDiversMod.NPCs.Boss
             notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<StormKnife>(), ModContent.ItemType<StormLauncher>(), ModContent.ItemType<StormStaff>(), ModContent.ItemType<StormSentryStaff>()));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VortexiaWeapon>(), 10));
 
-            notExpert.OnSuccess(ItemDropRule.Common(ItemID.RocketI, 1, 50, 100)); //idk how to make it only drop along side launcher so :shrug:
-
+            //notExpert.OnSuccess(ItemDropRule.Common(ItemID.RocketI, 1, 50, 100)); //idk how to make it only drop along side launcher so :shrug:
 
             //expert and master loot
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.BossTrophy.StormBossBag>()));

@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye of the Dungeon");
-            Tooltip.SetDefault("Summons homing spinning bones when near enemies");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Eye of the Dungeon");
+            //Tooltip.SetDefault("Summons homing spinning bones when near enemies");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Accessory
 
             Item.defense = 2;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
         int skulltime = 0;

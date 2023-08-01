@@ -20,8 +20,8 @@ namespace StormDiversMod.Projectiles.Petprojs
         public override void SetStaticDefaults()
         {
             
-            DisplayName.SetDefault("Golden Derpie");
-            Description.SetDefault("So shiny and bouncy!");
+            //DisplayName.SetDefault("Golden Derpie");
+            //Description.SetDefault("So shiny and bouncy!");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }
@@ -43,7 +43,7 @@ namespace StormDiversMod.Projectiles.Petprojs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Golden Derpie");
+            //DisplayName.SetDefault("Golden Derpie");
             Main.projFrames[Projectile.type] = 8;
             Main.projPet[Projectile.type] = true;
         }

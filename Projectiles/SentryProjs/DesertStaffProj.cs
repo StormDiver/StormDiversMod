@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Sentry");
+            //DisplayName.SetDefault("Forbidden Sentry");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -83,7 +83,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
-                        if (Projectile.ai[1] > 80)
+                        if (Projectile.ai[1] > 50)
                         {
                             AnimateProjectile();
 
@@ -178,14 +178,14 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
 
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
         }
         public override void Kill(int timeLeft)
         {
@@ -206,7 +206,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Sand");
+            //DisplayName.SetDefault("Forbidden Sand");
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -254,16 +254,16 @@ namespace StormDiversMod.Projectiles.SentryProjs
             return;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
 
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -277,7 +277,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     { 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Sentry Explosion");
+            //DisplayName.SetDefault("Forbidden Sentry Explosion");
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
@@ -292,7 +292,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.timeLeft = 60;
             Projectile.extraUpdates = 2;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.localNPCHitCooldown = 15;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
         }
@@ -326,15 +326,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 return false;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);       
-            Projectile.damage = (Projectile.damage * 9) / 10;
-        }
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
-        {
-
+            Projectile.damage = (Projectile.damage * 20) / 19;
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

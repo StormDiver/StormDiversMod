@@ -19,7 +19,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Spike");
+            //DisplayName.SetDefault("Frost Spike");
         }
         public override void SetDefaults()
         {
@@ -59,13 +59,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 dustspawn = true;
             }
         }
-
-       
-        public override void OnHitPvp(Player target, int damage, bool crit)
-
-        {
-        }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 180);
         }

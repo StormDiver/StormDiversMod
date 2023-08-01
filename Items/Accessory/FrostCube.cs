@@ -18,11 +18,11 @@ namespace StormDiversMod.Items.Accessory
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frozen Queen's Core");
-            Tooltip.SetDefault("Increases your max number of minions and sentries by 1\nIncreases whip range by 15%");
+            //DisplayName.SetDefault("Frozen Queen's Core");
+            //Tooltip.SetDefault("Increases your max number of minions and sentries by 1\nIncreases whip range by 15%");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
 
         }
 
@@ -35,7 +35,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

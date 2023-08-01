@@ -20,7 +20,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spiky Bomb");
+            //DisplayName.SetDefault("Spiky Bomb");
         }
 
         public override void SetDefaults()
@@ -66,7 +66,7 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.Kill();
         }
@@ -121,7 +121,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spiky Bomb Spike");
+            //DisplayName.SetDefault("Spiky Bomb Spike");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -151,7 +151,7 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
         }

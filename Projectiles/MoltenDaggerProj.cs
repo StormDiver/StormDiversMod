@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Molten Dagger");
+            //DisplayName.SetDefault("Molten Dagger");
 
         }
         public override void SetDefaults()
@@ -116,13 +116,14 @@ namespace StormDiversMod.Projectiles
             float collisionPoint = 0f; // Don't need that variable, but required as parameter
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, CollisionWidth, ref collisionPoint);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<SuperBurnDebuff>(), 300);
         }
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<SuperBurnDebuff>(), 300);
+            if (info.PvP)
+                target.AddBuff(ModContent.BuffType<SuperBurnDebuff>(), 300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

@@ -10,8 +10,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Buffs;
 using Terraria.Audio;
 using StormDiversMod.Basefiles;
-
-
 namespace StormDiversMod.NPCs
 
 {
@@ -30,6 +28,10 @@ namespace StormDiversMod.NPCs
                     npc.defense = 40;
                     npc.knockBackResist = 0.1f;
                 }
+            }
+            if (npc.type == NPCID.Derpling)
+            {
+                NPCID.Sets.ShimmerTransformToNPC[npc.type] = ModContent.NPCType<DerpMimic>();
             }
         }
 
@@ -112,7 +114,7 @@ namespace StormDiversMod.NPCs
                 }
             }
         }
-        public override void HitEffect(NPC npc, int hitDirection, double damage)
+        public override void HitEffect(NPC npc, NPC.HitInfo hit)
         {
             if (!GetInstance<ConfigurationsGlobal>().PreventBuffedDerps)
             {

@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye Sword Ball");
+            //DisplayName.SetDefault("Eye Sword Ball");
 
         }
         public override void SetDefaults()
@@ -49,7 +49,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
 
@@ -110,7 +110,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bouncing Eye");
+            //DisplayName.SetDefault("Bouncing Eye");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
@@ -142,7 +142,7 @@ namespace StormDiversMod.Projectiles
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }

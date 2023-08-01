@@ -19,7 +19,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Asteroid Orbiter");
+            //DisplayName.SetDefault("Asteroid Orbiter");
         }
         public override void SetDefaults()
         {
@@ -63,11 +63,7 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A sentient asteroid boulder that is infused with strange extra-terrestrial energy, allowing it to telekinetically launch tiny fragments.")
             });
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
+      
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (NPC.downedGolemBoss)
@@ -149,11 +145,11 @@ namespace StormDiversMod.NPCs
                 int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 0, NPC.velocity.X, NPC.velocity.Y, 0, default, 0.5f);
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
                                     
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

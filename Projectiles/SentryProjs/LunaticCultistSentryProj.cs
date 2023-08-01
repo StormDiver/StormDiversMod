@@ -18,7 +18,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Sentry");
+            //DisplayName.SetDefault("Cultist Sentry");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -252,7 +252,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Shadow Fireball");
+            //DisplayName.SetDefault("Cultist Shadow Fireball");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -367,7 +367,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             

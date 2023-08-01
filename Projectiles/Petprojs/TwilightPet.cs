@@ -20,8 +20,8 @@ namespace StormDiversMod.Projectiles.Petprojs
         public override void SetStaticDefaults()
         {
             
-            DisplayName.SetDefault("Twilight Figure");
-            Description.SetDefault("A strange hooded figure lights your way");
+            //DisplayName.SetDefault("Twilight Figure");
+            //Description.SetDefault("A strange hooded figure lights your way");
             Main.buffNoTimeDisplay[Type] = true;
             Main.lightPet[Type] = true;
         }
@@ -43,7 +43,7 @@ namespace StormDiversMod.Projectiles.Petprojs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Twilight light");
+            //DisplayName.SetDefault("Twilight light");
             Main.projFrames[Projectile.type] = 8;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.LightPet[Projectile.type] = true;
@@ -72,7 +72,6 @@ namespace StormDiversMod.Projectiles.Petprojs
             return true;
         }
 
-
         float movespeed = 12f; //Speed of the pet
 
         float xpostion = 50; // The picked x postion
@@ -80,9 +79,6 @@ namespace StormDiversMod.Projectiles.Petprojs
         bool teleport;
         bool yAssend;
         bool teleanimation;
-
-       
-
 
         public override void AI()
         {

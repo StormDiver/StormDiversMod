@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frostspike Sentry");
+            //DisplayName.SetDefault("Frostspike Sentry");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
@@ -200,7 +200,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Frost Sentry Proj");
+            //DisplayName.SetDefault("Frost Sentry Proj");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
@@ -236,10 +236,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
         }
     
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
-            target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 180);
+            target.AddBuff(BuffID.Frostburn2, 180);
 
             for (int i = 0; i < 10; i++)
             {

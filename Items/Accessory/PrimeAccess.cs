@@ -14,9 +14,9 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mechanical Spikes");
-            Tooltip.SetDefault("Six spike balls will orbit you, damaging enemies within reach\nHas a small chance to destroy almost any projectile that comes near");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Mechanical Spikes");
+            //Tooltip.SetDefault("Six spike balls will orbit you, damaging enemies within reach\nHas a small chance to destroy almost any projectile that comes near");
+            Item.ResearchUnlockCount = 1;
 
         }
         public override void SetDefaults()
@@ -29,7 +29,7 @@ namespace StormDiversMod.Items.Accessory
             Item.defense = 5;
             Item.accessory = true;
             Item.expert = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            
 
         }
 

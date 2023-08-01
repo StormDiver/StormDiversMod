@@ -8,7 +8,9 @@ using Terraria.Localization;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Basefiles;
 using Terraria.GameContent.Creative;
-
+using StormDiversMod.Items.Materials;
+using System.Collections.Generic;
+using StormDiversMod.Items.Weapons;
 
 namespace StormDiversMod.Items.OresandBars
 {
@@ -16,11 +18,11 @@ namespace StormDiversMod.Items.OresandBars
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Forbidden Bar");
-            Tooltip.SetDefault("Used in the creation of forbidden armor and weapons");
+            //DisplayName.SetDefault("Forbidden Bar");
+            //Tooltip.SetDefault("Used in the creation of forbidden armor and weapons");
             ItemID.Sets.SortingPriorityMaterials[Item.type] = 80;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
-
+            Item.ResearchUnlockCount = 25;
+            ItemID.Sets.ExtractinatorMode[Item.type] = Item.type;
         }
 
         public override void SetDefaults()
@@ -38,7 +40,14 @@ namespace StormDiversMod.Items.OresandBars
             Item.consumable = true;
             Item.autoReuse = true;
         }
-
+        public override void ExtractinatorUse(int extractinatorBlockType, ref int resultType, ref int resultStack)
+        {
+            if (extractinatorBlockType == TileID.ChlorophyteExtractinator)
+            {
+                resultType = ModContent.ItemType<IceBar>();
+                resultStack = 1;
+            }
+        }
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -65,9 +74,8 @@ namespace StormDiversMod.Items.OresandBars
                 TileObjectData.addTile(Type);
 
                 AddMapEntry(new Color(238, 204, 34), Language.GetText("Forbidden Bar")); // localized text for "Metal Bar"
-            }
-
-            public override bool Drop(int i, int j)
+            }        
+            /*public override bool Drop(int i, int j)
             {
                 Tile t = Main.tile[i, j];
                 int style = t.TileFrameX / 18;
@@ -76,7 +84,7 @@ namespace StormDiversMod.Items.OresandBars
                     Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemType<DesertBar>());
                 }
                 return base.Drop(i, j);
-            }
+            }*/
         }
     }
     //____________________________________________________________________________________________________
@@ -96,17 +104,20 @@ namespace StormDiversMod.Items.OresandBars
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Forbidden Ore");
+            LocalizedText name = CreateMapEntryName();
+            //name.SetDefault("Forbidden Ore");
             AddMapEntry(new Color(238, 204, 34), name);
 
             DustType = 54;
-            ItemDrop = ModContent.ItemType<Items.Materials.DesertOre>();
+            //ItemDrop = ModContent.ItemType<DesertOre>();
+            RegisterItemDrop(ModContent.ItemType<DesertOre>(), 1);
             HitSound = SoundID.Tink;
             MineResist = 4f;
             MinPick = 100;
         }
-
-
+        public override IEnumerable<Item> GetItemDrops(int i, int j)
+        {
+            yield return new Item(ModContent.ItemType<DesertOre>(), 1);
+        }
     }
 }

@@ -13,9 +13,9 @@ namespace StormDiversMod.Items.Tools
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Granite Pickaxe"); 
-			Tooltip.SetDefault("Can mine Meteorite");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			//DisplayName.SetDefault("Granite Pickaxe"); 
+			//Tooltip.SetDefault("Can mine Meteorite");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -72,9 +72,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Axe");
-            //Tooltip.SetDefault("''");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Granite Axe");
+            ////Tooltip.SetDefault("''");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
@@ -132,9 +132,9 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Granite Hammer");
-            //Tooltip.SetDefault("''");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Granite Hammer");
+            ////Tooltip.SetDefault("''");
+            Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

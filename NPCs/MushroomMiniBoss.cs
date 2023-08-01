@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Angry Mushroom"); // Automatic from .lang files
+            //DisplayName.SetDefault("Angry Mushroom"); // Automatic from .lang files
                                                       // make sure to set this for your modnpcs.
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
@@ -68,21 +68,25 @@ namespace StormDiversMod.NPCs
             });
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            //NPC.lifeMax = (int)(NPC.lifeMax * 0.75f);
-            //NPC.damage = (int)(NPC.damage * 0.75f);
-        }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
-            if (!NPC.AnyNPCs(ModContent.NPCType<MushroomMiniBoss>()) && NPC.downedBoss1 && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneGlowshroom)
+            if (!Main.remixWorld)
             {
-                return SpawnCondition.Cavern.Chance * 0.2f;
+                if (!NPC.AnyNPCs(ModContent.NPCType<MushroomMiniBoss>()) && NPC.downedBoss1 && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneGlowshroom)
+                {
+                    return SpawnCondition.Cavern.Chance * 0.2f;
+                }
+                else
+                    return SpawnCondition.Cavern.Chance * 0f;
             }
             else
             {
-                return SpawnCondition.Cavern.Chance * 0f;
+                if (!NPC.AnyNPCs(ModContent.NPCType<MushroomMiniBoss>()) && NPC.downedBoss1 && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneGlowshroom)
+                {
+                    return SpawnCondition.Underground.Chance * 0.2f;
+                }
+                else
+                    return SpawnCondition.Underground.Chance * 0f;
             }
 
         }
@@ -222,13 +226,13 @@ namespace StormDiversMod.NPCs
             }
 
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             
               
             
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             shoottime = 70;
             summoning = false;

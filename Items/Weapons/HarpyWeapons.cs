@@ -14,11 +14,11 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Feather Scepter");
-            Tooltip.SetDefault("Fires out a spread of 3 feathers\nThe center feather deals more damage and pierces once");
+            //DisplayName.SetDefault("Feather Scepter");
+            //Tooltip.SetDefault("Fires out a spread of 3 feathers\nThe center feather deals more damage and pierces once");
             Item.staff[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item8;
 
-            Item.damage = 11;
+            Item.damage = 12;
          
             Item.knockBack = 1f;
 
@@ -75,7 +75,7 @@ namespace StormDiversMod.Items.Weapons
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HarpyProj>(), damage, knockback, player.whoAmI);
             }
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.HarpyProj2>(), damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.HarpyProj2>(), (int)(damage * 1.5f), knockback, player.whoAmI);
 
             return false;
         }
@@ -95,9 +95,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Feathered Bow");
-            Tooltip.SetDefault("Converts Wooden Arrows into Feather Arrows that ignore gravity and pierce");
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            //DisplayName.SetDefault("Feathered Bow");
+            //Tooltip.SetDefault("Converts Wooden Arrows into Feather Arrows that ignore gravity and pierce");
+            Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
@@ -162,12 +162,12 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Feather Thrower");
-            Tooltip.SetDefault("Lighter than most yoyos");
+            //DisplayName.SetDefault("The Feather Thrower");
+            //Tooltip.SetDefault("Lighter than most yoyos");
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 25;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()

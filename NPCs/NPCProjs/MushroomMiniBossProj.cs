@@ -11,7 +11,7 @@ namespace StormDiversMod.NPCs.NPCProjs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bouncing Mushroom");
+            //DisplayName.SetDefault("Bouncing Mushroom");
             Main.projFrames[Projectile.type] = 6;
         }
 
@@ -79,7 +79,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             return false;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             for (int i = 0; i < 10; i++)
             {
