@@ -83,7 +83,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
-                        if (Projectile.ai[1] > 80)
+                        if (Projectile.ai[1] > 50)
                         {
                             AnimateProjectile();
 
@@ -292,7 +292,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.timeLeft = 60;
             Projectile.extraUpdates = 2;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.localNPCHitCooldown = 15;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
         }
@@ -329,7 +329,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);       
-            Projectile.damage = (Projectile.damage * 9) / 10;
+            Projectile.damage = (Projectile.damage * 20) / 19;
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

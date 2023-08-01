@@ -327,7 +327,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Asteroid Belt");
-            //Tooltip.SetDefault("5 summon tag damage\n15% summon tag critical strike chance\nYour summons will focus struck enemies\nAsteroid fragments fall upon the targeted enemy when hit by summons");
+            //Tooltip.SetDefault("8 summon tag damage\n18% summon tag critical strike chance\nYour summons will focus struck enemies\nAsteroid fragments fall upon the targeted enemy when hit by summons");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()

@@ -241,7 +241,6 @@ namespace StormDiversMod.Projectiles.Minions
 						Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y),
 							new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LizardMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
-
 						SoundEngine.PlaySound(SoundID.Item33 with { Volume = 0.25f, Pitch = 0.25f }, Projectile.Center);
 
 						for (int i = 0; i < 25; i++)

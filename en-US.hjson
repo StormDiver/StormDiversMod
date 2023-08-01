@@ -216,7 +216,7 @@ Mods: {
 			}
 
 			SuperFrostBurn: {
-				DisplayName: CryoBurn
+				DisplayName: Glacial Burn
 				Description: It's like FrostBurn, but it hurts even more
 			}
 
@@ -399,6 +399,50 @@ Mods: {
 					'''
 					Taking heavy damage regenerates the lost life over several seconds while granting additonal defense
 					Grants immunity to debuffs inflicted by Extra-Terrestrial creatures
+					'''
+			}
+
+			ClawsBone: {
+				DisplayName: Raptor Claws
+				Tooltip:
+					'''
+					12% increased melee and whip speed
+					Enables autoswing for melee weapons and whips
+					Increases melee and whip armor penetration by 5
+					'''
+			}
+
+			ClawsFrost: {
+				DisplayName: Glacial Claws
+				Tooltip:
+					'''
+					12% increased melee and whip speed
+					Enables autoswing for melee weapons and whips
+					Increases melee and whip armor penetration by 5
+					Melee and whip attacks have a chance to inflict glacial burn
+					'''
+			}
+
+			ClawsSpooky: {
+				DisplayName: Nightmare Claws
+				Tooltip:
+					'''
+					12% increased melee and whip speed
+					Enables autoswing for melee weapons and whips
+					Increases melee and whip armor penetration by 12
+					Melee and whip attacks inflict UltraBurn
+					Creates an aura of fear around you that drains the life from enemies
+					Aura has a greater range the lower on health you are
+					'''
+			}
+
+			ObiPain: {
+				DisplayName: Obsidian Necklace
+				Tooltip:
+					'''
+					Increases armor penetration by 5
+					Grants immunity to fire blocks
+					'For those incredibly common moments when you have to fight high-defensed enemies while standing on fire blocks'
 					'''
 			}
 
@@ -614,7 +658,7 @@ Mods: {
 				DisplayName: Spooky Emblem
 				Tooltip:
 					'''
-					Creates an aura of fear around you that affects enemies
+					Creates an aura of fear around you that drains the life from enemies
 					Has a greater range the lower on health you are
 					'''
 			}
@@ -755,6 +799,15 @@ Mods: {
 			ProtoGrenade: {
 				DisplayName: Prototype Grenade
 				Tooltip: For use with certain launchers
+			}
+
+			MineBomb: {
+				DisplayName: Sticky Mine
+				Tooltip:
+					'''
+					For use with the Sticky Mine Detonator
+					'Be careful not to get this stuck on you'
+					'''
 			}
 
 			ShroomArrow: {
@@ -1072,7 +1125,7 @@ Mods: {
 				DisplayName: Shadowflare Mask
 				Tooltip:
 					'''
-					20% increased whip range
+					15% increased whip range
 					10% increased whip speed
 					8% increased summoner damage
 					'''
@@ -1155,6 +1208,37 @@ Mods: {
 					6% increased damage
 					5% increased critical strike chance
 					50% increased movement speed
+					'''
+			}
+
+			TempleBMask: {
+				DisplayName: Lihzarhd Chief Mask
+				Tooltip:
+					'''
+					10% increased whip range and speed
+					15% increased summoner damage
+					Increases maximum minions by 1
+					'''
+			}
+
+			TempleChest: {
+				DisplayName: Lihzarhd Chief Chestplate
+				Tooltip:
+					'''
+					15% increased whip range and speed
+					15% increased summoner damage
+					Enables autoswing for whips
+					'''
+			}
+
+			TempleLegs: {
+				DisplayName: Lihzarhd Chief Greaves
+				Tooltip:
+					'''
+					15% increased whip range
+					10% increased whip speed
+					10% increased summoner damage
+					Increases maximum minions by 1
 					'''
 			}
 
@@ -1737,7 +1821,7 @@ Mods: {
 				DisplayName: The Bloody Tendon
 				Tooltip:
 					'''
-					4% summon tag critical strike chance
+					8% summon tag critical strike chance
 					Your summons will focus struck enemies
 					Damaging blood orbs will orbit the targetted enemy when hit by summons
 					'''
@@ -1870,7 +1954,7 @@ Mods: {
 				DisplayName: Forbidden Whip
 				Tooltip:
 					'''
-					6% summon tag critical strike chance
+					12% summon tag critical strike chance
 					Your summons will focus struck enemies
 					Forbidden sand jumps from the targeted enemy when hit by summons
 					'''
@@ -1927,11 +2011,16 @@ Mods: {
 				Tooltip: Launches a bouncing eyeball every swing
 			}
 
+			FlailLocker: {
+				DisplayName: The Flail Locker
+				Tooltip: Relic of a lost puzzle
+			}
+
 			FrostLauncher: {
 				DisplayName: Frost Launcher
 				Tooltip:
 					'''
-					Fires out impact-exploding grenades that inflict CryoBurn
+					Fires out impact-exploding grenades that inflict Frostbite
 					Requires Prototype Grenades, purchase more from the Demolitionist
 					'''
 			}
@@ -1946,7 +2035,7 @@ Mods: {
 				Tooltip:
 					'''
 					Spins around and knocks enemies in the direction you're facing
-					Inflicts cryoburn on enemies
+					Inflicts Frostbite on enemies
 					'''
 			}
 
@@ -1959,7 +2048,7 @@ Mods: {
 				DisplayName: Cryofreezer
 				Tooltip:
 					'''
-					Fires out a stream of super cold gas which inflicts CryoBurn
+					Fires out a stream of super cold gas which inflicts Frostbite
 					Uses gel for ammo
 					Ignores 15 points of enemy defense
 					'''
@@ -2183,7 +2272,7 @@ Mods: {
 
 			MechDestroyerFlail: {
 				DisplayName: The Vaporizer
-				Tooltip: Fires out 8 spikes continuously while spinning
+				Tooltip: Fires out 8 spikes continuously while spinning and when held out
 			}
 
 			MechPrimeStaff: {
@@ -2240,6 +2329,17 @@ Mods: {
 			MeteorSpear: {
 				DisplayName: Space Spear
 				Tooltip: Striking an enemy summons 2 meteor fragments from the sky
+			}
+
+			MineDetonate: {
+				DisplayName: Sticky Mine Detonator
+				Tooltip:
+					'''
+					Left click to throw out a Sticky Mine that sticks to surfaces, up to 6 can be thrown out at once
+					Right Click to detonate all the mines
+					Can be used to launch yourself into the air, also works on enemies and Town NPCs
+					Requires Sticky Mines as ammo
+					'''
 			}
 
 			MoltenDagger: {
@@ -2426,8 +2526,8 @@ Mods: {
 				DisplayName: Asteroid Belt
 				Tooltip:
 					'''
-					5 summon tag damage
-					15% summon tag critical strike chance
+					8 summon tag damage
+					18% summon tag critical strike chance
 					Your summons will focus struck enemies
 					Asteroid fragments fall upon the targeted enemy when hit by summons
 					'''
@@ -2485,10 +2585,10 @@ Mods: {
 				DisplayName: Spiky Bomb Launcher
 				Tooltip:
 					'''
-					Fires out up to 16 Spiky Bombs that stick to surfaces can be detonated by right clicking while holding the weapon
-					Right clicking while holding UP will unstick all bombs and make them explode on enemy impact
-					Shoots further depending on your cursor location
-					Can be used to sticky-jump, also works on enemies and Town NPCs
+					Fires out up to 16 Spiky Bombs that stick to surfaces, the oldest bomb will automatically explode upon firing a 17th one
+					Bombs near the cursor can be detonated by pressing right click, holding down right click while holding the weapon will detonate all bombs
+					Bombs are shot further depending on your cursor distance
+					Can be used to launch yourself into the air, also works on enemies and Town NPCs
 					Uses rockets as ammo
 					'''
 			}
@@ -2994,9 +3094,9 @@ Mods: {
 			DesertSpearProj.DisplayName: Forbidden Pike
 			DesertSpearTipProj.DisplayName: Forbidden Spear Dust
 			DesertSpellProj.DisplayName: Forbidden Sand
-			DestroyerFlailProj.DisplayName: Vaporiser Flail
+			DestroyerFlailProj.DisplayName: Vaporizer Flail
 			DestroyerFlailProj2.DisplayName: Destroyer Flail Unused
-			DestroyerFlailProj3.DisplayName: Vaporiser Spike
+			DestroyerFlailProj3.DisplayName: Vaporizer Spike
 			EnchantedSwordProj.DisplayName: Enchanted Sword
 			EnchantedSwordProj2.DisplayName: Enchanted Sword
 			ExplosionAridProj.DisplayName: Explosion Arid
@@ -3194,18 +3294,21 @@ Mods: {
 			VortexRocketProj2.DisplayName: Vortex Rocket Large
 			VortexShotgunGun.DisplayName: Storm Diver Shotgun
 			WebProj.DisplayName: Web
-			BloodWhipProj.DisplayName: Blood Whip Proj
+			BloodWhipProj.DisplayName: Blood Whip
 			BloodWhipProj2.DisplayName: Bloody whip Orb
-			DesertWhipProj.DisplayName: Desert Whip Proj
+			DesertWhipProj.DisplayName: Desert Whip
 			DesertWhipProj2.DisplayName: Forbidden Whip Dust
-			SpaceRockWhipProj.DisplayName: Space Rock Whip Proj
+			SpaceRockWhipProj.DisplayName: Space Rock Whip
 			SpaceRockWhipProj2.DisplayName: Asteroid Whip Fragment
 			WebWhipProj.DisplayName: Web Whip Proj
 			WoodenBoltProj.DisplayName: CrossBow Bolt
 			WoodPointyStickProj.DisplayName: Pointy Stick
 			SantaBulletProj.DisplayName: Santa's Bullet
-			SantaBulletProj2.DisplayName: Santa Bullet Proj2
-			ExplosionChloroProj.DisplayName: Explosion Chloro Proj
+			SantaBulletProj2.DisplayName: Santa Bullet explosion
+			ExplosionChloroProj.DisplayName: Chlorophyte Explosion
+			MineBombProj.DisplayName: Sticky Mine
+			FlailLockerProj.DisplayName: The Flail Locker Ball
+			LizardArmourProj.DisplayName: Lihzarhd Drone
 		}
 
 		Tiles: {

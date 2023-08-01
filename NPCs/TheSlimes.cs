@@ -115,8 +115,7 @@ namespace StormDiversMod.NPCs
             }
         }
 
-        int npcframe = 0;
-        
+        //int npcframe = 0;
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             
@@ -257,7 +256,7 @@ namespace StormDiversMod.NPCs
             }
         }
 
-        int npcframe = 0;
+        //int npcframe = 0;
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {

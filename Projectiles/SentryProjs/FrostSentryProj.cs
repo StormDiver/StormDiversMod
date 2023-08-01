@@ -239,7 +239,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
-            target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 180);
+            target.AddBuff(BuffID.Frostburn2, 180);
 
             for (int i = 0; i < 10; i++)
             {

@@ -9,6 +9,9 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
+using Humanizer;
+using static Humanizer.In;
+using System.Net.Sockets;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -17,8 +20,11 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Spiky Bomb Launcher");
-            //Tooltip.SetDefault("Fires out up to 16 Spiky Bombs that stick to surfaces can be detonated by right clicking while holding the weapon\nRight clicking while holding UP will unstick all bombs and make them explode on enemy impact" +
-                //"\nShoots further depending on your cursor location\nCan be used to sticky-jump, also works on enemies and Town NPCs\nUses rockets as ammo");
+            //Tooltip.SetDefault("Fires out up to 16 Spiky Bombs that stick to surfaces, the oldest bomb will automatically explode upon firing a 17th one
+            //Bombs near the cursor can be detonated by pressing right click, holding down right click while holding the weapon will detonate all bombs
+            //Bombs are shot further depending on your cursor distance
+            //Can be used to launch yourself into the air, also works on enemies and Town NPCs
+            //Uses rockets as ammo");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
@@ -67,9 +73,9 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {        
             shootvelo = Vector2.Distance(Main.MouseWorld, player.Center) / 500f + 0.2f; //Faster shoot speed at further distances
-            if (shootvelo > 1.5f) //Caps the speed multipler at 1.5x
+            if (shootvelo > 2f) //Caps the speed multipler at 2x
             {
-                shootvelo = 1.5f;
+                shootvelo = 2f;
             }
             if (shootvelo < 0.5f) // Caps low end at 0.5x
             {
@@ -102,23 +108,13 @@ namespace StormDiversMod.Items.Weapons
             {
                 Main.projectile[oldestProjIndex].timeLeft = 3;
             }
+            if (spikyprojs >= 16)
+                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.Red, "MAX", false);
+            else
+                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.White, spikyprojs, false);
 
             return false;
         }
-        /*public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.GetItem("ProtoLauncher"), 1);
-            recipe.AddIngredient(ItemID.SoulofMight, 12);
-            recipe.AddIngredient(ItemID.SoulofFright, 12);
-            recipe.AddIngredient(ItemID.SoulofSight, 12);
-            recipe.AddIngredient(ItemID.Gel, 25);
-
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }*/
-       
 
     }
 }

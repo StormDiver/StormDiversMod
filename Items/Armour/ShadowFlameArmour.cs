@@ -25,7 +25,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Shadowflare Mask");
-            //Tooltip.SetDefault("20% increased whip range\n10% increased whip speed\n8% increased summoner damage");
+            //Tooltip.SetDefault("15% increased whip range\n10% increased whip speed\n8% increased summoner damage");
             Item.ResearchUnlockCount = 1;
 
             /* HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -48,7 +48,7 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Summon) += 0.08f;
-            player.whipRangeMultiplier += 0.20f;
+            player.whipRangeMultiplier += 0.15f;
             player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.10f;
 
         }

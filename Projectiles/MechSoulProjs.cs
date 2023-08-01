@@ -21,9 +21,7 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 18;
@@ -107,10 +105,7 @@ namespace StormDiversMod.Projectiles
                     }
 
                 }
-
-
             }
-          
             if (target)
             {
                 AdjustMagnitude(ref move);
@@ -132,10 +127,8 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 100;
                 Projectile.Center = Projectile.position;
 
-
                 Projectile.knockBack = 6;
             }
-
         }
         private void AdjustMagnitude(ref Vector2 vector)
         {
@@ -160,16 +153,12 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            
-
-
         }
         public override void Kill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-
 
                 int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
                 Main.projectile[proj].scale = 1.25f;
@@ -249,10 +238,7 @@ namespace StormDiversMod.Projectiles
 
             DrawOffsetX = 5;
             DrawOriginOffsetY = 0;
-            
-
         }
-
         public override void AI()
         {
             int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.9f);
@@ -270,18 +256,13 @@ namespace StormDiversMod.Projectiles
                 Main.projectile[projID].usesLocalNPCImmunity = true;
                 Main.projectile[projID].localNPCHitCooldown = 10;
             }
-
-           
             AnimateProjectile();
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
-          
+ 
         }
-
-
         public void AnimateProjectile() // Call this every frame, for example in the AI method.
         {
             Projectile.frameCounter++;
@@ -298,8 +279,6 @@ namespace StormDiversMod.Projectiles
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/ShroomArrowProj_Glow");
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-
-
         }*/
 
     }
@@ -334,7 +313,7 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
-            if (player.controlUseItem && !stopspikes)
+            //if (player.controlUseItem && !stopspikes)
             {
                 shoottime++;
             }
@@ -342,7 +321,7 @@ namespace StormDiversMod.Projectiles
             {
                 stopspikes = true;
             }
-            if (shoottime >= 25)//Fire spikes while spinning
+            if ((shoottime >= 25 && !stopspikes) || (shoottime >= 45 && stopspikes && Projectile.tileCollide))//Fire spikes while spinning
             {
                 float numberProjectiles = 8;
                 float rotation = MathHelper.ToRadians(180);
@@ -352,8 +331,13 @@ namespace StormDiversMod.Projectiles
                     float speedX = 0f;
                     float speedY = 11f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 1f), 0.5f, Projectile.owner);
+                    if (!stopspikes)
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.75f), 0.5f, Projectile.owner);
+                    else
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 1f), 0.5f, Projectile.owner);
+
                 }
+
 
                 SoundEngine.PlaySound(SoundID.Item17 with{Volume = 1.5f}, Projectile.Center);
 

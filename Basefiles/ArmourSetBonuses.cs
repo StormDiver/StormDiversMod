@@ -26,7 +26,6 @@ using Terraria.Map;
 
 namespace StormDiversMod.Basefiles
 {
-
     public class ArmourSetBonuses : ModPlayer
     {
         public bool derpJump; //Derpling armour
@@ -55,6 +54,8 @@ namespace StormDiversMod.Basefiles
 
         public bool snowfallSet; //Snowfall armour
 
+        public bool LizardSet; //Lihzarhd Commander armour
+
         //Ints and Bools activated from this file
 
         public int bloodtime; //Cooldown for the orbs from the Hemo Armour set bonus     
@@ -70,6 +71,7 @@ namespace StormDiversMod.Basefiles
         public int santankmissleup; //Adds one to the charge every 10 frames
         public bool santanktrigger; //Has the player triggered the missiles
         public int cryosetcooldown; //Cooldown for Cryo set bonus
+        public int lizardsetcooldown; //Cooldown for the lizard bombs
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -86,6 +88,7 @@ namespace StormDiversMod.Basefiles
             cryoSet = false;
             shadowflameSet = false;
             snowfallSet = false;
+            LizardSet = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -169,6 +172,14 @@ namespace StormDiversMod.Basefiles
                 Player.ClearBuff(ModContent.BuffType<SpaceRockOffence>());
                 spaceStrikecooldown = 0;
             }
+
+            if (LizardSet)
+            {
+                if (lizardsetcooldown < 60)
+                    lizardsetcooldown++;
+            }
+            else
+                lizardsetcooldown = 0;
 
             //For santank set ======================================================================
             if (santankSet)
@@ -962,7 +973,7 @@ namespace StormDiversMod.Basefiles
             {
                 if ((ProjectileID.Sets.SentryShot[proj.type] == true || proj.sentry) && proj.owner == Main.myPlayer)
                 {
-                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                    target.AddBuff(BuffID.Frostburn2, 300);
                     for (int i = 0; i < 10; i++)
                     {
                         var dust = Dust.NewDustDirect(target.position, target.width, target.height, 180);
@@ -1017,7 +1028,36 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damageDone), 0, Player.whoAmI);
                 }
             }
+            if (LizardSet)
+            {
+                int lizarddamage = (int)Player.GetTotalDamage(DamageClass.Summon).ApplyTo(160); //224 with armour buffs alone
 
+                if (ProjectileID.Sets.IsAWhip[proj.type] == true && proj.owner == Main.myPlayer && !target.friendly && target.lifeMax > 5 && target.CanBeChasedBy())
+                {
+                    if (lizardsetcooldown >= 30)
+                    {
+                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.LizardArmourProj>(), lizarddamage, 0, Main.myPlayer, 0, Main.rand.Next(0, 359));
+                        SoundEngine.PlaySound(SoundID.Item61 with { Volume = 0.5f, Pitch = -0.25f }, Player.Center);
+
+                        for (int i = 0; i < 30; i++)
+                        {
+                            Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
+                            var dust = Dust.NewDustDirect(target.Center, 0, 0, 170, perturbedSpeed.X, perturbedSpeed.Y);
+                            dust.noGravity = true;
+                            dust.scale = 1.5f;
+                        }
+                        for (int i = 0; i < 30; i++)
+                        {
+                            Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
+                            var dust = Dust.NewDustDirect(Player.Center, 0, 0, 170, perturbedSpeed.X, perturbedSpeed.Y);
+                            dust.noGravity = true;
+                            dust.scale = 1.5f;
+                        }
+
+                        lizardsetcooldown = 0;
+                    }
+                }
+            }
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {

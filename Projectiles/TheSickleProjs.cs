@@ -245,7 +245,7 @@ namespace StormDiversMod.Projectiles
         }
         float degrees;
         bool scaleup;
-        int shoottime;
+        //int shoottime;
         public override void OnSpawn(IEntitySource source)
         {
             base.OnSpawn(source);

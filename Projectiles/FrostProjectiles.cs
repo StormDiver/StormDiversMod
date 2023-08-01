@@ -105,7 +105,7 @@ namespace StormDiversMod.Projectiles
             if (Main.rand.Next(1) == 0) // the chance
             {
                
-                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                    target.AddBuff(BuffID.Frostburn2, 300);
 
                 
 
@@ -114,7 +114,7 @@ namespace StormDiversMod.Projectiles
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (info.PvP)
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                target.AddBuff(BuffID.Frostburn2, 300);
         }
 
         public override void Kill(int timeLeft)
@@ -179,14 +179,14 @@ namespace StormDiversMod.Projectiles
             if (Main.rand.Next(1) == 0) // the chance
             {
 
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                target.AddBuff(BuffID.Frostburn2, 300);
 
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (info.PvP)
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                target.AddBuff(BuffID.Frostburn2, 300);
         }
         // float hitbox = 150;
         // bool hitboxup;
@@ -332,7 +332,7 @@ namespace StormDiversMod.Projectiles
                 if (Main.rand.Next(1) == 0) // the chance
                 {
                    
-                        target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                        target.AddBuff(BuffID.Frostburn2, 300);
 
                     
 
@@ -352,7 +352,7 @@ namespace StormDiversMod.Projectiles
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (info.PvP)
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                target.AddBuff(BuffID.Frostburn2, 300);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -493,14 +493,14 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
             if (Main.rand.Next(1) == 0) // the chance
             {
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                target.AddBuff(BuffID.Frostburn2, 300);
 
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (info.PvP)
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                target.AddBuff(BuffID.Frostburn2, 300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -564,14 +564,14 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
-            target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+            target.AddBuff(BuffID.Frostburn2, 180);
 
 
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (info.PvP)
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+                target.AddBuff(BuffID.Frostburn2, 180);
         }
 
 

@@ -44,7 +44,7 @@ namespace StormDiversMod.Basefiles
 
             group = new RecipeGroup(() => "Gold or Platinum Bar", new int[]
             {
-                ItemID.GoldBar,
+                ItemID.GoldBar, 
                 ItemID.PlatinumBar
             });
             RecipeGroup.RegisterGroup("StormDiversMod:GoldBars", group);
@@ -321,6 +321,8 @@ namespace StormDiversMod.Basefiles
                 
                 shop.Add(ItemID.MiningShirt, Condition.PlayerCarriesItem(ItemID.MiningHelmet));
                 shop.Add(ItemID.MiningPants, Condition.PlayerCarriesItem(ItemID.MiningHelmet));
+                shop.Add(ModContent.ItemType<MineDetonate>(), Condition.DownedEyeOfCthulhu);
+                shop.Add(ModContent.ItemType<MineBomb>(), Condition.DownedEyeOfCthulhu);
 
                 shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<ProtoLauncher>()));
                 shop.Add(ModContent.ItemType<ProtoGrenade>(), Condition.PlayerCarriesItem(ModContent.ItemType<FrostLauncher>()));

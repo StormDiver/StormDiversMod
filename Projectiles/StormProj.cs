@@ -109,7 +109,6 @@ namespace StormDiversMod.Projectiles
 					Projectile.ai[1]++; //increase shoottime
 					Projectile.localAI[0] = -10; //Reset rotation
 					Projectile.localAI[1]++; //First frame to get postion
-				
 
 					movespeed = distance / 8 + 1.5f;
 				}

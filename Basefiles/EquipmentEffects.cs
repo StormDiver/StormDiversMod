@@ -82,6 +82,11 @@ namespace StormDiversMod.Basefiles
 
         public bool blueCuffs; //Player has insulated cuffs equipped
 
+        public bool blueClaws; //Player has glacial claws equipped
+
+        public bool spookyClaws; //Player has nightmare claws equipped
+
+
         public bool lunaticHood; //Player has the Luantic Hood equipped
 
         public bool beetleFist; //player has the Beetle gauntlet equipped
@@ -110,7 +115,7 @@ namespace StormDiversMod.Basefiles
 
         //Ints and Bools activated from this file
 
-        public bool shotflame; //Indicates whether the SPooky Core has fired its flames or not
+        public bool shotflame; //Indicates whether the Betsy Flame has fired its flames or not
         public bool spikespawned; //Wheter mechanical spieks ahev been spawned
         public bool falling; //Wheter the player is falling at speed
         public int stopfall; //If the player has stopped falling
@@ -168,6 +173,8 @@ namespace StormDiversMod.Basefiles
             derpEye = false;
             derpEyeGolem = false;
             blueCuffs = false;
+            blueClaws = false;
+            spookyClaws = false;
             lunaticHood = false;
             beetleFist = false;
             aridCritChest = false;
@@ -587,12 +594,12 @@ namespace StormDiversMod.Basefiles
                 }
             }
             //For Spooky Core======================
-            if (spooked)
+            if (spooked || spookyClaws)
             {
-                float distancehealth = 500 + ((Player.statLifeMax2 - Player.statLife) / 2);
-                if (distancehealth > 1000)
+                float distancehealth = 300 + ((Player.statLifeMax2 - Player.statLife) / 2);
+                if (distancehealth > 600)
                 {
-                    distancehealth = 1000;
+                    distancehealth = 600;
                 }
                 if (Main.rand.Next(5) == 0)
                 {
@@ -610,7 +617,7 @@ namespace StormDiversMod.Basefiles
                     }
                 }
                 //circle of dust
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     double deg = Main.rand.Next(0, 360); //The degrees
                     double rad = deg * (Math.PI / 180); //Convert degrees to radians
@@ -1310,8 +1317,21 @@ namespace StormDiversMod.Basefiles
             {
                 if (Main.rand.Next(3) == 0)
                 {
-                    target.AddBuff(BuffID.Frostburn, 120);
+                    target.AddBuff(BuffID.Frostburn, 180);
                 }
+            }
+            //Glacial Claws
+            if (blueClaws)
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                }
+            }
+            //Nightmare Claws
+            if (spookyClaws)
+            {
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
             }
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
@@ -1405,7 +1425,19 @@ namespace StormDiversMod.Basefiles
                     target.AddBuff(BuffID.Frostburn, 120);
                 }
             }
-
+            //Glacial Claws
+            if (blueClaws && (proj.CountsAsClass(DamageClass.Melee) || ProjectileID.Sets.IsAWhip[proj.type] == true) && proj.owner == Main.myPlayer)
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 300);
+                }
+            }
+            //Nightmare Claws
+            if (spookyClaws && (proj.CountsAsClass(DamageClass.Melee) || ProjectileID.Sets.IsAWhip[proj.type] == true) && proj.owner == Main.myPlayer)
+            {
+                target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
+            }
             //for the Beetle Gauntlet
             if (beetleFist)
             {            

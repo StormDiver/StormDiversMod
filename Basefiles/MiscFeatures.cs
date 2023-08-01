@@ -293,7 +293,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
-        String Paintext = "";
+        //String Paintext = "";
         //public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
@@ -352,7 +352,7 @@ namespace StormDiversMod.Basefiles
                 }    
             }*/
         }
-        String Suffertext;
+        //String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             /*if (Player.HasBuff(ModContent.BuffType<YouCantEscapeDebuff>()) && !Player.HasBuff(ModContent.BuffType<PainBuff>())) //Save you from death once, won't activate if accessory does

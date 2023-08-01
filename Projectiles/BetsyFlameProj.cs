@@ -9,10 +9,8 @@ using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles
 {
-    
     public class BetsyFlameProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Betsy's Flame");
@@ -33,15 +31,11 @@ namespace StormDiversMod.Projectiles
             
             Projectile.aiStyle = 0;
             //drawOffsetX = -9;
-            //drawOriginOffsetY = -9;
-            
-          
+            //drawOriginOffsetY = -9;   
         }
        
-       
         public override void AI()
-        {
-           
+        {  
             AnimateProjectile();
 
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
@@ -84,7 +78,11 @@ namespace StormDiversMod.Projectiles
                 AdjustMagnitude(ref move);
                 Projectile.velocity = (15 * Projectile.velocity + move) / 15.5f;
                 AdjustMagnitude(ref Projectile.velocity);
+
+                Projectile.extraUpdates = 1;
             }
+            else
+                Projectile.extraUpdates = 0;
 
         }
         private void AdjustMagnitude(ref Vector2 vector)
@@ -102,10 +100,7 @@ namespace StormDiversMod.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
-
-
         }
 
         public override void Kill(int timeLeft)
@@ -136,10 +131,5 @@ namespace StormDiversMod.Projectiles
                 Projectile.frameCounter = 0;
             }
         }
-
-
     }
-   
-
-
 }

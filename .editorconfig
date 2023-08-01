@@ -2,3 +2,6 @@
 
 # ChangeMagicNumberToID: Change magic numbers into appropriate ID values
 dotnet_diagnostic.ChangeMagicNumberToID.severity = silent
+
+# SimplifyUnifiedRandom: Simplify common Main.rand.Next usage patterns
+dotnet_diagnostic.SimplifyUnifiedRandom.severity = none

@@ -18,11 +18,10 @@ namespace StormDiversMod.Items.Weapons
 {
     public class MechDestroyerFlail : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("The Vaporizer");
-            //Tooltip.SetDefault("Fires out 8 spikes continuously while spinning");
+            //Tooltip.SetDefault("Fires out 8 spikes continuously while spinning and when held out");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -51,11 +50,8 @@ namespace StormDiversMod.Items.Weapons
             Item.channel = true;
             Item.noUseGraphic = true;
         }
-
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
             return true;
         }
         public override void AddRecipes()
@@ -116,11 +112,7 @@ namespace StormDiversMod.Items.Weapons
             Item.noUseGraphic = true;
             Item.channel = true;
             Item.autoReuse = true;
-
-
         }
-
-
 
         public override void AddRecipes()
         {

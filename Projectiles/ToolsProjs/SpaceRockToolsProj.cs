@@ -66,7 +66,6 @@ namespace StormDiversMod.Projectiles.ToolsProjs
         {
             return Color.White;
         }
-
     }
    
     public class SpaceRockJackhammerProj : ModProjectile

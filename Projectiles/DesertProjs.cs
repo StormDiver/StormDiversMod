@@ -466,7 +466,7 @@ namespace StormDiversMod.Projectiles
             }
             else
             {
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+                target.AddBuff(BuffID.Frostburn2, 180);
 
             }
         }
@@ -482,7 +482,7 @@ namespace StormDiversMod.Projectiles
                 }
                 else
                 {
-                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+                    target.AddBuff(BuffID.Frostburn2, 180);
 
                 }
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
@@ -610,7 +610,7 @@ namespace StormDiversMod.Projectiles
             }
             else
             {
-                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+                target.AddBuff(BuffID.Frostburn2, 180);
 
             }
         }
@@ -626,7 +626,7 @@ namespace StormDiversMod.Projectiles
                 }
                 else
                 {
-                    target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 180);
+                    target.AddBuff(BuffID.Frostburn2, 180);
 
                 }
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);

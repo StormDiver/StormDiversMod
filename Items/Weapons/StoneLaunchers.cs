@@ -126,11 +126,7 @@ namespace StormDiversMod.Items.Weapons
          .AddRecipeGroup(RecipeGroupID.IronBar, 25)
          .AddTile(TileID.Anvils)
          .Register();
-
-
-
         }
-
     }
     //_______________________________________________________________________________
     public class StoneThrowerHard : ModItem

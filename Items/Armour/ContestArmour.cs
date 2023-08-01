@@ -52,7 +52,7 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "Grants immunity to all cold themed debuffs\nMakes all sentries inflict Cryoburn\nPress '" + keyName + "' to summon a cryo cloud at the cursor that rains down icicles, requires a line of sight and has a 5 second cooldown";
+            player.setBonus = "Grants immunity to all cold themed debuffs\nMakes all sentries inflict Frostbite\nPress '" + keyName + "' to summon a cryo cloud at the cursor that rains down icicles, requires a line of sight and has a 5 second cooldown";
             player.buffImmune[BuffID.Chilled] = true;
             player.buffImmune[BuffID.Frozen] = true;
             player.buffImmune[BuffID.Frostburn] = true;

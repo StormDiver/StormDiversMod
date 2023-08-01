@@ -412,7 +412,7 @@ namespace StormDiversMod.Projectiles.Minions
 		{
 			if (Main.rand.Next(2) == 0)
 			{
-				target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 150);
+				target.AddBuff(BuffID.Frostburn2, 150);
 			}
 		}
 

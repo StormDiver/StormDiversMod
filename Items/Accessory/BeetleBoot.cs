@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace StormDiversMod.Items.Accessory
 {
-    [AutoloadEquip(EquipType.HandsOn)]
+    [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
 
     public class BeetleBoot : ModItem //Now Beetle gauntlet
     {

@@ -69,7 +69,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
                 if (npcdistance <= Projectile.width / 2 + target.width / 2 && target.active && target.lifeMax >= 5 && !target.dontTakeDamage)
                 {
-                    target.AddBuff(BuffID.Oiled, 900); //15 seconds
+                    target.AddBuff(BuffID.Oiled, Main.rand.Next(720, 1081)); //12-18 seconds
                     Projectile.Kill();
                 }
             }

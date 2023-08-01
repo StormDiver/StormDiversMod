@@ -296,7 +296,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Forbidden Whip");
-            //Tooltip.SetDefault("6% summon tag critical strike chance\nYour summons will focus struck enemies\nForbidden sand jumps from the targeted enemy when hit by summons");
+            //Tooltip.SetDefault("12% summon tag critical strike chance\nYour summons will focus struck enemies\nForbidden sand jumps from the targeted enemy when hit by summons");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()

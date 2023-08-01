@@ -24,7 +24,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.lifeRegen = -16;
+            player.lifeRegen = -24;
             //player.GetModPlayer<NegativeHealthDrain>().sandBurn = true;
 
             if (Main.rand.Next(4) < 3)
@@ -57,7 +57,7 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("CryoBurn");
+            //DisplayName.SetDefault("Glacial Burn");
             //Description.SetDefault("It's like FrostBurn, but it hurts even more");
             Main.debuff[Type] = true;
             // Main.pvpBuff[Type] = true;
@@ -67,7 +67,7 @@ namespace StormDiversMod.Buffs
         {
             //player.GetModPlayer<NegativeHealthDrain>().superFrost = true;
 
-            player.lifeRegen = -16;
+            player.lifeRegen = -24;
 
 
             if (Main.rand.Next(4) < 3)
@@ -123,7 +123,7 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.moveSpeed = 0.2f;
-            player.lifeRegen = -30;
+            player.lifeRegen = -100;
 
             int choice = Main.rand.Next(4);
             if (choice == 0)
@@ -257,7 +257,7 @@ namespace StormDiversMod.Buffs
         {
             //player.GetModPlayer<NegativeHealthDrain>().hellSoulDebuff = true;
 
-            player.lifeRegen = -14;
+            player.lifeRegen = -30;
 
             if (Main.rand.Next(4) < 3)
             {
@@ -375,7 +375,7 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             //player.GetModPlayer<NegativeHealthDrain>().ultraBurn = true;
-            player.lifeRegen = -25;
+            player.lifeRegen = -50;
 
 
             int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 6, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default, 2.5f);
@@ -409,7 +409,7 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             //player.GetModPlayer<NegativeHealthDrain>().ultraFrost = true;
-            player.lifeRegen = -25;
+            player.lifeRegen = -50;
 
 
             int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 135, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default, 2.5f);
@@ -436,21 +436,15 @@ namespace StormDiversMod.Buffs
             //DisplayName.SetDefault("Spooked");
             //Description.SetDefault("You are overwhelmed by fear");
             Main.debuff[Type] = true;
-
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
 
-
-
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-
             npc.GetGlobalNPC<NPCEffects>().spookedDebuff = true;
-
-
         }
     }
     //_________________________________________________________________

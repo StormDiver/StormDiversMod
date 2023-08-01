@@ -161,7 +161,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 			Projectile.scale = 0.75f;
 			Projectile.tileCollide = false;
 			Projectile.penetrate = 2;
-			Projectile.timeLeft = 480;
+			Projectile.timeLeft = Main.rand.Next(180, 210);
 			Projectile.ArmorPenetration = 10;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
@@ -190,8 +190,14 @@ namespace StormDiversMod.Projectiles.WhipProjs
 
 			}
 		}
+		int distance = 40;
         public override void AI()
 		{
+			if (Projectile.timeLeft < 150)
+			{
+                Projectile.ai[1] += 1;
+                distance++;
+			}
 
 			Projectile.rotation += (float)Projectile.direction * -0.3f;
 
@@ -223,7 +229,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 					//Factors for calculations
 					double deg = (((double)Projectile.ai[1]) * direction) + 90; //The degrees, you can multiply Projectile.ai[1] to make it orbit faster, may be choppy depending on the value
 					double rad = deg * (Math.PI / 180); //Convert degrees to radians
-					double dist = 40 + (npc.width / 2); //Distance away from the npc, half the wdith plus 40
+					double dist = distance + (npc.width / 2); //Distance away from the npc, half the wdith plus 40
 
 					Projectile.position.X = npc.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
 					Projectile.position.Y = npc.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
@@ -233,7 +239,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 				}
 				else
                 {
-					Projectile.position = npc.Center;
+					//Projectile.position = npc.Center; //keep? NAH
                 }
 			}
 			else

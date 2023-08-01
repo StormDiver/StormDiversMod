@@ -99,7 +99,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.LunarTabletFragment, 16)
+            .AddIngredient(ItemID.LunarTabletFragment, 13)
             .AddTile(TileID.LihzahrdAltar)
             .Register();
 
@@ -247,7 +247,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
            CreateRecipe()
-           .AddIngredient(ItemID.LunarTabletFragment, 16)
+           .AddIngredient(ItemID.LunarTabletFragment, 13)
            .AddTile(TileID.LihzahrdAltar)
            .Register();
             
@@ -320,8 +320,6 @@ namespace StormDiversMod.Items.Weapons
             //Item.shoot = ProjectileID.BallofFire;
 
             Item.shootSpeed = 10f;
-
-
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override Vector2? HoldoutOffset()
@@ -349,17 +347,13 @@ namespace StormDiversMod.Items.Weapons
                 //Main.projectile[projID].timeLeft = 300;
             }
             return true;
-
-
-
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.LunarTabletFragment, 16)
+            .AddIngredient(ItemID.LunarTabletFragment, 13)
             .AddTile(TileID.LihzahrdAltar)
             .Register();
-
         }
         //Drop rate in NPCEffects/ Luantic Cultist treasure bag
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -432,20 +426,15 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
             player.AddBuff(Item.buffType, 2);
-
             player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
 
             return false;
-
-
-
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ItemID.LunarTabletFragment, 16)
+           .AddIngredient(ItemID.LunarTabletFragment, 13)
            .AddTile(TileID.LihzahrdAltar)
            .Register();
         }

@@ -254,7 +254,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("The Bloody Tendon");
-            //Tooltip.SetDefault("4% summon tag critical strike chance\nYour summons will focus struck enemies\nDamaging blood orbs will orbit the targetted enemy when hit by summons");
+            //Tooltip.SetDefault("8% summon tag critical strike chance\nYour summons will focus struck enemies\nDamaging blood orbs will orbit the targetted enemy when hit by summons");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()

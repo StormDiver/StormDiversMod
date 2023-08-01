@@ -293,6 +293,13 @@ namespace StormDiversMod.Projectiles
         {
             target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 300);
         }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (info.PvP)
+            {
+                target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 300);
+            }
+        }
 
         public override void Kill(int timeLeft)
         {

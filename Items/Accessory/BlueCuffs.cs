@@ -11,7 +11,7 @@ namespace StormDiversMod.Items.Accessory
 {
    
     //__________________________________________________________________________________________________________________________________
-    [AutoloadEquip(EquipType.HandsOn)]
+    [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
     public class BlueCuffs : ModItem
     {
         public override void SetStaticDefaults()
@@ -19,8 +19,6 @@ namespace StormDiversMod.Items.Accessory
             //DisplayName.SetDefault("Insulated Cuffs");
             //Tooltip.SetDefault("All weapons have a chance to inflict frostburn upon attacked enemies\n'Redirect the coldness into your foes'");
             Item.ResearchUnlockCount = 1;
-            
-
         }
         public override void SetDefaults()
         {

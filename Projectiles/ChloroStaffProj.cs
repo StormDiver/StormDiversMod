@@ -37,7 +37,6 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             return true;
         }
         Vector2 mousepos;
-        bool exploded;
         public override void OnSpawn(IEntitySource source)
         {
             mousepos = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y); //Set position for 1 frame
@@ -57,7 +56,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             {
                 Projectile.ai[0] += 1f;
             }
-            if (Vector2.Distance(Projectile.Center, mousepos) <= 7 && !exploded)
+            if (Vector2.Distance(Projectile.Center, mousepos) <= 7)
             {
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;

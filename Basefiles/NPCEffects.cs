@@ -48,7 +48,7 @@ namespace StormDiversMod.Basefiles
 
         public bool heartDebuff; //Stolen Heart
          
-        public bool superFrost; //Cryoburn
+        public bool superFrost; //Glacial burn
 
         public bool superburnDebuff; //Blazing fire
 
@@ -148,9 +148,9 @@ namespace StormDiversMod.Basefiles
                 npc.buffImmune[(BuffType<WebDebuff>())] = true;
 
             }
-            if (npc.buffImmune[BuffID.Frostburn] == true) //all enemies immune to frost burn are immune to the Cryoburn and Ultra Freeze
+            if (npc.buffImmune[BuffID.Frostburn] == true) //all enemies immune to frost burn are immune to the Glacial Burn and Ultra Freeze
             {
-                npc.buffImmune[BuffType<SuperFrostBurn>()] = true; //Cryoburn
+                npc.buffImmune[BuffType<SuperFrostBurn>()] = true; //Glacial Burn
                 npc.buffImmune[BuffType<UltraFrostDebuff>()] = true; //Ultra Freeze
             }
             if (npc.buffImmune[BuffID.OnFire] == true) //all enemies immune to on fire are immune to the fire debuffs
@@ -182,15 +182,9 @@ namespace StormDiversMod.Basefiles
                 npc.velocity.X *= 0.92f;
 
             }
-            if (spookedDebuff && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
-            {
-                npc.velocity.X *= 0.96f;
-
-            }
             if (ultrafrostDebuff && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
             {
                 npc.velocity.X *= 0.93f;
-
             }
             
             //summon projectiles for shield killer
@@ -458,12 +452,12 @@ namespace StormDiversMod.Basefiles
             {
                 if (npc.HasBuff(BuffID.Oiled))
                 {
-                    npc.lifeRegen -= 100;
+                    npc.lifeRegen -= 82;
                     damage = 12;
                 }
                 else
                 {
-                    npc.lifeRegen -= 50;
+                    npc.lifeRegen -= 32;
                     damage = 5;
                 }
             }
@@ -514,11 +508,20 @@ namespace StormDiversMod.Basefiles
                     damage = 10;
                 }
             }
+            var player = Main.LocalPlayer;
+
             if (spookedDebuff)
             {
-                npc.lifeRegen -= 500;
-                damage = 250;
-
+                if (player.GetModPlayer<EquipmentEffects>().spooked == true && player.GetModPlayer<EquipmentEffects>().spookyClaws == true)
+                {
+                    npc.lifeRegen -= 800;
+                    damage = 400;
+                }
+                else
+                {
+                    npc.lifeRegen -= 400;
+                    damage = 200;
+                }
             }
             if (lunarBoulderDB)
             {
@@ -530,9 +533,7 @@ namespace StormDiversMod.Basefiles
         }
         int particle = 0;
         public override void DrawEffects(NPC npc, ref Color drawColor)
-        {
-          
-           
+        {  
             if (lunarBoulderDB)
             {
                 int choice = Main.rand.Next(4);
@@ -791,9 +792,13 @@ namespace StormDiversMod.Basefiles
             }
 
         }
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
 
+            base.ModifyIncomingHit(npc, ref modifiers);
+        }
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
             var player = Main.player[projectile.owner];
            
             if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
@@ -873,8 +878,8 @@ namespace StormDiversMod.Basefiles
                 //Blood Whip
                 if (WhiptagBlood)
                 {
-                    //damage += 5; //tag damage
-                    if (Main.rand.Next(100) <= 4)
+                    //modifiers.FlatBonusDamage += 2; //tag damage
+                    if (Main.rand.Next(100) <= 8) //crit
                     {
                         modifiers.SetCrit();
                     }
@@ -892,8 +897,7 @@ namespace StormDiversMod.Basefiles
                 //Forbidden whip
                 if (WhiptagForbidden)
                 {
-                    //damage += 4; //tag damage
-                    if (Main.rand.Next(100) <= 6)
+                    if (Main.rand.Next(100) <= 12)
                     {
                         modifiers.SetCrit();
                     }
@@ -925,8 +929,8 @@ namespace StormDiversMod.Basefiles
                 }
                 if (WhiptagSpaceRock)
                 {
-                    modifiers.FlatBonusDamage += 5; //tag damage
-                    if (Main.rand.Next(100) <= 15)
+                    modifiers.FlatBonusDamage += 8; //tag damage
+                    if (Main.rand.Next(100) <= 18)
                     {
                         modifiers.SetCrit();
                     }
@@ -971,7 +975,7 @@ namespace StormDiversMod.Basefiles
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitByItem(npc, player, item, ref modifiers);
-
+            
             if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
             {
                 if (npc.HasBuff(BuffID.ShadowFlame))
