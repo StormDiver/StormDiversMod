@@ -289,7 +289,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (dettime > 0)
+            if (dettime > 10)
             {
                 if (Main.netMode != NetmodeID.Server)
                 {

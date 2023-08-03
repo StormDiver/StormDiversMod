@@ -1212,7 +1212,7 @@ Mods: {
 			}
 
 			TempleBMask: {
-				DisplayName: Lihzarhd Chief Mask
+				DisplayName: Lihzahrd Chief Mask
 				Tooltip:
 					'''
 					10% increased whip range and speed
@@ -1222,7 +1222,7 @@ Mods: {
 			}
 
 			TempleChest: {
-				DisplayName: Lihzarhd Chief Chestplate
+				DisplayName: Lihzahrd Chief Chestplate
 				Tooltip:
 					'''
 					15% increased whip range and speed
@@ -1232,7 +1232,7 @@ Mods: {
 			}
 
 			TempleLegs: {
-				DisplayName: Lihzarhd Chief Greaves
+				DisplayName: Lihzahrd Chief Greaves
 				Tooltip:
 					'''
 					15% increased whip range
@@ -1651,6 +1651,17 @@ Mods: {
 			ShieldKiller: {
 				DisplayName: Celestial Globe
 				Tooltip: Removes the shields from all active pillars
+			}
+
+			SuperPainDummyItem: {
+				DisplayName: Super Pain Dummy
+				Tooltip:
+					'''
+					Left click to place a Super Pain Dummy anywhere
+					Right click to remove all placed dummies
+					Dummies can be targeted by minions/homing projectiles.
+					Right click in the inventory to change dummy type (Standard/Floating/Tough/Broken/Light)
+					'''
 			}
 
 			SpaceRockDrillSaw: {
@@ -2990,6 +3001,7 @@ Mods: {
 			ThePainSlime.DisplayName: Pain Slime
 			TheClaySlime.DisplayName: Clay Slime
 			TheUltimateBossMinion.DisplayName: Shattered Crystal of Pain
+			SuperPainDummy.DisplayName: Super Pain Dummy
 		}
 
 		Projectiles: {

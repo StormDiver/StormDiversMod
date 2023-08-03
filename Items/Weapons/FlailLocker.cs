@@ -20,8 +20,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Flail Locker");
-            //Tooltip.SetDefault("test");
+            //DisplayName.SetDefault("The Flail Locker");
+            //Tooltip.SetDefault("Relic of a lost puzzle");
             Item.ResearchUnlockCount = 1;
         }
     

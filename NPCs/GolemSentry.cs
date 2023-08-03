@@ -23,7 +23,6 @@ namespace StormDiversMod.NPCs
             //DisplayName.SetDefault("Lihzahrd Flametrap");
             Main.npcFrameCount[NPC.type] = 4;
 
-
         }
         public override void SetDefaults()
         {
@@ -71,7 +70,6 @@ namespace StormDiversMod.NPCs
        
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             if (NPC.downedPlantBoss)
             {
                 return SpawnCondition.JungleTemple.Chance * 0.35f;
@@ -104,9 +102,6 @@ namespace StormDiversMod.NPCs
 
                 if (shoottime >= 90)//starts the shooting animation
                 {
-                 
-
-
                     var dust2 = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Top.Y + 15), 10, 10, 6, 0, 0);
                     dust2.noGravity = true;
                     dust2.scale = 1.5f;
@@ -118,10 +113,7 @@ namespace StormDiversMod.NPCs
                     animatespeed = 10;
                 }
                 if (shoottime >= 120)//fires the projectiles
-                {
-
-
-
+                { 
                     float projectileSpeed = 7.5f; // The speed of your projectile (in pixels per second).
                     int damage = 30; // The damage your projectile deals. normal x2, expert x4
                     float knockBack = 3;
@@ -133,12 +125,8 @@ namespace StormDiversMod.NPCs
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-
-
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-
-
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
                         float scale = 1f - (Main.rand.NextFloat() * .2f);
                         perturbedSpeed = perturbedSpeed * scale;
@@ -147,17 +135,13 @@ namespace StormDiversMod.NPCs
 
                     }
 
-
                     shoottime = 0;
-
                 }
             }
             else
             {
                 shoottime = 45;
                 animatespeed = 10;
-
-
             }
             if (Main.rand.Next(4) == 0)
             {
@@ -185,8 +169,6 @@ namespace StormDiversMod.NPCs
         
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-
-
 
         }
         public override void HitEffect(NPC.HitInfo hit)

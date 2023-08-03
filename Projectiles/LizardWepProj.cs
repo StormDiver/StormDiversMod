@@ -424,7 +424,6 @@ namespace StormDiversMod.Projectiles
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 120;
-            Projectile.ArmorPenetration = 10;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
         }
