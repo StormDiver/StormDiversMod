@@ -68,6 +68,7 @@ namespace StormDiversMod.NPCs
             else if (NPC.ai[0] == 4)
                 typeName = "Light " + typeName;
         }
+        bool die;
         public override void AI()
         {
             //Ai 0 = Normal
@@ -83,12 +84,12 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.ai[0] == 2)
             {
-                NPC.defense = 100;
+                NPC.defense = 50;
             }
             if (NPC.ai[0] == 3 && NPC.life > 50000)
             {
                 NPC.lifeMax = 50000;
-                    NPC.life = 50000;  
+                NPC.life = 50000;
             }
             if (NPC.ai[0] == 4)
             {
@@ -99,6 +100,18 @@ namespace StormDiversMod.NPCs
 
             Player player = Main.LocalPlayer;
             if (player.controlUseTile && (player.HeldItem.type == ModContent.ItemType<Items.Tools.SuperPainDummyItem>()) && player.noThrow == 0)
+            {
+                die = true;
+            }
+
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC bosscheck = Main.npc[i];
+
+                if (bosscheck.active && bosscheck.boss)
+                 die = true;
+            }
+            if (die)
             {
                 NPC.life -= 2147483647;
                 SoundEngine.PlaySound(SoundID.NPCDeath6, NPC.Center);
@@ -151,7 +164,7 @@ namespace StormDiversMod.NPCs
                 return;
             }
 
-            if (NPC.life <= 0)          //this make so when the NPC has 0 life(dead) he will spawn this
+            if (NPC.life <= 0)
             {
                 for (int i = 0; i < 2; i++)
                 {

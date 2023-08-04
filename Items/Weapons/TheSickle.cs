@@ -85,7 +85,7 @@ namespace StormDiversMod.Items.Weapons
             if (player.altFunctionUse == 2)
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-                int projid = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 15f, perturbedSpeed.Y * 15f), ModContent.ProjectileType<TheSickleProj2>(), damage, knockback, player.whoAmI);             
+                int projid = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 15f, perturbedSpeed.Y * 15f), ModContent.ProjectileType<TheSickleProj2>(), (int)(damage * 1.25f), knockback, player.whoAmI);             
                 SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, position);
             }
             else

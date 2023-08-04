@@ -1657,9 +1657,9 @@ Mods: {
 				DisplayName: Super Pain Dummy
 				Tooltip:
 					'''
-					Left click to place a Super Pain Dummy anywhere
-					Right click to remove all placed dummies
-					Dummies can be targeted by minions/homing projectiles.
+					Left click to place a Super Pain Dummy anywhere, a limit of 50 can be placed at a time
+					Right click to remove all placed dummies, dummies are also removed if a boss is alive
+					Dummies can be targeted by minions/homing projectiles, and can activate any item's special effect
 					Right click in the inventory to change dummy type (Standard/Floating/Tough/Broken/Light)
 					'''
 			}

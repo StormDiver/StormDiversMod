@@ -54,7 +54,7 @@ namespace StormDiversMod.Items.Accessory
         public override void AI(Projectile projectile) //Dust effects
         {
             var player = Main.player[projectile.owner];
-            if (projectile.aiStyle != 20)
+            if (projectile.aiStyle != 20 && ProjectileID.Sets.IsAWhip[projectile.type] == false)
             {
                 if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
                 {

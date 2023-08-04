@@ -70,12 +70,10 @@ namespace StormDiversMod.NPCs
             });
         }
 
-    
-
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
-            if (Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneSnow && Main.raining && Main.hardMode)
+            if (Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneSnow && Main.raining && Main.hardMode && !NPC.AnyNPCs(ModContent.NPCType<FrozenSoul>()))
             {
                 return SpawnCondition.Overworld.Chance * 0.2f;
             }

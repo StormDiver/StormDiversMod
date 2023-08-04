@@ -175,7 +175,6 @@ namespace StormDiversMod.Basefiles
                     ninelives--;
                     ninelivescooldown = 90; //  1.5 seconds per soul
 
-                    //Main.NewText("" + ninelives, 204, 101, 22);
                 }
             }
             //Main.NewText("ninelivescooldown" + ninelivescooldown, 204, 101, 22);
@@ -219,7 +218,6 @@ namespace StormDiversMod.Basefiles
                     explosionfall = false;
                 }
             }
-            //Main.NewText("Pain = " + (100 - (Player.statDefense * 0.75f) * (1 - Player.endurance)), 204, 101, 22);
             
             if (NPC.CountNPCS(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>()) == 0)
             {
@@ -237,36 +235,47 @@ namespace StormDiversMod.Basefiles
             }
             //nine lives
             if (proj.type == ModContent.ProjectileType<TheSickleProj>() || proj.type == ModContent.ProjectileType<TheSickleProj2>())
-            {          
+            {
+                //Main.NewText("" + ninelives + " " + ninelivescooldown, 204, 101, 22);
                 //regular enemies 1 soul 
-                if (!target.SpawnedFromStatue && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.life <= 0)
+                if (!target.SpawnedFromStatue && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && target.type != NPCID.TargetDummy)
                 {
-                    ninelivescooldown = 540; //Reset cooldown to 9 seconds, even at max amount
-                    if (ninelives < 9) //Spawn up to 9
+                    if (ninelivescooldown < 540 && ninelives > 0)
                     {
-                        ninelives++;//increase counter
-
-                        int nineproj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<TheSickleProj3>(), 0, 0, Player.whoAmI, 0, ninelives - 1);//changes ai[1] field for different angles
-                       
-                        SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = -1f, MaxInstances = 0 }, target.Center); ;
-
-                        /*for (int i = 0; i < 20; i++)
+                        if (proj.type == ModContent.ProjectileType<TheSickleProj>())
+                        ninelivescooldown += 5; //add some small time if an enemy is attacked
+                        if (proj.type == ModContent.ProjectileType<TheSickleProj2>())
+                            ninelivescooldown += 9; //add some small time if an enemy is attacked
+                    }
+                    if (target.life <= 0)
+                    {
+                        ninelivescooldown = 540; //Reset cooldown to 9 seconds, even at max amount
+                        if (ninelives < 9) //Spawn up to 9
                         {
-                            var dust = Dust.NewDustDirect(target.position, target.width, target.height, 31);
-                            dust.noGravity = true;
-                            dust.velocity *= 3;
-                            dust.scale = 1.5f;
+                            ninelives++;//increase counter
 
-                        }*/
-                        for (int i = 0; i < 3; i++)
-                        {
-                            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                            int nineproj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<TheSickleProj3>(), 0, 0, Player.whoAmI, 0, ninelives - 1);//changes ai[1] field for different angles
+
+                            SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = -1f, MaxInstances = 0 }, target.Center); ;
+
+                            /*for (int i = 0; i < 20; i++)
                             {
-                                PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
+                                var dust = Dust.NewDustDirect(target.position, target.width, target.height, 31);
+                                dust.noGravity = true;
+                                dust.velocity *= 3;
+                                dust.scale = 1.5f;
 
-                            }, Player.whoAmI);
+                            }*/
+                            for (int i = 0; i < 3; i++)
+                            {
+                                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                                {
+                                    PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
+
+                                }, Player.whoAmI);
+                            }
+                            //Main.NewText("" + ninelives, 204, 101, 22);
                         }
-                        //Main.NewText("" + ninelives, 204, 101, 22);
                     }
                 }
                 if ((target.type == ModContent.NPCType<NPCs.HellMiniBoss>()) && target.life <= 0) //Soul Cauldron give all souls

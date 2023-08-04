@@ -153,8 +153,8 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-
-            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
+            Projectile.ai[2]++;
+            //Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
 
             if (Projectile.velocity.X >= 0)
             {
@@ -196,6 +196,10 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 31);
                 dust.scale = 0.75f;
                 dust.noGravity = true;
+            }
+            if (Projectile.ai[2] < 2)
+            {
+                return false;
             }
             return true;
         }

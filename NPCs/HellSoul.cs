@@ -74,9 +74,10 @@ namespace StormDiversMod.NPCs
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
-           
+           if (Main.remixWorld && NPC.downedBoss3 || !Main.remixWorld)
                 return SpawnCondition.Underworld.Chance * 0.06f;
-           
+           else
+                 return SpawnCondition.Underworld.Chance * 0f;
 
         }
         int shoottime = 0;
