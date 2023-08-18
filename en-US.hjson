@@ -356,7 +356,7 @@ Mods: {
 				DisplayName: Beetle Gauntlet
 				Tooltip:
 					'''
-					Critical striking an enemy with a melee weapon causes mini beetles to burst out of them and swarm nearby enemies
+					Critical striking an enemy with a melee weapon causes mini beetles to burst out of them and charge towards nearby enemies
 					Increases melee knockback
 					12% increased melee speed
 					Enables auto swing for melee weapons
@@ -2257,7 +2257,7 @@ Mods: {
 				DisplayName: Storm Diver Shotgun
 				Tooltip:
 					'''
-					Can be charged up to increase accuracy and damage
+					Hold down left click to charge up and increase accuracy and damage
 					Gains additional damage, speed, and knockback at max charge
 					'Stolen from the Legendary Storm Divers'
 					'''
@@ -2905,9 +2905,9 @@ Mods: {
 				DisplayName: Oil Can
 				Tooltip:
 					'''
-					Cover your enemies in oil
-					Right click to set nearby oiled enemies ablaze
-					'Be careful when around town npcs'
+					Left click to fire out a blob of oil that inflicts the oiled debuff onto enemies and town NPCs
+					Right click to set nearby oiled enemies ablaze, consumes 3 cans
+					'Cover your enemies in oil'
 					'''
 			}
 
@@ -3326,32 +3326,33 @@ Mods: {
 		Tiles: {
 			DesertOrePlaced.MapEntry: Forbidden Ore
 			IceOrePlaced.MapEntry: Frost Ore
-			BabyDerpBannerPlace.MapEntry: Baby Derpling Banner
-			FrozenEyeBannerPlace.MapEntry: Frozen Eyefish Banner
-			FrozenSoulBannerPlace.MapEntry: Frozen Spirit Banner
-			GladiatorMiniBossBannerPlace.MapEntry: Fallen Champion Banner
-			GolemMinionBannerPlace.MapEntry: Temple Guardian Banner
-			GolemSentryBannerPlace.MapEntry: Lihzahrd Flametrap Banner
-			GraniteMiniBossBannerPlace.MapEntry: Surged Granite Core Banner
-			HellMiniBossBannerPlace.MapEntry: Soul Cauldron Banner
-			HellSoulBannerPlace.MapEntry: Heartless Soul Banner
-			IceCoreBannerPlace.MapEntry: Frigid Snowflake Banner
-			MeteorDropperBannerPlace.MapEntry: Meteor Bomber Banner
-			MoonDerpBannerPlace.MapEntry: Moonling Banner
-			MushroomMiniBossBannerPlace.MapEntry: Angry Mushroom Banner
-			NebulaDerpBannerPlace.MapEntry: Brain Hopper Banner
-			SandCoreBannerPlace.MapEntry: Dune Blaster Banner
-			ScanDroneBannerPlace.MapEntry: Scandrone Banner
-			SolarDerpBannerPlace.MapEntry: Blazing Hopper Banner
-			SpaceRockHeadBannerPlace.MapEntry: Asteroid Orbiter Banner
-			SpaceRockHeadLargeBannerPlace.MapEntry: Asteroid Charger Banner
-			StardustDerpBannerPlace.MapEntry: Star Hopper Banner
-			StormDerpBannerPlace.MapEntry: Storm Hopper Banner
-			VineDerpBannerPlace.MapEntry: Camouflaged Derpling Banner
-			VortCannonBannerPlace.MapEntry: Vortexian Cannon Banner
-			TheClaySlimeBannerPlaced.MapEntry: Clay Slime Banner
-			ThePainSlimeBannerPlaced.MapEntry: Pain Slime Banner
+			BabyDerpBannerPlace.MapEntry: Banner
+			FrozenEyeBannerPlace.MapEntry: Banner
+			FrozenSoulBannerPlace.MapEntry: Banner
+			GladiatorMiniBossBannerPlace.MapEntry: Banner
+			GolemMinionBannerPlace.MapEntry: Banner
+			GolemSentryBannerPlace.MapEntry: Banner
+			GraniteMiniBossBannerPlace.MapEntry: Banner
+			HellMiniBossBannerPlace.MapEntry: Banner
+			HellSoulBannerPlace.MapEntry: Banner
+			IceCoreBannerPlace.MapEntry: Banner
+			MeteorDropperBannerPlace.MapEntry: Banner
+			MoonDerpBannerPlace.MapEntry: Banner
+			MushroomMiniBossBannerPlace.MapEntry: Banner
+			NebulaDerpBannerPlace.MapEntry: Banner
+			SandCoreBannerPlace.MapEntry: Banner
+			ScanDroneBannerPlace.MapEntry: Banner
+			SolarDerpBannerPlace.MapEntry: Banner
+			SpaceRockHeadBannerPlace.MapEntry: Banner
+			SpaceRockHeadLargeBannerPlace.MapEntry: Banner
+			StardustDerpBannerPlace.MapEntry: Banner
+			StormDerpBannerPlace.MapEntry: Banner
+			VineDerpBannerPlace.MapEntry: Banner
+			VortCannonBannerPlace.MapEntry: Banner
+			TheClaySlimeBannerPlaced.MapEntry: Banner
+			ThePainSlimeBannerPlaced.MapEntry: Banner
 			PainMusicBoxPlaced.MapEntry: Music Box
+			TheGoodBoyPlaced.MapEntry: Painting
 		}
 
 		Configs: {

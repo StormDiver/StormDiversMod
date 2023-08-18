@@ -369,7 +369,7 @@ namespace StormDiversMod.Basefiles
                 shop.Add(ItemID.DyeTradersScimitar);
             }
 
-            if (shop.NpcType == NPCID.Painter)
+            if (shop.NpcType == NPCID.Painter && shop.Name != "Decor")
             {
                 shop.Add(ItemID.PainterPaintballGun);
             }

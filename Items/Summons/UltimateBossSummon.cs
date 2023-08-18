@@ -86,19 +86,12 @@ namespace StormDiversMod.Items.Summons
             if (player.whoAmI == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.Roar, player.Center);
-                if (player.gravDir == 1)
-                {
-                    int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
-                }
-                else
-                {
-                    int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
-
-                }
+                
+                int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 16 * player.gravDir), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
+               
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
-
                 }
                 else
                 {

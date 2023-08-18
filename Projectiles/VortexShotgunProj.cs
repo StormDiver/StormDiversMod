@@ -224,9 +224,9 @@ namespace StormDiversMod.Projectiles
             }
             //To fire the bullets
             bool canShoot = player.HasAmmo(player.inventory[player.selectedItem]) && !player.noItems && !player.CCed; 
-            int projToShoot = 14;
-            int usedAmmoItemID = 0;
-            float speed = 14f;
+            int projToShoot = player.HeldItem.shoot;
+            int usedAmmoItemID = player.HeldItem.useAmmo;
+            float speed = player.HeldItem.shootSpeed;
             int Damage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             float KnockBack = player.inventory[player.selectedItem].knockBack;
             if (canShoot && Collision.CanHit(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, new Vector2(player.Center.X, player.Center.Y), 0, 0))

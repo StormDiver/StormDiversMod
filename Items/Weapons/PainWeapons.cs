@@ -168,14 +168,9 @@ namespace StormDiversMod.Items.Weapons
                     if (shoottype == 1)
                     {
                         float posX = position.X + Main.rand.NextFloat(100f, -100f);
-                        if (player.gravDir == 1)
-                        {
-                            posY = position.Y + Main.rand.NextFloat(10f, -100f);
-                        }
-                        else
-                        {
-                            posY = position.Y - Main.rand.NextFloat(-10f, 100f);
-                        }
+                       
+                        posY = position.Y + Main.rand.NextFloat(10f, -100f) * player.gravDir;
+                        
                         int projID = Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
                         Main.projectile[projID].DamageType = Item.DamageType;
 
@@ -436,14 +431,9 @@ namespace StormDiversMod.Items.Weapons
                     if (shoottype == 1)
                     {
                         float posX = position.X + Main.rand.NextFloat(100f, -100f);
-                        if (player.gravDir == 1)
-                        {
-                            posY = position.Y + Main.rand.NextFloat(10f, -100f);
-                        }
-                        else
-                        {
-                            posY = position.Y - Main.rand.NextFloat(-10f, 100f);
-                        }
+                        
+                        posY = position.Y + Main.rand.NextFloat(10f, -100f) * player.gravDir;
+                       
                         int projID = Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
                         Main.projectile[projID].DamageType = Item.DamageType;
 

@@ -367,6 +367,8 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.ai[0]++;
                 NPC.rotation = NPC.ai[0] / 3;
                 NPC.velocity *= 0.95f;
+                NPC.position.X += Main.rand.Next(-1, 2);
+                NPC.position.Y += Main.rand.Next(-1, 2);
                 if (NPC.ai[0] % 8 == 0)
                 {
                     int xprojpos = Main.rand.Next(-25, 25);

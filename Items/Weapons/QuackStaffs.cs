@@ -68,14 +68,9 @@ namespace StormDiversMod.Items.Weapons
             for (int i = 0; i < 3; i++)
             {
                 float posX = position.X + Main.rand.NextFloat(35f, -35f);
-                if (player.gravDir == 1)
-                {
-                    posY = position.Y + Main.rand.NextFloat(10f, -40f);
-                }
-                else
-                {
-                    posY = position.Y - Main.rand.NextFloat(10f, -40f);
-                }
+                
+                    posY = position.Y + Main.rand.NextFloat(10f, -40f) * player.gravDir;
+                
                 Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             }
             SoundEngine.PlaySound(SoundID.Duck, player.Center);
@@ -173,25 +168,16 @@ namespace StormDiversMod.Items.Weapons
             }
            
                 float posX = position.X + Main.rand.NextFloat(50f, -50f);
-            if (player.gravDir == 1)
-            {
-                posY = position.Y + Main.rand.NextFloat(10f, -50f);
-            }
-            else
-            {
-                posY = position.Y - Main.rand.NextFloat(10f, -50f);
-            }
+            
+                posY = position.Y + Main.rand.NextFloat(10f, -50f) * player.gravDir;
+            
             if (Collision.CanHitLine(position, 0, 0, player.Center, 0, 0))
             {
 
                 Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Duck with{Volume = 0.75f, Pitch = -0.25f}, player.Center);
-
             }
-
-
             return false;
-        
         }
         public override void AddRecipes()
         {

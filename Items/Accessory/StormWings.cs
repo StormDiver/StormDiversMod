@@ -53,24 +53,13 @@ namespace StormDiversMod.Items.Accessory
         {
             if (player.controlDown && player.controlJump && player.wingTime > 0 && player.velocity.Y != 0) //slow down to hover
             {
-                
-
                 if ((player.velocity.Y > 0.001f && player.gravDir == 1) || (player.velocity.Y < -0.001f && player.gravDir == -1))
                 {
                     player.velocity.Y *= 0.8f;
                 }
                 else
                 {
-                   
-                    if (player.gravDir == 1)
-                    {
-                        player.velocity.Y = 0.001f; //(mostly) prevent bottles from being reactivated
-                    }
-                    else
-                    {
-                        player.velocity.Y = -0.001f; //(mostly) prevent bottles from being reactivated
-
-                    }
+                    player.velocity.Y = 0.001f * player.gravDir; //(mostly) prevent bottles from being reactivated
                 }
             }
             if (player.controlDown && player.controlJump && !player.controlLeft && !player.controlRight && player.wingTime > 0) //hover extra time (+100%)

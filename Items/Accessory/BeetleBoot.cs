@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Beetle Gauntlet");
-            //Tooltip.SetDefault("Critical striking an enemy with a melee weapon causes mini beetles to burst out of them and swarm nearby enemies\nIncreases melee knockback\n12% increased melee speed\nEnables auto swing for melee weapons\nIncreases the size of melee weapons");
+            //Tooltip.SetDefault("Critical striking an enemy with a melee weapon causes mini beetles to burst out of them and charge towards nearby enemies\nIncreases melee knockback\n12% increased melee speed\nEnables auto swing for melee weapons\nIncreases the size of melee weapons");
             Item.ResearchUnlockCount = 1;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)

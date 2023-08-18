@@ -247,19 +247,9 @@ namespace StormDiversMod.Items.Weapons
                     speedX = Main.rand.NextFloat(-1.5f, 0f);
 
                 }
-                if (player.gravDir == 1)
-                {
-                    posY = position.Y + Main.rand.NextFloat(-10f, -60f);
-                    speedY = -.5f;
-
-                }
-                else
-                {
-                    posY = position.Y - Main.rand.NextFloat(-10f, -60f);
-                    speedY = .5f;
-
-                }
-
+               
+                    posY = position.Y + Main.rand.NextFloat(-10f, -60f) * player.gravDir;
+                    speedY = -.5f * player.gravDir;
 
 
                 Projectile.NewProjectile(source, new Vector2(posX, posY), new Vector2(speedX, speedY), ModContent.ProjectileType<Projectiles.HellSoulSwordProj>(), (int)(damage * 0.8f), (int)(knockback * 0.33f), player.whoAmI);

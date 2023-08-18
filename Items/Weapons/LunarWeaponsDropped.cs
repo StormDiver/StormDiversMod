@@ -96,7 +96,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Storm Diver Shotgun");
-            //Tooltip.SetDefault("Can be charged up to increase accuracy and damage\nGains additional damage, speed, and knockback at max charge\n'Stolen from the Legendary Storm Divers'");
+            //Tooltip.SetDefault("Hold down left click to charge up and increase accuracy and damage\nGains additional damage, speed, and knockback at max charge\n'Stolen from the Legendary Storm Divers'");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -120,8 +120,8 @@ namespace StormDiversMod.Items.Weapons
             Item.width = 30;
             Item.height = 20;
             Item.reuseDelay = 30;
-            Item.useTime = 25;
-            Item.useAnimation = 25;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Red;
@@ -172,7 +172,6 @@ namespace StormDiversMod.Items.Weapons
             if (player.altFunctionUse == 2)
             {
                 type = ProjectileID.MoonlordBullet;
-                //type = mod.ProjectileType("VortexRocketProj2");
                 int numberProjectiles = 4 + Main.rand.Next(2); ; //This defines how many projectiles to shot.
                 for (int i = 0; i < numberProjectiles; i++)
                 {
@@ -302,15 +301,7 @@ namespace StormDiversMod.Items.Weapons
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                 float scale = 1f - (Main.rand.NextFloat() * .5f);
                 perturbedSpeed = perturbedSpeed * scale;
-                if (player.gravDir == 1)
-                {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
-                }
-                else
-                {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
-
-                }
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * player.gravDir), type, damage, knockback, player.whoAmI);
             }
             return false;
         }

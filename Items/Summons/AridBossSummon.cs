@@ -83,22 +83,13 @@ namespace StormDiversMod.Items.Summons
             {
                 for (int i = 0; i < 100; i++)
                 {
-
                     float speedX = 0f;
                     float speedY = -5f;
 
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                    if (player.gravDir == 1)
-                    {
-                        int dust2 = Dust.NewDust(new Vector2(player.Center.X + (25 * player.direction), player.Top.Y - 4), 0, 0, 138, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
+                   
+                        int dust2 = Dust.NewDust(new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 16 * player.gravDir), 0, 0, 138, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
                         Main.dust[dust2].noGravity = true;
-                    }
-                    else
-                    {
-                        int dust2 = Dust.NewDust(new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), 0, 0, 138, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
-                        Main.dust[dust2].noGravity = true;
-                    }
-
                 }
                 SoundEngine.PlaySound(SoundID.Item14, player.Center);
                 SoundEngine.PlaySound(SoundID.Roar, player.Center);

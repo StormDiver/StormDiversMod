@@ -498,17 +498,17 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 300;
 
             Projectile.scale = 1f;
-            Projectile.extraUpdates = 1;
 
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
-            Projectile.ArmorPenetration = 15;
-
+            Projectile.ArmorPenetration = 20;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
         int damagetime = 0;
         public override bool? CanDamage()
         {
-            if (damagetime <= 30)
+            if (damagetime <= 90)
             {
                 return false;
             }
@@ -532,17 +532,19 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation = Projectile.velocity.X / 20;
             if (damagetime < 60)
             {
-                Projectile.velocity *= 0.98f;
+                Projectile.velocity *= 0.96f;
             }
             if (damagetime > 60)
             {
+                Projectile.extraUpdates = 1;
+
                 if (Projectile.localAI[0] == 0f)
                 {
                     AdjustMagnitude(ref Projectile.velocity);
                     Projectile.localAI[0] = 1f;
                 }
                 Vector2 move = Vector2.Zero;
-                float distance = 500f;
+                float distance = 600f;
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {
@@ -576,9 +578,9 @@ namespace StormDiversMod.Projectiles
             if (damagetime > 60)
             {
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 5f)
+                if (magnitude > 6f)
                 {
-                    vector *= 5f / magnitude;
+                    vector *= 6f / magnitude;
                 }
             }
         }
@@ -597,11 +599,7 @@ namespace StormDiversMod.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.rand.Next(4) == 0)
-            {
-                target.AddBuff(ModContent.BuffType<Buffs.BeetleDebuff>(), 180);
-                //Main.PlaySound(SoundID.Zombie, (int)Projectile.Center.X, (int)Projectile.Center.Y, 50);
-            }
+          
         }
 
         public override void Kill(int timeLeft)
@@ -632,11 +630,5 @@ namespace StormDiversMod.Projectiles
                 Projectile.frameCounter = 0;
             }
         }
-
-
     }
-
-
-
-
 }

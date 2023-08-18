@@ -210,18 +210,9 @@ namespace StormDiversMod.Basefiles
                 {
                     for (int i = 0; i < 30; i++)
                     {
-                        if (Player.gravDir == 1)
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
-                            Main.dust[dustIndex].velocity *= 2;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
-                        else
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y + 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
-                            Main.dust[dustIndex].velocity *= 2;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
+                        int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8 * Player.gravDir), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
+                        Main.dust[dustIndex].velocity *= 2;
+                        Main.dust[dustIndex].noGravity = true;
                     }
                     SoundEngine.PlaySound(SoundID.Item61 with { Volume = 0.5f, Pitch = 0.5f }, Player.Center);
                 }
@@ -230,35 +221,16 @@ namespace StormDiversMod.Basefiles
                 {
                     for (int i = 0; i < 30; i++)
                     {
-                        if (Player.gravDir == 1)
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
-                            Main.dust[dustIndex].velocity *= 2;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
-                        else
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y + 8), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
-                            Main.dust[dustIndex].velocity *= 2;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
+                        int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8 * Player.gravDir), 0, 0, 6, 0f, 0f, 50, default, 1.5f);
+                        Main.dust[dustIndex].velocity *= 2;
+                        Main.dust[dustIndex].noGravity = true;
                     }
                     for (int i = 0; i < 25; i++)
                     {
-                        if (Player.gravDir == 1)
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8), 0, 0, 31, 0, -3, 100, default, 1f);
-                            Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
-                        else
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y + 8), 0, 0, 31, 0, +3, 100, default, 1f);
-                            Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
+                        int dustIndex = Dust.NewDust(new Vector2(Player.Center.X - (15 * Player.direction) - 4, Player.Center.Y - 8 * Player.gravDir), 0, 0, 31, 0, -3 * Player.gravDir, 100, default, 1f);
+                        Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                        Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                        Main.dust[dustIndex].noGravity = true;
                     }
                     SoundEngine.PlaySound(SoundID.Item92, Player.Center);
 
@@ -271,15 +243,8 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(50));
                         float scale = 1f - (Main.rand.NextFloat() * .1f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        if (Player.gravDir == 1)
-                        {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), santankdamage, 1f, Player.whoAmI);
-                        }
-                        else
-                        {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y + 6), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<SantankMissleProj>(), santankdamage, 1f, Player.whoAmI);
 
-                        }
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6 * Player.gravDir), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<SantankMissleProj>(), santankdamage, 1f, Player.whoAmI);
                     }
                 }
 
@@ -492,21 +457,10 @@ namespace StormDiversMod.Basefiles
 
                         for (int i = 0; i < 40; i++)
                         {
-                            if (Player.gravDir == 1)
-                            {
-                                float speedX = Main.rand.NextFloat(-2f, 2f);
-                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, -3, 130, default, 1.5f);
-                                dust.noGravity = true;
-                                dust.velocity *= 2;
-                            }
-                            else
-                            {
-                                float speedX = Main.rand.NextFloat(-2f, 2f);
-                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, +3, 130, default, 1.5f);
-                                dust.noGravity = true;
-                                dust.velocity *= 2;
-                            }
-
+                            float speedX = Main.rand.NextFloat(-2f, 2f);
+                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, speedX, -3 * Player.gravDir, 130, default, 1.5f);
+                            dust.noGravity = true;
+                            dust.velocity *= 2;
                         }
                         for (int i = 0; i < 20; i++)
                         {
@@ -518,16 +472,8 @@ namespace StormDiversMod.Basefiles
                             dust2.noGravity = true;
                             dust2.velocity *= 2;
                         }
-                        if (Player.gravDir == 1)
-                        {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 20), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 20), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                        }
-                        else
-                        {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 20), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 20), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                        }
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 20 * Player.gravDir), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 20 * Player.gravDir), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
                         derplinglaunchcooldown = 0;
                     }
                 }
@@ -822,15 +768,8 @@ namespace StormDiversMod.Basefiles
                             Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                             float scale = 1f - (Main.rand.NextFloat() * .5f);
                             perturbedSpeed = perturbedSpeed * scale;
-                            if (Player.gravDir == 1)
-                            {
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
-                            }
-                            else
-                            {
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
-
-                            }
+                            
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
                             bloodtime = 0;
                         }
                     }

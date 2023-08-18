@@ -263,9 +263,17 @@ namespace StormDiversMod.Basefiles
        
         public override void PostUpdateEquips() //Updates every frame
         {
-            
-            //Reduces ints if they are above 0 and not in the equip field
 
+            //Reduces ints if they are above 0 and not in the equip field
+            if (beetleFist)
+            {
+                if (beetlecooldown > 0)
+                {
+                    beetlecooldown--;
+                }
+            }
+            else
+                beetlecooldown = 0;
             if (frostSpike)
             {
                 if (frosttime < 360)
@@ -749,14 +757,14 @@ namespace StormDiversMod.Basefiles
                         //Main.NewText("The damage is: " + bootdmg, 204, 101, 22);
                     }
 
-                }               
+                }
                 //For impacting the ground at speed
                 if (Player.velocity.Y == 0 && falling && Player.controlDown)
                 {
                     if (!GetInstance<ConfigurationsIndividual>().NoShake)
                     {
                         if (bootdmg >= 50)
-                        Player.GetModPlayer<MiscFeatures>().screenshaker = true;
+                            Player.GetModPlayer<MiscFeatures>().screenshaker = true;
                     }
 
                     for (int i = 0; i < 30; i++)
@@ -767,16 +775,10 @@ namespace StormDiversMod.Basefiles
                         Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                         Main.dust[dustIndex].noGravity = true;
                     }
-                    if (Player.gravDir == 1)
-                    {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
-                    }
-                    else
-                    {
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 2), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 2), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
-                    }
+
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2 * Player.gravDir), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2 * Player.gravDir), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+
                     SoundEngine.PlaySound(SoundID.Item14, Player.Center);
                     bootdmg = 0;
                     falling = false;
@@ -860,7 +862,7 @@ namespace StormDiversMod.Basefiles
             if (shroomaccess)
             {
                 shroomtime++;
-                if (((Player.HeldItem.type == ItemID.VortexBeater && Player.channel && shroomtime >= 7) || Player.HeldItem.type != ItemID.VortexBeater && Player.itemTime == 1) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
+                if ((Player.channel && shroomtime >= Player.HeldItem.useTime) || (!Player.channel && Player.itemTime == 1) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
                 {
 
                     shroomshotCount++;
@@ -924,17 +926,7 @@ namespace StormDiversMod.Basefiles
                             Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(90));
                             float scale = 1f - (Main.rand.NextFloat() * .5f);
                             perturbedSpeed = perturbedSpeed * scale;
-
-                            if (Player.gravDir == 1)
-                            {
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
-                            }
-                            else
-                            {
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, -perturbedSpeed.Y), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
-
-                            }
-
+                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
                         }
 
                     }
@@ -1343,13 +1335,13 @@ namespace StormDiversMod.Basefiles
                 }
             }
             //for the Beetle Gauntlet
-            if (beetleFist)
+            if (beetleFist && beetlecooldown <= 0)
             {
                 if (!Player.dead && hit.Crit)
                 {
                     SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances= 0 }, target.Center);
 
-                    float numberProjectiles = 3 + Main.rand.Next(2);
+                    float numberProjectiles = 2 + Main.rand.Next(2);
 
                     for (int i = 0; i < numberProjectiles; i++)
                     {
@@ -1379,6 +1371,7 @@ namespace StormDiversMod.Basefiles
                         dust.scale = 1;
 
                     }
+                    beetlecooldown = 5;
                 }
             }         
         }
@@ -1439,13 +1432,13 @@ namespace StormDiversMod.Basefiles
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
             }
             //for the Beetle Gauntlet
-            if (beetleFist)
+            if (beetleFist && beetlecooldown <= 0)
             {            
                 if (!Player.dead && proj.CountsAsClass(DamageClass.Melee) && hit.Crit && proj.type != ModContent.ProjectileType<BeetleGloveProj>())
                 {
                     SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 2f, Pitch = -0.5f, MaxInstances = 0 }, target.Center);
 
-                    float numberProjectiles = 3 + Main.rand.Next(3);
+                    float numberProjectiles = 2 + Main.rand.Next(2);
 
                     for (int i = 0; i < numberProjectiles; i++)
                     {
@@ -1456,7 +1449,7 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 35, 1, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 30, 1, Player.whoAmI);
 
                     }
                     for (int i = 0; i < 25; i++)
@@ -1477,7 +1470,7 @@ namespace StormDiversMod.Basefiles
                         dust.scale = 1;
 
                     }
-
+                    beetlecooldown = 5;
                 }
                 
             }

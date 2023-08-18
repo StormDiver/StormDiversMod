@@ -297,6 +297,8 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.dontTakeDamage = true;
                 NPC.ai[0]++;
                 NPC.frameCounter++;
+                NPC.position.X += Main.rand.Next(-1, 2);
+                NPC.position.Y += Main.rand.Next(-1, 2);
 
                 NPC.rotation = NPC.velocity.X / 50;
                 NPC.velocity *= 0.95f;

@@ -62,21 +62,12 @@ namespace StormDiversMod.Items.Tools
                 float speedY = -5f;
 
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                if (player.gravDir == 1)
-                {
-                    int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Top.Y - 6), 0, 0, 21, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
+               
+                    int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Center.Y - 16 * player.gravDir), 0, 0, 21, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
                     Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
-                }
-
-                else
-                {
-                    int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (20 * player.direction), player.Bottom.Y - 6), 0, 0, 21, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
-                    Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].noGravity = true;
-                }
+               
             }
         
             return false;

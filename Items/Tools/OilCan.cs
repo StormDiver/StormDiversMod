@@ -24,7 +24,9 @@ namespace StormDiversMod.Items.Tools
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Oil Can");
-            //Tooltip.SetDefault("Cover your enemies in oil\nRight click to set nearby oiled enemies ablaze\n'Be careful when around town npcs'");
+            //Tooltip.SetDefault("Left click to fire out a blob of oil that inflicts the oiled debuff onto enemies and town NPCs
+           // Right click to set nearby oiled enemies ablaze, consumes 3 cans
+           //'Cover your enemies in oil'
             Item.ResearchUnlockCount = 1;
         }
 
@@ -32,8 +34,9 @@ namespace StormDiversMod.Items.Tools
         {
             Item.width = 40;
             Item.height = 22;
-            Item.maxStack = 1;
-            Item.value = Item.sellPrice(0, 2, 0, 0);
+            Item.maxStack = 9999;
+            Item.consumable = true;
+            Item.value = Item.sellPrice(0, 0, 0, 40);
             Item.rare = ItemRarityID.Green;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 12;
@@ -44,8 +47,7 @@ namespace StormDiversMod.Items.Tools
             Item.DamageType = DamageClass.Generic;
 
             Item.shoot = ModContent.ProjectileType<OilCanProj>();
-            //Item.useAmmo = ItemType<Ammo.StoneShot>();
-
+           
             //Item.UseSound = SoundID.Item86;
 
             //Item.crit = 0;
@@ -69,12 +71,16 @@ namespace StormDiversMod.Items.Tools
 
             if (player.altFunctionUse == 2)
             {
+                Item.consumable = false;
+
                 Item.useStyle = ItemUseStyleID.HoldUp;
                 Item.useTime = 30;
                 Item.useAnimation = 30;
             }
             else
             {
+                Item.consumable = true;
+
                 Item.useStyle = ItemUseStyleID.Shoot;
                 Item.useTime = 15;
                 Item.useAnimation = 15;
@@ -85,43 +91,61 @@ namespace StormDiversMod.Items.Tools
         {
             if (player.altFunctionUse == 2) //Right Click
             {
-               
-                SoundEngine.PlaySound(SoundID.Item100 with { Volume = 1f, Pitch = -2 }, player.Center);
-                
-                for (int i = 0; i < 10; i++) //Orange particles
+                if (player.CountItem(ModContent.ItemType<Oilcan>(), 9999) >= 3)
                 {
-                    var dust = Dust.NewDustDirect(new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36), 0, 0, 174, 0, 0);
-                    dust.noGravity = true;
-                    dust.scale = 1.5f;
+                    SoundEngine.PlaySound(SoundID.Item100 with { Volume = 1f, Pitch = -2 }, player.Center);
 
-                }
-                for (int i = 0; i < 150; i++) //Orange particles
-                {
-                    Vector2 perturbedSpeed = new Vector2(0, -30f).RotatedByRandom(MathHelper.ToRadians(360));
-
-                    var dust = Dust.NewDustDirect(new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36), 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
-                    dust.noGravity = true;
-                    dust.scale = 2f;
-
-                }
-                for (int i = 0; i < 200; i++)//for town npcs
-                {
-                    NPC target = Main.npc[i];
-
-                    float npcdistance = Vector2.Distance(target.Center, new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36));
-
-                    if (npcdistance <= 300 && target.HasBuff(BuffID.Oiled) && target.active && target.lifeMax >= 5 && !target.dontTakeDamage && Collision.CanHitLine(target.position, target.width, target.height, new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36), 0, 0))
+                    for (int i = 0; i < 10; i++) //Orange particles
                     {
-                        target.AddBuff(BuffID.OnFire, 600); //10 seconds
+                        var dust = Dust.NewDustDirect(new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36 * player.gravDir), 0, 0, 174, 0, 0);
+                        dust.noGravity = true;
+                        dust.scale = 1.5f;
 
-                        for (int j = 0; j < 15; j++) //Orange particles
+                    }
+                    for (int i = 0; i < 175; i++) //Orange particles
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, -40f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        var dust = Dust.NewDustDirect(new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36 * player.gravDir), 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
+                        dust.noGravity = true;
+                        dust.scale = 2f;
+
+                    }
+                    for (int i = 0; i < 200; i++)//for town npcs
+                    {
+                        NPC target = Main.npc[i];
+
+                        float npcdistance = Vector2.Distance(target.Center, new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36 * player.gravDir));
+
+                        if (npcdistance <= 400 && target.HasBuff(BuffID.Oiled) && target.active && target.lifeMax >= 5 && !target.dontTakeDamage && Collision.CanHitLine(target.position, target.width, target.height, new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36), 0, 0))
                         {
-                            Vector2 perturbedSpeed = new Vector2(0, -6f).RotatedByRandom(MathHelper.ToRadians(360));
+                            target.AddBuff(BuffID.OnFire, Main.rand.Next(600, 901)); //10-15 seconds
 
-                            var dust = Dust.NewDustDirect(new Vector2(target.Center.X , target.Center.Y), 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
-                            dust.noGravity = true;
-                            dust.scale = 2f;
+                            for (int j = 0; j < 15; j++) //Orange particles
+                            {
+                                Vector2 perturbedSpeed = new Vector2(0, -6f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                                var dust = Dust.NewDustDirect(new Vector2(target.Center.X, target.Center.Y), 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
+                                dust.noGravity = true;
+                                dust.scale = 2f;
+                            }
                         }
+                    }
+                    for (int j = 0; j < 3; j++)
+                    {
+                        player.ConsumeItem(ModContent.ItemType<Oilcan>(), false, false);
+                    }
+                }
+                else
+                {
+                    SoundEngine.PlaySound(SoundID.NPCDeath6, position);
+
+                    for (int i = 0; i < 10; i++) //grey particles
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36 * player.gravDir), 0, 0, 31, 0, 0);
+                        dust.noGravity = true;
+                        dust.scale = 1.5f;
+
                     }
                 }
             }
@@ -135,20 +159,14 @@ namespace StormDiversMod.Items.Tools
                     position += muzzleOffset;
                 }
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 12), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 12 * player.gravDir), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
             }
             return false;
         }
 
         public override void AddRecipes()
         {
-            /*CreateRecipe()
-          .AddIngredient(ItemID.IllegalGunParts, 1)
-         .AddIngredient(ItemID.StoneBlock, 250)
-         .AddRecipeGroup("StormDiversMod:EvilMaterial", 25)
-         .AddRecipeGroup(RecipeGroupID.IronBar, 25)
-         .AddTile(TileID.Anvils)
-         .Register();*/
+            
         }
     }
 }

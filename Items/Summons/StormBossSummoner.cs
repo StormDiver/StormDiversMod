@@ -119,20 +119,19 @@ namespace StormDiversMod.Items.Summons
 
             for (int i = 0; i < 5; i++)
             {
-                if (player.gravDir == 1)
-                {
-                    Vector2 rotation = -player.Center + (player.Center + new Vector2(0, -250));
+               
+                    Vector2 rotation = -player.Center + (player.Center + new Vector2(0, -250 * player.gravDir));
 
                     float ai = Main.rand.Next(100);
 
-                    int projID = Projectile.NewProjectile(source, new Vector2(player.Center.X + (15 * player.direction), player.Top.Y - 6), new Vector2(0, -8),
+                    int projID = Projectile.NewProjectile(source, new Vector2(player.Center.X + (15 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, -8 * player.gravDir),
                         ModContent.ProjectileType<Projectiles.StormLightningProj>(), 0, .5f, player.whoAmI, rotation.ToRotation(), ai);
                     Main.projectile[projID].damage = 0;
                     Main.projectile[projID].tileCollide = false;
 
                     Main.projectile[projID].timeLeft = 300;
-                }
-                else
+                
+                /*else
                 {
                     Vector2 rotation = -player.Center + (player.Center + new Vector2(0, +250));
 
@@ -144,7 +143,7 @@ namespace StormDiversMod.Items.Summons
                     Main.projectile[projID].tileCollide = false;
 
                     Main.projectile[projID].timeLeft = 300;
-                }
+                }*/
             }
             SoundEngine.PlaySound(SoundID.Item122, player.Center);
 

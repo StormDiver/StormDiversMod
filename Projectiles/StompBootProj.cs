@@ -35,16 +35,27 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
+            var player = Main.player[Projectile.owner];
+
             Projectile.damage = (Projectile.damage * 100) / 101;
 
             if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
                 Vector2 position = Projectile.position;
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Bottom.Y - 10), Projectile.width, 12, 31, 0f, 0f, 100, default, 100f);
-
-                Main.dust[dustIndex].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].noGravity = true;
+                if (player.gravDir == 1)
+                {
+                    int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Bottom.Y - 10), Projectile.width, 12, 31, 0f, 0f, 100, default, 100f);
+                    Main.dust[dustIndex].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dustIndex].noGravity = true;
+                }
+                else
+                {
+                    int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Top.Y + 10), Projectile.width, 12, 31, 0f, 0f, 100, default, 100f);
+                    Main.dust[dustIndex].scale = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dustIndex].noGravity = true;
+                }
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 203);
 
                 dust2.noGravity = true;
@@ -108,7 +119,7 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.Kill();
             }
-            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Center.Y - 20), Projectile.width, 20, 31, 0f, 0f, 100, default, 1.5f);
+            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.Center.Y - 20 * player.gravDir), Projectile.width, 20, 31, 0f, 0f, 100, default, 1.5f);
             Main.dust[dustIndex].noGravity = true;
         }
 

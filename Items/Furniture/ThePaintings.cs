@@ -57,6 +57,10 @@ namespace StormDiversMod.Items.Furniture
             TileObjectData.addTile(Type);
             DustType = 7;
             TileID.Sets.DisableSmartCursor[Type] = true;
+
+            LocalizedText name = CreateMapEntryName();
+            //name.SetDefault("Painting");
+            AddMapEntry(new Color(99, 50, 30), name);
         }
 
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
