@@ -39,7 +39,7 @@ namespace StormDiversMod.NPCs
             
             NPC.defense = 20;
             NPC.lifeMax = 750;
-
+            NPC.despawnEncouraged = false;
 
             
             NPC.HitSound = SoundID.NPCHit1;
@@ -84,6 +84,7 @@ namespace StormDiversMod.NPCs
         int firerate = 0;
         public override void AI()
         {
+            NPC.timeLeft = 60;
             NPC.buffImmune[BuffID.Confused] = true;
 
             shoottime++;

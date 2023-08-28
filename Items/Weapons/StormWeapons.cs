@@ -248,6 +248,7 @@ namespace StormDiversMod.Items.Weapons
                 float ai = Main.rand.Next(100);
                 int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
                     ModContent.ProjectileType<Projectiles.StormLightningProj>(), damage, .5f, player.whoAmI, perturbedSpeed.ToRotation(), ai);
+                Main.projectile[projID].timeLeft = 190;
 
                 Main.projectile[projID].DamageType = DamageClass.Magic;
             }

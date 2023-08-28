@@ -614,7 +614,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.alpha = 255;
             Projectile.penetrate = -1;
             Projectile.extraUpdates = 4;
-            Projectile.timeLeft = 450;
+            Projectile.timeLeft = 180;
             Projectile.scale = 0.75f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 75;
@@ -692,14 +692,17 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void AI()
         {
-            if (Projectile.scale > 0.01f)
+            if (Projectile.scale > 0.05f)
             {
                 Projectile.scale -= 0.005f;
             }
             else
             {
-                Projectile.Kill();
+                Projectile.timeLeft = 0;
             }
+
+            //Main.NewText("Tester " + Projectile.scale, 0, 204, 170); //Inital Scale
+
             /*if (Projectile.ai[0] == 0f)
             {
                 Projectile.ai[0] = Projectile.velocity.ToRotation();
@@ -1067,6 +1070,8 @@ namespace StormDiversMod.NPCs.NPCProjs
                         int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X * 1.15f, velocity.Y * 1.15f),
                         ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
                         Main.projectile[projID].scale = 1f;
+                        Main.projectile[projID].timeLeft = 190;
+
                         Main.projectile[projID].tileCollide = false;
                     }
                     else if (Projectile.ai[1] == 1)
@@ -1076,6 +1081,8 @@ namespace StormDiversMod.NPCs.NPCProjs
                         int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 6),
                         ModContent.ProjectileType<StormBossLightning>(), Projectile.damage, .5f, Main.myPlayer, rotation2.ToRotation(), ai);
                         Main.projectile[projID].scale = 0.9f;
+                        Main.projectile[projID].timeLeft = 170;
+
                         Main.projectile[projID].tileCollide = false;
                     }
                 }

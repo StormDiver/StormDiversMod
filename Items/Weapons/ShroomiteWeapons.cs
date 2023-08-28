@@ -12,6 +12,7 @@ using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Basefiles;
+using System.Reflection.Metadata;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -69,6 +70,7 @@ namespace StormDiversMod.Items.Weapons
 
         float accuracy = 15; //The amount of spread
         int resetaccuracy = 15; //How long to not fire for the accuracy to reset
+
         public override void HoldItem(Player player)
         {
             player.scope = true;
@@ -82,15 +84,12 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
+            
             if (accuracy > 0)//Increases accuracy every shot
             {
                 accuracy -= 0.33f;
-
             }
-
             resetaccuracy = 15; //Prevents the accuracy from reseting while firing
-
             {
                 {
                     //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
@@ -113,9 +112,7 @@ namespace StormDiversMod.Items.Weapons
                     //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
                 }
             }
-
             return false;
-
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
@@ -126,7 +123,6 @@ namespace StormDiversMod.Items.Weapons
         {
             return Main.rand.NextFloat() >= .33f;
         }
-
 
         public override void AddRecipes()
         {
@@ -144,6 +140,13 @@ namespace StormDiversMod.Items.Weapons
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+
+            
+            return true;
+        }
+       
     }
     //_______________________________________________________________________________
     public class ShroomiteFury : ModItem

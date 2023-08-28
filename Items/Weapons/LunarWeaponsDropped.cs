@@ -96,7 +96,8 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Storm Diver Shotgun");
-            //Tooltip.SetDefault("Hold down left click to charge up and increase accuracy and damage\nGains additional damage, speed, and knockback at max charge\n'Stolen from the Legendary Storm Divers'");
+            //Tooltip.SetDefault("Hold down left click to charge up and increase accuracy and damage\nGains additional damage, speed, and knockback at max charge\nConverts Musket Balls into Luminite Bullets at full charge
+            //\n'Stolen from the Legendary Storm Divers'");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -156,6 +157,7 @@ namespace StormDiversMod.Items.Weapons
         }*/
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            if (player.ownedProjectileCounts[Item.shoot] < 1)
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.VortexShotgunGun>(), damage, knockback, player.whoAmI);
 
             return false;

@@ -48,8 +48,8 @@ namespace StormDiversMod.Items.Potions
          }*/
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<BarrierPotion>(), 3);
-            recipe.AddIngredient(ItemID.GreaterHealingPotion, 3);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BarrierPotion>(), 5);
+            recipe.AddIngredient(ItemID.GreaterHealingPotion, 5);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 1);
             recipe.AddIngredient(ItemID.UnicornHorn);
             recipe.AddTile(TileID.Bottles);
@@ -124,8 +124,8 @@ namespace StormDiversMod.Items.Potions
          }
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<DoubleHealingPotion>(), 3);
-            recipe.AddIngredient(ItemID.GreaterHealingPotion, 3);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<DoubleHealingPotion>(), 5);
+            recipe.AddIngredient(ItemID.GreaterHealingPotion, 5);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 1);
             recipe.AddIngredient(ItemID.LifeFruit, 1);
             recipe.AddTile(TileID.Bottles);
@@ -191,8 +191,8 @@ namespace StormDiversMod.Items.Potions
         public override void AddRecipes()
         {
 
-            Recipe recipe = Recipe.Create(ModContent.ItemType<HeartPotion>(), 3);
-            recipe.AddIngredient(ItemID.BottledWater, 3);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<HeartPotion>(), 5);
+            recipe.AddIngredient(ItemID.BottledWater, 5);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 1);
             recipe.AddIngredient(ItemID.Daybloom);
             recipe.AddIngredient(ItemID.Blinkroot);
@@ -255,8 +255,8 @@ namespace StormDiversMod.Items.Potions
 
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<FruitHeartPotion>(), 1);
-            recipe.AddIngredient(ItemID.BottledWater, 1);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<FruitHeartPotion>(), 3);
+            recipe.AddIngredient(ItemID.BottledWater, 3);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 1);
             recipe.AddIngredient(ItemID.LifeFruit);
             recipe.AddTile(TileID.Bottles);

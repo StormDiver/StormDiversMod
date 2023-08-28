@@ -136,15 +136,16 @@ namespace StormDiversMod.Projectiles.SentryProjs
                                 float ai = Main.rand.Next(100);
                                 int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), 
 									ModContent.ProjectileType<CultistSentryProj2>(), Projectile.damage, .5f, Projectile.owner, perturbedSpeed.ToRotation(), ai);
+                            Main.projectile[projID].timeLeft = 190;
 
-                               /* Main.projectile[projID].hostile = false;
-                                Main.projectile[projID].friendly = true;
-                                Main.projectile[projID].penetrate = 10;
-                                Main.projectile[projID].usesLocalNPCImmunity = true;
-                                Main.projectile[projID].localNPCHitCooldown = -1;
-                                Main.projectile[projID].scale = 0.75f;
-                                Main.projectile[projID].timeLeft = 180;
-                                Main.projectile[projID].DamageType = DamageClass.Summon;*/
+                            /* Main.projectile[projID].hostile = false;
+                             Main.projectile[projID].friendly = true;
+                             Main.projectile[projID].penetrate = 10;
+                             Main.projectile[projID].usesLocalNPCImmunity = true;
+                             Main.projectile[projID].localNPCHitCooldown = -1;
+                             Main.projectile[projID].scale = 0.75f;
+                             Main.projectile[projID].timeLeft = 180;
+                             Main.projectile[projID].DamageType = DamageClass.Summon;*/
 
                             Projectile.ai[1] = 0;
                         }

@@ -17,6 +17,7 @@ using static Humanizer.In;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 
+
 namespace StormDiversMod.Projectiles
 {
     public class VortexShotgunGun : ModProjectile
@@ -37,20 +38,26 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.hide = true;
+            //Projectile.hide = true; //prevents pre draw from running
+            Projectile.alpha = 255; //use instead
+
             Projectile.ownerHitCheck = true; //so you can't hit enemies through walls
             Projectile.DamageType = DamageClass.Ranged;
             DrawOffsetX = 3;
             DrawOriginOffsetY = 0;
             //Projectile.ContinuouslyUpdateDamage = true;
-            Projectile.alpha = 255;
+            
         }
         public override bool? CanDamage() => false;
 
-        float angle = 18.3f; //additonal 0.3 as first frame isn't counted
+        float angle = 18f;
         float extravel = 1f;
         float sound = -0.5f;
         bool maxcharge;
+
+        float linewidth = 1.5f;
+        float numberlines = 2;
+        float linerotation;
         public override void OnSpawn(IEntitySource source)
         {
             var player = Main.player[Projectile.owner];
@@ -58,11 +65,20 @@ namespace StormDiversMod.Projectiles
         }
         public override void AI()
         {
+            
             var player = Main.player[Projectile.owner];
+
+            //for the lines
+            if (angle == 0)
+                linewidth = 2.5f;
+            else
+                linewidth = 1.5f;
+
+            linerotation = MathHelper.ToRadians(angle);
 
             if (!maxcharge) //charge up, lower angle, add velocity to bullets, and increase damage
             {
-                angle -= 0.3f; //takes 90 frames to charge
+                angle -= 0.3f; //takes 60 frames to charge
                 extravel += 0.01f;
                 //Projectile.damage = (Projectile.damage * 102) / 100; //gains 2% damage every frame, reaches 505 with musket balls
 
@@ -75,8 +91,9 @@ namespace StormDiversMod.Projectiles
                                         //~1250dps at 60 frame charge (0.66  shots per second, 380 base damage) (Bonus 15% damage (+1))
                                         //ranged damage buffs are applied afterwards
             }
-            if (angle <= 0.3f)//Charge up time is 60 frames as angle starts at 27.3
+            if (angle < 0.2f)//Charge up time is 60 frames as angle starts at 18
             {
+                angle = 0; //full accuracy
                 maxcharge = true;
             }
             Projectile.ai[1]++; //1 frame delay so particles always appear at end
@@ -96,7 +113,7 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.soundDelay = 10;
             }
-            //Main.NewText("Tester " + Projectile.damage, 0, 204, 170); //Inital Scale
+            //Main.NewText("Tester " + angle, 0, 204, 170); //Inital Scale
             if (maxcharge)
             {
                 //Main.NewText("TesterMax " + Projectile.damage * 1.15f, 0, 204, 170); //Inital Scale
@@ -123,13 +140,6 @@ namespace StormDiversMod.Projectiles
                 }
             }
 
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 1) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
-            {
-                Projectile.frame++;
-                Projectile.frame %= 2; // Will reset to the first frame if you've gone through them all.
-                Projectile.frameCounter = 0;
-            }
             //=============================================================================================Code for movement of weapon projectile====================================================================================================================================================
             Vector2 vector13 = Main.player[Projectile.owner].RotatedRelativePoint(Main.player[Projectile.owner].MountedCenter);
             if (Main.myPlayer == Projectile.owner)
@@ -163,59 +173,39 @@ namespace StormDiversMod.Projectiles
                     Projectile.Kill();
                 }
             }
-            /*if (base.Projectile.velocity.X > 0f)
-            {
-                Main.player[Projectile.owner].ChangeDir(1);
-            }
-            else if (base.Projectile.velocity.X < 0f)
-            {
-                Main.player[Projectile.owner].ChangeDir(-1);
-            }*/
+            //if (base.Projectile.velocity.X > 0f)
+            //{
+            //    Main.player[Projectile.owner].ChangeDir(1);
+            //}
+            //else if (base.Projectile.velocity.X < 0f)
+            //{
+            //    Main.player[Projectile.owner].ChangeDir(-1);
+            //}
             Projectile.spriteDirection = Projectile.direction;
-            Main.player[Projectile.owner].ChangeDir(Projectile.direction);
-            Main.player[Projectile.owner].heldProj = player.whoAmI;
-            Main.player[Projectile.owner].SetDummyItemTime(2);
+            player.ChangeDir(Projectile.direction);
+            //Main.player[Projectile.owner].heldProj = player.whoAmI; //<-- causes issues
+            player.SetDummyItemTime(2);
             base.Projectile.position.X = vector13.X - (float)(base.Projectile.width / 2);
             base.Projectile.position.Y = vector13.Y - (float)(base.Projectile.height / 2);
             Projectile.rotation = (float)(Math.Atan2(base.Projectile.velocity.Y, base.Projectile.velocity.X) + 1.5700000524520874);
-            if (Main.player[Projectile.owner].direction == 1)
+            if (player.direction == 1)
             {
-                Main.player[Projectile.owner].itemRotation = (float)Math.Atan2(base.Projectile.velocity.Y * (float)Projectile.direction, base.Projectile.velocity.X * (float)Projectile.direction);
+                player.itemRotation = (float)Math.Atan2(base.Projectile.velocity.Y * (float)Projectile.direction, base.Projectile.velocity.X * (float)Projectile.direction);
             }
             else
             {
-                Main.player[Projectile.owner].itemRotation = (float)Math.Atan2(base.Projectile.velocity.Y * (float)Projectile.direction, base.Projectile.velocity.X * (float)Projectile.direction);
+                player.itemRotation = (float)Math.Atan2(base.Projectile.velocity.Y * (float)Projectile.direction, base.Projectile.velocity.X * (float)Projectile.direction);
             }
             //base.Projectile.velocity.X *= 1f + (float)Main.rand.Next(-3, 4) * 0.01f;        
             //================================================================================================================================================================================================================================================
         }
-        public static void DrawPrettyStarSparkle(float opacity, SpriteEffects dir, Vector2 drawpos, Color drawColor, Color shineColor, float flareCounter, float fadeInStart, float fadeInEnd, float fadeOutStart, float fadeOutEnd, float rotation, Vector2 scale, Vector2 fatness)
-        {
-            Texture2D texture = TextureAssets.Extra[98].Value;
-            Color bigShineColor = shineColor * opacity * 0.5f;
-            bigShineColor.A = 0;
-            Vector2 origin = texture.Size() / 2f;
-            Color smallShineColor = drawColor * 0.5f;
-            float brightness = Utils.GetLerpValue(fadeInStart, fadeInEnd, flareCounter, clamped: true) * Utils.GetLerpValue(fadeOutEnd, fadeOutStart, flareCounter, clamped: true);
-            Vector2 vector = new Vector2(fatness.X * 0.5f, scale.X) * brightness;
-            Vector2 vector2 = new Vector2(fatness.Y * 0.5f, scale.Y) * brightness;
-            bigShineColor *= brightness;
-            smallShineColor *= brightness;
-            Main.EntitySpriteDraw(texture, drawpos, null, bigShineColor, MathHelper.PiOver2 + rotation, origin, vector, dir, 0);
-            Main.EntitySpriteDraw(texture, drawpos, null, bigShineColor, rotation, origin, vector2, dir, 0);
-            Main.EntitySpriteDraw(texture, drawpos, null, smallShineColor, MathHelper.PiOver2 + rotation, origin, vector * 0.6f, dir, 0);
-            Main.EntitySpriteDraw(texture, drawpos, null, smallShineColor, rotation, origin, vector2 * 0.6f, dir, 0);
-        }
+        
         public override void Kill(int timeLeft)
         {
             var player = Main.player[Projectile.owner];
-            if (maxcharge) //Different sound and screenshake at max charge
+            if (maxcharge) //Different sound at max charge
             {
                 //Projectile.damage *= 2;
-                if (!GetInstance<ConfigurationsIndividual>().NoShake)
-                {
-                    player.GetModPlayer<MiscFeatures>().screenshaker = true;
-                }
                 SoundEngine.PlaySound(SoundID.Item38 with { Volume = 1f, Pitch = 0f }, player.Center);
             }
             else
@@ -236,10 +226,17 @@ namespace StormDiversMod.Projectiles
                 {
                     projToShoot = ProjectileID.MoonlordBullet;
                 }
-                for (int i = 0; i < 5; i++)//5 projectiles
-                {            
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f).RotatedByRandom(MathHelper.ToRadians(angle));    
+
+                float numberProjectiles = 5;
+                float rotation = MathHelper.ToRadians(angle);
+                //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
+                for (int i = 0; i < numberProjectiles; i++)
+                {
+                    float speedX = Projectile.velocity.X * 10f;
+                    float speedY = Projectile.velocity.Y * 10f;
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 2), new Vector2((perturbedSpeed.X * extravel), (float)(perturbedSpeed.Y * extravel)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
+                   
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = 10;
 
@@ -272,6 +269,24 @@ namespace StormDiversMod.Projectiles
                     }, player.whoAmI);
                 }
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            for (int i = 0; i < numberlines; i++)
+            {
+                Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y - 2)) * 500;
+
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-linerotation, linerotation, i / (numberlines - 1)));
+                //Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X * 2, perturbedSpeed.Y * 2), ModContent.ProjectileType<CrimsonAxeProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 2), new Vector2(Projectile.Center.X - 1 + perturbedSpeed.X, Projectile.Center.Y - 2 + perturbedSpeed.Y), Color.Aquamarine, Color.Transparent, linewidth);
+
+            }
+            return true;
+        }
+        public override void PostDraw(Color lightColor)
+        {
+           
         }
     }
 }

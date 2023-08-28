@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using StormDiversMod.Buffs;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Projectiles       
 {
@@ -25,17 +26,18 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 45;
+            Projectile.timeLeft = 60;
             Projectile.extraUpdates = 1;
             Projectile.knockBack = 8f;
             Projectile.usesLocalNPCImmunity = true;            
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.tileCollide = false;
         }
         float airknock = 13;
         public override void AI()
         {
-            Projectile.damage = (Projectile.damage * 99) / 100;
+            //Projectile.damage = (Projectile.damage * 99) / 100;
+            Projectile.damage -= 2;
             airknock -= 0.14f;
 
             var player = Main.player[Projectile.owner];
@@ -77,7 +79,9 @@ namespace StormDiversMod.Projectiles
                     target.velocity.X = 7f * Projectile.direction;
 
                 }
-                target.AddBuff(ModContent.BuffType<DerpDebuff>(), 45);
+                //target.AddBuff(ModContent.BuffType<DerpDebuff>(), 60);
+                target.GetGlobalNPC<NPCEffects>().derplaunched = true;
+
 
                 /*if (airknock > 0)
                 {

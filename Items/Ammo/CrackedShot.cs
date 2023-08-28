@@ -41,8 +41,8 @@ namespace StormDiversMod.Items.Ammo
 
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<CrackedShot>(), 150);
-            recipe.AddIngredient(ItemID.MusketBall, 150);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<CrackedShot>(), 250);
+            recipe.AddIngredient(ItemID.MusketBall, 250);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();

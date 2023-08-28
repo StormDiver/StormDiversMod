@@ -434,7 +434,7 @@ namespace StormDiversMod.Basefiles
 
             if (derpJump)
             {
-                if (derplinglaunchcooldown < 60)
+                if (derplinglaunchcooldown < 45)
                 {
                     derplinglaunchcooldown++;
                 }
@@ -442,9 +442,18 @@ namespace StormDiversMod.Basefiles
                 Player.jumpSpeedBoost += 4.5f;
 
                 Player.autoJump = true;
-                Player.maxFallSpeed *= 1.5f;
+                if (Player.controlDown && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
+                {
+                    Player.gravity += 1.25f;
+                    Player.maxFallSpeed *= 1.6f;
+
+                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 68, 0, 0, 130, default, 1f);
+                    dust.noGravity = true;
+                    dust.velocity *= 2;
+
+                }
                 //Creates the wave upon jumping
-                if (Player.velocity.Y == 0 && derplinglaunchcooldown >= 60 && !Player.mount.Active)
+                if (Player.velocity.Y == 0 && derplinglaunchcooldown >= 45 && !Player.mount.Active)
                 {
                     Player.AddBuff(ModContent.BuffType<DerpBuff>(), 2);
 
@@ -472,8 +481,8 @@ namespace StormDiversMod.Basefiles
                             dust2.noGravity = true;
                             dust2.velocity *= 2;
                         }
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 20 * Player.gravDir), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 20 * Player.gravDir), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 75, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y - 20 * Player.gravDir), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 120, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y - 20 * Player.gravDir), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 120, 0, Player.whoAmI);
                         derplinglaunchcooldown = 0;
                     }
                 }

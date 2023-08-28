@@ -309,7 +309,7 @@ namespace StormDiversMod.Buffs
         }
     }
     //_______________________________________________
-    public class DerpDebuff : ModBuff
+    public class DerpDebuff : ModBuff //unused
     {
         public override void SetStaticDefaults()
         {

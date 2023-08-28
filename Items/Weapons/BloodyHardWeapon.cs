@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Bloodshot Rifle");
-            //Tooltip.SetDefault("Converts regular bullets into blood bullets that drop blood in flight\nRight Click to zoom out");
+            //Tooltip.SetDefault("Converts Musket Balls into blood bullets that drop blood in flight\nRight Click to zoom out");
 
             Item.ResearchUnlockCount = 1;
 

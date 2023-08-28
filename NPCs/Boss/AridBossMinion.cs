@@ -35,7 +35,7 @@ namespace StormDiversMod.NPCs.Boss
 
             NPC.aiStyle = -1;
 
-            NPC.damage = 0;//No contact damage
+            NPC.damage = 10;//Contact damage removed in AI
            
             NPC.defense = 0;
             NPC.lifeMax = 750;
@@ -71,11 +71,11 @@ namespace StormDiversMod.NPCs.Boss
             //NA, has no health scaling so always 750
             if (Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f); //1080
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.5f); //1125
             }
             else if (Main.expertMode && !Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f); //900
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f); //900
 
             }
             //NPC.damage = (int)(NPC.damage * 0.75f);
@@ -103,6 +103,8 @@ namespace StormDiversMod.NPCs.Boss
 
         public override void AI()
         {
+            NPC.timeLeft = 60; //prevent despawn
+            NPC.damage = 0;
             //===============AI fields================
             //NPC.ai[1] = X postion
             //NPC.ai[2] = Y postion

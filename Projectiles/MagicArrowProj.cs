@@ -73,7 +73,6 @@ namespace StormDiversMod.Projectiles
 
             if (player.channel && !player.dead) //if holding down button target enemies
             {
-
                 Vector2 move = Vector2.Zero;
                 float distance = 1000f;
                 bool target = false;

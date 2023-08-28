@@ -361,7 +361,7 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Derpling Launch");
+            //DisplayName.SetDefault("Derpling Power");
             //Description.SetDefault("In Terraria, Derpling launch you");
             Main.buffNoTimeDisplay[Type] = true;
         }

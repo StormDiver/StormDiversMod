@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Wooden Crossbow");
-            //Tooltip.SetDefault("Converts arrows into piercing crossbow bolts\n'Slow but powerful'");
+            //Tooltip.SetDefault("Converts all arrows into piercing crossbow bolts\n'Slow but powerful'");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()

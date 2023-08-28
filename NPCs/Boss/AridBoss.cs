@@ -984,7 +984,7 @@ namespace StormDiversMod.NPCs.Boss
                     if (distance > 200) // no firing if near player
                     {
                         NPC.localAI[0]++;
-                        if (NPC.localAI[0] > 70) //telegraphing
+                        if (NPC.localAI[0] > 50) //telegraphing
                         {
                             float speedY = -3f;
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
@@ -995,7 +995,7 @@ namespace StormDiversMod.NPCs.Boss
                             int dust2 = Dust.NewDust(NPC.Center, 0, 0, 55, dustvelocity.X + NPC.velocity.X, dustvelocity.Y + NPC.velocity.Y, 100, default, 1f);
                             Main.dust[dust2].noGravity = true;
                         }
-                        if (NPC.localAI[0] > 90)
+                        if (NPC.localAI[0] > 75)
                         {
                             animateattack = true;
                             SoundEngine.PlaySound(SoundID.Item20 with { Volume = 1f, Pitch = 0.5f }, NPC.Center);

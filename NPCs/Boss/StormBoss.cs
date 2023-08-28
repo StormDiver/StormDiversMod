@@ -394,6 +394,8 @@ namespace StormDiversMod.NPCs.Boss
                         int projID = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, 0),
                             ModContent.ProjectileType<NPCs.NPCProjs.StormBossLightning>(), 0, .5f, Main.myPlayer, perturbedSpeed.ToRotation(), ai);
                         Main.projectile[projID].scale = 0.75f;
+                        Main.projectile[projID].timeLeft = 140;
+
                     }
                     //SoundEngine.PlaySound(SoundID.Item14 with { Volume = 1f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                     SoundEngine.PlaySound(SoundID.Item96, NPC.Center);

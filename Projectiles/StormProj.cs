@@ -219,7 +219,9 @@ namespace StormDiversMod.Projectiles
 						ModContent.ProjectileType<StormLightningProj>(), 0, 0, Projectile.owner, perturbedSpeed.ToRotation(), ai);
 
 					Main.projectile[projID].tileCollide = false;
-					Main.projectile[projID].scale = 0.6f;
+                    Main.projectile[projID].timeLeft = 110;
+
+                    Main.projectile[projID].scale = 0.6f;
 
 
 				}
@@ -335,7 +337,7 @@ namespace StormDiversMod.Projectiles
 				ModContent.ProjectileType<Projectiles.StormLightningProj>(), Projectile.damage, .5f, Main.myPlayer, rotation.ToRotation(), ai);
 			Main.projectile[projID].scale = 1;
 			Main.projectile[projID].penetrate = 2;
-			Main.projectile[projID].timeLeft = 600;
+			Main.projectile[projID].timeLeft = 190;
 			Main.projectile[projID].DamageType = DamageClass.Melee;
 			Main.projectile[projID].tileCollide = false;
 
@@ -497,7 +499,8 @@ namespace StormDiversMod.Projectiles
 
 					Main.projectile[projID].tileCollide = false;
 					Main.projectile[projID].scale = 0.7f;
-					Main.projectile[projID].DamageType = DamageClass.Ranged;
+                    Main.projectile[projID].timeLeft = 130;
+                    Main.projectile[projID].DamageType = DamageClass.Ranged;
 				}
 
 				
@@ -643,13 +646,13 @@ namespace StormDiversMod.Projectiles
 		public override void AI()
 		{
 
-			if (Projectile.scale > 0.01f)
+			if (Projectile.scale > 0.05f)
 			{
 				Projectile.scale -= 0.005f;
 			}
 			else
 			{
-				Projectile.Kill();
+				Projectile.timeLeft = 0;
 			}
 		
 			if (Projectile.localAI[1] == 0f && Projectile.ai[0] >= 900f)

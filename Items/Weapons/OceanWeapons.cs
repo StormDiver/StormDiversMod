@@ -158,7 +158,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Coral Blaster");
-            //Tooltip.SetDefault("Converts bullets into pieces of coral that are not affected by water and obey gravity");
+            //Tooltip.SetDefault("Converts all bullets into pieces of coral that are not affected by water and obey gravity");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()

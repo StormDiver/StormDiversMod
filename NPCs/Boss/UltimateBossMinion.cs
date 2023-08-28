@@ -105,6 +105,7 @@ namespace StormDiversMod.NPCs.Boss
         public override void AI()
         {
             NPC.DiscourageDespawn(9999);
+            NPC.timeLeft = 60;
 
             if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) > 0)
             {

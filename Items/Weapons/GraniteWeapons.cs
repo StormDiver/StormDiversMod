@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Granite Rifle");
-            //Tooltip.SetDefault("Converts regular bullets into Granite Bullets that pierce once");
+            //Tooltip.SetDefault("Converts Musket Balls into Granite Bullets that pierce once");
 
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()

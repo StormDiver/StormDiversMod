@@ -10,6 +10,7 @@ using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
+using System.Runtime.Intrinsics.X86;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -17,8 +18,9 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("High Tech Seeking Arrow");
-            //Tooltip.SetDefault("Targets all enemies in range when used, returns to you when not in use.\n'I'm Mary Poppins Y'all'");
+            //DisplayName.SetDefault("The Arrow of Seeking");
+            //Tooltip.SetDefault("Hold down left mouse to make the arrow target and seek out any enemy in range\n
+            //Returns to you when not in use\n'I'm Mary Poppins Y'all');
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
@@ -37,11 +39,9 @@ namespace StormDiversMod.Items.Weapons
             Item.noUseGraphic = true;
             Item.DamageType = DamageClass.Melee;
             Item.UseSound = SoundID.Item1;
-
             Item.damage = 75;
             //Item.crit = 4;
             Item.knockBack = 2f;
-
             Item.shoot = ModContent.ProjectileType<MagicArrowProj>();
             Item.channel = true;
             Item.shootSpeed = 16f;

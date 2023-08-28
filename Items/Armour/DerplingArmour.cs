@@ -68,7 +68,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Greatly increases jump, ascent, and max falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
+            player.setBonus = "Greatly increases jump and ascent speed, and allows auto jumping\nHold DOWN to increase falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
 
             player.GetModPlayer<ArmourSetBonuses>().derpJump = true;
 
@@ -146,7 +146,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Greatly increases jump, ascent, and max falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
+            player.setBonus = "Greatly increases jump and ascent speed, and allows auto jumping\nHold DOWN to increase falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
 
             player.GetModPlayer<ArmourSetBonuses>().derpJump = true;
 
@@ -173,7 +173,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Derpling Breastplate");
-            //Tooltip.SetDefault("7% increased damage\n6% increased critical strike chance");
+            //Tooltip.SetDefault("8% increased damage\n8% increased critical strike chance");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -190,8 +190,8 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
 
-            player.GetDamage(DamageClass.Generic) += 0.07f;
-            player.GetCritChance(DamageClass.Generic) += 6;
+            player.GetDamage(DamageClass.Generic) += 0.08f;
+            player.GetCritChance(DamageClass.Generic) += 8;
           
 
         }
@@ -214,7 +214,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Derpling Greaves");
-            //Tooltip.SetDefault("6% increased damage and critical strike chance\nGrants immunity to fall damage");
+            //Tooltip.SetDefault("7% increased damage and critical strike chance\nGrants immunity to fall damage");
             Item.ResearchUnlockCount = 1;
         }
 
@@ -230,8 +230,8 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
 
-            player.GetDamage(DamageClass.Generic) += 0.06f;
-            player.GetCritChance(DamageClass.Generic) += 6;
+            player.GetDamage(DamageClass.Generic) += 0.07f;
+            player.GetCritChance(DamageClass.Generic) += 7;
             player.noFallDmg = true;
         }
         public override void AddRecipes()

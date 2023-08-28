@@ -24,6 +24,7 @@ using Terraria.Audio;
 using NVorbis.Contracts;
 using Terraria.GameContent.Drawing;
 using Microsoft.CodeAnalysis;
+using StormDiversMod.Items.Weapons;
 
 namespace StormDiversMod.Basefiles
 {
@@ -145,7 +146,6 @@ namespace StormDiversMod.Basefiles
 
         public int bootdmg; //damage of the boots
 
-
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             goldDerpie = false;
@@ -263,7 +263,6 @@ namespace StormDiversMod.Basefiles
        
         public override void PostUpdateEquips() //Updates every frame
         {
-
             //Reduces ints if they are above 0 and not in the equip field
             if (beetleFist)
             {
@@ -1551,7 +1550,16 @@ namespace StormDiversMod.Basefiles
             */
             return true;
         }
-       
+        
+        public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+            /*if ((Player.scope || Player.HeldItem.type == ItemID.SniperRifle) && Player.controlUseTile)
+            {
+                Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y)) * 2500;
+                Utils.DrawLine(Main.spriteBatch, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(Player.Center.X + velocity.X, Player.Center.Y + velocity.Y), Color.Red, Color.Transparent, 1.5f);
+            }*/
+            base.DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);
+        }
     }
 
 }

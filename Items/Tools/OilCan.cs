@@ -36,7 +36,7 @@ namespace StormDiversMod.Items.Tools
             Item.height = 22;
             Item.maxStack = 9999;
             Item.consumable = true;
-            Item.value = Item.sellPrice(0, 0, 0, 40);
+            Item.value = Item.sellPrice(0, 0, 0, 20);
             Item.rare = ItemRarityID.Green;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 12;

@@ -75,7 +75,7 @@ namespace StormDiversMod.Basefiles
 
         public float direction; //records the direction prior to speen
 
-        public int spintime; //how long until rotation can be reset
+        public bool spun; //if enemy has been spun
 
         //For projectile immunity immune
 
@@ -117,7 +117,7 @@ namespace StormDiversMod.Basefiles
             superFrost = false;
             superburnDebuff = false;
             hellSoulFire = false;
-            derplaunched = false;
+            //derplaunched = false;
             darknessDebuff = false;
             ultraburnDebuff = false;
             ultrafrostDebuff = false;
@@ -211,14 +211,14 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
                 }
 
-            }     
+            }
             //speen________________________________________________
-            {
-                if (derplaunched)
-                {
-                    spintime++;
 
-                    if (spintime == 0)
+            if (derplaunched)
+            {
+                if ((npc.aiStyle is 1 or 3 or 8 or 26 or 38 or 39 or 41 or 42 || npc.type == ModContent.NPCType<SuperPainDummy>()) && npc.knockBackResist != 0)
+                {
+                    if (!spun)
                     {
                         if (npc.velocity.X > 0)
                         {
@@ -228,28 +228,21 @@ namespace StormDiversMod.Basefiles
                         {
                             direction = -1;
                         }
+                        spun = true;
+                    }
+                    npc.rotation += (0.2f * direction); //Speen speed and direction
 
-                    }
-                    if (spintime > 0 && spintime < 45) //begins the rotation 
-                    {
-                        npc.rotation += (0.14f * -direction); //Speen speed and direction
-                    }
                     if (npc.velocity.Y == 0)
                     {
-                        spintime = 44;
                         npc.rotation = 0; //reset the rotation to 0 for 1 frame
-
-                    }
-
-                    if (spintime >= 44)
-                    {
-                        npc.rotation = 0; //reset the rotation to 0 for 1 frame
-                        spintime = 0; //Allows the rotation to be recorded again
-
+                        derplaunched = false;
                     }
                 }
-
             }
+            else
+                spun = false;
+
+            
             if (!npc.friendly)
             {
                 //------------Projectile immune
@@ -654,15 +647,6 @@ namespace StormDiversMod.Basefiles
 
 
                 }
-
-            }
-            if (derplaunched)
-            {
-
-                var dust = Dust.NewDustDirect(new Vector2(npc.position.X, npc.Center.Y + npc.height / 2), npc.width, 0, 68, 0, 2, 130, default, 1f);
-                dust.noGravity = true;
-
-
 
             }
             if (darknessDebuff)

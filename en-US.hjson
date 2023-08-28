@@ -47,7 +47,7 @@ Mods: {
 			}
 
 			DerpBuff: {
-				DisplayName: Derpling Launch
+				DisplayName: Derpling Power
 				Description: In Terraria, Derpling launch you
 			}
 
@@ -922,8 +922,8 @@ Mods: {
 				DisplayName: Derpling Breastplate
 				Tooltip:
 					'''
-					7% increased damage
-					6% increased critical strike chance
+					8% increased damage
+					8% increased critical strike chance
 					'''
 			}
 
@@ -931,7 +931,7 @@ Mods: {
 				DisplayName: Derpling Greaves
 				Tooltip:
 					'''
-					6% increased damage and critical strike chance
+					7% increased damage and critical strike chance
 					Grants immunity to fall damage
 					'''
 			}
@@ -1847,7 +1847,7 @@ Mods: {
 				DisplayName: Bloodshot Rifle
 				Tooltip:
 					'''
-					Converts regular bullets into blood bullets that drop blood in flight
+					Converts Musket Balls into blood bullets that drop blood in flight
 					Right Click to zoom out
 					'''
 			}
@@ -2082,7 +2082,7 @@ Mods: {
 
 			GraniteRifle: {
 				DisplayName: Granite Rifle
-				Tooltip: Converts regular bullets into Granite Bullets that pierce once
+				Tooltip: Converts Musket Balls into Granite Bullets that pierce once
 			}
 
 			GraniteStaff: {
@@ -2257,17 +2257,19 @@ Mods: {
 				DisplayName: Storm Diver Shotgun
 				Tooltip:
 					'''
-					Hold down left click to charge up and increase accuracy and damage
+					Hold down left click to charge up and increase accuracy, speed, and damage
 					Gains additional damage, speed, and knockback at max charge
+					Converts Musket Balls into Luminite Bullets at full charge
 					'Stolen from the Legendary Storm Divers'
 					'''
 			}
 
 			MagicArrow: {
-				DisplayName: High Tech Seeking Arrow
+				DisplayName: The Arrow of Seeking
 				Tooltip:
 					'''
-					Targets all enemies in range when used, returns to you when not in use.
+					Hold down left mouse to make the arrow target and seek out any enemy in range
+					Returns to you when not in use
 					'I'm Mary Poppins Y'all'
 					'''
 			}
@@ -2408,7 +2410,7 @@ Mods: {
 
 			OceanGun: {
 				DisplayName: Coral Blaster
-				Tooltip: Converts bullets into pieces of coral that are not affected by water and obey gravity
+				Tooltip: Converts all bullets into pieces of coral that are not affected by water and obey gravity
 			}
 
 			OceanSpell: {
@@ -2742,7 +2744,7 @@ Mods: {
 				DisplayName: Wooden Crossbow
 				Tooltip:
 					'''
-					Converts arrows into piercing crossbow bolts
+					Converts all arrows into piercing crossbow bolts
 					'Slow but powerful'
 					'''
 			}
