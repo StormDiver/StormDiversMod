@@ -20,6 +20,8 @@ using Terraria.UI;
 namespace StormDiversMod.Basefiles
 {
     //[Label("Local Configurations")]
+    [BackgroundColor(5, 51, 34, 200)]
+
     public class ConfigurationsIndividual : ModConfig //configuration settings
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
@@ -29,6 +31,7 @@ namespace StormDiversMod.Basefiles
         //[Tooltip("Disables the screen shake that a few items in this mod make")]
         //[ReloadRequired] //None required
         [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
         public bool NoShake { get; set; }
         [Header("Audio")]
 
@@ -36,6 +39,7 @@ namespace StormDiversMod.Basefiles
         //[Tooltip("Disables the text to speech sounds some secret items make")]
         //[ReloadRequired] //None required
         [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
         public bool NoPain { get; set; }
     }
 }

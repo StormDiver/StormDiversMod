@@ -205,6 +205,10 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
             if (maxcharge) //Different sound at max charge
             {
+                if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                {
+                    player.GetModPlayer<MiscFeatures>().screenshaker = true;
+                }
                 //Projectile.damage *= 2;
                 SoundEngine.PlaySound(SoundID.Item38 with { Volume = 1f, Pitch = 0f }, player.Center);
             }

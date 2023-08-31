@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Weapons
 			Item.autoReuse = false;
             Item.noUseGraphic = true;
             Item.noMelee = true;
-            Item.knockBack = 3;
+            Item.knockBack = 4;
             Item.scale = 1f;
             Item.shoot = ModContent.ProjectileType<Projectiles.WoodPointyStickProj>();
             Item.shootSpeed = 2.2f;

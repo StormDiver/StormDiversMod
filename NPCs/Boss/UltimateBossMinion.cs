@@ -26,6 +26,8 @@ namespace StormDiversMod.NPCs.Boss
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
+            NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
+            
         }
         public override void SetDefaults()
         {
@@ -53,8 +55,7 @@ namespace StormDiversMod.NPCs.Boss
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 0, 0);
             NPC.noGravity = true;
-
-            //NPC.boss = true;
+            NPC.despawnEncouraged = false;
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
@@ -104,8 +105,7 @@ namespace StormDiversMod.NPCs.Boss
         bool fastshoot = false;
         public override void AI()
         {
-            NPC.DiscourageDespawn(9999);
-            NPC.timeLeft = 60;
+            NPC.boss = true;//prevent despawn
 
             if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) > 0)
             {
@@ -140,6 +140,7 @@ namespace StormDiversMod.NPCs.Boss
                     Main.dust[dust2].noGravity = true;
                 }
                 SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
+                NPC.boss = false; //no death message
 
                 NPC.life = 0;
 
@@ -412,6 +413,7 @@ namespace StormDiversMod.NPCs.Boss
                     int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.5f);
                     Main.dust[dust2].noGravity = true;
                 }
+                NPC.boss = false;
             }
         }
         public override Color? GetAlpha(Color lightColor)

@@ -118,9 +118,10 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup(RecipeGroupID.Wood, 100)
-            .AddIngredient(ItemID.PinkGel, 5)
-            .AddTile(TileID.WorkBenches)
+             .AddIngredient(ItemID.TargetDummy, 1)
+
+            .AddIngredient(ItemID.PinkGel, 15)
+            .AddTile(TileID.Sawmill)
             .Register();
         }
     }

@@ -88,7 +88,6 @@ namespace StormDiversMod.Items.Weapons
                     Main.projectile[ProjID].usesLocalNPCImmunity = true;
                     Main.projectile[ProjID].localNPCHitCooldown = 30;
                 }
-
             }
             SoundEngine.PlaySound(SoundID.Item98 with{Volume = 1.5f, Pitch = -0.4f}, player.Center);
 

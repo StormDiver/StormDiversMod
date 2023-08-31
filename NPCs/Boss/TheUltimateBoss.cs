@@ -152,8 +152,20 @@ namespace StormDiversMod.NPCs.Boss
 
         public override void AI()
         {
-           
-            NPC.damage = 0;
+            if ((NPC.ai[3] == 9 && NPC.ai[0] >= 120) || NPC.ai[3] == 10) //Gain contact damage on last phases, after a small delay at first
+            {
+                if (Main.getGoodWorld)
+                    NPC.damage = 500; 
+                else if (Main.masterMode)
+                    NPC.damage = 350; 
+                else if (Main.expertMode && !Main.masterMode)
+                    NPC.damage = 250; 
+                else
+                    NPC.damage = 150; 
+            }
+            else
+                NPC.damage = 0;
+
             NPC.buffImmune[BuffID.Confused] = true;
 
             if (Main.netMode != NetmodeID.Server)
@@ -1469,6 +1481,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 shooting = false;
                 NPC.dontTakeDamage = true;
+
                 NPC.ai[0]++;
                 if (NPC.ai[0] >= 120) //
                 {

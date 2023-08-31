@@ -103,7 +103,7 @@ namespace StormDiversMod.NPCs.Boss
 
         public override void AI()
         {
-            NPC.timeLeft = 60; //prevent despawn
+            NPC.boss = true; //prevent despawn
             NPC.damage = 0;
             //===============AI fields================
             //NPC.ai[1] = X postion
@@ -297,6 +297,7 @@ namespace StormDiversMod.NPCs.Boss
                     Main.dust[dustIndex].noGravity = true;
                 }
                 SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = 0f }, NPC.Center);
+                NPC.boss = false; //no death message
 
                 NPC.life = 0;
             }
@@ -380,6 +381,8 @@ namespace StormDiversMod.NPCs.Boss
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
                 }
+                NPC.boss = false; //no death message
+
             }
         }
         public override Color? GetAlpha(Color lightColor)
