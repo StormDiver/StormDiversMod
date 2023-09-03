@@ -62,6 +62,7 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.LightRed;
 
             Item.accessory = true;
+            Item.defense = 2;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -101,8 +102,9 @@ namespace StormDiversMod.Items.Accessory
             Item.height = 30;
             Item.value = Item.sellPrice(0, 6, 0, 0);
             Item.rare = ItemRarityID.Yellow;
-
             Item.accessory = true;
+            Item.defense = 4;
+
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

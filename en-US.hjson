@@ -551,7 +551,7 @@ Mods: {
 				Tooltip:
 					'''
 					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50
-					Enemies that that grant you health lose life rapidly
+					Enemies that grant you health lose life rapidly
 					Increases maximum health by 20
 					'''
 			}
@@ -562,7 +562,7 @@ Mods: {
 					'''
 					Reduces the cooldown of healing potions by 25%
 					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50
-					Enemies that that grant you health lose life rapidly
+					Enemies that grant you health lose life rapidly
 					Increases maximum health by 20
 					'''
 			}
