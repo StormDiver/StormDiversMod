@@ -104,11 +104,20 @@ namespace StormDiversMod.NPCs
            
             bool lineofsight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
 
-            if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight) || (Vector2.Distance(player.Center, NPC.Center) <= 300f && !lineofsight))
-            {           
+            if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight))
+            {
+                if (shoottime >= 210)//warning
+                {
+                    shooting = true;
+
+                    Vector2 perturbedSpeed = new Vector2(0, -1.5f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    int dust2 = Dust.NewDust(new Vector2(NPC.Center.X + (15 * NPC.direction), NPC.Center.Y), 0, 0, 111, perturbedSpeed.X, perturbedSpeed.Y, 0, default, 1.2f);
+                    Main.dust[dust2].noGravity = true;
+                }
+
                 if (shoottime >= 240)//fires the projectiles
                 {
-
                     float projectileSpeed = 7f; // The speed of your projectile (in pixels per second).
                     int damage = 25; // The damage your projectile deals.
                     float knockBack = 2;
@@ -120,7 +129,7 @@ namespace StormDiversMod.NPCs
                     {
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + (15 * NPC.direction), NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                     }
                     SoundEngine.PlaySound(SoundID.Item28, NPC.Center);
 
@@ -128,16 +137,15 @@ namespace StormDiversMod.NPCs
                     {
                         Vector2 perturbedSpeed = new Vector2(0, -2).RotatedByRandom(MathHelper.ToRadians(360));
 
-                        int dust2 = Dust.NewDust(NPC.Center, 0, 0, 111, perturbedSpeed.X, perturbedSpeed.Y, 0, default, 1.2f);
+                        int dust2 = Dust.NewDust(new Vector2(NPC.Center.X + (15 * NPC.direction), NPC.Center.Y), 0, 0, 111, perturbedSpeed.X, perturbedSpeed.Y, 0, default, 1.2f);
                         Main.dust[dust2].noGravity = true;
                     }
-                    shooting = true;
                     shoottime = 0;
                 }
             }
             else
             {
-                shoottime = 60;
+                shoottime = 125;
             }
             if (shooting)
             {

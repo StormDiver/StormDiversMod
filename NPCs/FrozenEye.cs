@@ -108,7 +108,7 @@ namespace StormDiversMod.NPCs
                 
                 if (shoottime >= 130 + Main.rand.Next(60))
                 {
-                    float projectileSpeed = 8f; // The speed of your projectile (in pixels per second).
+                    float projectileSpeed = 6f; // The speed of your projectile (in pixels per second).
                     int damage = 10; // The damage your projectile deals.
                     float knockBack = 1;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.FrozenEyeProj>();

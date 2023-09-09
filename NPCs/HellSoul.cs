@@ -98,7 +98,7 @@ namespace StormDiversMod.NPCs
             Player player = Main.player[NPC.target];
            
             bool lineofsight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
-            if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight)|| (Vector2.Distance(player.Center, NPC.Center) <= 300f && !lineofsight))
+            if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight))
             {
                 if (shoottime >= 180)//starts the casting animation
                 {

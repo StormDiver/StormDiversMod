@@ -51,7 +51,7 @@ namespace StormDiversMod.NPCs
             };
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
-            Banner = Item.NPCtoBanner(ModContent.NPCType<HellMiniBoss>());
+            //Banner = Item.NPCtoBanner(ModContent.NPCType<HellMiniBoss>());
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {

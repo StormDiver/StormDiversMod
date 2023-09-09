@@ -784,7 +784,7 @@ namespace StormDiversMod.Basefiles
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             var player = Main.player[projectile.owner];
-           
+
             if (player.GetModPlayer<ArmourSetBonuses>().shadowflameSet == true)
             {
                 if (npc.HasBuff(BuffID.ShadowFlame))
@@ -872,10 +872,10 @@ namespace StormDiversMod.Basefiles
                         if (bloodwhipcooldown >= 60)
                         {
 
-                            Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y - (40 - (npc.width / 2))), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.WhipProjs.BloodWhipProj2>(), 15, 0, Main.myPlayer, 0 , Main.rand.Next (0, 359));
+                            Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y - (40 - (npc.width / 2))), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.WhipProjs.BloodWhipProj2>(), 15, 0, Main.myPlayer, 0, Main.rand.Next(0, 359));
                             bloodwhipcooldown = 0;
                         }
-                       
+
                     }
                 }
                 //Forbidden whip
@@ -902,7 +902,7 @@ namespace StormDiversMod.Basefiles
                                 {
                                     float projspeed = 5;
                                     Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(npc.Center.X, npc.Center.Y)) * projspeed;
-                                    
+
                                     int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.WhipProjs.DesertWhipProj2>(), 10, 0, Main.myPlayer);
 
                                     forbiddenwhipcooldown = 0;
@@ -952,6 +952,11 @@ namespace StormDiversMod.Basefiles
             {
                 //damage = (int)(damage * 1.15f);
                 modifiers.CritDamage *= 1.15f;
+            }
+            if (player.HasBuff(BuffType<ShroomiteBuff>()))//If the player has the shroomite potion then 10% increase ammo damage
+            {
+                if (projectile.CountsAsClass(DamageClass.Ranged))
+                modifiers.CritDamage *= 1.10f;
             }
         }
         //        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)

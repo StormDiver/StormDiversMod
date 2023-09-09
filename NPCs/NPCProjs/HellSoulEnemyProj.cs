@@ -84,7 +84,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                     if (Vector2.Distance(target.Center, Projectile.Center) < 2000f && target.active)
                     {
-                        float projspeed = 3f;
+                        float projspeed = 2.5f;
                         Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
                         Projectile.velocity.X = velocity.X;

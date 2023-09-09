@@ -119,7 +119,7 @@ namespace StormDiversMod.NPCs.Boss
         int projdamage; //Damage of all projectiles
         int projcount; //Number of projs if applicable
         float projvelocity; //Velocity of projectiles
-
+        float extravel; //extra velocity when far away
         public static int phase2HeadSlot = -1;
         bool deathani;
         public override void Load()
@@ -388,8 +388,8 @@ namespace StormDiversMod.NPCs.Boss
                     if (distanceToIdlePosition > 300f)
                     {
                         // Speed up the boss if it's away from the player
-                        speed = 12f;
-                        inertia = 30f;
+                        speed = 14f;
+                        inertia = 25f;
                     }
                     else
                     {
@@ -432,6 +432,15 @@ namespace StormDiversMod.NPCs.Boss
         }
         private void Attacks(Player player)//___________________________________________________________________________________________________________________________________________________
         {
+            float distance = Vector2.Distance(player.Center, NPC.Center);
+            if (distance >= 500) //extra projectil velcoity if too far away
+            {
+                extravel = (distance - 500) / 50; // add 1 velocity for ever 50 pixels away over 400
+            }
+            else
+            {
+                extravel = 0;
+            }
             if (NPC.ai[3] == 1) //Attack 1, sweep over player firing sandblasts, only explode below half life
             {
                 //NPC.localAI[2] = Side;
@@ -503,8 +512,8 @@ namespace StormDiversMod.NPCs.Boss
                     if (distanceToIdlePosition > 300f)
                     {
                         // Speed up the boss if it's away from the player
-                        speed = 11f;
-                        inertia = 30f;
+                        speed = 13f;
+                        inertia = 25f;
                     }
                     else
                     {
@@ -565,7 +574,7 @@ namespace StormDiversMod.NPCs.Boss
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X + (player.velocity.X * 15), player.Center.Y + (player.velocity.X * 15)) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity; //slight predictive 
+                            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X + (player.velocity.X * 15), player.Center.Y + (player.velocity.X * 15)) - new Vector2(NPC.Center.X, NPC.Center.Y)) * (projvelocity + extravel); //slight predictive 
                             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
                             if (!halflife)
                             {
@@ -628,8 +637,8 @@ namespace StormDiversMod.NPCs.Boss
                     if (distanceToIdlePosition > 300f)
                     {
                         // Speed up the boss if it's away from the player
-                        speed = 11f;
-                        inertia = 30f;
+                        speed = 13f;
+                        inertia = 25f;
                     }
                     else
                     {
@@ -692,7 +701,7 @@ namespace StormDiversMod.NPCs.Boss
                         float numberProjectiles = projcount + Main.rand.Next(2);
                         float rotation = MathHelper.ToRadians(40);
 
-                        Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - 50) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - 50) - new Vector2(NPC.Center.X, NPC.Center.Y)) * (projvelocity + extravel);
                         for (int i = 0; i < numberProjectiles; i++)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -945,8 +954,8 @@ namespace StormDiversMod.NPCs.Boss
                     if (distanceToIdlePosition > 250f)
                     {
                         // Speed up the boss if it's away from the player
-                        speed = 10f;
-                        inertia = 30f;
+                        speed = 12f;
+                        inertia = 25f;
                     }
                     else
                     {
@@ -1011,7 +1020,7 @@ namespace StormDiversMod.NPCs.Boss
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
 
-                                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity;
+                                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * (projvelocity + extravel);
                                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
 
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 10 * NPC.direction, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
@@ -1090,8 +1099,8 @@ namespace StormDiversMod.NPCs.Boss
                     if (distanceToIdlePosition > 300f)
                     {
                         // Speed up the boss if it's away from the player
-                        speed = 13f;
-                        inertia = 30f;
+                        speed = 15f;
+                        inertia = 25f;
                     }
                     else
                     {
@@ -1153,7 +1162,7 @@ namespace StormDiversMod.NPCs.Boss
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(player.Center.X + Main.rand.Next(-350, 350), player.Center.Y - 600), new Vector2(0, projvelocity),
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(player.Center.X + Main.rand.Next(-350, 350), player.Center.Y - 600), new Vector2(0, projvelocity + extravel),
                                 ModContent.ProjectileType<NPCs.NPCProjs.AridBossSandProj>(), projdamage, 1, Main.myPlayer, 0, 0);
                             }
                         }

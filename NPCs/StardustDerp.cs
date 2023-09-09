@@ -74,10 +74,6 @@ namespace StormDiversMod.NPCs
 
             }
         }
-
-      
-        
-       
         int shoottime = 0;
         public override void AI()
         {
@@ -85,7 +81,7 @@ namespace StormDiversMod.NPCs
             
             Player player = Main.player[NPC.target];
           
-            if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && NPC.CountNPCS(ModContent.NPCType<StardustMiniDerp>()) < 10)
             {
                 if (shoottime >= 180 && NPC.velocity.Y == 0)
                 {

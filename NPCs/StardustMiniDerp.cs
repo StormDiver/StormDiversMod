@@ -45,7 +45,7 @@ namespace StormDiversMod.NPCs
             Item.buyPrice(0, 0, 0, 0);
             NPC.noGravity = true;
             //Banner = Item.BannerToNPC(ModContent.NPCType<StardustDerp>());
-            Banner = Item.NPCtoBanner(ModContent.NPCType<StardustDerp>());
+            //Banner = Item.NPCtoBanner(ModContent.NPCType<StardustDerp>());
 
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary

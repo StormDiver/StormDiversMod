@@ -25,13 +25,13 @@ namespace StormDiversMod.NPCs
             Main.npcFrameCount[NPC.type] = 2;
             NPCID.Sets.DontDoHardmodeScaling[Type] = false;
             NPCID.Sets.ShimmerTransformToNPC[Type] = NPCID.ShimmerSlime;
-
+            
         }
         public override void SetDefaults()
         {
             NPC.width = 34;
             NPC.height = 20;
-
+            
             NPC.aiStyle = 1; 
             AIType = NPCID.Crimslime;
             AnimationType = NPCID.BlueSlime;
@@ -218,7 +218,6 @@ namespace StormDiversMod.NPCs
             NPC.spriteDirection = NPC.direction;
 
             Player player = Main.player[NPC.target];
-            
             if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 if (NPC.velocity.Y == 0)

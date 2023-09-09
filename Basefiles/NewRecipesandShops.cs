@@ -334,7 +334,7 @@ namespace StormDiversMod.Basefiles
                     shop.Add(ItemID.RocketI, Condition.PlayerCarriesItem(ModContent.ItemType<StormLauncher>()));
                 }
                 
-                shop.Add(ModContent.ItemType<StickyBomb>(), Condition.DownedSkeletron);
+                shop.Add(ModContent.ItemType<StickyBomb>(), Condition.DownedEyeOfCthulhu);
             }
 
             if (shop.NpcType == NPCID.Merchant)

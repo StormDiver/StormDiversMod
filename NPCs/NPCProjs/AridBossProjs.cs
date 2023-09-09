@@ -27,7 +27,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.light = 0.9f;
             Projectile.friendly = false;
             Projectile.hostile = true;
-            Projectile.timeLeft = 70;
+            Projectile.timeLeft = 75;
             Projectile.penetrate = -1;
 
             Projectile.tileCollide = false;
@@ -115,7 +115,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.aiStyle = 1;
             Projectile.friendly = false;
             Projectile.hostile = true; 
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 180;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.light = 0.1f;

@@ -100,7 +100,7 @@ namespace StormDiversMod.NPCs.Boss
         float speed = 9;
         float inertia = 40;
         float distanceToIdlePosition; //distance to player
-
+        float extravel;
         public override void AI()
         {
             NPC.boss = true; //prevent despawn
@@ -164,8 +164,8 @@ namespace StormDiversMod.NPCs.Boss
                 if (distanceToIdlePosition > 300f)
                 {
                     // Speed up if it's away from the player
-                    speed = 8f;
-                    inertia = 30f;
+                    speed = 10f;
+                    inertia = 25f;
                 }
                 else
                 {
@@ -201,8 +201,17 @@ namespace StormDiversMod.NPCs.Boss
             
             float distance = Vector2.Distance(player.Center, NPC.Center);
 
-            if (distance  <= 600f)
+            if (distance  <= 900f)
             {
+                if (distance >= 300) //extra projectil velcoity if too far away
+                {
+                    extravel = (distance - 300) / 50; // add 1 velocity for ever 50 pixels away over 400
+                }
+                else
+                {
+                    extravel = 0;
+                }
+
                 if (NPC.localAI[0] >= 100)
                 {                
                     float speedY = -2f;
@@ -224,7 +233,7 @@ namespace StormDiversMod.NPCs.Boss
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.AridBossSandProj>();
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
-                    new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
+                    new Vector2(NPC.Center.X, NPC.Center.Y)) * (projectileSpeed + extravel);
 
 
                     SoundEngine.PlaySound(SoundID.Item20 with { Volume = 1f, Pitch = 0.2f }, NPC.Center);

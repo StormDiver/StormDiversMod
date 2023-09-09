@@ -58,14 +58,15 @@ namespace StormDiversMod.Projectiles
         float linewidth = 1.5f;
         float numberlines = 2;
         float linerotation;
+        int orginaldamage;
         public override void OnSpawn(IEntitySource source)
         {
             var player = Main.player[Projectile.owner];
-            Projectile.damage = player.HeldItem.damage; //starts off at 90, but then ranged buffs are applied after charge
+            //Projectile.damage = player.HeldItem.damage; //starts off at 80, but then ranged buffs are applied after charge, otherwise additon damage is worse at higher charge levels
+            orginaldamage = Projectile.damage;
         }
         public override void AI()
-        {
-            
+        {   
             var player = Main.player[Projectile.owner];
 
             //for the lines
@@ -76,13 +77,14 @@ namespace StormDiversMod.Projectiles
 
             linerotation = MathHelper.ToRadians(angle);
 
+            //Main.NewText("Damage = " + Projectile.damage, 0, 204, 170); //Inital Scale
+
             if (!maxcharge) //charge up, lower angle, add velocity to bullets, and increase damage
             {
                 angle -= 0.3f; //takes 60 frames to charge
                 extravel += 0.01f;
-                //Projectile.damage = (Projectile.damage * 102) / 100; //gains 2% damage every frame, reaches 505 with musket balls
-
-                Projectile.damage += 4; //Extra 240 damage from base, (90 + 240 = 330 + extra 15% at max charge for 380),                                
+                Projectile.damage += orginaldamage / 20; //extra 5% of orignal damage, so roughly same as 4 damage per second
+                //Projectile.damage += 4; //Extra 240 damage from base, (90 + 240 = 330 + extra 15% at max charge for 380),                                
                                         //~900 dps at  0 frame charge (2    shots per second, 90  base damage)
                                         //~997 dps at 15 frame charge (1.33 shots per second, 150 base damage)
                                         //~1050dps at 30 frame charge (1    shot  per second, 210 base damage)
@@ -113,7 +115,6 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.soundDelay = 10;
             }
-            //Main.NewText("Tester " + angle, 0, 204, 170); //Inital Scale
             if (maxcharge)
             {
                 //Main.NewText("TesterMax " + Projectile.damage * 1.15f, 0, 204, 170); //Inital Scale
@@ -168,8 +169,6 @@ namespace StormDiversMod.Projectiles
                 }
                 else
                 {
-                    Projectile.damage = (int)player.GetTotalDamage(DamageClass.Ranged).ApplyTo(Projectile.damage); //make sure damage updates are applied
-
                     Projectile.Kill();
                 }
             }
@@ -225,7 +224,7 @@ namespace StormDiversMod.Projectiles
             float KnockBack = player.inventory[player.selectedItem].knockBack;
             if (canShoot && Collision.CanHit(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, new Vector2(player.Center.X, player.Center.Y), 0, 0))
             {             
-                player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, true);
+                player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, false);
                 if (projToShoot == ProjectileID.Bullet && maxcharge)
                 {
                     projToShoot = ProjectileID.MoonlordBullet;

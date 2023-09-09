@@ -173,7 +173,7 @@ Mods: {
 
 			ShroomiteBuff: {
 				DisplayName: Shroomite Enhancement
-				Description: Increases ammo damage by 10%
+				Description: Increases ranged crit damage by 10%
 			}
 
 			SkyKnightSentryBuff: {
@@ -197,7 +197,7 @@ Mods: {
 
 			SpectreBuff: {
 				DisplayName: Spectre Enhancement
-				Description: Maximum mana increased by 60
+				Description: Magic damage increased by 15% when below half mana
 			}
 
 			SpookedDebuff: {
@@ -824,6 +824,15 @@ Mods: {
 				Tooltip: Ricochets off walls thrice and pierces twice
 			}
 
+			SantaBullet: {
+				DisplayName: Santa's Bullet
+				Tooltip:
+					'''
+					Ricochets twice, exploding on the third impact, or on impact with enemies
+					'You must be on the super naughty list to have one of these'
+					'''
+			}
+
 			AridBMask: {
 				DisplayName: Arid Mask
 				Tooltip: 5% increased critical strike chance
@@ -1174,6 +1183,21 @@ Mods: {
 					'''
 			}
 
+			SnowfallBMask: {
+				DisplayName: Snowfall Hood
+				Tooltip: 5% increased critical strike chance
+			}
+
+			SnowfallChest: {
+				DisplayName: Snowfall Coat
+				Tooltip: Increases damage by a flat 1
+			}
+
+			SnowfallLeg: {
+				DisplayName: Snowfall Boots
+				Tooltip: 10% increased jump and movement speed
+			}
+
 			SpaceRockBHelmet: {
 				DisplayName: Asteroid Helmet
 				Tooltip:
@@ -1287,14 +1311,19 @@ Mods: {
 				Tooltip: ""
 			}
 
-			TheGoodBoyItem: {
-				DisplayName: The Best Boy
-				Tooltip: "'You will be missed'"
-			}
-
 			DerplingTrophyItem: {
 				DisplayName: Derpling Trophy
 				Tooltip: Obtained in a perfectly normal way
+			}
+
+			PainMusicBoxitem: {
+				DisplayName: Music Box (Pain Remix)
+				Tooltip: Play this to experience true pain
+			}
+
+			TheGoodBoyItem: {
+				DisplayName: The Best Boy
+				Tooltip: "'You will be missed'"
 			}
 
 			BloodDrop: {
@@ -1437,13 +1466,13 @@ Mods: {
 			}
 
 			ShroomitePotion: {
-				DisplayName: Shroomite Ammo Power Potion
-				Tooltip: Increases ammo damage by 10%
+				DisplayName: Shroomite Crit Power Potion
+				Tooltip: Increases ranged critical strike damage by 10%
 			}
 
 			SpectrePotion: {
 				DisplayName: Spectre Empowerment Potion
-				Tooltip: Increases maximum mana by 60
+				Tooltip: Increases magic damage by 15% when below 50% mana
 			}
 
 			SpookyPotion: {
@@ -1623,6 +1652,16 @@ Mods: {
 				Tooltip: Can mine Meteorite
 			}
 
+			Oilcan: {
+				DisplayName: Oil Can
+				Tooltip:
+					'''
+					Left click to fire out a blob of oil that inflicts the oiled debuff onto enemies and town NPCs
+					Right click to set nearby oiled enemies ablaze, consumes 3 cans
+					'Cover your enemies in oil'
+					'''
+			}
+
 			Quack: {
 				DisplayName: Rubber Duck
 				Tooltip: "'QUACK!'"
@@ -1703,6 +1742,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			BossMaskUltimateBoss: {
+				DisplayName: The Painbringer Mask
+				Tooltip: ""
+			}
+
 			PredictorBMask: {
 				DisplayName: Predictor Mask
 				Tooltip: "'Unfortunately this will not increase your brain power'"
@@ -1773,6 +1817,11 @@ Mods: {
 				Tooltip: When the pain is too much
 			}
 
+			UltimateFearMask: {
+				DisplayName: Perfectly Normal Mask
+				Tooltip: "'Why's everybody looking at you like that, you're perfectly normal'"
+			}
+
 			AncientFlame: {
 				DisplayName: Arid Sandblaster
 				Tooltip:
@@ -1796,6 +1845,18 @@ Mods: {
 			AncientStaff: {
 				DisplayName: Arid Sandblast Staff
 				Tooltip: Creates an explosive blast of sand at the cursor's location
+			}
+
+			Bazooka: {
+				DisplayName: Scavanger's Bazooka
+				Tooltip:
+					'''
+					Hold down left click to load up to 6 missiles, release to fire them in a rapid barrage
+					Each fired missile in a barrage does slightly more damage than the last
+					Missiles have a slight spread
+					Uses rockets as ammo
+					'Crudely made, but effective enough'
+					'''
 			}
 
 			BeetleShellWeapon: {
@@ -2887,55 +2948,6 @@ Mods: {
 				DisplayName: Pain Slime Banner
 				Tooltip: Nearby players get a bonus against: Pain Slime
 			}
-
-			PainMusicBoxitem: {
-				DisplayName: Music Box (Pain Remix)
-				Tooltip: Play this to experience true pain
-			}
-
-			BossMaskUltimateBoss: {
-				DisplayName: The Painbringer Mask
-				Tooltip: ""
-			}
-
-			UltimateFearMask: {
-				DisplayName: Perfectly Normal Mask
-				Tooltip: "'Why's everybody looking at you like that, you're perfectly normal'"
-			}
-
-			Oilcan: {
-				DisplayName: Oil Can
-				Tooltip:
-					'''
-					Left click to fire out a blob of oil that inflicts the oiled debuff onto enemies and town NPCs
-					Right click to set nearby oiled enemies ablaze, consumes 3 cans
-					'Cover your enemies in oil'
-					'''
-			}
-
-			SnowfallBMask: {
-				DisplayName: Snowfall Hood
-				Tooltip: 5% increased critical strike chance
-			}
-
-			SnowfallChest: {
-				DisplayName: Snowfall Coat
-				Tooltip: Increases damage by a flat 1
-			}
-
-			SnowfallLeg: {
-				DisplayName: Snowfall Boots
-				Tooltip: 10% increased jump and movement speed
-			}
-
-			SantaBullet: {
-				DisplayName: Santa's Bullet
-				Tooltip:
-					'''
-					Ricochets twice, exploding on the third impact, or on impact with enemies
-					'You must be on the super naughty list to have one of these'
-					'''
-			}
 		}
 
 		NPCs: {
@@ -3323,6 +3335,8 @@ Mods: {
 			MineBombProj.DisplayName: Sticky Mine
 			FlailLockerProj.DisplayName: The Flail Locker Ball
 			LizardArmourProj.DisplayName: Lihzarhd Drone
+			BazookaProj.DisplayName: Scavanger's Bazooka Held
+			BazookaProj2.DisplayName: Bazooka Missile
 		}
 
 		Tiles: {

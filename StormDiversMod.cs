@@ -202,7 +202,7 @@ namespace StormDiversMod
         {
             //Generic for Rocket, Grenade, Mine, and Snowman Cannon
             //Cluster frags x0.75, using frost colours
-            if (projectile.type is ProjectileID.ClusterFragmentsI or ProjectileID.ClusterFragmentsII
+            /*if (projectile.type is ProjectileID.ClusterFragmentsI or ProjectileID.ClusterFragmentsII
                 or ProjectileID.ClusterSnowmanFragmentsI or ProjectileID.ClusterSnowmanFragmentsII)
             {
                 int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionFrostProj>(), 0, 0, projectile.owner);
@@ -243,7 +243,7 @@ namespace StormDiversMod
             {
                 int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
                 Main.projectile[proj].scale = 1.75f;
-            }
+            }*/
 
             base.Kill(projectile, timeLeft);
         }

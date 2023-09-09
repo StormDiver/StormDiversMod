@@ -109,7 +109,7 @@ namespace StormDiversMod.Items.Weapons
         {
             Item.useAmmo = AmmoID.Bullet;
 
-            Item.damage = 90; //Extra 240 damage from base, (90 + 240 = 330 + extra 15% at max charge for 380),                                
+            Item.damage = 80; //Extra 240 damage from base, (90 + 240 = 330 + extra 15% at max charge for 380),    //Now adds ammo damage, so damage averages out                            
                               //~900 dps at  0 frame charge (2    shots per second, 90  base damage)
                               //~997 dps at 15 frame charge (1.33 shots per second, 150 base damage)
                               //~1050dps at 30 frame charge (1    shot  per second, 210 base damage)
@@ -155,6 +155,23 @@ namespace StormDiversMod.Items.Weapons
             }
             return base.CanUseItem(player);
         }*/
+        int ammotime;
+        public override void HoldItem(Player player)
+        {
+            if (player.channel)
+                ammotime++;
+            else
+                ammotime = 0;
+            base.HoldItem(player);
+        }
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            if (ammotime <= 1) //don't consume ammo when first fired, let projectile do it
+                return false;
+            else
+                return true;
+            //return Main.rand.NextFloat() >= 0f;
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.ownedProjectileCounts[Item.shoot] < 1)
@@ -162,6 +179,7 @@ namespace StormDiversMod.Items.Weapons
 
             return false;
         }
+
         /*public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 25f;
@@ -202,10 +220,7 @@ namespace StormDiversMod.Items.Weapons
             }
             return false;
         }*/
-        public override bool CanConsumeAmmo(Item ammo, Player player)
-        {
-            return Main.rand.NextFloat() >= 0f;
-        }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/LunarVortexShotgun_Glow");

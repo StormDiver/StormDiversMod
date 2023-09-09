@@ -22,7 +22,6 @@ namespace StormDiversMod.NPCs
         {
             //DisplayName.SetDefault("Fallen Warrior");
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
-
         }
         public override void SetDefaults()
         {
@@ -91,7 +90,6 @@ namespace StormDiversMod.NPCs
         }
         int shoottime = 0;
 
-
         public override void AI()
         {
             shoottime++;
@@ -102,10 +100,8 @@ namespace StormDiversMod.NPCs
             Player player = Main.player[NPC.target];
           
             if (Vector2.Distance(player.Center, NPC.Center) <= 800f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
-                
             {
-
-                if (shoottime >= 240)
+                if (shoottime >= 200)
                 {
                     float projectileSpeed = 1f; // The speed of your projectile (in pixels per second).
                     int damage = 15; // The damage your projectile deals. normal x2, expert x4
@@ -114,7 +110,6 @@ namespace StormDiversMod.NPCs
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
-
 
                     SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
                     
@@ -141,27 +136,19 @@ namespace StormDiversMod.NPCs
 
                     }
                     shoottime = 0;
-
                 }
-               
             }
             else
             {
-                shoottime = 180;
-
-
+                shoottime = 150;
             }
-
 
             if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
-
                 var dust2 = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 57);
                 //int dust2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 72, projectile.velocity.X, projectile.velocity.Y, 130, default, 1.5f);
                 dust2.noGravity = true;
                 dust2.scale = 1f;
-                
-
             }
             if (Main.rand.Next(2) == 0)
             {
@@ -179,13 +166,12 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            shoottime = 180;
+            //shoottime = 180;
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
                 return;
             }
-            
 
             for (int i = 0; i < 3; i++)
             {

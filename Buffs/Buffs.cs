@@ -73,7 +73,7 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Shroomite Enhancement");
-            //Description.SetDefault("Increases ammo damage by 10%");
+            //Description.SetDefault("Increases ranged crit damage by 10%");
         }
         // code in EquipmentEffects.cs
     }
@@ -84,12 +84,14 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Spectre Enhancement");
-            //Description.SetDefault("Maximum mana increased by 60");
+            //Description.SetDefault("Magic damage increased by 15% when below half mana");
         }
         public override void Update(Player player, ref int buffIndex)
         {
-
-            player.statManaMax2 += 60;
+            if (player.statMana < player.statManaMax2 * 0.5f)
+            {
+                player.GetDamage(DamageClass.Magic) += 0.15f;
+            }
         }
     }
     //_______________________________________________________________________________

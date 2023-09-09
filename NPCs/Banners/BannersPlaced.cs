@@ -238,7 +238,6 @@ namespace StormDiversMod.NPCs.Banners
             //name.SetDefault("Star Hopper Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<StardustDerpBannerItem>());//this defines what to drop when this tile is destroyed

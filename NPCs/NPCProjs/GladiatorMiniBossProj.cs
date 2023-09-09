@@ -27,7 +27,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.height = 18;
             Projectile.friendly = false;
             Projectile.penetrate = 2;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 180;
             Projectile.aiStyle = 0;
             Projectile.tileCollide = false;
             Projectile.hostile = true;
@@ -40,11 +40,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 for (int i = 0; i < 10; i++)
                 {
-
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 57);
                     dust2.noGravity = true;
                     dust2.velocity *= 3;
-
                 }
             }
 
@@ -56,7 +54,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.height, Projectile.width, 57, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
             dust.noGravity = true;
 
-            if (Projectile.ai[0] <= 80)
+            if (Projectile.ai[0] <= 100 && Projectile.ai[0] >= 20)
             {
                 Projectile.velocity.X *= 1.04f;
                 Projectile.velocity.Y *= 1.04f;

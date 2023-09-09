@@ -210,6 +210,7 @@ namespace StormDiversMod.Basefiles
         }
 
         //===============================================================================================================
+        
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
             if (mushChestplate)
@@ -219,18 +220,21 @@ namespace StormDiversMod.Basefiles
                     damage.Flat += 1;
                 }
             }
-            if (Player.HasBuff(BuffType<ShroomiteBuff>()))//If the player has the shroomite potion then 10% increase ammo damage
+
+
+           //Doesn't work, displayed ammo damage increases like normal, but actual damage doesn't
+            /*if (Player.HasBuff(BuffType<ShroomiteBuff>()))//If the player has the shroomite potion then 10% increase ammo damage
             {
                 if (item.CountsAsClass(DamageClass.Ranged) && item.ammo != 0)
                 {
-                    damage *= 1.1f;
+                    damage *= 10.1f;
                     if (item.damage <= 10)
                     {
                         damage.Flat += 1;
                     }
 
                 }
-            }
+            }*/
             //for Enchanted Mushroom
             if (item.ammo == 0)
             {
@@ -260,9 +264,9 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
-       
         public override void PostUpdateEquips() //Updates every frame
         {
+
             //Reduces ints if they are above 0 and not in the equip field
             if (beetleFist)
             {

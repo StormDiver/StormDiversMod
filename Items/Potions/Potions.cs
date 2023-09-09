@@ -55,8 +55,8 @@ namespace StormDiversMod.Items.Potions
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Shroomite Ammo Power Potion");
-            //Tooltip.SetDefault("Increases ammo damage by 10%");
+            //DisplayName.SetDefault("Shroomite Crit Power Potion");
+            //Tooltip.SetDefault("Increases ranged critical strike damage by 10%");
             Item.ResearchUnlockCount = 20;
         }
 
@@ -95,7 +95,7 @@ namespace StormDiversMod.Items.Potions
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Spectre Empowerment Potion");
-            //Tooltip.SetDefault("Increases maximum mana by 60");
+            //Tooltip.SetDefault("Increases magic damage by 15% when below 50% mana");
             Item.ResearchUnlockCount = 20;
 
         }

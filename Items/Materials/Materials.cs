@@ -207,7 +207,7 @@ namespace StormDiversMod.Items.Materials
             //Tooltip.SetDefault("'Almost devoid of life'");
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             Item.ResearchUnlockCount = 25;
-
+            
         }
         public override void PostUpdate()
         {
@@ -215,6 +215,8 @@ namespace StormDiversMod.Items.Materials
             {
                 Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.2f * Main.essScale);
             }
+            if (Item.lavaWet && Item.velocity.Y > -2f)
+                Item.velocity.Y -= 0.25f;
         }
         public override void SetDefaults()
         {
@@ -225,7 +227,10 @@ namespace StormDiversMod.Items.Materials
             Item.rare = ItemRarityID.Orange;
        
         }
-       
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
     }
     //____________________________________________________________________________________
     public class BloodDrop : ModItem

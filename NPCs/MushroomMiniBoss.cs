@@ -224,17 +224,14 @@ namespace StormDiversMod.NPCs
                     npcframe = 0;
                 }
             }
-
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             
-              
-            
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            shoottime = 70;
+            //shoottime = 70;
             summoning = false;
             if (Main.netMode == NetmodeID.Server)
             {

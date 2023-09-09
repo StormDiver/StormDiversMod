@@ -45,7 +45,7 @@ namespace StormDiversMod.Items.Weapons
         {
             Recipe recipe = Recipe.Create(ModContent.ItemType<StickyBomb>(), 20);
             recipe.AddIngredient(ItemID.Bomb, 20);
-            recipe.AddIngredient(ItemID.Spike, 1);
+            recipe.AddRecipeGroup("StormDiversMod:EvilBars", 1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
 

@@ -180,7 +180,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
             Item.width = 10;
             Item.height = 24;
             Item.maxStack = 9999;
