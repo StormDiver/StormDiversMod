@@ -20,7 +20,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Scavanger's Bazooka");
+            //DisplayName.SetDefault("Scavenger's Bazooka");
             //Tooltip.SetDefault("//Hold down left click to load up to 6 missiles, release to fire them in a rapid barrage
             //Each fired missile in a barrage does slightly more damage than the last
             //Missiles have a slight spread

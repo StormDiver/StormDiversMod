@@ -52,28 +52,27 @@ namespace StormDiversMod.Items.Accessory
             player.statLifeMax2 += 20;
         }          
     }
+    [AutoloadEquip(EquipType.Neck)]
+
     public class HeartJarPS : ModItem
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Philosopher's Heart");
-            //Tooltip.SetDefault("Reduces the cooldown of healing potions by 25%\nEnemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
+            //DisplayName.SetDefault("Heart Charm");
+            //Tooltip.SetDefault("Provides life regeneration and reduces the cooldown of healing potions by 25%\nEnemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             Item.ResearchUnlockCount = 1;
-
         }     
         public override void SetDefaults()
         {
             Item.width = 22;
             Item.height = 26;
 
-            Item.value = Item.sellPrice(0, 2, 50, 0);
-            Item.rare = ItemRarityID.LightRed;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.rare = ItemRarityID.Pink;
 
             Item.accessory = true;
-            
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -81,13 +80,14 @@ namespace StormDiversMod.Items.Accessory
             player.GetModPlayer<EquipmentEffects>().heartSteal = true;
             player.statLifeMax2 += 20;
             player.pStone = true;
+            player.lifeRegen = +2;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<HeartJar>(), 1)
-            .AddIngredient(ItemID.PhilosophersStone, 1)
+            .AddIngredient(ItemID.CharmofMyths, 1)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
 

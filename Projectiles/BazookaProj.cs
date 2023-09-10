@@ -104,7 +104,7 @@ namespace StormDiversMod.Projectiles
                 if (rocketcharge >= 6)
                 {
                     CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.Red, "MAX", false);
-                    SoundEngine.PlaySound(SoundID.Item38 with { Volume = 0.75f, Pitch = -0.5f}, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item14 with { Volume = 0.5f, Pitch = 0f}, Projectile.Center);
 
                 }
                 else

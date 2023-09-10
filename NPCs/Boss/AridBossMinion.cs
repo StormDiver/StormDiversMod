@@ -206,6 +206,8 @@ namespace StormDiversMod.NPCs.Boss
                 if (distance >= 300) //extra projectil velcoity if too far away
                 {
                     extravel = (distance - 300) / 50; // add 1 velocity for ever 50 pixels away over 400
+                    if (extravel > 600)
+                        extravel = 600;
                 }
                 else
                 {

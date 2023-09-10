@@ -1,5 +1,7 @@
 Mods: {
 	StormDiversMod: {
+		//Hello Chinese translators :)
+		
 		"Keybinds.Armor Special Ability.DisplayName": Armor Special Ability
 
 		GameTips: {
@@ -557,10 +559,10 @@ Mods: {
 			}
 
 			HeartJarPS: {
-				DisplayName: Philosopher's Heart
+				DisplayName: Heart Charm
 				Tooltip:
 					'''
-					Reduces the cooldown of healing potions by 25%
+					Provides life regeneration and reduces the cooldown of healing potions by 25%
 					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50
 					Enemies that grant you health lose life rapidly
 					Increases maximum health by 20
@@ -1848,7 +1850,7 @@ Mods: {
 			}
 
 			Bazooka: {
-				DisplayName: Scavanger's Bazooka
+				DisplayName: Scavenger's Bazooka
 				Tooltip:
 					'''
 					Hold down left click to load up to 6 missiles, release to fire them in a rapid barrage
@@ -3335,7 +3337,7 @@ Mods: {
 			MineBombProj.DisplayName: Sticky Mine
 			FlailLockerProj.DisplayName: The Flail Locker Ball
 			LizardArmourProj.DisplayName: Lihzarhd Drone
-			BazookaProj.DisplayName: Scavanger's Bazooka Held
+			BazookaProj.DisplayName: Scavenger's Bazooka Held
 			BazookaProj2.DisplayName: Bazooka Missile
 		}
 
