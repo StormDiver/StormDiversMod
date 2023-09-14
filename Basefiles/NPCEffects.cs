@@ -265,7 +265,7 @@ namespace StormDiversMod.Basefiles
                 {
                     if (!npc.GetGlobalNPC<NPCEffects>().heartStolen)//Makes sure this only happens once
                     {
-                        if (!npc.boss) //non bosses
+                        if (!npc.boss || npc.type == ModContent.NPCType<AridBossMinion>() || npc.type == ModContent.NPCType<TheUltimateBossMinion>() || npc.type == NPCID.EaterofWorldsBody) //non bosses
                         {
                             if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and to heal player
                             {
@@ -273,7 +273,7 @@ namespace StormDiversMod.Basefiles
                                 //Main.LocalPlayer.statLife += 20;
                                 //Main.LocalPlayer.HealEffect(20, true);                               
 
-                                Main.player[Main.myPlayer].lifeSteal -= 20;
+                                //Main.player[Main.myPlayer].lifeSteal -= 20;
                                 Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 20); //Damage
 
                                 //Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("TESTER."), new Color(224, 141, 255));
@@ -295,8 +295,8 @@ namespace StormDiversMod.Basefiles
                         }
                         else //for bosses
                         {
-                            Main.player[Main.myPlayer].lifeSteal -= 20;
-                            Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 50); //Damage
+                            //Main.player[Main.myPlayer].lifeSteal -= 75;
+                            Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 75); //Damage
 
                             SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
                             for (int i = 0; i < 15; i++)
@@ -601,18 +601,17 @@ namespace StormDiversMod.Basefiles
             }
             if (heartDebuff)
             {
-                if (Main.rand.Next(4) < 3)
+                int dust = Dust.NewDust(npc.position, npc.width, npc.height, 115, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default, 1f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 1f;
+                Main.dust[dust].velocity.Y -= 0.5f;
+                if (Main.rand.NextBool(4))
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 72, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, default, 1f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    if (Main.rand.NextBool(4))
-                    {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
-                    }
+                    Main.dust[dust].noGravity = false;
+                    Main.dust[dust].scale *= 0.5f;
                 }
+                int dust2 = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 115, 0, 2, 0, default, 1f);
+                Main.dust[dust2].noGravity = true;
 
             }
             if (superFrost)

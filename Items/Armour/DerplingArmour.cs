@@ -68,8 +68,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Greatly increases jump and ascent speed, and allows auto jumping\nHold DOWN to increase falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
-
+            //player.setBonus = "Greatly increases jump and ascent speed, and allows auto jumping\nHold DOWN to increase falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().derpJump = true;
 
         }
@@ -146,8 +146,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Greatly increases jump and ascent speed, and allows auto jumping\nHold DOWN to increase falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
-
+            //player.setBonus = "Greatly increases jump and ascent speed, and allows auto jumping\nHold DOWN to increase falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().derpJump = true;
 
         }

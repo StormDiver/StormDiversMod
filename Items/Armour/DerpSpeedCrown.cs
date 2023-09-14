@@ -65,12 +65,14 @@ namespace StormDiversMod.Items.Armour
         {
             if (player.armor[1].type == ItemID.GoldChainmail && player.armor[2].type == ItemID.GoldGreaves)
             {
-                player.setBonus = "3 defense";
+                //player.setBonus = "3 defense";
+                player.setBonus = this.GetLocalization("SetBonus1").Value;
                 player.statDefense += 3;
             }
             else if (player.armor[1].type == ItemID.PlatinumChainmail && player.armor[2].type == ItemID.PlatinumGreaves)
             {
-                player.setBonus = "5 defense";
+                //player.setBonus = "5 defense";
+                player.setBonus = this.GetLocalization("SetBonus2").Value;
                 player.statDefense += 5;
             }
         }

@@ -27,13 +27,6 @@ namespace StormDiversMod.Items.Accessory
         {
             foreach (TooltipLine line in tooltips)
             {
-                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
-                {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                    {
-                        line.Text = "50% increased running speed";
-                    }
-                }
 
             }
         }

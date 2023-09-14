@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -14,21 +15,26 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.StyleWrapLimit = 111;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Baby Derpling Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*/*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<BabyDerpBannerItem>());//this defines what to drop when this tile is destroyed
@@ -54,21 +60,26 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Camouflaged Derpling Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<VineDerpBannerItem>());//this defines what to drop when this tile is destroyed
@@ -87,27 +98,32 @@ namespace StormDiversMod.NPCs.Banners
         {
             public override void SetStaticDefaults()
             {
-                Main.tileFrameImportant[Type] = true;
-                Main.tileNoAttach[Type] = true;
-                Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-                TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-                TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-                TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-                TileObjectData.newTile.StyleHorizontal = true;
-                TileObjectData.newTile.StyleWrapLimit = 111;
-                TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-                TileObjectData.addTile(Type);
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
+            TileObjectData.addTile(Type);
 
-                LocalizedText name = CreateMapEntryName();
+            LocalizedText name = CreateMapEntryName();
                 //name.SetDefault("Scandrone Banner");
                 AddMapEntry(new Color(13, 88, 130), name);
             }
 
-            /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<ScanDroneBannerItem>());//this defines what to drop when this tile is destroyed
+        }*/
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
             {
-                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<ScanDroneBannerItem>());//this defines what to drop when this tile is destroyed
-            }*/
-
+                offsetY -= 8;
+            }
+        }
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
         {
             if (closer)     //so if a player is close to the banner
@@ -121,22 +137,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Storm Hopper Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<StormDerpBannerItem>());//this defines what to drop when this tile is destroyed
@@ -155,22 +176,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Vortexian Cannon Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<VortCannonBannerItem>());//this defines what to drop when this tile is destroyed
@@ -189,22 +215,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Brain Hopper Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<NebulaDerpBannerItem>());//this defines what to drop when this tile is destroyed
@@ -223,15 +254,10 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
@@ -242,13 +268,23 @@ namespace StormDiversMod.NPCs.Banners
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<StardustDerpBannerItem>());//this defines what to drop when this tile is destroyed
         }*/
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
         {
             if (closer)  //so if a player is close to the banner
             {
                 Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.StardustDerp>()] = true;
-                Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.StardustMiniDerp>()] = true;
+               // Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.StardustMiniDerp>()] = true;
 
                 Main.SceneMetrics.hasBanner = true;
             }
@@ -258,22 +294,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Blazing Hopper Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SolarDerpBannerItem>());//this defines what to drop when this tile is destroyed
@@ -292,22 +333,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Moonling Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<MoonDerpBannerItem>());//this defines what to drop when this tile is destroyed
@@ -326,19 +372,25 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Asteroid Orbiter Banner");
             AddMapEntry(new Color(13, 88, 130), name);
+        }
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
         }
 
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
@@ -361,22 +413,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Asteroid Charger Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<SpaceRockHeadLargeBannerItem>());//this defines what to drop when this tile is destroyed
@@ -395,22 +452,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Fallen Champion Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<GladiatorMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
@@ -429,22 +491,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Surged Granite Core Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<GraniteMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
@@ -464,22 +531,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Heartless Soul Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<HellSoulBannerItem>());//this defines what to drop when this tile is destroyed
@@ -498,22 +570,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Angry Mushroom Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<MushroomMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
@@ -532,22 +609,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Temple Guardian Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<GolemMinionBannerItem>());//this defines what to drop when this tile is destroyed
@@ -566,22 +648,26 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Soul Cauldron Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<HellMiniBossBannerItem>());//this defines what to drop when this tile is destroyed
@@ -592,7 +678,7 @@ namespace StormDiversMod.NPCs.Banners
             if (closer)  //so if a player is close to the banner
             {      
                 Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.HellMiniBoss>()] = true;
-                Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.HellMiniBossMinion>()] = true;
+                //Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.HellMiniBossMinion>()] = true;
 
                 Main.SceneMetrics.hasBanner = true;
             }
@@ -602,22 +688,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Frigid Snowflake Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<IceCoreBannerItem>());//this defines what to drop when this tile is destroyed
@@ -636,19 +727,25 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
-            TileObjectData.addTile(Type);        
+            TileObjectData.addTile(Type);
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Dune Blaster Banner");
             AddMapEntry(new Color(13, 88, 130), name);
+        }
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
         }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
@@ -668,22 +765,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Meteor Bomber Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<MeteorDropperBannerItem>());//this defines what to drop when this tile is destroyed
@@ -703,22 +805,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            
+
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Lihzahrd Flametrap Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<GolemSentryBannerItem>());//this defines what to drop when this tile is destroyed
@@ -737,22 +844,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Frozen Eyefish Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FrozenEyeBannerItem>());//this defines what to drop when this tile is destroyed
@@ -771,22 +883,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Frozen Spirit Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FrozenSoulBannerItem>());//this defines what to drop when this tile is destroyed
@@ -805,22 +922,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Pain Slime Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FrozenSoulBannerItem>());//this defines what to drop when this tile is destroyed
@@ -839,22 +961,27 @@ namespace StormDiversMod.NPCs.Banners
     {
         public override void SetStaticDefaults()
         {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);//
-            TileObjectData.newTile.Height = 3;  //this is how many parts the sprite is devided (height)
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };  //this is how many pixels are in each devided part(pink square) (height)   so there are 3 parts with 16 x 16
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
-            TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
             //name.SetDefault("Clay Slime Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FrozenSoulBannerItem>());//this defines what to drop when this tile is destroyed

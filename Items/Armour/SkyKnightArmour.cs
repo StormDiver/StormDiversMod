@@ -60,11 +60,10 @@ namespace StormDiversMod.Items.Armour
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Summons a floating star above you that launches mini homing stars at enemies";
-
+            //player.setBonus = "Summons a floating star above you that launches mini homing stars at enemies";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().skyKnightSet = true;
-
         }
 
         public override void AddRecipes()

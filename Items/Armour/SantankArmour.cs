@@ -78,8 +78,8 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "Charge up to 10 homing missiles over time, pressing '"+ keyName+ "' will fire however many are loaded"; 
-
+            //player.setBonus = "Charge up to 10 homing missiles over time, pressing '"+ keyName+ "' will fire however many are loaded";
+            player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
             player.GetModPlayer<ArmourSetBonuses>().santankSet = true;
 
 

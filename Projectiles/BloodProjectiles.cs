@@ -31,13 +31,13 @@ namespace StormDiversMod.Projectiles
             Projectile.aiStyle = 2;
             //Projectile.CloneDefaults(48);
             //aiType = 48;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 1;
             Projectile.timeLeft = 300;
             Projectile.knockBack = 1f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
         }
-        bool bloodspray = true;
+        bool bloodspray;
         public override void AI()
         {
 
@@ -58,14 +58,14 @@ namespace StormDiversMod.Projectiles
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.Center;
                 dust = Terraria.Dust.NewDustPerfect(position, 115, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
-                if (bloodspray)
+                if (!bloodspray)
                 {
                     dust.noGravity = true;
                 }
 
             }
 
-            if (!bloodspray)
+            if (bloodspray)
             {
                 Projectile.velocity.X = 0;
                 //Projectile.velocity.Y = 0;
@@ -81,11 +81,12 @@ namespace StormDiversMod.Projectiles
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
 
-            if (bloodspray)
+            if (!bloodspray)
             {
+                Projectile.penetrate = 6;
                 SoundEngine.PlaySound(SoundID.NPCHit13, Projectile.Center);
             }
-            bloodspray = false;
+            bloodspray = true;
 
             //Projectile.timeLeft = 100;
             return false;

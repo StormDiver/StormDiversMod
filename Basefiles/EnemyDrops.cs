@@ -154,7 +154,7 @@ namespace StormDiversMod.Basefiles
             if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneDungeon) //Twilight pet
             {
 
-                if (!npc.friendly && npc.lifeMax > 5 && npc.type != NPCID.TheHungry && npc.type != NPCID.TheHungryII)
+                if (!npc.friendly && npc.lifeMax > 5)
 
                 {
                     if (Main.rand.Next(150) == 0)
@@ -164,7 +164,7 @@ namespace StormDiversMod.Basefiles
 
                 }
             }
-            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneSkyHeight && NPC.downedMoonlord) //Moonling Summoner
+            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneSkyHeight && NPC.downedMoonlord && !npc.friendly && npc.lifeMax > 5) //Moonling Summoner
             {
                 if (Main.rand.Next(100) == 0)
                 {
@@ -172,14 +172,14 @@ namespace StormDiversMod.Basefiles
                 }
             }
             if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUnderworldHeight && !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight &&
-                !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneNormalUnderground && Main.IsItStorming && StormWorld.stormBossDown == false) //StormBoss Summoner
+                !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneNormalUnderground && Main.IsItStorming && StormWorld.stormBossDown == false && !npc.friendly && npc.lifeMax > 5) //StormBoss Summoner
             {
                 if (Main.rand.Next(50) == 0)
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.StormBossSummoner>());
                 }
             }
-            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUndergroundDesert && NPC.downedBoss3 && StormWorld.aridBossDown == false) //AridBoss Summoner
+            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUndergroundDesert && NPC.downedBoss3 && StormWorld.aridBossDown == false && !npc.friendly && npc.lifeMax > 5) //AridBoss Summoner
             {
                 if (Main.rand.Next(50) == 0)
                 {
@@ -188,7 +188,8 @@ namespace StormDiversMod.Basefiles
             }
 
             if ((Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || 
-                Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>()) && NPC.downedMoonlord) //pan summoenr
+                Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>()) && NPC.downedMoonlord
+                && !npc.friendly && npc.lifeMax > 5) //pan summoenr
             {
                 if (Main.rand.Next(25) == 0)
                 {

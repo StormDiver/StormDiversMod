@@ -45,7 +45,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Main.dust[dustIndex].noGravity = true;
 
             Projectile.ai[0]++;
-            Projectile.rotation = Projectile.ai[0] *= 3;
+            Projectile.rotation++;
 
             if (Projectile.ai[0] == 1)
             {

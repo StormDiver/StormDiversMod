@@ -82,7 +82,8 @@ namespace StormDiversMod.Items.Armour
             {
                 keyName = list[0];
             }
-            player.setBonus = "Press '" + keyName + "' to warp to the cursor's location within a limited range\nWarping has a hard 8 second cooldown\n'Teleporting is just dashing at the speed of light'"; 
+            //player.setBonus = "Press '" + keyName + "' to warp to the cursor's location within a limited range\nWarping has a hard 8 second cooldown\n'Teleporting is just dashing at the speed of light'"; 
+            player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             //player.endurance += 0.1f;
             //player.blackBelt = true;

@@ -75,7 +75,8 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "Holding down '" + keyName + "' while grounded grants damage resistance and immunity to knockback, but lowers movement speed";
+            //player.setBonus = "Holding down '" + keyName + "' while grounded grants damage resistance and immunity to knockback, but lowers movement speed";
+            player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             if (StormDiversMod.ArmourSpecialHotkey.Current && player.velocity.Y == 0)
             {

@@ -62,8 +62,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Critical hits create an explosion from the struck enemy which damages nearby enemies";
-
+            //player.setBonus = "Critical hits create an explosion from the struck enemy which damages nearby enemies";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().aridCritSet = true;
    
         }

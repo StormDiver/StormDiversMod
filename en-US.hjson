@@ -1,7 +1,5 @@
 Mods: {
 	StormDiversMod: {
-		//Hello Chinese translators :)
-		
 		"Keybinds.Armor Special Ability.DisplayName": Armor Special Ability
 
 		GameTips: {
@@ -552,9 +550,8 @@ Mods: {
 				DisplayName: Life Emblem
 				Tooltip:
 					'''
-					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50
+					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 75
 					Enemies that grant you health lose life rapidly
-					Increases maximum health by 20
 					'''
 			}
 
@@ -563,9 +560,8 @@ Mods: {
 				Tooltip:
 					'''
 					Provides life regeneration and reduces the cooldown of healing potions by 25%
-					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50
+					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 75
 					Enemies that grant you health lose life rapidly
-					Increases maximum health by 20
 					'''
 			}
 
@@ -838,6 +834,7 @@ Mods: {
 			AridBMask: {
 				DisplayName: Arid Mask
 				Tooltip: 5% increased critical strike chance
+				SetBonus: Critical hits create an explosion from the struck enemy which damages nearby enemies
 			}
 
 			AridChestplate: {
@@ -857,6 +854,7 @@ Mods: {
 			BloodBHelmet: {
 				DisplayName: Hemoglobin Helmet
 				Tooltip: 4% increased melee damage and critical strike chance
+				SetBonus: Multiple damaging blood orbs burst out of you upon striking an enemy with a melee weapon
 			}
 
 			BloodChainmail: {
@@ -885,6 +883,17 @@ Mods: {
 					7% increased damage
 					'Cold and Misty'
 					'''
+				SetBonus1:
+					'''
+					Grants immunity to all cold themed debuffs
+					Makes all sentries inflict Frostbite
+					Press
+					'''
+				SetBonus2:
+					'''
+					to summon a cryo cloud at the cursor that rains down icicles
+					Requires a line of sight and has a 5 second cooldown
+					'''
 			}
 
 			ContestArmourChestplate: {
@@ -909,6 +918,8 @@ Mods: {
 			DerplingBCrown: {
 				DisplayName: Messenger's Crown
 				Tooltip: Increases movement speed and acceleration
+				SetBonus1: 3 defense
+				SetBonus2: 5 defense
 			}
 
 			DerplingBHeadgear: {
@@ -918,6 +929,12 @@ Mods: {
 					10% increased damage
 					5% increased critical strike chance
 					'''
+				SetBonus:
+					'''
+					Greatly increases jump and ascent speed, and allows auto jumping
+					Hold DOWN to increase falling speed
+					Creates a large shockwave upon jumping that launches nearby enemies into the air
+					'''
 			}
 
 			DerplingBMask: {
@@ -926,6 +943,12 @@ Mods: {
 					'''
 					10% increased damage
 					5% increased critical strike chance
+					'''
+				SetBonus:
+					'''
+					Greatly increases jump and ascent speed, and allows auto jumping
+					Hold DOWN to increase falling speed
+					Creates a large shockwave upon jumping that launches nearby enemies into the air
 					'''
 			}
 
@@ -950,6 +973,8 @@ Mods: {
 			GraniteBMask: {
 				DisplayName: Granite Mask
 				Tooltip: 2% increased melee damage and critical strike chance
+				SetBonus1: Holding down
+				SetBonus2: while grounded grants damage resistance and immunity to knockback, but lowers movement speed
 			}
 
 			GraniteChestplate: {
@@ -973,6 +998,13 @@ Mods: {
 					15% increased summoner damage
 					Increases maximum number of minions by 2
 					'''
+				SetBonus1:
+					'''
+					Increases maximum number of minions by 1
+					Charges up a powerful Inferno Storm over 10 seconds
+					Press
+					'''
+				SetBonus2: once charged to unleash the storm upon up to 15 nearby enemies
 			}
 
 			HellSoulBHelmet: {
@@ -982,6 +1014,13 @@ Mods: {
 					10% increased ranged damage
 					8% increased ranged critical strike chance
 					'''
+				SetBonus1:
+					'''
+					25% chance not to consume ammo 
+					Charges up a powerful Inferno Storm over 10 seconds
+					Press
+					'''
+				SetBonus2: once charged to unleash the storm upon up to 15 nearby enemies
 			}
 
 			HellSoulBHood: {
@@ -992,6 +1031,13 @@ Mods: {
 					6% increased critical strike chance
 					Increases maximum mana by 60
 					'''
+				SetBonus1:
+					'''
+					18% reduced mana usage
+					Charges up a powerful Inferno Storm over 10 seconds
+					Press
+					'''
+				SetBonus2: once charged to unleash the storm upon up to 15 nearby enemies
 			}
 
 			HellSoulBMask: {
@@ -1001,6 +1047,13 @@ Mods: {
 					14% increased melee damage
 					5% increased melee critical strike chance
 					'''
+				SetBonus1:
+					'''
+					20% increased melee speed
+					Charges up a powerful Inferno Storm over 10 seconds
+					Press
+					'''
+				SetBonus2: once charged to unleash the storm upon up to 15 nearby enemies
 			}
 
 			HellSoulChestplate: {
@@ -1029,6 +1082,7 @@ Mods: {
 					3% increased ranged critical strike chance
 					'There's not mushroom in there'
 					'''
+				SetBonus: Has a chance to summon a damaging mushroom onto attacked enemies
 			}
 
 			MushroomChestplate: {
@@ -1047,6 +1101,13 @@ Mods: {
 					'''
 					6% increased damage
 					10% increased critical strike chance
+					'''
+				SetBonus1: Press
+				SetBonus2:
+					'''
+					to warp to the cursor's location within a limited range
+					Warping has a hard 8 second cooldown
+					'Teleporting is just dashing at the speed of light'
 					'''
 			}
 
@@ -1077,6 +1138,13 @@ Mods: {
 					6% increased damage
 					10% increased critical strike chance
 					'''
+				SetBonus1: Press
+				SetBonus2:
+					'''
+					to warp to the cursor's location within a limited range
+					Warping has a hard 8 second cooldown
+					'Teleporting is just dashing at the speed of light'
+					'''
 			}
 
 			NightsOldChainmail: {
@@ -1102,6 +1170,8 @@ Mods: {
 			RainBoots: {
 				DisplayName: Rain Boots
 				Tooltip: ""
+				SetBonus1: 50% increased Movement Speed while raining
+				SetBonus2: 15% increased Movement Speed while raining
 			}
 
 			SantankBMask: {
@@ -1111,6 +1181,8 @@ Mods: {
 					12% increased ranged damage
 					8% increased ranged critical strike chance
 					'''
+				SetBonus1: Charge up to 10 homing missiles over time, pressing
+				SetBonus2: will fire however many are loaded
 			}
 
 			SantankChestplate: {
@@ -1140,6 +1212,11 @@ Mods: {
 					10% increased whip speed
 					8% increased summoner damage
 					'''
+				SetBonus:
+					'''
+					Whips inflict shadowflame upon enemies
+					Enemies inflicted with shadowflame take extra damage when hit
+					'''
 			}
 
 			ShadowFlameChestplate: {
@@ -1165,6 +1242,7 @@ Mods: {
 			SkyKnightBMask: {
 				DisplayName: Star Warrior Visage
 				Tooltip: 7% increased damage
+				SetBonus: Summons a floating star above you that launches mini homing stars at enemies
 			}
 
 			SkyKnightChest: {
@@ -1188,6 +1266,11 @@ Mods: {
 			SnowfallBMask: {
 				DisplayName: Snowfall Hood
 				Tooltip: 5% increased critical strike chance
+				SetBonus:
+					'''
+					Hold JUMP to glide
+					Hold UP while gliding to glide even slower
+					'''
 			}
 
 			SnowfallChest: {
@@ -1207,6 +1290,7 @@ Mods: {
 					15% increased damage
 					8% increased critical strike chance
 					'''
+				SetBonus: Grants the Orbital Strike buff that causes asteroid boulders to fall upon the next attacked enemy
 			}
 
 			SpaceRockBMask: {
@@ -1215,6 +1299,12 @@ Mods: {
 					'''
 					5% increased damage
 					Increases health regeneration and grants immunity to knockback
+					'''
+				SetBonus:
+					'''
+					Grants the Orbital Defense buff that reduces damage of the next attack by 25% 
+					Also summons damaging asteroid boulders from the sky
+					Isn't activated if the attack only deals 1 damage
 					'''
 			}
 
@@ -1244,6 +1334,12 @@ Mods: {
 					10% increased whip range and speed
 					15% increased summoner damage
 					Increases maximum minions by 1
+					'''
+				SetBonus:
+					'''
+					Striking an enemy with a whip summons a Lihzahrd drone which orbits the tagged enemy
+					The Drone closes in on the enemy, and explodes
+					The drone will also explode if the enemy is killed or loses the tag
 					'''
 			}
 

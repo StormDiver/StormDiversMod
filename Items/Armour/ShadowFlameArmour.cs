@@ -79,8 +79,8 @@ namespace StormDiversMod.Items.Armour
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Whips inflict shadowflame upon enemies\nEnemies inflicted with shadowflame take extra damage when hit";
-
+            //player.setBonus = "Whips inflict shadowflame upon enemies\nEnemies inflicted with shadowflame take extra damage when hit";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().shadowflameSet = true;
         }
 

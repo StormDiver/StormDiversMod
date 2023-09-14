@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Life Emblem");
-            //Tooltip.SetDefault("Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
+            //Tooltip.SetDefault("Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 75\nEnemies that that grant you health lose life rapidly");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             Item.ResearchUnlockCount = 1;
@@ -49,7 +49,6 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EquipmentEffects>().heartSteal = true;
-            player.statLifeMax2 += 20;
         }          
     }
     [AutoloadEquip(EquipType.Neck)]
@@ -59,7 +58,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Heart Charm");
-            //Tooltip.SetDefault("Provides life regeneration and reduces the cooldown of healing potions by 25%\nEnemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 50\nEnemies that that grant you health lose life rapidly\nIncreases maximum health by 20");
+            //Tooltip.SetDefault("Provides life regeneration and reduces the cooldown of healing potions by 25%\nEnemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 75\nEnemies that that grant you health lose life rapidly");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(8, 6));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             Item.ResearchUnlockCount = 1;
@@ -78,7 +77,6 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EquipmentEffects>().heartSteal = true;
-            player.statLifeMax2 += 20;
             player.pStone = true;
             player.lifeRegen = +2;
         }

@@ -23,25 +23,7 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            foreach (TooltipLine line in tooltips)
-            {
-                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
-                {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                    {
-                        line.Text = "";
-                    }
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                    {
-                        line.Text = "25% increased melee weapon size and 50% increased melee velocity";
-                    }
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip4")
-                    {
-                        line.Text = "";
-                    }
-                }
-
-            }
+           
         }
         public override void SetDefaults()
         {
@@ -60,19 +42,8 @@ namespace StormDiversMod.Items.Accessory
             player.GetModPlayer<EquipmentEffects>().beetleFist = true;
             player.autoReuseGlove = true;
             player.kbGlove = true;
-            player.meleeScaleGlove = true; //keep with TRAE as it does not affect TRAE spears yet
-
-
-            /*if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
-            {
-                player.GetModPlayer<TRAEchanges.MeleeStats>().weaponSize += 0.25f;
-                player.GetModPlayer<TRAEchanges.MeleeStats>().meleeVelocity += 0.5f;
-            }
-            else*/
-            {
-                player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
-
-            }
+            player.meleeScaleGlove = true;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
         }
 
 

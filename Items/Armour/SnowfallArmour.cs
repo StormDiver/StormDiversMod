@@ -63,7 +63,9 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Hold JUMP to glide\nHold UP while gliding to glide even slower";
+            //player.setBonus = "Hold JUMP to glide\nHold UP while gliding to glide even slower";
+
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().snowfallSet = true;
 
         }

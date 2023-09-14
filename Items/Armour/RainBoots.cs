@@ -36,12 +36,12 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            
+
         }
 
         public override void ArmorSetShadows(Player player)
         {
-            
+
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -52,25 +52,21 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-                if (Main.raining)
-                {
+            if (Main.raining)
+            {
 
-                    player.AddBuff(ModContent.BuffType<RainBuff>(), 2);
-                }
+                player.AddBuff(ModContent.BuffType<RainBuff>(), 2);
+            }
             if (ModLoader.HasMod("TRAEProject"))
             {
-                player.setBonus = "15% increased Movement Speed while raining";
+                //player.setBonus = "15% increased Movement Speed while raining";
+                player.setBonus = this.GetLocalization("SetBonus2").Value;
             }
             else
             {
-                player.setBonus = "50% increased Movement Speed while raining";
+               //player.setBonus = "50% increased Movement Speed while raining";
+                player.setBonus = this.GetLocalization("SetBonus1").Value;
             }
         }
-    
-      
-       
     }
-
-   
-
 }

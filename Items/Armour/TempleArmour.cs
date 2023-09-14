@@ -37,7 +37,7 @@ namespace StormDiversMod.Items.Armour
             {
                 if (!NPC.downedPlantBoss)
                 {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
                         line.Text = line.Text + "\nYou shouldn't have this yet >:(";
                     }
@@ -77,7 +77,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-             player.setBonus = "Striking an enemy with a whip summons a Lihzahrd drone which orbits the tagged enemy, closes in on it, and explodes\nThe drone will explode if the enemy is killed or loses the tag";
+            //player.setBonus = "Striking an enemy with a whip summons a Lihzahrd drone which orbits the tagged enemy\nThe Drone closes in on the enemy, and explodes\nThe drone will also explode if the enemy is killed or loses the tag";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().LizardSet = true;
         }
         public override void AddRecipes()
@@ -120,7 +121,7 @@ namespace StormDiversMod.Items.Armour
             {
                 if (!NPC.downedPlantBoss)
                 {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
                         line.Text = line.Text + "\nYou shouldn't have this yet >:(";
                     }

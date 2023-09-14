@@ -60,8 +60,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Multiple damaging blood orbs burst out of you upon striking an enemy with a melee weapon";
-
+            //player.setBonus = "Multiple damaging blood orbs burst out of you upon striking an enemy with a melee weapon";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().BloodDrop = true; 
         }
         

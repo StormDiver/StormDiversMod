@@ -371,77 +371,55 @@ namespace StormDiversMod.Basefiles
                 //int yboottilepos = (int)(Player.Bottom.Y / 16);
 
                 //SPEEDS!
-                if (!ModLoader.HasMod("TRAEProject")) //Normally
+
+                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
                 {
 
-                    if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
-                    {
-
-                        if (soulBoots)
-                        {
-                            Player.maxRunSpeed += 1.7f;
-                            Player.runAcceleration *= 1.75f;
-                            Player.runSlowdown = 0.2f;
-                        }
-                        else if (bloodBoots)
-                        {
-                            Player.maxRunSpeed += 0.8f;
-                            Player.runAcceleration *= 1.25f;
-                            Player.runSlowdown = 0.15f;
-                        }
-
-                    }
-                    else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt && Player.velocity.Y == 0)//When not on asphalt 
-                    {
-                        if (soulBoots)
-                        {
-                            Player.maxRunSpeed += 6.2f;
-                            Player.runAcceleration *= 2.75f;
-                            Player.runSlowdown = 0.5f;
-                        }
-                        else if (bloodBoots)
-                        {
-                            Player.maxRunSpeed += 4.2f;
-                            Player.runAcceleration *= 1.5f;
-                            Player.runSlowdown = 0.35f;
-                        }
-                    }
-                    else if (Player.velocity.Y != 0)//When in the air
-                    {
-                        if (soulBoots)
-                        {
-                            Player.maxRunSpeed += 4f;
-                            Player.runAcceleration *= 1.75f;
-                            Player.runSlowdown = 0.25f;
-                        }
-                        else if (bloodBoots)
-                        {
-                            Player.maxRunSpeed += 3.2f;
-                            Player.runAcceleration *= 1.25f;
-                            Player.runSlowdown = 0.2f;
-                        }
-                    }
-                }
-                if (ModLoader.HasMod("TRAEProject")) //With TRAE
-                {
-
-                    if (bloodBoots)
-                    {
-                        Player.moveSpeed += 0.33f;
-                        Player.runAcceleration *= 1.75f;
-                        Player.runSlowdown = 0.35f;
-
-                        Player.accRunSpeed = 6f;
-                    }
                     if (soulBoots)
                     {
-                        Player.moveSpeed += 0.40f;
-                        Player.runAcceleration *= 3f;
-                        Player.runSlowdown = 0.5f;
+                        Player.maxRunSpeed += 1.7f;
+                        Player.runAcceleration *= 1.75f;
+                        Player.runSlowdown = 0.2f;
+                    }
+                    else if (bloodBoots)
+                    {
+                        Player.maxRunSpeed += 0.8f;
+                        Player.runAcceleration *= 1.25f;
+                        Player.runSlowdown = 0.15f;
+                    }
 
-                        Player.accRunSpeed = 8f;
+                }
+                else if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType != TileID.Asphalt && Player.velocity.Y == 0)//When not on asphalt 
+                {
+                    if (soulBoots)
+                    {
+                        Player.maxRunSpeed += 6.2f;
+                        Player.runAcceleration *= 2.75f;
+                        Player.runSlowdown = 0.5f;
+                    }
+                    else if (bloodBoots)
+                    {
+                        Player.maxRunSpeed += 4.2f;
+                        Player.runAcceleration *= 1.5f;
+                        Player.runSlowdown = 0.35f;
                     }
                 }
+                else if (Player.velocity.Y != 0)//When in the air
+                {
+                    if (soulBoots)
+                    {
+                        Player.maxRunSpeed += 4f;
+                        Player.runAcceleration *= 1.75f;
+                        Player.runSlowdown = 0.25f;
+                    }
+                    else if (bloodBoots)
+                    {
+                        Player.maxRunSpeed += 3.2f;
+                        Player.runAcceleration *= 1.25f;
+                        Player.runSlowdown = 0.2f;
+                    }
+                }
+               
                 if (soulBoots)
                 {
                     Player.rocketBoots = 1;
@@ -525,11 +503,8 @@ namespace StormDiversMod.Basefiles
 
                             if (soundDelay >= 6)
                             {
-                                if (!ModLoader.HasMod("TRAEProject")) //No sound if TRAE enabled
-                                {
+                                SoundEngine.PlaySound(SoundID.Run, Player.Center);
 
-                                    SoundEngine.PlaySound(SoundID.Run, Player.Center);
-                                }
                                 soundDelay = 0;
                             }
                         }
@@ -585,19 +560,16 @@ namespace StormDiversMod.Basefiles
                             if (Player.gravDir == 1)
                             {
                                 Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Bottom.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
-                                if (!ModLoader.HasMod("TRAEProject")) //No sound if TRAE enabled
-                                {
-                                    SoundEngine.PlaySound(SoundID.Run, Player.Center);
-                                }
+
+                                SoundEngine.PlaySound(SoundID.Run, Player.Center);
+
                                 soundDelay = 0;
                             }
                             else
                             {
                                 Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Top.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
-                                if (!ModLoader.HasMod("TRAEProject")) //No sound if TRAE enabled
-                                {
-                                    SoundEngine.PlaySound(SoundID.Run, Player.Center);
-                                }
+
+                                SoundEngine.PlaySound(SoundID.Run, Player.Center);
                                 soundDelay = 0;
                             }
                         }

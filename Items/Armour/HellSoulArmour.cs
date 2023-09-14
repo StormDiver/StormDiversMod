@@ -82,7 +82,8 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "20% increased melee speed\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "20% increased melee speed\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
@@ -170,7 +171,8 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "25% chance not to consume ammo\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "25% chance not to consume ammo\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.ammoCost75 = true;
@@ -258,7 +260,8 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "18% reduced mana usage\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "18% reduced mana usage\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.manaCost -= 0.18f;
@@ -344,7 +347,9 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            player.setBonus = "Increases maximum number of minions by 1\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "Increases maximum number of minions by 1\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
+
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
             player.maxMinions += 1;
         }

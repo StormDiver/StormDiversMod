@@ -68,7 +68,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Grants the Orbital Strike buff that causes asteroid boulders to fall upon the next attacked enemy";
+            //player.setBonus = "Grants the Orbital Strike buff that causes asteroid boulders to fall upon the next attacked enemy";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             //player.AddBuff(mod.BuffType("SpaceRockOffence"), 1);
             player.GetModPlayer<ArmourSetBonuses>().spaceRockOffence = true;
          
@@ -150,9 +151,10 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Grants the Orbital Defense buff that reduces damage of the next attack by 25% while summoning damaging asteroid boulders from the sky\nIsn't activated if the attack only deals 1 damage";
-           
-                player.GetModPlayer<ArmourSetBonuses>().spaceRockDefence = true;
+            //player.setBonus = "Grants the Orbital Defense buff that reduces damage of the next attack by 25%\n Also summons damaging asteroid boulders from the sky\nIsn't activated if the attack only deals 1 damage";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
+
+            player.GetModPlayer<ArmourSetBonuses>().spaceRockDefence = true;
 
         }
 

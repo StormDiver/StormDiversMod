@@ -56,8 +56,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Has a chance to summon a damaging mushroom into attacked enemies";
-
+            //player.setBonus = "Has a chance to summon a damaging mushroom onto attacked enemies";
+            player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().mushset = true;
 
         }

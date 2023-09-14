@@ -85,7 +85,7 @@ namespace StormDiversMod.Projectiles
             if (!released)
             chargetime++;
 
-            if (chargetime >= 15 && canShoot && !released) //Charges up the rockets
+            if (chargetime >= player.HeldItem.useTime && canShoot && !released) //Charges up the rockets every 15 frames 
             {
                 //if (rocketcharge >= 0) //first ammo is consumed as soon as the weapon is fired
                 {
@@ -166,7 +166,7 @@ namespace StormDiversMod.Projectiles
             {
                 firetime++;
 
-                if (firetime >= 5)
+                if (firetime >= player.HeldItem.useTime / 3) //15 / 3 = 5
                 {
                     //For custom ammo
                     /*if (ammotype.type == ItemID.RocketI)
@@ -483,6 +483,22 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
             }
+            var player = Main.player[Projectile.owner];
+
+            /*float distance = Vector2.Distance(player.Center, Projectile.Center);
+            if (distance <= Projectile.width / 2 + 25 && distance >= 1 && !player.mount.Active)
+            {
+                //if (Collision.CanHit(player.Center, 0, 0, Projectile.Center, 0, 0))
+                {
+                    float launchspeed = 11;
+                    Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X, player.Center.Y)) * launchspeed;
+                    player.GetModPlayer<MiscFeatures>().explosionfall = true;
+                    player.GetModPlayer<MiscFeatures>().explosionflame = 60;
+
+                    player.velocity.X = -launchvelocity.X * 2.5f;
+                    player.velocity.Y = -launchvelocity.Y * 2.5f;
+                }
+            }*/
 
             /*for (int i = 0; i < 200; i++) //test for now rocket damage system
             {
