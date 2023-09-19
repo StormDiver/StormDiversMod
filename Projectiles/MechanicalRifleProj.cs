@@ -20,11 +20,11 @@ using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Projectiles
 {
-    public class VortexShotgunGun : ModProjectile
+    public class MechanicalRifleProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Storm Diver Shotgun");
+            //DisplayName.SetDefault("Mechanical Rifle");
             Main.projFrames[Projectile.type] = 1;
         }
         public override void SetDefaults()
@@ -50,15 +50,14 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage() => false;
 
-        float angle = 18f;
-        float extravel = 1f;
+        int chargetime;
         float sound = -0.5f;
         bool maxcharge;
 
-        float linewidth = 1.5f;
-        float numberlines = 2;
-        float linerotation;
         int orginaldamage;
+
+        float extralength;
+
         public override void OnSpawn(IEntitySource source)
         {
             var player = Main.player[Projectile.owner];
@@ -69,44 +68,34 @@ namespace StormDiversMod.Projectiles
         {   
             var player = Main.player[Projectile.owner];
 
-            //for the lines
-            if (angle == 0)
-                linewidth = 2.5f;
-            else
-                linewidth = 1.5f;
-
-            linerotation = MathHelper.ToRadians(angle);
-
             //Main.NewText("Damage = " + Projectile.damage, 0, 204, 170); //Inital Scale
 
             if (!maxcharge) //charge up, lower angle, add velocity to bullets, and increase damage
             {
-                angle -= 0.3f; //takes 60 frames to charge
-                extravel += 0.01f;
-                Projectile.damage += orginaldamage / 20; //extra 5% of orignal damage, so roughly same as 4 damage per second
-                //Projectile.damage += 4; //Extra 240 damage from base, (90 + 240 = 330 + extra 15% at max charge for 380),                                
-                                        //~900 dps at  0 frame charge (2    shots per second, 90  base damage)
-                                        //~997 dps at 15 frame charge (1.33 shots per second, 150 base damage)
-                                        //~1050dps at 30 frame charge (1    shot  per second, 210 base damage)
-                                        //~1080dps at 45 frame charge (0.8  shots per second, 270 base damage)
-                                        //~1089dps at 60 frame charge (0.66 shots per second, 330 base damage)                                     
-                                        //~1250dps at 60 frame charge (0.66  shots per second, 380 base damage) (Bonus 15% damage (+1))
-                                        //ranged damage buffs are applied afterwards
+                chargetime++;
             }
-            if (angle < 0.2f)//Charge up time is 60 frames as angle starts at 18
+            if (chargetime >= 40 && !maxcharge)//Charge up time is 40 frames
             {
-                angle = 0; //full accuracy
+                SoundEngine.PlaySound(SoundID.Item149 with { Volume = 2f, Pitch = 0.5f, MaxInstances = 0 }, base.Projectile.position);
+                for (int i = 0; i < 3; i++)
+                {
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Projectile.Center.X + (Projectile.velocity.X * .075f), Projectile.Center.Y - 2 + (Projectile.velocity.Y * .075f)),
+
+                    }, player.whoAmI);
+                }
                 maxcharge = true;
             }
-            Projectile.ai[1]++; //1 frame delay so particles always appear at end
-            if (Projectile.soundDelay <= 0 && !maxcharge && Projectile.ai[1] > 1) //Charge up sound and effect
+            Projectile.ai[1]++; //noise starts after 10 frames
+            if (Projectile.soundDelay <= 0 && !maxcharge && Projectile.ai[1] >= 10) //Charge up sound and effect
             {
                 sound += 0.2f;
 
-                SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.5f, Pitch = sound, MaxInstances = 0 }, base.Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item15 with { Volume = 1f, Pitch = sound, MaxInstances = 0 }, base.Projectile.position);
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust2 = Dust.NewDust(Projectile.position + new Vector2(0, -2) + Projectile.velocity * Main.rand.Next(6, 10) * 0.1f, Projectile.width, Projectile.height, 229, 0f, 0f, 80, default(Color), 0.75f);
+                    int dust2 = Dust.NewDust(Projectile.position + new Vector2(0, -4), Projectile.width, Projectile.height, 31, 0f, 0f, 80, default(Color), 0.75f);
                     Main.dust[dust2].position.X -= 4f;
                     Main.dust[dust2].noGravity = true;
                     Main.dust[dust2].velocity *= 0.2f;
@@ -115,28 +104,19 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.soundDelay = 10;
             }
-            if (maxcharge)
-            {
-                //Main.NewText("TesterMax " + Projectile.damage * 1.15f, 0, 204, 170); //Inital Scale
-            }
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 15f; // Position of end of barrel
 
-            if (Collision.CanHit(Projectile.position, 0, 0, Projectile.position + muzzleOffset, 0, 0))
-            {
-                Projectile.position += muzzleOffset;
-            }
+           
             if (maxcharge) //At full charge new dust and sound
             {
+                Vector2 dustspeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
+
+                int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-4, -6), 0, 0, 31, dustspeed.X * 0.05f, dustspeed.Y * 0.05f, 100, default, 1.5f);
+                Main.dust[dust2].noGravity = true;
+                Main.dust[dust2].scale = 1f;
                 if (Projectile.soundDelay <= 0)
                 {
-                    SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.6f, Pitch = 1, MaxInstances = 0, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, base.Projectile.position);
-
-                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueNightsEdge, new ParticleOrchestraSettings
-                    {
-                        PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y - 2),
-
-                    }, player.whoAmI);
-                  
+                    //SoundEngine.PlaySound(SoundID.Item157 with { Volume = 0.6f, Pitch = 1, MaxInstances = 0, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, base.Projectile.position);
                     Projectile.soundDelay = 7;
                 }
             }
@@ -172,14 +152,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.Kill();
                 }
             }
-            //if (base.Projectile.velocity.X > 0f)
-            //{
-            //    Main.player[Projectile.owner].ChangeDir(1);
-            //}
-            //else if (base.Projectile.velocity.X < 0f)
-            //{
-            //    Main.player[Projectile.owner].ChangeDir(-1);
-            //}
+           
             Projectile.spriteDirection = Projectile.direction;
             player.ChangeDir(Projectile.direction);
             //Main.player[Projectile.owner].heldProj = player.whoAmI; //<-- causes issues
@@ -197,18 +170,18 @@ namespace StormDiversMod.Projectiles
             }
             //base.Projectile.velocity.X *= 1f + (float)Main.rand.Next(-3, 4) * 0.01f;        
             //================================================================================================================================================================================================================================================
+
+            if (!player.controlUseTile)
+                extralength = 1;
+            else
+                extralength = 2.5f;
         }
-        
+
         public override void Kill(int timeLeft)
         {
             var player = Main.player[Projectile.owner];
             if (maxcharge) //Different sound at max charge
             {
-                if (!GetInstance<ConfigurationsIndividual>().NoShake)
-                {
-                    player.GetModPlayer<MiscFeatures>().screenshaker = true;
-                }
-                //Projectile.damage *= 2;
                 SoundEngine.PlaySound(SoundID.Item38 with { Volume = 1f, Pitch = 0f }, player.Center);
             }
             else
@@ -225,20 +198,21 @@ namespace StormDiversMod.Projectiles
             if (canShoot && Collision.CanHit(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, new Vector2(player.Center.X, player.Center.Y), 0, 0))
             {             
                 player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, false);
-                if (projToShoot == ProjectileID.Bullet && maxcharge)
+                if (projToShoot == ProjectileID.Bullet && !maxcharge)
                 {
-                    projToShoot = ProjectileID.MoonlordBullet;
+                    projToShoot = ProjectileID.BulletHighVelocity;
+                }
+                else if (projToShoot == ProjectileID.Bullet && maxcharge)
+                {
+                    projToShoot = ModContent.ProjectileType<MechanicalRifleProj2>();
+
                 }
 
-                float numberProjectiles = 5;
-                float rotation = MathHelper.ToRadians(angle);
                 //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-                for (int i = 0; i < numberProjectiles; i++)
+                for (int i = 0; i < 1; i++)
                 {
-                    float speedX = Projectile.velocity.X * 10f;
-                    float speedY = Projectile.velocity.Y * 10f;
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
-                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 2), new Vector2((perturbedSpeed.X * extravel), (float)(perturbedSpeed.Y * extravel)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f).RotatedByRandom(MathHelper.ToRadians(0));
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 1), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
                    
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = 10;
@@ -247,7 +221,7 @@ namespace StormDiversMod.Projectiles
                     {
                         Main.projectile[projID].extraUpdates += 1;
                         Main.projectile[projID].knockBack *= 2;
-                        Main.projectile[projID].damage = (int)(Projectile.damage * 1.15f) + 1; //15% extra damage
+                        Main.projectile[projID].damage = (int)(Projectile.damage * 3); //double damage
 
                         //player.velocity.X += perturbedSpeed.X * -0.25f;
                         //player.velocity.Y += perturbedSpeed.Y * -0.25f;
@@ -265,29 +239,24 @@ namespace StormDiversMod.Projectiles
                         Main.dust[dust2].noGravity = true;
                       
                     }*/
-                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TerraBlade, new ParticleOrchestraSettings
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Excalibur, new ParticleOrchestraSettings
                     {
-                        PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y - 2),
+                        PositionInWorld = new Vector2(Projectile.Center.X + (Projectile.velocity.X * .1f), Projectile.Center.Y - 4 + (Projectile.velocity.Y * .1f)),
 
                     }, player.whoAmI);
                 }
             }
         }
-
         public override bool PreDraw(ref Color lightColor)
         {
             var player = Main.player[Projectile.owner];
             if (!Main.dedServ)
             {
-                for (int i = 0; i < numberlines; i++)
-                {
-                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X - 1, player.Center.Y - 2) - new Vector2(Main.MouseWorld.X - 1, Main.MouseWorld.Y - 2)) * -500;
+                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X - 1, player.Center.Y - 3) - new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 3)) * -500;
 
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-linerotation, linerotation, i / (numberlines - 1)));
-                    //Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X * 2, perturbedSpeed.Y * 2), ModContent.ProjectileType<CrimsonAxeProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 2), new Vector2(Projectile.Center.X - 1 + perturbedSpeed.X, Projectile.Center.Y - 2 + perturbedSpeed.Y), Color.Aquamarine, Color.Transparent, linewidth);
-
-                }
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
+                if (maxcharge)
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 3), new Vector2(Projectile.Center.X - 1 + (perturbedSpeed.X * extralength), Projectile.Center.Y - 2 + (perturbedSpeed.Y * extralength)), Color.Gold, Color.Transparent, 2f);
             }
             return true;
         }
@@ -295,5 +264,88 @@ namespace StormDiversMod.Projectiles
         {
            
         }
+    }
+    //__________________________________________________________________________________________
+    public class MechanicalRifleProj2 : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Suepr high Velocity Bullet");
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;    //The length of old position to be recorded
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 2;
+            Projectile.height = 2;
+
+            Projectile.aiStyle = 1;
+            Projectile.light = 0.1f;
+
+            Projectile.friendly = true;
+            Projectile.timeLeft = 400;
+            Projectile.penetrate = 4;
+
+            Projectile.tileCollide = true;
+            Projectile.scale = 1.2f;
+
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.extraUpdates = 8;
+            AIType = ProjectileID.Bullet;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            for (int i = 0; i < 25; i++)
+            {
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 206);
+                dust.scale = 1.2f;
+                dust.noGravity = true;
+                dust.velocity *= 2;
+            }
+            return true;
+        }
+        public override void AI()
+        {
+            var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 206);
+            dust.scale = 1.2f;
+            dust.noGravity = true;
+            dust.velocity *= 1;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            var player = Main.player[Projectile.owner];
+
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
+            {
+                PositionInWorld = new Vector2(Projectile.Center.X + (Projectile.velocity.X * .1f), Projectile.Center.Y - 4 + (Projectile.velocity.Y * .1f)),
+
+            }, player.whoAmI);
+
+            target.AddBuff(BuffID.Confused, Main.rand.Next(60, 181));
+
+            for (int i = 0; i < 25; i++)
+            {
+                var dust = Dust.NewDustDirect(new Vector2(target.Center.X, target.Center.Y), 0, 0, 206);
+                dust.scale = 1.2f;
+                dust.noGravity = true;
+                dust.velocity *= 2;
+            }
+            //Projectile.damage = (Projectile.damage * 19) / 20; //%5 falloff
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+
     }
 }

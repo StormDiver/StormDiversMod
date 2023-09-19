@@ -9,7 +9,6 @@ using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles
 {
-
     public class CelestialShieldProj : ModProjectile
     {
         public override void SetStaticDefaults()

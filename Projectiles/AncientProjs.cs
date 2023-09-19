@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using StormDiversMod.Basefiles;
+using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles
 {

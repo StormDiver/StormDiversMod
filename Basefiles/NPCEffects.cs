@@ -81,6 +81,8 @@ namespace StormDiversMod.Basefiles
 
         public int aridimmunetime; //prevent arid armour explosion from hitting triggered enemy
 
+        public int bloodimmunetime; //prevent blood drop proj from damaging hit enemy
+
         public int forbiddenimmunetime; //Prevent forbidden sand from bitten targetted enemy
 
         //For Heart Emblem
@@ -255,7 +257,10 @@ namespace StormDiversMod.Basefiles
                 {
                     forbiddenimmunetime--;
                 }
-               
+                if (bloodimmunetime > 0)
+                {
+                    bloodimmunetime--;
+                }
             }
             //______________
 
@@ -836,9 +841,17 @@ namespace StormDiversMod.Basefiles
 
             if (player.GetModPlayer<EquipmentEffects>().aridBossAccess == true && aridCoreDebuff) //Ancient Emblem extra damage
             {
+                float extradmg;
+                int buffindex = npc.FindBuffIndex(ModContent.BuffType<AridCoreDebuff>());
+                if (buffindex > -1)
+                {
+                    extradmg = npc.buffTime[buffindex] + 1;
+                    //Main.NewText("The test = " + (extradmg / 1000), 204, 101, 22);
+                    modifiers.FinalDamage *= 1 + (extradmg / 1000); //1% for every 10 frames, starts at 20%, 200 frames / 1000 = 0.02, plus 1 is 1.02
+                }
                 //damage = damage + ((damage * 20) / 17);
-                modifiers.FinalDamage *= 1.15f; //15% extra damage
-
+                //modifiers.FinalDamage *= 1.15f; //15% extra damage
+                //modifiers.FinalDamage *= 1 + (extradmg / 10); //15% extra damage
             }
 
             //Whips

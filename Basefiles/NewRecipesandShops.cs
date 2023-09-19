@@ -359,6 +359,11 @@ namespace StormDiversMod.Basefiles
                 shop.Add(ModContent.ItemType<MechanicalRepeater>(), Condition.DownedSkeletronPrime, Condition.DownedDestroyer, Condition.DownedTwins);
             }
 
+            if (shop.NpcType == NPCID.ArmsDealer)
+            {
+                shop.Add(ModContent.ItemType<MechanicalRifle>(), Condition.DownedSkeletronPrime, Condition.DownedDestroyer, Condition.DownedTwins);
+            }
+
             if (shop.NpcType == NPCID.Cyborg)
             {
                 shop.Add(ModContent.ItemType<MagicArrow>(), Condition.DownedPlantera);

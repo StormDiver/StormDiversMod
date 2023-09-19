@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.Tools
         {
             
             Item.damage = 40;
-            Item.DamageType.CountsAsClass(DamageClass.Melee);
+            Item.DamageType = DamageClass.Melee;
             Item.width = 40;
             Item.height = 22;
 
@@ -72,7 +72,7 @@ namespace StormDiversMod.Items.Tools
         {
 
             Item.damage = 55;
-            Item.DamageType.CountsAsClass(DamageClass.Melee);
+            Item.DamageType = DamageClass.Melee;
             Item.width = 60;
             Item.height = 20;
             Item.useTime = 3;
@@ -121,7 +121,7 @@ namespace StormDiversMod.Items.Tools
         {
 
             Item.damage = 50;
-            Item.DamageType.CountsAsClass(DamageClass.Melee);
+            Item.DamageType = DamageClass.Melee;
             Item.width = 50;
             Item.height = 20;
             Item.useTime = 4;

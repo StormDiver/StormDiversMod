@@ -837,9 +837,9 @@ namespace StormDiversMod.Basefiles
             if (shroomaccess)
             {
                 shroomtime++;
-                if ((Player.channel && shroomtime >= Player.HeldItem.useTime) || (!Player.channel && Player.itemTime == 1) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
+                //Channeling weaposn fire every time half the usetime is met with a counter
+                if (((Player.channel && shroomtime >= Player.HeldItem.useTime / 2) || (!Player.channel &&  Player.itemTime == (Player.HeldItem.useTime - 1) && Player.HeldItem.useTime > 1)) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
                 {
-
                     shroomshotCount++;
                     //Main.NewText("Pls work " + shroomtime + " | " + shroomshotCount, 0, 204, 170); //Inital Scale
 
@@ -850,7 +850,7 @@ namespace StormDiversMod.Basefiles
 
                         shroomshotCount = 0; //Resets the shot count
                         float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
-                        float velocity = 13f;
+                        float velocity = 20f;
                         int type = ModContent.ProjectileType<ShroomSetRocketProj>();
                         int damage = (int)Player.GetTotalDamage(DamageClass.Ranged).ApplyTo((int)(Player.HeldItem.damage * 2f));
                         Projectile.NewProjectile(null, Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
@@ -1024,26 +1024,29 @@ namespace StormDiversMod.Basefiles
                 {
                     double deg = Main.rand.Next(0, 360); //The degrees
                     double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                    double dist = 90; //Distance away from the cursor
-                    float dustx = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);
-                    float dusty = Main.MouseWorld.Y - (int)(Math.Sin(rad) * dist);
+                    double dist = 60; //Distance away from the cursor
+                    float dustx = Main.MouseWorld.X - 2 - (int)(Math.Cos(rad) * dist);
+                    float dusty = Main.MouseWorld.Y - 2 - (int)(Math.Sin(rad) * dist);
                     if (Player == Main.LocalPlayer)
                     {
-                        if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                        if (Collision.CanHitLine(new Vector2(Player.Center.X, Player.Center.Y), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
                         {
-                            var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, 0, 0);
-                            dust.noGravity = true;
-                            dust.velocity *= 0;
-                            dust.scale = 1f;
+                            if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                            {
+                                var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, 0, 0);
+                                dust.noGravity = true;
+                                dust.velocity *= 0;
+                                dust.scale = 1f;
 
-                        }
-                        Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(dustx, dusty)) * 10; //slight predictive 
-                        if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
-                        {
-                            var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, velocity.X, velocity.Y);
-                            dust.noGravity = true;
-                            dust.velocity *= 0.5f;
-                            dust.scale = 0.75f;
+                            }
+                            Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X - 2, Main.MouseWorld.Y - 2) - new Vector2(dustx, dusty)) * 10;
+                            if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                            {
+                                var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 138, velocity.X, velocity.Y);
+                                dust.noGravity = true;
+                                dust.velocity *= 0.5f;
+                                dust.scale = 0.75f;
+                            }
                         }
                     }
                 }
@@ -1052,11 +1055,14 @@ namespace StormDiversMod.Basefiles
                     NPC target = Main.npc[i];
                     if (Player == Main.LocalPlayer)
                     {
-                        if (Vector2.Distance(Main.MouseWorld, target.Center) <= 90 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Main.MouseWorld, 0, 0, target.Center, 0, 0))
+                        if (Collision.CanHitLine(new Vector2(Player.Center.X, Player.Center.Y), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
                         {
-                            if (!target.buffImmune[(BuffType<AridCoreDebuff>())])
+                            if (Vector2.Distance(Main.MouseWorld, target.Center) <= 60 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Main.MouseWorld, 0, 0, target.Center, 0, 0))
                             {
-                                target.AddBuff(ModContent.BuffType<AridCoreDebuff>(), 2);
+                                if (!target.buffImmune[(BuffType<AridCoreDebuff>())])
+                                {
+                                    target.AddBuff(ModContent.BuffType<AridCoreDebuff>(), 200);
+                                }
                             }
                         }
                     }
@@ -1529,11 +1535,17 @@ namespace StormDiversMod.Basefiles
         
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            /*if ((Player.scope || Player.HeldItem.type == ItemID.SniperRifle) && Player.controlUseTile)
+            if (!Main.dedServ)
             {
-                Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y)) * 2500;
-                Utils.DrawLine(Main.spriteBatch, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(Player.Center.X + velocity.X, Player.Center.Y + velocity.Y), Color.Red, Color.Transparent, 1.5f);
-            }*/
+                if (shroomaccess)
+                {
+                    if (Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet && (Player.controlUseTile) && Player.noThrow == 0)
+                    {
+                        Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y)) * 2000;
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(Player.Center.X + velocity.X, Player.Center.Y + velocity.Y), Color.DeepSkyBlue, Color.Transparent, 2f);
+                    }
+                }
+            }
             base.DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);
         }
     }

@@ -349,7 +349,12 @@ Mods: {
 		Items: {
 			AridCore: {
 				DisplayName: Ancient Scarab
-				Tooltip: Creates an Arid aura around the cursor, enemies within the aura take extra damage
+				Tooltip:
+					'''
+					Creates an Arid aura around the cursor, enemies within the aura receive 20% extra damage
+					Enemies continue to receive extra damage outside the aura for 3.2 seconds, but the amount falls off during this time
+					Aura requires a line of sight
+					'''
 			}
 
 			BeetleBoot: {
@@ -599,7 +604,11 @@ Mods: {
 
 			ShroomAccessory: {
 				DisplayName: Shroomite Launcher Attachment
-				Tooltip: Makes all guns fire out mini shroomite rockets
+				Tooltip:
+					'''
+					Makes all guns fire out mini shroomite rockets
+					Creates a laser sight line when holding right click while holding a gun
+					'''
 			}
 
 			ShroomAccessorySnipe: {
@@ -607,6 +616,7 @@ Mods: {
 				Tooltip:
 					'''
 					Makes all guns fire out mini shroomite rockets
+					Creates a laser sight line when holding right click while holding a gun
 					Increases view range for guns (Right click to zoom out)
 					10% increased ranged damage and critical strike chance
 					'''
@@ -2006,7 +2016,7 @@ Mods: {
 				DisplayName: Bloodshot Rifle
 				Tooltip:
 					'''
-					Converts Musket Balls into blood bullets that drop blood in flight
+					Converts Musket Balls into blood bullets that burst into blood drops upon hitting an enemy
 					Right Click to zoom out
 					'''
 			}
@@ -2439,6 +2449,18 @@ Mods: {
 					'''
 					Rapidly fires arrows in bursts of three
 					Only the first shot consumes ammo
+					'''
+			}
+
+			MechanicalRifle: {
+				DisplayName: Super Charged Rifle
+				Tooltip:
+					'''
+					Can be charged up by holding down left click
+					Fully charged fires a more powerful bullet that deals double knockback and damage
+					Converts musket balls to high velocity bullets
+					When fully charged it coverts them to a special variant that inflicts confusion and has no damage fall off
+					Right Click to zoom out
 					'''
 			}
 
@@ -3435,6 +3457,9 @@ Mods: {
 			LizardArmourProj.DisplayName: Lihzarhd Drone
 			BazookaProj.DisplayName: Scavenger's Bazooka Held
 			BazookaProj2.DisplayName: Bazooka Missile
+			MechanicalRifleProj.DisplayName: Super Charged Rifle
+			MechanicalRifleProj2.DisplayName: Super High Velocity Bullet
+			AncientArmourRingProj.DisplayName: Ancient Armour Ring Proj
 		}
 
 		Tiles: {

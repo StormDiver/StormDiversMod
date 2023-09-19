@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using StormDiversMod.Items.Weapons;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Projectiles
 {
@@ -56,12 +58,34 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(5) == 0)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<BloodyBulletProj2>(), (int)(Projectile.damage * 0.33), 0.5f, Projectile.owner);
+                    //Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<BloodyBulletProj2>(), (int)(Projectile.damage * 0.33), 0.5f, Projectile.owner);
                 }
             }
 
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.GetGlobalNPC<NPCEffects>().bloodimmunetime = 10; //target immune to explosion for 10 frames
 
+            float numberProjectiles = 2 + Main.rand.Next(3); //2-3
+
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+                //Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f).RotatedByRandom(MathHelper.ToRadians(20));
+                Vector2 perturbedSpeed = new Vector2(0, -6).RotatedByRandom(MathHelper.ToRadians(120));
+
+                float scale = 1f - (Main.rand.NextFloat() * .2f);
+                perturbedSpeed = perturbedSpeed * scale;
+
+                int projID = Projectile.NewProjectile(null, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodyBulletProj2>(), Projectile.damage / 3, 1, Projectile.owner);
+                Main.projectile[projID].DamageType = DamageClass.Ranged;
+
+            }
+            for (int i = 0; i < 30; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 5);
+            }
+        }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             for (int i = 0; i < 10; i++)
@@ -86,9 +110,6 @@ namespace StormDiversMod.Projectiles
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
-
-
             return Color.White;
 
         }
@@ -112,27 +133,34 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.aiStyle = 2;
-            Projectile.penetrate = 2;
-            Projectile.timeLeft = 120;
+            Projectile.penetrate = 3;
+            Projectile.extraUpdates = 0;
+            Projectile.timeLeft = 180;
             Projectile.knockBack = 1f;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 20;
+            Projectile.ArmorPenetration = 10;
         }
         //bool bloodspray = true;
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            fallThrough = false;
+
+            return true;
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.GetGlobalNPC<NPCEffects>().bloodimmunetime > 0 || target.friendly) //Npcs immune to blood created from them
+                return false;
+            
+            else
+                return true;
+        }
         public override void AI()
         {
+            Projectile.ai[2]++;
 
-
-            if (Main.rand.Next(8) == 0)
-            {
-                Dust dust;
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 115, 0f, 0f, 0, new Color(255, 255, 255), 1.5f)];
-                dust.noGravity = true;
-            }
-
-
-            if (Main.rand.Next(10) == 0)
+            if (Main.rand.Next(5) == 0)
             {
                 Dust dust;
                 Vector2 position = Projectile.position;
@@ -140,11 +168,18 @@ namespace StormDiversMod.Projectiles
                 dust.velocity *= 0;
 
             }
+            if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
+            {
+                Dust dust;
+                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                Vector2 position = Projectile.Center;
+                dust = Terraria.Dust.NewDustPerfect(position, 115, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.25f);
 
+                dust.noGravity = true;
+            }
 
             return;
         }
-
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

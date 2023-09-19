@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
+using Humanizer;
+using Newtonsoft.Json;
 
 
 namespace StormDiversMod.Items.Accessory
@@ -17,8 +19,10 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Ancient Scarab");
-            //Tooltip.SetDefault("Creates an Arid aura around the cursor, enemies within the aura take extra damage");
-            Item.ResearchUnlockCount = 1;
+            //Tooltip.SetDefault("Creates an Arid aura around the cursor, enemies within the aura receive 20% extra damage
+            //Enemies continue to receive extra damage outside the aura for 3.2 seconds, but the amount falls off during this time
+            //Aura requires a line of sight");
+    Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {

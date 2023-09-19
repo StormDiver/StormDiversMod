@@ -25,7 +25,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Shroomite Launcher Attachment");
-            //Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets");
+            //Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets\nCreates a laser sight line when firing or when holding right click while holding a gun");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -79,7 +79,8 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Shroomite Launcher Scope");
-            //Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets\nIncreases view range for guns (Right click to zoom out)\n10% increased ranged damage and critical strike chance");
+            //Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets\nCreates a laser sight line when firing or when holding right click while holding a gun
+            //\nIncreases view range for guns (Right click to zoom out)\n10% increased ranged damage and critical strike chance");
             Item.ResearchUnlockCount = 1;
 
         }

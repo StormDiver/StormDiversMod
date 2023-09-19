@@ -189,7 +189,6 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.TargetClosest();
             }
 
-
             //======================================================MOVEMENT==============================================================================================
 
              player = Main.player[NPC.target]; //Code to move towards player
@@ -502,14 +501,13 @@ namespace StormDiversMod.NPCs.Boss
                             }
                             if (Main.netMode != NetmodeID.Server)
                             {
-                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X + 38, NPC.Center.Y - 42), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore1").Type, 1f);
-                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X + 38, NPC.Center.Y - 38), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore2").Type, 1f);
-                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X + 38, NPC.Center.Y - 32), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore3").Type, 1f);
+                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X + 38, NPC.Center.Y - 46), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore1").Type, 1f);
+                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X + 38, NPC.Center.Y - 43), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore2").Type, 1f);
+                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X + 38, NPC.Center.Y - 40), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore3").Type, 1f);
                             }
                             int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 48, NPC.Center.Y - 38), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                             Main.projectile[proj].scale = 0.75f;
                             animation = 1; //increase animation
-
                         }
                         if (lifeleft == 2)
                         {
@@ -523,14 +521,13 @@ namespace StormDiversMod.NPCs.Boss
                             }
                             if (Main.netMode != NetmodeID.Server)
                             {
-                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X - 58, NPC.Center.Y - 42), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore1").Type, 1f);
-                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X - 58, NPC.Center.Y - 38), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore2").Type, 1f);
-                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X - 58, NPC.Center.Y - 32), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore3").Type, 1f);
+                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X - 58, NPC.Center.Y - 46), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore1").Type, 1f);
+                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X - 58, NPC.Center.Y - 43), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore2").Type, 1f);
+                                Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X - 58, NPC.Center.Y - 40), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore3").Type, 1f);
                             }
                             int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 48, NPC.Center.Y - 38), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                             Main.projectile[proj].scale = 0.75f;
                             animation = 2; //increase animation
-
                         }
                         if (lifeleft == 3)
                         {

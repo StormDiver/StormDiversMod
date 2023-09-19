@@ -38,6 +38,13 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
         }
         bool bloodspray;
+
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            fallThrough = false;
+            return true;
+        }
+
         public override void AI()
         {
 

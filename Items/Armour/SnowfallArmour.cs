@@ -8,7 +8,7 @@ using StormDiversMod.Basefiles;
 using Terraria.Localization;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Items.Materials;
-
+using Terraria.GameInput;
 
 namespace StormDiversMod.Items.Armour
 {
