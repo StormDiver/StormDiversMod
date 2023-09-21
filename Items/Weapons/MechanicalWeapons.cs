@@ -82,7 +82,7 @@ namespace StormDiversMod.Items.Weapons
             //Tooltip.SetDefault("Can be charged up by holding down left click
             //Fully charged fires a more powerful bullet that deals double knockback and triple damage
             //Converts musket balls to high velocity bullets
-            //When fully charged it coverts them to a special variant that inflicts confusion and has no damage fall off
+            //When fully charged it coverts them to a special variant that inflicts confused and has no damage fall off
             //Right Click to zoom out
             Item.ResearchUnlockCount = 1;
         }

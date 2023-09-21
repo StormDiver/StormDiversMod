@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using StormDiversMod.Basefiles;
 using StormDiversMod.Buffs;
+using StormDiversMod.Items.Accessory;
 
 namespace StormDiversMod.Projectiles
 {
@@ -35,19 +36,36 @@ namespace StormDiversMod.Projectiles
         }
         int rotatespeed;
         int particle;
+        bool hidden;
         public override void AI()
         {
-            Player p = Main.player[Projectile.owner];
+            var player = Main.player[Projectile.owner];
+            if ((player.hideVisibleAccessory[3] && player.armor[3].type == ModContent.ItemType<Celestialshield>()) ||
+                (player.hideVisibleAccessory[4] && player.armor[4].type == ModContent.ItemType<Celestialshield>()) ||
+                (player.hideVisibleAccessory[5] && player.armor[5].type == ModContent.ItemType<Celestialshield>()) ||
+                (player.hideVisibleAccessory[6] && player.armor[6].type == ModContent.ItemType<Celestialshield>()) ||
+                (player.hideVisibleAccessory[7] && player.armor[7].type == ModContent.ItemType<Celestialshield>()) ||
+                (player.hideVisibleAccessory[8] && player.armor[8].type == ModContent.ItemType<Celestialshield>()) ||
+                (player.hideVisibleAccessory[9] && player.armor[9].type == ModContent.ItemType<Celestialshield>()))
+            {
+                hidden = true;
+                Projectile.hide = true;
+            }
+            else
+            {
+                hidden = false;
+                Projectile.hide = false;
+            }
 
-
-             if(p.HasBuff(ModContent.BuffType<CelestialBuff>()))
+            if (player.HasBuff(ModContent.BuffType<CelestialBuff>()))
             {
                 rotatespeed = 10;
             }
-             else
+            else
             {
                 rotatespeed = 2;
             }
+           
             Projectile.rotation += (float)Projectile.direction * -0.2f;
             //Making player variable "p" set as the projectile's owner
 
@@ -60,53 +78,59 @@ namespace StormDiversMod.Projectiles
             /distance for the desired distance away from the player minus the projectile's width   /
             /and height divided by two so the center of the projectile is at the right place.     */
 
-            Projectile.position.X = p.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
-            Projectile.position.Y = p.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
+            Projectile.position.X = player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
+            Projectile.position.Y = player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
 
             //Increase the counter/angle in degrees by 1 point, you can change the rate here too, but the orbit may look choppy depending on the value
             Projectile.ai[1] += -rotatespeed;
-            var player = Main.player[Projectile.owner];
 
-            if (Main.rand.Next(2) == 0)
+            int[] array = { 3, 4, 5, 6, 7, 8, 9 }; //idk how to do array stuff
+
+            if (!hidden)
             {
-                int choice = Main.rand.Next(4);
-                if (choice == 0)
+                if (Main.rand.Next(2) == 0)
                 {
-                    particle = 244;
-                }
-                else if (choice == 1)
-                {
-                    particle = 110;
-                }
-                else if (choice == 2)
-                {
-                    particle = 111; ;
-                }
-                else if (choice == 3)
-                {
-                    particle = 112;
-                }
-                var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, particle);
-                dust.noGravity = true;
-             
+                    int choice = Main.rand.Next(4);
+                    if (choice == 0)
+                    {
+                        particle = 244;
+                    }
+                    else if (choice == 1)
+                    {
+                        particle = 110;
+                    }
+                    else if (choice == 2)
+                    {
+                        particle = 111; ;
+                    }
+                    else if (choice == 3)
+                    {
+                        particle = 112;
+                    }
+                    var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, particle);
+                    dust.noGravity = true;
 
+                }
             }
             if (player.GetModPlayer<EquipmentEffects>().lunarBarrier == false || player.dead)
 
             {
-                for (int i = 0; i < 10; i++)
+                if (!hidden)
                 {
+                    for (int i = 0; i < 10; i++)
+                    {
 
-                    var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 110);
-                    var dust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111);
-                    dust2.noGravity = true;
+                        var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 110);
+                        var dust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111);
+                        dust2.noGravity = true;
 
-                    var dust3 = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 112);
-                    dust3.noGravity = true;
+                        var dust3 = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 112);
+                        dust3.noGravity = true;
 
-                    var dust4 = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 244);
-                    dust4.noGravity = true;
+                        var dust4 = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 244);
+                        dust4.noGravity = true;
 
+                    }
                 }
                 Projectile.Kill();
                 return;
@@ -128,9 +152,6 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
                 //Main.PlaySound(SoundID.Item14, Projectile.position);
-
-
-
             }
         }
         public void AnimateProjectile() // Call this every frame, for example in the AI method.

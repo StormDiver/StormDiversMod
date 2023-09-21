@@ -2457,9 +2457,9 @@ Mods: {
 				Tooltip:
 					'''
 					Can be charged up by holding down left click
-					Fully charged fires a more powerful bullet that deals double knockback and damage
+					Fully charged fires a more powerful bullet that deals double knockback and triple damage
 					Converts musket balls to high velocity bullets
-					When fully charged it coverts them to a special variant that inflicts confusion and has no damage fall off
+					When fully charged it coverts them to a special variant that inflicts confused and has no damage fall off
 					Right Click to zoom out
 					'''
 			}
@@ -3460,6 +3460,7 @@ Mods: {
 			MechanicalRifleProj.DisplayName: Super Charged Rifle
 			MechanicalRifleProj2.DisplayName: Super High Velocity Bullet
 			AncientArmourRingProj.DisplayName: Ancient Armour Ring Proj
+			PainbringerMaskProj.DisplayName: Painbringer Mask Proj
 		}
 
 		Tiles: {

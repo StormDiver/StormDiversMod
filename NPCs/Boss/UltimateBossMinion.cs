@@ -259,7 +259,7 @@ namespace StormDiversMod.NPCs.Boss
                 projcount = 4;
                 projspread = 30;
             }
-            if (!canshoot) //charge up bewteen 2 attacks
+            if (!canshoot) //charge up between 2 attacks
             {
                 for (int i = 0; i < 5; i++)
                 {

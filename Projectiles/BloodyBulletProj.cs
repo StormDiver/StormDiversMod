@@ -26,7 +26,7 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 2;
             
             Projectile.friendly = true;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 90;
             AIType = ProjectileID.Bullet;
@@ -67,7 +67,7 @@ namespace StormDiversMod.Projectiles
         {
             target.GetGlobalNPC<NPCEffects>().bloodimmunetime = 10; //target immune to explosion for 10 frames
 
-            float numberProjectiles = 2 + Main.rand.Next(3); //2-3
+            float numberProjectiles = 2 + Main.rand.Next(3); //2-4
 
             for (int i = 0; i < numberProjectiles; i++)
             {
@@ -139,7 +139,7 @@ namespace StormDiversMod.Projectiles
             Projectile.knockBack = 1f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
-            Projectile.ArmorPenetration = 10;
+            Projectile.ArmorPenetration = 5;
         }
         //bool bloodspray = true;
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

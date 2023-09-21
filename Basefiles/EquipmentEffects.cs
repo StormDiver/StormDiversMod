@@ -146,6 +146,7 @@ namespace StormDiversMod.Basefiles
 
         public int bootdmg; //damage of the boots
 
+        public bool ultimateBossMask; //player has Painbringer mask equipped
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             goldDerpie = false;
@@ -207,6 +208,7 @@ namespace StormDiversMod.Basefiles
             stormBossProj = false;
             flamecooldown = 0;
             paintime = 0;
+            ultimateBossMask = false;
         }
 
         //===============================================================================================================
@@ -1068,6 +1070,21 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }
+            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.BossMaskUltimateBoss>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.BossMaskUltimateBoss>())
+            {
+                if (ultimateBossMask == false)
+                {
+                    //Main.NewText("work!!!!!!!!!!!!!!!!!!!!!!!!!", 220, 63, 139);
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X - 30, Player.Center.Y - 5), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 0);
+
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X - 20, Player.Center.Y - 30), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 1);
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X + 20, Player.Center.Y - 30), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 2);
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X + 30, Player.Center.Y - 5), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 3);
+                }
+                ultimateBossMask = true;
+            }
+            else
+                ultimateBossMask = false;
         }
         //=====================For attacking an enemy with anything===========================================
         public override void OnHitAnything(float x, float y, Entity victim)
@@ -1134,7 +1151,7 @@ namespace StormDiversMod.Basefiles
                 }
                 granitebufftime = 0; //Activates the 10 second cooldown
             }
-         
+
             //Grant buff for celestial barrier based on incoming damage======================
             if (lunarBarrier)
             {
@@ -1166,8 +1183,8 @@ namespace StormDiversMod.Basefiles
             {
                 if (frosttime >= 360 && attackdmg > 1)
                 {
-                    
-                    SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.2f, Pitch = -0.5f}, Player.Center);
+
+                    SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.2f, Pitch = -0.5f }, Player.Center);
                     float numberProjectiles = 10 + Main.rand.Next(4);
                     for (int i = 0; i < numberProjectiles; i++)
                     {

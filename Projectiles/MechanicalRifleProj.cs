@@ -202,7 +202,7 @@ namespace StormDiversMod.Projectiles
                 {
                     projToShoot = ProjectileID.BulletHighVelocity;
                 }
-                else if (projToShoot == ProjectileID.Bullet && maxcharge)
+                else if (projToShoot == ProjectileID.Bullet || projToShoot == ProjectileID.BulletHighVelocity && maxcharge)
                 {
                     projToShoot = ModContent.ProjectileType<MechanicalRifleProj2>();
 
@@ -329,7 +329,7 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 25; i++)
             {
-                var dust = Dust.NewDustDirect(new Vector2(target.Center.X, target.Center.Y), 0, 0, 206);
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 206);
                 dust.scale = 1.2f;
                 dust.noGravity = true;
                 dust.velocity *= 2;

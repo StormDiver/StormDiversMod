@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;            
 using StormDiversMod.Basefiles;
 using Terraria.GameContent.Creative;
+using Terraria.UI;
 
 
 namespace StormDiversMod.Items.Accessory
@@ -45,6 +46,10 @@ namespace StormDiversMod.Items.Accessory
             player.noKnockback = true;
             player.GetModPlayer<EquipmentEffects>().lunarBarrier = true;
 
+            if (player.hideVisibleAccessory[0])
+            {
+
+            }
         }
         
         public override void AddRecipes()
