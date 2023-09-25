@@ -102,7 +102,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
@@ -186,7 +186,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //int item = Main.rand.NextBool(5) ? Item.NewItem(Projectile.getRect(), ModContent.ItemType<Ammo.ShroomArrow>()) : 0;

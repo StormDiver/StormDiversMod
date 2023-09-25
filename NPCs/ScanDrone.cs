@@ -25,6 +25,7 @@ namespace StormDiversMod.NPCs
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
         }
         public override void SetDefaults()
@@ -97,7 +98,6 @@ namespace StormDiversMod.NPCs
         }
         public override void AI()
         {
-            NPC.buffImmune[BuffID.Confused] = true;
 
             Player player = Main.player[NPC.target]; //Code to move towards player
             NPC.TargetClosest();

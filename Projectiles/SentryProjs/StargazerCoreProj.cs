@@ -146,7 +146,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
 
       
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
@@ -241,7 +241,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Main.dust[dust].noGravity = true;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

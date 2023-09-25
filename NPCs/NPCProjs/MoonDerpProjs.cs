@@ -91,7 +91,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
@@ -223,7 +223,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.Kill();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);

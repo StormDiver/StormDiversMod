@@ -143,7 +143,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
 
@@ -240,7 +240,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
 

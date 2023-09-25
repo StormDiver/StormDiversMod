@@ -103,7 +103,7 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

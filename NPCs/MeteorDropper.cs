@@ -22,7 +22,11 @@ namespace StormDiversMod.NPCs
         {
             //DisplayName.SetDefault("Meteor Bomber"); 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
 
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<SuperBurnDebuff>()] = true;
         }
         public override void SetDefaults()
         {
@@ -85,14 +89,6 @@ namespace StormDiversMod.NPCs
         float inertia = 30;
         public override void AI()
         {
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.OnFire3] = true;
-
-            NPC.buffImmune[(BuffType<SuperBurnDebuff>())] = true;
-            NPC.buffImmune[(BuffType<HellSoulFireDebuff>())] = true;
-            NPC.buffImmune[(BuffType<UltraBurnDebuff>())] = true;
-            NPC.buffImmune[BuffID.Confused] = true;
-
 
             //Ypos Variance
             if (yassend)

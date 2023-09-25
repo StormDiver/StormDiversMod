@@ -22,6 +22,7 @@ namespace StormDiversMod.NPCs
             //DisplayName.SetDefault("Surged Granite Core"); 
                                                            
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
         }
         public override void SetDefaults()
@@ -94,8 +95,6 @@ namespace StormDiversMod.NPCs
 
         public override void AI()
         {
-            NPC.buffImmune[BuffID.Confused] = true;
-
             shoottime++;
             if (!Main.dedServ)
             {

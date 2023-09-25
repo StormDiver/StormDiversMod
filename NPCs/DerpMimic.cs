@@ -34,9 +34,17 @@ namespace StormDiversMod.NPCs
                  NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, bestiaryData);
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8;
-            NPCID.Sets.ShimmerImmunity[NPC.type] = true;
+            //NPCID.Sets.ShimmerImmunity[NPC.type] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Shimmer] = true;
             NPCID.Sets.CanHitPastShimmer[NPC.type] = true;
             NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
+
+            /*NPCDebuffImmunityData debuffData = new()
+            {
+                ImmuneToAllBuffsThatAreNotWhips = true,
+                //ImmuneToWhips = true
+            };*/
+            NPCID.Sets.ImmuneToRegularBuffs[NPC.type] = true;
         }
         public override void SetDefaults()
         {
@@ -129,10 +137,7 @@ namespace StormDiversMod.NPCs
         }
         public override void AI()
         {
-            for (int k = 0; k < NPC.buffImmune.Length; k++)
-            {
-                NPC.buffImmune[k] = true;
-            }
+        
             player = Main.player[NPC.target];
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;

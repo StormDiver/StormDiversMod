@@ -307,7 +307,7 @@ namespace StormDiversMod.Projectiles
             //================================================================================================================================================================================================================================================
         }
         
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
            
             var player = Main.player[Projectile.owner];
@@ -357,7 +357,7 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("bazooka Missile");
             Main.projFrames[Projectile.type] = 1;
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
 
         }
 
@@ -378,7 +378,6 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             Projectile.hide = true;
         }
-        int timer;
         public override void AI()
         {
 
@@ -415,6 +414,7 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
+                Projectile.hostile = true;
                 Projectile.tileCollide = false;
                 // Set to transparent. This projectile technically lives as  transparent for about 3 frames
                 Projectile.alpha = 255;
@@ -457,7 +457,7 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 

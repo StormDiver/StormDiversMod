@@ -215,7 +215,7 @@ namespace StormDiversMod.Projectiles
             //Projectile.damage += 12;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
             for (int i = 0; i < 5; i++)

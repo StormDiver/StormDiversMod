@@ -159,7 +159,7 @@ namespace StormDiversMod.Projectiles
 
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 1f, Pitch = 0.5f}, Projectile.Center);
             //SoundEngine.PlaySound(SoundID.ScaryScream with{ Volume = 0.5f, Pitch = 1f}, Projectile.Center);
@@ -354,7 +354,7 @@ namespace StormDiversMod.Projectiles
 
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f, Pitch = -0.5f, MaxInstances = 5}, Projectile.Center);
             //SoundEngine.PlaySound(SoundID.ScaryScream with{ Volume = 0.5f, Pitch = 1f}, Projectile.Center);
@@ -451,7 +451,7 @@ namespace StormDiversMod.Projectiles
 
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
         }
         public override Color? GetAlpha(Color lightColor)

@@ -117,7 +117,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             target.AddBuff(BuffID.OnFire, 180);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             SoundEngine.PlaySound(SoundID.Tink with { Volume = 0.5f}, Projectile.Center);

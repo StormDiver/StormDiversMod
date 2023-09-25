@@ -85,7 +85,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
        
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
 

@@ -80,7 +80,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             float numberProjectiles = 6 + Main.rand.Next(3);
             float rotation = MathHelper.ToRadians(180);
@@ -208,7 +208,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 5; i++)
             {

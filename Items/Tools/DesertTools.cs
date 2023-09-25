@@ -35,7 +35,8 @@ namespace StormDiversMod.Items.Tools
 			Item.autoReuse = true;
             Item.useTurn = true;
             Item.knockBack = 5;
-            
+            Item.attackSpeedOnlyAffectsWeaponAnimation = true;
+
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -85,6 +86,7 @@ namespace StormDiversMod.Items.Tools
             Item.autoReuse = true;
             Item.useTurn = true;
             Item.knockBack = 7;
+            Item.attackSpeedOnlyAffectsWeaponAnimation = true;
 
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)

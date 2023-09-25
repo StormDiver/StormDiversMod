@@ -71,7 +71,7 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             
              
@@ -493,7 +493,7 @@ namespace StormDiversMod.Projectiles
             
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
         }
@@ -637,7 +637,7 @@ namespace StormDiversMod.Projectiles
 
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
         }

@@ -188,7 +188,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             SoundEngine.PlaySound(SoundID.NPCDeath59 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
@@ -373,7 +373,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

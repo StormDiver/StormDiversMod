@@ -78,7 +78,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
 
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
@@ -162,7 +162,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
@@ -231,7 +231,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
        
        
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);

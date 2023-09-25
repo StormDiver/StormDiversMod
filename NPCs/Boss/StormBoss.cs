@@ -24,6 +24,7 @@ using Terraria.ModLoader.IO;
 using StormDiversMod.Items.Pets;
 using StormDiversMod.Projectiles;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using StormDiversMod.Buffs;
 
 namespace StormDiversMod.NPCs.Boss
 {
@@ -45,7 +46,7 @@ namespace StormDiversMod.NPCs.Boss
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
-
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
         public override void SetDefaults()
         {
@@ -168,7 +169,6 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void AI()
         {
-            NPC.buffImmune[BuffID.Confused] = true;
             if (Main.netMode != NetmodeID.Server)
             {
                 // For visuals regarding NPC position, netOffset has to be concidered to make visuals align properly

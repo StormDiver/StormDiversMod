@@ -85,7 +85,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f, Pitch = 0.5f }, Projectile.Center);
 

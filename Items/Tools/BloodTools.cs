@@ -39,6 +39,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 3;
             Item.scale = 1.1f;
             Item.tileBoost = 1;
+            Item.attackSpeedOnlyAffectsWeaponAnimation = true;
 
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -95,7 +96,7 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 7;
             Item.scale = 1.25f;
             Item.tileBoost = 1;
-
+            Item.attackSpeedOnlyAffectsWeaponAnimation = true;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {

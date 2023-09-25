@@ -177,7 +177,7 @@ namespace StormDiversMod.Projectiles
                 extralength = 2.5f;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             var player = Main.player[Projectile.owner];
             if (maxcharge) //Different sound at max charge
@@ -337,7 +337,7 @@ namespace StormDiversMod.Projectiles
             //Projectile.damage = (Projectile.damage * 19) / 20; //%5 falloff
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
         }

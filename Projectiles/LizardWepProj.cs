@@ -141,7 +141,7 @@ namespace StormDiversMod.Projectiles
             Projectile.velocity.Y = 0;
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item74 with { Volume = 0.5f, Pitch = 0.5f }, Projectile.Center);
 
@@ -379,7 +379,7 @@ namespace StormDiversMod.Projectiles
 
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -558,7 +558,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.frame = 4;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1.4f;

@@ -22,7 +22,11 @@ namespace StormDiversMod.NPCs
         {
             //DisplayName.SetDefault("Soul Cauldron Servant"); 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
-
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<SuperBurnDebuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<HellSoulFireDebuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<UltraBurnDebuff>()] = true;
         }
         public override void SetDefaults()
         {
@@ -73,12 +77,6 @@ namespace StormDiversMod.NPCs
         bool shooting;
         public override void AI()
         {
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.OnFire3] = true;
-            NPC.buffImmune[(BuffType<SuperBurnDebuff>())] = true;
-            NPC.buffImmune[(BuffType<HellSoulFireDebuff>())] = true;
-            NPC.buffImmune[(BuffType<UltraBurnDebuff>())] = true;
-
             shoottime++;
             NPC.rotation = NPC.velocity.X / 100;
 

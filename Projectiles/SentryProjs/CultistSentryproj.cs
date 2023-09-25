@@ -176,7 +176,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             return false;
         }
        
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);

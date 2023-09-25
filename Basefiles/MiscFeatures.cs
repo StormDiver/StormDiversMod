@@ -31,6 +31,7 @@ using ReLogic.Peripherals.RGB;
 using StormDiversMod.Items.Furniture;
 using StormDiversMod.Items.Weapons;
 
+
 namespace StormDiversMod.Basefiles
 {
 
@@ -306,7 +307,18 @@ namespace StormDiversMod.Basefiles
         //public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
-                
+            if ((proj.type == ModContent.ProjectileType<Projectiles.AmmoProjs.ProtoGrenadeProj>() ||
+                proj.type == ModContent.ProjectileType<Projectiles.AmmoProjs.ProtoGrenadeProj2>()
+                ) && !Player.immune) //100% for proto grenade
+            {
+                modifiers.FinalDamage /= 2;
+            }
+
+            if (proj.type == ModContent.ProjectileType<Projectiles.BazookaProj2>()) //50% damage for bazooka
+            {
+                modifiers.FinalDamage /= 4;
+
+            }
             if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() && !Player.immune)
             {
                 //paintime = 3600;

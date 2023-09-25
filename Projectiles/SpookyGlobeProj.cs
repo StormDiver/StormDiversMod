@@ -130,7 +130,7 @@ namespace StormDiversMod.Projectiles
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 60);
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             for (int i = 0; i < 10; i++)

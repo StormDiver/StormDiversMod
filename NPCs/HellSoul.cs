@@ -24,7 +24,9 @@ namespace StormDiversMod.NPCs
             Main.npcFrameCount[NPC.type] = 5;
 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
-
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<SuperBurnDebuff>()] = true;
         }
         public override void SetDefaults()
         {
@@ -85,11 +87,7 @@ namespace StormDiversMod.NPCs
         bool casting;
         public override void AI()
         {
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.OnFire3] = true;
-
-            NPC.buffImmune[(BuffType<SuperBurnDebuff>())] = true;
-
+           
             NPC.rotation = NPC.velocity.X / 15;
 
 

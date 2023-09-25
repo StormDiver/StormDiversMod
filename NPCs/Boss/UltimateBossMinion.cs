@@ -27,7 +27,8 @@ namespace StormDiversMod.NPCs.Boss
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
             NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
-            
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
         public override void SetDefaults()
         {
@@ -157,7 +158,6 @@ namespace StormDiversMod.NPCs.Boss
             //========================================
 
             NPC.noTileCollide = true;
-            NPC.buffImmune[BuffID.Confused] = true;
             /*if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
             {
                 NPC.TargetClosest();

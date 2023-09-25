@@ -198,7 +198,7 @@ namespace StormDiversMod
                 projectile.penetrate = -1;
             }*/
         }
-        public override void Kill(Projectile projectile, int timeLeft)
+        public override void OnKill(Projectile projectile, int timeLeft)
         {
             //Generic for Rocket, Grenade, Mine, and Snowman Cannon
             //Cluster frags x0.75, using frost colours
@@ -245,7 +245,6 @@ namespace StormDiversMod
                 Main.projectile[proj].scale = 1.75f;
             }*/
 
-            base.Kill(projectile, timeLeft);
         }
         /*public override void SetDefaults(Projectile projectile)
         {

@@ -25,6 +25,9 @@ namespace StormDiversMod.NPCs
             Main.npcFrameCount[NPC.type] = 10;
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+
         }
         public override void SetDefaults()
         {
@@ -85,7 +88,6 @@ namespace StormDiversMod.NPCs
         public override void AI()
         {
             NPC.timeLeft = 60;
-            NPC.buffImmune[BuffID.Confused] = true;
 
             shoottime++;
             

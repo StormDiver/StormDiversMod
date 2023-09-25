@@ -22,6 +22,7 @@ namespace StormDiversMod.NPCs
         {
             //DisplayName.SetDefault("Lihzahrd Flametrap");
             Main.npcFrameCount[NPC.type] = 4;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
         }
         public override void SetDefaults()
@@ -86,7 +87,6 @@ namespace StormDiversMod.NPCs
 
         public override void AI()
         {
-            NPC.buffImmune[BuffID.Confused] = true;
             if (!Main.dedServ)
             {
                 Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);

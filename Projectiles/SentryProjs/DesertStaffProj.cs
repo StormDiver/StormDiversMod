@@ -187,7 +187,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             if (info.PvP)
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
@@ -336,7 +336,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
 

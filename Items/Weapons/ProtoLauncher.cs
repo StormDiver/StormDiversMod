@@ -17,7 +17,8 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Prototype Launcher");
-            //Tooltip.SetDefault("Fires out impact-exploding grenades that have a small chance to prematurely explode into shrapnel\nRequires Prototype Grenades, purchase more from the Demolitionist");
+            //Tooltip.SetDefault("Fires out impact-exploding grenades that have a small chance to prematurely break into shrapnel
+            //\nThe explosion and shrapnel can damage you\nRequires Prototype Grenades, purchase more from the Demolitionist");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
 

@@ -117,7 +117,7 @@ namespace StormDiversMod.Projectiles
         {
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //SoundEngine.PlaySound(SoundID.NPCDeath59 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);

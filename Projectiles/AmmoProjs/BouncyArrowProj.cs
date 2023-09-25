@@ -78,7 +78,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
         }
        
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             
              //int item = Main.rand.NextBool(5) ? Item.NewItem(Projectile.getRect(), ModContent.ItemType<Ammo.BouncyArrow>()) : 0;

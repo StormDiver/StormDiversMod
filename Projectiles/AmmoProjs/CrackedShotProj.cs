@@ -81,7 +81,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 
@@ -133,7 +133,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
             Projectile.spriteDirection = Projectile.direction;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 10; i++)

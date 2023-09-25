@@ -112,7 +112,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             return true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
 /*
@@ -200,7 +200,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         
   
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
 

@@ -157,7 +157,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.timeLeft = 3;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1.5f, Pitch = -0.5f, MaxInstances = -1 }, Projectile.Center);
 
@@ -434,7 +434,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.ai[0] != 1 && Projectile.ai[0] != 4) //Circle Attack
             {
@@ -571,7 +571,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             Projectile.Kill();
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 10; i++)
             {

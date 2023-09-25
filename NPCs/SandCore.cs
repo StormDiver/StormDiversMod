@@ -23,7 +23,8 @@ namespace StormDiversMod.NPCs
         {
             //DisplayName.SetDefault("Dune Blaster");
             Main.npcFrameCount[NPC.type] = 9;
-
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<AridSandDebuff>()] = true;
 
         }
         public override void SetDefaults()
@@ -98,9 +99,6 @@ namespace StormDiversMod.NPCs
         }
         public override void AI()
         {
-            NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
-            NPC.buffImmune[BuffID.Confused] = true;
-
             NPC.spriteDirection = NPC.direction;
 
 

@@ -202,7 +202,7 @@ namespace StormDiversMod.Projectiles
             
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -354,7 +354,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

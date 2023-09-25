@@ -23,6 +23,7 @@ namespace StormDiversMod.NPCs
             //DisplayName.SetDefault("Temple Guardian");
             Main.npcFrameCount[NPC.type] = 6;
 
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
         }
         public override void SetDefaults()
@@ -110,7 +111,6 @@ namespace StormDiversMod.NPCs
                     NPC.ai[1] = -150;
                 
             }
-            NPC.buffImmune[BuffID.Confused] = true;
 
             NPC.noTileCollide = true;
             if (!Main.dedServ)

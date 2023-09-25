@@ -78,7 +78,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.frameCounter = 0;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
 

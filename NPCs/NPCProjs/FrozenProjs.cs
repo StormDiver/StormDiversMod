@@ -68,7 +68,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.Kill();
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
            
                 SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
@@ -153,7 +153,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                     }
                 }
-                SoundEngine.PlaySound(SoundID.Item27 with{Volume = 1f, Pitch = 0.5f}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item28 with{Volume = 1f, Pitch = 0.5f}, Projectile.Center);
 
                 Projectile.ai[1] = 0;
             }
@@ -168,7 +168,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27 with{Volume = 1f, Pitch = 0.5f}, Projectile.Center);
 

@@ -75,7 +75,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.Kill();
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

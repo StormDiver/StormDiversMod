@@ -82,7 +82,7 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //SoundEngine.PlaySound(SoundID.Duck with{Volume = 0.3f, Pitch = -0.6f}, Projectile.Center);
@@ -195,7 +195,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
@@ -350,7 +350,7 @@ namespace StormDiversMod.Projectiles
             return false;
         }
         
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //SoundEngine.PlaySound(SoundID.Duck with { Volume = 0.3f, Pitch = -0.6f }, Projectile.Center);
@@ -490,7 +490,7 @@ namespace StormDiversMod.Projectiles
         }
 
      
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //SoundEngine.PlaySound(SoundID.Duck with { Volume = 0.3f, Pitch = -0.6f }, Projectile.Center);
@@ -626,7 +626,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             
@@ -704,7 +704,7 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //SoundEngine.PlaySound(SoundID.Duck with { Volume = 0.3f, Pitch = -0.6f }, Projectile.Center);

@@ -301,7 +301,7 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (Projectile.owner == Main.myPlayer)
 			{
@@ -374,7 +374,7 @@ namespace StormDiversMod.Projectiles.Minions
             if (info.PvP)
                 target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 120);
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (Projectile.owner == Main.myPlayer)
 			{

@@ -22,8 +22,14 @@ namespace StormDiversMod.NPCs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Soul Cauldron"); // Automatic from .lang files
-                                                      // make sure to set this for your modnpcs.
+            // make sure to set this for your modnpcs.
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<SuperBurnDebuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<HellSoulFireDebuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<UltraBurnDebuff>()] = true;
         }
         public override void SetDefaults()
         {
@@ -32,17 +38,17 @@ namespace StormDiversMod.NPCs
             NPC.width = 44;
             NPC.height = 44;
 
-            NPC.aiStyle = 14; 
+            NPC.aiStyle = 14;
             AIType = NPCID.FlyingSnake;
             //animationType = NPCID.BlueSlime;
-            
+
             NPC.damage = 60;
-            
+
             NPC.defense = 15;
             NPC.lifeMax = 3000;
-            
+
             NPC.rarity = 3;
-            
+
             NPC.HitSound = SoundID.NPCHit3;
             NPC.DeathSound = SoundID.NPCDeath6;
             NPC.knockBackResist = 0f;
@@ -58,20 +64,20 @@ namespace StormDiversMod.NPCs
             };
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
-            NPC.BossBar = Main.BigBossProgressBar.NeverValid;        
+            NPC.BossBar = Main.BigBossProgressBar.NeverValid;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
+    // Sets the spawning conditions of this NPC that is listed in the bestiary.
+    BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
-				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A cauldron filled with hundreds of burning souls, doomed to spend eternity in hell.")
-            });
+    // Sets the description of this NPC that is listed in the bestiary.
+    new FlavorTextBestiaryInfoElement("A cauldron filled with hundreds of burning souls, doomed to spend eternity in hell.")
+});
         }
-      
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -87,19 +93,13 @@ namespace StormDiversMod.NPCs
         }
         int shoottime = 0;
         int phasetime; //How long to remain in a phase
-       
+
         int phase = 0; //0 = phase 1, 1 = phase 2, 2 = phase 3
 
         float distance;
 
         public override void AI()
         {
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.OnFire3] = true;
-            NPC.buffImmune[(BuffType<SuperBurnDebuff>())] = true;
-            NPC.buffImmune[(BuffType<HellSoulFireDebuff>())] = true;
-            NPC.buffImmune[(BuffType<UltraBurnDebuff>())] = true;
-            NPC.buffImmune[BuffID.Confused] = true;
 
             NPC.spriteDirection = NPC.direction;
             if (!Main.dedServ)
@@ -176,7 +176,7 @@ namespace StormDiversMod.NPCs
                 if (phasetime >= 400 && Main.netMode != NetmodeID.MultiplayerClient) //Phase 1 to 2
                 {
                     shoottime = 0;
-                    
+
                     phasetime = 0;
                     phase = 1;
                     NPC.netUpdate = true;
@@ -206,7 +206,7 @@ namespace StormDiversMod.NPCs
                         for (int i = 0; i < 1; i++)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
-                            {                       
+                            {
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), type, damage, knockBack);
 
                                 NPC.velocity *= 0.5f;
@@ -315,7 +315,7 @@ namespace StormDiversMod.NPCs
 
                 var dust3 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Bottom.Y - 12), NPC.width, 6, 6, 0, 5);
                 dust3.noGravity = false;
-                    dust3.scale = 0.8f;
+                dust3.scale = 0.8f;
 
             }
         }
@@ -336,7 +336,7 @@ namespace StormDiversMod.NPCs
                 {
                     npcframe = 0;
                 }
-            }          
+            }
             else
             {
                 NPC.frame.Y = npcframe * frameHeight;
@@ -392,7 +392,7 @@ namespace StormDiversMod.NPCs
                 for (int i = 0; i < 20; i++)
                 {
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 173);
-                    
+
                     dust.noGravity = true;
                     dust.velocity *= 5;
                     dust.scale = 2f;
@@ -418,7 +418,7 @@ namespace StormDiversMod.NPCs
         }
         public override void OnKill()
         {
-            
+
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
@@ -440,7 +440,7 @@ namespace StormDiversMod.NPCs
             };
 
             isExpert.OnSuccess(new DropOneByOne(itemType, parameters));
-           
+
             npcLoot.Add(notExpert);
             npcLoot.Add(isExpert);
 

@@ -88,7 +88,7 @@ namespace StormDiversMod.Projectiles
             
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             float numberProjectiles = 6 + Main.rand.Next(3);
             float rotation = MathHelper.ToRadians(180);
@@ -259,7 +259,7 @@ namespace StormDiversMod.Projectiles
             return true;
         }
      
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, Projectile.Center);
@@ -385,7 +385,7 @@ namespace StormDiversMod.Projectiles
             Projectile.Kill();
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.DamageType == DamageClass.Melee)
             {

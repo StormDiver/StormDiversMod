@@ -96,7 +96,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //int item = Main.rand.NextBool(5) ? Item.NewItem(Projectile.getRect(), ModContent.ItemType<Weapons.MetalSilverKnive>()) : 0;
 
@@ -191,7 +191,7 @@ namespace StormDiversMod.Projectiles
         }
         
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //int item = Main.rand.NextBool(5) ? Item.NewItem(Projectile.getRect(), ModContent.ItemType<Weapons.MetalTungstenBullet>()) : 0;
 
@@ -295,7 +295,7 @@ namespace StormDiversMod.Projectiles
 
 
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //int item = Main.rand.NextBool(5) ? Item.NewItem(Projectile.getRect(), ModContent.ItemType<Weapons.MetalSilverKnive>()) : 0;
 

@@ -23,6 +23,7 @@ namespace StormDiversMod.NPCs
             //DisplayName.SetDefault("Star Hopper Minion"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 2; // make sure to set this for your modnpcs.
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
         }
         public override void SetDefaults()
@@ -87,8 +88,6 @@ namespace StormDiversMod.NPCs
         int dustnpc = 0;
         public override void AI()
         {
-            NPC.buffImmune[BuffID.Confused] = true;
-
             dustnpc++;
             if (dustnpc >= 3)
             {

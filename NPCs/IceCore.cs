@@ -25,7 +25,12 @@ namespace StormDiversMod.NPCs
             //DisplayName.SetDefault("Frigid Snowflake");
             Main.npcFrameCount[NPC.type] = 9;
 
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn2] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<SuperFrostBurn>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<UltraFrostDebuff>()] = true;
         }
         public override void SetDefaults()
         {
@@ -45,7 +50,6 @@ namespace StormDiversMod.NPCs
             NPC.lifeMax = 1250;
             NPC.noGravity = true;
             NPC.noTileCollide = false;
-
 
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
@@ -100,11 +104,6 @@ namespace StormDiversMod.NPCs
         }
         public override void AI()
         {
-            NPC.buffImmune[BuffID.Frostburn] = true;
-            NPC.buffImmune[BuffID.Frostburn2] = true;
-            NPC.buffImmune[(BuffType<SuperFrostBurn>())] = true;
-            NPC.buffImmune[(BuffType<UltraFrostDebuff>())] = true;
-            NPC.buffImmune[BuffID.Confused] = true;
             if (!Main.dedServ)
             {
                 Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);

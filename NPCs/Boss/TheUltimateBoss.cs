@@ -51,6 +51,8 @@ namespace StormDiversMod.NPCs.Boss
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
         public override void SetDefaults()
         {
@@ -165,8 +167,6 @@ namespace StormDiversMod.NPCs.Boss
             }
             else
                 NPC.damage = 0;
-
-            NPC.buffImmune[BuffID.Confused] = true;
 
             if (Main.netMode != NetmodeID.Server)
             {
@@ -1541,7 +1541,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     NPC.buffImmune[k] = true;
                 }
-
+                
                 if (Main.netMode != NetmodeID.MultiplayerClient) //flee from player
                 {
                     if (distanceToIdlePosition < 250f)

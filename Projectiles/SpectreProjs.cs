@@ -81,7 +81,7 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             for (int i = 0; i < 25; i++)
@@ -244,7 +244,7 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
             for (int i = 0; i < 20; i++)
@@ -336,7 +336,7 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 0.7f;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             for (int i = 0; i < 10; i++)
@@ -513,7 +513,7 @@ namespace StormDiversMod.Projectiles
             //Projectile.damage += 12;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
             for (int i = 0; i < 5; i++)
@@ -616,7 +616,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
             for (int i = 0; i < 5; i++)

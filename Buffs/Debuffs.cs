@@ -445,8 +445,7 @@ namespace StormDiversMod.Buffs
             //DisplayName.SetDefault("Forbidden Whip tag");
             //Description.SetDefault("You have been tagged by the Forbidden Whip");
             Main.debuff[Type] = true;
-            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
-
+            BuffID.Sets.IsATagBuff[Type] = true;
         }
         public override void Update(Player player, ref int buffIndex)
         {
@@ -464,7 +463,7 @@ namespace StormDiversMod.Buffs
             //DisplayName.SetDefault("Asteroid Whip tag");
             //Description.SetDefault("You have been tagged by the Asteroid Belt");
             Main.debuff[Type] = true;
-            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+            BuffID.Sets.IsATagBuff[Type] = true;
 
         }
 
@@ -484,7 +483,7 @@ namespace StormDiversMod.Buffs
             //DisplayName.SetDefault("Bloody Whip tag");
             //Description.SetDefault("You have been tagged by The Bloody Spine");
             Main.debuff[Type] = true;
-            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+            BuffID.Sets.IsATagBuff[Type] = true;
 
         }
 
@@ -504,7 +503,7 @@ namespace StormDiversMod.Buffs
             //DisplayName.SetDefault("Spider Whip tag");
             //Description.SetDefault("You have been tagged by The Spider Whip");
             Main.debuff[Type] = true;
-            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+            BuffID.Sets.IsATagBuff[Type] = true;
 
         }
 

@@ -78,7 +78,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }*/
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             Collision.HitTiles(Projectile.Center, Projectile.velocity, Projectile.width, Projectile.height);
@@ -230,7 +230,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.Kill();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
@@ -405,7 +405,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }*/
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionVortexProj>(), 0, 0, Projectile.owner);
@@ -565,7 +565,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
@@ -851,7 +851,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 target.AddBuff(BuffID.Electrified, 180); //3
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.rand.Next(50) == 0)
             {
@@ -1134,7 +1134,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             return color;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
         }

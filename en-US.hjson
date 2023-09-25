@@ -2626,7 +2626,8 @@ Mods: {
 				DisplayName: Prototype Launcher
 				Tooltip:
 					'''
-					Fires out impact-exploding grenades that have a small chance to prematurely explode into shrapnel
+					Fires out impact-exploding grenades that have a small chance to prematurely break into shrapnel
+					The explosion and shrapnel can damage you
 					Requires Prototype Grenades, purchase more from the Demolitionist
 					'''
 			}
@@ -3553,6 +3554,14 @@ Mods: {
 					Label: Prevent modded pillar enemies from spawning
 				}
 			}
+		}
+
+		Emotes: {
+			ThePainEmote.Command: ThePain
+			TheAngeryEmote.Command: TheAngery
+			TheEvilEmote.Command: TheEvil
+			TheSadEmote.Command: TheSad
+			ClaymanEmote.Command: Clayman
 		}
 	}
 }

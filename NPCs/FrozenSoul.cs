@@ -24,7 +24,11 @@ namespace StormDiversMod.NPCs
             Main.npcFrameCount[NPC.type] = 8;
 
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn2] = true;
 
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<SuperFrostBurn>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<UltraFrostDebuff>()] = true;
         }
         public override void SetDefaults()
         {
@@ -88,13 +92,6 @@ namespace StormDiversMod.NPCs
         bool shooting;
         public override void AI()
         {
-            NPC.buffImmune[BuffID.Frostburn] = true;
-            NPC.buffImmune[BuffID.Frostburn2] = true;
-
-            NPC.buffImmune[(BuffType<SuperFrostBurn>())] = true;
-            NPC.buffImmune[(BuffType<UltraFrostDebuff>())] = true;
-
-
             NPC.rotation = NPC.velocity.X / 15;
 
             shoottime++;

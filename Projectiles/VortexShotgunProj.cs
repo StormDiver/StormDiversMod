@@ -199,7 +199,7 @@ namespace StormDiversMod.Projectiles
             //================================================================================================================================================================================================================================================
         }
         
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             var player = Main.player[Projectile.owner];
             if (maxcharge) //Different sound at max charge

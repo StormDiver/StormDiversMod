@@ -131,7 +131,7 @@ namespace StormDiversMod.Projectiles
             
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {                 
 
         }
@@ -226,7 +226,7 @@ namespace StormDiversMod.Projectiles
                 }
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
                       
         }
@@ -479,7 +479,7 @@ namespace StormDiversMod.Projectiles
 
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionAridProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1.6f;

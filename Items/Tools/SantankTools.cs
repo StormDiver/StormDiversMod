@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.Tools
         {
             
             Item.damage = 50;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 40;
             Item.height = 22;
 
@@ -76,7 +76,7 @@ namespace StormDiversMod.Items.Tools
         {
 
             Item.damage = 65;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 60;
             Item.height = 20;
             Item.useTime = 2;
@@ -97,11 +97,7 @@ namespace StormDiversMod.Items.Tools
             Item.channel = true;
             Item.autoReuse = true;
             Item.tileBoost = 0;
-
-
         }
-
-
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -131,7 +127,7 @@ namespace StormDiversMod.Items.Tools
         {
 
             Item.damage = 55;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 50;
             Item.height = 20;
             Item.useTime = 3;
@@ -155,8 +151,6 @@ namespace StormDiversMod.Items.Tools
 
 
         }
-
-
 
         public override void AddRecipes()
         {

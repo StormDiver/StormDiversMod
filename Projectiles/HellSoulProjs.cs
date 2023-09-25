@@ -109,7 +109,7 @@ namespace StormDiversMod.Projectiles
             if (info.PvP)
                 target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -223,7 +223,7 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
     
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -407,7 +407,7 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
   
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -519,7 +519,7 @@ namespace StormDiversMod.Projectiles
             if (info.PvP)
                 target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -626,7 +626,7 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
         }
   
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -704,7 +704,7 @@ namespace StormDiversMod.Projectiles
         }
 
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionHellSoulProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1.75f;

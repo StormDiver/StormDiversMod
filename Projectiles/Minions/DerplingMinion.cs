@@ -410,7 +410,7 @@ namespace StormDiversMod.Projectiles.Minions
                 }
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

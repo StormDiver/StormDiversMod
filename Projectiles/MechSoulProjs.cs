@@ -154,7 +154,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.timeLeft = 3;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -587,7 +587,7 @@ namespace StormDiversMod.Projectiles
             }
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -673,7 +673,7 @@ namespace StormDiversMod.Projectiles
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //Main.PlaySound(SoundID.Item10, Projectile.position);
@@ -821,7 +821,7 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 5);
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

@@ -24,6 +24,14 @@ namespace StormDiversMod.NPCs
                                                         // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 10;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<SuperBurnDebuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<HellSoulFireDebuff>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<UltraBurnDebuff>()] = true;
         }
         public override void SetDefaults()
         {
@@ -86,15 +94,6 @@ namespace StormDiversMod.NPCs
         bool playedsound;
         public override void AI()
         {
-
-            NPC.buffImmune[BuffID.OnFire] = true;
-            NPC.buffImmune[BuffID.OnFire3] = true;
-
-            NPC.buffImmune[(BuffType<SuperBurnDebuff>())] = true;
-            NPC.buffImmune[(BuffType<HellSoulFireDebuff>())] = true;
-            NPC.buffImmune[(BuffType<UltraBurnDebuff>())] = true;
-            NPC.buffImmune[BuffID.Confused] = true;
-
             Player player = Main.player[NPC.target];
            
             NPC.velocity.X *= 0.98f;

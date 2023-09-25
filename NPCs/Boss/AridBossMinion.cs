@@ -25,6 +25,9 @@ namespace StormDiversMod.NPCs.Boss
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<AridSandDebuff>()] = true;
         }
         public override void SetDefaults()
         {
@@ -115,8 +118,7 @@ namespace StormDiversMod.NPCs.Boss
             //========================================
 
             NPC.noTileCollide = true;
-            NPC.buffImmune[(BuffType<AridSandDebuff>())] = true;
-            NPC.buffImmune[BuffID.Confused] = true;
+          
             NPC.localAI[0]++;//Shoot time
             NPC.rotation = NPC.velocity.X / 50;
             if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)

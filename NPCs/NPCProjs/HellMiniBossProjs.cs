@@ -98,7 +98,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 300);
 
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 0.75f}, Projectile.Center);
@@ -256,7 +256,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             Projectile.Kill();
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 0.75f}, Projectile.Center);

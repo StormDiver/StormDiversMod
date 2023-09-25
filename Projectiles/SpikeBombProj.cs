@@ -71,7 +71,7 @@ namespace StormDiversMod.Projectiles
             Projectile.Kill();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
 
@@ -156,7 +156,7 @@ namespace StormDiversMod.Projectiles
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //Main.PlaySound(SoundID.Item10, Projectile.position);

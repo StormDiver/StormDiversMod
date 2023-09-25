@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using Microsoft.CodeAnalysis;
 
 
 namespace StormDiversMod.Projectiles.AmmoProjs
@@ -18,14 +19,13 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Proto Grenade");
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
             Projectile.width = 14;
             Projectile.height = 14;
-
-
            
             Projectile.friendly = true;
 
@@ -61,6 +61,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
+                Projectile.hostile = true;
+
                 Projectile.tileCollide = false;
                 // Set to transparent. This projectile technically lives as  transparent for about 3 frames
                 Projectile.alpha = 255;
@@ -112,7 +114,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
@@ -144,10 +146,11 @@ namespace StormDiversMod.Projectiles.AmmoProjs
     //_____________________________________________________________________________________________________________________________________________
     public class ProtoGrenadeProj2 : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Sharpnel");
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
+
         }
         public override void SetDefaults()
         {
@@ -155,6 +158,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.width = 9;
             Projectile.height = 9;
             Projectile.friendly = true;
+            Projectile.hostile = true;
+
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 300;
@@ -190,7 +195,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.Kill();
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

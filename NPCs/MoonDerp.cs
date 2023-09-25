@@ -30,6 +30,9 @@ namespace StormDiversMod.NPCs
             NPCID.Sets.TrailingMode[NPC.type] = 0;
             NPCID.Sets.TrailCacheLength[NPC.type] = 4;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+
         }
         public override void SetDefaults()
         {
@@ -115,9 +118,6 @@ namespace StormDiversMod.NPCs
             //NPC.ai[1] = Ypos
             // NPC.ai[2] = Pos choice
             // NPC.ai[3] = Shoottime
-            NPC.buffImmune[BuffID.Confused] = true;
-
-
 
             Player player = Main.player[NPC.target]; //Code to move towards player
             if (Main.netMode != NetmodeID.MultiplayerClient)
