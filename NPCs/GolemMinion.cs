@@ -12,6 +12,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.NPCs
 
@@ -101,6 +102,12 @@ namespace StormDiversMod.NPCs
 
         public override void AI()
         {          
+            if (!NPC.downedPlantBoss)
+                NPC.dontTakeDamage = true;
+
+            else
+                NPC.dontTakeDamage = false;
+
             //NPC.ai[0] = Xpos
             //NPC.ai[1] = Ypos
             // NPC.ai[2] = Shoottime
@@ -122,7 +129,7 @@ namespace StormDiversMod.NPCs
 
             Player player = Main.player[NPC.target];
             NPC.TargetClosest();
-            if ((player.ZoneJungle && player.ZoneRockLayerHeight) || NPC.downedPlantBoss)
+            //if (player.GetModPlayer<MiscFeatures>().cursedplayer == true || NPC.downedPlantBoss) //if player puts back item then leave them be
             {
                 Vector2 moveTo = player.Center;
                 Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]);
@@ -139,15 +146,22 @@ namespace StormDiversMod.NPCs
             NPC.spriteDirection = NPC.direction;
             NPC.velocity.Y *= 0.96f;
 
-            if (player.dead || ((!player.ZoneJungle || !player.ZoneRockLayerHeight) && !NPC.downedPlantBoss)) //Now flees if the player leaves the Underground Jungle pre plant
+            /*if (player.dead || ((!player.ZoneJungle || !player.ZoneRockLayerHeight) && !NPC.downedPlantBoss)) 
+            {
+                NPC.velocity.Y = 8;
+            }*/
+
+            if (player.dead || (player.GetModPlayer<MiscFeatures>().cursedplayer == false && !NPC.downedPlantBoss))
             {
                 NPC.velocity.Y = 8;
             }
 
             if (Vector2.Distance(player.Center, NPC.Center) <= 700f)
             {
-                NPC.ai[2]++;
-
+                if (player.GetModPlayer<MiscFeatures>().cursedplayer == true || NPC.downedPlantBoss) //if player puts back item then leave them be
+                {
+                    NPC.ai[2]++;
+                }
                 if (NPC.ai[2] >= 70)//starts the shooting animation
                 {
                     //NPC.velocity.X = 0;

@@ -59,7 +59,7 @@ namespace StormDiversMod.Items.Weapons
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                     {
-                        line.Text = line.Text + "\nYou shouldn't have this yet >:("; 
+                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]"; 
                     }
                 }
             }
@@ -100,7 +100,7 @@ namespace StormDiversMod.Items.Weapons
         {
             CreateRecipe()
             .AddIngredient(ItemID.LunarTabletFragment, 13)
-            .AddTile(TileID.LihzahrdAltar)
+            .AddTile(TileID.MythrilAnvil)
             .Register();
 
         }
@@ -135,7 +135,7 @@ namespace StormDiversMod.Items.Weapons
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
-                        line.Text = line.Text + "\nYou shouldn't have this yet >:("; 
+                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
                     }
                 }
             }
@@ -248,7 +248,7 @@ namespace StormDiversMod.Items.Weapons
         {
            CreateRecipe()
            .AddIngredient(ItemID.LunarTabletFragment, 13)
-           .AddTile(TileID.LihzahrdAltar)
+           .AddTile(TileID.MythrilAnvil)
            .Register();
             
         }
@@ -283,7 +283,7 @@ namespace StormDiversMod.Items.Weapons
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.Text = line.Text + "\nYou shouldn't have this yet >:(";
+                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
                     }
                 }
             }
@@ -352,7 +352,7 @@ namespace StormDiversMod.Items.Weapons
         {
             CreateRecipe()
             .AddIngredient(ItemID.LunarTabletFragment, 13)
-            .AddTile(TileID.LihzahrdAltar)
+            .AddTile(TileID.MythrilAnvil)
             .Register();
         }
         //Drop rate in NPCEffects/ Luantic Cultist treasure bag
@@ -415,7 +415,7 @@ namespace StormDiversMod.Items.Weapons
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.Text = line.Text + "\nYou shouldn't have this yet >:("; 
+                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
                     }
                 }
             }
@@ -435,7 +435,7 @@ namespace StormDiversMod.Items.Weapons
         {
             CreateRecipe()
            .AddIngredient(ItemID.LunarTabletFragment, 13)
-           .AddTile(TileID.LihzahrdAltar)
+           .AddTile(TileID.MythrilAnvil)
            .Register();
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

@@ -3,11 +3,15 @@ Mods: {
 		"Keybinds.Armor Special Ability.DisplayName": Armor Special Ability
 
 		GameTips: {
-			ExampleTip0: Having trouble defeating bosses? Simply lower their health to 0 while keeping yours above 0.
-			ExampleTip1: You can avoid enemy attacks by moving out of the way!
-			ExampleTip2: You can jump by pressing the jump button!
-			ExampleTip3: If you want to deal damage, use a weapon that deals damage
-			ExampleTip4: Having trouble staying alive? Skill issue!
+			StormTip0: Having trouble defeating bosses? Simply lower their health to 0 while keeping yours above 0.
+			StormTip1: You can avoid enemy attacks by moving out of the way!
+			StormTip2: You can jump by pressing the jump button!
+			StormTip3: If you want to deal damage, use a weapon that deals damage
+			StormTip4: Having trouble staying alive? Skill issue!
+			StormTip5: Error 404, tip not found!
+			Stormtip6: Dying is an effective way to regain your health, unless you're on hardcore
+			Stormtip7: You can build by placing down tiles
+			Stormtip8: You can mine tiles by mining them
 		}
 
 		Buffs: {
@@ -2627,7 +2631,7 @@ Mods: {
 				Tooltip:
 					'''
 					Fires out impact-exploding grenades that have a small chance to prematurely break into shrapnel
-					The explosion and shrapnel can damage you
+					The shrapnel can damage you
 					Requires Prototype Grenades, purchase more from the Demolitionist
 					'''
 			}
@@ -3539,11 +3543,11 @@ Mods: {
 					Label: Overloaded Scandrone acts as a Plantera alternative
 				}
 
-				SmellyPlayer: {
-					Tooltip: Prevent Temple Guardians from spawning when entering the temple pre-Plantera (Not recommended)
-					Label: Disable Temple Guardians pre Plantera
-				}
-
+				//SmellyPlayer: {
+				//	Tooltip: Prevent Temple Guardians from spawning when entering the temple pre-Plantera (Not recommended)
+				//	Label: Disable Temple Guardians pre Plantera
+				//}
+				
 				NoMoonling4U: {
 					Tooltip: Prevent Moonlings from spawning naturally in space post-Moon Lord, they can still be summoned via Moonling core
 					Label: Disable Moonlings from naturally spawning

@@ -44,9 +44,9 @@ namespace StormDiversMod.Basefiles
         //[Label("Disable Temple Guardians pre Plantera")]
         //[Tooltip("Prevent Temple Guardians from spawning when entering the temple pre-Plantera (Not recommended)")]
         //[ReloadRequired] //Sadly no
-        [DefaultValue(false)]
-        [BackgroundColor(27, 130, 114)]
-        public bool SmellyPlayer { get; set; }
+        //[DefaultValue(false)]
+        //[BackgroundColor(27, 130, 114)]
+        //public bool SmellyPlayer { get; set; }
 
         [Header("EnemyMisc")]
 

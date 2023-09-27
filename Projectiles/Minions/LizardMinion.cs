@@ -10,8 +10,6 @@ using Terraria.GameContent.Creative;
 
 namespace StormDiversMod.Projectiles.Minions
 {
-
-
 	public class LizardMinionBuff : ModBuff
 	{
 		public override void SetStaticDefaults()
@@ -21,8 +19,15 @@ namespace StormDiversMod.Projectiles.Minions
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        {
+			if (!NPC.downedPlantBoss)
+			tip = tip + "\n[c/A14F12:Is inflicting a strange curse, dismiss to remove it!]";
 
-		public override void Update(Player player, ref int buffIndex)
+            base.ModifyBuffText(ref buffName, ref tip, ref rare);
+        }
+       
+        public override void Update(Player player, ref int buffIndex)
 		{
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<LizardMinionProj>()] > 0)
 			{

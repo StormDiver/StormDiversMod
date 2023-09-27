@@ -17,7 +17,6 @@ This mod includes:
 -4 new Vanity sets and 3 special vanity masks
 -6 new pets
 -New recipes for certain uncraftable vanilla items
--New Lizharhd Temple Defences (Can be disabled Pre-Plantera via Config)
 -A special super dummy with multiple variants
 -Full Wikithis support
 

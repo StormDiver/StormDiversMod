@@ -12,7 +12,7 @@ using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Items.Weapons;
 using StormDiversMod.Items.Pets;
-
+using StormDiversMod.Items.Armour;
 
 namespace StormDiversMod.Basefiles
 {
@@ -402,6 +402,85 @@ namespace StormDiversMod.Basefiles
 
                 }
 
+                //For the Temple weapons
+                int[] ChestTempleMelee= { ItemType<LizardSpinner>() };
+                int ChestTempleMeleeCount = 0;
+                int[] ChestTempleRanged = { ItemType<LizardFlame>() };
+                int ChestTempleRangedCount = 0;
+                int[] ChestTempleMagic = { ItemType<LizardSpell>() };
+                int ChestTempleMagicCount = 0;
+                int[] ChestTempleSummon = { ItemType<LizardMinion>() };
+                int ChestTempleSummonCount = 0;
+
+                int[] ChestTempleMask = { ItemType<TempleBMask>() };
+                int ChestTempleMaskCount = 0;
+                int[] ChestTempleChest = { ItemType<TempleChest>() };
+                int ChestTempleChestCount = 0;
+                int[] ChestTempleLegs = { ItemType<TempleLegs>() };
+                int ChestTempleLegsCount = 0;
+
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 16 * 36)//Look in Tiles_21 for the tile, start from 0
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                    {
+                        if (chest.item[inventoryIndex].type == ItemID.None)
+                        {
+                            if (WorldGen.genRand.NextBool(1))
+                            {
+
+                                int choice = Main.rand.Next(4);
+
+                                //if (WorldGen.genRand.NextBool(2))
+                                if (choice == 0)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTempleMelee));
+                                    ChestTempleMeleeCount = (ChestTempleMeleeCount + 1) % ChestTempleMelee.Length;
+                                }
+                                if (choice == 1)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTempleRanged));
+                                    ChestTempleRangedCount = (ChestTempleRangedCount + 1) % ChestTempleRanged.Length;
+                                }
+                                if (choice == 2)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTempleMagic));
+                                    ChestTempleMagicCount = (ChestTempleMagicCount + 1) % ChestTempleMagic.Length;
+                                }
+                                if (choice == 3)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTempleSummon));
+                                    ChestTempleSummonCount = (ChestTempleSummonCount + 1) % ChestTempleSummon.Length;
+                                }
+                                inventoryIndex++;
+                            }
+                            if (WorldGen.genRand.NextBool(1))
+                            {
+
+                                int choice = Main.rand.Next(3);
+
+                                //if (WorldGen.genRand.NextBool(2))
+                                if (choice == 0)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTempleMask));
+                                    ChestTempleMaskCount = (ChestTempleMaskCount + 1) % ChestTempleMask.Length;
+                                }
+                                if (choice == 1)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTempleChest));
+                                    ChestTempleChestCount = (ChestTempleChestCount + 1) % ChestTempleChest.Length;
+                                }
+                                if (choice == 2)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTempleLegs));
+                                    ChestTempleLegsCount = (ChestTempleLegsCount + 1) % ChestTempleLegs.Length;
+                                }
+                                inventoryIndex++;
+                            }
+                            break;
+                        }
+                    }
+
+                }
 
             }
         }

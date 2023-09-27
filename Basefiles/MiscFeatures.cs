@@ -30,7 +30,8 @@ using Terraria.WorldBuilding;
 using ReLogic.Peripherals.RGB;
 using StormDiversMod.Items.Furniture;
 using StormDiversMod.Items.Weapons;
-
+using StormDiversMod.Projectiles.Minions;
+using StormDiversMod.Items.Armour;
 
 namespace StormDiversMod.Basefiles
 {
@@ -59,6 +60,8 @@ namespace StormDiversMod.Basefiles
         public bool explosionfall; //Player has been launched by a stickybomb
         public int explosionflame; //How long to have flames under the player's feet after being launched
 
+        public bool cursedplayer;
+
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             screenshaker = false;
@@ -71,6 +74,8 @@ namespace StormDiversMod.Basefiles
             ninelivescooldown = 0;
             ninedmg = 0;
             explosionfall = false;
+
+            cursedplayer = false;
         }
 
         //===============================================================================================================
@@ -105,9 +110,82 @@ namespace StormDiversMod.Basefiles
         }
         public override void PostUpdateEquips() //Updates every frame
         {
-            //Detect if player is in Temple and immediatly summon up to 12 Guardians
+            //If player holds forbidden item summon up to 6 Guardians after 5 seconds
+            if (!NPC.downedPlantBoss)
+            {
+                if (Player.HasItemInAnyInventory(ModContent.ItemType<TempleBMask>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleChest>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleLegs>())
+                    || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpinner>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardFlame>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpell>())
+                    || Player.HasItemInAnyInventory(ModContent.ItemType<LizardMinion>()) || Player.HasBuff(ModContent.BuffType<LizardMinionBuff>()))
+                {
+                    templeWarning++;
 
-            if (Player.ZoneJungle && !NPC.downedPlantBoss) //This code is only active when certain criteia is met, sadly the zonelizardtemple doesn't work
+                    string templecursetext = "The curse of temple item in your possession activates!!!";
+                    if (templeWarning == 1)
+                    {
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(templecursetext), new Color(204, 101, 22));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText(templecursetext, 204, 101, 22);
+                        }
+                        CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.SaddleBrown, templecursetext, false);
+
+                    }
+
+                    if (templeWarning >= 300 && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 6) //spawn up to 6
+                    {
+                        if (Main.rand.Next(30) == 0)
+                        {
+                            NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
+                        }
+                    }
+
+                    Player.buffImmune[BuffID.Darkness] = false;
+                    Player.buffImmune[BuffID.Blackout] = false;
+                    Player.buffImmune[BuffID.Obstructed] = false;
+                    Player.buffImmune[BuffID.Slow] = false;
+                    Player.buffImmune[BuffID.Bleeding] = false;
+
+                    if (templeWarning > 0 && templeWarning < 150)
+                    {
+                        Player.AddBuff(BuffID.Darkness, 2);
+                        Player.AddBuff(BuffID.Bleeding, 2);
+
+                    }
+
+                    else if (templeWarning >= 150 && templeWarning < 300)
+                    {
+                        Player.AddBuff(BuffID.Blackout, 2);
+                        Player.AddBuff(BuffID.Bleeding, 2);
+                        Player.AddBuff(BuffID.Slow, 2);
+                    }
+                    else if (templeWarning >= 300)
+                    {
+                        Player.AddBuff(BuffID.Obstructed, 2);
+                        Player.AddBuff(BuffID.Bleeding, 2);
+                        Player.AddBuff(BuffID.Slow, 2);
+                    }
+                    cursedplayer = true;
+
+                }
+                else
+                {
+                    cursedplayer = false;
+
+                    templeWarning = 0;
+                }
+            }
+            else
+            {
+                cursedplayer = false;
+
+                templeWarning = 0;
+            }
+
+
+            /*if (Player.ZoneJungle && !NPC.downedPlantBoss) //This code is only active when certain criteia is met, sadly the zonelizardtemple doesn't work
             {
                 int xtilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
                 int ytilepos = (int)(Player.position.Y + (float)(Player.height / 2)) / 16;
@@ -155,7 +233,7 @@ namespace StormDiversMod.Basefiles
             else
             {
                 templeWarning = 0;
-            }
+            }*/
             if (playerimmunetime > 0)
             {
                 playerimmunetime--;
@@ -309,16 +387,16 @@ namespace StormDiversMod.Basefiles
         {
             if ((proj.type == ModContent.ProjectileType<Projectiles.AmmoProjs.ProtoGrenadeProj>() ||
                 proj.type == ModContent.ProjectileType<Projectiles.AmmoProjs.ProtoGrenadeProj2>()
-                ) && !Player.immune) //100% for proto grenade
+                ) && !Player.immune) //100% for shrapnel
             {
                 modifiers.FinalDamage /= 2;
             }
 
-            if (proj.type == ModContent.ProjectileType<Projectiles.BazookaProj2>()) //50% damage for bazooka
+            /*if (proj.type == ModContent.ProjectileType<Projectiles.BazookaProj2>()) //50% damage for bazooka
             {
                 modifiers.FinalDamage /= 4;
 
-            }
+            }*/
             if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() && !Player.immune)
             {
                 //paintime = 3600;

@@ -61,8 +61,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
-                Projectile.hostile = true;
-
+                //Projectile.hostile = true;
                 Projectile.tileCollide = false;
                 // Set to transparent. This projectile technically lives as  transparent for about 3 frames
                 Projectile.alpha = 255;
