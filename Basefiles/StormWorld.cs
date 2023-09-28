@@ -193,14 +193,14 @@ namespace StormDiversMod.Basefiles
                 {
                     Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The Derplings begin to shed their shells."), new Color(47, 86, 146));
 
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The ancient temple's curse has been lifed!"), new Color(204, 101, 22));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("The ancient temple's curse has been lifted!"), new Color(204, 101, 22));
 
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
                     Main.NewText("The Derplings begin to shed their shells.", 47, 86, 146);
 
-                    Main.NewText("The ancient temple's curse has been lifed!", 204, 101, 22);
+                    Main.NewText("The ancient temple's curse has been lifted!", 204, 101, 22);
                 }
                 planteraMessage = true;
             }        

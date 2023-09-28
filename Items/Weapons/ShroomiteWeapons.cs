@@ -61,8 +61,6 @@ namespace StormDiversMod.Items.Weapons
 
             Item.noMelee = true; 
         }
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-8, 0);
@@ -81,7 +79,6 @@ namespace StormDiversMod.Items.Weapons
             }
             resetaccuracy--;
         }
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
@@ -308,8 +305,8 @@ namespace StormDiversMod.Items.Weapons
             }
             if (player.altFunctionUse == 2)
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.8f, perturbedSpeed.Y * 0.8f), ModContent.ProjectileType<ShroomGrenProj>(), damage, knockback, player.whoAmI);
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.2f, perturbedSpeed.Y * 1.2f), ModContent.ProjectileType<ShroomGrenProj>(), damage, knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item61, position);
             }
             else
