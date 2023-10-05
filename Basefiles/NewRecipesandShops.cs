@@ -392,12 +392,12 @@ namespace StormDiversMod.Basefiles
 
             if (shop.NpcType == NPCID.Princess)
             {
-                shop.Add(ItemID.PrincessWeapon);          
+                shop.Add(ItemID.PrincessWeapon, Condition.DownedPlantera);          
             }
 
             if (shop.NpcType == NPCID.BestiaryGirl)
             {
-                shop.Add(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>()); //fine alway avalible 
+                shop.Add(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>()); //fine always avalible 
             }
         }
     }

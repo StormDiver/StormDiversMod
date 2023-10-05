@@ -589,4 +589,34 @@ namespace StormDiversMod.Buffs
         {
         }
     }
+
+    //_________________________________________________________________
+    public class TempleDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("The Temple's Curse");
+            //Description.SetDefault("You messed with something cursed");
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+            //if (player.statLife > 5)
+            player.lifeRegen = -200;
+
+            if (Main.rand.Next(4) < 3)
+            {
+                int dust = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 170, player.velocity.X, player.velocity.Y, 135, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+
+                int dust2 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 170, player.velocity.X, player.velocity.Y, 135, default, .3f);
+                Main.dust[dust2].velocity *= 0.5f;
+            }
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+        }
+    }
 }

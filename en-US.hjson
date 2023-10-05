@@ -4,14 +4,15 @@ Mods: {
 
 		GameTips: {
 			StormTip0: Having trouble defeating bosses? Simply lower their health to 0 while keeping yours above 0.
-			StormTip1: You can avoid enemy attacks by moving out of the way!
-			StormTip2: You can jump by pressing the jump button!
-			StormTip3: If you want to deal damage, use a weapon that deals damage
+			StormTip1: You can avoid enemy attacks by moving out of the way.
+			StormTip2: You can jump by pressing the jump button.
+			StormTip3: If you want to deal damage, use a weapon that deals damage.
 			StormTip4: Having trouble staying alive? Skill issue!
 			StormTip5: Error 404, tip not found!
-			Stormtip6: Dying is an effective way to regain your health, unless you're on hardcore
-			Stormtip7: You can build by placing down tiles
-			Stormtip8: You can mine tiles by mining them
+			Stormtip6: Dying is an effective way to regain your health, unless you're on hardcore.
+			Stormtip7: You can build by placing down tiles.
+			Stormtip8: You can mine tiles by mining them.
+			Stormtip9: Break into the temple early and steal all the loot, I dare you...
 		}
 
 		Buffs: {
@@ -347,6 +348,11 @@ Mods: {
 			UltimateBossPetBuff: {
 				DisplayName: TheCute
 				Description: So Cute, would never inflict any pain
+			}
+
+			TempleDebuff: {
+				DisplayName: The Temple's True Curse
+				Description: You messed with something that was inflicted with a curse
 			}
 		}
 

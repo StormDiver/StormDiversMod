@@ -156,7 +156,7 @@ namespace StormDiversMod.Projectiles
             dust.noGravity = true;
 
             shoottime++;
-            if (shoottime >= 20)
+            if (shoottime >= 25)
             {
 
                 SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
@@ -334,7 +334,7 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 18;
 
             Projectile.friendly = true;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 2;
 
             Projectile.timeLeft = 300;
             Projectile.DamageType = DamageClass.Melee;
@@ -346,7 +346,7 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.localNPCHitCooldown = 10;
 
         }
         int damagetime = 0;

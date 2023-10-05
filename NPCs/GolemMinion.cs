@@ -75,19 +75,18 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheTemple,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("Fiercely guards the temple to keep out anyone who shouldn’t enter.")
+				new FlavorTextBestiaryInfoElement("Mobile lihzahrd units designed to guard the temple and keep out intruders.")
             });
         }
         
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
-            if (!NPC.downedPlantBoss)
+            /*if (!NPC.downedPlantBoss)
             {
                 //Summoning done in EquipmentEffects.cs
                 return SpawnCondition.JungleTemple.Chance * 0f;
-            }
-            else if (NPC.downedPlantBoss && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))
+            }*/
+            if (NPC.downedPlantBoss && !NPC.AnyNPCs(ModContent.NPCType<GolemMinion>()))
             {
                 return SpawnCondition.JungleTemple.Chance * 0.035f;
             }
@@ -101,10 +100,12 @@ namespace StormDiversMod.NPCs
         bool spawn = true;
 
         public override void AI()
-        {          
+        {
             if (!NPC.downedPlantBoss)
+            {
                 NPC.dontTakeDamage = true;
-
+                NPC.damage = 0;
+            }
             else
                 NPC.dontTakeDamage = false;
 
@@ -162,6 +163,11 @@ namespace StormDiversMod.NPCs
                 {
                     NPC.ai[2]++;
                 }
+                else
+                {
+                    NPC.ai[2] = 30;
+                }
+
                 if (NPC.ai[2] >= 70)//starts the shooting animation
                 {
                     //NPC.velocity.X = 0;

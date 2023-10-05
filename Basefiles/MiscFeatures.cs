@@ -35,7 +35,6 @@ using StormDiversMod.Items.Armour;
 
 namespace StormDiversMod.Basefiles
 {
-
     public class MiscFeatures : ModPlayer
     {
         /*public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -113,12 +112,21 @@ namespace StormDiversMod.Basefiles
             //If player holds forbidden item summon up to 6 Guardians after 5 seconds
             if (!NPC.downedPlantBoss)
             {
+                if ((Player.HeldItem.type == ModContent.ItemType<LizardSpinner>() || Player.HeldItem.type == ModContent.ItemType<LizardFlame>() || Player.HeldItem.type == ModContent.ItemType<LizardSpell>() || Player.HeldItem.type == ModContent.ItemType<LizardMinion>())
+                    && Player.controlUseItem)
+                {
+                    Player.AddBuff(ModContent.BuffType<TempleDebuff>(), Player.HeldItem.useAnimation);
+                }
+                if (Player.armor[0].type == ModContent.ItemType<TempleBMask>() || Player.armor[1].type == ModContent.ItemType<TempleChest>() || Player.armor[2].type == ModContent.ItemType<TempleLegs>())
+                {
+                    Player.AddBuff(ModContent.BuffType<TempleDebuff>(), 2);
+                }
+
                 if (Player.HasItemInAnyInventory(ModContent.ItemType<TempleBMask>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleChest>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleLegs>())
                     || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpinner>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardFlame>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpell>())
                     || Player.HasItemInAnyInventory(ModContent.ItemType<LizardMinion>()) || Player.HasBuff(ModContent.BuffType<LizardMinionBuff>()))
                 {
                     templeWarning++;
-
                     string templecursetext = "The curse of temple item in your possession activates!!!";
                     if (templeWarning == 1)
                     {
@@ -134,7 +142,7 @@ namespace StormDiversMod.Basefiles
 
                     }
 
-                    if (templeWarning >= 300 && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 6) //spawn up to 6
+                    if (templeWarning >= 480 && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 6) //spawn up to 6
                     {
                         if (Main.rand.Next(30) == 0)
                         {
@@ -148,20 +156,19 @@ namespace StormDiversMod.Basefiles
                     Player.buffImmune[BuffID.Slow] = false;
                     Player.buffImmune[BuffID.Bleeding] = false;
 
-                    if (templeWarning > 0 && templeWarning < 150)
+                    if (templeWarning > 0 && templeWarning < 240)
                     {
                         Player.AddBuff(BuffID.Darkness, 2);
                         Player.AddBuff(BuffID.Bleeding, 2);
-
                     }
 
-                    else if (templeWarning >= 150 && templeWarning < 300)
+                    else if (templeWarning >= 240 && templeWarning < 480)
                     {
                         Player.AddBuff(BuffID.Blackout, 2);
                         Player.AddBuff(BuffID.Bleeding, 2);
                         Player.AddBuff(BuffID.Slow, 2);
                     }
-                    else if (templeWarning >= 300)
+                    else if (templeWarning >= 480)
                     {
                         Player.AddBuff(BuffID.Obstructed, 2);
                         Player.AddBuff(BuffID.Bleeding, 2);
