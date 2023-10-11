@@ -154,7 +154,7 @@ namespace StormDiversMod.NPCs
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.noTileCollide = true;
-                    speed = 2.2f;
+                    speed = 1f;
                     ypos = 0;
                     NPC.netUpdate = true;
 

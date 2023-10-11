@@ -27,6 +27,13 @@ namespace StormDiversMod.Basefiles
         public override ConfigScope Mode => ConfigScope.ServerSide;
         [Header("EnemySpawning")]
 
+        //[Label("Prevent Frost Legion enemies spawning in hardmode Blizzards")]
+        //[Tooltip("This will prevent Frost legion enemeis from spawning during Blizzards in Hardmode")]
+        //[ReloadRequired] //TBA
+        [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
+        public bool PreventSnowmenEnemies { get; set; }
+
         //[Label("Prevent modded pillar enemies from spawning")]
         //[Tooltip("This will prevent the new pillar enemies in this mod from spawning")]
         //[ReloadRequired] //No reload required as it just changes the spawn chance and doesn't disable the enemy itself

@@ -12,11 +12,8 @@ using Terraria.Audio;
 
 namespace StormDiversMod.NPCs.NPCProjs
 {
-
-    
     public class FrozenEyeProj: ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Mini Snowflake");
@@ -100,7 +97,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.penetrate = 1;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.timeLeft = 80;
             Projectile.aiStyle = 0;
             Projectile.usesLocalNPCImmunity = true;
@@ -147,7 +144,6 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                         Vector2 perturbedSpeed = new Vector2(0, 2.5f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
                         int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
-                        Main.projectile[projID].tileCollide = false;
                         Main.projectile[projID].timeLeft = 30;
 
 
@@ -164,9 +160,8 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
-            return false;
+            return true;
         }
         public override void OnKill(int timeLeft)
         {
@@ -181,13 +176,9 @@ namespace StormDiversMod.NPCs.NPCProjs
                 float rotation = MathHelper.ToRadians(180);
                 for (int j = 0; j < numberProjectiles; j++)
                 {
-                  
                     Vector2 perturbedSpeed = new Vector2(0, 7).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
-                    Main.projectile[projID].tileCollide = false;
                     Main.projectile[projID].timeLeft = 60;
-
-
                 }
             }
             for (int i = 0; i < 10; i++)

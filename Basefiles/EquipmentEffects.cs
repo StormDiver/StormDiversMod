@@ -1221,13 +1221,13 @@ namespace StormDiversMod.Basefiles
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
                 {
                     SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
-                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.DeepPink, "Thepain!", true);
+                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.DeepPink, "ThePain!", false);
 
                 }
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
                 {
                     SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
-                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", true);
+                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", false);
 
                 }
             }
@@ -1297,6 +1297,8 @@ namespace StormDiversMod.Basefiles
 
                 SoundEngine.PlaySound(SoundID.ScaryScream with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
             }
+            //playSound = false;
+           
             return true;
         }
         //===================================Other hooks======================================

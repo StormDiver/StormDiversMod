@@ -19,10 +19,10 @@ namespace StormDiversMod.Items.Weapons
 
             Item.ResearchUnlockCount = 1;
         }
-
+        int aura = 0;
 		public override void SetDefaults() 
 		{
-			Item.damage = 80;
+			Item.damage = 70;
 
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
@@ -37,20 +37,49 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = false;
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType < Projectiles.DerpMeleeProj>();
+            aura = ModContent.ProjectileType<Projectiles.DerpAura>();
+            Item.noMelee = true;
             Item.shootSpeed = 15f;
             Item.scale = 1f;
         }
         int weaponattack = 2;
+        public override void UseAnimation(Player player)
+        {
+
+            if (aura != 0 && !player.ItemAnimationActive)
+            {
+                Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    Vector2 velocity = new Vector2(Math.Sign(mousePosition.X - player.Center.X), 0); // determines direction
+                    int damage = (int)(player.GetTotalDamage(Item.DamageType).ApplyTo(Item.damage));
+                    Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), player.MountedCenter - velocity * 2, velocity * 5, aura, damage, Item.knockBack, Main.myPlayer,
+                            Math.Sign(mousePosition.X - player.Center.X) * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
+                    NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+
+                }
+                return;
+            }
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
+            Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+
+            if (player.whoAmI == Main.myPlayer)
+            {
+                Projectile spawnedProj = Projectile.NewProjectileDirect(source, player.MountedCenter - velocity * 2, velocity * 5, aura, damage, knockback, Main.myPlayer,
+                    player.direction * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
+                NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+
+            }
+
             weaponattack--;
             if (weaponattack <= 0)
             {
-                int numberProjectiles = 2 + Main.rand.Next(3); //This defines how many projectiles to shot.
+                int numberProjectiles = 2 + Main.rand.Next(2); //This defines how many projectiles to shot.
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(12)); // This defines the projectiles random spread . 10 degree spread.
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15));
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, (int)(damage * 0.75f), knockback, player.whoAmI);
                 }
                 SoundEngine.PlaySound(SoundID.NPCHit22, player.Center);
@@ -58,6 +87,7 @@ namespace StormDiversMod.Items.Weapons
             }
             return false;
         }
+       
         public override void AddRecipes()
         {
             CreateRecipe()

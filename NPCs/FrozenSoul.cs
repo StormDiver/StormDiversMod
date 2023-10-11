@@ -39,7 +39,7 @@ namespace StormDiversMod.NPCs
 
             NPC.aiStyle = 22;
 
-            AIType = NPCID.Wraith;
+            AIType = NPCID.Poltergeist;
             
             NPC.damage = 50;
             NPC.lavaImmune = true;
@@ -47,8 +47,7 @@ namespace StormDiversMod.NPCs
             NPC.lifeMax = 600;
             NPC.noGravity = true;
            
-
-            NPC.noTileCollide = true;
+            NPC.noTileCollide = false;
 
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath6;
@@ -70,7 +69,8 @@ namespace StormDiversMod.NPCs
             BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("A lost spirit that has wandered into the ice biome and frozen over, and only comes out during harsh blizzards.")
+				new FlavorTextBestiaryInfoElement("A lost spirit that has wandered into the ice biome and frozen over, making it unable to phase through solid walls. " +
+                "During harsh blizzards it reveals itself, and begins to seek out and summon deadly cold attacks on any unfortunate player it encounters")
             });
         }
 
@@ -79,7 +79,7 @@ namespace StormDiversMod.NPCs
 
             if (Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneSnow && Main.raining && Main.hardMode && !NPC.AnyNPCs(ModContent.NPCType<FrozenSoul>()))
             {
-                return SpawnCondition.Overworld.Chance * 0.2f;
+                return SpawnCondition.Overworld.Chance * 0.17f;
             }
             else
             {
@@ -100,7 +100,8 @@ namespace StormDiversMod.NPCs
             NPC.TargetClosest(true);
            
             bool lineofsight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
-
+            NPC.velocity.X *= 0.95f;
+            NPC.timeLeft = 60;
             if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight))
             {
                 if (shoottime >= 210)//warning

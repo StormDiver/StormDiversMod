@@ -1,25 +1,22 @@
 [img]https://i.imgur.com/YsFZF2m.png[/img]
-[b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a decently sized content mod that adds unique content throughout different areas of the game where content seems lacking, along with unique items thrown in here and there. It even makes some hard to obtain vanilla items a little easier to get.
-
-There's over 300 total modded items for you to discover; including weapons, accessories, ammo, tools, armour, vanity sets, enemies, and more. Many are crafted with vanilla items, but some have their own modded ingredients added to the recipes.
+[b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 300 items. It flushes out some vanilla item sets, and has many new unique sets spread across the entire game, along with many individual items obtained in their own way.
 
 [u]This mod includes:[/u]
 [list]
 [*]Over 100 new unique weapons across all classes, including some minions and sentries
-[*]Over 40 new accessories, including new expert exclusive ones and some tinkers, and 4 wings
+[*]Over 40 new accessories, including new expert exclusive ones and some tinkers with vanilla accessories
 [*]15 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
 [*]27 new enemies across the game, with banners and bestiary entries
-[*]3 new bosses, with one that can be fought in place of the Plantera (config option)
-[*]New ammo for guns and bows
-[*]Multiple new tools
-[*]New bars and other crafting materials
-[*]A bunch of different buffs and debuffs inflicted from a range of sources
-[*]9 new potions
-[*]4 new Vanity sets and 3 special vanity masks
-[*]6 new pets
-[*]New recipes for certain uncraftable vanilla items
-[*]A special super dummy with multiple variants
+[*]3 new bosses, one late pre hardmode, one tiered around Plantera, with a config to fight it in its place, and a secret post Moon Lord one
+[*]New Ammo, tools, potions, new Vanity items, and pets
 [*]Full Wikithis support
+[/list]
+[u]It even contains some small Quality of Life features[/u]
+[list]
+[*] New recipes and drops for certain uncraftable vanilla items, including the Rod of Discord, Snow and Gladiator armour, Chum caster, and even the Slime Staff
+[*] A special super dummy with multiple variants
+[*] Most NPCs sell their dropped weapon
+[*] A special Post Moon Lord miniboss thaty drops lunar fragments and luminite
 [/list]
 
 Join the Discord server here: https://discord.gg/VJvf2HkxtA

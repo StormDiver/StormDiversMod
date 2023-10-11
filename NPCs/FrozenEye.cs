@@ -48,7 +48,6 @@ namespace StormDiversMod.NPCs
             NPC.lifeMax = 45;
             NPC.noGravity = true;
 
-
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
             NPC.knockBackResist = 0.7f;
@@ -82,7 +81,7 @@ namespace StormDiversMod.NPCs
 
             if (Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneSnow && Main.raining)
             {
-                return SpawnCondition.Overworld.Chance * 0.25f;
+                return SpawnCondition.Overworld.Chance * 0.3f;
             }
             else
             {
@@ -110,7 +109,7 @@ namespace StormDiversMod.NPCs
                 
                 if (shoottime >= 130 + Main.rand.Next(60))
                 {
-                    float projectileSpeed = 6f; // The speed of your projectile (in pixels per second).
+                    float projectileSpeed = 7f; // The speed of your projectile (in pixels per second).
                     int damage = 10; // The damage your projectile deals.
                     float knockBack = 1;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.FrozenEyeProj>();
@@ -236,7 +235,7 @@ namespace StormDiversMod.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
 
-            npcLoot.Add(ItemDropRule.Common(ItemID.FrostDaggerfish, 1, 10, 20));
+            npcLoot.Add(ItemDropRule.Common(ItemID.FrostDaggerfish, 1, 15, 30));
 
 
         }

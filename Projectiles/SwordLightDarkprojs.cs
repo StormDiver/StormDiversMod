@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Projectiles
 {
@@ -117,17 +118,22 @@ namespace StormDiversMod.Projectiles
     
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
+            var player = Main.player[Projectile.owner];
             for (int i = 0; i < 10; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 66, Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f, 130, default, 1f);
                 dust.noGravity = true;
 
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 63, Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f, 130, default, 1f);
-
             }
+            for (int i = 0; i < 3; i++)
+            {
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
+                {
+                    PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
 
+                }, player.whoAmI);
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -242,6 +248,15 @@ namespace StormDiversMod.Projectiles
             if (Main.rand.Next(2) == 0)
             {
                 target.AddBuff(ModContent.BuffType<DarkShardDebuff>(), 300);
+            }
+            var player = Main.player[Projectile.owner];
+            for (int i = 0; i < 3; i++)
+            {
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                {
+                    PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
+
+                }, player.whoAmI);
             }
         }
 

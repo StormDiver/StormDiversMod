@@ -114,10 +114,8 @@ namespace StormDiversMod.NPCs
             // NPC.ai[2] = Shoottime
             if (spawn)
             {
-                
-                    NPC.ai[0] = 0;
-                    NPC.ai[1] = -150;
-                
+                NPC.ai[0] = 0;
+                NPC.ai[1] = -150;
             }
 
             NPC.noTileCollide = true;
@@ -136,7 +134,8 @@ namespace StormDiversMod.NPCs
                 Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]);
                 float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
                 float movespeed = 5f; //Speed of the npc
-
+                if (!NPC.downedPlantBoss)
+                    movespeed = 10f;
                 if (magnitude > movespeed)
                 {
                     move *= movespeed / magnitude;

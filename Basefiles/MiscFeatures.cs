@@ -80,17 +80,6 @@ namespace StormDiversMod.Basefiles
         //===============================================================================================================
         public override bool PreItemCheck()
         {
-            //Alt fire autouse
-            if ((
-                Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LightDarkSword>() ||
-                //Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexLauncher>() ||
-                //Player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarVortexShotgun>() ||
-                Player.HeldItem.type == ModContent.ItemType<Items.Weapons.ShroomiteLauncher>()
-                )
-                && Player.altFunctionUse == 2 && Player.controlUseTile && Player.itemAnimation == 1)
-            {
-                Player.itemAnimationMax = Player.itemAnimation = Player.HeldItem.useAnimation;
-            }
             return base.PreItemCheck();
         }
         public override void ModifyScreenPosition()//screenshaker
@@ -127,7 +116,7 @@ namespace StormDiversMod.Basefiles
                     || Player.HasItemInAnyInventory(ModContent.ItemType<LizardMinion>()) || Player.HasBuff(ModContent.BuffType<LizardMinionBuff>()))
                 {
                     templeWarning++;
-                    string templecursetext = "The curse of temple item in your possession activates!!!";
+                    string templecursetext = "The curse of the temple item in your possession activates!!!";
                     if (templeWarning == 1)
                     {
                         if (Main.netMode == 2) // Server
@@ -155,24 +144,31 @@ namespace StormDiversMod.Basefiles
                     Player.buffImmune[BuffID.Obstructed] = false;
                     Player.buffImmune[BuffID.Slow] = false;
                     Player.buffImmune[BuffID.Bleeding] = false;
+                    Player.buffImmune[ModContent.BuffType<TempleDebuff>()] = false;
+
+                    //don't give debuffs, but give effects of them
+                    Player.bleed = true;
+                    Player.blind = true;
 
                     if (templeWarning > 0 && templeWarning < 240)
                     {
-                        Player.AddBuff(BuffID.Darkness, 2);
-                        Player.AddBuff(BuffID.Bleeding, 2);
+                        //Player.AddBuff(BuffID.Darkness, 2);
+                        //Player.AddBuff(BuffID.Bleeding, 2);
                     }
 
                     else if (templeWarning >= 240 && templeWarning < 480)
                     {
-                        Player.AddBuff(BuffID.Blackout, 2);
-                        Player.AddBuff(BuffID.Bleeding, 2);
-                        Player.AddBuff(BuffID.Slow, 2);
+                        Player.blackout = true;
+                        Player.slow = true;
+                        //Player.AddBuff(BuffID.Blackout, 2);
+                        //Player.AddBuff(BuffID.Slow, 2);
                     }
                     else if (templeWarning >= 480)
                     {
+                        Player.slow = true;
                         Player.AddBuff(BuffID.Obstructed, 2);
-                        Player.AddBuff(BuffID.Bleeding, 2);
-                        Player.AddBuff(BuffID.Slow, 2);
+                        //Player.AddBuff(BuffID.Bleeding, 2);
+                        //Player.AddBuff(BuffID.Slow, 2);
                     }
                     cursedplayer = true;
 

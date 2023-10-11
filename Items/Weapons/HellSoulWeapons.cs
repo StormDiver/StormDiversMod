@@ -196,9 +196,10 @@ namespace StormDiversMod.Items.Weapons
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
         }
+        int aura = 0;
         public override void SetDefaults()
         {
-            Item.damage = 65;
+            Item.damage = 60;
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
             Item.height = 50;
@@ -212,6 +213,8 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = false;
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType<Projectiles.HellSoulSwordProj>();
+            aura = ModContent.ProjectileType<Projectiles.SoulAura>();
+            Item.noMelee = true;
             Item.shootSpeed = 10f;                       
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -228,9 +231,37 @@ namespace StormDiversMod.Items.Weapons
         float posY;
         float speedX;
         float speedY;
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+
+        public override void UseAnimation(Player player)
         {
 
+            if (aura != 0 && !player.ItemAnimationActive)
+            {
+                Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    Vector2 velocity = new Vector2(Math.Sign(mousePosition.X - player.Center.X), 0); // determines direction
+                    int damage = (int)(player.GetTotalDamage(Item.DamageType).ApplyTo(Item.damage));
+                    Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), player.MountedCenter - velocity * 2, velocity * 5, aura, damage, Item.knockBack, Main.myPlayer,
+                            Math.Sign(mousePosition.X - player.Center.X) * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
+                    NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+
+                }
+                return;
+            }
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+
+            if (player.whoAmI == Main.myPlayer)
+            {
+                Projectile spawnedProj = Projectile.NewProjectileDirect(source, player.MountedCenter - velocity * 2, velocity * 5, aura, damage, knockback, Main.myPlayer,
+                    player.direction * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
+                NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+
+            }
             float numberProjectiles = 2 + Main.rand.Next(2);
             float rotation = MathHelper.ToRadians(14);
             //for (int j = 0; j < numberProjectiles; j++)
@@ -264,6 +295,7 @@ namespace StormDiversMod.Items.Weapons
 
             return false;
         }
+
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)

@@ -595,8 +595,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("The Temple's Curse");
-            //Description.SetDefault("You messed with something cursed");
+            //DisplayName.SetDefault("Temple Curse Burn");
+            //Description.SetDefault("You messed with something that was inflicted with a curse, now you are burning");
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
@@ -611,8 +611,9 @@ namespace StormDiversMod.Buffs
                 int dust = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 170, player.velocity.X, player.velocity.Y, 135, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                 Main.dust[dust].noGravity = true; //this make so the dust has no gravity
 
-                int dust2 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 170, player.velocity.X, player.velocity.Y, 135, default, .3f);
-                Main.dust[dust2].velocity *= 0.5f;
+                int dust2 = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 170, 0, -2, 135, default, 0.8f);
+                Main.dust[dust2].noGravity = true; //this make so the dust has no gravity
+
             }
         }
         public override void Update(NPC npc, ref int buffIndex)

@@ -429,7 +429,7 @@ namespace StormDiversMod.NPCs
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
-
+                SoundEngine.PlaySound(SoundID.ScaryScream with { Volume = 2, Pitch = -1f, MaxInstances = -1 }, NPC.Center);
                 /* Gore.NewGore(NPC.position, NPC.velocity, mod.GetGoreSlot("VortCannonGore1"), 1f);   //make sure you put the right folder name where your gores is located and the right name of gores
                  Gore.NewGore(NPC.position, NPC.velocity, mod.GetGoreSlot("VortCannonGore2"), 1f);     
                  Gore.NewGore(NPC.position, NPC.velocity, mod.GetGoreSlot("VortCannonGore3"), 1f);

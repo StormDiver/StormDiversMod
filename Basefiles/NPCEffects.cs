@@ -29,12 +29,12 @@ using Terraria.GameContent.Drawing;
 using StormDiversMod.NPCs.Boss;
 using System.Reflection.Metadata.Ecma335;
 using Terraria.WorldBuilding;
+using System.Collections.Generic;
 
 namespace StormDiversMod.Basefiles
 {
     public class NPCEffects : GlobalNPC
     {
-
         public override bool InstancePerEntity => true;
 
         // npc.GetGlobalNPC<NPCEffects>().boulderDB = true; in debuff.cs
@@ -138,8 +138,23 @@ namespace StormDiversMod.Basefiles
         {
 
         }
+        
         public override void AI(NPC npc)
-        {        
+        {
+
+            /*if (npc.type == NPCID.SnowmanGangsta && Main.invasionType == 0)
+            {
+                if (!Main.dedServ)
+                {
+                    NPC.GetNPCInvasionGroup(NPCID.SnowmanGangsta);
+                   
+                    
+                    Main.newMusic = 0;
+
+                    //Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme");
+                }
+
+            }*/
             //Don't forget to remove
             //npc.dontTakeDamage = false;
 
@@ -218,7 +233,7 @@ namespace StormDiversMod.Basefiles
 
             if (derplaunched)
             {
-                if ((npc.aiStyle is 1 or 3 or 8 or 26 or 38 or 39 or 41 or 42 || npc.type == ModContent.NPCType<SuperPainDummy>()) && npc.knockBackResist != 0)
+                if ((npc.aiStyle is 1 or 3 or 8 or 25 or 26 or 38 or 39 or 41 or 42 || npc.type == ModContent.NPCType<SuperPainDummy>()) && npc.knockBackResist != 0)
                 {
                     if (!spun)
                     {
@@ -263,39 +278,51 @@ namespace StormDiversMod.Basefiles
                 }
             }
             //______________
-
+            int chance;
+            if (Main.invasionType != 0 || Main.eclipse || Main.bloodMoon || Main.slimeRain ||Main.pumpkinMoon || Main.snowMoon
+                || Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneTowerSolar || Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneTowerVortex
+                || Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneTowerNebula || Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneTowerStardust)
+                chance = 7;
+            else
+                chance = 4;
+           
             if (player.GetModPlayer<EquipmentEffects>().heartSteal && !player.dead) //For the Jar of hearts
             {
                 if (!npc.SpawnedFromStatue && npc.life <= (npc.lifeMax * 0.50f) && !npc.friendly && npc.lifeMax > 5 && !npc.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
                 {
                     if (!npc.GetGlobalNPC<NPCEffects>().heartStolen)//Makes sure this only happens once
                     {
-                        if (!npc.boss || npc.type == ModContent.NPCType<AridBossMinion>() || npc.type == ModContent.NPCType<TheUltimateBossMinion>() || npc.type == NPCID.EaterofWorldsBody) //non bosses
+                        if (!npc.boss) //non bosses
                         {
-                            if (Main.rand.Next(4) == 0) //1 in 4 chance to have the debuff applied and to heal player
+                            if (npc.type != ModContent.NPCType<AridBossMinion>() && npc.type != ModContent.NPCType<TheUltimateBossMinion>() && npc.type != NPCID.EaterofWorldsBody && npc.type != ModContent.NPCType<SuperPainDummy>())
                             {
-                                //Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());                            
-                                //Main.LocalPlayer.statLife += 20;
-                                //Main.LocalPlayer.HealEffect(20, true);                               
+                                //Main.NewText("Invasion is= " + chance, 204, 101, 22);
 
-                                //Main.player[Main.myPlayer].lifeSteal -= 20;
-                                Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 20); //Damage
-
-                                //Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("TESTER."), new Color(224, 141, 255));
-
-                                SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
-                                for (int i = 0; i < 15; i++)
+                                if (Main.rand.Next(chance) == 0) //1 in 4 chance to have the debuff applied and to heal player, 1 in 7 for invasions
                                 {
-                                    var dust = Dust.NewDustDirect(new Vector2(npc.Center.X, npc.Center.Y), 5, 5, 72);
-                                    //dust.noGravity = true;
-                                }
-                                npc.AddBuff(ModContent.BuffType<HeartDebuff>(), 3600);
-                                npc.GetGlobalNPC<NPCEffects>().heartStolen = true; //prevents more hearts from being dropped
+                                    //Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());                            
+                                    //Main.LocalPlayer.statLife += 20;
+                                    //Main.LocalPlayer.HealEffect(20, true);                               
 
-                            }
-                            else //Otherwise it just prevents the roll from happening again
-                            {
-                                npc.GetGlobalNPC<NPCEffects>().heartStolen = true;
+                                    //Main.player[Main.myPlayer].lifeSteal -= 20;
+                                    Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 20); //Damage
+
+                                    //Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("TESTER."), new Color(224, 141, 255));
+
+                                    SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
+                                    for (int i = 0; i < 15; i++)
+                                    {
+                                        var dust = Dust.NewDustDirect(new Vector2(npc.Center.X, npc.Center.Y), 5, 5, 72);
+                                        //dust.noGravity = true;
+                                    }
+                                    npc.AddBuff(ModContent.BuffType<HeartDebuff>(), 3600);
+                                    npc.GetGlobalNPC<NPCEffects>().heartStolen = true; //prevents more hearts from being dropped
+
+                                }
+                                else //Otherwise it just prevents the roll from happening again
+                                {
+                                    npc.GetGlobalNPC<NPCEffects>().heartStolen = true;
+                                }
                             }
                         }
                         else //for bosses
@@ -410,6 +437,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
+
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
            
@@ -1024,6 +1052,78 @@ namespace StormDiversMod.Basefiles
             
         }
 
+        public override void GetChat(NPC npc, ref string chat)
+        {
+            if (Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
+            {
+                if (Main.rand.Next(4) == 0)
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            chat = "You seem to be in a lot of pain.";
+                            break;
+                        case 1:
+                            chat = "ThePain!!";
+                            break;
+                        case 2:
+                            chat = "How do you handle all that pain?";
+                            break;
+
+                    }
+                }
+            }
+            if (Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+            {
+                if (Main.rand.Next(4) == 0)
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            chat = "What's with the judgmental stare?";
+                            break;
+                        case 1:
+                            chat = "Clayman!!";
+                            break;
+                        case 2:
+                            chat = "Are you claymanning me?";
+                            break;
+                    }
+                }
+            }
+            if (Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.UltimateFearMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.UltimateFearMask>())
+            {
+                if (Main.rand.Next(4) == 0)
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            chat = "What the heck is that thing on your head?";
+                            break;
+                        case 1:
+                            chat = "Wh..what did you have to kill to get that?";
+                            break;
+                        case 2:
+                            chat = "Your mask is scaring me!";
+                            break;
+                    }
+                }
+            }
+        }
+
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
+            if (!GetInstance<ConfigurationsGlobal>().PreventSnowmenEnemies)
+            {
+                Player player = spawnInfo.Player;
+                if (player.ZoneSnow && Main.raining && Main.hardMode && player.ZoneOverworldHeight)
+                {
+                    pool.Add(NPCID.SnowmanGangsta, .25f);
+                    pool.Add(NPCID.SnowBalla, .25f);
+                    pool.Add(NPCID.MisterStabby, .25f);
+                }
+            }
+        }
     }
 
 }

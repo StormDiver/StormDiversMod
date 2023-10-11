@@ -34,8 +34,11 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 300;
             DrawOffsetX = -3;
             DrawOriginOffsetY = 0;
+
+            Projectile.penetrate = 3;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
-        
         public override void AI()
         {
 
@@ -54,7 +57,6 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             reflect--;
             if (reflect <= 0)
             {
@@ -73,31 +75,28 @@ namespace StormDiversMod.Projectiles
                 {
                     Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
                 }
-
-
             }
-
             SoundEngine.PlaySound(SoundID.NPCHit3, Projectile.Center);
 
             return false;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
-            
-           
+            Projectile.damage = Projectile.damage * 8 / 10;
+            Projectile.velocity *= 0.5f;
+            for (int i = 0; i < 5; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68, Projectile.velocity.X * 0.25f, Projectile.velocity.Y * 0.25f);
+            }
         }
         public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
                 //Main.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 22);
                 for (int i = 0; i < 5; i++)
                 {
-
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68);
                 }
             }
@@ -114,9 +113,7 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
     }
    
@@ -145,10 +142,6 @@ namespace StormDiversMod.Projectiles
             Projectile.scale = 0.7f;
 
         }
-
-        
-
-
         public override void AI()
         {
 
@@ -245,7 +238,6 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Derpling Magic Shard");
-
         }
 
         public override void SetDefaults()
@@ -269,22 +261,15 @@ namespace StormDiversMod.Projectiles
         {
             Projectile.rotation += (float)Projectile.direction * -0.6f;
 
-
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = Projectile.Center;
             dust = Terraria.Dust.NewDustPerfect(position, 68, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 0.5f);
             dust.noGravity = true;
-
-
-
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
-
-           
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -293,14 +278,10 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnKill(int timeLeft)
         {
-
-
             //Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             //Main.PlaySound(SoundID.NPCHit, (int)Projectile.position.X, (int)Projectile.position.Y, 22);
             for (int i = 0; i < 5; i++)
             {
-
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68);
             }
 

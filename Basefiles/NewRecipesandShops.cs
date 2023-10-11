@@ -202,12 +202,6 @@ namespace StormDiversMod.Basefiles
             recipe5.AddTile(TileID.WorkBenches);
             recipe5.Register();
 
-            //Tombstone
-            Recipe recipe6 = Recipe.Create(ItemID.Tombstone, 1);
-            recipe6.AddIngredient(ItemID.StoneBlock, 50);
-            recipe6.AddTile(TileID.HeavyWorkBench);
-            recipe6.Register();
-
             //Frost armour
             Recipe recipe7 = Recipe.Create(ItemID.FrostHelmet, 1);
             recipe7.AddIngredient(ModContent.ItemType<IceBar>(), 10);
@@ -269,6 +263,76 @@ namespace StormDiversMod.Basefiles
             recipe10.AddTile(TileID.Anvils);
             recipe10.Register();
 
+            //Tombstones
+            Recipe tomb2 = Recipe.Create(ItemID.Tombstone, 1);
+            tomb2.AddIngredient(ItemID.StoneBlock, 50);
+            tomb2.AddTile(TileID.HeavyWorkBench);
+            tomb2.Register();
+            Recipe tomb3 = Recipe.Create(ItemID.GraveMarker, 1);
+            tomb3.AddRecipeGroup(RecipeGroupID.Wood, 50);
+            tomb3.AddTile(TileID.HeavyWorkBench);
+            tomb3.Register();
+            Recipe tomb4 = Recipe.Create(ItemID.CrossGraveMarker, 1);
+            //tomb4.AddIngredient(ItemID.StoneBlock, 50);
+            tomb4.AddRecipeGroup(RecipeGroupID.Wood, 50);
+            tomb4.AddTile(TileID.HeavyWorkBench);
+            tomb4.Register();
+            Recipe tomb5 = Recipe.Create(ItemID.Headstone, 1);
+            tomb5.AddIngredient(ItemID.StoneBlock, 50);
+            tomb5.AddTile(TileID.HeavyWorkBench);
+            tomb5.Register();
+            Recipe tomb6 = Recipe.Create(ItemID.Gravestone, 1);
+            tomb6.AddIngredient(ItemID.StoneBlock, 50);
+            tomb6.AddTile(TileID.HeavyWorkBench);
+            tomb6.Register();
+            Recipe tomb7 = Recipe.Create(ItemID.Obelisk, 1);
+            tomb7.AddIngredient(ItemID.Obsidian, 50);
+            tomb7.AddTile(TileID.HeavyWorkBench);
+            tomb7.Register();
+            //Golden Tombstones
+            Recipe tomb8 = Recipe.Create(ItemID.RichGravestone1, 1);
+            tomb8.AddIngredient(ItemID.StoneBlock, 50);
+            tomb8.AddIngredient(ItemID.GoldCoin, 10);
+            tomb8.AddTile(TileID.HeavyWorkBench);
+            tomb8.Register();
+
+            Recipe tomb9 = Recipe.Create(ItemID.RichGravestone2, 1);
+            tomb9.AddIngredient(ItemID.StoneBlock, 50);
+            tomb9.AddIngredient(ItemID.GoldCoin, 10);
+            tomb9.AddTile(TileID.HeavyWorkBench);
+            tomb9.Register();
+
+            Recipe tomb10 = Recipe.Create(ItemID.RichGravestone3, 1);
+            tomb10.AddIngredient(ItemID.StoneBlock, 50);
+            tomb10.AddIngredient(ItemID.GoldCoin, 10);
+            tomb10.AddTile(TileID.HeavyWorkBench);
+            tomb10.Register();
+
+            Recipe tomb11 = Recipe.Create(ItemID.RichGravestone4, 1);
+            tomb11.AddIngredient(ItemID.StoneBlock, 50);
+            tomb11.AddIngredient(ItemID.GoldCoin, 10);
+            tomb11.AddTile(TileID.HeavyWorkBench);
+            tomb11.Register();
+
+            Recipe tomb12 = Recipe.Create(ItemID.RichGravestone5, 1);
+            tomb12.AddIngredient(ItemID.StoneBlock, 50);
+            tomb12.AddIngredient(ItemID.GoldCoin, 10);
+            tomb12.AddTile(TileID.HeavyWorkBench);
+            tomb12.Register();
+
+            /*
+             * ItemID.Tombstone,
+                ItemID.GraveMarker,
+                ItemID.CrossGraveMarker,
+                ItemID.Headstone,
+                ItemID.Gravestone,
+                ItemID.Obelisk,
+                ItemID.RichGravestone1,
+                ItemID.RichGravestone2,
+                ItemID.RichGravestone3,
+                ItemID.RichGravestone4,
+                ItemID.RichGravestone5,
+            */
             //hardmode Blood moon items
             /*Recipe recipe11 = Recipe.Create(ItemID.DripplerFlail, 1);
             recipe11.AddIngredient(ItemID.HallowedBar, 10);
@@ -361,6 +425,7 @@ namespace StormDiversMod.Basefiles
 
             if (shop.NpcType == NPCID.ArmsDealer)
             {
+                shop.Add(ModContent.ItemType<TommyGun>(), Condition.DownedFrostLegion);
                 shop.Add(ModContent.ItemType<MechanicalRifle>(), Condition.DownedSkeletronPrime, Condition.DownedDestroyer, Condition.DownedTwins);
             }
 
@@ -398,6 +463,11 @@ namespace StormDiversMod.Basefiles
             if (shop.NpcType == NPCID.BestiaryGirl)
             {
                 shop.Add(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>()); //fine always avalible 
+            }
+
+            if (shop.NpcType == NPCID.Pirate)
+            {
+                shop.Add(ModContent.ItemType<CaptainsGun>(), Condition.DownedMechBossAny);
             }
         }
     }

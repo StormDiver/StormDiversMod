@@ -96,13 +96,14 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Asteroid Blade");
-            //Tooltip.SetDefault("Rains down tiny asteroid fragments from the sky");
+            //Tooltip.SetDefault("Rains down asteroid fragments from the sky\nEach swing creates a large damaging aura
+            //");
             Item.ResearchUnlockCount = 1;
         }
-
+        int aura = 0;
         public override void SetDefaults()
         {
-            Item.damage = 110;
+            Item.damage = 90;
 
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
@@ -117,7 +118,9 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = false;
             Item.scale = 1f;
             Item.knockBack = 6;
-            Item.shoot = ModContent.ProjectileType<SpaceFragment>();
+            Item.shoot = ModContent.ProjectileType<SpaceSwordProj>();
+            aura = ModContent.ProjectileType<Projectiles.AsteroidAura>();
+            Item.noMelee = true;
             Item.shootSpeed = 16f;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -129,10 +132,37 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dustIndex].noGravity = true;
             }
         }
+        public override void UseAnimation(Player player)
+        {
+
+            if (aura != 0 && !player.ItemAnimationActive)
+            {
+                Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    Vector2 velocity = new Vector2(Math.Sign(mousePosition.X - player.Center.X), 0); // determines direction
+                    int damage = (int)(player.GetTotalDamage(Item.DamageType).ApplyTo(Item.damage));
+                    Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), player.MountedCenter - velocity * 2, velocity * 5, aura, damage, Item.knockBack, Main.myPlayer,
+                            Math.Sign(mousePosition.X - player.Center.X) * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
+                    NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+
+                }
+                return;
+            }
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
-            int numberProjectiles = 1 + Main.rand.Next(2);
+            Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+
+            if (player.whoAmI == Main.myPlayer)
+            {
+                Projectile spawnedProj = Projectile.NewProjectileDirect(source, player.MountedCenter - velocity * 2, velocity * 5, aura, damage, knockback, Main.myPlayer,
+                    player.direction * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
+                NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+
+            }
+
+            int numberProjectiles = 1 + Main.rand.Next(1);
 
             for (int index = 0; index < numberProjectiles; ++index)
                 {
@@ -149,13 +179,57 @@ namespace StormDiversMod.Items.Weapons
                     float num17 = num13 * num15;
                     float SpeedX = num16 + (float)Main.rand.Next(-10, 10) * 0.05f;  //this defines the projectile X position speed and randomnes
                     float SpeedY = num17 + (float)Main.rand.Next(-10, 10) * 0.05f;  //this defines the projectile Y position speed and randomnes
-                int projid = Projectile.NewProjectile(source, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), type, (int)(damage * 0.75f), 0.5f, player.whoAmI, 0.0f, (float)Main.rand.Next(5));
+                int projid = Projectile.NewProjectile(source, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), type, (int)(damage * 0.75f), 2.5f, player.whoAmI, 0.0f, (float)Main.rand.Next(5));
                 Main.projectile[projid].DamageType = DamageClass.Melee;
             }
                 SoundEngine.PlaySound(SoundID.Item13, player.Center);
               
             return false;
         }
+        /*public override void ModifyItemScale(Player player, ref float scale)
+        {
+            if (Item.CountsAsClass(DamageClass.Melee))
+            {
+                float bonusSize = 1f;
+                switch (Item.prefix)
+                {
+                    case PrefixID.Large:
+                        bonusSize = (1.12f);
+                        break;
+                    case PrefixID.Massive:
+                        bonusSize = (1.18f);
+                        break;
+                    case PrefixID.Dangerous:
+                        bonusSize = (1.05f);
+                        break;
+                    case PrefixID.Savage:
+                        bonusSize = (1.1f);
+                        break;
+                    case PrefixID.Bulky:
+                        bonusSize = (1.1f);
+                        break;
+                    case PrefixID.Shameful:
+                        bonusSize = (1.1f);
+                        break;
+                    case PrefixID.Legendary:
+                        bonusSize = (1.1f);
+                        break;
+                    case PrefixID.Tiny:
+                        bonusSize = (0.82f);
+                        break;
+                    case PrefixID.Terrible:
+                        bonusSize = (0.87f);
+                        break;
+                    case PrefixID.Small:
+                        bonusSize = (0.9f);
+                        break;
+                    case PrefixID.Unhappy:
+                        bonusSize = (0.9f);
+                        break;
+                }
+                scale *= bonusSize;
+            }
+        }*/
         public override void AddRecipes()
         {
             CreateRecipe()

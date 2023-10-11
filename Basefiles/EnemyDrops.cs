@@ -82,6 +82,7 @@ namespace StormDiversMod.Basefiles
     {
         
         public override bool InstancePerEntity => true;
+
         //Drops--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         public override void OnKill(NPC npc) //Used for items that don't work with the new method
         {
@@ -201,6 +202,13 @@ namespace StormDiversMod.Basefiles
             {
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
 
+            }
+            if ((npc.type == NPCID.SnowmanGangsta || npc.type == NPCID.SnowBalla || npc.type == NPCID.MisterStabby))
+            {
+                if (Main.rand.Next(25) == 0 && Main.invasionType == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.SnowGlobe);
+                }
             }
             //No bestiary--------------------------------------------------------------------------------------------------------------------
             if (Main.rand.Next(5000) < 1 & npc.lifeMax > 5)
@@ -358,8 +366,18 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
             {
                 ItemDropRule.Common(ModContent.ItemType<StickyLauncher>(), 20);
-               
 
+            }
+
+            if (npc.type == NPCID.SnowmanGangsta)
+            {
+                npcLoot.Add(ItemDropRule.Common(ItemID.GangstaHat, 50));
+
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TommyGun>(), 25));
+            }
+            if (npc.type == NPCID.SnowBalla)
+            {
+                npcLoot.Add(ItemDropRule.Common(ItemID.BallaHat, 50));
             }
 
             //Accessories--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

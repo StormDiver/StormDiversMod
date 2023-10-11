@@ -12,7 +12,7 @@ Mods: {
 			Stormtip6: Dying is an effective way to regain your health, unless you're on hardcore.
 			Stormtip7: You can build by placing down tiles.
 			Stormtip8: You can mine tiles by mining them.
-			Stormtip9: Break into the temple early and steal all the loot, I dare you...
+			Stormtip9: Break into the Jungle Temple early and steal all the loot, I dare you...
 		}
 
 		Buffs: {
@@ -351,8 +351,8 @@ Mods: {
 			}
 
 			TempleDebuff: {
-				DisplayName: The Temple's True Curse
-				Description: You messed with something that was inflicted with a curse
+				DisplayName: Temple Curse Burn
+				Description: You messed with something that was inflicted with a curse, now you are burning
 			}
 		}
 
@@ -567,6 +567,7 @@ Mods: {
 					'''
 					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 75
 					Enemies that grant you health lose life rapidly
+					The chance to be healed is reduced during events
 					'''
 			}
 
@@ -577,6 +578,7 @@ Mods: {
 					Provides life regeneration and reduces the cooldown of healing potions by 25%
 					Enemies have a chance to heal you once for 20 health when they fall below half life, bosses always heal for 75
 					Enemies that grant you health lose life rapidly
+					The chance to be healed is reduced during events
 					'''
 			}
 
@@ -2045,6 +2047,16 @@ Mods: {
 					'''
 			}
 
+			CaptainsGun: {
+				DisplayName: The Captain's Cannon
+				Tooltip:
+					'''
+					Rapidly fires out bullets with a slow start up speed, builds up to full speed after firing for several seconds
+					Press right click while firing to launch a cannonball, requires cannonballs as ammo
+					'Do what you want 'cause a pirate is free'
+					'''
+			}
+
 			ChloroDartGun: {
 				DisplayName: Chlorophyte Dart Shotgun
 				Tooltip: Fires out a burst of darts
@@ -2117,7 +2129,11 @@ Mods: {
 
 			DerplingSword: {
 				DisplayName: Derpling Sword
-				Tooltip: Fire out multiple Derpling Shell Shards every other swing
+				Tooltip:
+					'''
+					Launches multiple Derpling Shell Shards every other swing that bounce off tiles
+					Shards pierce twice but lose velocity and damage each time
+					'''
 			}
 
 			DesertBow: {
@@ -2348,6 +2364,7 @@ Mods: {
 					'''
 					Left Click to fire out an essence of light that travels towards enemies at high speed
 					Right click to fire out an essence of dark that surrounds enemies in darkness
+					Both swings create a large damaging aura
 					'Perfectly balanced, as all things should be'
 					'''
 			}
@@ -2724,7 +2741,11 @@ Mods: {
 
 			SpaceRockSword: {
 				DisplayName: Asteroid Blade
-				Tooltip: Rains down tiny asteroid fragments from the sky
+				Tooltip:
+					'''
+					Rains down asteroid boulders from the sky
+					Each swing creates a large damaging aura
+					'''
 			}
 
 			SpaceRockWhip: {
@@ -2882,6 +2903,16 @@ Mods: {
 					'''
 					Fires out magical tombstones that bounce around
 					Tombstones spawn a miniature ghost upon hitting an enemy
+					'''
+			}
+
+			TommyGun: {
+				DisplayName: Snowman's Tommy Gun
+				Tooltip:
+					'''
+					Can only be fired left and right
+					Hold UP/DOWN to aim upwards/downwards at a 45 degree angle respectivly
+					'Wit' dis weapon I be a me a real gangsta'
 					'''
 			}
 
@@ -3472,6 +3503,13 @@ Mods: {
 			MechanicalRifleProj2.DisplayName: Super High Velocity Bullet
 			AncientArmourRingProj.DisplayName: Ancient Armour Ring Proj
 			PainbringerMaskProj.DisplayName: Painbringer Mask Proj
+			AsteroidAura.DisplayName: Asteroid Blade
+			LightDarkAuraDark.DisplayName: Equinox Light Blade
+			LightDarkAuraLight.DisplayName: Equinox Dark Blade
+			SoulAura.DisplayName: Soul Blade
+			DerpAura.DisplayName: Derpling Sword
+			SpaceSwordProj.DisplayName: Asteroid Sword Boulder
+			CaptainsGunProj.DisplayName: Captains Gun Proj
 		}
 
 		Tiles: {
@@ -3562,6 +3600,11 @@ Mods: {
 				PreventPillarEnemies: {
 					Tooltip: This will prevent the new pillar enemies in this mod from spawning
 					Label: Prevent modded pillar enemies from spawning
+				}
+
+				PreventSnowmenEnemies: {
+					Tooltip: This will prevent enemies from the Frost legion from spawning during Blizzards in Hardmode
+					Label: Prevent Frost Legion enemies spawning in hardmode Blizzards
 				}
 			}
 		}
