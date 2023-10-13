@@ -37,10 +37,12 @@ namespace StormDiversMod.Projectiles
             Projectile.aiStyle = 0;
             Projectile.scale = 1f;
             Projectile.tileCollide = true;
+
             //Projectile.usesLocalNPCImmunity = true;
             //Projectile.localNPCHitCooldown = 10;
             //drawOffsetX = 2;
             //drawOriginOffsetY = -10;
+
         }
         int dusttime;
         public override void AI()
@@ -61,13 +63,11 @@ namespace StormDiversMod.Projectiles
                     float X = Projectile.Center.X - Projectile.velocity.X / 5f * (float)i;
                     float Y = Projectile.Center.Y - Projectile.velocity.Y / 5f * (float)i;
 
-
                     int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 66, 0, 0, 100, default, 1f);
                     Main.dust[dust].position.X = X;
                     Main.dust[dust].position.Y = Y;
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 0f;
-
                 }
             }
 
@@ -78,7 +78,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.localAI[0] = 1f;
             }
             Vector2 move = Vector2.Zero;
-            float distance = 250f;
+            float distance = 250;
             bool target = false;
             for (int k = 0; k < 200; k++)
             {
@@ -100,18 +100,22 @@ namespace StormDiversMod.Projectiles
             if (target)
             {
                 AdjustMagnitude(ref move);
-                Projectile.velocity = (10 * Projectile.velocity + move) / 11f;
+                Projectile.velocity = (10 * Projectile.velocity + move) / 11;
                 AdjustMagnitude(ref Projectile.velocity);
+                Projectile.extraUpdates = 1;
             }
+            else
+                Projectile.extraUpdates = 0;
+
         }
 
         private void AdjustMagnitude(ref Vector2 vector)
         {
 
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-            if (magnitude > 15f)
+            if (magnitude > 12f)
             {
-                vector *= 15f / magnitude;
+                vector *= 12f / magnitude;
             }
 
         }
@@ -138,27 +142,18 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             return true;
-            
         }
 
         public override void OnKill(int timeLeft)
         {
-
-
-
             SoundEngine.PlaySound(SoundID.NPCDeath7 with {Volume = 0.5f}, Projectile.Center);
             for (int i = 0; i < 25; i++)
             {
-
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 66, 0, 0, 130, default, 1f);
                 dust.noGravity = true;
             }
-
         }
-        
 
         public override Color? GetAlpha(Color lightColor)
         {
@@ -199,7 +194,7 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 90;
+            Projectile.timeLeft = 3;
             //aiType = ProjectileID.Bullet;
             Projectile.aiStyle = 0;
             Projectile.scale = 1f;
@@ -217,8 +212,6 @@ namespace StormDiversMod.Projectiles
             Projectile.spriteDirection = Projectile.direction;
             int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 109, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 0, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
             Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-           
-
 
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
@@ -231,10 +224,9 @@ namespace StormDiversMod.Projectiles
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
 
-                Projectile.width = 120;
-                Projectile.height = 120;
+                Projectile.width = 125;
+                Projectile.height = 125;
                 Projectile.Center = Projectile.position;
-
 
                 Projectile.knockBack = 6;
             }
@@ -245,19 +237,7 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-            if (Main.rand.Next(2) == 0)
-            {
-                target.AddBuff(ModContent.BuffType<DarkShardDebuff>(), 300);
-            }
-            var player = Main.player[Projectile.owner];
-            for (int i = 0; i < 3; i++)
-            {
-                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
-                {
-                    PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
-
-                }, player.whoAmI);
-            }
+            target.AddBuff(ModContent.BuffType<DarkShardDebuff>(), 180);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -272,30 +252,11 @@ namespace StormDiversMod.Projectiles
 
         public override void OnKill(int timeLeft)
         {
-
-
             SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 1.5f, Pitch = -0.5f}, Projectile.Center);
 
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionDarkProj>(), 0, 0, Projectile.owner);
             //Main.projectile[proj].scale = 1;
 
-            /*for (int i = 0; i < 60; i++)
-            {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 54, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
-                dust.noGravity = true;
-                dust.scale = 2f;
-            }*/
-            for (int i = 0; i < 30; i++)
-            {
-
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 109, 0f, 0f, 0, default, 1f);
-                Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                Main.dust[dustIndex].noGravity = true;
-            }
             for (int i = 0; i < 30; i++)
             {
 
@@ -305,6 +266,16 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dustIndex].noGravity = true;
                 Main.dust[dustIndex].velocity *= 3;
 
+            }
+            var player = Main.player[Projectile.owner];
+
+            for (int i = 0; i < 3; i++)
+            {
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                {
+                    PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
+
+                }, player.whoAmI);
             }
 
         }

@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -43,6 +44,7 @@ namespace StormDiversMod.Items.Weapons
             Item.scale = 1f;
         }
         int weaponattack = 2;
+      
         public override void UseAnimation(Player player)
         {
 
@@ -64,14 +66,6 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
-
-            if (player.whoAmI == Main.myPlayer)
-            {
-                Projectile spawnedProj = Projectile.NewProjectileDirect(source, player.MountedCenter - velocity * 2, velocity * 5, aura, damage, knockback, Main.myPlayer,
-                    player.direction * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
-                NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
-
-            }
 
             weaponattack--;
             if (weaponattack <= 0)

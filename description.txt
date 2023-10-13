@@ -8,12 +8,13 @@ This mod includes:
 -3 new bosses, one late pre hardmode, one tiered around Plantera, with a config to fight it in its place, and a secret post Moon Lord one
 -New Ammo, tools, potions, new Vanity items, and pets
 -Full Wikithis support
+-Makes Frost legion enemies spawn in hardmode blizzards (Can be disabled via config)
 It even contains some small Quality of Life features
  -New recipes and drops for certain uncraftable vanilla items, including the Rod of Discord, Snow and Gladiator armour, Chum caster, and even the Slime Staff
  -A special super dummy with multiple variants
  -Most NPCs sell their dropped weapon
- -A special Post Moon Lord miniboss thaty drops lunar fragments and luminite
-
+ -A special Post Moon Lord miniboss that drops Lunar fragments and Luminite
+ -An item that can remove the shields from the pillars
 Make sure to check the Steam page for the changelog, and the leave any comments you have about the mod
 
 Creator, coder, and main spriter: [c/22DD97:TheStorm]

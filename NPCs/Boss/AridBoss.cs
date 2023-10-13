@@ -433,9 +433,9 @@ namespace StormDiversMod.NPCs.Boss
         private void Attacks(Player player)//___________________________________________________________________________________________________________________________________________________
         {
             float distance = Vector2.Distance(player.Center, NPC.Center);
-            if (distance >= 600) //extra projectil velcoity if too far away
+            if (distance >= 500) //extra projectil velcoity if too far away
             {
-                extravel = (distance - 600) / 50; // add 1 velocity for ever 50 pixels away over 600
+                extravel = (distance - 500) / 50; // add 1 velocity for ever 50 pixels away over 500
                 if (extravel > 1000)
                     extravel = 1000;
             }

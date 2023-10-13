@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Weapons
         {
             //DisplayName.SetDefault("The Captains Cannon");
             //Tooltip.SetDefault("Rapidly fires out bullets, has a slow start up speed but builds up to full speed after firing for a few seconds
-            //Press right click while firing to launch a cannonball, requires cannonballs as ammo");
+            //Right click while firing to launch a cannonball, requires cannonballs as ammo");
 
             Item.ResearchUnlockCount = 1;
         }

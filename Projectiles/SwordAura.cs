@@ -15,6 +15,7 @@ using static Terraria.Main;
 
 using Terraria.GameContent.Drawing;
 using System.Collections.Generic;
+using Mono.Cecil;
 
 namespace StormDiversMod.Projectiles
 {
@@ -177,7 +178,8 @@ namespace StormDiversMod.Projectiles
     {
         public override void AuraDefaults()
         {
-            scaleIncrease = 0.5f;
+            
+            scaleIncrease = 0.1f;
             frontColor = Color.LightGray;
             middleColor = Color.Silver;
             backColor = Color.Violet;
@@ -186,15 +188,14 @@ namespace StormDiversMod.Projectiles
         int hits;
         public override bool? CanDamage()
         {
-            /*if (hits < 4)
+            if (hits < 4)
             {
                 return true;
             }
             else
             {
                 return false;
-            }*/
-            return true;
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -214,11 +215,23 @@ namespace StormDiversMod.Projectiles
     {
         public override void AuraDefaults()
         {
-            scaleIncrease = 0.5f;
+            scaleIncrease = 0.6f;
             frontColor = Color.DarkViolet;
             middleColor = Color.Indigo;
             backColor = Color.Black;
             //backColor = new Color(192, 176, 138);
+        }
+        int hits;
+        public override bool? CanDamage()
+        {
+            if (hits < 4)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -231,6 +244,15 @@ namespace StormDiversMod.Projectiles
 
                 }, player.whoAmI);
             }
+            if (hits < 1)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SwordDarkProj>(), Projectile.damage / 2, 0, player.whoAmI);
+                SoundEngine.PlaySound(SoundID.Item73, player.Center);
+
+            }
+
+            hits++;
+
         }
     }
     public class SoulAura : SwordAura
@@ -242,6 +264,19 @@ namespace StormDiversMod.Projectiles
             middleColor = Color.DeepSkyBlue;
             backColor = Color.SlateBlue;
             //backColor = new Color(192, 176, 138);
+        }
+
+        int hits;
+        public override bool? CanDamage()
+        {
+            if (hits < 4)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -260,6 +295,8 @@ namespace StormDiversMod.Projectiles
                 }, player.whoAmI);
             }
             target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 480);
+            hits++;
+
         }
     }
     public class DerpAura : SwordAura
@@ -272,6 +309,18 @@ namespace StormDiversMod.Projectiles
             backColor = Color.Blue;
             //backColor = new Color(192, 176, 138);
         }
+        int hits;
+        public override bool? CanDamage()
+        {
+            if (hits < 5)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
@@ -279,6 +328,8 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(target.Center, 0, 0, 68);
                 dust.noGravity = true;
             }
+            hits++;
+
         }
     }
     public class AsteroidAura : SwordAura
@@ -291,6 +342,18 @@ namespace StormDiversMod.Projectiles
             backColor = Color.Indigo;
             //backColor = new Color(192, 176, 138);
         }
+        int hits;
+        public override bool? CanDamage()
+        {
+            if (hits < 6)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var player = Main.player[Projectile.owner];
@@ -299,6 +362,7 @@ namespace StormDiversMod.Projectiles
                 PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
 
             }, player.whoAmI);
+            hits++;
         }
     }
 

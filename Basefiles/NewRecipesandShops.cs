@@ -291,31 +291,31 @@ namespace StormDiversMod.Basefiles
             tomb7.Register();
             //Golden Tombstones
             Recipe tomb8 = Recipe.Create(ItemID.RichGravestone1, 1);
-            tomb8.AddIngredient(ItemID.StoneBlock, 50);
+            tomb8.AddIngredient(ItemID.CrossGraveMarker, 1);
             tomb8.AddIngredient(ItemID.GoldCoin, 10);
             tomb8.AddTile(TileID.HeavyWorkBench);
             tomb8.Register();
 
             Recipe tomb9 = Recipe.Create(ItemID.RichGravestone2, 1);
-            tomb9.AddIngredient(ItemID.StoneBlock, 50);
+            tomb9.AddIngredient(ItemID.Tombstone, 1);
             tomb9.AddIngredient(ItemID.GoldCoin, 10);
             tomb9.AddTile(TileID.HeavyWorkBench);
             tomb9.Register();
 
             Recipe tomb10 = Recipe.Create(ItemID.RichGravestone3, 1);
-            tomb10.AddIngredient(ItemID.StoneBlock, 50);
+            tomb10.AddIngredient(ItemID.GraveMarker, 1);
             tomb10.AddIngredient(ItemID.GoldCoin, 10);
             tomb10.AddTile(TileID.HeavyWorkBench);
             tomb10.Register();
 
             Recipe tomb11 = Recipe.Create(ItemID.RichGravestone4, 1);
-            tomb11.AddIngredient(ItemID.StoneBlock, 50);
+            tomb11.AddIngredient(ItemID.Gravestone, 1);
             tomb11.AddIngredient(ItemID.GoldCoin, 10);
             tomb11.AddTile(TileID.HeavyWorkBench);
             tomb11.Register();
 
             Recipe tomb12 = Recipe.Create(ItemID.RichGravestone5, 1);
-            tomb12.AddIngredient(ItemID.StoneBlock, 50);
+            tomb12.AddIngredient(ItemID.Headstone, 1);
             tomb12.AddIngredient(ItemID.GoldCoin, 10);
             tomb12.AddTile(TileID.HeavyWorkBench);
             tomb12.Register();

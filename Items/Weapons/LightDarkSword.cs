@@ -35,8 +35,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
 			Item.height = 50;
-			Item.useTime = 22;
-			Item.useAnimation = 22;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
 
 			Item.useStyle = ItemUseStyleID.Swing;  
             Item.value = Item.sellPrice(0, 2, 0, 0);
@@ -116,23 +116,15 @@ namespace StormDiversMod.Items.Weapons
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
 
-            if (player.whoAmI == Main.myPlayer)
-            {
-                Projectile spawnedProj = Projectile.NewProjectileDirect(source, player.MountedCenter - velocity * 2, velocity * 5, aura, damage, knockback, Main.myPlayer,
-                    player.direction * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
-                NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
-
-            }
 
             if (player.altFunctionUse == 2) //Right Click
             {
                 //type = ModContent.ProjectileType<Projectiles.SwordDarkProj>();
-                for (int i = 0; i < 1; i++)
+                /*for (int i = 0; i < 1; i++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6)); // This defines the projectiles random spread . 10 degree spread.
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6)); 
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), ModContent.ProjectileType<Projectiles.SwordDarkProj>(), damage, knockback, player.whoAmI);
-                }
-                SoundEngine.PlaySound(SoundID.Item73, player.Center);
+                }*/
                 SoundEngine.PlaySound(SoundID.Item1, player.Center);
 
             }
@@ -140,8 +132,8 @@ namespace StormDiversMod.Items.Weapons
             {
                 //type = ModContent.ProjectileType<Projectiles.SwordLightProj>();
 
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(2)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.5f, perturbedSpeed.Y * 1.5f), ModContent.ProjectileType<Projectiles.SwordLightProj>(), (int)(damage * 1.3f), knockback, player.whoAmI);
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(2)); 
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.75f, perturbedSpeed.Y * 1.75f), ModContent.ProjectileType<Projectiles.SwordLightProj>(), (int)(damage * 1.25f), knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item9 with { Volume = 1f, Pitch = -0.5f }, player.Center);
                 SoundEngine.PlaySound(SoundID.Item1, player.Center);
 

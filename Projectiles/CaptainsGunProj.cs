@@ -117,8 +117,8 @@ namespace StormDiversMod.Projectiles
                     //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
                     for (int i = 0; i < 1; i++)
                     {
-                        Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f).RotatedByRandom(MathHelper.ToRadians(12));
-                        int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + (-Projectile.velocity.X * 1.5f), Projectile.Center.Y + 3 + (-Projectile.velocity.Y * 1.5f)), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
+                        Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.75f, Projectile.velocity.Y * 0.75f).RotatedByRandom(MathHelper.ToRadians(10));
+                        int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + (-Projectile.velocity.X), Projectile.Center.Y + 3 + (-Projectile.velocity.Y)), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
 
                         Main.projectile[projID].usesLocalNPCImmunity = true;
                         Main.projectile[projID].localNPCHitCooldown = 10;
@@ -164,10 +164,11 @@ namespace StormDiversMod.Projectiles
                     //Main.NewText("EXCUSE ME! = ", 0, 204, 170); //Inital Scale
 
                     Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.6f, Projectile.velocity.Y * 0.6f).RotatedByRandom(MathHelper.ToRadians(0));
-                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + (-Projectile.velocity.X * 2f), Projectile.Center.Y + 13 - (Projectile.velocity.Y * 2f)), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y - 1.5f)), ProjectileID.CannonballFriendly, (int)(Projectile.damage) * 4, Projectile.knockBack, Projectile.owner);
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + (-Projectile.velocity.X), Projectile.Center.Y + 13 - (Projectile.velocity.Y)), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y - 1.5f)), ProjectileID.CannonballFriendly, (int)(Projectile.damage) * 4, Projectile.knockBack, Projectile.owner);
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = -1;
                     Main.projectile[projID].DamageType = DamageClass.Ranged;
+                    Main.projectile[projID].ai[0] = 2; //start smoke as soon as spawned
 
                 }
 

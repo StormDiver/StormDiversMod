@@ -78,7 +78,7 @@ namespace StormDiversMod.Basefiles
 
         public bool derpEye; //Player had the Derpling Eye equipped
 
-        public bool derpEyeGolem; //Player had the Jungl Eye equipped
+        public bool derpEyeGolem; //Player had the Jungle Eye equipped
 
 
         public bool blueCuffs; //Player has insulated cuffs equipped
@@ -268,8 +268,8 @@ namespace StormDiversMod.Basefiles
         }
         public override void PostUpdateEquips() //Updates every frame
         {
-
             //Reduces ints if they are above 0 and not in the equip field
+
             if (beetleFist)
             {
                 if (beetlecooldown > 0)
@@ -329,6 +329,14 @@ namespace StormDiversMod.Basefiles
                 }
             }
             //======================================================================================Accessories/other======================================================================================
+            //luck
+            //Main.NewText("Your coin luck is: " + Player.coinLuck + " Your regular luck is: " + Player.luck, 204, 101, 22);
+
+            if (derpEye)
+                Player.luck += 0.3f;
+            if (derpEyeGolem)
+                Player.luck += 0.3f;
+
             if (beetleFist && Player.HeldItem.CountsAsClass(DamageClass.Melee))
             {
                 if (Main.rand.Next(6) == 0)
@@ -1214,7 +1222,6 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }
-
             //Vanity Mask sound
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {

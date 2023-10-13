@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.Weapons
         {
             //DisplayName.SetDefault("Snowman's Tommy Gun");
             //Tooltip.SetDefault("Can only be fired left and right
-            //Hold UP/ DOWN to aim upwards / downwards at a 45 degree angle respectivly
+            //Hold UP/ DOWN to aim upwards / downwards at a 45 degree angle respectively
             //'Wit' dis weapon I be a me a real gangsta'");
             //Item.staff[Item.type] = true;
 
@@ -58,6 +58,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.noUseGraphic = false;
         }
+        
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);

@@ -564,7 +564,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
-        
+
         /*public override bool CanUseItem(Item item, Player player) //use this to disable the RoD if you want 
         {
             if (item.type == ItemID.RodofDiscord)
@@ -580,7 +580,51 @@ namespace StormDiversMod.Basefiles
             }
             return true;
         }*/
+        public override void SetDefaults(Item item)
+        {
+            /*if (item.type == ItemID.Tombstone)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.GraveMarker;
+            if (item.type == ItemID.GraveMarker)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.CrossGraveMarker;
+            if (item.type == ItemID.CrossGraveMarker)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.Headstone;
+            if (item.type == ItemID.Headstone)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.Gravestone;
+            if (item.type == ItemID.Gravestone)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.Obelisk;
+            if (item.type == ItemID.Obelisk)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.Tombstone;*/
 
+            if (item.type == ItemID.RichGravestone1)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.GraveMarker;
+            if (item.type == ItemID.RichGravestone2)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.Tombstone;
+            if (item.type == ItemID.RichGravestone3)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.CrossGraveMarker;
+            if (item.type == ItemID.RichGravestone4)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.Gravestone;
+            if (item.type == ItemID.RichGravestone5)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ItemID.Headstone;
+        }
+        public override void PostUpdate(Item item)
+        {
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(item.Center, Color.WhiteSmoke.ToVector3() * 0.2f * Main.essScale);
+            }
+            var player = Main.LocalPlayer;
+            if (item.type is ItemID.RichGravestone1 or ItemID.RichGravestone2 or ItemID.RichGravestone3 or ItemID.RichGravestone4 or ItemID.RichGravestone5)
+            {
+                if (item.shimmerTime > 0.89)//one tick hopefully
+                {
+                    player.coinLuck += 100000 * item.stack; //10 gold coins worth
+
+                    if (player.coinLuck > 1000000) //cap at 1M
+                        player.coinLuck = 1000000;
+                    //Main.NewText("Shimmer time is : " + item.shimmerTime, 204, 101, 22);
+                }
+            }
+        }
     }
 
     public class Seeddrops : GlobalTile

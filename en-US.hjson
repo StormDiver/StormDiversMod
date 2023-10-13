@@ -2052,7 +2052,7 @@ Mods: {
 				Tooltip:
 					'''
 					Rapidly fires out bullets with a slow start up speed, builds up to full speed after firing for several seconds
-					Press right click while firing to launch a cannonball, requires cannonballs as ammo
+					Right click while firing to launch a cannonball, requires cannonballs as ammo
 					'Do what you want 'cause a pirate is free'
 					'''
 			}
@@ -2362,9 +2362,8 @@ Mods: {
 				DisplayName: Equinox
 				Tooltip:
 					'''
-					Left Click to fire out an essence of light that travels towards enemies at high speed
-					Right click to fire out an essence of dark that surrounds enemies in darkness
-					Both swings create a large damaging aura
+					Left Click to fire out an essence of light every swing that homes into enemies
+					Right Click to create a large aura of darkness that creates an explosion of darkness on the first struck enemy
 					'Perfectly balanced, as all things should be'
 					'''
 			}
@@ -2911,7 +2910,7 @@ Mods: {
 				Tooltip:
 					'''
 					Can only be fired left and right
-					Hold UP/DOWN to aim upwards/downwards at a 45 degree angle respectivly
+					Hold UP/DOWN to aim upwards/downwards at a 45 degree angle respectively
 					'Wit' dis weapon I be a me a real gangsta'
 					'''
 			}
@@ -3501,15 +3500,15 @@ Mods: {
 			BazookaProj2.DisplayName: Bazooka Missile
 			MechanicalRifleProj.DisplayName: Super Charged Rifle
 			MechanicalRifleProj2.DisplayName: Super High Velocity Bullet
-			AncientArmourRingProj.DisplayName: Ancient Armour Ring Proj
-			PainbringerMaskProj.DisplayName: Painbringer Mask Proj
+			AncientArmourRingProj.DisplayName: Ancient Armour Ring
+			PainbringerMaskProj.DisplayName: Painbringer Mask Crystals
 			AsteroidAura.DisplayName: Asteroid Blade
 			LightDarkAuraDark.DisplayName: Equinox Light Blade
 			LightDarkAuraLight.DisplayName: Equinox Dark Blade
 			SoulAura.DisplayName: Soul Blade
 			DerpAura.DisplayName: Derpling Sword
 			SpaceSwordProj.DisplayName: Asteroid Sword Boulder
-			CaptainsGunProj.DisplayName: Captains Gun Proj
+			CaptainsGunProj.DisplayName: The Captain's Cannon
 		}
 
 		Tiles: {

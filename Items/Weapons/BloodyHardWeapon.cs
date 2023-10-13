@@ -20,7 +20,6 @@ namespace StormDiversMod.Items.Weapons
         {
             //DisplayName.SetDefault("Bloodshot Rifle");
             //Tooltip.SetDefault("Converts Musket Balls into blood bullets that burst into blood drops upon hitting an enemy\nRight Click to zoom out");
-
             Item.ResearchUnlockCount = 1;
 
         }

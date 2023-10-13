@@ -255,13 +255,6 @@ namespace StormDiversMod.Items.Weapons
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
 
-            if (player.whoAmI == Main.myPlayer)
-            {
-                Projectile spawnedProj = Projectile.NewProjectileDirect(source, player.MountedCenter - velocity * 2, velocity * 5, aura, damage, knockback, Main.myPlayer,
-                    player.direction * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
-                NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
-
-            }
             float numberProjectiles = 2 + Main.rand.Next(2);
             float rotation = MathHelper.ToRadians(14);
             //for (int j = 0; j < numberProjectiles; j++)

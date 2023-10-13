@@ -35,7 +35,6 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EquipmentEffects>().derpEye = true;
-            player.luck += 0.3f;
         }
     }
     public class DerpEyeGolem : ModItem
@@ -64,7 +63,6 @@ namespace StormDiversMod.Items.Accessory
             player.GetCritChance(DamageClass.Generic) += 10;
 
             player.GetModPlayer<EquipmentEffects>().derpEyeGolem = true;
-            player.luck += 0.3f;
         }
         public override void AddRecipes()
         {
