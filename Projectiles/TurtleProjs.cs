@@ -284,20 +284,19 @@ namespace StormDiversMod.Projectiles
             if (shoottime >= 40)
             {
 
-
-                for (int i = 0; i < 3; i++)
+                float numberProjectiles = 8;
+                float rotation = MathHelper.ToRadians(180);
+                for (int i = 0; i < numberProjectiles; i++)
                 {
-                    // Calculate new speeds for other projectiles.
-                    // Rebound at 40% to 70% speed, plus a random amount between -8 and 8
                     SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
 
-                    Vector2 perturbedSpeed = new Vector2(0, -4).RotatedByRandom(MathHelper.ToRadians(360));
+                    Vector2 perturbedSpeed = new Vector2(0, 5).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles)));
 
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<TurtleYoyoProj2>(), (int)(Projectile.damage * 0.8f), 0, Projectile.owner);
                     shoottime = 0;
                 }
             }
-            
+
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -325,11 +324,11 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 20;
             Projectile.height = 20;
             Projectile.friendly = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 2;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 40;
+            Projectile.timeLeft = 30;
 
-            Projectile.scale = 1f;
+            Projectile.scale = 0.8f;
             Projectile.aiStyle = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;

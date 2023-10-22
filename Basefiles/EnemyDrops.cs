@@ -156,13 +156,23 @@ namespace StormDiversMod.Basefiles
             {
 
                 if (!npc.friendly && npc.lifeMax > 5)
-
                 {
-                    if (Main.rand.Next(150) == 0)
+                    if (Main.rand.Next(200) == 0)
                     {
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Pets.TwilightPetItem>());
-                    }
+                        int dropchoice = Main.rand.Next(4);
 
+                        if (dropchoice == 0)
+                        {
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<ProtoLauncher>());
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<ProtoGrenade>(), Main.rand.Next(75, 120));
+                        }
+                        else if (dropchoice == 1)
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Pets.TwilightPetItem>());
+                        else if (dropchoice == 2)
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<EyeofDungeon>());
+                        else if (dropchoice == 3)
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<CursedSkullMinion>());
+                    }
                 }
             }
             if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneSkyHeight && NPC.downedMoonlord && !npc.friendly && npc.lifeMax > 5) //Moonling Summoner
@@ -314,6 +324,7 @@ namespace StormDiversMod.Basefiles
             {
               
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IceStaff>(), 50));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WoodNecklaceFrozen>(), 50));
 
             }
 
@@ -360,6 +371,9 @@ namespace StormDiversMod.Basefiles
                 ItemDropRule.Common(ItemID.MusketBall, 1, 60, 100),
                 };
                 npcLoot.Add(new FewFromRulesRule(2, 100, ancientGunAmmo));
+
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WoodNecklaceDesert>(), 50));
+
             }
 
 
@@ -398,9 +412,7 @@ namespace StormDiversMod.Basefiles
             }
             if (npc.type == NPCID.CursedSkull)
             {
-
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<EyeofDungeon>(), 30, 25));
-
+                //npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<EyeofDungeon>(), 30, 25));
             }
 
             if (npc.type == NPCID.IceQueen)
@@ -488,6 +500,7 @@ namespace StormDiversMod.Basefiles
 
             if (npc.type == NPCID.SantaNK1)
             {
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SantankMinion>(), 15, 20));
 
                 //isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 12, 15));
                 notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 9, 12));

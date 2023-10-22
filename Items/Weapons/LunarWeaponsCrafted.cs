@@ -233,8 +233,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
             Item.useTurn = false;
             Item.autoReuse = true;
 
@@ -249,13 +249,13 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 84;
+            Item.damage = 75;
             //Item.crit = 4;
             Item.knockBack = 1f;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.NebulaStaffProj>();
 
-            Item.shootSpeed = 5f;
+            Item.shootSpeed = 12.5f;
 
             //Item.useAmmo = AmmoID.Arrow;
 

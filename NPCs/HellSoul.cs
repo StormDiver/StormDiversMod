@@ -75,7 +75,6 @@ namespace StormDiversMod.NPCs
         
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
            if (Main.remixWorld && NPC.downedBoss3 || !Main.remixWorld)
                 return SpawnCondition.Underworld.Chance * 0.06f;
            else
@@ -86,10 +85,8 @@ namespace StormDiversMod.NPCs
 
         bool casting;
         public override void AI()
-        {
-           
+        {           
             NPC.rotation = NPC.velocity.X / 15;
-
 
             shoottime++;
 
@@ -98,28 +95,24 @@ namespace StormDiversMod.NPCs
             bool lineofsight = Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height);
             if ((Vector2.Distance(player.Center, NPC.Center) <= 1000f && lineofsight))
             {
-                if (shoottime >= 180)//starts the casting animation
+                if (shoottime >= 200)//starts the casting animation
                 {
                     //NPC.velocity.X = 0;
                     NPC.velocity.Y *= 0f;
                     NPC.velocity.X *= 0.8f;
-
 
                     var dust2 = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.Top.Y), NPC.width, 2, 6, 0, -5);
                     dust2.noGravity = true;
                     dust2.scale = 1.5f;
 
                     casting = true;
-
                 }
                 else
                 {
                     casting = false;
                 }
-                if (shoottime >= 220)//fires the projectiles
+                if (shoottime >= 240)//fires the projectiles
                 {
-
-
                     float projectileSpeed = 7f; // The speed of your projectile (in pixels per second).
                     int damage = 20; // The damage your projectile deals.
                     float knockBack = 3;
@@ -128,7 +121,6 @@ namespace StormDiversMod.NPCs
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
-
 
                     for (int i = 0; i < 3; i++)
                     {
@@ -182,14 +174,10 @@ namespace StormDiversMod.NPCs
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-
             target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 600);
-
-
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            shoottime = 120;
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
@@ -249,7 +237,7 @@ namespace StormDiversMod.NPCs
             float scaleFactor13 = 0.5f + (NPC.GetAlpha(color).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
             for (int num149 = 0; num149 < 4; num149++)
             {
-                spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 13) + NPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                spriteBatch.Draw(texture, NPC.position - screenPos + new Vector2((float)(NPC.width) * NPC.scale / 2f * NPC.scale, (float)(NPC.height) * NPC.scale / Main.npcFrameCount[NPC.type] + 4f * NPC.scale + 12) + NPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, NPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             }
             return base.PreDraw(spriteBatch, screenPos, drawColor);
         }

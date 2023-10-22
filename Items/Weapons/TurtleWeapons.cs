@@ -9,6 +9,7 @@ using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using System.Collections.Generic;
+using System.IO;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -142,7 +143,8 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("The Spinning Tortoise");
-            //Tooltip.SetDefault("Fires out yoyo heads randomly\nGrants extra defense while attacking enemies");
+            //Tooltip.SetDefault("Launches 8 mini yoyo heads in a perfect pattern when held out
+            //Grants extra defense when directly attacking enemies");
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 25;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
@@ -167,10 +169,9 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = true;
             Item.knockBack = 4f;
             Item.shoot = ModContent.ProjectileType<TurtleYoyoProj>();
-            // Item.shootSpeed = 9f;
+            Item.shootSpeed = 10f;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-
         }
 
 

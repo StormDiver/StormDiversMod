@@ -183,7 +183,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = true;
             Item.knockBack = 4f;
             Item.shoot = ModContent.ProjectileType<Projectiles.BloodYoyoProj>();
-            // Item.shootSpeed = 9f;
+            Item.shootSpeed = 10f;
             Item.noMelee = true;
             Item.noUseGraphic = true;
 

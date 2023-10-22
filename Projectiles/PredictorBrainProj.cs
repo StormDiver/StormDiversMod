@@ -153,7 +153,7 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 14;
             Projectile.light = 0.3f;
             Projectile.friendly = true;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 5;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 200;
             //aiType = ProjectileID.Bullet;
@@ -189,32 +189,21 @@ namespace StormDiversMod.Projectiles
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f, 130, default, 0.5f);
 
             }
-
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             return true;
-            
         }
-        
-  
 
         public override void OnKill(int timeLeft)
         {
-
-
-
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
             for (int i = 0; i < 10; i++)
             {
-
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 72, 0, 0, 130, default, 0.5f);
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 27, 0, 0, 130, default, 0.5f);
             }
-
         }
         
 

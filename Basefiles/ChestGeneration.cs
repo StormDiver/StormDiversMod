@@ -13,6 +13,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Items.Weapons;
 using StormDiversMod.Items.Pets;
 using StormDiversMod.Items.Armour;
+using StormDiversMod.Items.Accessory;
 
 namespace StormDiversMod.Basefiles
 {
@@ -71,10 +72,11 @@ namespace StormDiversMod.Basefiles
 
                 }
 
-                //For the Icicle Saff in Frozen Chest
+                //For the Icicle Staff and frozen pendant in Frozen Chest
                 int[] ChestIceStaff = { ItemType<IceStaff>() };
                 int ChestIceStaffCount = 0;
-
+                int[] ChestFroNeck = { ItemType<WoodNecklaceFrozen>() };
+                int ChestFroneckCount = 0;
 
                 if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 11 * 36) //Look in Tiles_21 for the tile, start from 0
                 {
@@ -87,6 +89,13 @@ namespace StormDiversMod.Basefiles
 
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestIceStaff));
                                 ChestIceStaffCount = (ChestIceStaffCount + 1) % ChestIceStaff.Length;
+                                inventoryIndex++;
+                            }
+                            if (WorldGen.genRand.NextBool(4))
+                            {
+
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestFroNeck));
+                                ChestFroneckCount = (ChestFroneckCount + 1) % ChestFroNeck.Length;
                                 inventoryIndex++;
                             }
 
@@ -104,7 +113,8 @@ namespace StormDiversMod.Basefiles
                 int[] ChestAncientGunAmmo = { ItemID.MusketBall };
                 int ChestAncientGunAmmoCount = 0;
 
-
+                int[] ChestDesertneck = { ItemType<WoodNecklaceDesert>() };
+                int ChestDesertneckCount = 0;
 
                 if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36) //Look in Tiles_467 for the tile, start from 0
                 {
@@ -125,7 +135,12 @@ namespace StormDiversMod.Basefiles
                                 ChestAncientGunAmmoCount = (ChestAncientGunAmmoCount + 1) % ChestAncientGunAmmo.Length;
                                 inventoryIndex++;
                             }
-
+                            if (WorldGen.genRand.NextBool(4)) //4
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestDesertneck));
+                                ChestDesertneckCount = (ChestDesertneckCount + 1) % ChestDesertneck.Length;
+                                inventoryIndex++;
+                            }
 
                             break;
                         }
@@ -189,20 +204,27 @@ namespace StormDiversMod.Basefiles
                 int[] ChestLauncherAmmo = { ItemType<Items.Ammo.ProtoGrenade>() };
                 int ChestLauncherAmmoCount = 0;
 
+                int[] ChestBoneStaff = { ItemType<CursedSkullMinion>() };
+                int ChestBoneStaffCount = 0;
+
+                int[] ChestBoneAccess = { ItemType<EyeofDungeon>() };
+                int ChestBoneAccessCount = 0;
+
                 int[] ChestTwilightPet = { ItemType<TwilightPetItem>() };
                 int ChestTwilightPetCount = 0;
 
-
+              
                 if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 2 * 36) //Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
+                            int choice = Main.rand.Next(4);
 
-                            if (WorldGen.genRand.NextBool(4)) //4
+                            //if (WorldGen.genRand.NextBool(2))
+                            if (choice == 0)
                             {
-
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestLauncher));
                                 ChestLauncherCount = (ChestLauncherCount + 1) % ChestLauncher.Length;
                                 inventoryIndex++;
@@ -211,15 +233,25 @@ namespace StormDiversMod.Basefiles
                                 chest.item[inventoryIndex].stack = WorldGen.genRand.Next(75, 120);
                                 ChestLauncherAmmoCount = (ChestLauncherAmmoCount + 1) % ChestLauncherAmmo.Length;
                                 inventoryIndex++;
-
                             }
-                            if (WorldGen.genRand.NextBool(5)) // 5
+                            if (choice == 1)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestBoneStaff));
+                                ChestBoneStaffCount = (ChestBoneStaffCount + 1) % ChestBoneStaff.Length;
+                                inventoryIndex++;
+                            }
+                            if (choice == 2)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestBoneAccess));
+                                ChestBoneAccessCount = (ChestBoneAccessCount + 1) % ChestBoneAccess.Length;
+                                inventoryIndex++;
+                            }
+                            if (choice == 3)
                             {
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestTwilightPet));
                                 ChestTwilightPetCount = (ChestTwilightPetCount + 1) % ChestTwilightPet.Length;
                                 inventoryIndex++;
                             }
-
                             break;
                         }
                     }

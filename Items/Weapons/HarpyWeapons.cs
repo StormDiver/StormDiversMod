@@ -28,8 +28,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 27;
+            Item.useAnimation = 27;
             Item.useTurn = false;
             Item.autoReuse = true;
 
@@ -50,7 +50,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<Projectiles.HarpyProj2>();
 
-            Item.shootSpeed = 9f;
+            Item.shootSpeed = 11f;
    
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -60,8 +60,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 30f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
@@ -86,9 +85,7 @@ namespace StormDiversMod.Items.Weapons
           .AddIngredient(ItemID.Feather, 6)
           .AddTile(TileID.Anvils)
           .Register();         
-
         }
-        
     }
     //_____________________________________________________________________________________________________________________________
     public class HarpyBow : ModItem
@@ -116,7 +113,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item5;
 
-            Item.damage = 17;
+            Item.damage = 18;
             //Item.crit = 4;
             Item.knockBack = 3f;
 
@@ -132,17 +129,12 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
             if (type == ProjectileID.WoodenArrowFriendly)
             {
                 type = ModContent.ProjectileType<Projectiles.HarpyArrowProj>();
             }
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
-            /* if (type == ProjectileID.WoodenArrowFriendly || type == ProjectileID.FlamingArrow) 
-             {
-                 type = mod.ProjectileType("DesertArrowProj");
-             }*/
 
             return false;
         }
@@ -163,7 +155,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("The Feather Thrower");
-            //Tooltip.SetDefault("Lighter than most yoyos");
+            //Tooltip.SetDefault("Launches sharp feathers at nearby enemies");
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 25;
             ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
@@ -187,7 +179,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = true;
             Item.knockBack = 4f;
             Item.shoot = ModContent.ProjectileType<Projectiles.HarpyYoyoProj>();
-            // Item.shootSpeed = 9f;
+            Item.shootSpeed = 9f;
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
@@ -208,6 +200,56 @@ namespace StormDiversMod.Items.Weapons
             return true;
         }
 
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+          .AddRecipeGroup("StormDiversMod:EvilBars", 10)
+          .AddIngredient(ItemID.Feather, 6)
+          .AddTile(TileID.Anvils)
+          .Register();
+
+        }
+    }
+     //______________________________________________________________________________________________________
+    public class HarpyMinion : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Feather Command Staff");
+            //Tooltip.SetDefault("Summons a special feather minion to fight for you");
+            ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
+            ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
+            Item.ResearchUnlockCount = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.damage = 18;
+            Item.knockBack = 0.1f;
+            Item.mana = 10;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 36;
+            Item.useAnimation = 36;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.rare = ItemRarityID.Blue;
+            Item.UseSound = SoundID.Item44;
+            Item.autoReuse = true;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Summon;
+            Item.buffType = ModContent.BuffType<Projectiles.Minions.HarpyMinionBuff>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Minions.HarpyMinionProj>();
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+
+            // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
+            player.AddBuff(Item.buffType, 2);
+
+            // Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position.
+            player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
+            return false;
+        }
         public override void AddRecipes()
         {
             CreateRecipe()

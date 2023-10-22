@@ -274,7 +274,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) += 0.5f;
+            player.GetDamage(DamageClass.Generic) += 0.3f;
            
 
             if (Main.rand.Next(4) == 0)
@@ -390,7 +390,7 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
 
-            if (Main.rand.Next(16) == 0)
+            if (Main.rand.Next(10) == 0)
             {
                 int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
@@ -412,7 +412,7 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
 
-            if (Main.rand.Next(8) == 0)
+            if (Main.rand.Next(6) == 0)
             {
                 int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
@@ -434,7 +434,7 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
 
-            if (Main.rand.Next(4) == 0)
+            if (Main.rand.Next(2) == 0)
             {
                 int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
@@ -444,7 +444,7 @@ namespace StormDiversMod.Buffs
 
         }
     }
-    public class MushBuff4 : ModBuff
+    /*public class MushBuff4 : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -465,7 +465,7 @@ namespace StormDiversMod.Buffs
             }
 
         }
-    }
+    }*/
     public class SkyKnightSentryBuff : ModBuff
     {
         public override void SetStaticDefaults()
@@ -516,7 +516,6 @@ namespace StormDiversMod.Buffs
             //Description.SetDefault("All of your missiles are ready to launch");
             Main.buffNoTimeDisplay[Type] = true;
         }
-
         public override void Update(Player player, ref int buffIndex)
         {
 
@@ -580,6 +579,40 @@ namespace StormDiversMod.Buffs
             if (Main.rand.Next(6) == 0)
             {
                 int dust = Dust.NewDust(player.position, player.width, player.height, 3, -player.velocity.X, -player.velocity.Y, 100, default, 1.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 0.5f;
+            }
+        }
+    }
+
+    public class WoodenBlizzardBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Blizzard Empowerment");
+            //Description.SetDefault("Creates a small blizzard around you that slows any enemy caught in it");
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+    }
+
+    public class WoodenDesertBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Desert Empowerment");
+            //Description.SetDefault("Striking an enemy has a chance to emit a damaging spark");
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+            if (Main.rand.Next(6) == 0)
+            {
+                int dust = Dust.NewDust(player.position, player.width, player.height, 138, -player.velocity.X, -player.velocity.Y, 100, default, 1.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0.5f;
             }

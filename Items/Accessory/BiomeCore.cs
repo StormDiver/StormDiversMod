@@ -58,7 +58,8 @@ namespace StormDiversMod.Items.Accessory
             .AddIngredient(ModContent.ItemType<GraniteCoreAccess>(), 1)
             .AddIngredient(ModContent.ItemType<GladiatorAccess>(), 1)
             .AddIngredient(ModContent.ItemType<SuperMushroom>(), 1)
-            .AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 3)
+            //.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 3)
+            .AddIngredient(ItemID.Bone, 20)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }

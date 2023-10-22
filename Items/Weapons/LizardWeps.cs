@@ -187,6 +187,7 @@ namespace StormDiversMod.Items.Weapons
 
                 int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
                 Main.projectile[proj1].alpha = alpha;
+                Main.projectile[proj1].damage = 0;
                 alpha -= 50;
 
             }
@@ -202,6 +203,8 @@ namespace StormDiversMod.Items.Weapons
                     position += muzzleOffset * 10f;
                 int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
                 Main.projectile[proj1].alpha = alpha;
+                Main.projectile[proj1].damage = 0;
+
                 alpha -= 50;
 
             }

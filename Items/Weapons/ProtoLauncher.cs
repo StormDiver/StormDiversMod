@@ -9,6 +9,8 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -21,7 +23,11 @@ namespace StormDiversMod.Items.Weapons
             //\nThe shrapnel can damage you\nRequires Prototype Grenades, purchase more from the Demolitionist");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
-
+            HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
+            {
+                Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
+                Color = () => new Color(255, 255, 255, 50) * 0.7f
+            });
         }
         public override void SetDefaults()
         {
@@ -64,8 +70,6 @@ namespace StormDiversMod.Items.Weapons
                 SoundEngine.PlaySound(SoundID.Item61, position);
 
             }
-
-           
             
             return false;
         }
@@ -75,16 +79,21 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void AddRecipes()
         {
-            CreateRecipe()
+           /* CreateRecipe()
             .AddIngredient(ItemID.IllegalGunParts, 1)
             .AddIngredient(ItemID.Bone, 100)
             .AddRecipeGroup(RecipeGroupID.IronBar, 25)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register();*/
             
         }
-       
-      
-   }
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/ProtoLauncher_Glow");
+
+            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
+                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+        }
+    }
 }
  

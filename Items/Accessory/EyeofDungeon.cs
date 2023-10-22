@@ -5,7 +5,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
-
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
 namespace StormDiversMod.Items.Accessory
 {
@@ -55,6 +56,13 @@ namespace StormDiversMod.Items.Accessory
                     }
                 }
             }
+        }
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Accessory/EyeofDungeon_Glow");
+
+            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
+                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
     }
 }

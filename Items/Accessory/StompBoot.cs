@@ -18,7 +18,8 @@ namespace StormDiversMod.Items.Accessory
         {
             //DisplayName.SetDefault("Heavy Boots");
             //Tooltip.SetDefault("Allows flight\nHold DOWN to fall faster and create a shockwave upon hitting the ground\n
-            //The shockwave will be larger and deal more damage the further you fall\nWhile falling faster you will damage any enemy you fall on and avoid contact damage
+            //The shockwave will be larger and deal more damage the further you fall\nWhile falling faster you will damage any enemy you fall on and avoid contact damage\nJumping immediately after stomping grants a large jump boost
+
             //'What did you think would happen if you attached an Anvil to a pair of boots?'");
             Item.ResearchUnlockCount = 1;
 
@@ -58,7 +59,8 @@ namespace StormDiversMod.Items.Accessory
         {
             //DisplayName.SetDefault("Heavy Horseshoe Boots");
             //Tooltip.SetDefault("Allows flight and negates fall damage\nHold DOWN to fall faster and create a shockwave upon hitting the ground
-            //The shockwave will be larger and deal more damage the further you fall\nWhile falling faster you will damage any enemy you fall on and avoid contact damage");
+            //The shockwave will be larger and deal more damage the further you fall\nWhile falling faster you will damage any enemy you fall on and avoid contact damage\nJumping immediately after stomping grants a large jump boost
+            //");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -71,8 +73,6 @@ namespace StormDiversMod.Items.Accessory
 
              Item.defense = 3;
             Item.accessory = true;
-            
-
         }
 
         //bool falling;

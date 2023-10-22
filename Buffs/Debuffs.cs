@@ -620,4 +620,26 @@ namespace StormDiversMod.Buffs
         {
         }
     }
+
+    //_________________________________________________________________
+    public class BlizzardDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Blizzard");
+            //Description.SetDefault("A mini blizzard is slowing you down");
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().BlizzardDebuff = true;
+
+        }
+    }
 }

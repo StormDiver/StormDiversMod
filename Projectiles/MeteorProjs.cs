@@ -37,7 +37,7 @@ namespace StormDiversMod.Projectiles
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 20;
         }
         protected virtual float HoldoutRangeMin => 25f;
         protected virtual float HoldoutRangeMax => 100f;
@@ -104,8 +104,10 @@ namespace StormDiversMod.Projectiles
             if (!meteorrain)
             {
                 SoundEngine.PlaySound(SoundID.Item45 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 200, target.Center.Y - 650), new Vector2(+6f, 20), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 200, target.Center.Y - 650), new Vector2(-6f, 20), ModContent.ProjectileType<MeteorSpearProj2>(), Projectile.damage, 0, Projectile.owner);
+                if (Main.rand.Next(2) == 0)
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 200, target.Center.Y - 650), new Vector2(+6f, 20), ModContent.ProjectileType<MeteorSpearProj2>(), (int)(Projectile.damage * .75f), 0, Projectile.owner);
+                else
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 200, target.Center.Y - 650), new Vector2(-6f, 20), ModContent.ProjectileType<MeteorSpearProj2>(), (int)(Projectile.damage * .75f), 0, Projectile.owner);
 
                 meteorrain = true;
             }
@@ -229,7 +231,7 @@ namespace StormDiversMod.Projectiles
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1f;
             for (int i = 0; i < 15; i++)
@@ -275,6 +277,117 @@ namespace StormDiversMod.Projectiles
             return null;
         }
 
+    }
+    //___________________________________
+    //_______________________________________
+    public class MeteorKnifeProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Flame Feather Knives");
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 12;
+            Projectile.height = 12;
+
+            Projectile.aiStyle = 0;
+
+            Projectile.friendly = true;
+            Projectile.timeLeft = 35;
+            Projectile.penetrate = 1;
+
+            Projectile.tileCollide = true;
+
+
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.light = 0.1f;
+
+            DrawOffsetX = 0;
+            DrawOriginOffsetY = -0;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+        }
+
+        public override void AI()
+        {
+            Projectile.ai[2]++;
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+            if (Projectile.alpha < 240)
+                Projectile.alpha += 10;
+
+            var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
+            dust.scale = 0.5f;
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            return true;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.OnFire, 180);
+
+            Projectile.damage = (Projectile.damage * 9 / 10);
+            for (int i = 0; i < 5; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
+                dust.scale = 0.5f;
+            }
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (info.PvP)
+            {
+                target.AddBuff(BuffID.OnFire, 180);
+
+                for (int i = 0; i < 5; i++)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 138);
+                    dust.scale = 0.5f;
+                }
+            }
+        }
+        public override void OnKill(int timeLeft)
+        {
+            SoundEngine.PlaySound(SoundID.Item20 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
+
+            for (int i = 0; i < 8; i++) //Orange particles
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -1f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
+                dust.scale = 1.25f;
+
+            }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            /*Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            }*/
+
+            return true;
+
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            byte projalpha = (Byte)(255 - Projectile.alpha);
+            Color color = Color.White;
+            color.A = projalpha;
+            return color; 
+        }
     }
 
 }

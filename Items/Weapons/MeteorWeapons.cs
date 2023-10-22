@@ -180,7 +180,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Space Spear");
-            //Tooltip.SetDefault("Striking an enemy summons 2 meteor fragments from the sky");
+            //Tooltip.SetDefault("Striking an enemy summons a meteor fragment from the sky");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.Spears[Item.type] = true;
 
@@ -201,7 +201,7 @@ namespace StormDiversMod.Items.Weapons
         }*/
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 27;
             Item.crit = 0;
             Item.DamageType = DamageClass.Melee;
             Item.width = 50;
@@ -231,6 +231,63 @@ namespace StormDiversMod.Items.Weapons
             return true;
         }
 
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.MeteoriteBar, 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+    }
+    //___________________________________________________
+    public class MeteorKnives : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Space Feather Knives");
+            //Tooltip.SetDefault("Throws out several space feather knives");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AncientFlame>();
+        }
+        public override void SetDefaults()
+        {
+            Item.damage = 16;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 10;
+            Item.height = 10;
+            Item.maxStack = 1;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
+            Item.noUseGraphic = true;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 1f;
+            Item.value = Item.sellPrice(0, 0, 40, 0);
+            Item.rare = ItemRarityID.Blue;
+            Item.shootSpeed = 10f;
+            Item.shoot = ModContent.ProjectileType<MeteorKnifeProj>();
+            //Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.UseSound = SoundID.Item1;
+            Item.noMelee = true;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            int numberProjectiles = 3 + Main.rand.Next(2); ; //This defines how many projectiles to shot.
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(25));
+                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, (int)(knockback), player.whoAmI);
+                //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
+            }
+            return false;
+        }
         public override void AddRecipes()
         {
             CreateRecipe()

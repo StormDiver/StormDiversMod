@@ -75,7 +75,7 @@ namespace StormDiversMod.Projectiles.Minions
             //Projectile.tileCollide = false;
 
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 15;
+            Projectile.localNPCHitCooldown = 18;
             Projectile.width = 32;
             Projectile.height = 24;
             Projectile.Opacity = 1;

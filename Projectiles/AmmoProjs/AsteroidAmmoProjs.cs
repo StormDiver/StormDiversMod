@@ -32,9 +32,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.timeLeft = 400;
             Projectile.penetrate = 1;
             
-            
             Projectile.tileCollide = true;
-
 
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.extraUpdates = 1;

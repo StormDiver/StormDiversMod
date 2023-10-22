@@ -68,6 +68,8 @@ namespace StormDiversMod.Basefiles
 
         public bool painDebuff; //For painbosses final phase
 
+        public bool BlizzardDebuff;
+
 
         //All this for a speen----------------------------------------------
 
@@ -127,6 +129,7 @@ namespace StormDiversMod.Basefiles
             aridCoreDebuff = false;
             webDebuff = false;
             painDebuff = false;
+            BlizzardDebuff = false;
 
             WhiptagWeb = false;
             WhiptagBlood = false;
@@ -162,6 +165,7 @@ namespace StormDiversMod.Basefiles
             if (npc.boss || NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == true)
             {
                 npc.buffImmune[(BuffType<BeetleDebuff>())] = true;
+                npc.buffImmune[(BuffType<BlizzardDebuff>())] = true;
                 npc.buffImmune[(BuffType<WebDebuff>())] = true;
 
             }
@@ -188,11 +192,15 @@ namespace StormDiversMod.Basefiles
             }
             
             //slowdown enemies
-            if (beetled && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
+            if ((beetled) && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
             {
                 npc.velocity.X *= 0.92f;
                 npc.velocity.Y *= 0.92f;
-
+            }
+            if ((BlizzardDebuff) && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
+            {
+                npc.velocity.X *= 0.92f;
+                npc.velocity.Y *= 0.92f;
             }
             if (webDebuff && (!npc.boss && NPCID.Sets.ShouldBeCountedAsBoss[npc.type] == false))
             {
@@ -739,6 +747,13 @@ namespace StormDiversMod.Basefiles
 
                 }
                 drawColor = new Color(180, 150, 15);
+            }
+            if (BlizzardDebuff)
+            {
+                int dust = Dust.NewDust(new Vector2(npc.position.X - 10, npc.position.Y - 10), npc.width + 20, npc.height + 20, 156, npc.velocity.X, npc.velocity.Y, 0, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                drawColor = new Color(102, 255, 255);
+
             }
             if (webDebuff)
             {

@@ -22,14 +22,11 @@ namespace StormDiversMod.Items.Tools
 		{
 			// Copy values from the Amethyst Hook
 			Item.CloneDefaults(ItemID.AmethystHook);
-			Item.shootSpeed = 12f; // This defines how quickly the hook is shot.
+			Item.shootSpeed = 10f; // This defines how quickly the hook is shot.
 			Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.HookEyeProj>(); // Makes the item shoot the hook's projectile when used.
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 50, 0);
-
 		}
-
-
 	}
 
 	//_________________________________________

@@ -181,7 +181,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = true;
             Item.knockBack = 4f;
             Item.shoot = ModContent.ProjectileType < Projectiles.BeetleYoyoProj>();
-            // Item.shootSpeed = 9f;
+            Item.shootSpeed = 12f;
             Item.noMelee = true;
             Item.noUseGraphic = true;
 

@@ -114,6 +114,10 @@ namespace StormDiversMod.Basefiles
 
         public bool DeathCore; //Player has Prignerbringer Core equipped
 
+        public bool frozenNecklace; //Player has Frost necklace equipped
+
+        public bool desertNecklace; //Player has manible necklace equipped
+
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the Betsy Flame has fired its flames or not
@@ -145,6 +149,8 @@ namespace StormDiversMod.Basefiles
         public int paintime; //Cooldown for reliving pain
 
         public int bootdmg; //damage of the boots
+        public bool bootstompjump; //if jmp boost can be done
+        public int bootstompjumptime; //time for jump boost
 
         public bool ultimateBossMask; //player has Painbringer mask equipped
         public override void ResetEffects() //Resets bools if the item is unequipped
@@ -189,6 +195,8 @@ namespace StormDiversMod.Basefiles
             heartpotion = false;
             superHeartpotion = false;
             DeathCore = false;
+            frozenNecklace = false;
+            desertNecklace = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -242,34 +250,39 @@ namespace StormDiversMod.Basefiles
             {
                 if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff1>()))
                 {
-
                     damage.Flat += 1;
-
                 }
                 else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff2>()))
                 {
 
-                    damage.Flat += 2;
+                    damage.Flat += 3;
 
                 }
                 else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff3>()))
                 {
 
-                    damage.Flat += 4;
+                    damage.Flat += 5;
 
                 }
-                else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
+                /*else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
                 {
 
                     damage.Flat += 6;
 
-                }
+                }*/
+
             }
         }
         public override void PostUpdateEquips() //Updates every frame
         {
+            /*if (Player.sitting.isSitting || Player.controlDown)
+            {
+                Player.hasFloatingTube = false;
+                Player.cFloatingTube = 0;
+                Player.canFloatInWater = false;
+            }*/
             //Reduces ints if they are above 0 and not in the equip field
-
+            
             if (beetleFist)
             {
                 if (beetlecooldown > 0)
@@ -374,6 +387,7 @@ namespace StormDiversMod.Basefiles
             }
             //For Soul/Blood Striders============================================================
             var tilePos = Player.Bottom.ToTileCoordinates16();
+            var tileposgrav = Player.Top.ToTileCoordinates16();
             if (soulBoots || bloodBoots)
             {
 
@@ -382,9 +396,8 @@ namespace StormDiversMod.Basefiles
 
                 //SPEEDS!
 
-                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt)//When on asphalt 
+                if (Framing.GetTileSafely(tilePos.X, tilePos.Y).TileType == TileID.Asphalt || (Player.gravDir == -1 && Framing.GetTileSafely(tileposgrav.X, tileposgrav.Y - 1).TileType == TileID.Asphalt))//When on asphalt 
                 {
-
                     if (soulBoots)
                     {
                         Player.maxRunSpeed += 1.7f;
@@ -711,13 +724,12 @@ namespace StormDiversMod.Basefiles
             {
                 spikespawned = false;
             }
-
+                
             //For the Heavy Boots===========================
             if (bootFall)
             {
                 Player.rocketBoots = 1;            
                 Player.vanityRocketBoots = 1;
-                
                 if (Player.controlDown && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
                     //SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 15, 2, -0.5f);
@@ -731,6 +743,7 @@ namespace StormDiversMod.Basefiles
                         {
                             Player.velocity.X *= 0.5f;
                             Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 10, 6, Player.whoAmI);
+
                         }
                         //immunity is in miscfeatures.cs
                         falling = true;
@@ -764,6 +777,9 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2 * Player.gravDir), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2 * Player.gravDir), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
 
+                    bootstompjump = true;
+                    bootstompjumptime = 15; //jump boost, 15 frame buffer after landing
+
                     SoundEngine.PlaySound(SoundID.Item14, Player.Center);
                     bootdmg = 0;
                     falling = false;
@@ -775,6 +791,40 @@ namespace StormDiversMod.Basefiles
                     bootdmg = 0;
 
                 }
+
+                //Main.NewText("Stomp Time: " + bootstompjumptime, 204, 101, 22);
+                //Main.NewText("Stomp Active: " + bootstompjump, 204, 101, 22);
+
+                //For the bounce
+
+                if (bootstompjumptime > 0 && Player.velocity.Y >= 0) // As player is on floor reduce time for jump to be activated
+                {
+                    bootstompjumptime--;
+                }
+
+                if (bootstompjumptime <= 0 || Player.mount.Active) //if timer runs out remove the super jump
+                {
+                    bootstompjumptime = 0;
+                    bootstompjump = false;
+                }
+                if (bootstompjump && Player.controlJump) //Super jump
+                {
+                    Player.frogLegJumpBoost = true;
+                    Player.jumpHeight += 8;
+                    Player.jumpSpeedBoost += 1.3f;
+
+                    Player.maxRunSpeed += 1.5f;
+                    Player.runAcceleration *= 1.5f;
+
+                    if (Player.velocity.Y < 0)
+                    {
+                        int dustIndex = Dust.NewDust(new Vector2(Player.position.X, Player.position.Y), Player.width, Player.height, 31, 0f, 0f, 100, default, 1f);
+                        Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                        Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                        Main.dust[dustIndex].noGravity = true;
+                    }
+                }
+
                 //If the player slows down too much then the stomp bool is cancelled
                 /*if ((Player.velocity.Y <= 2 && Player.gravDir == 1) || (Player.velocity.Y >= -2 && Player.gravDir == -1))
                 {
@@ -795,6 +845,8 @@ namespace StormDiversMod.Basefiles
             if (!bootFall)
             {
                 falling = false;
+                bootstompjump = false;
+                bootstompjumptime = 0;
             }
             //For Coral Emblem
             if (coralEmblem)
@@ -921,13 +973,71 @@ namespace StormDiversMod.Basefiles
             //For wooden necklace=======================
             if (woodNecklace)
             {
-                if (Player.ZoneForest || Player.ZoneHallow && Player.ZoneOverworldHeight)
+                if (((Player.ZoneForest || Player.ZoneHallow) && Player.ZoneOverworldHeight) || (frozenNecklace && Player.ZoneSnow) || (desertNecklace && Player.ZoneDesert))
                 {
                     Player.AddBuff(ModContent.BuffType<WoodenBuff>(), 2);
                     Player.lifeRegen += 1;
                 }
             }
 
+            //For Frozen Pendant======================
+            if (frozenNecklace)
+            {
+                Player.buffImmune[BuffID.Chilled] = true;
+                if (Player.ZoneSnow || (woodNecklace && (Player.ZoneForest || Player.ZoneHallow) && Player.ZoneOverworldHeight) || (desertNecklace && Player.ZoneDesert))
+                {
+                    Player.AddBuff(ModContent.BuffType<WoodenBlizzardBuff>(), 2);
+
+                    //circle of dust
+                    for (int i = 0; i < 6; i++)
+                    {
+                        double deg = Main.rand.Next(0, 360); //The degrees
+                        double rad = deg * (Math.PI / 180); //Convert degrees to radians
+                        double dist = 150; //Distance away from the player
+                        float dustx = Player.Center.X - (int)(Math.Cos(rad) * dist);
+                        float dusty = Player.Center.Y - (int)(Math.Sin(rad) * dist);
+                        if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Player.position, Player.width, Player.height))//no dust unless line of sight
+                        {
+                            var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 156, 0, 0);
+                            dust.noGravity = true;
+                            dust.scale = 1.25f;
+                        }
+                        Vector2 velocity = Vector2.Normalize(new Vector2(Player.Center.X, Player.Center.Y) - new Vector2(dustx, dusty)) * 10;
+                        if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Player.Center, 1, 1))//no dust unless line of sight
+                        {
+                            var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 156, velocity.X, velocity.Y);
+                            dust.noGravity = true;
+                            dust.velocity *= 1f;
+                            dust.scale = 1f;
+                            dust.fadeIn = 0.5f;
+                        }
+                    }
+                    for (int i = 0; i < 200; i++)
+                    {
+                        NPC target = Main.npc[i];
+                        var player = Main.LocalPlayer;
+
+                        if (Vector2.Distance(Player.Center, target.Center) <= 150 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Player.Center, 0, 0, target.Center, 0, 0))
+                        {
+                        
+                            target.AddBuff(BuffType<BlizzardDebuff>(), 2);
+                        }
+
+                    }
+                }
+            }
+
+            //For mandible necklace=======================
+            if (desertNecklace)
+            {
+                Player.buffImmune[BuffID.WindPushed] = true;
+                Player.buffImmune[BuffID.Suffocation] = true;
+
+                if (Player.ZoneDesert || (frozenNecklace && Player.ZoneSnow) || (woodNecklace && (Player.ZoneForest || Player.ZoneHallow) && Player.ZoneOverworldHeight))
+                {
+                    Player.AddBuff(ModContent.BuffType<WoodenDesertBuff>(), 2);
+                }
+            }
 
             if (!graniteBuff)//If the player removes the accessory the buff is gone
             {
@@ -996,35 +1106,34 @@ namespace StormDiversMod.Basefiles
             {
                 if (Player.statLife >= Player.statLifeMax2 * .75f)
                 {
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
                     Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
                     Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
-                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
 
-                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff1>(), 2);
+                    //Player.AddBuff(ModContent.BuffType<Buffs.MushBuff1>(), 2);
                 }
                 else if (Player.statLife >= Player.statLifeMax2 * .5f && Player.statLife < Player.statLifeMax2 * .75f)
                 {
-                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
+                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
                     Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
-                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
+                    //Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
 
-                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff2>(), 2);
+                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff1>(), 2);
                 }
                 else if (Player.statLife >= Player.statLifeMax2 * .25f && Player.statLife < Player.statLifeMax2 * .5f)
                 {
                     Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
                     Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
-                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
+                    //Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff4>());
 
-                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff3>(), 2);
+                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff2>(), 2);
                 }
                 else
                 {
                     Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff1>());
                     Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff2>());
-                    Player.ClearBuff(ModContent.BuffType<Buffs.MushBuff3>());
 
-                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff4>(), 2);
+                    Player.AddBuff(ModContent.BuffType<Buffs.MushBuff3>(), 2);
                 }
             }
             //Ancient Emblem
@@ -1380,7 +1489,27 @@ namespace StormDiversMod.Basefiles
                     }
                     beetlecooldown = 5;
                 }
-            }         
+            }
+            if (Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>()))
+            {
+                float speedX = 0f;
+                float speedY = -8f;
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(120));
+                float scale = 1f - (Main.rand.NextFloat() * .5f);
+                perturbedSpeed = perturbedSpeed * scale;
+                if (Main.rand.Next(2) == 0)
+                {
+                    int ProjID = Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSparkProj>(), item.damage / 2, 1, Player.whoAmI);
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 dustspeed = new Vector2(0, 0.75f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        int dust2 = Dust.NewDust(target.Center, 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 1f);
+                        Main.dust[dust2].noGravity = true;
+                    }
+                }
+            }
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -1481,10 +1610,30 @@ namespace StormDiversMod.Basefiles
                 }
                 
             }
+            if (Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>()))
+            {
+                float speedX = 0f;
+                float speedY = -8f;
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(120));
+                float scale = 1f - (Main.rand.NextFloat() * .5f);
+                perturbedSpeed = perturbedSpeed * scale;
+                if (Main.rand.Next(2) == 0)
+                {
+
+                    int ProjID = Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSparkProj>(), proj.damage / 2, 1, Player.whoAmI);
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 dustspeed = new Vector2(0, 0.75f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        int dust2 = Dust.NewDust(target.Center, 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 1f);
+                        Main.dust[dust2].noGravity = true;
+                    }
+                }
+            }
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-           
             //For vanity sound, remove hurt sound here, play sound in hurt hook
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
@@ -1496,7 +1645,7 @@ namespace StormDiversMod.Basefiles
                 
             }
 
-            if (woodNecklace && Player.ZoneForest)
+            if (Player.HasBuff(ModContent.BuffType<WoodenBuff>()))
             {
                 modifiers.FinalDamage.Flat -= 4;
             }
@@ -1507,19 +1656,19 @@ namespace StormDiversMod.Basefiles
             }
             else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff2>()))
             {
-                modifiers.FinalDamage.Flat -= 2;
+                modifiers.FinalDamage.Flat -= 3;
 
             }
             else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff3>()))
             {
-                modifiers.FinalDamage.Flat -= 4;
+                modifiers.FinalDamage.Flat -= 5;
 
             }
-            else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
+            /*else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
             {
                 modifiers.FinalDamage.Flat -= 6;
 
-            }
+            }*/
             /*if (damage >= Player.statLife && Player.statLife > 1)
             {
                 damage = Player.statLife - 1;
@@ -1558,7 +1707,8 @@ namespace StormDiversMod.Basefiles
             */
             return true;
         }
-        
+        int xline = 0;
+        int yline = 0;
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
             if (!Main.dedServ)
@@ -1567,8 +1717,33 @@ namespace StormDiversMod.Basefiles
                 {
                     if (Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet && (Player.controlUseTile) && Player.noThrow == 0)
                     {
-                        Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y)) * 2000;
-                        Utils.DrawLine(Main.spriteBatch, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(Player.Center.X + velocity.X, Player.Center.Y + velocity.Y), Color.DeepSkyBlue, Color.Transparent, 2f);
+                        if (Player.HeldItem.type == ModContent.ItemType<TommyGun>())
+                        {
+                            if (Player.controlUp && !Player.controlDown) //up 
+                            {
+                                xline = 1000 * Player.direction;
+                                yline = -1000;
+                            }
+
+                            else if (Player.controlDown && !Player.controlUp )//down 
+                            {
+                                xline = 1000 * Player.direction;
+                                yline = 1000;
+                            }
+                            
+                            else //straight
+                            {
+                                xline = 1500 * Player.direction;
+                                yline = 0;
+                            }
+                            Utils.DrawLine(Main.spriteBatch, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(Player.Center.X + xline, Player.Center.Y + yline), Color.DeepSkyBlue, Color.Transparent, 2f);
+
+                        }
+                        else
+                        {
+                            Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y)) * 2000;
+                            Utils.DrawLine(Main.spriteBatch, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(Player.Center.X + velocity.X, Player.Center.Y + velocity.Y), Color.DeepSkyBlue, Color.Transparent, 2f);
+                        }
                     }
                 }
             }

@@ -28,8 +28,8 @@ namespace StormDiversMod.Items.Weapons
             Item.width = 50;
             Item.height = 26;
             Item.maxStack = 1;
-            Item.value = Item.sellPrice(0, 15, 0, 0);
-            Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.sellPrice(0, 12, 0, 0);
+            Item.rare = ItemRarityID.Pink;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 20;
             Item.useAnimation = 20;

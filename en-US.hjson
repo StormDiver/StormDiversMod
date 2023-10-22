@@ -78,7 +78,7 @@ Mods: {
 
 			GraniteAccessBuff: {
 				DisplayName: Granite Surge
-				Description: 50% increased damage
+				Description: 30% increased damage
 			}
 
 			GraniteBuff: {
@@ -123,24 +123,24 @@ Mods: {
 
 			MushBuff1: {
 				DisplayName: Shroom Power
-				Description: Increases damage dealt and reduces damage taken by 1
+				Description: Increases damage dealt and reduces damage taken by a flat 1
 			}
 
 			MushBuff2: {
 				DisplayName: Shroom Power
-				Description: Increases damage dealt and reduces damage taken by 2
+				Description: Increases damage dealt and reduces damage taken by a flat 3
 			}
 
 			MushBuff3: {
 				DisplayName: Shroom Power
-				Description: Increases damage dealt and reduces damage taken by 4
+				Description: Increases damage dealt and reduces damage taken by a flat 5
 			}
 
-			MushBuff4: {
-				DisplayName: Shroom Power
-				Description: Increases damage dealt and reduces damage taken by 6
-			}
-
+			//MushBuff4: {
+			//	DisplayName: Shroom Power
+			//	Description: Increases damage dealt and reduces damage taken by 6
+			//}
+			
 			PainBuff: {
 				DisplayName: Painbringer's Curse
 				Description: You will get to experience pain all over again on death
@@ -277,7 +277,17 @@ Mods: {
 
 			WoodenBuff: {
 				DisplayName: Forest Empowerment
-				Description: Reduces damage taken by 4
+				Description: Reduces damage taken by 4 and slightly increases life regen
+			}
+
+			WoodenBlizzardBuff: {
+				DisplayName: Blizzard Empowerment
+				Description: Creates a small blizzard around you that slows any enemy caught in it
+			}
+
+			WoodenDesertBuff: {
+				DisplayName: Desert Empowerment
+				Description: Striking an enemy has a chance to emit a damaging spark
 			}
 
 			YouCantEscapeDebuff: {
@@ -288,6 +298,11 @@ Mods: {
 			AncientMinionBuff: {
 				DisplayName: Ancient Arid Minion
 				Description: An Ancient Arid minion will fight for you
+			}
+
+			CursedSkullMinionBuff: {
+				DisplayName: Cursed Skull Minion
+				Description: A Cursed Skull minion will fight for you
 			}
 
 			DerplingMinionBuff: {
@@ -354,6 +369,21 @@ Mods: {
 				DisplayName: Temple Curse Burn
 				Description: You messed with something that was inflicted with a curse, now you are burning
 			}
+
+			SantankMinionBuff: {
+				DisplayName: Mini Santank Minion
+				Description: A mini flying Santank will fight for you
+			}
+
+			HarpyMinionBuff: {
+				DisplayName: Magical Feather Minion
+				Description: A Magical Feather minion will fight for you
+			}
+
+			BlizzardDebuff: {
+				DisplayName: Blizzarded
+				Description: A mini blizzard is slowing you down
+			}
 		}
 
 		Items: {
@@ -383,9 +413,9 @@ Mods: {
 				DisplayName: Biome Core
 				Tooltip:
 					'''
-					Taking more than 1 damage increases damage by 50% for 4 seconds with a 10 second cooldown afterwards
+					Taking more than 1 damage increases damage by 30% for 4 seconds with a 10 second cooldown afterwards
 					While above 75% HP your critical strike chance is increased by 20%
-					Increases damage dealt and reduces damage taken when losing health
+					Increases damage dealt and reduces damage taken by a flat amount when losing health
 					'''
 			}
 
@@ -446,7 +476,7 @@ Mods: {
 					Enables autoswing for melee weapons and whips
 					Increases melee and whip armor penetration by 12
 					Melee and whip attacks inflict UltraBurn
-					Creates an aura of fear around you that drains the life from enemies
+					Creates an aura of fear around you that scares the life out of enemies
 					Aura has a greater range the lower on health you are
 					'''
 			}
@@ -556,7 +586,7 @@ Mods: {
 				DisplayName: Granite Core
 				Tooltip:
 					'''
-					Taking more than 1 damage increases damage by 50% for 4 seconds
+					Taking more than 1 damage increases damage by 30% for 4 seconds
 					Has a 10 second cooldown afterwards
 					'''
 			}
@@ -678,7 +708,7 @@ Mods: {
 				DisplayName: Spooky Emblem
 				Tooltip:
 					'''
-					Creates an aura of fear around you that drains the life from enemies
+					Creates an aura of fear around you that that scares the life out of enemies
 					Has a greater range the lower on health you are
 					'''
 			}
@@ -691,6 +721,7 @@ Mods: {
 					Hold DOWN to fall faster and create a shockwave upon hitting the ground
 					The shockwave will be larger and deal more damage the further you fall
 					While falling faster you will damage any enemy you fall on and avoid contact damage
+					Jumping immediately after stomping grants a large jump boost
 					'What did you think would happen if you attached an Anvil to a pair of boots?'
 					'''
 			}
@@ -703,6 +734,7 @@ Mods: {
 					Hold DOWN to fall faster and create a shockwave upon hitting the ground
 					The shockwave will be larger and deal more damage the further you fall
 					While falling faster you will damage any enemy you fall on and avoid contact damage
+					Jumping immediately after stomping grants a large jump boost
 					'''
 			}
 
@@ -726,12 +758,31 @@ Mods: {
 
 			SuperMushroom: {
 				DisplayName: Enchanted Mushroom
-				Tooltip: Increases damage dealt and reduces damage taken when losing health
+				Tooltip: Increases damage dealt and reduces damage taken by a flat amount when losing health
 			}
 
 			WoodNecklace: {
 				DisplayName: Wooden Pendant
 				Tooltip: Reduces damage taken by 4 and slightly increases life regen while in a forest
+			}
+
+			WoodNecklaceFrozen: {
+				DisplayName: Frozen Pendant
+				Tooltip:
+					'''
+					While in a snow or ice biome it creates a blizzard aura around you that slows all enemies who enter
+					Grants immunity to chilled
+					'Might be a bit cold around your neck'
+					'''
+			}
+
+			WoodNecklaceDesert: {
+				DisplayName: Mandible Pendant
+				Tooltip:
+					'''
+					Striking an enemy has a chance to emit a damaging spark while in a desert
+					Grants immunity to Might Wind and Suffocation
+					'''
 			}
 
 			AsteroidArrow: {
@@ -1959,7 +2010,11 @@ Mods: {
 
 			AncientMinion: {
 				DisplayName: Arid Command Staff
-				Tooltip: Summons an Ancient Arid Minion to fight for you
+				Tooltip:
+					'''
+					Summons an Ancient Arid Minion to fight for you
+					The minion will fly towards enemies and when in range will remain stationary and fire sand blasts
+					'''
 			}
 
 			AncientStaff: {
@@ -1981,7 +2036,11 @@ Mods: {
 
 			BeetleShellWeapon: {
 				DisplayName: Giant Beetle Shell
-				Tooltip: Summons beetles on impact that attack and swarm your foes
+				Tooltip:
+					'''
+					Throw out fast damaging shells that bounce off tiles
+					Summons beetles on impact that attack and swarm your foes
+					'''
 			}
 
 			BeetleSpear: {
@@ -2064,7 +2123,7 @@ Mods: {
 
 			ChloroStaff: {
 				DisplayName: Chlorophyte Spore Staff
-				Tooltip: Fires out a spore that explodes into multiple spore clouds at the cursor's location
+				Tooltip: Fires out a spore that explodes into multiple spore clouds at the cursor's location or on tile impact
 			}
 
 			CultistBow: {
@@ -2104,6 +2163,15 @@ Mods: {
 				Tooltip: Summons multiple ancient lights that seek out enemies
 			}
 
+			CursedSkullMinion: {
+				DisplayName: Cursed Skull Staff
+				Tooltip:
+					'''
+					Summons a Cursed Skull minion to fight for you
+					The minion will fly next to enemies and will fire cursed bone projectiles at them that bounce and pierce
+					'''
+			}
+
 			DerplingGun: {
 				DisplayName: Derpling Rifle
 				Tooltip:
@@ -2115,7 +2183,11 @@ Mods: {
 
 			DerplingMinion: {
 				DisplayName: Derpling Staff
-				Tooltip: Summons a buffed baby Derpling to fight for you
+				Tooltip:
+					'''
+					Summons a buffed baby Derpling to fight for you
+					The minion will hop along the ground, but when in range of an enemy it will sprout wings and charge into it
+					'''
 			}
 
 			DerplingStaff: {
@@ -2204,7 +2276,11 @@ Mods: {
 
 			EyeMinion: {
 				DisplayName: Eyeball Staff
-				Tooltip: Summons a Servant of Cthulhu minion to fight for you
+				Tooltip:
+					'''
+					Summons a Servant of Cthulhu minion to fight for you
+					The minion will charge into enemies when in range
+					'''
 			}
 
 			EyeStaff: {
@@ -2295,6 +2371,15 @@ Mods: {
 				Tooltip: Converts Wooden Arrows into Feather Arrows that ignore gravity and pierce
 			}
 
+			HarpyMinion: {
+				DisplayName: Feather Command Staff
+				Tooltip:
+					'''
+					Summons a Magical Feather Minion to fight for you
+					The minion will fly above enemies, and will slowly launch spinning feathers that slowly home into enemies
+					'''
+			}
+
 			HarpyStaff: {
 				DisplayName: Feather Scepter
 				Tooltip:
@@ -2306,7 +2391,7 @@ Mods: {
 
 			HarpyYoyo: {
 				DisplayName: The Feather Thrower
-				Tooltip: Lighter than most yoyos
+				Tooltip: Launches sharp feathers at nearby enemies
 			}
 
 			HellSoulBow: {
@@ -2321,7 +2406,11 @@ Mods: {
 
 			HellSoulMinion: {
 				DisplayName: Soul Cauldron Staff
-				Tooltip: Summons a HellSoul minion to fight for you
+				Tooltip:
+					'''
+					Summons a HellSoul minion to fight for you
+					The minion will fly above the enemies and shoot soul flames at them
+					'''
 			}
 
 			HellSoulRifle: {
@@ -2380,7 +2469,11 @@ Mods: {
 
 			LizardMinion: {
 				DisplayName: Lihzahrd Guardian Staff
-				Tooltip: Summons a mini Temple Guardian to fight for you
+				Tooltip:
+					'''
+					Summons a mini Temple Guardian to fight for you
+					The minion will fly around enemies and will shoot piercing lasers at them
+					'''
 			}
 
 			LizardSpell: {
@@ -2399,7 +2492,11 @@ Mods: {
 
 			LunarNebulaStaff: {
 				DisplayName: Nebula Storm
-				Tooltip: Summons nebula projectiles that explode into many homing bolts
+				Tooltip:
+					'''
+					Fires out a nebula dust cloud that explodes into homing nebula bolts at the cursor's location or on tile impact
+					The homing bolts pass through tiles, but only home with a line of sight
+					'''
 			}
 
 			LunarPredictorBrain: {
@@ -2537,6 +2634,11 @@ Mods: {
 					'''
 			}
 
+			MeteorKnives: {
+				DisplayName: Space Feather Knives
+				Tooltip: Throws out several space feather knives
+			}
+
 			MeteorSentry: {
 				DisplayName: Space Saucer Staff
 				Tooltip:
@@ -2548,7 +2650,7 @@ Mods: {
 
 			MeteorSpear: {
 				DisplayName: Space Spear
-				Tooltip: Striking an enemy summons 2 meteor fragments from the sky
+				Tooltip: Striking an enemy summons a meteor fragment from the sky
 			}
 
 			MineDetonate: {
@@ -2685,6 +2787,16 @@ Mods: {
 					'''
 			}
 
+			SantankMinion: {
+				DisplayName: Santa's Staff of Command
+				Tooltip:
+					'''
+					Summons a mini flying Santank minion to fight for you
+					The minions will fly towards enemies and rapdily fire out defense piercing bullets, and will also fire homing rockets at a slower rate
+					'Seeks out all the naughty foes'
+					'''
+			}
+
 			SeekerBolt: {
 				DisplayName: Hunter's Blade
 				Tooltip: A large throwable blade that homes into enemies when within range
@@ -2735,7 +2847,11 @@ Mods: {
 
 			SpaceRockMinion: {
 				DisplayName: Asteroid Staff
-				Tooltip: Summons a mini Asteroid to fight for you
+				Tooltip:
+					'''
+					Summons a mini Asteroid to fight for you
+					The minions will rapidly charge into any enemies
+					'''
 			}
 
 			SpaceRockSword: {
@@ -2789,7 +2905,11 @@ Mods: {
 
 			SpiritStaff: {
 				DisplayName: Frozen Spirit Staff
-				Tooltip: Summons a Frozen Spirit Head to fight for you
+				Tooltip:
+					'''
+					Summons a Frozen Spirit Head to fight for you
+					The minion will sweep over enemies and fire 3 ice shards at a time at them
+					'''
 			}
 
 			SpookyStaff: {
@@ -2861,7 +2981,7 @@ Mods: {
 				DisplayName: Overloaded Staff
 				Tooltip:
 					'''
-					Summons a Scandrone sentry that attacks enemies for you
+					Summons a Scandrone sentry that fires a spread of 3 scandrone bolts at enemies
 					Right click to target a specific enemy
 					'''
 			}
@@ -2919,8 +3039,9 @@ Mods: {
 				DisplayName: Giant Turtle Shell
 				Tooltip:
 					'''
-					Toss the shells back at your foes
+					Throw out damaging shells that bounce off tiles
 					Grants extra defense while attacking enemies
+					'No this is not a reference to Italian plumbers'
 					'''
 			}
 
@@ -2933,8 +3054,8 @@ Mods: {
 				DisplayName: The Spinning Tortoise
 				Tooltip:
 					'''
-					Fires out yoyo heads randomly
-					Grants extra defense while attacking enemies
+					Launches 8 mini yoyo heads in a perfect pattern when held out
+					Grants extra defense when directly attacking enemies
 					'''
 			}
 
@@ -3509,6 +3630,15 @@ Mods: {
 			DerpAura.DisplayName: Derpling Sword
 			SpaceSwordProj.DisplayName: Asteroid Sword Boulder
 			CaptainsGunProj.DisplayName: The Captain's Cannon
+			SantankMinionProj.DisplayName: Mini Santank Minion
+			SantankMinionProj2.DisplayName: Mini Santank Missile
+			SantankMinionProj3.DisplayName: Mini Santank Bullet
+			MeteorKnifeProj.DisplayName: Space Feather Knife
+			HarpyMinionProj.DisplayName: Magical Feather Minion
+			HarpyMinionProj2.DisplayName: Magical Feather
+			DesertSparkProj.DisplayName: Desert Spark
+			CursedSkullMinionProj.DisplayName: Cursed Skull Minion
+			CursedSkullMinionProj2.DisplayName: Cursed Skull Bones
 		}
 
 		Tiles: {

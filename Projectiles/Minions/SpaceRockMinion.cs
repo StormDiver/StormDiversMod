@@ -193,7 +193,7 @@ namespace StormDiversMod.Projectiles.Minions
             {
                 
                 // Minion has a target: attack (here, fly towards the enemy)
-                if (Vector2.Distance(Projectile.Center, targetCenter) > 150f || Projectile.ai[0] <= 5)
+                if (Vector2.Distance(Projectile.Center, targetCenter) > 200f || Projectile.ai[0] <= 5)
                 {
                     // The immediate range around the target (so it doesn't latch onto it when close)
                     Vector2 direction = targetCenter - Projectile.Center;
@@ -205,7 +205,7 @@ namespace StormDiversMod.Projectiles.Minions
                 }
                 else
                 {                 
-                        Projectile.velocity *= 1.03f; //Small little boost so that it doesn't slow down                  
+                        Projectile.velocity *= 1.02f; //Small little boost so that it doesn't slow down                  
                  
                 }
             }

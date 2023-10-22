@@ -13,6 +13,8 @@ using StormDiversMod.Basefiles;
 using StormDiversMod.Items.OresandBars;
 using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.ItemDropRules;
+using StormDiversMod.Items.Accessory;
+using StormDiversMod.Items.Ammo;
 
 namespace StormDiversMod.Basefiles
 {
@@ -68,13 +70,14 @@ namespace StormDiversMod.Basefiles
 
             if (item.type == ItemID.LockBox)
             {
-                IItemDropRule[] protoLauncherAmmo = new IItemDropRule[] {
+                /*IItemDropRule[] protoLauncherAmmo = new IItemDropRule[] {
                 ItemDropRule.Common(ModContent.ItemType<ProtoLauncher>(), 1),
                 ItemDropRule.Common(ModContent.ItemType<Items.Ammo.ProtoGrenade>(), 1, 60, 100),
                 };
-                itemLoot.Add(new FewFromRulesRule(2, 5, protoLauncherAmmo));
+                itemLoot.Add(new FewFromRulesRule(2, 5, protoLauncherAmmo));*/
+                itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ProtoLauncher>(), ModContent.ItemType<CursedSkullMinion>(), ModContent.ItemType<EyeofDungeon>(), ModContent.ItemType<TwilightPetItem>()));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ProtoGrenade>(), 1, 20, 40));
 
-                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<TwilightPetItem>(), 5));
             }
             if (item.type == ItemID.ObsidianLockbox)
             {              
@@ -89,6 +92,8 @@ namespace StormDiversMod.Basefiles
             if (item.type == ItemID.FrozenCrate || item.type == ItemID.FrozenCrateHard)
             {
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<IceStaff>(), 10));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<WoodNecklaceFrozen>(), 10));
+
 
             }
             if (item.type == ItemID.JungleFishingCrate || item.type == ItemID.JungleFishingCrateHard)
@@ -102,7 +107,10 @@ namespace StormDiversMod.Basefiles
                 ItemDropRule.Common(ModContent.ItemType<SandstoneGun>(), 1),
                 ItemDropRule.Common(ItemID.MusketBall, 1, 60, 100),             
                 };
-                itemLoot.Add(new FewFromRulesRule(2, 10, ancientGunAmmo));           
+                itemLoot.Add(new FewFromRulesRule(2, 10, ancientGunAmmo));
+
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<WoodNecklaceDesert>(), 10));
+
             }
             if (item.type == ItemID.FrozenCrateHard)
             {

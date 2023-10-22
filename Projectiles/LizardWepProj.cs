@@ -191,7 +191,7 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 160;
             Projectile.extraUpdates = 4;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = 60;
             Projectile.scale = 0.1f;
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;

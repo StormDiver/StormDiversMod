@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using StormDiversMod.Basefiles;
+using StormDiversMod.Projectiles.SentryProjs;
 
 namespace StormDiversMod.Projectiles
 {
@@ -16,10 +17,8 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Harpy Feather");
-            
+            //DisplayName.SetDefault("Harpy Feather");   
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 14;
@@ -45,7 +44,6 @@ namespace StormDiversMod.Projectiles
             Dust.NewDust(Projectile.Center + Projectile.velocity, Projectile.width, Projectile.height, 175);*/
             
                 Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-           
 
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 30);
             if (Main.rand.Next(2) == 0) // the chance
@@ -57,9 +55,6 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
 
             }
-
-
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -72,11 +67,7 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
-         
-                return true;
-            
-            
+                return true;   
         }
 
         public override void OnKill(int timeLeft)
@@ -157,13 +148,8 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.NPCHit11, Projectile.Center);
 
         }
-
-
         public override void OnKill(int timeLeft)
         {
-
-
-
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
             for (int i = 0; i < 10; i++)
             {
@@ -256,9 +242,9 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("Harpy Yoyo");
             ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 5f;
 
-            ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 180f;
+            ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 200f;
 
-            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 16f;
+            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 11f;
         }
         public override void SetDefaults()
         {
@@ -293,24 +279,37 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
 
             }
-            /*shoottime++;
-            if (shoottime >= 40)
+            Projectile.ai[2]++;
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
+               
+                   NPC target = Main.npc[i];
 
-
-                for (int i = 0; i < 3; i++)
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 150 && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
-                    // Calculate new speeds for other projectiles.
-                    // Rebound at 40% to 70% speed, plus a random amount between -8 and 8
-                    Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 7);
+                    target.TargetClosest(true);
+                    Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 9;
 
-                    Vector2 perturbedSpeed = new Vector2(0, -4).RotatedByRandom(MathHelper.ToRadians(360));
+                    if (Projectile.ai[2] > 20)
+                    {
+                        for (int j = 0; j < 10; j++)
+                        {
+                            var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 202);
+                            dust.noGravity = true;
+                        }
 
-                    Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("TurtleYoyoProj2"), (int)(Projectile.damage * 1.25f), 0f, Projectile.owner, 0f, 0f);
-                    shoottime = 0;
+                        SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
+
+                        int ProjID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y),
+                            ModContent.ProjectileType<HarpyProj>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner);
+                        Main.projectile[ProjID].DamageType = DamageClass.Melee;
+
+                        Projectile.ai[2] = 0;
+                    }
+
                 }
-            }*/
 
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

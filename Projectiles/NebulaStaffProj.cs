@@ -8,8 +8,9 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using Terraria.DataStructures;
 
-namespace StormDiversMod.Projectiles       //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+namespace StormDiversMod.Projectiles     
 {
     public class NebulaStaffProj : ModProjectile
     {
@@ -19,16 +20,15 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 20;
             Projectile.height = 20;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 120;
-            Projectile.extraUpdates = 2;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 180;
+            Projectile.extraUpdates = 1;
             Projectile.scale = 1f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -38,17 +38,19 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
 
             return true;
         }
+        Vector2 mousepos;
+        public override void OnSpawn(IEntitySource source)
+        {
+            mousepos = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y); //Set position for 1 frame
+
+        }
         public override void AI()
         {
             if (!Main.dedServ)
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
-            if (Projectile.timeLeft > 125)
-            {
-                Projectile.timeLeft = 125;
-            }
-            if (Projectile.ai[0] > 12f)  //this defines where the flames starts
+            if (Projectile.ai[0] > 5f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
                 {
@@ -63,9 +65,30 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                     
                 }
             }
-            else
+            if (Projectile.ai[0] <= 6)
             {
                 Projectile.ai[0] += 1f;
+            }
+
+            if (Projectile.ai[0] == 6)
+            {
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -2f).RotatedByRandom(MathHelper.ToRadians(360));
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 27, perturbedSpeed.X, perturbedSpeed.Y, 130, default, 1.5f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, perturbedSpeed.X, perturbedSpeed.Y, 130, default, 1f);
+                    Main.dust[dust2].noGravity = true; //this make so the dust has no gravity
+
+                }
+            }
+
+            if (Vector2.Distance(Projectile.Center, mousepos) <= 10)
+            {
+                Projectile.velocity.X = 0;
+                Projectile.velocity.Y = 0;
+
+                Projectile.Kill();
             }
             return;
         }
@@ -73,6 +96,8 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.damage = (Projectile.damage * 9) / 10;
+
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -92,7 +117,15 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles)));
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NebulaStaffProj2>(), (int)(Projectile.damage * .8f), Projectile.knockBack, Projectile.owner);
             }
+            for (int i = 0; i < 15; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -2f).RotatedByRandom(MathHelper.ToRadians(360));
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 27, perturbedSpeed.X, perturbedSpeed.Y, 130, default, 1.5f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, perturbedSpeed.X, perturbedSpeed.Y, 130, default, 1f);
+                Main.dust[dust2].noGravity = true; //this make so the dust has no gravity
 
+            }
             SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
 
         }
@@ -118,14 +151,20 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 200;
-            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 300;
+            Projectile.extraUpdates = 2;
             Projectile.scale = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = false;
         }
-
+        public override bool? CanDamage()
+        {
+            if (Projectile.ai[0] > 20)
+            return true;
+            else
+                return false;
+        }
         public override void AI()
         {
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
@@ -133,13 +172,9 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
-            if (Projectile.timeLeft > 125)
-            {
-                Projectile.timeLeft = 125;
-            }
-            if (Projectile.ai[0] > 0f)  //this defines where the flames starts
-            {
-                if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
+            Projectile.ai[0] += 1f;
+
+            if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
                 {
 
 
@@ -151,11 +186,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                     Main.dust[dust2].velocity *= -0.3f;
 
                 }
-            }
-            else
-            {
-                Projectile.ai[0] += 1f;
-            }
+            
             if (Projectile.localAI[0] == 0f)
             {
                 AdjustMagnitude(ref Projectile.velocity);
@@ -184,7 +215,7 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             if (target)
             {
                 AdjustMagnitude(ref move);
-                Projectile.velocity = (10 * Projectile.velocity + move) / 6f;
+                Projectile.velocity = (10 * Projectile.velocity + move) / 8f;
                 AdjustMagnitude(ref Projectile.velocity);
             }
         
@@ -200,8 +231,9 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+
         }
-        
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.Kill();

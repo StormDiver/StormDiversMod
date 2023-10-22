@@ -25,7 +25,6 @@ namespace StormDiversMod.Items.Weapons
             //Hold UP/ DOWN to aim upwards / downwards at a 45 degree angle respectively
             //'Wit' dis weapon I be a me a real gangsta'");
             //Item.staff[Item.type] = true;
-
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
@@ -34,7 +33,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 10;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 3, 0, 0);
-            Item.rare = ItemRarityID.LightPurple;
+            Item.rare = ItemRarityID.Pink;
             Item.useStyle = ItemUseStyleID.EatFood;
             
             Item.useTurn = false;

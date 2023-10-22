@@ -78,8 +78,8 @@ namespace StormDiversMod.Projectiles.Minions
 			return false;
 		}
 		bool shooting = false;
-		float speed = 10f;
-		float inertia = 75f;
+		float speed = 12f;
+		float inertia = 50f;
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
@@ -219,17 +219,17 @@ namespace StormDiversMod.Projectiles.Minions
 				else
                 {
 					shooting = false;
-					speed = 13f;
+					speed = 15f;
 					inertia = 50f;
 				}
 
-				if (Projectile.ai[1] >= 20 && Vector2.Distance(Projectile.Center, targetCenter) < 250f)
+				if (Projectile.ai[1] >= 20 && Vector2.Distance(Projectile.Center, targetCenter) < 400f)
 				{
 					SoundEngine.PlaySound(SoundID.Item34 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
 
 					if (!Main.dedServ)
 					{
-                        float projspeed = 6;
+                        float projspeed = 8;
                         Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<AncientMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
@@ -371,13 +371,13 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.height = 8;
 			Projectile.friendly = true;
 			Projectile.penetrate = 2;
-			Projectile.timeLeft = 60;
+			Projectile.timeLeft = 50;
 			Projectile.scale = 1f;
 			Projectile.aiStyle = 0;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
 			Projectile.DamageType = DamageClass.Summon;
-			Projectile.extraUpdates = 1;
+			Projectile.extraUpdates = 2;
 			Projectile.ignoreWater = true;
 		}
 

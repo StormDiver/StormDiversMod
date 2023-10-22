@@ -149,8 +149,7 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.localAI[0] = 0;//Reset all ai values
 
                 NPC.damage = 0;
-                NPC.life = NPC.lifeMax;
-                //NPC.life = 100;
+                NPC.life = 1;
                 NPC.dontTakeDamage = true;
                 NPC.netUpdate = true;
                 deathani = true;
