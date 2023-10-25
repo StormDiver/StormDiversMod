@@ -23,10 +23,9 @@ namespace StormDiversMod.Items.Ammo
             Item.height = 40;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 40);
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.LightRed;
 
             Item.DamageType = DamageClass.Ranged;
-
             Item.damage = 4;
 
             Item.knockBack = 1f;

@@ -70,7 +70,6 @@ namespace StormDiversMod.Items.Weapons
 
             for (int i = 0; i < numberProjectiles; i++)
             {
-
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HarpyProj>(), damage, knockback, player.whoAmI);
             }

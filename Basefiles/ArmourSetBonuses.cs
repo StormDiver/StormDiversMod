@@ -56,6 +56,8 @@ namespace StormDiversMod.Basefiles
 
         public bool LizardSet; //Lihzarhd Commander armour
 
+        public bool graniteSet; //Granite Armour
+
         //Ints and Bools activated from this file
 
         public int bloodtime; //Cooldown for the orbs from the Hemo Armour set bonus     
@@ -72,6 +74,8 @@ namespace StormDiversMod.Basefiles
         public bool santanktrigger; //Has the player triggered the missiles
         public int cryosetcooldown; //Cooldown for Cryo set bonus
         public int lizardsetcooldown; //Cooldown for the lizard bombs
+        public bool granitetoggle; //toggle for granite Armour
+        //public bool granite
 
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
@@ -89,6 +93,7 @@ namespace StormDiversMod.Basefiles
             shadowflameSet = false;
             snowfallSet = false;
             LizardSet = false;
+            graniteSet = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -695,6 +700,28 @@ namespace StormDiversMod.Basefiles
                     Player.slowFall = false;
                 }
             }
+
+            if (graniteSet)
+            {
+                if (StormDiversMod.ArmourSpecialHotkey.JustPressed && granitetoggle == false)
+                {
+                    granitetoggle = true;
+                }
+                else if (StormDiversMod.ArmourSpecialHotkey.JustPressed && granitetoggle == true)
+                {
+                    granitetoggle = false;
+                }
+                if (granitetoggle)
+                {
+                    Player.AddBuff(ModContent.BuffType<GraniteBuff>(), 2);
+                    Player.velocity.X *= 0.97f;
+                    Player.runAcceleration *= 0.66f;
+                    Player.jumpSpeed *= 0.66f;
+
+                }
+            }
+            else
+                granitetoggle = false;
         }
         //=====================For attacking an enemy with anything===========================================
         public override void OnHitAnything(float x, float y, Entity victim)

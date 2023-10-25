@@ -276,7 +276,6 @@ namespace StormDiversMod.Projectiles
             //return Color.White;
             return null;
         }
-
     }
     //___________________________________
     //_______________________________________
@@ -288,7 +287,6 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 12;

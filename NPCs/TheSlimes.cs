@@ -33,7 +33,7 @@ namespace StormDiversMod.NPCs
             NPC.height = 20;
             
             NPC.aiStyle = 1; 
-            AIType = NPCID.Crimslime;
+            AIType = NPCID.GreenSlime;
             AnimationType = NPCID.BlueSlime;
             
             NPC.damage = 15;
@@ -46,7 +46,7 @@ namespace StormDiversMod.NPCs
             NPC.knockBackResist = 0.4f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.alpha = 75;
-            NPC.scale = 1.4f;
+            NPC.scale = 1.2f;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.ThePainSlimeBannerItem>();
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -81,31 +81,34 @@ namespace StormDiversMod.NPCs
             
             if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
-                if (NPC.velocity.Y == 0)
+                if (NPC.life < NPC.lifeMax || !Main.dayTime)
                 {
-                    shoottime++;
-                }
-                if (shoottime > 120)
-                {
-                    NPC.velocity.X = 0;
-                    NPC.velocity.Y = 0;
-
-                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 119, NPC.velocity.X, NPC.velocity.Y);
-                    dust.alpha = 100;
-                    dust.noGravity = true;
-
-                    if (shoottime >= 180)
+                    if (NPC.velocity.Y == 0)
                     {
-                        SoundEngine.PlaySound(SoundID.NPCHit1 with { Volume = 1f }, NPC.Center);
+                        shoottime++;
+                    }
+                    if (shoottime > 120)
+                    {
+                        NPC.velocity.X = 0;
+                        NPC.velocity.Y = 0;
 
-                        for (int i = 0; i < 5; i++)
+                        var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 119, NPC.velocity.X, NPC.velocity.Y);
+                        dust.alpha = 100;
+                        dust.noGravity = true;
+                        dust.scale = 1.5f;
+                        if (shoottime >= 180)
                         {
-                            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - 40) - new Vector2(NPC.Center.X, NPC.Center.Y)) * 10;
-                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                            SoundEngine.PlaySound(SoundID.NPCHit1 with { Volume = 1f }, NPC.Center);
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.ThePainSlimeProj>(), 5, 1);
+                            for (int i = 0; i < 5; i++)
+                            {
+                                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - 40) - new Vector2(NPC.Center.X, NPC.Center.Y)) * 10;
+                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.ThePainSlimeProj>(), 5, 1);
+                            }
+                            shoottime = 0;
                         }
-                        shoottime = 0;
                     }
                 }
             }
@@ -122,14 +125,14 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            shoottime = 60;
+            //shoottime = 80;
 
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
                 return;
             }
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 3; i++)
             {
                  
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 119, hit.HitDirection, -2);
@@ -171,7 +174,7 @@ namespace StormDiversMod.NPCs
             NPC.height = 20;
 
             NPC.aiStyle = 1;
-            AIType = NPCID.Crimslime;
+            AIType = NPCID.GreenSlime;
             AnimationType = NPCID.BlueSlime;
 
             NPC.damage = 15;
@@ -184,7 +187,7 @@ namespace StormDiversMod.NPCs
             NPC.knockBackResist = 0.4f;
             NPC.value = Item.buyPrice(0, 0, 0, 50);
             NPC.alpha = 10;
-            NPC.scale = 1.4f;
+            NPC.scale = 1.2f;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.TheClaySlimeBannerItem>();
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
@@ -220,38 +223,41 @@ namespace StormDiversMod.NPCs
             Player player = Main.player[NPC.target];
             if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
-                if (NPC.velocity.Y == 0)
+                if (NPC.life < NPC.lifeMax || !Main.dayTime)
                 {
-                    shoottime++;
-                }
-                if (shoottime > 120)
-                {
-                    NPC.velocity.X = 0;
-                    NPC.velocity.Y = 0;
-                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 236, NPC.velocity.X, NPC.velocity.Y);
-                    dust.alpha = 100;
-                    dust.noGravity = true;
-
-                    if (shoottime >= 180)
+                    if (NPC.velocity.Y == 0)
                     {
-                        SoundEngine.PlaySound(SoundID.NPCHit1 with { Volume = 1f }, NPC.Center);
-
-                        for (int i = 0; i < 5; i++)
+                        shoottime++;
+                    }
+                    if (shoottime > 120)
+                    {
+                        NPC.velocity.X = 0;
+                        NPC.velocity.Y = 0;
+                        var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 236, NPC.velocity.X, NPC.velocity.Y);
+                        dust.alpha = 100;
+                        dust.noGravity = true;
+                        dust.scale = 1.5f;
+                        if (shoottime >= 180)
                         {
-                            Vector2 perturbedSpeed = new Vector2(0, -8).RotatedByRandom(MathHelper.ToRadians(65));
+                            SoundEngine.PlaySound(SoundID.NPCHit1 with { Volume = 1f }, NPC.Center);
 
-                            float scale = 1f - (Main.rand.NextFloat() * .3f);
-                            perturbedSpeed = perturbedSpeed * scale;
+                            for (int i = 0; i < 5; i++)
+                            {
+                                Vector2 perturbedSpeed = new Vector2(0, -8).RotatedByRandom(MathHelper.ToRadians(65));
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheClaySlimeProj>(), 5, 1);
+                                float scale = 1f - (Main.rand.NextFloat() * .3f);
+                                perturbedSpeed = perturbedSpeed * scale;
+
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheClaySlimeProj>(), 5, 1);
+                            }
+                            shoottime = 0;
                         }
-                        shoottime = 0;
                     }
                 }
             }
             else
             {
-                shoottime = 90;
+                shoottime = 60;
             }
         }
 
@@ -263,15 +269,14 @@ namespace StormDiversMod.NPCs
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
-            shoottime = 60;
+            //shoottime = 80;
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
                 return;
             }
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 3; i++)
             {
-
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 236, hit.HitDirection, -2);
                 dust.alpha = 100;
             }

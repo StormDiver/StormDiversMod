@@ -44,11 +44,8 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-          
             SoundEngine.PlaySound(SoundID.Item1, position);
-           
-                
-                return true;
+            return true;
            
         }
         public override void AddRecipes()
@@ -58,7 +55,6 @@ namespace StormDiversMod.Items.Weapons
             .AddIngredient(ItemID.TurtleShell, 1)
             .AddTile(TileID.MythrilAnvil)
             .Register();
-
         }
     }
     //________________________________________________________________
@@ -92,16 +88,16 @@ namespace StormDiversMod.Items.Weapons
             //Item.crit = 0;
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
-            Item.height = 58;
-            Item.useTime = 28;
-            Item.useAnimation = 28;
+            Item.height = 40;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 2, 40, 0);
             Item.rare = ItemRarityID.Lime;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = false;
-            Item.knockBack = 4f;
+            Item.knockBack = 8f;
             Item.shoot = ModContent.ProjectileType<TurtleSpearProj>();
             Item.shootSpeed = 9f;
             Item.noMelee = true;
@@ -116,7 +112,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
+
             /* projshoot++;
              if (projshoot >= 2)
              {
@@ -125,6 +121,9 @@ namespace StormDiversMod.Items.Weapons
                  Main.PlaySound(SoundID.NPCHit, (int)player.Center.X, (int)player.Center.Y, 24);
                  projshoot = 0;
              }*/
+
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X * 2, velocity.Y * 2), ModContent.ProjectileType<TurtleSpearProj2>(), damage, knockback, player.whoAmI);
+
             return true;
         }
 

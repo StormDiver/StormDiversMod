@@ -32,11 +32,13 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 6;
+            //Projectile.usesLocalNPCImmunity = true;
+            //Projectile.localNPCHitCooldown = 6;
         }
         protected virtual float HoldoutRangeMin => 50f;
-        protected virtual float HoldoutRangeMax => 175f;
+        protected virtual float HoldoutRangeMax => 180f;
 
         bool beetled;
         public override void AI()
@@ -67,7 +69,6 @@ namespace StormDiversMod.Projectiles
                 progress = (duration - Projectile.timeLeft) / halfDuration;
             }
 
-
                 // Move the projectile from the HoldoutRangeMin to the HoldoutRangeMax and back, using SmoothStep for easing the movement
                 Projectile.Center = player.MountedCenter + Vector2.SmoothStep(Projectile.velocity * HoldoutRangeMin, Projectile.velocity * HoldoutRangeMax, progress);
 
@@ -82,7 +83,6 @@ namespace StormDiversMod.Projectiles
                 // If sprite is facing right, rotate 135 degrees
                 Projectile.rotation += MathHelper.ToRadians(135f);
             }
-
             if (Main.rand.NextBool(3))
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 186, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 1, Scale: 1.2f);
@@ -97,24 +97,30 @@ namespace StormDiversMod.Projectiles
             {
                 if (!beetled)
                 {
-                    SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
+                    for (int i = 0; i < 15; i++)
+                    {
+                        var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 186);
+                        dust.noGravity = true;
+                    }
 
-                    Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
+                    for (int i = 0; i < 1; i++)
+                    {
+                        if (Collision.CanHitLine(player.Center, 0, 0, Projectile.Center, 0, 0))
+                        { 
+                            Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 7, Projectile.velocity.Y * 7).RotatedByRandom(MathHelper.ToRadians(15));
+                            int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.4f), 0, Projectile.owner);
+                            SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 0.6f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                    beetled = true;
+                        }
+                    }
+                        beetled = true;
                 }
-
             }
-
         }
-
-
     }
     //________________________________________________________________________________________________________________
     public class BeetleYoyoProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Beetle Yoyo");
@@ -126,7 +132,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 20;
             Projectile.height = 20;
             Projectile.friendly = true;

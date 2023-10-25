@@ -23,10 +23,7 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             Item.ResearchUnlockCount = 1;
-         
-
         }
-
         public override void SetDefaults()
         {
             Item.damage = 26;

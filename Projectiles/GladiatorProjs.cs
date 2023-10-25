@@ -28,9 +28,9 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 18;
             Projectile.height = 18;
             Projectile.friendly = true;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 60;
             Projectile.aiStyle = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -66,11 +66,11 @@ namespace StormDiversMod.Projectiles
         public override void OnKill(int timeLeft)
         {
            
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 25; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 57);
                 dust.noGravity = true;
+                dust.scale = 1.5f;
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -174,8 +174,6 @@ namespace StormDiversMod.Projectiles
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
-            
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -209,11 +207,8 @@ namespace StormDiversMod.Projectiles
             
             
         }
-
         public override void AI()
         {
-          
-
             for (int i = 0; i < 10; i++)
             {
                 float X = Projectile.Center.X - Projectile.velocity.X / 5f * (float)i;

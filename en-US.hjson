@@ -13,6 +13,7 @@ Mods: {
 			Stormtip7: You can build by placing down tiles.
 			Stormtip8: You can mine tiles by mining them.
 			Stormtip9: Break into the Jungle Temple early and steal all the loot, I dare you...
+			Stormtip10: Make sure to lure Derplings into shimmer, they love shimmer baths
 		}
 
 		Buffs: {
@@ -83,7 +84,7 @@ Mods: {
 
 			GraniteBuff: {
 				DisplayName: Granite Barrier
-				Description: Reduces damage taken by by 15% and grants immunity to knockback
+				Description: Damage reduction and knockback immunity, but lower movement and jump speed
 			}
 
 			GunBuff: {
@@ -1046,8 +1047,12 @@ Mods: {
 			GraniteBMask: {
 				DisplayName: Granite Mask
 				Tooltip: 2% increased melee damage and critical strike chance
-				SetBonus1: Holding down
-				SetBonus2: while grounded grants damage resistance and immunity to knockback, but lowers movement speed
+				SetBonus1: Press
+				SetBonus2:
+					'''
+					to toggle the Granite Barrier which grants 15% damage resistance and immunity to knockback
+					The Granite barrier reduces movement speed and jump height
+					'''
 			}
 
 			GraniteChestplate: {
@@ -2045,12 +2050,16 @@ Mods: {
 
 			BeetleSpear: {
 				DisplayName: Beetle Lance
-				Tooltip: Summons beetles that attack and swarm your foes
+				Tooltip:
+					'''
+					Each stab summons 2 additional spears alongside the main one
+					Each spear summons a beetle that attacks and swarms your foes
+					'''
 			}
 
 			BeetleYoyo: {
 				DisplayName: The Thorax
-				Tooltip: Summons beetles that attack and swarm your foes
+				Tooltip: Summons beetles that attack and swarm your foes while held out
 			}
 
 			BloodPotion: {
@@ -2130,8 +2139,8 @@ Mods: {
 				DisplayName: Lunatic Bow of Ice
 				Tooltip:
 					'''
-					Fires out an ice arrow that rains down icicles on impact
-					Ice arrows slow down enemies on direct hit
+					Fires out an ice arrow alongside 2 to 3 regular arrows which rains down icicles on impact
+					The ice arrow inflicts Ultrafreeze that deals high damage over time and slows enemies
 					'''
 			}
 
@@ -2146,7 +2155,7 @@ Mods: {
 
 			CultistSpear: {
 				DisplayName: Lunatic Spear of Fire
-				Tooltip: Summons blazing fire balls each stab
+				Tooltip: Launches a spread of 5 wall piercing fireballs each stab
 			}
 
 			CultistStaff: {
@@ -2348,7 +2357,7 @@ Mods: {
 
 			GladiatorStaff: {
 				DisplayName: Gladiator's Staff
-				Tooltip: Fires out a magical piercing beam
+				Tooltip: Fires out an even spread of 3 sword beams
 			}
 
 			GraniteRifle: {
@@ -3047,7 +3056,11 @@ Mods: {
 
 			TurtleSpear: {
 				DisplayName: Turtle Pike
-				Tooltip: Grants extra defense while attacking enemies
+				Tooltip:
+					'''
+					An extension of the spear appears every stab
+					Grants extra defense when attacking enemies
+					'''
 			}
 
 			TurtleYoyo: {
@@ -3094,7 +3107,11 @@ Mods: {
 
 			WoodPointyStick: {
 				DisplayName: Pointy Wooden Stick
-				Tooltip: "'Poke it with a stick'"
+				Tooltip:
+					'''
+					Launches a sharp leaf every stab
+					'Poke it with a stick'
+					'''
 			}
 
 			WyvernBow: {
@@ -3639,6 +3656,8 @@ Mods: {
 			DesertSparkProj.DisplayName: Desert Spark
 			CursedSkullMinionProj.DisplayName: Cursed Skull Minion
 			CursedSkullMinionProj2.DisplayName: Cursed Skull Bones
+			WoodPointyStickProj2.DisplayName: Wood Pointy Stick Proj2
+			TurtleSpearProj2.DisplayName: Turtle Spear Proj2
 		}
 
 		Tiles: {

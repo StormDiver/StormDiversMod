@@ -9,6 +9,7 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod;
 using Terraria.GameContent.Creative;
+using System.Threading;
 
 
 namespace StormDiversMod.Items.Armour
@@ -75,15 +76,11 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            //player.setBonus = "Holding down '" + keyName + "' while grounded grants damage resistance and immunity to knockback, but lowers movement speed";
+            //player.setBonus = "Press '" + keyName + "' to toggle the Granite Barrier which grants 15% damage resistance and immunity to knockback
+            //\nThe Granite barrier reduces movement speed and jump height";
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
-            if (StormDiversMod.ArmourSpecialHotkey.Current && player.velocity.Y == 0)
-            {
-                         
-                player.AddBuff(ModContent.BuffType<GraniteBuff>(), 2);
-
-            }
+            player.GetModPlayer<ArmourSetBonuses>().graniteSet = true;
 
         }
 

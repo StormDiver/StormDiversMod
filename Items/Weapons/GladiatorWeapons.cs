@@ -173,23 +173,23 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 25;
-            Item.useAnimation = 25;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
             {
-                Item.mana = 8;
+                Item.mana = 15;
             }
             else
             {
-                Item.mana = 5;
+                Item.mana = 10;
             }
             Item.UseSound = SoundID.Item8;
 
-            Item.damage = 20;
+            Item.damage = 12;
 
             Item.knockBack = 3f;
 
@@ -221,10 +221,16 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+            float numberProjectiles = 3;
+            float rotation = MathHelper.ToRadians(15);
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
 
+
+                //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+            }
             return false;
         }
 

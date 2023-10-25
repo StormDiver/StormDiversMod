@@ -282,7 +282,7 @@ namespace StormDiversMod.Basefiles
                 Player.canFloatInWater = false;
             }*/
             //Reduces ints if they are above 0 and not in the equip field
-            
+
             if (beetleFist)
             {
                 if (beetlecooldown > 0)

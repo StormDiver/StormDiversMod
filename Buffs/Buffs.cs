@@ -245,13 +245,12 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Granite Barrier");
-            //Description.SetDefault("Reduces damage taken by by 15% and grants immunity to knockback");
+            //Description.SetDefault("Damage reduction and knockback immunity, but lower movement and jump speed");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.velocity.X *= 0.94f;
             player.endurance += 0.15f;
             player.noKnockback = true;
             if (Main.rand.Next(4) == 0)

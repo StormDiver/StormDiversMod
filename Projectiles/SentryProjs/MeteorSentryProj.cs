@@ -84,7 +84,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     Main.dust[dustIndex].noGravity = true;
                 }
             }
-
             Player player = Main.player[Projectile.owner];
 
             //Getting the npc to fire at

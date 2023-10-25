@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Lunatic Spear of Fire");
-            //Tooltip.SetDefault("Summons blazing fire balls each stab");
+            //Tooltip.SetDefault("Launches a spread of 5 wall piercing fireballs each stab");
 
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -43,16 +43,15 @@ namespace StormDiversMod.Items.Weapons
                         line.Text = line.Text + "\nHold right click to charge and release to throw the spear";
                     }
                 }
-
             }
         }*/
         public override void SetDefaults()
         {
-            Item.damage = 100;
+            Item.damage = 85;
             Item.crit = 16;
             Item.DamageType = DamageClass.Melee;
             Item.width = 50;
-            Item.height = 64;
+            Item.height = 50;
             Item.useTime = 22;
             Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -62,11 +61,10 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
             Item.useTurn = false;
             Item.knockBack = 5f;
-            Item.shoot = ModContent.ProjectileType < Projectiles.CultistSpearProj>();
+            Item.shoot = ModContent.ProjectileType <Projectiles.CultistSpearProj>();
             Item.shootSpeed = 7.5f;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-
         }
         public override bool CanUseItem(Player player)
         {
@@ -75,7 +73,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-         
             return true;
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -93,7 +90,8 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Lunatic Bow of Ice");
-            //Tooltip.SetDefault("Fires out an ice arrow that rains down icicles on impact\nIce arrows slow down enemies on direct hit");
+            //Tooltip.SetDefault("Fires out an ice arrow alongside 2 to 3 regular arrows which rains down icicles on impact\nThe ice arrow inflicts Ultrafreeze that deals high damage over time and slows enemies
+            //");
 
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -102,7 +100,6 @@ namespace StormDiversMod.Items.Weapons
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<CultistTome>();
-
         }
         public override void SetDefaults()
         {

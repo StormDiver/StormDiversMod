@@ -11,6 +11,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Basefiles;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Mono.Cecil;
 
 namespace StormDiversMod.Projectiles
 {
@@ -28,10 +29,10 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 20;
             Projectile.aiStyle = 19;
             Projectile.penetrate = -1;
-            Projectile.scale = 1.25f;
+            Projectile.scale = 1f;
             Projectile.alpha = 0;
 
-            Projectile.hide = true;
+            Projectile.hide = false;
             Projectile.ownerHitCheck = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
@@ -97,24 +98,41 @@ namespace StormDiversMod.Projectiles
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
-            if (Projectile.timeLeft < halfDuration)
+            if (Projectile.timeLeft < halfDuration + 5)
             {
                 if (!fireBall)
                 {
                     SoundEngine.PlaySound(SoundID.Item45 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
                     
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - distance, Projectile.Center.Y - distance), new Vector2(+firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + distance, Projectile.Center.Y - distance), new Vector2(-firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                        /*Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - distance, Projectile.Center.Y - distance), new Vector2(+firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + distance, Projectile.Center.Y - distance), new Vector2(-firespeed, +firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + distance, Projectile.Center.Y + distance), new Vector2(-firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - distance, Projectile.Center.Y + distance), new Vector2(+firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + distance, Projectile.Center.Y + distance), new Vector2(-firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - distance, Projectile.Center.Y + distance), new Vector2(+firespeed, -firespeed), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                   */
+                        float numberProjectiles = 5;
+                        float rotation = MathHelper.ToRadians(15);
 
+                        for (int i = 0; i < numberProjectiles; i++)
+                        {
+
+                            Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 10, Projectile.velocity.Y * 10).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<CultistSpearProj2>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner);
+                        }
+                    for (int i = 0; i < 25; i++)
+                    {
+
+                        int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.width / 2, Projectile.position.Y - Projectile.height / 2), Projectile.width * 2, Projectile.height * 2, 6, 0f, 0f, 0, default, 2f);
+
+                        Main.dust[dustIndex].noGravity = true;
+                        Main.dust[dustIndex].velocity *= 3f;
+
+                    }
                     fireBall = true;
+
                 }
             }
-
         }
-
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -125,15 +143,12 @@ namespace StormDiversMod.Projectiles
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/CultistSpearProj_Glow");
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-
-
         }
 
     }
     //______________________________________________
     public class CultistSpearProj2 : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Fireball Blast");
@@ -148,7 +163,7 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 24;
             Projectile.friendly = true;
             Projectile.penetrate = 3;
-            Projectile.timeLeft = 40;
+            Projectile.timeLeft = 50;
             Projectile.aiStyle = 0;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
@@ -171,7 +186,7 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
                 dust.scale = 2f;
             }
-            spawntime++;
+           /* spawntime++;
             if (spawntime == 1)
             {
 
@@ -184,7 +199,7 @@ namespace StormDiversMod.Projectiles
                     Main.dust[dustIndex].velocity *= 3f;
 
                 }
-            }
+            }*/
 
 
           

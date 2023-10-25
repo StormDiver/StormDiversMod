@@ -23,12 +23,10 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            
             Item.damage = 70;
             Item.DamageType = DamageClass.Melee;
             Item.width = 20;
             Item.height = 22;
-           
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.noUseGraphic = true;
@@ -41,7 +39,6 @@ namespace StormDiversMod.Items.Weapons
             //Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.noMelee = true;
-
         }
         /* public override bool AltFunctionUse(Player player)
          {
@@ -66,12 +63,8 @@ namespace StormDiversMod.Items.Weapons
          }*/
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
-
             SoundEngine.PlaySound(SoundID.Item1, position);
-           
-                return true;
-            
+                return true;   
         }
         public override void AddRecipes()
         {
@@ -80,7 +73,6 @@ namespace StormDiversMod.Items.Weapons
             .AddIngredient(ItemID.BeetleHusk, 10)
             .AddTile(TileID.MythrilAnvil)
             .Register();
-          
         }
     }
     //__________________________________________________________________
@@ -89,7 +81,8 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Beetle Lance");
-            //Tooltip.SetDefault("Summons beetles that attack and swarm your foes");
+            //Tooltip.SetDefault("Each stab summons 2 additional spears alongside the main one
+            //Each spear summons a beetle that attacks and swarms your foes");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.Spears[Item.type] = true;
         }
@@ -109,13 +102,13 @@ namespace StormDiversMod.Items.Weapons
         }*/
         public override void SetDefaults()
         {
-            Item.damage = 100;
+            Item.damage = 70;
             //Item.crit = 0;
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
             Item.height = 60;
-            Item.useTime = 26;
-            Item.useAnimation = 26;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 4, 0, 0);
             Item.rare = ItemRarityID.Yellow;
@@ -127,7 +120,6 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 8f;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-
         }
         public override bool CanUseItem(Player player)
         {
@@ -137,7 +129,19 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
+            float numberProjectiles = 2;
+            float rotation = MathHelper.ToRadians(20);
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
+
+                //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                int ProjID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                Main.projectile[ProjID].hide = false;
+                Main.projectile[ProjID].alpha = 100;
+
+            }
+
             return true;
         }
 

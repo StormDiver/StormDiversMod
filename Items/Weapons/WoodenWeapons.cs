@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Weapons
 		public override void SetStaticDefaults() 
 		{
 			//DisplayName.SetDefault("Pointy Wooden Stick"); 
-			//Tooltip.SetDefault("'Poke it with a stick'");
+			//Tooltip.SetDefault("Launches a sharp leaf every stab\n'Poke it with a stick'");
             Item.ResearchUnlockCount = 1;
           
         }
@@ -48,15 +48,13 @@ namespace StormDiversMod.Items.Weapons
         {
            
         }
-       /* public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 300);
+           int projid = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X * 4f, velocity.Y * 4f), ModContent.ProjectileType<WoodPointyStickProj2>(), (int)(damage * .75f), 0.5f, player.whoAmI);
+
+            return true;
         }
-        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
-        {
-            target.AddBuff(ModContent.BuffType < Buffs.SuperBurnDebuff>(), 300);
-        }*/
-       
+
         public override void AddRecipes()
         {
         

@@ -196,7 +196,6 @@ namespace StormDiversMod.Items.Weapons
                         line.Text = line.Text + "\nHold right click to charge and release to throw the spear";
                     }
                 }
-
             }
         }*/
         public override void SetDefaults()

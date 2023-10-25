@@ -325,7 +325,6 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 1.5f;
             }
  
-
             Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
             Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
             Projectile.width = 16;

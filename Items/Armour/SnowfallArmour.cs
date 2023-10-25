@@ -60,7 +60,6 @@ namespace StormDiversMod.Items.Armour
         {
             return body.type == ItemType<SnowfallChest>() && legs.type == ItemType<SnowfallLeg>();
         }
-
         public override void UpdateArmorSet(Player player)
         {
             //player.setBonus = "Hold JUMP to glide\nHold UP while gliding to glide even slower";

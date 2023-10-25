@@ -228,7 +228,7 @@ namespace StormDiversMod.Projectiles.Minions
 					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;				
 				}
 
-				if (Projectile.ai[1] > 130 && Vector2.Distance(Projectile.Center, targetCenter) < 250f)
+				if (Projectile.ai[1] > 100 && Vector2.Distance(Projectile.Center, targetCenter) < 250f)
 				{
 					if (!Main.dedServ)
 					{
@@ -239,7 +239,7 @@ namespace StormDiversMod.Projectiles.Minions
 							dust.noGravity = true;
 						}
 						Projectile.velocity *= 0;
-						if (Projectile.ai[1] > 150)
+						if (Projectile.ai[1] > 120)
 						{
 							shooting = true;
                             float projspeed = 12;

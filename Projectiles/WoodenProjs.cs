@@ -134,6 +134,94 @@ namespace StormDiversMod.Projectiles
    
     }
     //_______________________________________________
+    public class WoodPointyStickProj2 : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Pointy Stick Leaf");
+            Main.projFrames[Projectile.type] = 5;
+
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 14;
+            Projectile.height = 14;
+            Projectile.aiStyle = 0;
+            Projectile.friendly = true;
+            Projectile.timeLeft = 60;
+            Projectile.penetrate = 1;
+            Projectile.arrow = true;
+            Projectile.tileCollide = true;
+            Projectile.knockBack = 0f;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.arrow = true;
+            Projectile.extraUpdates = 0;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+
+            DrawOffsetX = 0;
+            DrawOriginOffsetY = 0;
+        }
+        public override bool? CanDamage()
+        {
+            if (Projectile.ai[2] >= 8)
+                return true;
+            else
+                return false;
+        }
+        public override void AI()
+        {
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+            Projectile.ai[2]++;
+            if (Projectile.ai[2] >= 8)
+            {
+                if (Main.rand.Next(2) == 0) // the chance
+                {
+                    Dust dust;
+                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                    Vector2 position = Projectile.position;
+                    dust = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, 3, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+                    dust.noGravity = true;
+
+                }
+                Projectile.velocity *= 0.96f;
+            }
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 4) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+            {
+                Projectile.frame++;
+                Projectile.frame %= 5; // Will reset to the first frame if you've gone through them all.
+                Projectile.frameCounter = 0;
+            }
+        }
+
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.damage = (Projectile.damage * 9) / 10;
+            for (int i = 0; i < 5; i++)
+            {
+
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 3, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+            }
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+
+            //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
+            for (int i = 0; i < 10; i++)
+            {
+
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 3);
+            }
+            SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
+        }
+
+    }
+    //_______________________________________________
     public class WoodenBoltProj : ModProjectile
     {
         public override void SetStaticDefaults()

@@ -310,7 +310,7 @@ namespace StormDiversMod.Basefiles
             if (npc.type == NPCID.IceQueen)
             {
 
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<IceSentry>(), 10, 15));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<IceSentry>(), 15, 10));
 
             }
             if (npc.type == NPCID.Hornet || npc.type == NPCID.HornetFatty || npc.type == NPCID.HornetHoney || npc.type == NPCID.HornetLeafy || npc.type == NPCID.HornetSpikey || npc.type == NPCID.HornetStingy)
@@ -500,7 +500,7 @@ namespace StormDiversMod.Basefiles
 
             if (npc.type == NPCID.SantaNK1)
             {
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SantankMinion>(), 15, 20));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SantankMinion>(), 20, 15));
 
                 //isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 12, 15));
                 notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 9, 12));
