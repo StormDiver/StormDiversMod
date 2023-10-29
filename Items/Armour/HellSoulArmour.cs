@@ -14,6 +14,7 @@ using System.IO;
 using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.UI;
+using System.Diagnostics.Metrics;
 
 
 namespace StormDiversMod.Items.Armour
@@ -24,8 +25,9 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Inferno Soul Mask");
-            //Tooltip.SetDefault("14% increased melee damage\n5% increased melee critical strike chance");
+            //DisplayName.SetDefault("Infernal Soul Mask");
+            //Tooltip.SetDefault("15% increased melee critical strike chance
+            //\n15 % increased melee speed ");
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -39,14 +41,15 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
-            Item.defense = 21;
+            Item.defense = 18;
         }
 
         public override void UpdateEquip(Player player)
         {
+            player.GetCritChance(DamageClass.Melee) += 15;
 
-            player.GetDamage(DamageClass.Melee) += 0.14f;
-            player.GetCritChance(DamageClass.Melee) += 5;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
+
             if (!Main.dedServ)
             {
                 Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
@@ -82,12 +85,10 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            //player.setBonus = "20% increased melee speed\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "Charges up a powerful Infernal Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
-
         }
         public override void AddRecipes()
         {
@@ -114,8 +115,8 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Inferno Soul Helmet");
-            //Tooltip.SetDefault("10% increased ranged damage\n8% increased ranged critical strike chance");
+            //DisplayName.SetDefault("Infernal Soul Helmet");
+            //Tooltip.SetDefault("5% increased ranged damage\n15% increased ranged critical strike chance");
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -129,14 +130,14 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
                      Item.rare = ItemRarityID.LightPurple;
-            Item.defense = 10;
+            Item.defense = 7;
         }
    
         public override void UpdateEquip(Player player)
         {
         
-            player.GetDamage(DamageClass.Ranged) += 0.10f;
-            player.GetCritChance(DamageClass.Ranged) += 8;
+            player.GetDamage(DamageClass.Ranged) += 0.5f;
+            player.GetCritChance(DamageClass.Ranged) += 15;
             if (!Main.dedServ)
             {
                 Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
@@ -171,12 +172,10 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            //player.setBonus = "25% chance not to consume ammo\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "Charges up a powerful Infernal Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
-            player.ammoCost75 = true;
-
         }
         public override void AddRecipes()
         {
@@ -202,8 +201,8 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Inferno Soul Hood");
-            //Tooltip.SetDefault("12% increased magic damage\n6% increased critical strike chance\nIncreases maximum mana by 60");
+            //DisplayName.SetDefault("Infernal Soul Hood");
+            //Tooltip.SetDefault("5% increased magic damage\n15% increased magic critical strike chance\nIncreases maximum mana by 80");
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -217,15 +216,15 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
-            Item.defense = 7;
+            Item.defense = 4;
         }
 
         public override void UpdateEquip(Player player)
         {
         
-            player.GetDamage(DamageClass.Magic) += 0.12f;
-            player.GetCritChance(DamageClass.Magic) += 6;
-            player.statManaMax2 += 60;
+            player.GetDamage(DamageClass.Magic) += 0.05f;
+            player.GetCritChance(DamageClass.Magic) += 15;
+            player.statManaMax2 += 80;
             if (!Main.dedServ)
             {
                 Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);
@@ -260,11 +259,10 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            //player.setBonus = "18% reduced mana usage\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "Charges up a powerful Infernal Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
-            player.manaCost -= 0.18f;
         }
         public override void AddRecipes()
         {
@@ -272,7 +270,6 @@ namespace StormDiversMod.Items.Armour
            .AddIngredient(ModContent.ItemType<Items.Materials.SoulFire>(), 12)
            .AddTile(TileID.Hellforge)
            .Register();
-
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
@@ -289,7 +286,7 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Inferno Soul Crown");
+            //DisplayName.SetDefault("Infernal Soul Crown");
             //Tooltip.SetDefault("15% increased summoner damage\nIncreases maximum number of minions by 2");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
             Item.ResearchUnlockCount = 1;
@@ -298,16 +295,15 @@ namespace StormDiversMod.Items.Armour
                 Texture = ModContent.Request<Texture2D>(Texture + "_Head_Glow")
             });
         }
-
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
-            Item.defense = 2;
+            Item.defense = 1;
         }
-    
+   
         public override void UpdateEquip(Player player)
         {
 
@@ -347,7 +343,7 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            //player.setBonus = "Increases maximum number of minions by 1\nCharges up a powerful Inferno Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "Increases maximum number of minions by 1\nCharges up a powerful Infernal Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
@@ -378,8 +374,8 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Inferno Soul Breastplate");
-            //Tooltip.SetDefault("7% increased damage\n6% increased critical strike chance");
+            //DisplayName.SetDefault("Infernal Soul Breastplate");
+            //Tooltip.SetDefault("10% increased critical strike chance");
             Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
@@ -393,14 +389,12 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
-            Item.defense = 17;
+            Item.defense = 14;
         }
 
         public override void UpdateEquip(Player player)
         {
-
-            player.GetDamage(DamageClass.Generic) += 0.07f;
-            player.GetCritChance(DamageClass.Generic) += 6;
+            player.GetCritChance(DamageClass.Generic) += 10;
 
             if (!Main.dedServ)
             {
@@ -430,8 +424,8 @@ namespace StormDiversMod.Items.Armour
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            //DisplayName.SetDefault("Inferno Soul Greaves");
-            //Tooltip.SetDefault("5% increased damage\n6% increased critical strike chance\n25% increased movement speed");
+            //DisplayName.SetDefault("Infernal Soul Greaves");
+            //Tooltip.SetDefault("10% increased damage");
             Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
@@ -446,7 +440,7 @@ namespace StormDiversMod.Items.Armour
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
-                        line.Text = "15% increased movement speed"; //Unusable pre mechs
+                        line.Text = "15% increased movement speed"; 
                     }
                 }
 
@@ -458,14 +452,12 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 5, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
-            Item.defense = 13;
+            Item.defense = 10;
         }
 
         public override void UpdateEquip(Player player)
         {
-
-            player.GetDamage(DamageClass.Generic) += 0.05f;
-            player.GetCritChance(DamageClass.Generic) += 6;
+            player.GetDamage(DamageClass.Generic) += 0.1f;
             if (ModLoader.HasMod("TRAEProject"))
             {
                 player.moveSpeed += 0.15f;

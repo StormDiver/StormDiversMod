@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod;
 using Terraria.GameContent.Creative;
 using System.Threading;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 
 namespace StormDiversMod.Items.Armour
@@ -76,8 +77,8 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            //player.setBonus = "Press '" + keyName + "' to toggle the Granite Barrier which grants 15% damage resistance and immunity to knockback
-            //\nThe Granite barrier reduces movement speed and jump height";
+            //player.setBonus = "Press '" + keyName + "' grants the Granite Barrier buff which grants 50% damage resistance, immunity to knockback, and a thorns effect for 5 seconds
+            //\nThe Granite barrier reduces movement speed and jump height\nHas a 20 second cooldown between uses";
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().graniteSet = true;

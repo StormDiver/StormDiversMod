@@ -636,7 +636,7 @@ namespace StormDiversMod.Basefiles
             if (type == TileID.Plants)
             {
                 if (player.HasItem(ModContent.ItemType<MoltenSeedLauncher>()))
-                    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemID.Seed);
+                    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemID.Seed, Main.rand.Next(2, 5));
 
             }
         }

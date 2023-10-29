@@ -74,7 +74,7 @@ namespace StormDiversMod.Basefiles
         public bool santanktrigger; //Has the player triggered the missiles
         public int cryosetcooldown; //Cooldown for Cryo set bonus
         public int lizardsetcooldown; //Cooldown for the lizard bombs
-        public bool granitetoggle; //toggle for granite Armour
+        public int granitesetcooldown; //cooldown for granite Set
         //public bool granite
 
         public override void ResetEffects() //Resets bools if the item is unequipped
@@ -109,10 +109,11 @@ namespace StormDiversMod.Basefiles
             santankmissleup = 0;
             santanktrigger = false;
             cryosetcooldown = 0;
+            granitesetcooldown = 0;
         }
 
         //===============================================================================================================
-     
+
         public override void PostUpdateEquips() //Updates every frame
         {
             //Increase ints if they are below the limit and armour is equipped and not in the equip field
@@ -700,28 +701,61 @@ namespace StormDiversMod.Basefiles
                     Player.slowFall = false;
                 }
             }
-
             if (graniteSet)
             {
-                if (StormDiversMod.ArmourSpecialHotkey.JustPressed && granitetoggle == false)
+                /*if (StormDiversMod.ArmourSpecialHotkey.JustPressed && granitetoggle == false)
                 {
                     granitetoggle = true;
                 }
                 else if (StormDiversMod.ArmourSpecialHotkey.JustPressed && granitetoggle == true)
                 {
                     granitetoggle = false;
-                }
-                if (granitetoggle)
+                }*/
+                if (StormDiversMod.ArmourSpecialHotkey.JustPressed && granitesetcooldown <= 0)
                 {
-                    Player.AddBuff(ModContent.BuffType<GraniteBuff>(), 2);
-                    Player.velocity.X *= 0.97f;
-                    Player.runAcceleration *= 0.66f;
-                    Player.jumpSpeed *= 0.66f;
+                    Player.AddBuff(ModContent.BuffType<GraniteBuff>(), 300);
+                    //Player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
+                    for (int i = 0; i < 50; i++)
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
+                        var dust = Dust.NewDustDirect(Player.Center, 0, 0, 27, perturbedSpeed.X, perturbedSpeed.Y);
+                        dust.scale = 1.5f;
+                        dust.noGravity = true;
+                    }
+                    SoundEngine.PlaySound(SoundID.Item122, Player.Center);
+                    granitesetcooldown = 1500;
 
+                }
+
+                if (StormDiversMod.ArmourSpecialHotkey.JustPressed && granitesetcooldown > 0 && !Player.HasBuff(ModContent.BuffType<GraniteBuff>()))
+                {
+                    SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 0.25f, Pitch = 0.75f, MaxInstances = 0 }, Player.Center);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 27);
+                        dust.scale = 1f;
+                        dust.velocity *= 1.5f;
+                        //dust.noGravity = true;
+                    }
                 }
             }
             else
-                granitetoggle = false;
+            {
+                Player.ClearBuff(ModContent.BuffType<GraniteBuff>());
+            }
+
+            if (!Player.HasBuff(ModContent.BuffType<GraniteBuff>()) && granitesetcooldown > 0 && !Player.HasBuff(ModContent.BuffType<GraniteDebuff>())) //once buff is removed add remaining duration to debuff
+            {
+                Player.AddBuff(ModContent.BuffType<GraniteDebuff>(), granitesetcooldown);
+            }
+            if (granitesetcooldown > 0)
+            {
+                granitesetcooldown--;
+            }
+            if (Player.HasBuff(ModContent.BuffType<GraniteBuff>()))
+            {
+                Player.jumpSpeed *= 0.85f;
+            }
         }
         //=====================For attacking an enemy with anything===========================================
         public override void OnHitAnything(float x, float y, Entity victim)

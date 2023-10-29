@@ -305,19 +305,15 @@ namespace StormDiversMod.Items.Materials
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
             return Color.White;
-
         }
-       
     }
-
     //_____________________________________
     public class SoulFire : ModItem
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("HellSoul Flame");
+            //DisplayName.SetDefault("Infernal Soul Flame");
 
             //Tooltip.SetDefault("A soul that never stops burning");
 

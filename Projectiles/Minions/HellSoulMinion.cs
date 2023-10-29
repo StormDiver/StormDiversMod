@@ -16,9 +16,9 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("HellSoul Minion");
-			//Description.SetDefault("A HellSoul minion will fight for you");
-			Main.buffNoSave[Type] = true;
+            //DisplayName.SetDefault("Soul Flame Minion");
+            //Description.SetDefault("A Soul Flame minion will fight for you");
+            Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 
@@ -42,7 +42,7 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("HellSoul Minion");
+			//DisplayName.SetDefault("Soul Flame Minion");
 			Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -52,8 +52,8 @@ namespace StormDiversMod.Projectiles.Minions
 
 		public sealed override void SetDefaults()
 		{
-			Projectile.width = 30;
-			Projectile.height = 30;
+			Projectile.width = 20;
+			Projectile.height = 20;
 			// Makes the minion go through tiles freely
 			Projectile.tileCollide = false;
 
@@ -208,7 +208,6 @@ namespace StormDiversMod.Projectiles.Minions
 					direction *= speed;
 					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
 
-					
 				}
 				
 				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
@@ -318,7 +317,13 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 		}
-	}
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.White;
+            color.A = 150;
+            return color;
+        }
+    }
 	//__________________________________________________________________________________________________________
 
 	public class HellSoulMinionProj2 : ModProjectile
@@ -326,8 +331,8 @@ namespace StormDiversMod.Projectiles.Minions
 
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("HellSoul Minion Projectile");
-			Main.projFrames[Projectile.type] = 4;
+            //DisplayName.SetDefault("Soul Flame Minion Projectile");
+            Main.projFrames[Projectile.type] = 4;
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
@@ -341,11 +346,10 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.light = 0.4f;
 			Projectile.scale = 1f;
 			Projectile.aiStyle = 0;
-		
+			Projectile.extraUpdates = 1;
 			Projectile.DamageType = DamageClass.Summon;
-		
 		}
-	
+
 		public override void AI()
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
@@ -357,11 +361,7 @@ namespace StormDiversMod.Projectiles.Minions
 			dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 173, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f, 0, new Color(255, 255, 255), 1f)];
 			dust.noGravity = true;
 			dust.scale = 0.8f;
-	
-			
 		}
-	
-		
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
@@ -404,7 +404,6 @@ namespace StormDiversMod.Projectiles.Minions
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-
 			Color color = Color.White;
 			color.A = 150;
 			return color;

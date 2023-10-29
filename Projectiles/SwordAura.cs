@@ -80,8 +80,6 @@ namespace StormDiversMod.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            // Color[] palette = new Color[] { new Color(204, 204, 0), Color.Yellow, Color.White };  KEEP THIS FOR ADA SWORD
-
             Color[] palette = new Color[] { frontColor, middleColor, backColor };
             SwordAura.DrawProj_BladeAura(Projectile, palette);
             return false;

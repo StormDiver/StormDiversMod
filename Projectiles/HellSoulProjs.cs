@@ -170,14 +170,12 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 300;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
-
+            Projectile.extraUpdates = 1;
             Projectile.aiStyle = 0;
             //drawOffsetX = -9;
             //drawOriginOffsetY = -9;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-
-
         }
         int dusttime;
 

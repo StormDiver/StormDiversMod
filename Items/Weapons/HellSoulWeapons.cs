@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Hell Fury");
+            //DisplayName.SetDefault("Inferno Fury");
             //Tooltip.SetDefault("Fires out a homing soul arrow every shot");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -98,8 +98,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("The HellBlaster");
-            //Tooltip.SetDefault("Fires out a blast of bullets alongside a piercing soul bullet");
+            //DisplayName.SetDefault("The Soul Blaster");
+            //Tooltip.SetDefault("Fires out a blast of multiple piercing soul bullets");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
@@ -109,7 +109,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-
             Item.width = 50;
             Item.height = 22;
             Item.maxStack = 1;
@@ -130,14 +129,13 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 16f;
-            Item.useTime = 34;
-            Item.useAnimation = 34;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useAmmo = AmmoID.Bullet;
 
             Item.noMelee = true;
         }
 
-    
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
@@ -152,16 +150,14 @@ namespace StormDiversMod.Items.Weapons
                 position += muzzleOffset;
             }
           
-            int numberProjectiles = 4; //This defines how many projectiles to shot.
+            int numberProjectiles = 4 + Main.rand.Next(2); //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15)); // This defines the projectiles random spread . 10 degree spread.
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulRifleProj>(), damage, knockback, player.whoAmI);
+
             }
-
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X * 1.5f, velocity.Y * 1.5f), ModContent.ProjectileType<Projectiles.HellSoulRifleProj>(), damage, knockback, player.whoAmI);
-
-
+            //Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             return false;
         }
 
@@ -326,7 +322,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Hell Flare");
+            //DisplayName.SetDefault("Infernal Soul Flare");
             //Tooltip.SetDefault("Summons multiple soul flames that charge towards the cursor");
 
             Item.ResearchUnlockCount = 1;
@@ -367,12 +363,10 @@ namespace StormDiversMod.Items.Weapons
             {
                 Item.mana = 12;
             }
-
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
             int speedX = 0;
             int speedY = -10;
             for (int i = 0; i < 4; i++)
@@ -423,8 +417,8 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Soul Cauldron Staff");
-            //Tooltip.SetDefault("Summons a HellSoul minion to fight for you");
+            //DisplayName.SetDefault("Soul Flame Staff");
+            //Tooltip.SetDefault("Summons a Soul Flame minion to fight for you");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             Item.ResearchUnlockCount = 1;
@@ -433,7 +427,6 @@ namespace StormDiversMod.Items.Weapons
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
-
         }
 
         public override void SetDefaults()
@@ -457,7 +450,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
             // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
             player.AddBuff(Item.buffType, 2);
 

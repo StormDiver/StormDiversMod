@@ -245,17 +245,21 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Granite Barrier");
-            //Description.SetDefault("Damage reduction and knockback immunity, but lower movement and jump speed");
-            Main.buffNoTimeDisplay[Type] = true;
+            //Description.SetDefault("Damage reduction, knockback immunity, and thorns effect, but lower movement and jump speed");
+            //Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.endurance += 0.15f;
+            player.endurance += 0.5f;
+            player.thorns = 1.2f;
             player.noKnockback = true;
+            player.velocity.X *= 0.97f;
+            player.runAcceleration *= 0.8f;
+            // jump speed in armorsetbonuses
             if (Main.rand.Next(4) == 0)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 65, player.velocity.X, player.velocity.Y, 100, default, 1.5f);
+                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 27, player.velocity.X, player.velocity.Y, 100, default, 1.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 1f;
                 Main.dust[dust].velocity.Y -= 0.5f;
@@ -539,8 +543,8 @@ namespace StormDiversMod.Buffs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Inferno Storm");
-            //Description.SetDefault("The inferno flames are ready to be unleashed");
+            //DisplayName.SetDefault("Infernal Storm");
+            //Description.SetDefault("The infernal flames are ready to be unleashed");
             Main.buffNoTimeDisplay[Type] = true;
         }
         public override void Update(Player player, ref int buffIndex)

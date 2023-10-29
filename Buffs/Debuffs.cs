@@ -642,4 +642,23 @@ namespace StormDiversMod.Buffs
 
         }
     }
+
+    //_________________________________________________________
+
+    //_____________________________________________
+    public class GraniteDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Granite Cells Depleted");
+            //Description.SetDefault("Your Granite barrier is recharging");
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+           
+        }
+    }
 }

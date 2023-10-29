@@ -84,7 +84,7 @@ Mods: {
 
 			GraniteBuff: {
 				DisplayName: Granite Barrier
-				Description: Damage reduction and knockback immunity, but lower movement and jump speed
+				Description: Damage reduction, knockback immunity and a thorns effect, but lower movement and jump speed
 			}
 
 			GunBuff: {
@@ -108,8 +108,8 @@ Mods: {
 			}
 
 			HellSoulBuff: {
-				DisplayName: Inferno Storm
-				Description: The inferno flames are ready to be unleashed
+				DisplayName: Infernal Storm
+				Description: The infernal flames are ready to be unleashed
 			}
 
 			HellSoulFireDebuff: {
@@ -322,8 +322,8 @@ Mods: {
 			}
 
 			HellSoulMinionBuff: {
-				DisplayName: HellSoul Minion
-				Description: A HellSoul minion will fight for you
+				DisplayName: Soul Flame Minion
+				Description: A Soul Flame minion will fight for you
 			}
 
 			LizardMinionBuff: {
@@ -384,6 +384,11 @@ Mods: {
 			BlizzardDebuff: {
 				DisplayName: Blizzarded
 				Description: A mini blizzard is slowing you down
+			}
+
+			GraniteDebuff: {
+				DisplayName: Cell Recharge
+				Description: Your Granite barrier is recharging
 			}
 		}
 
@@ -1047,11 +1052,12 @@ Mods: {
 			GraniteBMask: {
 				DisplayName: Granite Mask
 				Tooltip: 2% increased melee damage and critical strike chance
-				SetBonus1: Press
+				SetBonus1: Pressing
 				SetBonus2:
 					'''
-					to toggle the Granite Barrier which grants 15% damage resistance and immunity to knockback
-					The Granite barrier reduces movement speed and jump height
+					grants 50% damage resistance, immunity to knockback, and a thorns effect for 5 seconds
+					When activated you have reduced movement speed and jump height
+					Has a 20 second cooldown between uses
 					'''
 			}
 
@@ -1070,7 +1076,7 @@ Mods: {
 			}
 
 			HellSoulBCrown: {
-				DisplayName: Inferno Soul Crown
+				DisplayName: Infernal Soul Crown
 				Tooltip:
 					'''
 					15% increased summoner damage
@@ -1079,76 +1085,68 @@ Mods: {
 				SetBonus1:
 					'''
 					Increases maximum number of minions by 1
-					Charges up a powerful Inferno Storm over 10 seconds
+					Charges up a powerful Infernal Storm over 10 seconds
 					Press
 					'''
 				SetBonus2: once charged to unleash the storm upon up to 15 nearby enemies
 			}
 
 			HellSoulBHelmet: {
-				DisplayName: Inferno Soul Helmet
+				DisplayName: Infernal Soul Helmet
 				Tooltip:
 					'''
-					10% increased ranged damage
-					8% increased ranged critical strike chance
+					5% increased ranged damage
+					15% increased ranged critical strike chance
 					'''
 				SetBonus1:
 					'''
-					25% chance not to consume ammo 
-					Charges up a powerful Inferno Storm over 10 seconds
+					Charges up a powerful Infernal Storm over 10 seconds
 					Press
 					'''
 				SetBonus2: once charged to unleash the storm upon up to 15 nearby enemies
 			}
 
 			HellSoulBHood: {
-				DisplayName: Inferno Soul Hood
+				DisplayName: Infernal Soul Hood
 				Tooltip:
 					'''
-					12% increased magic damage
-					6% increased critical strike chance
-					Increases maximum mana by 60
+					5% increased magic damage
+					15% increased magic critical strike chance
+					Increases maximum mana by 80
 					'''
 				SetBonus1:
 					'''
-					18% reduced mana usage
-					Charges up a powerful Inferno Storm over 10 seconds
+					Charges up a powerful Infernal Storm over 10 seconds
 					Press
 					'''
 				SetBonus2: once charged to unleash the storm upon up to 15 nearby enemies
 			}
 
 			HellSoulBMask: {
-				DisplayName: Inferno Soul Mask
+				DisplayName: Infernal Soul Mask
 				Tooltip:
 					'''
-					14% increased melee damage
-					5% increased melee critical strike chance
+					15% increased melee critical strike chance
+					15% increased melee speed 
 					'''
 				SetBonus1:
 					'''
-					20% increased melee speed
-					Charges up a powerful Inferno Storm over 10 seconds
+					Charges up a powerful Infernal Storm over 10 seconds
 					Press
 					'''
 				SetBonus2: once charged to unleash the storm upon up to 15 nearby enemies
 			}
 
 			HellSoulChestplate: {
-				DisplayName: Inferno Soul Breastplate
-				Tooltip:
-					'''
-					7% increased damage
-					6% increased critical strike chance
-					'''
+				DisplayName: Infernal Soul Breastplate
+				Tooltip: 10% increased critical strike chance
 			}
 
 			HellSoulLeggings: {
-				DisplayName: Inferno Soul Greaves
+				DisplayName: Infernal Soul Greaves
 				Tooltip:
 					'''
-					5% increased damage
-					6% increased critical strike chance
+					10% increased damage
 					25% increased movement speed
 					'''
 			}
@@ -1553,7 +1551,7 @@ Mods: {
 			}
 
 			SoulFire: {
-				DisplayName: HellSoul Flame
+				DisplayName: Infernal Soul Flame
 				Tooltip: A soul that never stops burning
 			}
 
@@ -2404,27 +2402,27 @@ Mods: {
 			}
 
 			HellSoulBow: {
-				DisplayName: Hell Fury
+				DisplayName: Infernal Fury
 				Tooltip: Fires out a homing soul arrow every shot
 			}
 
 			HellSoulFlare: {
-				DisplayName: Hell Flare
+				DisplayName: Infernal Soul Flare
 				Tooltip: Summons multiple soul flames that charge towards the cursor
 			}
 
 			HellSoulMinion: {
-				DisplayName: Soul Cauldron Staff
+				DisplayName: Soul Flame Staff
 				Tooltip:
 					'''
-					Summons a HellSoul minion to fight for you
-					The minion will fly above the enemies and shoot soul flames at them
+					Summons a Soul Flame minion to fight for you
+					The minion will fly above the enemies and shoot mini soul flames at them
 					'''
 			}
 
 			HellSoulRifle: {
-				DisplayName: The HellBlaster
-				Tooltip: Fires out a blast of bullets alongside a piercing soul bullet
+				DisplayName: The Soul Blaster
+				Tooltip: Fires out a blast of multiple piercing soul bullets
 			}
 
 			HellSoulSword: {
@@ -3479,8 +3477,8 @@ Mods: {
 			EyeMinionProj.DisplayName: Servant of Cthulhu Minion
 			FrozenSpiritMinionProj.DisplayName: Frozen Spirit Minion
 			FrozenSpiritMinionProj2.DisplayName: Frozen Spirit Shard
-			HellSoulMinionProj.DisplayName: HellSoul Minion
-			HellSoulMinionProj2.DisplayName: HellSoul Minion Projectile
+			HellSoulMinionProj.DisplayName: Soul Flame Minion
+			HellSoulMinionProj2.DisplayName: Soul Flame Minion Flame
 			LizardMinionProj.DisplayName: Temple Guardian Minion
 			LizardMinionProj2.DisplayName: Temple Minion Laser
 			SpaceRockMinionProj.DisplayName: Asteroid Minion
@@ -3611,6 +3609,7 @@ Mods: {
 			SpaceRockJackhammerProj.DisplayName: Asteroid Jackhammer
 			TurtleShellProj.DisplayName: Turtle Shell
 			TurtleSpearProj.DisplayName: Turtle Pike
+			TurtleSpearProj2.DisplayName: Turtle Pike
 			TurtleYoyoProj.DisplayName: Turtle Yoyo
 			TurtleYoyoProj2.DisplayName: Turtle Yoyo
 			VortexiaProj.DisplayName: Large Vortex
@@ -3657,7 +3656,6 @@ Mods: {
 			CursedSkullMinionProj.DisplayName: Cursed Skull Minion
 			CursedSkullMinionProj2.DisplayName: Cursed Skull Bones
 			WoodPointyStickProj2.DisplayName: Wood Pointy Stick Proj2
-			TurtleSpearProj2.DisplayName: Turtle Spear Proj2
 		}
 
 		Tiles: {

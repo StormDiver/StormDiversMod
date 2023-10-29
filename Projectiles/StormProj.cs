@@ -472,7 +472,6 @@ namespace StormDiversMod.Projectiles
 
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
-
 		{
 			Projectile.Kill();
 			return true;
@@ -485,8 +484,6 @@ namespace StormDiversMod.Projectiles
 				SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
 				float numberProjectiles = 12;
 				float rotation = MathHelper.ToRadians(180);
-
-			
 
 				for (int j = 0; j < numberProjectiles; j++) //Lightning is just for visuals
 				{

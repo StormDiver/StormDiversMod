@@ -469,6 +469,11 @@ namespace StormDiversMod.Basefiles
             {
                 shop.Add(ModContent.ItemType<CaptainsGun>(), Condition.DownedMechBossAny);
             }
+
+            if (shop.NpcType == NPCID.WitchDoctor)
+            {
+                shop.Add(ItemID.Seed);
+            }
         }
     }
 }
