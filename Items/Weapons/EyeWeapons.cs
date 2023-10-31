@@ -43,7 +43,7 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 3;
             Item.scale = 1f;
             Item.shoot = ModContent.ProjectileType<Projectiles.EyeSwordProj>();
-            Item.shootSpeed = 7f;
+            Item.shootSpeed = 11f;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

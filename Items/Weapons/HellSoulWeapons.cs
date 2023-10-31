@@ -183,7 +183,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Soul Blade");
+            //DisplayName.SetDefault("Soul Flame Blade");
             //Tooltip.SetDefault("Summons a soul blade flame every swing that homes into enemies after a delay");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()

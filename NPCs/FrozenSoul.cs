@@ -56,7 +56,7 @@ namespace StormDiversMod.NPCs
 
            Banner = NPC.type;
            BannerItem = ModContent.ItemType<Banners.FrozenSoulBannerItem>();
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             { 
                 Velocity = 0f // 
             };

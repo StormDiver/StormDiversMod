@@ -95,7 +95,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Gladiator's Bow");
-            //Tooltip.SetDefault("Fires arrows at a high velocity");
+            //Tooltip.SetDefault("Fires a burst of 3 arrows at a high velocity\nOnly the first arrow consumes ammo");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -107,8 +107,9 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 32;
-            Item.useAnimation = 32;
+            Item.useTime = 10;
+            Item.useAnimation = 25;
+            Item.reuseDelay = 35;
             Item.useTurn = false;
             Item.autoReuse = true;
 
@@ -116,12 +117,12 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item5;
 
-            Item.damage = 16;
+            Item.damage = 13;
             //Item.crit = 4;
             Item.knockBack = 3f;
 
             Item.shoot = ProjectileID.WoodenArrowFriendly;
-            Item.shootSpeed = 18f;
+            Item.shootSpeed = 20;
             Item.useAmmo = AmmoID.Arrow;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
@@ -141,8 +142,16 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-        
-            return true;
+            SoundEngine.PlaySound(SoundID.Item5, position);
+            int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 4), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
+            //Main.projectile[projID].extraUpdates += 1;
+            return false;
+        }
+
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            return !(player.itemAnimation < Item.useAnimation - 2);
+
         }
 
         public override void AddRecipes()

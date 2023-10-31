@@ -150,8 +150,8 @@ namespace StormDiversMod.Projectiles
             {
                 //bool canShoot = player.HasAmmo(player.inventory[ItemID.Cannonball]) && !player.noItems && !player.CCed; //checks for ammo and also removes ammo each charge
                 bool canShoot = player.HasItem(ItemID.Cannonball) && !player.noItems && !player.CCed;
-                int projToShoot = ProjectileID.CannonballFriendly; //doesn't work with rockets other than I-IV, so custom rocket
-                int usedAmmoItemID = ItemID.Cannonball;
+                //int projToShoot = ProjectileID.CannonballFriendly; //doesn't work with rockets other than I-IV, so custom rocket
+                //int usedAmmoItemID = ItemID.Cannonball;
                 float speed = player.HeldItem.shootSpeed;
                 int Damage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
                 float KnockBack = player.inventory[player.selectedItem].knockBack;

@@ -48,7 +48,7 @@ namespace StormDiversMod.NPCs.Boss
             NPC.knockBackResist = 0.2f;
             NPC.value = Item.buyPrice(0, 0, 0, 0);
             NPC.noGravity = true;
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             { // Influences how the NPC looks in the Bestiary
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
             };

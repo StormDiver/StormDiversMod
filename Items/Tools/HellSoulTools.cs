@@ -13,7 +13,7 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Soul Pickaxe");
+            //DisplayName.SetDefault("Soul Flame Pickaxe");
             //Tooltip.SetDefault("Empowered with the burning souls of hell");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -89,7 +89,7 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Soul Hamaxe");
+            //DisplayName.SetDefault("Soul Flame Hamaxe");
             //Tooltip.SetDefault("Empowered with the burning souls of hell");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -98,14 +98,13 @@ namespace StormDiversMod.Items.Tools
                 Color = () => new Color(255, 255, 255, 50) * 0.7f
             });
         }
-
         public override void SetDefaults()
         {
             Item.damage = 60;
 
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
-            Item.height = 50;
+            Item.height = 40;
             Item.useTime = 13;
             Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.Swing;  

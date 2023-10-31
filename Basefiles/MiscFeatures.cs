@@ -608,10 +608,6 @@ namespace StormDiversMod.Basefiles
         }
         public override void PostUpdate(Item item)
         {
-            if (!Main.dedServ)
-            {
-                Lighting.AddLight(item.Center, Color.WhiteSmoke.ToVector3() * 0.2f * Main.essScale);
-            }
             var player = Main.LocalPlayer;
             if (item.type is ItemID.RichGravestone1 or ItemID.RichGravestone2 or ItemID.RichGravestone3 or ItemID.RichGravestone4 or ItemID.RichGravestone5)
             {
@@ -622,6 +618,10 @@ namespace StormDiversMod.Basefiles
                     if (player.coinLuck > 1000000) //cap at 1M
                         player.coinLuck = 1000000;
                     //Main.NewText("Shimmer time is : " + item.shimmerTime, 204, 101, 22);
+                }
+                if (!Main.dedServ)
+                {
+                    Lighting.AddLight(item.Center, Color.WhiteSmoke.ToVector3() * 0.5f * Main.essScale);
                 }
             }
         }

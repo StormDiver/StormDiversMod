@@ -24,7 +24,7 @@ namespace StormDiversMod.NPCs
             NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
             Main.npcFrameCount[NPC.type] = 5;
 
-            NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true // Hides this NPC from the bestiary
             };

@@ -26,7 +26,7 @@ namespace StormDiversMod.NPCs
             //DisplayName.SetDefault("Perfectly Normal Derpling");
             Main.npcFrameCount[NPC.type] = 12;
             NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
-            NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 //Hide = true // Hides this NPC from the bestiary
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction

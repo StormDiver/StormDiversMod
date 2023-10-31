@@ -53,7 +53,7 @@ namespace StormDiversMod.NPCs
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.SpaceRockHeadBannerItem>();
            
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             { // Influences how the NPC looks in the Bestiary
                 Velocity = 0f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
             };

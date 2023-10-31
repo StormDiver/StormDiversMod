@@ -45,8 +45,8 @@ namespace StormDiversMod.Projectiles
         protected virtual float HoldoutRangeMax => 180f;
 
         bool fireBall;
-        int firespeed = 10;
-        int distance = 200;
+        //int firespeed = 10;
+        //int distance = 200;
 
         public override void AI()
         {
@@ -172,9 +172,8 @@ namespace StormDiversMod.Projectiles
             Projectile.tileCollide = false;
 
         }
-        int spawntime;
+        //int spawntime;
         int rotate;
-
         public override void AI()
         {
 
@@ -200,8 +199,6 @@ namespace StormDiversMod.Projectiles
 
                 }
             }*/
-
-
           
         }
 

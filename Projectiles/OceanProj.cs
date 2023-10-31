@@ -31,6 +31,7 @@ namespace StormDiversMod.Projectiles
             Projectile.aiStyle = 14;
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.ignoreWater = true;
+            Projectile.ArmorPenetration = 5;
         }
 
         public override void AI()
@@ -91,8 +92,6 @@ namespace StormDiversMod.Projectiles
 
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-
-
                     float speedX = 0f;
                     float speedY = -6f;
 
@@ -100,7 +99,7 @@ namespace StormDiversMod.Projectiles
                     float scale = 1f - (Main.rand.NextFloat() * .7f);
                     perturbedSpeed = perturbedSpeed * scale;
                     int ProjID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<OceanSmallProj>(), (int)(Projectile.damage * 0.33f), 1, Projectile.owner);
-                    Main.projectile[ProjID].ArmorPenetration = 5;
+                    Main.projectile[ProjID].ArmorPenetration = 10;
                 }
             }
         }

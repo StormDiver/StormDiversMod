@@ -619,7 +619,7 @@ Mods: {
 			}
 
 			HellSoulWings: {
-				DisplayName: Hell Flame Wings
+				DisplayName: Soul Flame Wings
 				Tooltip:
 					'''
 					Allows flight and slow fall
@@ -1802,12 +1802,12 @@ Mods: {
 			}
 
 			HellSoulHamaxe: {
-				DisplayName: Soul Hamaxe
+				DisplayName: Soul Flame Hamaxe
 				Tooltip: Empowered with the burning souls of hell
 			}
 
 			HellSoulPick: {
-				DisplayName: Soul Pickaxe
+				DisplayName: Soul Flame Pickaxe
 				Tooltip: Empowered with the burning souls of hell
 			}
 
@@ -2345,7 +2345,11 @@ Mods: {
 
 			GladiatorBow: {
 				DisplayName: Gladiator's Bow
-				Tooltip: Fires arrows at a high velocity
+				Tooltip:
+					'''
+					Fires a burst of 3 arrows at a high velocity
+					Only the first arrow consumes ammo
+					'''
 			}
 
 			GladiatorSpear: {
@@ -2426,7 +2430,7 @@ Mods: {
 			}
 
 			HellSoulSword: {
-				DisplayName: Soul Blade
+				DisplayName: Infernal Blade
 				Tooltip: Summons a soul blade flame every swing that homes into enemies after a delay
 			}
 
@@ -2886,7 +2890,6 @@ Mods: {
 				Tooltip:
 					'''
 					Summons magical controllable daggers
-					Can be moved through tiles carefully
 					Maximum of 5 can be controlled at any time
 					'''
 			}

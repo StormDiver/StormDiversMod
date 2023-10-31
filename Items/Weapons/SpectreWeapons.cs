@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void HoldItem(Player player)
         {
-            
+           
         }
         public override bool CanUseItem(Player player)
         {
@@ -85,11 +85,9 @@ namespace StormDiversMod.Items.Weapons
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 150;
             return color;
-
         }
     }
     //________________________________________________________________
@@ -131,9 +129,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<SpectreHoseProj>();
 
-            Item.shootSpeed = 6f;
-
-
+            Item.shootSpeed = 5f;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -144,7 +140,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 70f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
@@ -199,8 +195,8 @@ namespace StormDiversMod.Items.Weapons
 
             Item.knockBack = 0f;
 
-            Item.useTime = 10;
-            Item.useAnimation = 10;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
             //Item.reuseDelay = 20;
             Item.shoot = ModContent.ProjectileType<SpectreStaffSpinProj>();
             Item.shootSpeed = 4.5f;
@@ -217,7 +213,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[Item.shoot] < 15;
+            return player.ownedProjectileCounts[Item.shoot] < 12;
 
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

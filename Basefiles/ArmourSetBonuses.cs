@@ -738,20 +738,21 @@ namespace StormDiversMod.Basefiles
                         //dust.noGravity = true;
                     }
                 }
+                if (granitesetcooldown > 0) //only count down when set is equipped
+                {
+                    granitesetcooldown--;
+                }
             }
             else
             {
                 Player.ClearBuff(ModContent.BuffType<GraniteBuff>());
             }
 
-            if (!Player.HasBuff(ModContent.BuffType<GraniteBuff>()) && granitesetcooldown > 0 && !Player.HasBuff(ModContent.BuffType<GraniteDebuff>())) //once buff is removed add remaining duration to debuff
+            if (!Player.HasBuff(ModContent.BuffType<GraniteBuff>()) && granitesetcooldown > 0) //once buff is removed add remaining duration to debuff
             {
                 Player.AddBuff(ModContent.BuffType<GraniteDebuff>(), granitesetcooldown);
             }
-            if (granitesetcooldown > 0)
-            {
-                granitesetcooldown--;
-            }
+           
             if (Player.HasBuff(ModContent.BuffType<GraniteBuff>()))
             {
                 Player.jumpSpeed *= 0.85f;

@@ -12,7 +12,6 @@ using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles
 {
-   
     public class SpectreHoseProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -38,9 +37,18 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = -1;
             DrawOffsetX = -2;
             DrawOriginOffsetY = 0;
-            
+            Projectile.extraUpdates = 1;
         }
-    
+        public override void OnSpawn(IEntitySource source)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 264);
+                dust.scale = 1.5f;
+                dust.velocity *= 1.5f;
+                dust.noGravity = true;
+            }
+        }
         int speedup = 0;
         public override void AI()
         {            
@@ -135,7 +143,7 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
 
             Projectile.tileCollide = false;
-            Projectile.penetrate = 15;
+            Projectile.penetrate = 10;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 8;
             Projectile.light = 0.1f;
@@ -242,6 +250,10 @@ namespace StormDiversMod.Projectiles
             {
                 return true;
             }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            //Projectile.damage = (int)(Projectile.damage * 0.95f);
         }
 
         public override void OnKill(int timeLeft)
@@ -388,8 +400,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 14;
+            Projectile.width = 18;
+            Projectile.height = 18;
             Projectile.light = 0.4f;
             Projectile.friendly = true;
             
@@ -432,11 +444,11 @@ namespace StormDiversMod.Projectiles
                 AdjustMagnitude(ref Projectile.velocity);
                 Projectile.localAI[0] = 1f;
             }*/
-            speed = 30f;
-            inertia = 8f;
+            speed = 40f;
+            inertia = 5;
 
             Vector2 idlePosition = Main.MouseWorld;
-            Vector2 vectorToIdlePosition = idlePosition - Projectile.Center + new Vector2(Main.rand.Next(-50, 50), Main.rand.Next(-50, 50));
+            Vector2 vectorToIdlePosition = idlePosition - Projectile.Center + new Vector2(Main.rand.Next(-75, 75), Main.rand.Next(-75, 75));
             distanceToIdlePosition = vectorToIdlePosition.Length();
             if (player.controlUseItem && player.HeldItem.type == ModContent.ItemType<Items.Weapons.SpectreDagger>() && !player.dead)
             {
@@ -451,7 +463,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
                 }
             }
-            if (distanceToIdlePosition > 100f)
+            if (distanceToIdlePosition > 150f)
             {
                 Projectile.tileCollide = true;
             }
@@ -571,8 +583,8 @@ namespace StormDiversMod.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 14;
+            Projectile.width = 18;
+            Projectile.height = 18;
             Projectile.light = 0.4f;
             Projectile.friendly = true;
 
@@ -586,7 +598,6 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
             Projectile.penetrate = 2;
-
         }
 
         public override void AI()
