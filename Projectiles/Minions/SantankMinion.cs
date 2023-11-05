@@ -217,7 +217,7 @@ namespace StormDiversMod.Projectiles.Minions
 					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
 				}
 
-				if (Vector2.Distance(Projectile.Center, targetNPC) < 350f && Collision.CanHit(Projectile.Center, 0, 0, targetNPC, 0, 0)) //Slow down if close
+				if (Vector2.Distance(Projectile.Center, targetNPC) < 300f && Collision.CanHit(Projectile.Center, 0, 0, targetNPC, 0, 0)) //Slow down if close
 				{
 					shooting = true;
 					speed *= 0.5f;
@@ -261,7 +261,7 @@ namespace StormDiversMod.Projectiles.Minions
 						{
 							Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(15));
 							Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - 10 * Projectile.spriteDirection, Projectile.Center.Y - 5), 
-								new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMinionProj2>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack, Projectile.owner);
+								new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMinionProj2>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack * 2, Projectile.owner);
 							SoundEngine.PlaySound(SoundID.Item92 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
 
 							for (int i = 0; i < 25; i++)

@@ -79,7 +79,7 @@ namespace StormDiversMod.Items.Accessory
         {
             player.GetModPlayer<EquipmentEffects>().heartSteal = true;
             player.pStone = true;
-            player.lifeRegen = +2;
+            player.lifeRegen += 2;
         }
 
         public override void AddRecipes()

@@ -244,7 +244,7 @@ namespace StormDiversMod
                 int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
                 Main.projectile[proj].scale = 1.75f;
             }*/
-
+          
         }
         /*public override void SetDefaults(Projectile projectile)
         {

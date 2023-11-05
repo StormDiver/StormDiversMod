@@ -228,7 +228,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 125;
                 Projectile.Center = Projectile.position;
 
-                Projectile.knockBack = 6;
+                //Projectile.knockBack = 6;
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

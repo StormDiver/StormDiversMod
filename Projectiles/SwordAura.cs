@@ -276,6 +276,9 @@ namespace StormDiversMod.Projectiles
                 return false;
             }
         }
+        public override void AI()
+        {
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             /*for (int i = 0; i < 10; i++)

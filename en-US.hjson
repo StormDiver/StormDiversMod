@@ -2735,7 +2735,7 @@ Mods: {
 
 			OceanSpell: {
 				DisplayName: Tidal Wave
-				Tooltip: Summons an orb of water that splashes on impact
+				Tooltip: Summons an orb of water that splashes on impact and ignores some defense
 			}
 
 			OceanSword: {
@@ -3719,6 +3719,7 @@ Mods: {
 				Headers: {
 					EnemyMisc: Enemy Misc
 					EnemySpawning: Enemy Spawning
+					GenMisc: Chest Generation
 				}
 
 				PreventBossStorm: {
@@ -3754,6 +3755,11 @@ Mods: {
 				PreventSnowmenEnemies: {
 					Tooltip: This will prevent enemies from the Frost legion from spawning during Blizzards in Hardmode
 					Label: Prevent Frost Legion enemies spawning in hardmode Blizzards
+				}
+
+				NoChestforu: {
+					Tooltip: This will prevent extra chests from generating in the Granite, Marble, and Mushroom biomes in case of mod conflicts
+					Label: Prevent Extra Granite, Marble, and Mushroom chests from generating
 				}
 			}
 		}

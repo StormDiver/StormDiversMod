@@ -74,7 +74,7 @@ namespace StormDiversMod.NPCs
             {
                 if (!NPC.AnyNPCs(ModContent.NPCType<MushroomMiniBoss>()) && NPC.downedBoss1 && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneGlowshroom)
                 {
-                    return SpawnCondition.Cavern.Chance * 0.2f;
+                    return SpawnCondition.Cavern.Chance * 0.18f;
                 }
                 else
                     return SpawnCondition.Cavern.Chance * 0f;
@@ -83,7 +83,7 @@ namespace StormDiversMod.NPCs
             {
                 if (!NPC.AnyNPCs(ModContent.NPCType<MushroomMiniBoss>()) && NPC.downedBoss1 && Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneGlowshroom)
                 {
-                    return SpawnCondition.Underground.Chance * 0.2f;
+                    return SpawnCondition.Underground.Chance * 0.18f;
                 }
                 else
                     return SpawnCondition.Underground.Chance * 0f;

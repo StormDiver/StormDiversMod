@@ -50,17 +50,18 @@ namespace StormDiversMod.Items.Accessory
         {
             if (player.controlUp && player.controlJump && player.wingTime > 0)
             {
-
-                if (Main.rand.Next(10) == 0)
+                if (Main.rand.Next(5) == 0)
                 {
                     var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
                     dust.scale = 2f;
                 }
                 player.wingTime -= 0.33f;
-
             }
-  
-
+            if (Main.rand.Next(5) == 0 && player.velocity.Y != 0)
+            {
+                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 173);
+                dust.scale = 1f;
+            }
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)

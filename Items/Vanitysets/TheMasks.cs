@@ -9,6 +9,8 @@ using Terraria.GameContent.Creative;
 using StormDiversMod.Basefiles;
 using Terraria.Audio;
 using StormDiversMod.NPCs.NPCProjs;
+using System.Collections.Generic;
+using Terraria.UI;
 
 namespace StormDiversMod.Items.Vanitysets
 {
@@ -23,7 +25,19 @@ namespace StormDiversMod.Items.Vanitysets
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TheClaymanMask>();
         }
-    
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                {
+                    if (ItemSlot.ShiftInUse)
+                        line.Text = "[c/FF1493:THE PAIN!!!!]";
+                    else
+                        line.Text = "When the pain is too much";
+                }
+            }
+        }
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -53,6 +67,19 @@ namespace StormDiversMod.Items.Vanitysets
             //Tooltip.SetDefault("Sliently judge everybody around you");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ThePainMask>();
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                {
+                    if (ItemSlot.ShiftInUse)
+                        line.Text = "[c/FFDAB9:CLAYMAN!!!!]";
+                    else
+                        line.Text = "Sliently judge everybody around you";
+                }
+            }
         }
         public override void SetDefaults()
         {
@@ -85,6 +112,19 @@ namespace StormDiversMod.Items.Vanitysets
             //DisplayName.SetDefault("Perfectly Normal mask");
             //Tooltip.SetDefault("'Why's everybody looking at you like that, you're perfectly normal");
             Item.ResearchUnlockCount = 1;
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                {
+                    if (ItemSlot.ShiftInUse)
+                        line.Text = "[c/4169E1:SUFFER!!!!]";
+                    else
+                        line.Text = "Why's everybody looking at you like that, you're perfectly normal";
+                }
+            }
         }
         public override void SetDefaults()
         {

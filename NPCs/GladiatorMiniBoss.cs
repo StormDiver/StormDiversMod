@@ -73,7 +73,7 @@ namespace StormDiversMod.NPCs
             {
                 if (spawnInfo.Marble && !NPC.AnyNPCs(ModContent.NPCType<GladiatorMiniBoss>()) && NPC.downedBoss1)
                 {
-                    return SpawnCondition.Cavern.Chance * 0.2f;
+                    return SpawnCondition.Cavern.Chance * 0.12f;
                 }
                 else
                     return SpawnCondition.Cavern.Chance * 0f;
@@ -82,7 +82,7 @@ namespace StormDiversMod.NPCs
             {
                 if (spawnInfo.Marble && !NPC.AnyNPCs(ModContent.NPCType<GladiatorMiniBoss>()) && NPC.downedBoss1)
                 {
-                    return SpawnCondition.Underground.Chance * 0.2f;
+                    return SpawnCondition.Underground.Chance * 0.12f;
                 }
                 else
                     return SpawnCondition.Underground.Chance * 0f;

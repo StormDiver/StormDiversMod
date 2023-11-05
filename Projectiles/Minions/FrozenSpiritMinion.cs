@@ -250,7 +250,7 @@ namespace StormDiversMod.Projectiles.Minions
                             Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
                            
 							float numberProjectiles = 3;
-							float rotation = MathHelper.ToRadians(8);
+							float rotation = MathHelper.ToRadians(10);
 							for (int j = 0; j < numberProjectiles; j++)
 							{
 

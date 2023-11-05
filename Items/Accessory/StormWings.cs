@@ -33,7 +33,7 @@ namespace StormDiversMod.Items.Accessory
                 });
             }
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(168, 6.5f, 1.66f);
-
+            
         }
 
         public override void SetDefaults()

@@ -12,14 +12,15 @@ using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Items.Weapons;
 using StormDiversMod.Items.Pets;
-
+using Terraria.WorldBuilding;
+using StormDiversMod.Items.Materials;
+using MonoMod.Cil;
 
 namespace StormDiversMod.Basefiles
 {
     public class StormWorld : ModSystem //For saving bools and displaying messages
     {
         //All of this is to save a boolean for ever per world
-        
 
         public static bool planteraMessage; //For the message that appears when plantera is defeated
         public static bool eocMessage; //For the message when the eoc is defeated
@@ -31,10 +32,14 @@ namespace StormDiversMod.Basefiles
         public static bool aridBossDown; //when the Arid Boss is defeated
         public static bool ultimateBossDown; //when the Pain Boss is defeated
 
+        public static bool GraniteChestSpawn;
+        public static bool MarbleChestSpawn;
+        public static bool MushroomChestSpawn;
+
 
         public override void OnWorldLoad()
         {
-  
+
             planteraMessage = false;
             eocMessage = false;
             mechMessage = false;
@@ -44,6 +49,10 @@ namespace StormDiversMod.Basefiles
             stormBossDown = false;
             aridBossDown = false;
             ultimateBossDown = false;
+
+            GraniteChestSpawn = false;
+            MarbleChestSpawn = false;
+            MushroomChestSpawn = false;
 
         }
         public override void OnWorldUnload()
@@ -57,6 +66,9 @@ namespace StormDiversMod.Basefiles
             stormBossDown = false;
             aridBossDown = false;
             ultimateBossDown = false;
+            GraniteChestSpawn = false;
+            MarbleChestSpawn = false;
+            MushroomChestSpawn = false;
 
         }
         public override void SaveWorldData(TagCompound tag)
@@ -94,6 +106,19 @@ namespace StormDiversMod.Basefiles
             {
                 tag["ultimateBossDown"] = true;
             }
+
+            if (GraniteChestSpawn)
+            {
+                tag["GraniteChestSpawn"] = true;
+            }
+            if (MarbleChestSpawn)
+            {
+                tag["MarbleChestSpawn"] = true;
+            }
+            if (MushroomChestSpawn)
+            {
+                tag["MushroomChestSpawn"] = true;
+            }
         }
         public override void LoadWorldData(TagCompound tag)
         {
@@ -107,12 +132,16 @@ namespace StormDiversMod.Basefiles
             aridBossDown = tag.ContainsKey("aridBossDown");
             ultimateBossDown = tag.ContainsKey("ultimateBossDown");
 
+            GraniteChestSpawn = tag.ContainsKey("GraniteChestSpawn");
+            MarbleChestSpawn = tag.ContainsKey("MarbleChestSpawn");
+            MushroomChestSpawn = tag.ContainsKey("MushroomChestSpawn");
+
         }
 
         public override void NetSend(BinaryWriter writer)
         {
             var flags = new BitsByte(); //Message flags (8 max)
-    
+
             flags[0] = planteraMessage;
             flags[1] = eocMessage;
             flags[2] = mechMessage;
@@ -127,12 +156,18 @@ namespace StormDiversMod.Basefiles
             flags2[1] = aridBossDown;
             flags2[2] = ultimateBossDown;
 
+            BitsByte flags3 = new BitsByte(); //Boss flags (8 max)
+
+            flags3[0] = GraniteChestSpawn;
+            flags3[1] = MarbleChestSpawn;
+            flags3[2] = MushroomChestSpawn;
+
             writer.Write(flags2);
         }
         public override void NetReceive(BinaryReader reader)
         {
             BitsByte flags = reader.ReadByte();
-  
+
             planteraMessage = flags[0];
             eocMessage = flags[1];
             mechMessage = flags[2];
@@ -144,8 +179,21 @@ namespace StormDiversMod.Basefiles
             stormBossDown = flags2[0];
             aridBossDown = flags2[1];
             ultimateBossDown = flags2[2];
-        }
 
+            BitsByte flags3 = reader.ReadByte();
+
+            GraniteChestSpawn = flags3[0];
+            MarbleChestSpawn = flags3[1];
+            MushroomChestSpawn = flags3[1];
+
+        }
+        public override void PostWorldGen()
+        {
+
+        }
+        int granplaced = 0;
+        int marbleplaced = 0;
+        int mushplaced = 0;
         public override void PreUpdateWorld()
         {
 
@@ -203,8 +251,8 @@ namespace StormDiversMod.Basefiles
                     Main.NewText("The ancient temple's curse has been lifted!", 204, 101, 22);
                 }
                 planteraMessage = true;
-            }        
-           
+            }
+
             if (NPC.downedGolemBoss && !golemMessage) //Golem
             {
                 if (Main.netMode == 2) // Server
@@ -217,7 +265,7 @@ namespace StormDiversMod.Basefiles
                 }
                 golemMessage = true;
             }
-            
+
             //To spawn the ores
             /*if (SpawnIceOre && !IceSpawned)
             {
@@ -274,7 +322,7 @@ namespace StormDiversMod.Basefiles
                 }
                 DesertSpawned = true;
             }*/
-
+           
         }
         public override void ModifyGameTipVisibility(IReadOnlyList<GameTipData> gameTips)
         {
@@ -283,25 +331,26 @@ namespace StormDiversMod.Basefiles
     }
     public class WorldOre : GlobalNPC
     {
-            /*public override void NPCLoot(NPC npc)
+        /*public override void NPCLoot(NPC npc)
+        {
+            //set bools when the enemy is killed for the first time, these are saved at the top
+            if (npc.type == NPCID.IceGolem) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
             {
-                //set bools when the enemy is killed for the first time, these are saved at the top
-                if (npc.type == NPCID.IceGolem) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
+                if (!StormWorld.SpawnIceOre)
                 {
-                    if (!StormWorld.SpawnIceOre)
-                    {
-                        StormWorld.SpawnIceOre = true;
-                    }
+                    StormWorld.SpawnIceOre = true;
                 }
-                if (npc.type == NPCID.SandElemental) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
+            }
+            if (npc.type == NPCID.SandElemental) //this is where you choose what vanilla npc you want  , for a modded npc add this instead  if (npc.type == mod.NPCType("ModdedNpcName"))
+            {
+                if (!StormWorld.SpawnDesertOre)
                 {
-                    if (!StormWorld.SpawnDesertOre)
-                    {
 
-                        StormWorld.SpawnDesertOre = true;
-                    }
-
+                    StormWorld.SpawnDesertOre = true;
                 }
-            }*/
-        }
+
+            }
+        }*/
+    }
+
 }

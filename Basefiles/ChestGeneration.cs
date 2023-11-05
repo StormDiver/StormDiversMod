@@ -14,14 +14,653 @@ using StormDiversMod.Items.Weapons;
 using StormDiversMod.Items.Pets;
 using StormDiversMod.Items.Armour;
 using StormDiversMod.Items.Accessory;
+using StormDiversMod.Items.Materials;
 
 namespace StormDiversMod.Basefiles
 {
     public class ChestGeneration : ModSystem
     {
-
+        int granplaced = 0;
+        int marbleplaced = 0;
+        int mushplaced = 0;
         public override void PostWorldGen()
         {
+            //Make chests appear
+            if (!GetInstance<ConfigurationsGlobal>().NoChestforu)
+            {
+                //if (!GraniteChestSpawn)
+                {
+                    int x = 0;
+                    int y = 0;
+                    for (int i = 0; i < 100; i++)
+                    {
+                        bool success = false;
+                        int attempts = 0;
+                        while (!success)
+                        {
+                            attempts++;
+                            if (attempts > 1000)
+                            {
+                                break;
+                            }
+                            x = WorldGen.genRand.Next(0, Main.maxTilesX);
+                            y = WorldGen.genRand.Next((int)Main.maxTilesY / 4, Main.maxTilesY);
+                            Tile tile = Main.tile[x, y];
+                            if (Main.tile[x, y].WallType == WallID.GraniteUnsafe)
+                            //if (Main.tile[x, y - 2].TileType == TileID.GraniteBlock)
+                            {
+                                int chestIndex = WorldGen.PlaceChest(x, y, 21, false, 50);
+                                if (chestIndex != -1)
+                                {
+                                    Chest chest = Main.chest[chestIndex];
+                                    // itemsToAdd will hold type and stack data for each item we want to add to the chest
+                                    var itemsToAdd = new List<(int type, int stack)>();
+
+                                    // Using a switch statement and a random choice to add sets of items.
+
+                                    /* switch (Main.rand.Next(3))
+                                     {
+                                         case 0:
+                                             itemsToAdd.Add((ModContent.ItemType<GraniteYoyo>(), 1));
+                                             break;
+                                         case 1:
+                                             itemsToAdd.Add((ModContent.ItemType<GraniteRifle>(), 1));
+                                             itemsToAdd.Add((ItemID.MusketBall, Main.rand.Next(50, 80)));
+
+                                             break;
+                                         case 2:
+                                             itemsToAdd.Add((ModContent.ItemType<GraniteStaff>(), 1));
+                                             break;
+                                     }
+
+                                     itemsToAdd.Add((ModContent.ItemType<GraniteCore>(), Main.rand.Next(2, 4)));*/
+
+                                    switch (Main.rand.Next(7))
+                                    {
+                                        case 0:
+                                            itemsToAdd.Add((ItemID.BandofRegeneration, 1));
+                                            break;
+                                        case 1:
+                                            itemsToAdd.Add((ItemID.MagicMirror, 1));
+                                            break;
+                                        case 2:
+                                            itemsToAdd.Add((ItemID.CloudinaBottle, 1));
+                                            break;
+                                        case 3:
+                                            itemsToAdd.Add((ItemID.HermesBoots, 1));
+                                            break;
+                                        case 4:
+                                            itemsToAdd.Add((ItemID.ShoeSpikes, 1));
+                                            break;
+                                        case 5:
+                                            itemsToAdd.Add((ItemID.FlareGun, 1));
+                                            itemsToAdd.Add((ItemID.Flare, Main.rand.Next(25, 51)));
+
+                                            break;
+                                        case 6:
+                                            itemsToAdd.Add((ItemID.Extractinator, 1));
+                                            break;
+                                    }
+
+                                    if (Main.rand.Next(5) == 0)
+                                        itemsToAdd.Add((ItemID.SuspiciousLookingEye, 1));
+                                    if (Main.rand.Next(3) == 0)
+                                        itemsToAdd.Add((ItemID.Dynamite, 1));
+                                    if (Main.rand.Next(4) == 0)
+                                        itemsToAdd.Add((ItemID.JestersArrow, Main.rand.Next(25, 51)));
+
+                                    if (Main.rand.Next(2) == 0)
+                                    {
+                                        switch (Main.rand.Next(4))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.SilverBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.TungstenBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.GoldBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.PlatinumBar, Main.rand.Next(3, 11)));
+                                                break;
+                                        }
+                                    }
+
+                                    if (Main.rand.Next(2) == 0)
+                                    {
+                                        switch (Main.rand.Next(2))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.FlamingArrow, Main.rand.Next(25, 50)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.ThrowingKnife, Main.rand.Next(25, 50)));
+                                                break;
+
+                                        }
+                                    }
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.HealingPotion, Main.rand.Next(3, 6)));
+
+                                    if (Main.rand.Next(3) == 0)
+                                    {
+                                        switch (Main.rand.Next(6))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.ThornsPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.WaterWalkingPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.InvisibilityPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.HunterPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 4:
+                                                itemsToAdd.Add((ItemID.TrapsightPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 5:
+                                                itemsToAdd.Add((ItemID.TeleportationPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        switch (Main.rand.Next(6))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.SpelunkerPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.FeatherfallPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.NightOwlPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.WaterWalkingPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 4:
+                                                itemsToAdd.Add((ItemID.ArcheryPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 5:
+                                                itemsToAdd.Add((ItemID.GravitationPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                        }
+                                    }
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.RecallPotion, Main.rand.Next(1, 3)));
+                                    if (Main.rand.Next(2) == 0)
+                                        switch (Main.rand.Next(2))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.Torch, Main.rand.Next(15, 30)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.Glowstick, Main.rand.Next(15, 30)));
+                                                break;
+                                        }
+
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.GoldCoin, Main.rand.Next(1, 3)));
+
+                                    // Finally, iterate through itemsToAdd and actually create the Item instances and add to the chest.item array
+                                    int chestItemIndex = 0;
+                                    foreach (var itemToAdd in itemsToAdd)
+                                    {
+                                        Item item = new Item();
+                                        item.SetDefaults(itemToAdd.type);
+                                        item.stack = itemToAdd.stack;
+                                        chest.item[chestItemIndex] = item;
+                                        chestItemIndex++;
+                                        if (chestItemIndex >= 40)
+                                            break; // Make sure not to exceed the capacity of the chest
+                                    }
+                                }
+                                success = chestIndex != -1;
+                            }
+                        }
+                        if (success)
+                        {
+                            //Main.NewText($"Placed GRANITE chest at {x}, {y} after {attempts} attempts.");
+                            granplaced++;
+                            Main.NewText($"This many Granite Chests generated:{granplaced}");
+                        }
+
+                        // else
+                        //Main.NewText($"Failed to place GRANITE chest after {attempts} attempts.");
+                    }
+                    //GraniteChestSpawn = true;
+                }
+                //if (!MarbleChestSpawn)
+                {
+                    int x = 0;
+                    int y = 0;
+                    for (int i = 0; i < 250; i++)
+                    {
+                        bool success = false;
+                        int attempts = 0;
+                        while (!success)
+                        {
+                            attempts++;
+                            if (attempts > 1000)
+                            {
+                                break;
+                            }
+                            x = WorldGen.genRand.Next(0, Main.maxTilesX);
+                            y = WorldGen.genRand.Next((int)Main.maxTilesY / 4, Main.maxTilesY);
+                            Tile tile = Main.tile[x, y];
+                            if (Main.tile[x, y].WallType == WallID.MarbleUnsafe)
+                            //if (Main.tile[x, y + 1].TileType == TileID.MarbleBlock)
+                            {
+                                int chestIndex = WorldGen.PlaceChest(x, y, 21, false, 51);
+                                if (chestIndex != -1)
+                                {
+                                    Chest chest = Main.chest[chestIndex];
+                                    // itemsToAdd will hold type and stack data for each item we want to add to the chest
+                                    var itemsToAdd = new List<(int type, int stack)>();
+
+                                    // Using a switch statement and a random choice to add sets of items.
+
+                                    /*switch (Main.rand.Next(3))
+                                    {
+                                        case 0:
+                                            itemsToAdd.Add((ModContent.ItemType<GladiatorSpear>(), 1));
+                                            break;
+                                        case 1:
+                                            itemsToAdd.Add((ModContent.ItemType<GladiatorBow>(), 1));
+                                            break;
+                                        case 2:
+                                            itemsToAdd.Add((ModContent.ItemType<GladiatorStaff>(), 1));
+                                            break;
+                                    }
+
+                                    itemsToAdd.Add((ModContent.ItemType<RedSilk>(), Main.rand.Next(2, 4)));*/
+
+                                    switch (Main.rand.Next(7))
+                                    {
+                                        case 0:
+                                            itemsToAdd.Add((ItemID.BandofRegeneration, 1));
+                                            break;
+                                        case 1:
+                                            itemsToAdd.Add((ItemID.MagicMirror, 1));
+                                            break;
+                                        case 2:
+                                            itemsToAdd.Add((ItemID.CloudinaBottle, 1));
+                                            break;
+                                        case 3:
+                                            itemsToAdd.Add((ItemID.HermesBoots, 1));
+                                            break;
+                                        case 4:
+                                            itemsToAdd.Add((ItemID.ShoeSpikes, 1));
+                                            break;
+                                        case 5:
+                                            itemsToAdd.Add((ItemID.FlareGun, 1));
+                                            itemsToAdd.Add((ItemID.Flare, Main.rand.Next(25, 51)));
+
+                                            break;
+                                        case 6:
+                                            itemsToAdd.Add((ItemID.Extractinator, 1));
+                                            break;
+                                    }
+
+                                    if (Main.rand.Next(5) == 0)
+                                        itemsToAdd.Add((ItemID.SuspiciousLookingEye, 1));
+                                    if (Main.rand.Next(3) == 0)
+                                        itemsToAdd.Add((ItemID.Dynamite, 1));
+                                    if (Main.rand.Next(4) == 0)
+                                        itemsToAdd.Add((ItemID.JestersArrow, Main.rand.Next(25, 51)));
+
+                                    if (Main.rand.Next(2) == 0)
+                                    {
+                                        switch (Main.rand.Next(4))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.SilverBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.TungstenBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.GoldBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.PlatinumBar, Main.rand.Next(3, 11)));
+                                                break;
+                                        }
+                                    }
+
+                                    if (Main.rand.Next(2) == 0)
+                                    {
+                                        switch (Main.rand.Next(2))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.FlamingArrow, Main.rand.Next(25, 50)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.ThrowingKnife, Main.rand.Next(25, 50)));
+                                                break;
+
+                                        }
+                                    }
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.HealingPotion, Main.rand.Next(3, 6)));
+
+                                    if (Main.rand.Next(3) == 0)
+                                    {
+                                        switch (Main.rand.Next(6))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.ThornsPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.WaterWalkingPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.InvisibilityPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.HunterPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 4:
+                                                itemsToAdd.Add((ItemID.TrapsightPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 5:
+                                                itemsToAdd.Add((ItemID.TeleportationPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        switch (Main.rand.Next(6))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.SpelunkerPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.FeatherfallPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.NightOwlPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.WaterWalkingPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 4:
+                                                itemsToAdd.Add((ItemID.ArcheryPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 5:
+                                                itemsToAdd.Add((ItemID.GravitationPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                        }
+                                    }
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.RecallPotion, Main.rand.Next(1, 3)));
+                                    if (Main.rand.Next(2) == 0)
+                                        switch (Main.rand.Next(2))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.Torch, Main.rand.Next(15, 30)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.Glowstick, Main.rand.Next(15, 30)));
+                                                break;
+                                        }
+
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.GoldCoin, Main.rand.Next(1, 3)));
+
+                                    // Finally, iterate through itemsToAdd and actually create the Item instances and add to the chest.item array
+                                    int chestItemIndex = 0;
+                                    foreach (var itemToAdd in itemsToAdd)
+                                    {
+                                        Item item = new Item();
+                                        item.SetDefaults(itemToAdd.type);
+                                        item.stack = itemToAdd.stack;
+                                        chest.item[chestItemIndex] = item;
+                                        chestItemIndex++;
+                                        if (chestItemIndex >= 40)
+                                            break; // Make sure not to exceed the capacity of the chest
+                                    }
+                                }
+                                success = chestIndex != -1;
+                            }
+                        }
+                        if (success)
+                        {
+                            //Main.NewText($"Placed MARBLE chest at {x}, {y} after {attempts} attempts.");
+                            marbleplaced++;
+                            Main.NewText($"This many Marble Chests generated:{marbleplaced}");
+                        }
+
+                        //else
+                        //Main.NewText($"Failed to place MARBLE chest after {attempts} attempts.");
+                    }
+                    //MarbleChestSpawn = true;
+                }
+                //if (!MushroomChestSpawn)
+                {
+                    int x = 0;
+                    int y = 0;
+                    for (int i = 0; i < 90; i++)
+                    {
+                        bool success = false;
+                        int attempts = 0;
+                        while (!success)
+                        {
+                            attempts++;
+                            if (attempts > 1000)
+                            {
+                                break;
+                            }
+                            x = WorldGen.genRand.Next(0, Main.maxTilesX);
+                            y = WorldGen.genRand.Next((int)Main.maxTilesY / 4, Main.maxTilesY);
+                            Tile tile = Main.tile[x, y];
+                            //if (Main.tile[x, y].WallType == WallID.MushroomUnsafe)
+                            if (Main.tile[x, y + 1].TileType == TileID.MushroomGrass)
+                            {
+                                int chestIndex = WorldGen.PlaceChest(x, y, 21, false, 32);
+                                if (chestIndex != -1)
+                                {
+                                    Chest chest = Main.chest[chestIndex];
+                                    // itemsToAdd will hold type and stack data for each item we want to add to the chest
+                                    var itemsToAdd = new List<(int type, int stack)>();
+
+                                    // Using a switch statement and a random choice to add sets of items.
+
+                                    /*switch (Main.rand.Next(3))
+                                    {
+                                        case 0:
+                                            itemsToAdd.Add((ModContent.ItemType<MushroomSword>(), 1));
+                                            break;
+                                        case 1:
+                                            itemsToAdd.Add((ModContent.ItemType<MushroomBow>(), 1));
+                                            break;
+                                        case 2:
+                                            itemsToAdd.Add((ModContent.ItemType<MushroomStaff>(), 1));
+                                            break;
+                                    }
+
+                                    itemsToAdd.Add((ItemID.GlowingMushroom, Main.rand.Next(5, 11)));*/
+
+                                    switch (Main.rand.Next(7))
+                                    {
+                                        case 0:
+                                            itemsToAdd.Add((ItemID.BandofRegeneration, 1));
+                                            break;
+                                        case 1:
+                                            itemsToAdd.Add((ItemID.MagicMirror, 1));
+                                            break;
+                                        case 2:
+                                            itemsToAdd.Add((ItemID.CloudinaBottle, 1));
+                                            break;
+                                        case 3:
+                                            itemsToAdd.Add((ItemID.HermesBoots, 1));
+                                            break;
+                                        case 4:
+                                            itemsToAdd.Add((ItemID.ShoeSpikes, 1));
+                                            break;
+                                        case 5:
+                                            itemsToAdd.Add((ItemID.FlareGun, 1));
+                                            itemsToAdd.Add((ItemID.Flare, Main.rand.Next(25, 51)));
+                                            break;
+                                        case 6:
+                                            itemsToAdd.Add((ItemID.Extractinator, 1));
+                                            break;
+                                    }
+
+                                    switch (Main.rand.Next(2))
+                                    {
+                                        case 0:
+                                            itemsToAdd.Add((ItemID.ShroomMinecart, 1));
+                                            break;
+                                        case 1:
+                                            itemsToAdd.Add((ItemID.MushroomHat, 1));
+                                            itemsToAdd.Add((ItemID.MushroomVest, 1));
+                                            itemsToAdd.Add((ItemID.MushroomPants, 1));
+                                            break;
+                                    }
+                                    
+                                    if (Main.rand.Next(5) == 0)
+                                        itemsToAdd.Add((ItemID.SuspiciousLookingEye, 1));
+                                    if (Main.rand.Next(3) == 0)
+                                        itemsToAdd.Add((ItemID.Dynamite, 1));
+                                    if (Main.rand.Next(4) == 0)
+                                        itemsToAdd.Add((ItemID.JestersArrow, Main.rand.Next(25, 51)));
+
+                                    if (Main.rand.Next(2) == 0)
+                                    {
+                                        switch (Main.rand.Next(4))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.SilverBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.TungstenBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.GoldBar, Main.rand.Next(3, 11)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.PlatinumBar, Main.rand.Next(3, 11)));
+                                                break;
+                                        }
+                                    }
+
+                                    if (Main.rand.Next(2) == 0)
+                                    {
+                                        switch (Main.rand.Next(2))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.FlamingArrow, Main.rand.Next(25, 50)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.ThrowingKnife, Main.rand.Next(25, 50)));
+                                                break;
+
+                                        }
+                                    }
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.HealingPotion, Main.rand.Next(3, 6)));
+
+                                    if (Main.rand.Next(3) == 0)
+                                    {
+                                        switch (Main.rand.Next(6))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.ThornsPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.WaterWalkingPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.InvisibilityPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.HunterPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 4:
+                                                itemsToAdd.Add((ItemID.TrapsightPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 5:
+                                                itemsToAdd.Add((ItemID.TeleportationPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        switch (Main.rand.Next(6))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.SpelunkerPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.FeatherfallPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 2:
+                                                itemsToAdd.Add((ItemID.NightOwlPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 3:
+                                                itemsToAdd.Add((ItemID.WaterWalkingPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 4:
+                                                itemsToAdd.Add((ItemID.ArcheryPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                            case 5:
+                                                itemsToAdd.Add((ItemID.GravitationPotion, Main.rand.Next(1, 3)));
+                                                break;
+                                        }
+                                    }
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.RecallPotion, Main.rand.Next(1, 3)));
+                                    if (Main.rand.Next(2) == 0)
+                                        switch (Main.rand.Next(2))
+                                        {
+                                            case 0:
+                                                itemsToAdd.Add((ItemID.Torch, Main.rand.Next(15, 30)));
+                                                break;
+                                            case 1:
+                                                itemsToAdd.Add((ItemID.Glowstick, Main.rand.Next(15, 30)));
+                                                break;
+                                        }
+
+                                    if (Main.rand.Next(2) == 0)
+                                        itemsToAdd.Add((ItemID.GoldCoin, Main.rand.Next(1, 3)));
+
+                                    // Finally, iterate through itemsToAdd and actually create the Item instances and add to the chest.item array
+                                    int chestItemIndex = 0;
+                                    foreach (var itemToAdd in itemsToAdd)
+                                    {
+                                        Item item = new Item();
+                                        item.SetDefaults(itemToAdd.type);
+                                        item.stack = itemToAdd.stack;
+                                        chest.item[chestItemIndex] = item;
+                                        chestItemIndex++;
+                                        if (chestItemIndex >= 40)
+                                            break; // Make sure not to exceed the capacity of the chest
+                                    }
+                                }
+                                success = chestIndex != -1;
+                            }
+                        }
+                        if (success)
+                        {
+                            //Main.NewText($"Placed MUSHROOM chest at {x}, {y} after {attempts} attempts.");
+                            mushplaced++;
+                            Main.NewText($"This many Mushroom Chests generated:{mushplaced}");
+
+                        }
+
+                        //else
+                        //Main.NewText($"Failed to place MUSHROOM chest after {attempts} attempts.");
+                    }
+                    //MushroomChestSpawn = true;
+                }
+            }
             //Make items appears in chests
 
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++)

@@ -55,8 +55,7 @@ namespace StormDiversMod.Items.Accessory
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.SpectreBoots, 1)
-            .AddIngredient(ItemID.HallowedBar, 6)
+            .AddIngredient(ItemID.HallowedBar, 15)
             .AddIngredient(ItemID.SoulofLight, 10)
             .AddIngredient(ItemID.SoulofNight, 10)
             .AddTile(TileID.MythrilAnvil)

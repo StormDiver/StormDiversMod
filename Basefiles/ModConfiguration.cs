@@ -77,5 +77,14 @@ namespace StormDiversMod.Basefiles
         [DefaultValue(false)]
         [BackgroundColor(27, 130, 114)]
         public bool PreventBossStorm { get; set; }
+
+        [Header("GenMisc")]
+
+        //[Label("Prevent Extra Granite, Marble, and Mushroom chests from generating")]
+        //[Tooltip("This will prevent extra chests from generating in the Granite, Marble, and Mushroom biomes in case of mod conflicts")]
+        [ReloadRequired] //No reload required 
+        [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
+        public bool NoChestforu { get; set; }
     }
 }

@@ -210,7 +210,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 				}
 				
-				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
+				if (Projectile.ai[1] > 45 && Vector2.Distance(Projectile.Center, targetCenter) < 450f)
 				{
 					if (!Main.dedServ)
 					{					

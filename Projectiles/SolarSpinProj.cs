@@ -17,7 +17,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
         {
             //DisplayName.SetDefault("Solar Spinner");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
         }
         public override void SetDefaults()
         {
@@ -128,7 +128,8 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
         {
             Main.instance.LoadProjectile(Projectile.type);
 
-            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            //Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/SolarSpinProj_Trail");
 
             Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)

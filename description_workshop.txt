@@ -21,6 +21,7 @@
 [*] Most NPCs sell their dropped weapon
 [*] A special Post Moon Lord miniboss that drops Lunar fragments and Luminite
 [*] An item that can remove the shields from the pillars
+[*] Generates additonal Granite, Marble, and Mushroom chests in their respective biomes
 [/list]
 
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
