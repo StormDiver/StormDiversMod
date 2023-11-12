@@ -18,7 +18,6 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Mini Duck");
-            
         }
 
         public override void SetDefaults()
@@ -26,7 +25,7 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 14;
             Projectile.height = 14;
             Projectile.friendly = true;
-            Projectile.penetrate = 4;
+            Projectile.penetrate = 3;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 180;
             //aiType = ProjectileID.Bullet;
@@ -59,15 +58,12 @@ namespace StormDiversMod.Projectiles
 
 
             speedup++;
-            if (speedup <= 50)
+            if (speedup <= 40)
             {
                 Projectile.velocity.X *= 1.04f;
                 Projectile.velocity.Y *= 1.04f;
                 
-               
             }
-
-          
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -301,15 +297,11 @@ namespace StormDiversMod.Projectiles
 
 
             speedup++;
-            if (speedup <= 40)
+            if (speedup <= 30)
             {
                 Projectile.velocity.X *= 1.03f;
                 Projectile.velocity.Y *= 1.03f;
-
-
             }
-
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -471,9 +463,9 @@ namespace StormDiversMod.Projectiles
         private void AdjustMagnitude(ref Vector2 vector)
         {
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-            if (magnitude > 11f)
+            if (magnitude > 15f)
             {
-                vector *= 10f / magnitude;
+                vector *= 14f / magnitude;
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -573,7 +565,7 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             Projectile.spriteDirection = Projectile.direction;
 
-            if (speedup == 30)
+            if (speedup == 12)
             {
                 for (int i = 0; i < 10; i++)
                 {

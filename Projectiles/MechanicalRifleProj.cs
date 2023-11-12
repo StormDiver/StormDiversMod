@@ -252,11 +252,11 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
             if (!Main.dedServ)
             {
-                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X - 1, player.Center.Y - 3) - new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 3)) * -500;
+                Vector2 velocity = Projectile.velocity * 15;
 
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
                 if (maxcharge)
-                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 3), new Vector2(Projectile.Center.X - 1 + (perturbedSpeed.X * extralength), Projectile.Center.Y - 2 + (perturbedSpeed.Y * extralength)), Color.Gold, Color.Transparent, 2f);
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 3), new Vector2(Projectile.Center.X - 1 + (perturbedSpeed.X * extralength), Projectile.Center.Y - 3 + (perturbedSpeed.Y * extralength)), Color.Gold, Color.Transparent, 2f);
             }
             return true;
         }

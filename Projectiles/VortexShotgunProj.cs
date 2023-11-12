@@ -281,7 +281,8 @@ namespace StormDiversMod.Projectiles
             {
                 for (int i = 0; i < numberlines; i++)
                 {
-                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X - 1, player.Center.Y - 2) - new Vector2(Main.MouseWorld.X - 1, Main.MouseWorld.Y - 2)) * -500;
+                    //Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X - 1, player.Center.Y - 2) - new Vector2(Main.MouseWorld.X - 1, Main.MouseWorld.Y - 2)) * -500;
+                    Vector2 velocity = Projectile.velocity * 30;
 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-linerotation, linerotation, i / (numberlines - 1)));
                     //Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X * 2, perturbedSpeed.Y * 2), ModContent.ProjectileType<CrimsonAxeProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

@@ -2775,7 +2775,7 @@ Mods: {
 				DisplayName: Duck Fracture
 				Tooltip:
 					'''
-					Fires out mini ducks to attack your foes
+					Summons a group of 3 mini ducks each use
 					'May be prone to quacking'
 					'''
 			}
@@ -2784,7 +2784,8 @@ Mods: {
 				DisplayName: Duck Quackture
 				Tooltip:
 					'''
-					Summons a bunch of ducks enhanced by lunar energy
+					Rapidly summons mini ducks enhanced by lunar energy
+					Ducks can have one of four different effects
 					'Incredibly prone to quacking'
 					'''
 			}

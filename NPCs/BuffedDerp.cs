@@ -13,7 +13,6 @@ using StormDiversMod.Basefiles;
 using Terraria.ModLoader.Utilities;
 
 namespace StormDiversMod.NPCs
-
 {
     public class BuffDerps : GlobalNPC
     {
@@ -111,9 +110,6 @@ namespace StormDiversMod.NPCs
                         shoottime = 45;
 
                     }
-
-
-
                 }
             }
         }
@@ -123,7 +119,7 @@ namespace StormDiversMod.NPCs
             {
                 if (npc.type == NPCID.Derpling)
                 {
-                    shoottime = 45;
+                    //shoottime = 45;
                 }
             }
         }

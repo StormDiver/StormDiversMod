@@ -1,4 +1,4 @@
-[img]https://i.imgur.com/YsFZF2m.png[/img]
+[img]https://i.imgur.com/ZuF6EHw.png[/img]
 [b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 300 items. It flushes out some vanilla item sets, and has many new unique sets spread across the entire game, along with many individual items obtained in their own way.
 
 [u]This mod includes:[/u]
@@ -21,7 +21,7 @@
 [*] Most NPCs sell their dropped weapon
 [*] A special Post Moon Lord miniboss that drops Lunar fragments and Luminite
 [*] An item that can remove the shields from the pillars
-[*] Generates additonal Granite, Marble, and Mushroom chests in their respective biomes
+[*] Generates additional Granite, Marble, and Mushroom chests in their respective biomes
 [/list]
 
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
