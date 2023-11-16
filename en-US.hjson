@@ -674,8 +674,8 @@ Mods: {
 				DisplayName: Soul Striders
 				Tooltip:
 					'''
-					Greatly increases movement speed up to 46mph
-					Increases acceleration, and allows flight
+					The wearer can run up to 46mph, and increases acceleration
+					Increases jump speed, allows auto-jump, and increases fall resistance
 					'Speed throughout the day and the night'
 					'''
 			}
@@ -723,20 +723,18 @@ Mods: {
 				DisplayName: Heavy Boots
 				Tooltip:
 					'''
-					Allows flight
 					Hold DOWN to fall faster and create a shockwave upon hitting the ground
 					The shockwave will be larger and deal more damage the further you fall
 					While falling faster you will damage any enemy you fall on and avoid contact damage
 					Jumping immediately after stomping grants a large jump boost
-					'What did you think would happen if you attached an Anvil to a pair of boots?'
 					'''
 			}
 
 			StompBootHorse: {
-				DisplayName: Heavy Horseshoe Boots
+				DisplayName: Heavy Horseshoe Rocket Boots
 				Tooltip:
 					'''
-					Allows flight and negates fall damage
+					Allows flight and Negates fall damage
 					Hold DOWN to fall faster and create a shockwave upon hitting the ground
 					The shockwave will be larger and deal more damage the further you fall
 					While falling faster you will damage any enemy you fall on and avoid contact damage
@@ -2412,7 +2410,7 @@ Mods: {
 
 			HellSoulFlare: {
 				DisplayName: Infernal Soul Flare
-				Tooltip: Summons multiple soul flames that charge towards the cursor
+				Tooltip: Rapidly summons soul flames that charge towards the cursor
 			}
 
 			HellSoulMinion: {
@@ -3720,7 +3718,7 @@ Mods: {
 				Headers: {
 					EnemyMisc: Enemy Misc
 					EnemySpawning: Enemy Spawning
-					GenMisc: Chest Generation
+					GenMisc: Misc
 				}
 
 				PreventBossStorm: {
@@ -3761,6 +3759,11 @@ Mods: {
 				NoChestforu: {
 					Tooltip: This will prevent extra chests from generating in the Granite, Marble, and Mushroom biomes in case of mod conflicts
 					Label: Prevent Extra Granite, Marble, and Mushroom chests from generating
+				}
+
+				NoScaryCurse: {
+					Tooltip: This will prevent the Temple Curse from activating if a modded temple item is in your inventory, but doesn't prevent the damage debuff when trying to use them
+					Label: Prevent the Temple Curse for occuring
 				}
 			}
 		}

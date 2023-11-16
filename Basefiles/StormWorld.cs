@@ -191,9 +191,9 @@ namespace StormDiversMod.Basefiles
         {
 
         }
-        int granplaced = 0;
-        int marbleplaced = 0;
-        int mushplaced = 0;
+        //int granplaced = 0;
+        //int marbleplaced = 0;
+        //int mushplaced = 0;
         public override void PreUpdateWorld()
         {
 

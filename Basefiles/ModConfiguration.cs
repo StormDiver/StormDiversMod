@@ -82,9 +82,16 @@ namespace StormDiversMod.Basefiles
 
         //[Label("Prevent Extra Granite, Marble, and Mushroom chests from generating")]
         //[Tooltip("This will prevent extra chests from generating in the Granite, Marble, and Mushroom biomes in case of mod conflicts")]
-        [ReloadRequired] //No reload required 
+        [ReloadRequired] 
         [DefaultValue(false)]
         [BackgroundColor(27, 130, 114)]
         public bool NoChestforu { get; set; }
+
+        //[Label("Prevent the Temple Curse for occuring")]
+        //[Tooltip("This will prevent the Temple curse from activating if a Temple weapon is in your inventory, but doesn't prevent the damage when trying to use them")]
+        [ReloadRequired] //No reload required 
+        [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
+        public bool NoScaryCurse { get; set; }
     }
 }

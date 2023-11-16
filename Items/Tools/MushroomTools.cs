@@ -56,8 +56,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-            .AddIngredient(ItemID.GlowingMushroom, 25)
+            .AddRecipeGroup("StormDiversMod:GoldBars", 8)
+            .AddIngredient(ItemID.GlowingMushroom, 15)
             .AddTile(TileID.Anvils)
             .Register();
 
@@ -117,8 +117,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-          .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-          .AddIngredient(ItemID.GlowingMushroom, 25)
+          .AddRecipeGroup("StormDiversMod:GoldBars", 6)
+          .AddIngredient(ItemID.GlowingMushroom, 12)
           .AddTile(TileID.Anvils)
           .Register();
         }
@@ -176,8 +176,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-           .AddIngredient(ItemID.GlowingMushroom, 25)
+           .AddRecipeGroup("StormDiversMod:GoldBars", 6)
+           .AddIngredient(ItemID.GlowingMushroom, 12)
            .AddTile(TileID.Anvils)
            .Register();
         }

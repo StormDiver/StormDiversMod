@@ -261,7 +261,6 @@ namespace StormDiversMod.Projectiles
 
     public class HellSoulSwordProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Hellsoul Blade");
@@ -446,7 +445,6 @@ namespace StormDiversMod.Projectiles
 
     public class HellSoulMagicProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Hellsoul Flare");
@@ -493,7 +491,7 @@ namespace StormDiversMod.Projectiles
                 //for (int i = 0; i < 10; i++)
                 if (Projectile.owner == Main.myPlayer)
                 {               
-                    float projspeed = 25;
+                    float projspeed = 16;
                     Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<HellSoulMagicProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     Projectile.Kill();
@@ -573,7 +571,7 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 300;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
-
+            Projectile.extraUpdates = 1;
             Projectile.aiStyle = 0;
             //drawOffsetX = -9;
             //drawOriginOffsetY = -9;

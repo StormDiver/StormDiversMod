@@ -323,7 +323,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Infernal Soul Flare");
-            //Tooltip.SetDefault("Summons multiple soul flames that charge towards the cursor");
+            //Tooltip.SetDefault("Rapidly summons soul flames that charge towards the cursor");
 
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -340,15 +340,15 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 4, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
             Item.useTurn = false;
             //Item.channel = true;
             Item.DamageType = DamageClass.Magic;
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 40;
+            Item.damage = 55;
             //Item.crit = 4;
             Item.knockBack = 1f;
 
@@ -357,11 +357,11 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 0f;
             if (ModLoader.HasMod("TRAEProject"))
             {
-                Item.mana = 18;
+                Item.mana = 8;
             }
             else
             {
-                Item.mana = 12;
+                Item.mana = 5;
             }
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -369,7 +369,7 @@ namespace StormDiversMod.Items.Weapons
         {
             int speedX = 0;
             int speedY = -10;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                 float scale = 1f - (Main.rand.NextFloat() * .5f);

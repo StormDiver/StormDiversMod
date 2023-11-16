@@ -50,10 +50,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                 dust.noGravity = true;
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
             }
-
         }
-       
-
         public override void AI()
         {
 

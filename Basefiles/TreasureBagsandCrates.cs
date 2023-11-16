@@ -123,7 +123,6 @@ namespace StormDiversMod.Basefiles
 
             }
 
-
             itemLoot.Add(MechItemDrop);
 
         }

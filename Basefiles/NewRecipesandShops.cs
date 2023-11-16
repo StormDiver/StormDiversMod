@@ -400,7 +400,11 @@ namespace StormDiversMod.Basefiles
                 
                 shop.Add(ModContent.ItemType<StickyBomb>(), Condition.DownedEyeOfCthulhu);
             }
+            if (shop.NpcType == NPCID.GoblinTinkerer)
+            {
+                shop.Add(ModContent.ItemType<StompBoot>());
 
+            }
             if (shop.NpcType == NPCID.Merchant)
             {
                 shop.Add(ModContent.ItemType<Quack>(), Condition.DownedEyeOfCthulhu);
@@ -467,6 +471,7 @@ namespace StormDiversMod.Basefiles
 
             if (shop.NpcType == NPCID.Pirate)
             {
+                shop.Add(ItemID.AmphibianBoots);
                 shop.Add(ModContent.ItemType<CaptainsGun>(), Condition.DownedMechBossAny);
             }
 

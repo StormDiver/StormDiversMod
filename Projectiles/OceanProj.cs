@@ -100,6 +100,8 @@ namespace StormDiversMod.Projectiles
                     perturbedSpeed = perturbedSpeed * scale;
                     int ProjID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<OceanSmallProj>(), (int)(Projectile.damage * 0.33f), 1, Projectile.owner);
                     Main.projectile[ProjID].ArmorPenetration = 10;
+                    Main.projectile[ProjID].DamageType = DamageClass.Magic;
+
                 }
             }
         }

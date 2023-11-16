@@ -110,74 +110,77 @@ namespace StormDiversMod.Basefiles
                 {
                     Player.AddBuff(ModContent.BuffType<TempleDebuff>(), 2);
                 }
-
-                if (Player.HasItemInAnyInventory(ModContent.ItemType<TempleBMask>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleChest>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleLegs>())
+                if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)
+                {
+                    if (Player.HasItemInAnyInventory(ModContent.ItemType<TempleBMask>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleChest>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleLegs>())
                     || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpinner>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardFlame>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpell>())
                     || Player.HasItemInAnyInventory(ModContent.ItemType<LizardMinion>()) || Player.HasBuff(ModContent.BuffType<LizardMinionBuff>()))
-                {
-                    templeWarning++;
-                    string templecursetext = "The curse of the temple item in your possession activates!!!";
-                    if (templeWarning == 1)
                     {
-                        if (Main.netMode == 2) // Server
+                        templeWarning++;
+                        string templecursetext = "The curse of the temple item in your possession activates!!!";
+                        if (templeWarning == 1)
                         {
-                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(templecursetext), new Color(204, 101, 22));
+                            if (Main.netMode == 2) // Server
+                            {
+                                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(templecursetext), new Color(204, 101, 22));
+                            }
+                            else if (Main.netMode == 0) // Single Player
+                            {
+                                Main.NewText(templecursetext, 204, 101, 22);
+                            }
+                            CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.SaddleBrown, templecursetext, false);
+
                         }
-                        else if (Main.netMode == 0) // Single Player
+
+                        if (templeWarning >= 480 && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 6) //spawn up to 6
                         {
-                            Main.NewText(templecursetext, 204, 101, 22);
+                            if (Main.rand.Next(30) == 0)
+                            {
+                                NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
+                            }
                         }
-                        CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.SaddleBrown, templecursetext, false);
 
-                    }
+                        Player.buffImmune[BuffID.Darkness] = false;
+                        Player.buffImmune[BuffID.Blackout] = false;
+                        Player.buffImmune[BuffID.Obstructed] = false;
+                        Player.buffImmune[BuffID.Slow] = false;
+                        Player.buffImmune[BuffID.Bleeding] = false;
+                        Player.buffImmune[ModContent.BuffType<TempleDebuff>()] = false;
 
-                    if (templeWarning >= 480 && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 6) //spawn up to 6
-                    {
-                        if (Main.rand.Next(30) == 0)
+                        //don't give debuffs, but give effects of them
+                        Player.bleed = true;
+                        Player.blind = true;
+
+                        if (templeWarning > 0 && templeWarning < 240)
                         {
-                            NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
+                            //Player.AddBuff(BuffID.Darkness, 2);
+                            //Player.AddBuff(BuffID.Bleeding, 2);
                         }
+
+                        else if (templeWarning >= 240 && templeWarning < 480)
+                        {
+                            Player.blackout = true;
+                            Player.slow = true;
+                            //Player.AddBuff(BuffID.Blackout, 2);
+                            //Player.AddBuff(BuffID.Slow, 2);
+                        }
+                        else if (templeWarning >= 480)
+                        {
+                            Player.slow = true;
+                            Player.AddBuff(BuffID.Obstructed, 2);
+                            //Player.AddBuff(BuffID.Bleeding, 2);
+                            //Player.AddBuff(BuffID.Slow, 2);
+                        }
+                        cursedplayer = true;
+
                     }
 
-                    Player.buffImmune[BuffID.Darkness] = false;
-                    Player.buffImmune[BuffID.Blackout] = false;
-                    Player.buffImmune[BuffID.Obstructed] = false;
-                    Player.buffImmune[BuffID.Slow] = false;
-                    Player.buffImmune[BuffID.Bleeding] = false;
-                    Player.buffImmune[ModContent.BuffType<TempleDebuff>()] = false;
-
-                    //don't give debuffs, but give effects of them
-                    Player.bleed = true;
-                    Player.blind = true;
-
-                    if (templeWarning > 0 && templeWarning < 240)
+                    else
                     {
-                        //Player.AddBuff(BuffID.Darkness, 2);
-                        //Player.AddBuff(BuffID.Bleeding, 2);
-                    }
+                        cursedplayer = false;
 
-                    else if (templeWarning >= 240 && templeWarning < 480)
-                    {
-                        Player.blackout = true;
-                        Player.slow = true;
-                        //Player.AddBuff(BuffID.Blackout, 2);
-                        //Player.AddBuff(BuffID.Slow, 2);
+                        templeWarning = 0;
                     }
-                    else if (templeWarning >= 480)
-                    {
-                        Player.slow = true;
-                        Player.AddBuff(BuffID.Obstructed, 2);
-                        //Player.AddBuff(BuffID.Bleeding, 2);
-                        //Player.AddBuff(BuffID.Slow, 2);
-                    }
-                    cursedplayer = true;
-
-                }
-                else
-                {
-                    cursedplayer = false;
-
-                    templeWarning = 0;
                 }
             }
             else

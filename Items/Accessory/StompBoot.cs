@@ -22,14 +22,13 @@ namespace StormDiversMod.Items.Accessory
 
             //'What did you think would happen if you attached an Anvil to a pair of boots?'");
             Item.ResearchUnlockCount = 1;
-
         }
         public override void SetDefaults()
         {
             Item.width = 30;
             Item.height = 30;
-            Item.value = Item.sellPrice(0, 1, 25, 0);
-            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.rare = ItemRarityID.Blue;
 
             Item.defense = 3;
             Item.accessory = true;
@@ -41,14 +40,6 @@ namespace StormDiversMod.Items.Accessory
        
         public override void AddRecipes()
         {
-            CreateRecipe()
-           .AddIngredient(ItemID.RocketBoots, 1)
-           .AddIngredient(ItemID.Chain, 3)
-           .AddRecipeGroup("StormDiversMod:Anvils")        
-           .AddTile(TileID.Anvils)
-           .Register();
-
-           
         }
     }
     //________________________________________________________________________________________________________________________________________________________________________________________________
@@ -68,7 +59,7 @@ namespace StormDiversMod.Items.Accessory
         {
             Item.width = 30;
             Item.height = 30;
-            Item.value = Item.sellPrice(0, 1, 50, 0);
+            Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.Orange;
 
              Item.defense = 3;
@@ -87,6 +78,7 @@ namespace StormDiversMod.Items.Accessory
         {
             CreateRecipe()
            .AddIngredient(ModContent.ItemType<StompBoot>(), 1)
+            .AddIngredient(ItemID.RocketBoots, 1)
            .AddIngredient(ItemID.LuckyHorseshoe, 1)
            .AddTile(TileID.TinkerersWorkbench)
            .Register();

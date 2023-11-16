@@ -220,7 +220,7 @@ namespace StormDiversMod.Basefiles
         }
 
         //===============================================================================================================
-        
+
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
             if (mushChestplate)
@@ -401,13 +401,13 @@ namespace StormDiversMod.Basefiles
                     if (soulBoots)
                     {
                         Player.maxRunSpeed += 1.7f;
-                        Player.runAcceleration *= 1.75f;
+                        Player.runAcceleration *= 1.5f;
                         Player.runSlowdown = 0.2f;
                     }
                     else if (bloodBoots)
                     {
                         Player.maxRunSpeed += 0.8f;
-                        Player.runAcceleration *= 1.25f;
+                        Player.runAcceleration *= 1.2f;
                         Player.runSlowdown = 0.15f;
                     }
 
@@ -417,13 +417,13 @@ namespace StormDiversMod.Basefiles
                     if (soulBoots)
                     {
                         Player.maxRunSpeed += 6.2f;
-                        Player.runAcceleration *= 2.75f;
+                        Player.runAcceleration *= 2;
                         Player.runSlowdown = 0.5f;
                     }
                     else if (bloodBoots)
                     {
                         Player.maxRunSpeed += 4.2f;
-                        Player.runAcceleration *= 1.5f;
+                        Player.runAcceleration *= 1.3f;
                         Player.runSlowdown = 0.35f;
                     }
                 }
@@ -432,18 +432,18 @@ namespace StormDiversMod.Basefiles
                     if (soulBoots)
                     {
                         Player.maxRunSpeed += 4f;
-                        Player.runAcceleration *= 1.75f;
+                        Player.runAcceleration *= 1.4f;
                         Player.runSlowdown = 0.25f;
                     }
                     else if (bloodBoots)
                     {
                         Player.maxRunSpeed += 3.2f;
-                        Player.runAcceleration *= 1.25f;
+                        Player.runAcceleration *= 1.1f;
                         Player.runSlowdown = 0.2f;
                     }
                 }
                
-                if (soulBoots)
+                /*if (soulBoots)
                 {
                     Player.rocketBoots = 1;
                     if (Main.dayTime)
@@ -455,7 +455,7 @@ namespace StormDiversMod.Basefiles
                         Player.vanityRocketBoots = 1;
                         Player.socialShadowRocketBoots = true;
                     }
-                }
+                }*/
 
                 if (Player.moveSpeed > 1)
                 {
@@ -728,9 +728,9 @@ namespace StormDiversMod.Basefiles
             //For the Heavy Boots===========================
             if (bootFall)
             {
-                Player.rocketBoots = 1;            
-                Player.vanityRocketBoots = 1;
-                if (Player.controlDown && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
+                //Player.rocketBoots = 1;            
+                //Player.vanityRocketBoots = 1;
+                if ((Player.controlDown) && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
                     //SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 15, 2, -0.5f);
                     Player.gravity += 1.2f;
@@ -757,11 +757,11 @@ namespace StormDiversMod.Basefiles
 
                 }
                 //For impacting the ground at speed
-                if (Player.velocity.Y == 0 && falling && Player.controlDown)
+                if (Player.velocity.Y == 0 && falling && (Player.controlDown))
                 {
                     if (!GetInstance<ConfigurationsIndividual>().NoShake)
                     {
-                        if (bootdmg >= 50)
+                        if (bootdmg >= 30)
                             Player.GetModPlayer<MiscFeatures>().screenshaker = true;
                     }
 
@@ -783,9 +783,8 @@ namespace StormDiversMod.Basefiles
                     SoundEngine.PlaySound(SoundID.Item14, Player.Center);
                     bootdmg = 0;
                     falling = false;
-
                 }
-                if (!Player.controlDown || Player.controlJump || Player.mount.Active) //cancels stomp
+                if ((!Player.controlDown) || Player.controlJump || Player.mount.Active) //cancels stomp
                 {
                     falling = false;
                     bootdmg = 0;

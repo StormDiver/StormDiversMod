@@ -115,7 +115,7 @@ namespace StormDiversMod.Projectiles
             }
             Projectile.knockBack = 6;
             Projectile.velocity.X = player.direction; //knocks enemies in the direction facing
-            if (player.GetModPlayer<EquipmentEffects>().falling == false || player.dead || !player.controlDown)
+            if (player.GetModPlayer<EquipmentEffects>().falling == false || player.dead || (!player.controlDown))
             {
                 Projectile.Kill();
             }

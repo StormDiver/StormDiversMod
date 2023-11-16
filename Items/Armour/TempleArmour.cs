@@ -39,7 +39,10 @@ namespace StormDiversMod.Items.Armour
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
-                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
+                        if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)
+                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
+                        else
+                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, equip at your own risk!]";
                     }
                 }
             }
@@ -123,7 +126,10 @@ namespace StormDiversMod.Items.Armour
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
-                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
+                        if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)
+                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
+                        else
+                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, equip at your own risk!]";
                     }
                 }
             }
@@ -190,7 +196,10 @@ namespace StormDiversMod.Items.Armour
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip3")
                     {
-                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
+                        if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)
+                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
+                        else
+                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, equip at your own risk!]";
                     }
                 }
             }

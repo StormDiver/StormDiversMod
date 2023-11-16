@@ -56,8 +56,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-            .AddIngredient(ModContent.ItemType<Items.Materials.GraniteCore>(), 2)
+            .AddRecipeGroup("StormDiversMod:GoldBars", 8)
+            .AddIngredient(ModContent.ItemType<Items.Materials.GraniteCore>(), 1)
             .AddTile(TileID.Anvils)
             .Register();
         }
@@ -116,8 +116,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-             .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-             .AddIngredient(ModContent.ItemType<Items.Materials.GraniteCore>(), 2)
+             .AddRecipeGroup("StormDiversMod:GoldBars", 6)
+             .AddIngredient(ModContent.ItemType<Items.Materials.GraniteCore>(), 1)
              .AddTile(TileID.Anvils)
              .Register();
 
@@ -177,8 +177,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-             .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-             .AddIngredient(ModContent.ItemType<Items.Materials.GraniteCore>(), 2)
+             .AddRecipeGroup("StormDiversMod:GoldBars", 6)
+             .AddIngredient(ModContent.ItemType<Items.Materials.GraniteCore>(), 1)
              .AddTile(TileID.Anvils)
              .Register();
         }

@@ -119,9 +119,11 @@ namespace StormDiversMod
             }
         }
         public static ModKeybind ArmourSpecialHotkey;
+
         public override void Load()
         {
             ArmourSpecialHotkey = KeybindLoader.RegisterKeybind(this, "Armor Special Ability", "V");
+
             //Wikithis
             ModLoader.TryGetMod("Wikithis", out Mod wikithis);
             if (wikithis != null && !Main.dedServ)
@@ -139,7 +141,7 @@ namespace StormDiversMod
         {
             ArmourSpecialHotkey = null;
         }
-      
+
     }
   
     public class explosioneffects : GlobalProjectile

@@ -51,8 +51,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-            .AddIngredient(ModContent.ItemType<Items.Materials.RedSilk>(), 2)
+            .AddRecipeGroup("StormDiversMod:GoldBars", 8)
+            .AddIngredient(ModContent.ItemType<Items.Materials.RedSilk>(), 1)
             .AddTile(TileID.Anvils)
             .Register();
 
@@ -102,8 +102,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-            .AddIngredient(ModContent.ItemType<Items.Materials.RedSilk>(), 2)
+            .AddRecipeGroup("StormDiversMod:GoldBars", 6)
+            .AddIngredient(ModContent.ItemType<Items.Materials.RedSilk>(), 1)
             .AddTile(TileID.Anvils)
             .Register();
         }
@@ -152,8 +152,8 @@ namespace StormDiversMod.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
-               .AddRecipeGroup("StormDiversMod:GoldBars", 10)
-               .AddIngredient(ModContent.ItemType<Items.Materials.RedSilk>(), 2)
+               .AddRecipeGroup("StormDiversMod:GoldBars", 6)
+               .AddIngredient(ModContent.ItemType<Items.Materials.RedSilk>(), 1)
                .AddTile(TileID.Anvils)
                .Register();
         }

@@ -20,13 +20,12 @@ namespace StormDiversMod.Items.Tools
 
         public override void SetDefaults()
         {
-            
             Item.damage = 10;
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 40;
             Item.height = 22;
         
-            Item.useTime = 6;
+            Item.useTime = 7;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 2, 0, 0);
@@ -43,10 +42,7 @@ namespace StormDiversMod.Items.Tools
             Item.noUseGraphic = true; 
             Item.channel = true; 
             Item.autoReuse = true;
-            
-            
         }
-       
     }
     public class FastDrill2 : ModItem
     {
@@ -66,7 +62,7 @@ namespace StormDiversMod.Items.Tools
             Item.width = 40;
             Item.height = 22;
 
-            Item.useTime = 4;
+            Item.useTime = 6;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 5, 0, 0);
