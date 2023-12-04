@@ -17,6 +17,7 @@ using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.ObjectData;
 using StormDiversMod.NPCs;
+using StormDiversMod.Items.Pets;
 
 namespace StormDiversMod.Basefiles
 {
@@ -152,14 +153,14 @@ namespace StormDiversMod.Basefiles
                 }
 
             }
-            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneDungeon) //Twilight pet
+            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneDungeon) //Dungeon Stuff
             {
 
                 if (!npc.friendly && npc.lifeMax > 5)
                 {
                     if (Main.rand.Next(200) == 0)
                     {
-                        int dropchoice = Main.rand.Next(4);
+                        int dropchoice = Main.rand.Next(5);
 
                         if (dropchoice == 0)
                         {
@@ -172,6 +173,8 @@ namespace StormDiversMod.Basefiles
                         Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<EyeofDungeon>());
                         else if (dropchoice == 3)
                         Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<CursedSkullMinion>());
+                        else if (dropchoice == 3)
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<CursedSpearGun>());
                     }
                 }
             }
@@ -197,28 +200,21 @@ namespace StormDiversMod.Basefiles
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.AridBossSummon>());
                 }
             }
-
-            if ((Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || 
-                Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>()) && NPC.downedMoonlord
-                && !npc.friendly && npc.lifeMax > 5) //pan summoenr
+            if (Main.LocalPlayer.HasItemInAnyInventory(ModContent.ItemType<Items.Vanitysets.ThePainMask>()) || Main.LocalPlayer.HasItemInAnyInventory(ModContent.ItemType<Items.Vanitysets.TheClaymanMask>()))
             {
-                if (Main.rand.Next(25) == 0)
+                if (!npc.friendly && npc.lifeMax > 5)
                 {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
+                    if ((Main.rand.Next(25) == 0 && StormWorld.ultimateBossDown == false) || (Main.rand.Next(50) == 0 && StormWorld.ultimateBossDown == true) && NPC.downedMoonlord)
+                    {
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
+                    }
                 }
                 
             }
-            if ((npc.type == ModContent.NPCType<ThePainSlime>() || npc.type == ModContent.NPCType<TheClaySlime>()) && Main.rand.Next(20) == 0 && NPC.downedMoonlord)
+            if ((npc.type == ModContent.NPCType<ThePainSlime>() || npc.type == ModContent.NPCType<TheClaySlime>()) && Main.rand.Next(25) == 0 && NPC.downedMoonlord)
             {
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
 
-            }
-            if ((npc.type == NPCID.SnowmanGangsta || npc.type == NPCID.SnowBalla || npc.type == NPCID.MisterStabby))
-            {
-                if (Main.rand.Next(25) == 0 && Main.invasionType == 0)
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.SnowGlobe);
-                }
             }
             //No bestiary--------------------------------------------------------------------------------------------------------------------
             if (Main.rand.Next(5000) < 1 & npc.lifeMax > 5)
@@ -393,6 +389,17 @@ namespace StormDiversMod.Basefiles
             {
                 npcLoot.Add(ItemDropRule.Common(ItemID.BallaHat, 50));
             }
+            if (npc.type == NPCID.MisterStabby)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StabbyKnife>(), 50));
+            }
+            if (npc.type == NPCID.BlueArmoredBones || npc.type == NPCID.BlueArmoredBonesMace || npc.type == NPCID.BlueArmoredBonesNoPants || npc.type == NPCID.BlueArmoredBonesSword ||
+                npc.type == NPCID.RustyArmoredBonesAxe || npc.type == NPCID.RustyArmoredBonesFlail || npc.type == NPCID.RustyArmoredBonesSword || npc.type == NPCID.RustyArmoredBonesSwordNoArmor ||
+                npc.type == NPCID.HellArmoredBones || npc.type == NPCID.HellArmoredBonesMace || npc.type == NPCID.HellArmoredBonesSpikeShield || npc.type == NPCID.HellArmoredBonesSword)
+            {
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<RoseSickle>(), 150, 100));
+
+            }
 
             //Accessories--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.Demon)
@@ -500,6 +507,8 @@ namespace StormDiversMod.Basefiles
 
             if (npc.type == NPCID.SantaNK1)
             {
+                isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SantaWires>(), 20, 1, 1));
+
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SantankMinion>(), 20, 15));
 
                 //isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 12, 15));

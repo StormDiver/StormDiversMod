@@ -29,10 +29,8 @@ namespace StormDiversMod.Items.BossTrophy
 			//Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
 			ItemID.Sets.BossBag[Type] = true;
 			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
-
             Item.ResearchUnlockCount = 3;
 		}
-
 		public override void SetDefaults()
 		{
 			Item.maxStack = 9999;
@@ -42,7 +40,6 @@ namespace StormDiversMod.Items.BossTrophy
 			Item.rare = ItemRarityID.Orange;
 			Item.expert = true; // This makes sure that "Expert" displays in the tooltip and the item name color changes
 		}
-
 		public override bool CanRightClick()
 		{
 			return true;

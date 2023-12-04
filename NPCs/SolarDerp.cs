@@ -106,16 +106,20 @@ namespace StormDiversMod.NPCs
           
             if (Vector2.Distance(player.Center, NPC.Center) <= 500f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))    
             {
-                if (shoottime >= 240 && NPC.velocity.Y == 0)
+                if (shoottime >= 180)
                 {
-                    float projectileSpeed = 2f; // The speed of your projectile (in pixels per second).
-                    int damage = 30; // The damage your projectile deals.
-                    float knockBack = 3;
-                     int type = ModContent.ProjectileType<NPCs.NPCProjs.SolarDerpProj>();
+                    var dust2 = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y - 10), 20, 20, 244);
+                    //dust2.noGravity = true;
+                    if (shoottime >= 240 && NPC.velocity.Y == 0)
+                    {
+                        float projectileSpeed = 2f; // The speed of your projectile (in pixels per second).
+                        int damage = 30; // The damage your projectile deals.
+                        float knockBack = 3;
+                        int type = ModContent.ProjectileType<NPCs.NPCProjs.SolarDerpProj>();
 
 
-                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
-                    new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
+                        new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -130,14 +134,14 @@ namespace StormDiversMod.NPCs
                             }
                         }
                         SoundEngine.PlaySound(SoundID.Item74, NPC.Center);
-                        
+
                         for (int i = 0; i < 10; i++)
                         {
                             var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X, NPC.Center.Y), 0, 0, 244);
                         }
 
                         shoottime = 0;
-      
+                    }
                 }
             }
             else

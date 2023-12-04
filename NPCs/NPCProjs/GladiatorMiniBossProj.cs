@@ -60,7 +60,10 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.velocity.Y *= 1.04f;
 
             }
-
+            if (NPC.CountNPCS(ModContent.NPCType<GladiatorMiniBoss>()) == 0)
+            {
+                Projectile.Kill();
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
 

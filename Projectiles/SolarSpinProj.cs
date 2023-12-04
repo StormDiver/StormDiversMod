@@ -179,7 +179,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
 
                             if (Vector2.Distance(player.Center, projectile.Center) <= 120 && !reflected)
                             {
-                                int choice = Main.rand.Next(0, 2);
+                                int choice = Main.rand.Next(0, 1);
                                 if (choice == 0)
                                 {
                                     SoundEngine.PlaySound(SoundID.Item56, projectile.Center);

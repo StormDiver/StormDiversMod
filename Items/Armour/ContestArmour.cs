@@ -6,6 +6,7 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Basefiles;
+using System;
 
 
 namespace StormDiversMod.Items.Armour
@@ -17,7 +18,9 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Cryogenic Mask");
-            //Tooltip.SetDefault("Increases your max number of sentries by 1\n7% increased damage\n'Cold and Misty'");
+            //Tooltip.SetDefault("8% increased magic damage
+            //Increases maximum mana by 40
+              //'Cold and Misty'");
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
             {
@@ -29,14 +32,16 @@ namespace StormDiversMod.Items.Armour
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.sellPrice(0, 1, 50, 0);
-            Item.rare = ItemRarityID.LightRed;
-            Item.defense = 7;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 6;
         }
         public override void UpdateEquip(Player player)
         {
-            player.maxTurrets += 1;
-            player.GetDamage(DamageClass.Generic) += 0.07f;
+            //player.maxTurrets += 1;
+            //player.GetDamage(DamageClass.Generic) += 0.07f;
+            player.GetDamage(DamageClass.Magic) += 0.08f;
+            player.statManaMax2 += 40;
         }
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
@@ -68,7 +73,7 @@ namespace StormDiversMod.Items.Armour
         public override void ArmorSetShadows(Player player)
         {
             player.armorEffectDrawShadow = true;
-            if (player.GetModPlayer<ArmourSetBonuses>().cryosetcooldown >= 300)
+            if (player.GetModPlayer<ArmourSetBonuses>().cryosetcooldown >= 120 && player.statMana >= 100)
             {
                 player.armorEffectDrawOutlines = true;
             }
@@ -94,10 +99,11 @@ namespace StormDiversMod.Items.Armour
         public override void AddRecipes()
         {
             CreateRecipe()
-          .AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 8)
+          //.AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 8)
           .AddIngredient(ModContent.ItemType<Items.Materials.BlueCloth>(), 10)
-
-          .AddTile(TileID.MythrilAnvil)
+          .AddIngredient(ItemID.IceBlock, 50)
+          .AddIngredient(ItemID.Bone, 30)
+          .AddTile(TileID.Anvils)
           .Register();
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -117,7 +123,8 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Cryogenic Chestplate");
-            //Tooltip.SetDefault("8% increased damage\n6% increased critical strike chance");
+            //Tooltip.SetDefault("6% increased magic damage 
+            //4 % increased magic critical strike chance");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -126,25 +133,28 @@ namespace StormDiversMod.Items.Armour
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.sellPrice(0, 1, 50, 0);
-            Item.rare = ItemRarityID.LightRed;
-            Item.defense = 8;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 6;
 
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.08f;
-            player.GetCritChance(DamageClass.Generic) += 6;
+            //player.GetDamage(DamageClass.Generic) += 0.08f;
+            //player.GetCritChance(DamageClass.Generic) += 6;
+            player.GetDamage(DamageClass.Magic) += 0.06f;
+            player.GetCritChance(DamageClass.Magic) += 4;
 
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-         .AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 12)
-         .AddIngredient(ModContent.ItemType<Items.Materials.BlueCloth>(), 15)
-
-         .AddTile(TileID.MythrilAnvil)
-         .Register();
+          //.AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 8)
+          .AddIngredient(ModContent.ItemType<Items.Materials.BlueCloth>(), 15)
+          .AddIngredient(ItemID.IceBlock, 100)
+          .AddIngredient(ItemID.Bone, 60)
+          .AddTile(TileID.Anvils)
+          .Register();
         }
     }
     //_________________________________________________________________________________________
@@ -155,33 +165,36 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Cryogenic Greaves");
-            //Tooltip.SetDefault("Increases your max number of sentries by 1\n7% increased damage\n10% increased movement speed");
+            //Tooltip.SetDefault("6% increased magic critical strike chance
+            //Increases maximum mana by 20");
             Item.ResearchUnlockCount = 1;
-
         }
 
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.sellPrice(0, 1, 50, 0);
-            Item.rare = ItemRarityID.LightRed;
-            Item.defense = 7;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 6;
 
         }
         public override void UpdateEquip(Player player)
         {
-            player.maxTurrets += 1;
-            player.GetDamage(DamageClass.Generic) += 0.07f;
+            //player.maxTurrets += 1;
+            //player.GetDamage(DamageClass.Generic) += 0.07f;
+            player.GetCritChance(DamageClass.Magic) += 6;
+            player.statManaMax2 += 20;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-         .AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 10)
-         .AddIngredient(ModContent.ItemType<Items.Materials.BlueCloth>(), 12)
-
-         .AddTile(TileID.MythrilAnvil)
-         .Register();
+          //.AddIngredient(ModContent.ItemType<Items.OresandBars.IceBar>(), 8)
+          .AddIngredient(ModContent.ItemType<Items.Materials.BlueCloth>(), 12)
+          .AddIngredient(ItemID.IceBlock, 75)
+          .AddIngredient(ItemID.Bone, 40)
+          .AddTile(TileID.Anvils)
+          .Register();
         }
     }
     public class CryoSetProjs : GlobalProjectile
@@ -190,7 +203,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void AI(Projectile projectile) //Dust effects
         {
-            var player = Main.player[projectile.owner];
+            /*var player = Main.player[projectile.owner];
             if (ProjectileID.Sets.SentryShot[projectile.type] == true && projectile.owner == Main.myPlayer)
             {
                 if (player.GetModPlayer<ArmourSetBonuses>().cryoSet == true)
@@ -204,7 +217,7 @@ namespace StormDiversMod.Items.Armour
                     }
 
                 }
-            }
+            }*/
 
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) //PvE

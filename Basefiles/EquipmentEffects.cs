@@ -35,6 +35,9 @@ namespace StormDiversMod.Basefiles
 
         public bool goldDerpie; //The player has the Golden Derpie Pet
 
+        public bool mrStabbyPet; //The player has the Mini Stabby pet
+
+
         public bool stormHelmet; //The player has the Storm Diver Pet
 
         public bool twilightPet; //The player has the Twilight Light Pet
@@ -114,6 +117,8 @@ namespace StormDiversMod.Basefiles
 
         public bool DeathCore; //Player has Prignerbringer Core equipped
 
+        public bool SantaCore; //Player has Prignerbringer Core equipped
+
         public bool frozenNecklace; //Player has Frost necklace equipped
 
         public bool desertNecklace; //Player has manible necklace equipped
@@ -147,7 +152,8 @@ namespace StormDiversMod.Basefiles
         public bool stormBossProj; // wheter the projectile for the storm coil has been spawned
         public int shroomtime; //For cahnneling ranged weapons with Shroomite launcher
         public int paintime; //Cooldown for reliving pain
-
+        public int SantaRevivedCooldown;
+        public bool SantaRevived;
         public int bootdmg; //damage of the boots
         public bool bootstompjump; //if jmp boost can be done
         public int bootstompjumptime; //time for jump boost
@@ -156,6 +162,7 @@ namespace StormDiversMod.Basefiles
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             goldDerpie = false;
+            mrStabbyPet = false;
             stormHelmet = false;
             twilightPet = false;
             stormBossPet = false;
@@ -197,6 +204,7 @@ namespace StormDiversMod.Basefiles
             DeathCore = false;
             frozenNecklace = false;
             desertNecklace = false;
+            SantaCore = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -217,6 +225,8 @@ namespace StormDiversMod.Basefiles
             flamecooldown = 0;
             paintime = 0;
             ultimateBossMask = false;
+            SantaRevived = false;
+            SantaRevivedCooldown = 0;
         }
 
         //===============================================================================================================
@@ -254,21 +264,15 @@ namespace StormDiversMod.Basefiles
                 }
                 else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff2>()))
                 {
-
                     damage.Flat += 3;
-
                 }
                 else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff3>()))
                 {
-
                     damage.Flat += 5;
-
                 }
                 /*else if (Player.HasBuff(ModContent.BuffType<Buffs.MushBuff4>()))
                 {
-
                     damage.Flat += 6;
-
                 }*/
 
             }
@@ -282,7 +286,6 @@ namespace StormDiversMod.Basefiles
                 Player.canFloatInWater = false;
             }*/
             //Reduces ints if they are above 0 and not in the equip field
-
             if (beetleFist)
             {
                 if (beetlecooldown > 0)
@@ -796,7 +799,7 @@ namespace StormDiversMod.Basefiles
 
                 //For the bounce
 
-                if (bootstompjumptime > 0 && Player.velocity.Y >= 0) // As player is on floor reduce time for jump to be activated
+                if (bootstompjumptime > 0 && (Player.velocity.Y >= 0 || !Player.controlJump)) // As player is on floor reduce time for jump to be activated
                 {
                     bootstompjumptime--;
                 }
@@ -1084,8 +1087,6 @@ namespace StormDiversMod.Basefiles
             //For the Lunatic Cultist accessory
             if (lunaticHood)
             {
-                //Player.AddBuff(ModContent.BuffType<SkyKnightSentryBuff"), 2);
-
                 if (!lunaticsentry)
                 {
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X - 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SentryProjs.LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
@@ -1098,8 +1099,6 @@ namespace StormDiversMod.Basefiles
             if (!lunaticHood)
             {
                 lunaticsentry = false;
-                //Player.ClearBuff(ModContent.BuffType<SkyKnightSentryBuff"));
-
             }
             if (mushroomSuper)
             {
@@ -1201,6 +1200,54 @@ namespace StormDiversMod.Basefiles
             }
             else
                 ultimateBossMask = false;
+
+            //for Santank Core
+            //if (SantaCore)
+            {
+                if (SantaRevived) //add buff
+                {
+                    Player.AddBuff(ModContent.BuffType<SantaReviveBuff>(), Player.immuneTime);
+
+                    for (int i = 0; i < Player.buffType.Length; i++) //put again here because :ech:
+                    {
+                        if (Main.debuff[Player.buffType[i]] == true && BuffID.Sets.NurseCannotRemoveDebuff[Player.buffType[i]] == false)
+                            Player.DelBuff(i);
+                    }
+                }
+
+                if (SantaRevivedCooldown > 0)
+                {
+                    SantaRevivedCooldown--;
+                    Player.AddBuff(ModContent.BuffType<SantaReviveDebuff>(), SantaRevivedCooldown);
+
+                }
+
+                if (SantaRevived && Player.immuneTime == 0)//once immune time has ran out, choose action
+                {
+                    if (Player.statLife < Player.statLifeMax2 / 3) //less than 33% health, die
+                    {
+                        Player.KillMe(PlayerDeathReason.ByCustomReason(Player.name + " had a heart attack and died"), 99999, 0, false);
+                    }
+                    else //more, survive with debuff cooldown
+                    {
+                        for (int i = 0; i < 30; i++) //Grey dust circle7
+                        {
+                            Vector2 perturbedSpeed = new Vector2(0, -3f).RotatedByRandom(MathHelper.ToRadians(360));
+                            var dust = Dust.NewDustDirect(Player.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
+                            dust.noGravity = true;
+                            dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                            dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
+                        }
+                        SantaRevivedCooldown = 18000; // 5 minutes (300 seconds)
+                        Player.AddBuff(ModContent.BuffType<SantaReviveDebuff>(), 18000);
+                        SantaRevived = false;
+                    }
+                }
+            }
+            if (SantaRevivedCooldown == 0)
+            {
+                Player.ClearBuff(ModContent.BuffType<SantaReviveDebuff>());
+            }
         }
         //=====================For attacking an enemy with anything===========================================
         public override void OnHitAnything(float x, float y, Entity victim)
@@ -1349,10 +1396,21 @@ namespace StormDiversMod.Basefiles
         }
         //Prevent Death
         String Suffertext;
+        String Revivetext;
+
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             if (paintime == 0 && DeathCore && damage <= 9999) //Save you from death once
             {
+                for (int j = 0; j < Player.MaxBuffs; j++)
+                {
+                    for (int i = 0; i < Player.buffType.Length; i++)
+                    {
+                        if (Main.debuff[Player.buffType[i]] == true && BuffID.Sets.NurseCannotRemoveDebuff[Player.buffType[i]] == false)
+                            Player.DelBuff(i);
+                    }
+                }
+
                 Suffertext = "Live to suffer another day!";
                 CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.HotPink, Suffertext, true);
                 int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainNofaceProj>(), 0, 0, Main.myPlayer);
@@ -1392,7 +1450,7 @@ namespace StormDiversMod.Basefiles
                 {
                     ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.StellarTune, new ParticleOrchestraSettings
                     {
-                        PositionInWorld = new Vector2(Player.Center.X, Player.Center.Y)
+                        PositionInWorld = new Vector2(Player.Center.X + Main.rand.Next(-Player.width / 3, Player.width / 3), Player.Center.Y + Main.rand.Next(-Player.height / 3, Player.height / 3)),
                     }, Player.whoAmI);
                     
                 }
@@ -1405,6 +1463,51 @@ namespace StormDiversMod.Basefiles
                 paintime = 7200; // 2 minutes (120 seconds)
                 return false;
             }
+            
+            if (SantaCore && !SantaRevived && damage < Player.statLifeMax2 && !Player.HasBuff(ModContent.BuffType<SantaReviveDebuff>()) && ((paintime > 0 && DeathCore) || !DeathCore)) //Save you from death once
+            {
+                for (int j = 0; j < Player.MaxBuffs; j++)
+                {
+                    for (int i = 0; i < Player.buffType.Length; i++)
+                    {
+                        if (Main.debuff[Player.buffType[i]] == true && BuffID.Sets.NurseCannotRemoveDebuff[Player.buffType[i]] == false)
+                            Player.DelBuff(i);
+                    }
+                }
+                SoundEngine.PlaySound(SoundID.Item93 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                //Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + " got a shock"), 0, 0, false);
+
+                for (int i = 0; i < 100; i++)
+                {
+                    float speedY = -4f;
+
+                    Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    int dust2 = Dust.NewDust(Player.Center, 0, 0, 133, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                }
+                PlayerDeathReason.ByCustomReason(Player.name + " was shocked back to life");
+                Revivetext = Player.name + " was shocked back to life";
+
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Revivetext), new Color(189, 180, 21));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText(Revivetext, 189, 180, 21);
+                }
+
+                //Player.HealEffect(1, true);
+
+                //Player.KillMe(PlayerDeathReason.ByCustomReason(Player.name + " died of a heart attack"), 99999, 0, false);
+                Player.immune = true;
+                Player.immuneTime = 600;
+                Player.statLife = 1; //restore life
+                //Player.statLife = 1; //restore life
+
+                SantaRevived = true;
+                return false;
+            }
 
             if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.UltimateFearMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.UltimateFearMask>())
             {
@@ -1413,7 +1516,7 @@ namespace StormDiversMod.Basefiles
                 SoundEngine.PlaySound(SoundID.ScaryScream with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
             }
             //playSound = false;
-           
+            
             return true;
         }
         //===================================Other hooks======================================

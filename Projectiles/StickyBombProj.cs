@@ -122,7 +122,7 @@ namespace StormDiversMod.Projectiles
 
                     float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
 
-                    if (npcdistance <= Projectile.width / 2 + 25 && npcdistance >= 1 && (target.friendly || target.CountsAsACritter))
+                    if (npcdistance <= Projectile.width / 2 + 25 && npcdistance >= 1 && (target.friendly || target.CountsAsACritter) && !target.dontTakeDamage && target.type != NPCID.DD2EterniaCrystal)
                     {
                         //if (Collision.CanHit(target.Center, 0, 0, Projectile.Center, 0, 0))
                         {

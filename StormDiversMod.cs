@@ -26,6 +26,7 @@ using StormDiversMod.NPCs.Boss;
 using StormDiversMod.Items.Summons;
 using System.Security.Policy;
 using StormDiversMod.Items.Armour;
+using StormDiversMod.NPCs.NPCProjs;
 
 namespace StormDiversMod
 {
@@ -110,6 +111,7 @@ namespace StormDiversMod
             {
                 thoriumMod.Call("AddMartianItemID", ModContent.ItemType<SuperDartLauncher>());
                 thoriumMod.Call("AddFlailProjectileID", ModContent.ProjectileType<Projectiles.DestroyerFlailProj>());
+                thoriumMod.Call("AddFlailProjectileID", ModContent.ProjectileType<Projectiles.FlailLockerProj>());
 
             }
             //Bosses as NPCs
@@ -148,7 +150,15 @@ namespace StormDiversMod
     {
         public override void AI(Projectile projectile)
         {
-           
+            if (projectile.type == ProjectileID.SnowBallHostile) //make Snow Balla projectile not grief
+            {
+                int projid = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(projectile.velocity.X, projectile.velocity.Y), 
+                    ModContent.ProjectileType<SnowmanSnowball>(), projectile.damage, projectile.knockBack);
+                Main.projectile[projid].ai[2] = 1;
+                //projectile.Kill();
+                projectile.active = false;
+            }
+
         }
             /*if (projectile.type == ProjectileID.VampireKnife)
             {
@@ -202,52 +212,56 @@ namespace StormDiversMod
         }
         public override void OnKill(Projectile projectile, int timeLeft)
         {
-            //Generic for Rocket, Grenade, Mine, and Snowman Cannon
-            //Cluster frags x0.75, using frost colours
-            /*if (projectile.type is ProjectileID.ClusterFragmentsI or ProjectileID.ClusterFragmentsII
-                or ProjectileID.ClusterSnowmanFragmentsI or ProjectileID.ClusterSnowmanFragmentsII)
+            if (projectile.type == ProjectileID.SnowBallHostile)
             {
-                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionFrostProj>(), 0, 0, projectile.owner);
-                Main.projectile[proj].scale = 0.75f;
+                //return false;
             }
-            //Cluster Rockets, use frost colours at 1.25x
-            if (projectile.type is ProjectileID.ClusterRocketI or ProjectileID.ClusterRocketII
-               or ProjectileID.ClusterGrenadeI or ProjectileID.ClusterGrenadeII
-               or ProjectileID.ClusterMineI or ProjectileID.ClusterMineII
-               or ProjectileID.ClusterSnowmanRocketI or ProjectileID.ClusterSnowmanRocketI)
-            {
-                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionFrostProj>(), 0, 0, projectile.owner);
-                Main.projectile[proj].scale = 1.25f;
+                //Generic for Rocket, Grenade, Mine, and Snowman Cannon
+                //Cluster frags x0.75, using frost colours
+                /*if (projectile.type is ProjectileID.ClusterFragmentsI or ProjectileID.ClusterFragmentsII
+                    or ProjectileID.ClusterSnowmanFragmentsI or ProjectileID.ClusterSnowmanFragmentsII)
+                {
+                    int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionFrostProj>(), 0, 0, projectile.owner);
+                    Main.projectile[proj].scale = 0.75f;
+                }
+                //Cluster Rockets, use frost colours at 1.25x
+                if (projectile.type is ProjectileID.ClusterRocketI or ProjectileID.ClusterRocketII
+                   or ProjectileID.ClusterGrenadeI or ProjectileID.ClusterGrenadeII
+                   or ProjectileID.ClusterMineI or ProjectileID.ClusterMineII
+                   or ProjectileID.ClusterSnowmanRocketI or ProjectileID.ClusterSnowmanRocketI)
+                {
+                    int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionFrostProj>(), 0, 0, projectile.owner);
+                    Main.projectile[proj].scale = 1.25f;
+                }
+                //Rocket Is and IIs, and Cluster Rockets x1.25
+                if (projectile.type is ProjectileID.RocketI or ProjectileID.RocketII
+                    or ProjectileID.GrenadeI or ProjectileID.GrenadeII
+                    or ProjectileID.ProximityMineI or ProjectileID.ProximityMineI
+                    or ProjectileID.RocketSnowmanI or ProjectileID.RocketSnowmanII)
+                {
+                    int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
+                    Main.projectile[proj].scale = 1.25f;
+                }
+                //Rocket IIIs and IVs 1.5x
+                if (projectile.type is ProjectileID.RocketIII or ProjectileID.RocketIV 
+                    or ProjectileID.GrenadeIII or ProjectileID.GrenadeIV 
+                    or ProjectileID.ProximityMineIII or ProjectileID.ProximityMineIV
+                    or ProjectileID.RocketSnowmanIII or ProjectileID.RocketSnowmanIV)
+                {
+                    int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
+                    Main.projectile[proj].scale = 1.5f;
+                }
+                //Mini Nukes x1.75
+                if (projectile.type is ProjectileID.MiniNukeRocketI or ProjectileID.MiniNukeRocketII 
+                    or ProjectileID.MiniNukeGrenadeI or ProjectileID.MiniNukeGrenadeII 
+                    or ProjectileID.MiniNukeMineI or ProjectileID.MiniNukeMineII
+                    or ProjectileID.MiniNukeSnowmanRocketI or ProjectileID.MiniNukeSnowmanRocketII)
+                {
+                    int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
+                    Main.projectile[proj].scale = 1.75f;
+                }*/
+
             }
-            //Rocket Is and IIs, and Cluster Rockets x1.25
-            if (projectile.type is ProjectileID.RocketI or ProjectileID.RocketII
-                or ProjectileID.GrenadeI or ProjectileID.GrenadeII
-                or ProjectileID.ProximityMineI or ProjectileID.ProximityMineI
-                or ProjectileID.RocketSnowmanI or ProjectileID.RocketSnowmanII)
-            {
-                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
-                Main.projectile[proj].scale = 1.25f;
-            }
-            //Rocket IIIs and IVs 1.5x
-            if (projectile.type is ProjectileID.RocketIII or ProjectileID.RocketIV 
-                or ProjectileID.GrenadeIII or ProjectileID.GrenadeIV 
-                or ProjectileID.ProximityMineIII or ProjectileID.ProximityMineIV
-                or ProjectileID.RocketSnowmanIII or ProjectileID.RocketSnowmanIV)
-            {
-                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
-                Main.projectile[proj].scale = 1.5f;
-            }
-            //Mini Nukes x1.75
-            if (projectile.type is ProjectileID.MiniNukeRocketI or ProjectileID.MiniNukeRocketII 
-                or ProjectileID.MiniNukeGrenadeI or ProjectileID.MiniNukeGrenadeII 
-                or ProjectileID.MiniNukeMineI or ProjectileID.MiniNukeMineII
-                or ProjectileID.MiniNukeSnowmanRocketI or ProjectileID.MiniNukeSnowmanRocketII)
-            {
-                int proj = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionGenericProj>(), 0, 0, projectile.owner);
-                Main.projectile[proj].scale = 1.75f;
-            }*/
-          
-        }
         /*public override void SetDefaults(Projectile projectile)
         {
             if (projectile.type == ProjectileID.TerrarianBeam)

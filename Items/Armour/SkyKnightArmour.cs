@@ -20,7 +20,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Star Warrior Visage");
-            //Tooltip.SetDefault("7% increased damage");
+            //Tooltip.SetDefault("5% increased damage");
             //ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -33,16 +33,14 @@ namespace StormDiversMod.Items.Armour
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.sellPrice(0, 1, 0, 0);
-            Item.rare = ItemRarityID.Green;
-            Item.defense = 4;
+            Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.rare = ItemRarityID.Blue;
+            Item.defense = 3;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.07f;
-
-       
+            player.GetDamage(DamageClass.Generic) += 0.06f;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -70,7 +68,7 @@ namespace StormDiversMod.Items.Armour
         {
 
             CreateRecipe()
-           .AddIngredient(ItemID.MeteoriteBar, 12)
+             .AddRecipeGroup("StormDiversMod:EvilBars", 12)
            .AddIngredient(ItemID.FallenStar, 5)
            .AddTile(TileID.Anvils)
            .Register();
@@ -95,7 +93,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Star Warrior Platemail");
-            //Tooltip.SetDefault("Increases your max number of sentries by 1\n4% increased damage");
+            //Tooltip.SetDefault("Increases your max number of sentries by 1\n2% increased damage");
             Item.ResearchUnlockCount = 1;
             if (!Main.dedServ)
             {
@@ -108,20 +106,20 @@ namespace StormDiversMod.Items.Armour
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.sellPrice(0, 1, 0, 0);
-            Item.rare = ItemRarityID.Green;
-            Item.defense = 6;
+            Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.rare = ItemRarityID.Blue;
+            Item.defense = 4;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.04f;
+            player.GetDamage(DamageClass.Generic) += 0.02f;
             player.maxTurrets += 1;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ItemID.MeteoriteBar, 18)
+             .AddRecipeGroup("StormDiversMod:EvilBars", 18)
            .AddIngredient(ItemID.FallenStar, 8)
            .AddTile(TileID.Anvils)
            .Register();
@@ -143,7 +141,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Star Warrior Greaves");
-            //Tooltip.SetDefault("Increases your max number of sentries by 1\n4% increased damage");
+            //Tooltip.SetDefault("Increases your max number of sentries by 1\n2% increased damage");
             Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
@@ -155,9 +153,9 @@ namespace StormDiversMod.Items.Armour
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = Item.sellPrice(0, 1 ,0, 0);
-            Item.rare = ItemRarityID.Green;
-            Item.defense = 5;
+            Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.rare = ItemRarityID.Blue;
+            Item.defense = 4;
         }
 
         public override void UpdateEquip(Player player)
@@ -165,13 +163,13 @@ namespace StormDiversMod.Items.Armour
 
             player.maxTurrets += 1;
 
-            player.GetDamage(DamageClass.Generic) += 0.04f;
+            player.GetDamage(DamageClass.Generic) += 0.02f;
 
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ItemID.MeteoriteBar, 15)
+             .AddRecipeGroup("StormDiversMod:EvilBars", 15)
            .AddIngredient(ItemID.FallenStar, 7)
            .AddTile(TileID.Anvils)
            .Register();

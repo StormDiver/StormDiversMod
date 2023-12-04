@@ -105,7 +105,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             for (int i = 0; i < 10; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 173);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
                 dust.scale = 2;
                 dust.velocity *= 2;
             }
@@ -264,7 +264,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             for (int i = 0; i < 10; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 173);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
                 dust.scale = 2;
                 dust.velocity *= 2;
             }

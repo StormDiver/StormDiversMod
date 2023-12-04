@@ -61,7 +61,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                 for (int i = 0; i < 10; i++)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 119);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 119);
                     dust.alpha = 100;
                 }
 
@@ -121,7 +121,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 SoundEngine.PlaySound(SoundID.NPCDeath1 with { Volume = 1f }, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 236);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 236);
                     dust.alpha = 100;
                 }
 

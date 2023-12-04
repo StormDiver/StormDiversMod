@@ -9,6 +9,7 @@ using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Basefiles;
+using StormDiversMod.Projectiles;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -70,9 +71,7 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Icicle Staff");
             //Tooltip.SetDefault("Rapidly shoots out damaging icicles");
             Item.staff[Item.type] = true;
-
             Item.ResearchUnlockCount = 1;
-         
         }
         public override void SetDefaults()
         {
@@ -98,7 +97,7 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item30 with { Volume = 0.5f};
 
-            Item.damage = 14;
+            Item.damage = 13;
 
             Item.knockBack = 3f;
 
@@ -129,16 +128,126 @@ namespace StormDiversMod.Items.Weapons
                 perturbedSpeed = perturbedSpeed * scale;
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
             }
-            
+            return false;
+        }
+        public override void AddRecipes()
+        {
+         
+        }
+    }
+    public class IceStaff2 : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Icicle Scepter");
+            //Tooltip.SetDefault("Rapidly shoots out damaging icicles, right click to fire larger one?");
+            Item.staff[Item.type] = true;
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
+            Item.ResearchUnlockCount = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 40;
+            Item.height = 18;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 1, 25, 0);
+            Item.rare = ItemRarityID.Green;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
+            Item.useTurn = false;
+            Item.autoReuse = true;
+
+            Item.DamageType = DamageClass.Magic;
+            if (ModLoader.HasMod("TRAEProject"))
+            {
+                Item.mana = 6;
+            }
+            else
+            {
+                Item.mana = 4;
+            }
+            Item.UseSound = SoundID.Item30 with { Volume = 1f };
+
+            Item.damage = 18;
+
+            Item.knockBack = 3f;
+
+            Item.shoot = ModContent.ProjectileType<Projectiles.IceStaff2Proj>();
+
+            Item.shootSpeed = 15f;
+
+            Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(5, 0);
+        }
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool CanUseItem(Player player)
+        {
+
+            if (player.altFunctionUse == 2) //gun
+            {
+                if (ModLoader.HasMod("TRAEProject"))
+                    Item.mana = 24;
+                else
+                    Item.mana = 15;
+                
+                Item.reuseDelay = 36;
+                Item.shoot = ModContent.ProjectileType<Projectiles.IceStaff2Proj2>();
+                Item.UseSound = SoundID.Item28 with { Volume = 1f };
+
+                return true;
+            }
+            else //spear
+            {
+                if (ModLoader.HasMod("TRAEProject"))
+                    Item.mana = 6;
+                else
+                    Item.mana = 4;
+                Item.shoot = ModContent.ProjectileType<Projectiles.IceStaff2Proj>();
+                Item.UseSound = SoundID.Item30 with { Volume = 1f };
+                Item.reuseDelay = 0;
+                return true;
+            }
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 50f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+
+            if (player.altFunctionUse == 2) //alt
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), type, (int)(damage * 1.25f), knockback, player.whoAmI);
+            }
+            else //fast
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6));
+                float scale = 1f - (Main.rand.NextFloat() * .1f);
+                perturbedSpeed = perturbedSpeed * scale;
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+            }
 
             return false;
         }
 
         public override void AddRecipes()
         {
-         
-
+            CreateRecipe()
+         .AddIngredient(ModContent.ItemType<IceStaff>(), 1)
+         .AddRecipeGroup("StormDiversMod:EvilMaterial", 16)
+         .AddTile(TileID.Anvils)
+         .Register();
         }
-       
+
     }
 }

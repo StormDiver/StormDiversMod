@@ -58,7 +58,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 1);
                 }
 
             }
@@ -167,7 +167,7 @@ namespace StormDiversMod.Projectiles
             {
 
                  
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 1);
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -176,7 +176,7 @@ namespace StormDiversMod.Projectiles
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 1);
                 }
             }
         }
@@ -190,7 +190,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 1);
                 }
 
             }
@@ -262,7 +262,7 @@ namespace StormDiversMod.Projectiles
             {
 
                  
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 55);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 55);
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -274,7 +274,7 @@ namespace StormDiversMod.Projectiles
                 {
 
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 55);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 55);
 
                 }
             }
@@ -330,7 +330,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 55);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 55);
                 }
 
             }
@@ -413,7 +413,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 5; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 1);
                 }
 
             }
@@ -488,7 +488,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 3; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 55);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 55);
                 }
 
             }

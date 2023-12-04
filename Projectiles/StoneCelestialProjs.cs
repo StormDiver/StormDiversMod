@@ -62,7 +62,7 @@ namespace StormDiversMod.Projectiles
             {
 
                  
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 244);
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -72,7 +72,7 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
                 for (int i = 0; i < 10; i++)
                 { 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 244);
                 }
             }
         }
@@ -128,7 +128,7 @@ namespace StormDiversMod.Projectiles
                 {
 
                      
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 244);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 244);
                 }
 
             }
@@ -211,7 +211,7 @@ namespace StormDiversMod.Projectiles
             {
 
                  
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 110);
             }
             int numberProjectiles = 5 + Main.rand.Next(3); //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)
@@ -233,7 +233,7 @@ namespace StormDiversMod.Projectiles
                 {
 
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 110);
                 }
             }
         }
@@ -290,7 +290,7 @@ namespace StormDiversMod.Projectiles
                 {
 
                      
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 110);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 110);
                 }
 
             }
@@ -379,7 +379,7 @@ namespace StormDiversMod.Projectiles
             {
 
                  
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 112);
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -391,7 +391,7 @@ namespace StormDiversMod.Projectiles
                 {
 
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 112);
                 }
             }
         }
@@ -449,7 +449,7 @@ namespace StormDiversMod.Projectiles
                 {
 
                      
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 112);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 112);
                 }
 
             }
@@ -552,7 +552,7 @@ namespace StormDiversMod.Projectiles
             {
 
                  
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 111);
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -564,7 +564,7 @@ namespace StormDiversMod.Projectiles
                 {
 
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 111);
                 }
             }
         }
@@ -621,7 +621,7 @@ namespace StormDiversMod.Projectiles
                 {
 
                      
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 111);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 111);
                 }
 
             }
@@ -721,7 +721,7 @@ namespace StormDiversMod.Projectiles
             {
 
 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, dusttype);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
         }
@@ -734,7 +734,7 @@ namespace StormDiversMod.Projectiles
                 {
 
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, dusttype);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype);
                 }
             }
         }
@@ -751,7 +751,7 @@ namespace StormDiversMod.Projectiles
 
                 for (int i = 0; i < 3; i++)
                 {
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, dusttype);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype);
                 }
 
             }

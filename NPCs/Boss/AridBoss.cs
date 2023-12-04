@@ -181,11 +181,16 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.TargetClosest();
             }
 
-
+           
             //======================================================MOVEMENT==============================================================================================
-
             Player player = Main.player[NPC.target]; //Code to move towards player
-
+            if (Main.getGoodWorld)
+            {
+                player.AddBuff(BuffID.WindPushed, 2);
+                var dust = Dust.NewDustDirect(new Vector2(player.position.X, player.position.Y), player.width, player.height, 55, 0, 0);
+                dust.scale = 0.75f;
+                dust.noGravity = true;
+            }
             if (!player.dead && !deathani)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -465,7 +470,6 @@ namespace StormDiversMod.NPCs.Boss
                 }
 
                 NPC.ai[0]++;
-
                
                 if (NPC.ai[0] == 1)//Xpos
                 {
@@ -1163,10 +1167,15 @@ namespace StormDiversMod.NPCs.Boss
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(player.Center.X + Main.rand.Next(-350, 350), player.Center.Y - 600), new Vector2(0, projvelocity + extravel),
-                                ModContent.ProjectileType<NPCs.NPCProjs.AridBossSandProj>(), projdamage, 1, Main.myPlayer, 0, 0);
+                                int projid = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(player.Center.X + Main.rand.Next(-350, 350), player.Center.Y - 600), new Vector2(0, projvelocity + extravel),
+                                ModContent.ProjectileType<NPCs.NPCProjs.AridBossSandProj>(), projdamage, 1, Main.myPlayer, 0, 2);
+                                Main.projectile[projid].timeLeft = 120;
                             }
                         }
+                        int projid2 = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(player.Center.X, player.Center.Y - 600), new Vector2(0, projvelocity + extravel),
+                              ModContent.ProjectileType<NPCs.NPCProjs.AridBossSandProj>(), projdamage, 1, Main.myPlayer, 0, 2);
+                        Main.projectile[projid2].timeLeft = 120;
+
                         NPC.localAI[0] = 0;
                     }
                 }

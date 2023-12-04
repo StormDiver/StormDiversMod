@@ -39,8 +39,8 @@ namespace StormDiversMod.Items.Tools
             Item.value = Item.sellPrice(0, 0, 0, 20);
             Item.rare = ItemRarityID.Green;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 12;
-            Item.useAnimation = 12;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useTurn = false;
             Item.autoReuse = true;
             Item.damage = 0;
@@ -74,16 +74,18 @@ namespace StormDiversMod.Items.Tools
                 Item.consumable = false;
 
                 Item.useStyle = ItemUseStyleID.HoldUp;
-                Item.useTime = 30;
-                Item.useAnimation = 30;
+                //Item.useTime = 30;
+                //Item.useAnimation = 30;
+                Item.reuseDelay = 15;
             }
             else
             {
                 Item.consumable = true;
 
                 Item.useStyle = ItemUseStyleID.Shoot;
-                Item.useTime = 15;
-                Item.useAnimation = 15;
+                //Item.useTime = 15;
+                //Item.useAnimation = 15;
+                Item.reuseDelay = 0;
             }
             return true;
         }

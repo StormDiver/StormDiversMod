@@ -286,7 +286,6 @@ namespace StormDiversMod.Items.Weapons
 
             for (int i = 0; i < 2; i++)
             {
-
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
 

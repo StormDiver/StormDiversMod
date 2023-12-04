@@ -244,7 +244,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             for (int i = 0; i < 10; i++)
             {
 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 135, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 135, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }
         }
 
@@ -260,7 +260,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             for (int i = 0; i < 10; i++)
             {
 
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 135);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 135);
             }
         }
         public override bool PreDraw(ref Color lightColor)

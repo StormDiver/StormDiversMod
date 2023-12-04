@@ -263,6 +263,51 @@ namespace StormDiversMod.Basefiles
             recipe10.AddTile(TileID.Anvils);
             recipe10.Register();
 
+            //Shroomrang
+            Recipe recipe12 = Recipe.Create(ItemID.Shroomerang, 1);
+            recipe12.AddRecipeGroup("StormDiversMod:GoldBars", 10);
+            recipe12.AddIngredient(ItemID.GlowingMushroom, 30);
+            recipe12.AddTile(TileID.Anvils);
+            recipe12.Register();
+
+            //Lihzard traps
+            Recipe recipe13 = Recipe.Create(ItemID.SuperDartTrap, 8);
+            recipe13.AddIngredient(ItemID.LihzahrdBrick, 8);
+            recipe13.AddIngredient(ItemID.PoisonDart, 50);
+            recipe13.AddIngredient(ItemID.BeetleHusk, 1);
+            recipe13.AddTile(TileID.LihzahrdFurnace);
+            recipe13.Register();
+
+            recipe13 = Recipe.Create(ItemID.SpikyBallTrap, 10);
+            recipe13.AddIngredient(ItemID.LihzahrdBrick, 10);
+            recipe13.AddIngredient(ItemID.SpikyBall, 50);
+            recipe13.AddIngredient(ItemID.BeetleHusk, 1);
+            recipe13.AddTile(TileID.LihzahrdFurnace);
+            recipe13.Register();
+
+            recipe13 = Recipe.Create(ItemID.SpearTrap, 6);
+            recipe13.AddIngredient(ItemID.LihzahrdBrick, 6);
+            recipe13.AddIngredient(ItemID.SpearRack, 1);
+            recipe13.AddIngredient(ItemID.BeetleHusk, 1);
+            recipe13.AddTile(TileID.LihzahrdFurnace);
+            recipe13.Register();
+
+            recipe13 = Recipe.Create(ItemID.FlameTrap, 4);
+            recipe13.AddIngredient(ItemID.LihzahrdBrick, 4);
+            recipe13.AddIngredient(ItemID.Gel, 50);
+            recipe13.AddIngredient(ItemID.BeetleHusk, 1);
+            recipe13.AddTile(TileID.LihzahrdFurnace);
+            recipe13.Register();
+
+            //Snow Globes
+            Recipe recipe14 = Recipe.Create(ItemID.SnowGlobe, 1);
+            recipe14.AddIngredient(ItemID.Glass, 25);
+            recipe14.AddIngredient(ItemID.FrostCore, 1);
+            recipe14.AddIngredient(ItemID.SoulofLight, 3);
+            recipe14.AddIngredient(ItemID.SoulofNight, 3);
+            recipe14.AddTile(TileID.MythrilAnvil);
+            recipe14.Register();
+
             //Tombstones
             Recipe tomb2 = Recipe.Create(ItemID.Tombstone, 1);
             tomb2.AddIngredient(ItemID.StoneBlock, 50);
@@ -413,13 +458,16 @@ namespace StormDiversMod.Basefiles
                 shop.Add(ItemID.RainCoat, Condition.InRain);
                 shop.Add(ModContent.ItemType<RainBoots>(), Condition.InRain);
             }
+            if (shop.NpcType == NPCID.Clothier)
+            {
+                shop.Add(ModContent.ItemType<FlatCap>(), Condition.DownedFrostLegion);
+            }
             if (shop.NpcType == NPCID.Mechanic)
             {
                 shop.Add(ModContent.ItemType<Aircan>());
                 shop.Add(ModContent.ItemType<Oilcan>());
 
                 shop.Add(ItemID.CombatWrench);
-
             }
 
             if (shop.NpcType == NPCID.Steampunker)
@@ -466,7 +514,7 @@ namespace StormDiversMod.Basefiles
 
             if (shop.NpcType == NPCID.BestiaryGirl)
             {
-                shop.Add(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>()); //fine always avalible 
+                shop.Add(ModContent.ItemType<Items.Furniture.TheGoodBoyItem>()); 
             }
 
             if (shop.NpcType == NPCID.Pirate)
@@ -478,6 +526,10 @@ namespace StormDiversMod.Basefiles
             if (shop.NpcType == NPCID.WitchDoctor)
             {
                 shop.Add(ItemID.Seed);
+            }
+            if (shop.NpcType == NPCID.TravellingMerchant)
+            {
+                shop.Add(ItemID.PeddlersHat);
             }
         }
     }

@@ -203,7 +203,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 for (int i = 0; i < 5; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 1);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width = 10, Projectile.height = 10, 1);
                 }
 
             }

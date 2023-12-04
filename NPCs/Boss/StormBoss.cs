@@ -195,6 +195,28 @@ namespace StormDiversMod.NPCs.Boss
 
             distance = Vector2.Distance(player.Center, NPC.Center);
 
+            if (Main.getGoodWorld) //defense break barrier for ftw
+            {
+                for (int i = 0; i < 50; i++) 
+                {
+                    double deg = Main.rand.Next(0, 360); //The degrees
+                    double rad = deg * (Math.PI / 180); //Convert degrees to radians
+                    double dist = 500; //distance away from the player
+                    float dustx = NPC.Center.X - (int)(Math.Cos(rad) * dist);
+                    float dusty = NPC.Center.Y - (int)(Math.Sin(rad) * dist);
+                    if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, NPC.position, NPC.width, NPC.height))//no dust unless lien of sight
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 160, 0, 0);
+                        dust.noGravity = true;
+                        dust.scale = 2.5f;
+                        dust.velocity *= 0;
+                    }
+                }
+                if (distance < 500)
+                {
+                    player.AddBuff(ModContent.BuffType<ScanDroneDebuff>(), 2);
+                }
+            }
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (!charge && !player.dead && !deathani)
@@ -255,21 +277,7 @@ namespace StormDiversMod.NPCs.Boss
                     NPC.netUpdate = true;
                 }
             }
-            /*for (int i = 0; i < 10; i++) //shield (UNUSED)
-            {
-                double deg = Main.rand.Next(0, 360); //The degrees
-                double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                double dist = 75; //distance away from the player
-                float dustx = NPC.Center.X - (int)(Math.Cos(rad) * dist);
-                float dusty = NPC.Center.Y - (int)(Math.Sin(rad) * dist);
-                if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, NPC.position, NPC.width, NPC.height))//no dust unless lien of sight
-                {
-                    var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 160, 0, 0);
-                    dust.noGravity = true;
-                    dust.scale = 1.5f;
-                    dust.velocity *= 0;
-                }
-            }*/
+           
             //____________________________________________________________________________________________________________________________________
             if (!player.dead && !deathani)
             {

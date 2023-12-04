@@ -858,14 +858,16 @@ namespace StormDiversMod.Basefiles
                 int[] ChestTwilightPet = { ItemType<TwilightPetItem>() };
                 int ChestTwilightPetCount = 0;
 
-              
+                int[] ChestSpearGun = { ItemType<CursedSpearGun>() };
+                int ChestSpearGunCount = 0;
+
                 if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 2 * 36) //Look in Tiles_21 for the tile, start from 0
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
-                            int choice = Main.rand.Next(4);
+                            int choice = Main.rand.Next(5);
 
                             //if (WorldGen.genRand.NextBool(2))
                             if (choice == 0)
@@ -897,6 +899,12 @@ namespace StormDiversMod.Basefiles
                                 ChestTwilightPetCount = (ChestTwilightPetCount + 1) % ChestTwilightPet.Length;
                                 inventoryIndex++;
                             }
+                            if (choice == 4)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestSpearGun));
+                                ChestSpearGunCount = (ChestSpearGunCount + 1) % ChestSpearGun.Length;
+                                inventoryIndex++;
+                            }
                             break;
                         }
                     }
@@ -920,7 +928,7 @@ namespace StormDiversMod.Basefiles
                                 ChestHeartCount = (ChestHeartCount + 1) % ChestHeart.Length;
                                 inventoryIndex++;
                             }
-
+                           
                             break;
                         }
                     }

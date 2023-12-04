@@ -84,7 +84,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 259);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 259);
                 }
 
             }
@@ -193,7 +193,7 @@ namespace StormDiversMod.Projectiles
                 {
 
                     
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 259);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 259);
                     dust.scale = 0.5f;
 
                 }

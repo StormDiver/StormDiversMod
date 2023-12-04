@@ -661,4 +661,20 @@ namespace StormDiversMod.Buffs
            
         }
     }
+    //_____________________________________________
+    public class SantaReviveDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Heart Burnout");
+            //Description.SetDefault("Your heart cannot survive another shock");
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+    }
 }

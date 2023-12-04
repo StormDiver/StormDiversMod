@@ -78,11 +78,11 @@ namespace StormDiversMod.Items.Weapons
         int dusttype;
         float dustscale;
         int choice = 0;
-
+        Vector2 projvelocity;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
-            position = Main.MouseWorld;
+            float projspeed = 20;
 
             //for (int j = 0; j < 3; j++)
             {
@@ -91,11 +91,26 @@ namespace StormDiversMod.Items.Weapons
                 double rad = deg * (Math.PI / 180); //Convert degrees to radians
                 double dist = 250; //Distance away from the cursor
 
+                if (Vector2.Distance(player.Center, Main.MouseWorld) <= 800)
+                {
+                    position.X = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);
+                    position.Y = Main.MouseWorld.Y - (int)(Math.Sin(rad) * dist);
+                    projvelocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(position.X, position.Y)) * projspeed;
+                }
+                else
+                {
+                    Vector2 perturbedSpeed = new Vector2(velocity.X * 800, velocity.Y * 800).RotatedBy(0);
+                    position.X = player.Center.X + perturbedSpeed.X - (int)(Math.Cos(rad) * dist);
+                    position.Y = player.Center.Y + perturbedSpeed.Y - (int)(Math.Sin(rad) * dist);
+                    //var dust = Dust.NewDustDirect(player.Center + perturbedSpeed, 30, 30, 248, 0, 0, 100, default, 5);
+                    //dust.noGravity = true;
+                    projvelocity = Vector2.Normalize(new Vector2(player.Center.X + perturbedSpeed.X, player.Center.Y + perturbedSpeed.Y) - new Vector2(position.X, position.Y)) * projspeed;
 
-                position.X = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);
-                position.Y = Main.MouseWorld.Y - (int)(Math.Sin(rad) * dist);
-                float projspeed = 20;
-                Vector2 projvelocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(position.X, position.Y)) * projspeed;
+                }
+
+                //position.X = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);
+                //position.Y = Main.MouseWorld.Y - (int)(Math.Sin(rad) * dist);
+                //projvelocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(position.X, position.Y)) * projspeed;
                 //For the direction
 
                 //int choice = Main.rand.Next(3);

@@ -202,7 +202,7 @@ namespace StormDiversMod.Projectiles
             {
                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
                 {
-                    PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
+                    PositionInWorld = new Vector2(target.Center.X + Main.rand.Next(-target.width / 3, target.width / 3), target.Center.Y + Main.rand.Next(-target.height / 3, target.height / 3)),
 
                 }, player.whoAmI);
             }
@@ -238,7 +238,7 @@ namespace StormDiversMod.Projectiles
             {
                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningSmall, new ParticleOrchestraSettings
                 {
-                    PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
+                    PositionInWorld = new Vector2(target.Center.X + Main.rand.Next(-target.width / 3, target.width / 3), target.Center.Y + Main.rand.Next(-target.height / 3, target.height / 3)),
 
                 }, player.whoAmI);
             }
@@ -291,7 +291,7 @@ namespace StormDiversMod.Projectiles
             {
                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.PrincessWeapon, new ParticleOrchestraSettings
                 {
-                    PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
+                    PositionInWorld = new Vector2(target.Center.X + Main.rand.Next(-target.width / 3, target.width / 3), target.Center.Y + Main.rand.Next(-target.height / 3, target.height / 3)),
 
                 }, player.whoAmI);
             }
@@ -330,7 +330,6 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
             }
             hits++;
-
         }
     }
     public class AsteroidAura : SwordAura
@@ -360,9 +359,49 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.NightsEdge, new ParticleOrchestraSettings
             {
-                PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
+                PositionInWorld = new Vector2(target.Center.X + Main.rand.Next(-target.width / 3, target.width / 3), target.Center.Y + Main.rand.Next(-target.height / 3, target.height / 3)),
 
             }, player.whoAmI);
+            hits++;
+        }
+    }
+    public class RoseAura : SwordAura
+    {
+        public override void AuraDefaults()
+        {
+            scaleIncrease = 0.9f;
+            frontColor = Color.Crimson;
+            middleColor = Color.DarkRed;
+            backColor = Color.Black;
+            //backColor = new Color(192, 176, 138);
+        }
+        int hits;
+        public override bool? CanDamage()
+        {
+            if (hits < 6)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            var player = Main.player[Projectile.owner];
+            /*ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueExcalibur, new ParticleOrchestraSettings
+            {
+                PositionInWorld = new Vector2(target.Center.X, target.Center.Y), 
+                
+            }, player.whoAmI);*/
+            for (int i = 0; i < 15; i++)
+            {
+                var dust = Dust.NewDustDirect(target.Center, 0, 0, 218);
+                dust.scale = 1.25f;
+                dust.velocity *= 2f;
+                dust.noGravity = true;
+            }
             hits++;
         }
     }

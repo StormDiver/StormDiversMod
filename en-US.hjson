@@ -346,6 +346,11 @@ Mods: {
 				Description: So shiny and bouncy!
 			}
 
+			MrStabbyPetBuff: {
+				DisplayName: Mini Stabby
+				Description: Wants to stab things, but it's not very good at it!
+			}
+
 			StormBossPetBuff: {
 				DisplayName: Baby Overloaded Scandrone
 				Description: Scanning and droning
@@ -389,6 +394,16 @@ Mods: {
 			GraniteDebuff: {
 				DisplayName: Cell Recharge
 				Description: Your Granite barrier is recharging
+			}
+
+			SantaReviveBuff: {
+				DisplayName: Heart Shock
+				Description: You are immune to damage and deal more damage, but your heart will soon stop unless you heal enough
+			}
+
+			SantaReviveDebuff: {
+				DisplayName: Heart Burnout
+				Description: Your heart cannot survive another shock
 			}
 		}
 
@@ -507,6 +522,7 @@ Mods: {
 				Tooltip:
 					'''
 					Saves you from death once every 2 minutes
+					Doesn't activate if the killing blow deals over 9999 damage
 					'Live to suffer another day'
 					'''
 			}
@@ -647,6 +663,18 @@ Mods: {
 					'''
 					Six spike balls will orbit you, damaging enemies within reach
 					Has a small chance to destroy almost any projectile that comes near
+					'''
+			}
+
+			SantaWires: {
+				DisplayName: Santank Power Core
+				Tooltip:
+					'''
+					Exposed wires will shock you back to life for after taking lethal damage, granting a 10 second grace period
+					During the peroid you are immune to damage and deal extra damage
+					After 10 seconds you will die unless you heal to above 33% life
+					Has a 5 minute cooldown if you survive between uses
+					Won't save you if the attacks deals more damage than your max life
 					'''
 			}
 
@@ -956,20 +984,20 @@ Mods: {
 				DisplayName: Cryogenic Mask
 				Tooltip:
 					'''
-					Increases your max number of sentries by 1
-					7% increased damage
+					8% increased magic damage
+					Increases maximum mana by 40
 					'Cold and Misty'
 					'''
 				SetBonus1:
 					'''
 					Grants immunity to all cold themed debuffs
-					Makes all sentries inflict Frostbite
 					Press
 					'''
 				SetBonus2:
 					'''
 					to summon a cryo cloud at the cursor that rains down icicles
-					Requires a line of sight and has a 5 second cooldown
+					Requires a line of sight and consumes 100 mana
+
 					'''
 			}
 
@@ -977,8 +1005,8 @@ Mods: {
 				DisplayName: Cryogenic Chestplate
 				Tooltip:
 					'''
-					8% increased damage
-					6% increased critical strike chance
+					6% increased magic damage 
+					4% increased magic critical strike chance
 					'''
 			}
 
@@ -986,9 +1014,8 @@ Mods: {
 				DisplayName: Cryogenic Greaves
 				Tooltip:
 					'''
-					Increases your max number of sentries by 1
-					7% increased damage
-					10% increased movement speed
+					6% increased magic critical strike chance
+					Increases maximum mana by 20
 					'''
 			}
 
@@ -1315,7 +1342,7 @@ Mods: {
 
 			SkyKnightBMask: {
 				DisplayName: Star Warrior Visage
-				Tooltip: 7% increased damage
+				Tooltip: 4% increased damage
 				SetBonus: Summons a floating star above you that launches mini homing stars at enemies
 			}
 
@@ -1324,7 +1351,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases your max number of sentries by 1
-					4% increased damage
+					2% increased damage
 					'''
 			}
 
@@ -1333,28 +1360,28 @@ Mods: {
 				Tooltip:
 					'''
 					Increases your max number of sentries by 1
-					4% increased damage
+					2% increased damage
 					'''
 			}
 
 			SnowfallBMask: {
 				DisplayName: Snowfall Hood
-				Tooltip: 5% increased critical strike chance
+				Tooltip: ""
 				SetBonus:
 					'''
-					Hold JUMP to glide
-					Hold UP while gliding to glide even slower
+					Hold JUMP to glide for a short time
+					Hold UP while gliding to glide even slower, but halves glide time
 					'''
 			}
 
 			SnowfallChest: {
 				DisplayName: Snowfall Coat
-				Tooltip: Increases damage by a flat 1
+				Tooltip: ""
 			}
 
 			SnowfallLeg: {
 				DisplayName: Snowfall Boots
-				Tooltip: 10% increased jump and movement speed
+				Tooltip: ""
 			}
 
 			SpaceRockBHelmet: {
@@ -1581,6 +1608,11 @@ Mods: {
 			DerplingVine: {
 				DisplayName: Mysterious Vine
 				Tooltip: Seems to be infused with some strange energy
+			}
+
+			StabbyKnife: {
+				DisplayName: Stabby Knife
+				Tooltip: Summons a Mini Stabby Pet
 			}
 
 			StormBossPetItem: {
@@ -1919,6 +1951,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			FlatCap: {
+				DisplayName: Snowman's Flat Cap
+				Tooltip: "'It's still cold'"
+			}
+
 			PredictorBMask: {
 				DisplayName: Predictor Mask
 				Tooltip: "'Unfortunately this will not increase your brain power'"
@@ -2131,6 +2168,25 @@ Mods: {
 				Tooltip: Fires out a spore that explodes into multiple spore clouds at the cursor's location or on tile impact
 			}
 
+			ClaymanStick: {
+				DisplayName: Stick of Judgment
+				Tooltip:
+					'''
+					Left click to judge enemies in front of you
+					Right click to judge a specfic point dealing much more damage
+					'Everyone will be judged'
+					'''
+			}
+
+			CrackedDagger: {
+				DisplayName: Shattered Dagger
+				Tooltip:
+					'''
+					Summons 3 shattered daggers around cursor that travel inwards each use
+					Has a limited range and requires a line of sight to use
+					'''
+			}
+
 			CultistBow: {
 				DisplayName: Lunatic Bow of Ice
 				Tooltip:
@@ -2174,6 +2230,16 @@ Mods: {
 					'''
 					Summons a Cursed Skull minion to fight for you
 					The minion will fly next to enemies and will fire cursed bone projectiles at them that bounce and pierce
+					'''
+			}
+
+			CursedSpearGun: {
+				DisplayName: Cursed Spear Shotgun
+				Tooltip:
+					'''
+					Left click to use as a fast spear that burns enemies and ignores 10 defense
+					Right click to fire as a shotgun with low spread, requires bullets as ammo
+					'Who's idea was it to strap a shotgun to a spear?'
 					'''
 			}
 
@@ -2451,6 +2517,16 @@ Mods: {
 				Tooltip: Rapidly shoots out damaging icicles
 			}
 
+			IceStaff2: {
+				DisplayName: Icicle Scepter
+				Tooltip:
+					'''
+					Left click to rapidly shoot out damaging icicles
+					Right click to fire out a large spinning icicle that slows down upon striking an enemy
+					Larger icicle consumes more mana and has a slower fire rate
+					'''
+			}
+
 			JungleSentry: {
 				DisplayName: Jungle Tree Staff
 				Tooltip: Summons a jungle tree that launches out a bunch of thorn balls
@@ -2523,7 +2599,7 @@ Mods: {
 				Tooltip:
 					'''
 					Spins around with the force of a star, knocking enemies in the direction you're facing
-					Has a chance to reflect basic projectiles when spun
+					Reflects basic projectiles when spun
 					'''
 			}
 
@@ -2732,7 +2808,7 @@ Mods: {
 			}
 
 			OceanSpell: {
-				DisplayName: Tidal Wave
+				DisplayName: Tidal Blast
 				Tooltip: Summons an orb of water that splashes on impact and ignores some defense
 			}
 
@@ -2756,6 +2832,16 @@ Mods: {
 					'''
 					Summons multiple Judgment skulls in various patterns that seek out enemies and deliver pain
 					Right click while holding to cycle damage types
+					'''
+			}
+
+			PizzaCutter: {
+				DisplayName: Motorized Pizza Cutter
+				Tooltip:
+					'''
+					Summons larger spinning pizza cutter blades when attacking enemies 
+					The larger blade ignores 15 enemy defense and slowly homes towards nearby enemies
+					'What kind of pizza was this designed for?'
 					'''
 			}
 
@@ -2785,6 +2871,16 @@ Mods: {
 					Rapidly summons mini ducks enhanced by lunar energy
 					Ducks can have one of four different effects
 					'Incredibly prone to quacking'
+					'''
+			}
+
+			RoseSickle: {
+				DisplayName: The Crescent Rifle
+				Tooltip:
+					'''
+					Left click to swing the scythe creating a large damaging aura that ignores 30 defense
+					Right click to fire the rifle, has a strong recoil when not grounded and requires bullets as ammo
+					'A High Caliber Sniper Scythe, turn your enemies into dust'
 					'''
 			}
 
@@ -3030,7 +3126,7 @@ Mods: {
 				Tooltip:
 					'''
 					Fires out magical tombstones that bounce around
-					Tombstones spawn a miniature ghost upon hitting an enemy
+					Tombstones spawn a miniature ghost upon breaking
 					'''
 			}
 
@@ -3247,6 +3343,16 @@ Mods: {
 				DisplayName: Pain Slime Banner
 				Tooltip: Nearby players get a bonus against: Pain Slime
 			}
+
+			SnowmanPizzaBannerItem: {
+				DisplayName: Pizza Delivery Snowman Banner
+				Tooltip: Nearby players get a bonus against: Pizza Delivery Snowman
+			}
+
+			SnowmanBombBannerItem: {
+				DisplayName: Snowman Bomber Banner
+				Tooltip: Nearby players get a bonus against: Snowman Bomber
+			}
 		}
 
 		NPCs: {
@@ -3279,7 +3385,7 @@ Mods: {
 					SpawnInfo:
 						'''
 						Summoned by using a [i:StormDiversMod/UltimateBossSummoner] post Moon Lord
-						Dropped from any enemy while wearing ThePain or Clayman mask post Moon Lord
+						Dropped from any enemy when you have [i:StormDiversMod/ThePainMask] or [i:StormDiversMod/TheClaymanMask] in your inventory post Moon Lord
 						Also dropped from Clay and Pain Slimes post Moon Lord
 						'''
 					DespawnMessage: You couldn't handle the pain huh?
@@ -3315,6 +3421,8 @@ Mods: {
 			TheClaySlime.DisplayName: Clay Slime
 			TheUltimateBossMinion.DisplayName: Shattered Crystal of Pain
 			SuperPainDummy.DisplayName: Super Pain Dummy
+			SnowmanPizza.DisplayName: Pizza Delivery Snowman
+			SnowmanBomb.DisplayName: Snowman Bomber
 		}
 
 		Projectiles: {
@@ -3495,6 +3603,7 @@ Mods: {
 			PainStaffProj.DisplayName: Judgment Skull
 			AridBossPetProj.DisplayName: Liberated Husk
 			GoldDerpie.DisplayName: Golden Derpie
+			MrStabbyPetProj.DisplayName: Mini Stabby
 			StormBossPetProj.DisplayName: Baby Overloaded Scandrone
 			StormLightProj.DisplayName: Baby Storm Diver
 			TwilightPetProj.DisplayName: Twilight light
@@ -3657,7 +3766,19 @@ Mods: {
 			DesertSparkProj.DisplayName: Desert Spark
 			CursedSkullMinionProj.DisplayName: Cursed Skull Minion
 			CursedSkullMinionProj2.DisplayName: Cursed Skull Bones
-			WoodPointyStickProj2.DisplayName: Wood Pointy Stick Proj2
+			WoodPointyStickProj2.DisplayName: Wood Pointy Stick Leaf
+			RoseAura.DisplayName: The Scythe Rifle Aura
+			ClaymanProj.DisplayName: Judgment Stare
+			CursedSpearGunProj.DisplayName: Cursed Spear Gun
+			CrackedDaggerProj.DisplayName: Shattered Dagger
+			SnowmanPizzaProj.DisplayName: Snowman Pizza
+			DerpMimicProj.DisplayName: Shadow Derpling
+			PizzaCutterProj.DisplayName: Motorized Pizza Cutter
+			PizzaCutterProj2.DisplayName: Pizza Cutter Blade
+			SnowmanExplosion.DisplayName: Snowman Bomb Explosion
+			SnowmanSnowball.DisplayName: Snowman Snowball
+			IceStaff2Proj.DisplayName: Ice Scepter Icicle
+			IceStaff2Proj2.DisplayName: Ice Scepter Large Icicle
 		}
 
 		Tiles: {
@@ -3688,6 +3809,8 @@ Mods: {
 			VortCannonBannerPlace.MapEntry: Banner
 			TheClaySlimeBannerPlaced.MapEntry: Banner
 			ThePainSlimeBannerPlaced.MapEntry: Banner
+			SnowmanPizzaBannerPlaced.MapEntry: Banner
+			SnowmanBombBannerPlaced.MapEntry: Banner
 			PainMusicBoxPlaced.MapEntry: Music Box
 			TheGoodBoyPlaced.MapEntry: Painting
 		}
@@ -3736,11 +3859,6 @@ Mods: {
 					Label: Overloaded Scandrone acts as a Plantera alternative
 				}
 
-				//SmellyPlayer: {
-				//	Tooltip: Prevent Temple Guardians from spawning when entering the temple pre-Plantera (Not recommended)
-				//	Label: Disable Temple Guardians pre Plantera
-				//}
-				
 				NoMoonling4U: {
 					Tooltip: Prevent Moonlings from spawning naturally in space post-Moon Lord, they can still be summoned via Moonling core
 					Label: Disable Moonlings from naturally spawning
@@ -3749,11 +3867,6 @@ Mods: {
 				PreventPillarEnemies: {
 					Tooltip: This will prevent the new pillar enemies in this mod from spawning
 					Label: Prevent modded pillar enemies from spawning
-				}
-
-				PreventSnowmenEnemies: {
-					Tooltip: This will prevent enemies from the Frost legion from spawning during Blizzards in Hardmode
-					Label: Prevent Frost Legion enemies spawning in hardmode Blizzards
 				}
 
 				NoChestforu: {
@@ -3769,11 +3882,14 @@ Mods: {
 		}
 
 		Emotes: {
-			ThePainEmote.Command: ThePain
-			TheAngeryEmote.Command: TheAngery
-			TheEvilEmote.Command: TheEvil
-			TheSadEmote.Command: TheSad
-			ClaymanEmote.Command: Clayman
+			ThePainEmote.Command: thePain
+			TheAngeryEmote.Command: theAngery
+			TheEvilEmote.Command: theEvil
+			TheSadEmote.Command: theSad
+			ClaymanEmote.Command: clayman
+			AridBossEmote.Command: ancienthusk
+			StormBossEmote.Command: overloadedscandrone
+			UltimateBossEmote.Command: thepainbringer
 		}
 	}
 }

@@ -640,4 +640,36 @@ namespace StormDiversMod.Buffs
         {
         }
     }
+    //_________________________________________________________________
+    public class SantaReviveBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Heart Shock");
+            //Description.SetDefault("You are immune to damage and deal mroe damage, but yur heart will soon stop");
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.GetDamage(DamageClass.Generic) += 0.25f;
+
+            if (Main.rand.Next(8) == 0)
+            {
+                Vector2 dustspeed = new Vector2(0, 2).RotatedByRandom(MathHelper.ToRadians(360));
+
+                int dust2 = Dust.NewDust(player.Center, 0, 0, 133, dustspeed.X, dustspeed.Y, 100, default, 1f);
+            }
+            if (player.statLife < player.statLifeMax2 / 3)
+            {
+                if (Main.rand.Next(5) == 0)
+                {
+                    Vector2 dustspeed = new Vector2(0, 1).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    int dust2 = Dust.NewDust(player.Center, 0, 0, 5, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                }
+            }
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+        }
+    }
 }

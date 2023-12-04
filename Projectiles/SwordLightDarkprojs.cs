@@ -134,7 +134,7 @@ namespace StormDiversMod.Projectiles
             {
                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
                 {
-                    PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
+                    PositionInWorld = new Vector2(target.Center.X + Main.rand.Next(-target.width / 3, target.width / 3), target.Center.Y + Main.rand.Next(-target.height / 3, target.height / 3)),
 
                 }, player.whoAmI);
             }

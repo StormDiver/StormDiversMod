@@ -996,4 +996,83 @@ namespace StormDiversMod.NPCs.Banners
             }
         }
     }
+    public class SnowmanPizzaBannerPlaced : ModTile
+    {
+        public override void SetStaticDefaults()
+        {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
+            TileObjectData.addTile(Type);
+
+            LocalizedText name = CreateMapEntryName();
+            //name.SetDefault("Pizza Delivery Snowman Banner");
+            AddMapEntry(new Color(13, 88, 130), name);
+        }
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
+        /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FrozenSoulBannerItem>());//this defines what to drop when this tile is destroyed
+        }*/
+
+        public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
+        {
+            if (closer)  //so if a player is close to the banner
+            {
+                Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.SnowmanPizza>()] = true;
+                Main.SceneMetrics.hasBanner = true;
+            }
+        }
+    }
+
+    public class SnowmanBombBannerPlaced : ModTile
+    {
+        public override void SetStaticDefaults()
+        {
+            TileObjectData.newTile.CopyFrom(TileObjectData.GetTileData(TileID.Banners, 0));
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            Main.tileLavaDeath[Type] = true;  //This defines if the tile is destroyed by lava
+            TileObjectData.addTile(Type);
+
+            LocalizedText name = CreateMapEntryName();
+            //name.SetDefault("Snowman Bomber Banner");
+            AddMapEntry(new Color(13, 88, 130), name);
+        }
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        {
+            Tile tile = Main.tile[i, j];
+            TileObjectData data = TileObjectData.GetTileData(tile);
+            int topLeftX = i - tile.TileFrameX / 18 % data.Width;
+            int topLeftY = j - tile.TileFrameY / 18 % data.Height;
+            if (WorldGen.IsBelowANonHammeredPlatform(topLeftX, topLeftY))
+            {
+                offsetY -= 8;
+            }
+        }
+        /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<FrozenSoulBannerItem>());//this defines what to drop when this tile is destroyed
+        }*/
+
+        public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
+        {
+            if (closer)  //so if a player is close to the banner
+            {
+                Main.SceneMetrics.NPCBannerBuff[ModContent.NPCType<NPCs.SnowmanBomb>()] = true;
+                Main.SceneMetrics.hasBanner = true;
+            }
+        }
+    }
 }

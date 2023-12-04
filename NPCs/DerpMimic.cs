@@ -15,6 +15,7 @@ using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using StormDiversMod.Basefiles;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.NPCs
 
@@ -120,7 +121,7 @@ namespace StormDiversMod.NPCs
         float oldmovespeed;
 
         int groundtime;
-
+        int projdamage = 300;
         bool onasphalt;
         Player player;
         public override bool? CanFallThroughPlatforms()
@@ -206,8 +207,6 @@ namespace StormDiversMod.NPCs
 
             if (feartime > 120)
             {
-               
-
                 if (NPC.velocity.X > 0.1f)
                 {
                     NPC.spriteDirection = 1;
@@ -219,7 +218,7 @@ namespace StormDiversMod.NPCs
                 }
                 if (!player.dead)
                 {
-
+                    
                     if (distance <= distancefear && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
                     {
                         if (!attackmode)
@@ -233,17 +232,63 @@ namespace StormDiversMod.NPCs
                         death = false;
                         distancefear = 1000f; //increase detection range once triggered
                         attackmode = true;
-                        dociletime = 300;
-
+                        dociletime = 600;
                     }
-                    else //if cannot detect player begin docile cooldown
+                    else //if cannot detect player begin docile cooldown, shoot projs too
                     {
-
                         dociletime--;
                     }
                     if (attackmode) //When targetting the player
                     {
+                        if (Vector2.Distance(player.Center, NPC.Center) <= 1500f)
+                        {
+                            NPC.ai[3]++;
 
+                            if ((NPC.ai[3] >= 120 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && Vector2.Distance(player.Center, NPC.Center) >= 600f)
+                                || (NPC.ai[3] >= 60 && !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height)))
+                            {
+                                if (Main.masterMode)
+                                    projdamage = 50; //300
+                                else if (Main.expertMode && !Main.masterMode)
+                                    projdamage = 75; //300
+                                else
+                                    projdamage = 150; //300
+
+                                float knockBack = 1;
+                                int type = ModContent.ProjectileType<NPCs.NPCProjs.DerpMimicProj>();
+
+                                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
+                        new Vector2(NPC.Center.X, NPC.Center.Y)) * 10;
+
+                                SoundEngine.PlaySound(SoundID.Zombie87, NPC.Center);
+
+
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + (5 * NPC.spriteDirection), NPC.Center.Y - 8), new Vector2(perturbedSpeed.X + player.velocity.X / 2, perturbedSpeed.Y + player.velocity.Y / 2), type, 333, knockBack);
+                                }
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                                    {
+                                        PositionInWorld = new Vector2(NPC.Center.X, NPC.Center.Y),
+
+                                    }, player.whoAmI);
+                                }
+                                for (int i = 0; i < 50; i++) //Black particles
+                                {
+                                    Vector2 perturbedSpeed = new Vector2(0, -8f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                                    var dust = Dust.NewDustDirect(NPC.Center, 0, 0, 109, perturbedSpeed.X, perturbedSpeed.Y);
+                                    dust.noGravity = true;
+                                    dust.scale = 2f;
+
+                                }
+                                NPC.ai[3] = 0;
+                            }
+                        }
                         if (NPC.velocity.Y != 0)
                         {
                             groundtime++;
@@ -313,7 +358,7 @@ namespace StormDiversMod.NPCs
                     attackmode = false;
                     distancefear = 500; //reset orignal trigger range
                     npcframe = 0; //Stays on frame 0 if no fear
-
+                    NPC.ai[3] = 0;
                 }
                 if (NPC.velocity.Y == 0)
                 {
@@ -418,7 +463,7 @@ namespace StormDiversMod.NPCs
             feartime = 120; //ignore startup cooldown
             distancefear = 2000; //Grealty increase aggro range
             attackmode = true; //Enable attack mode
-            dociletime = 300; //Reset docile time
+            dociletime = 500; //Reset docile time
 
             //shoottime = 100;
             for (int i = 0; i < 10; i++)

@@ -62,6 +62,48 @@ namespace StormDiversMod.Items.Pets
         
     }
 
+    public class StabbyKnife : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Stabby Knife");
+            //Tooltip.SetDefault("Summons a Mini Stabby Pet");
+            Item.ResearchUnlockCount = 1;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.UseSound = SoundID.Item2;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
+            Item.noMelee = true;
+
+            Item.width = 16;
+            Item.height = 26;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+
+            Item.shoot = ProjectileType<MrStabbyPetProj>();
+            Item.buffType = BuffType<MrStabbyPetBuff>();
+            Item.rare = ItemRarityID.Pink;
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            player.AddBuff(Item.buffType, 2); // The item applies the buff, the buff spawns the projectile
+
+            return false;
+        }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+            {
+                player.AddBuff(Item.buffType, 3600, true);
+            }
+        }
+    }
+
     public class StormLightItem : ModItem
     {
         public override void SetStaticDefaults()

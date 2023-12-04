@@ -12,6 +12,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
+using StormDiversMod.Items.Weapons;
 
 namespace StormDiversMod.NPCs
 
@@ -169,7 +170,6 @@ namespace StormDiversMod.NPCs
                     npcframe = 0;
                 }
             }
-
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
@@ -229,6 +229,8 @@ namespace StormDiversMod.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Materials.CrackedHeart>(), 2, 1));
+            npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<CrackedDagger>(), 20, 15));
+
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

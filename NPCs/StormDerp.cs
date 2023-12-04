@@ -78,9 +78,6 @@ namespace StormDiversMod.NPCs
             }
         }
 
-
-
-
         int shoottime = 0;
         public override void AI()
         {
@@ -90,31 +87,36 @@ namespace StormDiversMod.NPCs
                    
             if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
-                if (shoottime >= 180 && NPC.velocity.Y == 0)
+                if (shoottime >= 120)
                 {
-                    float projectileSpeed = 10f; // The speed of your projectile (in pixels per second).
-                    int damage = 40; // The damage your projectile deals.
-                    float knockBack = 3;
-                    int type = ModContent.ProjectileType<NPCs.NPCProjs.StormDerpProj>();
-                    SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
-
-                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
-                    new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
-
-
-                    for (int i = 0; i < 5; i++)
+                    var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 20, NPC.position.Y + 10), 40, 1, 229);
+                    dust.noGravity = true;
+                    if (shoottime > 180 && NPC.velocity.Y == 0)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(30)); // 30 degree spread.
-                                                                                                                                    // If you want to randomize the speed to stagger the projectiles
-                            float scale = 1f - (Main.rand.NextFloat() * .3f);
-                            perturbedSpeed = perturbedSpeed * scale;
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + Main.rand.Next(-20, 20), NPC.Top.Y + 20), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
-                        }
-                    }
+                        float projectileSpeed = 10f; // The speed of your projectile (in pixels per second).
+                        int damage = 40; // The damage your projectile deals.
+                        float knockBack = 3;
+                        int type = ModContent.ProjectileType<NPCs.NPCProjs.StormDerpProj>();
+                        SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
 
-                    shoottime = 0;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
+                        new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
+
+
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(30)); // 30 degree spread.
+                                                                                                                                        // If you want to randomize the speed to stagger the projectiles
+                                float scale = 1f - (Main.rand.NextFloat() * .3f);
+                                perturbedSpeed = perturbedSpeed * scale;
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + Main.rand.Next(-20, 20), NPC.Top.Y + 20), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                            }
+                        }
+
+                        shoottime = 0;
+                    }
                 }
             }
             else

@@ -11,6 +11,7 @@ using StormDiversMod.Buffs;
 using Terraria.Audio;
 using StormDiversMod.Basefiles;
 using Terraria.ModLoader.Utilities;
+using Terraria.GameContent.Bestiary;
 
 namespace StormDiversMod.NPCs
 {
@@ -35,7 +36,6 @@ namespace StormDiversMod.NPCs
                 NPCID.Sets.ShimmerTransformToNPC[npc.type] = ModContent.NPCType<DerpMimic>();
             }
         }
-       
         int shoottime = 0;
         //private float rotation;
         //private float scale;

@@ -124,5 +124,4 @@ namespace StormDiversMod.Items.Accessory
             return true;
         }
     }
-
 }

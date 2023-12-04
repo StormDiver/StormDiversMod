@@ -16,7 +16,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Tidal Wave");
+            //DisplayName.SetDefault("Tidal Blast");
             //Tooltip.SetDefault("Summons an orb of water that splashes on impact");
             Item.ResearchUnlockCount = 1;
         }

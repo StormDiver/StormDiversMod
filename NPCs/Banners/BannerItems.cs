@@ -679,6 +679,60 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             Item.placeStyle = 0;
         }
     }
+
+    public class SnowmanPizzaBannerItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Pizza Delivery Snowman Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Pizza Delivery Snowman");
+            Item.ResearchUnlockCount = 1;
+
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 10;
+            Item.height = 24;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = ModContent.TileType<SnowmanPizzaBannerPlaced>();  //This defines what type of tile this Item will place
+            Item.placeStyle = 0;
+        }
+    }
+
+    public class SnowmanBombBannerItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Snowman Bomber Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Pizza Delivery Snowman");
+            Item.ResearchUnlockCount = 1;
+
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 10;
+            Item.height = 24;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = ModContent.TileType<SnowmanBombBannerPlaced>();  //This defines what type of tile this Item will place
+            Item.placeStyle = 0;
+        }
+    }
 }
 
 ////then add this to the custom npc you want to drop the banner and in public override void SetDefaults()

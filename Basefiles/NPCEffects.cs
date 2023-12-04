@@ -30,6 +30,8 @@ using StormDiversMod.NPCs.Boss;
 using System.Reflection.Metadata.Ecma335;
 using Terraria.WorldBuilding;
 using System.Collections.Generic;
+using Terraria.GameContent.Bestiary;
+using StormDiversMod.NPCs.NPCProjs;
 
 namespace StormDiversMod.Basefiles
 {
@@ -141,7 +143,18 @@ namespace StormDiversMod.Basefiles
         {
 
         }
-        
+        public override void SetBestiary(NPC npc, BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<GladiatorMiniBoss>()] = 3;
+            ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<GraniteMiniBoss>()] = 3;
+            ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<MushroomMiniBoss>()] = 3;
+
+            ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<HellSoul>()] = 3;
+
+            ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<SnowmanPizza>()] = 2;
+            ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<VineDerp>()] = 3;
+
+        }
         public override void AI(NPC npc)
         {
 
@@ -865,7 +878,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
-            if (projectile.GetGlobalProjectile<Projectiles.SelenianReflect>().reflected) //update damage to be the same as if it hit the player
+            if (projectile.GetGlobalProjectile<Projectiles.SelenianReflect>().reflected || projectile.type == ModContent.ProjectileType<SnowmanExplosion>()) //update damage to be the same as if it hit the player
             {
                 if (Main.masterMode)
                 {
@@ -881,6 +894,8 @@ namespace StormDiversMod.Basefiles
 
                 }
             }
+
+
 
             if (player.GetModPlayer<EquipmentEffects>().aridBossAccess == true && aridCoreDebuff) //Ancient Emblem extra damage
             {
@@ -1128,7 +1143,11 @@ namespace StormDiversMod.Basefiles
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (!GetInstance<ConfigurationsGlobal>().PreventSnowmenEnemies)
+            if (Main.invasionType == 2 && Main.invasionProgress > 0) //don't spawn until even has progressed
+            {
+                pool.Add(ModContent.NPCType<SnowmanBomb>(), .2f);
+            }
+            /*if (!GetInstance<ConfigurationsGlobal>().PreventSnowmenEnemies)
             {
                 Player player = spawnInfo.Player;
                 if (player.ZoneSnow && Main.raining && Main.hardMode && player.ZoneOverworldHeight)
@@ -1137,7 +1156,7 @@ namespace StormDiversMod.Basefiles
                     pool.Add(NPCID.SnowBalla, .25f);
                     pool.Add(NPCID.MisterStabby, .25f);
                 }
-            }
+            }*/
         }
     }
 

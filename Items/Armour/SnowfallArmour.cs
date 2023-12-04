@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Snowfall Hood");
-            //Tooltip.SetDefault("5% increased critical strike chance");
+            //Tooltip.SetDefault("");
             Item.ResearchUnlockCount = 1;
         }
 
@@ -34,7 +34,6 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetCritChance(DamageClass.Generic) += 5;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -87,7 +86,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Snowfall Coat");
-            //Tooltip.SetDefault("Increases damage by a flat 1");
+            //Tooltip.SetDefault("");
             Item.ResearchUnlockCount = 1;
         }
 
@@ -102,7 +101,6 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic).Flat += 1;
 
         }
         public override void AddRecipes()
@@ -122,7 +120,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Snowfall Boots");
-            //Tooltip.SetDefault("10% increased jump and movement speed");
+            //Tooltip.SetDefault("");
             Item.ResearchUnlockCount = 1;
         }
 
@@ -137,8 +135,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.jumpSpeedBoost += 0.4f;
-            player.moveSpeed += 0.1f;
+            
         }
         public override void AddRecipes()
         {

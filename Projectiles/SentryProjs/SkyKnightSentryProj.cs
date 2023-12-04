@@ -124,7 +124,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SkyKnightSentryProj2>(), 40, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SkyKnightSentryProj2>(), 30, Projectile.knockBack, Projectile.owner);
 
                         SoundEngine.PlaySound(SoundID.Item9, Projectile.Center);
 

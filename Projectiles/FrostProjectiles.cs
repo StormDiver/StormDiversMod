@@ -564,8 +564,10 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
+            if (Projectile.ai[2] == 0)
             target.AddBuff(BuffID.Frostburn2, 180);
-
+            else if (Projectile.ai[2] == 1)
+                target.AddBuff(ModContent.BuffType<SuperFrostBurn>(), 150);
 
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -590,7 +592,7 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 10; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width = 10, Projectile.height = 10, 135);
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width = 10, Projectile.height = 10, 135);
                 }
 
             }
@@ -606,12 +608,11 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 100;
             Projectile.height = 10;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
-
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 600;
             Projectile.aiStyle = -1;
             DrawOffsetX = 0;
@@ -624,14 +625,18 @@ namespace StormDiversMod.Projectiles
         }
         public override void AI()
         {
-            if (Main.rand.Next(5) == 0)
+            Player player = Main.player[Projectile.owner];
+
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Magic).ApplyTo(Projectile.originalDamage); //update damage
+
+            if (Main.rand.Next(7) == 0)
             {
-                float xpos = (Main.rand.NextFloat(-50, 50));
+                float xpos = (Main.rand.NextFloat(-40, 40));
                 //float ypos = (Main.rand.NextFloat(200, 250));
 
-                int projID = Projectile.NewProjectile(null, new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y), new Vector2(xpos * -0.05f, 10), ModContent.ProjectileType<FrostAccessProj>(), Projectile.damage, 0, Projectile.owner);
+                int projID = Projectile.NewProjectile(null, new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y), new Vector2(xpos * -0.05f, 10), ModContent.ProjectileType<FrostAccessProj>(), Projectile.damage, 0, Projectile.owner, 0, 0, 1);
 
-                Main.projectile[projID].DamageType = DamageClass.Summon;
+                Main.projectile[projID].DamageType = DamageClass.Magic;
                 Main.projectile[projID].aiStyle = 0;
                 Main.projectile[projID].timeLeft = 60;
                 Main.projectile[projID].penetrate = 1;
@@ -660,7 +665,6 @@ namespace StormDiversMod.Projectiles
                 dust.scale = 1.5f;
                 dust.noGravity = true;
             }
-            Player player = Main.player[Projectile.owner];
             if (player.dead)
             {
                 Projectile.Kill();

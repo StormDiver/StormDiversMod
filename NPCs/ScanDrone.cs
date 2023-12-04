@@ -153,12 +153,11 @@ namespace StormDiversMod.NPCs
             
             if ((distanceX <= 600f && distanceX >= -600f) && (distanceY <= 200f && distanceY >= -200f))
             {
-                if (shoottime >= 50)
+                if (shoottime >= 30)
                 {
                     shooting = true;
                     //NPC.velocity.X = 0f;
                     //NPC.velocity.Y = 0f;
-
 
                     if (Main.rand.Next(3) == 0)
                     {
@@ -180,9 +179,7 @@ namespace StormDiversMod.NPCs
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-
                     SoundEngine.PlaySound(SoundID.Item17, NPC.Center);
-
 
                     //int numberProjectiles = 4 + Main.rand.Next(2); // 4 or 5 shots
 

@@ -5,10 +5,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using StormDiversMod.Basefiles;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.NPCs.NPCProjs
 {
-  
+
     //______________________________________________________________________________________________________
     public class AridBossSandProj : ModProjectile
     {
@@ -37,10 +38,23 @@ namespace StormDiversMod.NPCs.NPCProjs
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
         }
+        float linewidth = 5;
+        Vector2 projpos;
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            projpos = Projectile.Center;
+
+        }
         public override void AI()
-        { 
- 
+        {
+            //ai 0 = Normal phase 1
+            //ai 1 = explosive phase 2
+            //ai 2 = falling phase 2
+            if (linewidth > 0.1f)
+            {
+                linewidth -= 0.1f;
+            }
             if (!Main.dedServ)
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
@@ -86,7 +100,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 }
                 Projectile.netUpdate = true;
             }
-            if (Projectile.timeLeft <= 20)
+            if (Projectile.timeLeft <= 20 && Projectile.ai[1] == 1)
             {
                 Projectile.knockBack = 6f;
                 Projectile.frameCounter++;
@@ -96,8 +110,37 @@ namespace StormDiversMod.NPCs.NPCProjs
                     Projectile.frameCounter = 0;
                 }
             }
+            if (Projectile.ai[1] == 1)
+            {
+                if (Vector2.Distance(Main.LocalPlayer.Center, Projectile.Center) <= 50)
+                {
+                    if (Projectile.timeLeft > 20)
+                        Projectile.timeLeft = 21;
+                }
+            }
         }
-
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (Projectile.ai[1] == 1)
+            {
+                if (Projectile.timeLeft > 20)
+                Projectile.timeLeft = 21;
+            }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (Projectile.ai[1] == 2)
+            {
+                if (linewidth > 0.1f)
+                {
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                            Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X, projpos.Y + 750), Color.Orange, Color.Transparent, linewidth);
+                    }
+                }
+            }
+            return true;
+        }
     }
     //_______________________________________
     public class AridBossShardProj : ModProjectile

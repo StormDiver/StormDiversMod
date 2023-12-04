@@ -67,19 +67,13 @@ namespace StormDiversMod.Projectiles
 
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-       
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 11, target.Top.Y - 15), new Vector2(0, -3), ModContent.ProjectileType<GhostProj>(), (int)(Projectile.damage * 1f), 1, Projectile.owner);
+        {       
             for (int i = 0; i < 15; i++)
             {
-
-
                 var dust = Dust.NewDustDirect(target.position, target.width, target.height, 31);
 
                 dust.noGravity = true;
-
             }
-
         }
         int reflect = 4;
 
@@ -95,7 +89,6 @@ namespace StormDiversMod.Projectiles
             }
 
             {
-
                 if (Projectile.velocity.X != oldVelocity.X)
                 {
                     Projectile.velocity.X = -oldVelocity.X * 0.9f;
@@ -122,6 +115,7 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Top.Y), new Vector2(Main.rand.Next(-3, 4), -5), ModContent.ProjectileType<GhostProj>(), (int)(Projectile.damage * 0.75f), 1, Projectile.owner);
 
                 SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 15; i++)
@@ -133,16 +127,12 @@ namespace StormDiversMod.Projectiles
                     dust2.scale = 0.8f;
 
                 }
-
             }
-
         }
-        
     }
     //___________________________
     public class GhostProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Mini Ghost");
@@ -154,18 +144,19 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 22;
             Projectile.height = 22;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 300;
 
             Projectile.scale = 1f;
-            Projectile.CloneDefaults(189);
-            AIType = 189;
 
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
+            Projectile.penetrate = 3;
+
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 20;
+
+            Projectile.ArmorPenetration = 6;
         }
         int damagetime = 0;
         public override bool? CanDamage()
@@ -183,14 +174,62 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             damagetime++;
-            Projectile.width = 22;
-            Projectile.height = 22;
-            Projectile.penetrate = 1;
-            AnimateProjectile();
+            Projectile.spriteDirection = Projectile.direction;
+            if (damagetime > 25)
+            {
+                if (Projectile.localAI[0] == 0f)
+                {
+                    AdjustMagnitude(ref Projectile.velocity);
+                    Projectile.localAI[0] = 1f;
+                }
+                Vector2 move = Vector2.Zero;
+                float distance = 700f;
+                bool target = false;
+                for (int k = 0; k < 200; k++)
+                {
+                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
+                    {
+                        if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
+                        {
+                            Vector2 newMove = Main.npc[k].Center - Projectile.Center;
+                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                            if (distanceTo < distance)
+                            {
+                                move = newMove;
+                                distance = distanceTo;
+                                target = true;
+                            }
+                        }
+                    }
+                }
+                if (target)
+                {
+                    AdjustMagnitude(ref move);
+                    Projectile.velocity = (6 * Projectile.velocity + move) / 5.9f;
+                    AdjustMagnitude(ref Projectile.velocity);
+                }
+            }
 
-           
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 8) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+            {
+                Projectile.frame++;
+                Projectile.frame %= 4; // Will reset to the first frame if you've gone through them all.
+                Projectile.frameCounter = 0;
+            }
         }
-        
+        private void AdjustMagnitude(ref Vector2 vector)
+        {
+            if (damagetime > 25)
+            {
+                float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+                if (magnitude > 6f)
+                {
+                    vector *= 6f / magnitude;
+                }
+            }
+        }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (Projectile.velocity.X != oldVelocity.X)
@@ -206,44 +245,29 @@ namespace StormDiversMod.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-           
             SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 0.5f, Pitch = 1f}, Projectile.Center);
-       
+            for (int i = 0; i < 7; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 31);
+                dust.noGravity = true;
+            }
+            Projectile.damage = (Projectile.damage * 9) / 10;
         }
 
         public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
-
                 for (int i = 0; i < 7; i++)
                 {
-
-                    
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 31);
-
                     dust.noGravity = true;
-
                 }
-
-            }
-        }
-
-        public void AnimateProjectile() // Call this every frame, for example in the AI method.
-        {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 8) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
-            {
-                Projectile.frame++;
-                Projectile.frame %= 5; // Will reset to the first frame if you've gone through them all.
-                Projectile.frameCounter = 0;
             }
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 150;
             return color;

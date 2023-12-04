@@ -75,6 +75,7 @@ namespace StormDiversMod.Basefiles
         public int cryosetcooldown; //Cooldown for Cryo set bonus
         public int lizardsetcooldown; //Cooldown for the lizard bombs
         public int granitesetcooldown; //cooldown for granite Set
+        public int snowfalllimit;
         //public bool granite
 
         public override void ResetEffects() //Resets bools if the item is unequipped
@@ -300,20 +301,36 @@ namespace StormDiversMod.Basefiles
 
             //For Twilight Armour ====================================================================
 
-            float xWarplimit = 640;
-            float yWarplimit = 400;
+            //float xWarplimit = 640;
+            //float yWarplimit = 400; (old code, keep to be safe)
+            Vector2 warplocation;
+            int warplimit = 640;
             if (twilightSet)
             {           
                 float distanceX = Player.Center.X - Main.MouseWorld.X;
                 float distanceY = Player.Center.Y - Main.MouseWorld.Y;
 
-                int xcursor = (int)(Main.MouseWorld.X / 16);
-                int ycursor = (int)(Main.MouseWorld.Y / 16);
-                Tile tile = Main.tile[xcursor, ycursor];
+                if (Vector2.Distance(Player.Center, Main.MouseWorld) <= warplimit) //if close, just teleport to mouse <40 tile radius
+                {
+                    warplocation.X = Main.MouseWorld.X;
+                    warplocation.Y = Main.MouseWorld.Y;
+                }
+                else // if further, find maximum distance and teleport to it
+                {
+                    Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y));
+                    Vector2 perturbedSpeed = new Vector2(velocity.X * warplimit, velocity.Y * warplimit).RotatedBy(0);
+                    warplocation.X = Player.Center.X + perturbedSpeed.X;
+                    warplocation.Y = Player.Center.Y + perturbedSpeed.Y;
+                }
+
+                int xcursor = (int)(warplocation.X / 16);
+                int ycursor = (int)(warplocation.Y / 16);
+                Tile tile = Main.tile[xcursor, ycursor]; // don't teleport if the teleport location would be in solid tiles
+
                 if ((!tile.HasTile || !Main.tileSolid[tile.TileType]) && !Player.HasBuff(ModContent.BuffType<TwilightDebuff>())) //Checks if mouse is in valid postion
                 {
-                    if (((distanceX < -xWarplimit || distanceX > xWarplimit || distanceY < -yWarplimit || distanceY > yWarplimit) && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) ||
-                        (distanceX > -xWarplimit && distanceX < xWarplimit && distanceY > -yWarplimit && distanceY < yWarplimit)) //If there is no line of sight and cursor is past limit, don't allow teleport to prevent gettign stuck in blocks
+                    //if (((distanceX < -xWarplimit || distanceX > xWarplimit || distanceY < -yWarplimit || distanceY > yWarplimit) && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) ||
+                        //(distanceX > -xWarplimit && distanceX < xWarplimit && distanceY > -yWarplimit && distanceY < yWarplimit)) //If there is no line of sight and cursor is past limit, don't allow teleport to prevent gettign stuck in blocks
                     {
                         twilightcharged = true; //Activates the outline effect on the armour
 
@@ -347,17 +364,12 @@ namespace StormDiversMod.Basefiles
                                 dust.noGravity = true;
                                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                             }
-
-                            //effects to cover up teleport
-                            //Player.teleportTime = 0.1f;
-                            /*NPC.ResetNetOffsets();
-                            Main.BlackFadeIn = 255;                   
-                            Main.instantBGTransitionCounter = 10;*/
-
                             Main.SetCameraLerp(0.1f, 0);//Smooth camera movement, this was it :clayman:
-                           
-                            //X postion 
-                            {
+
+                            Player.position = warplocation;
+
+                            //X postion //Old code
+                            /*{
                                 if (distanceX <= xWarplimit && distanceX >= -xWarplimit)
                                 {
                                     Player.position.X = Main.MouseWorld.X - (Player.width / 2);
@@ -397,7 +409,7 @@ namespace StormDiversMod.Basefiles
                                         //Main.NewText("Mouse it to the up", 0, 0, 146);
                                     }
                                 }
-                            }
+                            }*/
                             //warp line effects
                             Dust.QuickDustLine(Player.Center, Player.oldPosition + new Vector2(Player.width / 2, Player.height/ 2), 50, Color.Purple); //centre to centre
                             Dust.QuickDustLine(new Vector2(Player.Center.X, Player.Top.Y), Player.oldPosition + new Vector2(Player.width / 2, Player.height ), 50, Color.Purple); //top to bottom
@@ -422,14 +434,13 @@ namespace StormDiversMod.Basefiles
                                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
 
                             }
-                            
                             SoundEngine.PlaySound(SoundID.Item8 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1 }, Player.Center);
                         }
                     }
-                    else
+                    /*else
                     {
                         twilightcharged = false;
-                    }
+                    }*/
                 }
                 else
                 {
@@ -621,55 +632,78 @@ namespace StormDiversMod.Basefiles
             }
             if (cryoSet)
             {
-                if (cryosetcooldown < 300)//count up when set nonus is not active
+                if (cryosetcooldown < 120)//count up when set nonus is not active
                 {
                     cryosetcooldown++;
                 }
-                int xcursor = (int)(Main.MouseWorld.X / 16);
-                int ycursor = (int)(Main.MouseWorld.Y / 16);
-                Tile tile = Main.tile[xcursor, ycursor];
-                if ((tile != null && !tile.HasTile || !Main.tileSolid[tile.TileType]) && StormDiversMod.ArmourSpecialHotkey.JustPressed && cryosetcooldown >= 300 && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) //Activate set bonus
+                Vector2 cryocloudpos; // position for cloud
+
+                if (Vector2.Distance(Player.Center, Main.MouseWorld) <= 500)
                 {
-                    int cryodamage = (int)Player.GetTotalDamage(DamageClass.Summon).ApplyTo(30); //36 with cryoset buffs alone
+                    cryocloudpos.X = Main.MouseWorld.X;
+                    cryocloudpos.Y = Main.MouseWorld.Y;
+                }
+                else
+                {
+                    Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y));
+                    Vector2 perturbedSpeed = new Vector2(velocity.X * 500, velocity.Y * 500).RotatedBy(0);
+                    cryocloudpos.X = Player.Center.X + perturbedSpeed.X;
+                    cryocloudpos.Y = Player.Center.Y + perturbedSpeed.Y;
+                }
 
-                    Projectile.NewProjectile(null, Main.MouseWorld, new Vector2(0, 0), ModContent.ProjectileType<FrostCryoArmourProj>(), cryodamage, 0, Player.whoAmI);
-                    Dust.QuickDustLine(Player.Center, Main.MouseWorld, 50, Color.LightSkyBlue); //centre to centre
+                int xcursor = (int)(cryocloudpos.X / 16);
+                int ycursor = (int)(cryocloudpos.Y / 16);
 
-                    //Kills oldest projectile when new is summoned
-                    int cryoprojs = 0;
-                    int oldestProjIndex = -1;
-                    int oldestProjTimeLeft = 100000;
-                    for (int i = 0; i < 1000; i++)
+                Tile tile = Main.tile[xcursor, ycursor];
+                if ((tile != null && !tile.HasTile || !Main.tileSolid[tile.TileType]) && StormDiversMod.ArmourSpecialHotkey.JustPressed && cryosetcooldown >= 120 && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) //Activate set bonus
+                {
+                    if (Player.statMana >= 100)
                     {
-                        if (Main.projectile[i].active && Main.projectile[i].owner == Player.whoAmI && Main.projectile[i].type == ModContent.ProjectileType<FrostCryoArmourProj>())
+                        int cryodamage = (int)Player.GetTotalDamage(DamageClass.Magic).ApplyTo(25); //31 with cryoset buffs alone
+                        
+                        Projectile.NewProjectile(null, new Vector2(cryocloudpos.X, cryocloudpos.Y), new Vector2(0, 0), ModContent.ProjectileType<FrostCryoArmourProj>(), cryodamage, 0, Player.whoAmI);
+                        Dust.QuickDustLine(Player.Center, cryocloudpos, 50, Color.LightSkyBlue); //centre to centre
+
+                        //Kills oldest projectile when new is summoned
+                        int cryoprojs = 0;
+                        int oldestProjIndex = -1;
+                        int oldestProjTimeLeft = 100000;
+                        for (int i = 0; i < 1000; i++)
                         {
-                            cryoprojs++;
-                            if (Main.projectile[i].timeLeft < oldestProjTimeLeft)
+                            if (Main.projectile[i].active && Main.projectile[i].owner == Player.whoAmI && Main.projectile[i].type == ModContent.ProjectileType<FrostCryoArmourProj>())
                             {
-                                oldestProjIndex = i;
-                                oldestProjTimeLeft = Main.projectile[i].timeLeft;
+                                cryoprojs++;
+                                if (Main.projectile[i].timeLeft < oldestProjTimeLeft)
+                                {
+                                    oldestProjIndex = i;
+                                    oldestProjTimeLeft = Main.projectile[i].timeLeft;
+                                }
                             }
+
                         }
+                        if (cryoprojs > 1)
+                        {
+                            Main.projectile[oldestProjIndex].timeLeft = 1;
+                        }
+                        SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.4f, Pitch = -0.5f }, Player.Center);
 
-                    }
-                    if (cryoprojs > 1)
-                    {
-                        Main.projectile[oldestProjIndex].timeLeft = 1;
-                    }
-                    SoundEngine.PlaySound(SoundID.NPCDeath56 with { Volume = 0.4f, Pitch = -0.5f }, Player.Center);
+                        for (int i = 0; i < 50; i++)
+                        {
+                            var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.position.Y), Player.width, Player.height, 180, 0, -2);
+                            dust.scale = 1.5f;
+                            dust.noGravity = true;
+                        }
+                        int proj = Projectile.NewProjectile(null, new Vector2(cryocloudpos.X, cryocloudpos.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Player.whoAmI);
+                        Main.projectile[proj].scale = 1.25f;
+                        int proj2 = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Player.whoAmI);
+                        Main.projectile[proj2].scale = .9f;
 
-                    for (int i = 0; i < 50; i++)
-                    {
-                        var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.position.Y), Player.width, Player.height, 180, 0, -2);
-                        dust.scale = 1.5f;
-                        dust.noGravity = true;
+                        Player.statMana -= 100;
+                        Player.manaRegenDelay = 120;
+                        Player.manaRegen = 0;
+                        cryosetcooldown = 0;
                     }
-                    int proj = Projectile.NewProjectile(null, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Player.whoAmI);
-                    Main.projectile[proj].scale = 1.25f;
-                    int proj2 = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Player.whoAmI);
-                    Main.projectile[proj2].scale = .9f;
-                    cryosetcooldown = 0;
-                }         
+                }
             }
             if (!cryoSet)
             {
@@ -678,29 +712,60 @@ namespace StormDiversMod.Basefiles
 
             if (snowfallSet)
             {
-                if (Player.controlJump && Player.velocity.Y > 0)
+                if (Player.velocity.Y == 0)
+                    snowfalllimit = 120;
+
+                if (Player.controlJump && Player.velocity.Y > 0 && snowfalllimit > 0)
                 {
-                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 16);
-                    dust.scale = 1f;
-                    //dust.velocity *= 0;
-                    dust.noGravity = true;
-                    //dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
+                    if (snowfalllimit > 45)
+                    {
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 16);
+                        dust.scale = 1f;
+                        dust.noGravity = true;
+                    }
+                    else
+                    {
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 31); //when low on glide, chnage particles
+                        dust.scale = 1f;
+                        dust.noGravity = true;
+                    }
+                    if (snowfalllimit == 1 || (snowfalllimit == 2 && Player.controlUp)) //final puff
+                    {
+                        for (int i = 0; i < 40; i++) //Grey dust circle7
+                        {
+                            Vector2 perturbedSpeed = new Vector2(0, -3f).RotatedByRandom(MathHelper.ToRadians(360));
+                            var dust = Dust.NewDustDirect(Player.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
+                            dust.noGravity = true;
+                            dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                            dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
+                        }
+                        SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.5f, Pitch = 0.35f, MaxInstances = 0 } , Player.Center);
+
+                    }
 
                     if (Player.controlUp)
                     {
+                        snowfalllimit -= 2;
+
                         Player.gravity = 0.1f;
                         Player.maxFallSpeed *= 0.1f;
                     }
                     else
                     {
+                        snowfalllimit--;
+
                         Player.gravity = 0.25f;
                         Player.maxFallSpeed *= 0.25f;
                     }
                     Player.runAcceleration += 0.2f;
                     Player.fallStart = (int)Player.tileTargetY;
                     Player.slowFall = false;
+
+                    //Main.NewText("flight limit = " + snowfalllimit, 0, 146, 0);
                 }
             }
+            else
+                snowfalllimit = 0;
             if (graniteSet)
             {
                 /*if (StormDiversMod.ArmourSpecialHotkey.JustPressed && granitetoggle == false)

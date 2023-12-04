@@ -83,28 +83,28 @@ namespace StormDiversMod.NPCs
           
             if (Vector2.Distance(player.Center, NPC.Center) <= 600f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && NPC.CountNPCS(ModContent.NPCType<StardustMiniDerp>()) < 10)
             {
-                if (shoottime >= 180 && NPC.velocity.Y == 0)
+                if (shoottime >= 150 )
                 {
-                    
-                    int type = ModContent.NPCType<StardustMiniDerp>();
-
-
-                    SoundEngine.PlaySound(SoundID.NPCHit5, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    var dust2 = Dust.NewDustDirect(new Vector2(NPC.Center.X - 15, NPC.Center.Y - 15), 30, 30, 111);
+                    dust2.noGravity = true;
+                    if (shoottime >= 210 && NPC.velocity.Y == 0)
                     {
-                        //NPC.NewNPC((int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
-                        NPC.NewNPC(NPC.GetSource_FromAI(), (int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
-                        for (int i = 0; i < 30; i++)
+                        int type = ModContent.NPCType<StardustMiniDerp>();
+
+
+                        SoundEngine.PlaySound(SoundID.NPCHit5, NPC.Center);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                             
-                            var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 15, NPC.Center.Y - 15), 30, 30, 111);
+                            //NPC.NewNPC((int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
+                            for (int i = 0; i < 30; i++)
+                            {
+                                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 15, NPC.Center.Y - 15), 30, 30, 111);
+                            }
                         }
+
+                        shoottime = 0;
                     }
- 
-
-                   
-
-                    shoottime = 0;
                 }
             }
             else

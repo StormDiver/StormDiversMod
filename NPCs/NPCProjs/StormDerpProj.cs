@@ -66,7 +66,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
 
                  
-                var dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, 206);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 206);
             }
 
         }

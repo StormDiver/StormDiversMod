@@ -25,14 +25,13 @@ namespace StormDiversMod.NPCs
         }
         public override void SetDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 4;
+            Main.npcFrameCount[NPC.type] = 8;
             
             NPC.width = 28;
             NPC.height = 48;
 
             NPC.aiStyle = 22; 
             AIType = NPCID.Wraith;
-            AnimationType = NPCID.FlyingSnake;
 
             NPC.damage = 30;
            
@@ -55,6 +54,8 @@ namespace StormDiversMod.NPCs
             };
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
         }
+        bool casting;
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
@@ -98,7 +99,9 @@ namespace StormDiversMod.NPCs
                 Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);
             }
             Player player = Main.player[NPC.target];
-          
+            NPC.spriteDirection = NPC.direction;
+            NPC.rotation = NPC.velocity.X / 10;
+
             if (Vector2.Distance(player.Center, NPC.Center) <= 800f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 if (shoottime >= 200)
@@ -112,7 +115,6 @@ namespace StormDiversMod.NPCs
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
                     SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
-                    
                     for (int i = 0; i < 3; i++)
                     {
                         float posX = NPC.position.X + Main.rand.NextFloat(60f, -60f);
@@ -135,13 +137,18 @@ namespace StormDiversMod.NPCs
                         dust.scale = 2;
 
                     }
+                    casting = true;
+
                     shoottime = 0;
                 }
             }
             else
             {
-                shoottime = 150;
+                casting = false;
+                shoottime = 100;
             }
+            if (casting)
+                NPC.velocity *= 0.8f;
 
             if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
@@ -155,9 +162,47 @@ namespace StormDiversMod.NPCs
 
                 int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y + NPC.height / 2), NPC.width, NPC.height / 2, 5, 0, 2, 150, default, 1f);
             }
+
         }
+        int npcframe = 0;
 
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frameCounter++;
 
+            if (casting)
+            {
+                NPC.frame.Y = npcframe * frameHeight;
+                if (NPC.frameCounter > 10)
+                {
+                    npcframe++;
+                    NPC.frameCounter = 0;
+                }
+                if (npcframe <= 3) //Cycles through frames 4-7 when casting
+                {
+                    npcframe = 4;
+                }
+                if (npcframe >= 8)
+                {
+                    npcframe = 0;
+                    casting = false;
+                }
+            }
+            else
+            {
+                NPC.frame.Y = npcframe * frameHeight;
+                if (NPC.frameCounter > 10)
+                {
+                    npcframe++;
+                    NPC.frameCounter = 0;
+                }
+                if (npcframe >= 4) //Cycles through frames 0-3 when not casting
+                {
+                    npcframe = 0;
+                }
+            }
+
+        }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             

@@ -1,0 +1,3896 @@
+Mods: {
+	StormDiversMod: {
+		"Keybinds.Armor Special Ability.DisplayName": 护甲特殊能力
+
+		GameTips: {
+			StormTip0: 打败Boss有困难吗？只需将它们的生命值降至0，同时保持你的生命值高于0。
+			StormTip1: 通过移动躲避敌人攻击。
+			StormTip2: 按跳跃键可以跳跃。
+			StormTip3: 如果你想造成伤害，就使用可以造成伤害的武器。
+			StormTip4: 保命有困难？这是技术问题！
+			StormTip5: 错误404，提示未找到！
+			Stormtip6: 死亡是迅速恢复健康的有效方法，除非你处于硬核模式。
+			Stormtip7: 通过放置物块可以建造。
+			Stormtip8: 通过挖掘可以开采物块。
+			Stormtip9: 提前闯入丛林神庙，偷走所有宝藏，如果你敢……
+			Stormtip10: 确保将跳跳兽引诱进入微光中，它们喜欢微光浴。
+		}
+
+		Buffs: {
+			AridCoreDebuff: {
+				DisplayName: 干旱光环
+				Description: 你将受到更多伤害
+			}
+
+			AridSandDebuff: {
+				DisplayName: 禁忌燃烧
+				Description: 被禁忌的沙子烧伤
+			}
+
+			BeetleBuff: {
+				DisplayName: 甲虫强化
+				Description: 近战武器增加20点护甲穿透
+			}
+
+			BeetleDebuff: {
+				DisplayName: 甲虫群
+				Description: 甲虫大幅降低了你的速度
+			}
+
+			BloodBurstBuff: {
+				DisplayName: 血之爆发
+				Description: 血液正涌动着，准备爆裂而出
+			}
+
+			CelestialBuff: {
+				DisplayName: 天体守护者
+				Description: 天体精灵的力量迅速恢复你的生命，并提供额外防御
+			}
+
+			DarkShardDebuff: {
+				DisplayName: 黑暗精华
+				Description: 你被黑暗所包围
+			}
+
+			DerpBuff: {
+				DisplayName: 跳跳兽力量
+				Description: 在泰拉瑞亚，跳跳兽会把你弹飞
+			}
+
+			DerpDebuff: {
+				DisplayName: 被弹射
+				Description: 你被跳跳兽的力量弹射到空中
+			}
+
+			FrozenBuff: {
+				DisplayName: 霜冻尖刺
+				Description: 你的移动速度和暴击率大幅提升
+			}
+
+			FruitHeartBuff: {
+				DisplayName: 超级心脏收集器
+				Description: 敌人死亡时有几率掉落超级之心
+			}
+
+			GladiatorAccessBuff: {
+				DisplayName: 战士的赠礼
+				Description: 增加20%的暴击率
+			}
+
+			GraniteAccessBuff: {
+				DisplayName: 花岗岩激流
+				Description: 增加30%的伤害
+			}
+
+			GraniteBuff: {
+				DisplayName: 花岗岩屏障
+				Description: 伤害减免、击退免疫和荆棘效果，但降低移动和跳跃速度
+			}
+
+			GunBuff: {
+				DisplayName: 枪法精准
+				Description: 增加15%的枪械伤害
+			}
+
+			HeartBarrierBuff: {
+				DisplayName: 生命屏障
+				Description: 下一次受到的攻击将减少25%伤害，并且不会造成击退
+			}
+
+			HeartBuff: {
+				DisplayName: 心脏收集器
+				Description: 敌人死亡时更频繁地掉落心脏
+			}
+
+			HeartDebuff: {
+				DisplayName: 心脏被窃
+				Description: 没有心脏你无法生存
+			}
+
+			HellSoulBuff: {
+				DisplayName: 炼狱风暴
+				Description: 炼狱之火已准备好释放
+			}
+
+			HellSoulFireDebuff: {
+				DisplayName: 灵魂燃烧
+				Description: 这可能不太好
+			}
+
+			LunarBoulderDebuff: {
+				DisplayName: 月球磨难
+				Description: 造成难以想象的痛苦，减速并持续燃烧
+			}
+
+			MushBuff1: {
+				DisplayName: 蘑菇力量
+				Description: 增加造成的伤害，并减少受到的伤害，数值均为1
+			}
+
+			MushBuff2: {
+				DisplayName: 蘑菇力量
+				Description: 增加造成的伤害，并减少受到的伤害，数值均为3
+			}
+
+			MushBuff3: {
+				DisplayName: 蘑菇力量
+				Description: 增加造成的伤害，并减少受到的伤害，数值均为5
+			}
+
+			//MushBuff4: {
+			//	DisplayName: Shroom Power
+			//	Description: Increases damage dealt and reduces damage taken by 6
+			//}
+			
+			PainBuff: {
+				DisplayName: 痛苦使者的诅咒
+				Description: 死亡后你将重新体验痛苦
+			}
+
+			PainlessDebuff: {
+				DisplayName: 痛苦使者的冷却
+				Description: 如果你死亡，你的痛苦将结束
+			}
+
+			RainBuff: {
+				DisplayName: 雨中疾行
+				Description: 你的移动速度得到提升
+			}
+
+			SantankBuff1: {
+				DisplayName: 呼呼导弹
+				Description: 你的一些导弹已准备好发射
+			}
+
+			SantankBuff2: {
+				DisplayName: 呼呼导弹
+				Description: 你的大部分导弹已准备好发射
+			}
+
+			SantankBuff3: {
+				DisplayName: 呼呼导弹
+				Description: 你的所有导弹都准备好发射
+			}
+
+			ScanDroneDebuff: {
+				DisplayName: 你是我的了！！！
+				Description: 你的所有防御都被剥夺了
+			}
+
+			ShroomiteBuff: {
+				DisplayName: 蘑菇石强化
+				Description: 远程暴击伤害增加10%
+			}
+
+			SkyKnightSentryBuff: {
+				DisplayName: 星战士的哨兵
+				Description: 一颗星星哨兵为你攻击
+			}
+
+			SpaceRockDefence: {
+				DisplayName: 轨道防御
+				Description:
+					'''
+					减免下一次攻击25%的伤害
+					受到伤害时从天而降的小行星砾石
+					'''
+			}
+
+			SpaceRockOffence: {
+				DisplayName: 轨道打击
+				Description: 你下一次的攻击将导致小行星砾石落在被攻击的敌人上
+			}
+
+			SpectreBuff: {
+				DisplayName: 幽魂强化
+				Description: 在魔力值低于一半时，魔法伤害提高15%
+			}
+
+			SpookedDebuff: {
+				DisplayName: 恐慌
+				Description: 你被恐惧压倒了
+			}
+
+			SpookyBuff: {
+				DisplayName: 怪异强化
+				Description: 增加召唤物伤害和鞭速10%
+			}
+
+			SuperBurnDebuff: {
+				DisplayName: 炽烈之火
+				Description: 这很好
+			}
+
+			SuperFrostBurn: {
+				DisplayName: 冰川燃烧
+				Description: 像霜燃一样，但伤害更加严重
+			}
+
+			TeddyBuff: {
+				DisplayName: 泰迪熊的爱
+				Description: 泰迪熊的爱增加生命恢复速度
+			}
+
+			TurtleBuff: {
+				DisplayName: 甲胄
+				Description: 龟壳的力量保护你
+			}
+
+			TwilightDebuff: {
+				DisplayName: 暮光畸变
+				Description: 你无法再进行另一次暮光跳跃
+			}
+
+			UltraBurnDebuff: {
+				DisplayName: 极燃
+				Description: 这绝对不好！！！
+			}
+
+			UltraFrostDebuff: {
+				DisplayName: 极寒
+				Description: 这真的非常非常痛苦！！！
+			}
+
+			WebDebuff: {
+				DisplayName: 蛛网缠身
+				Description: 你被蛛网覆盖，减慢了你的速度
+			}
+
+			WhiptagBloodDebuff: {
+				DisplayName: 血腥鞭痕
+				Description: 你被血脊鞭标记了
+			}
+
+			WhiptagForbiddenDebuff: {
+				DisplayName: 禁忌鞭痕
+				Description: 你被禁忌鞭标记了
+			}
+
+			WhiptagSpaceRockDebuff: {
+				DisplayName: 小行星鞭痕
+				Description: 你被小行星带标记了
+			}
+
+			WhiptagWebDebuff: {
+				DisplayName: 蜘蛛鞭痕
+				Description: 你被蜘蛛鞭标记了
+			}
+
+			WoodenBuff: {
+				DisplayName: 森林赋能
+				Description: 减少4点受到的伤害，轻微增加生命恢复速度
+			}
+
+			WoodenBlizzardBuff: {
+				DisplayName: 暴风雪赋能
+				Description: 在你周围形成一个小暴风雪，减缓进入其中的敌人
+			}
+
+			WoodenDesertBuff: {
+				DisplayName: 沙漠赋能
+				Description: 击中敌人有几率发出伤害火花
+			}
+
+			YouCantEscapeDebuff: {
+				DisplayName: 你逃不掉我！
+				Description: 即使死亡也无法让你摆脱痛苦
+			}
+
+			AncientMinionBuff: {
+				DisplayName: 远古干旱仆从
+				Description: 远古干旱仆从将为你而战
+			}
+
+			CursedSkullMinionBuff: {
+				DisplayName: 诅咒骷髅仆从
+				Description: 诅咒骷髅仆从将为你而战
+			}
+
+			DerplingMinionBuff: {
+				DisplayName: 小跳跳兽仆从
+				Description: 强化的小跳跳兽将为你而战
+			}
+
+			EyeMinionBuff: {
+				DisplayName: 克苏鲁仆从
+				Description: 克苏鲁仆从将为你而战
+			}
+
+			FrozenSpiritMinionBuff: {
+				DisplayName: 冰霜精灵仆从
+				Description: 冰霜精灵仆从将为你而战
+			}
+
+			HellSoulMinionBuff: {
+				DisplayName: 灵魂火焰仆从
+				Description: 灵魂火焰仆从将为你而战
+			}
+
+			LizardMinionBuff: {
+				DisplayName: 神庙守护者仆从
+				Description: 迷你神庙守护者仆从将为你而战
+			}
+
+			SpaceRockMinionBuff: {
+				DisplayName: 小行星仆从
+				Description: 迷你小行星将为你而战
+			}
+
+			AridBossPetBuff: {
+				DisplayName: 解放的外壳
+				Description: 终于自由了，但它选择留在你身边
+			}
+
+			GoldDerpieBuff: {
+				DisplayName: 黄金憨憨
+				Description: 如此闪耀且有弹性！
+			}
+
+			MrStabbyPetBuff: {
+				DisplayName: 迷你刺刀
+				Description: 想要刺东西，但是不太擅长！
+			}
+
+			StormBossPetBuff: {
+				DisplayName: 小型超载扫描无人机
+				Description: 扫描与无人机
+			}
+
+			StormLightBuff: {
+				DisplayName: 小风暴潜水者
+				Description: 它不可爱，绝对不！！！
+			}
+
+			TwilightPetBuff: {
+				DisplayName: 暮光人偶
+				Description: 一个奇怪的戴着兜帽的人偶照亮你的道路
+			}
+
+			UltimateBossPetBuff: {
+				DisplayName: 小可爱
+				Description: 如此可爱，绝不会造成任何痛苦
+			}
+
+			TempleDebuff: {
+				DisplayName: 神庙诅咒燃烧
+				Description: 你触碰了某些被诅咒的东西，现在你正在燃烧
+			}
+
+			SantankMinionBuff: {
+				DisplayName: 迷你圣坦克仆从
+				Description: 迷你飞行圣坦克将为你而战
+			}
+
+			HarpyMinionBuff: {
+				DisplayName: 魔法羽毛仆从
+				Description: 魔法羽毛仆从将为你而战
+			}
+
+			BlizzardDebuff: {
+				DisplayName: 暴风雪
+				Description: 一场小型暴风雪正减缓你的速度
+			}
+
+			GraniteDebuff: {
+				DisplayName: 细胞充能
+				Description: 你的花岗岩屏障正在充能
+			}
+
+			SantaReviveBuff: {
+				DisplayName: 心灵震撼
+				Description: 你能够免疫于伤害并造成更高的伤害输出，但若治疗不及时，你的心跳将不会持续太久
+			}
+
+			SantaReviveDebuff: {
+				DisplayName: 心灵耗竭
+				Description: 你的心灵已无力再次经受震撼
+			}
+		}
+
+		Items: {
+			AridCore: {
+				DisplayName: 远古甲虫
+				Tooltip:
+					'''
+					在光标周围形成干旱光环，光环内的敌人受到额外20%的伤害
+					敌人在光环外继续受到额外伤害持续3.2秒，但伤害随时间递减
+					仅在视野范围内生成
+					'''
+			}
+
+			BeetleBoot: {
+				DisplayName: 甲虫护手
+				Tooltip:
+					'''
+					使用近战武器重击敌人时，会使小甲虫从敌人体内爆发出来并向附近敌人冲锋
+					增加近战武器的击退效果
+					增加12%的近战速度
+					使近战武器可自动挥动
+					增大近战武器的尺寸
+					'''
+			}
+
+			BiomeCore: {
+				DisplayName: 生物群落核心
+				Tooltip:
+					'''
+					受到超过1点伤害时，伤害增加30%，持续4秒，并在之后有10秒的冷却时间
+					当生命值高于75%时，暴击率增加20%
+					在失去生命值时增加造成的伤害，并降低受到的伤害
+					'''
+			}
+
+			BloodBoots: {
+				DisplayName: 血迹靴
+				Tooltip:
+					'''
+					将玩家的基础速度提升至36英里每小时
+					增加加速度
+					在地面上跑动时留下一道伤害性的血迹
+					'''
+			}
+
+			BlueCuffs: {
+				DisplayName: 保温手铐
+				Tooltip:
+					'''
+					所有武器都有机会给被攻击的敌人带来霜冻灼伤
+					“将寒冷转移到你的敌人身上”
+					'''
+			}
+
+			Celestialshield: {
+				DisplayName: 天体屏障
+				Tooltip:
+					'''
+					遭受重创时，会在数秒内恢复失去的生命值并提供额外的防御
+					免疫外星生物造成的负面效果
+					'''
+			}
+
+			ClawsBone: {
+				DisplayName: 猛禽之爪
+				Tooltip:
+					'''
+					增加12%的近战和鞭子速度
+					使近战武器和鞭子可自动挥动
+					增加5点近战和鞭子护甲穿透
+					'''
+			}
+
+			ClawsFrost: {
+				DisplayName: 冰川之爪
+				Tooltip:
+					'''
+					增加12%的近战和鞭子速度
+					使近战武器和鞭子可自动挥动
+					增加5点近战和鞭子护甲穿透
+					近战和鞭子攻击有几率造成冰川灼伤
+					'''
+			}
+
+			ClawsSpooky: {
+				DisplayName: 梦魇之爪
+				Tooltip:
+					'''
+					增加12%的近战和鞭子速度
+					使近战武器和鞭子可自动挥动
+					增加12点近战和鞭子护甲穿透
+					近战和鞭子攻击造成极燃效果
+					在你周围创造一个恐惧光环，吓退敌人
+					生命值越低，光环范围越大
+					'''
+			}
+
+			ObiPain: {
+				DisplayName: 黑曜石项链
+				Tooltip:
+					'''
+					增加5点护甲穿透
+					免疫站在火块上的伤害
+					“在那些不得不在火块上与高防御敌人作战的极为常见时刻中”
+					'''
+			}
+
+			CoralEmblem: {
+				DisplayName: 漩涡徽章
+				Tooltip: 使用大多数武器时会召唤一个水球从天而降，朝光标位置移动
+			}
+
+			DeathCore: {
+				DisplayName: 痛苦使者核心
+				Tooltip:
+					'''
+					每2分钟救你一次于死亡边缘
+					“活着，再次经历苦难”
+					'''
+			}
+
+			DerpEye: {
+				DisplayName: 跳跳兽之眼
+				Tooltip:
+					'''
+					大幅提升运气
+					增加15%的暴击伤害
+					“幸运的你”
+					'''
+			}
+
+			DerpEyeGolem: {
+				DisplayName: 丛林之眼
+				Tooltip:
+					'''
+					增加10%的暴击几率
+					大幅提升运气
+					增加15%的暴击伤害
+					'''
+			}
+
+			DesertJar: {
+				DisplayName: 法老的瓮
+				Tooltip:
+					'''
+					两个沙粒将在你近距离环绕，伤害敌人
+					移动足够快时将在身后留下伤害性沙迹
+					'''
+			}
+
+			EyeofDungeon: {
+				DisplayName: 地牢之眼
+				Tooltip: 靠近敌人时召唤追踪旋转的骨头
+			}
+
+			FlameCore: {
+				DisplayName: 双足翼龙的火焰
+				Tooltip:
+					'''
+					使用任何武器时召唤追踪的火焰
+					增加加速度
+					'''
+			}
+
+			FrostAccess: {
+				DisplayName: 冰封之心
+				Tooltip:
+					'''
+					受到超过1点伤害时，体内爆发多个霜刺
+					此后6秒内增加暴击率和移动速度
+					'''
+			}
+
+			FrostCube: {
+				DisplayName: 冰霜女王核心
+				Tooltip:
+					'''
+					仆从数量上限提高1个
+					哨兵数量上限提高1个
+					鞭子攻击范围扩大15%
+					'''
+			}
+
+			FrostJar: {
+				DisplayName: 冰封之瓮
+				Tooltip:
+					'''
+					受到超过1点伤害时，体内爆发多个霜刺
+					此后6秒内增加暴击率和移动速度
+					两个霜粒将在你近距离环绕，伤害敌人
+					移动足够快时将在身后留下伤害性霜迹
+					'''
+			}
+
+			GladiatorAccess: {
+				DisplayName: 战士奖杯
+				Tooltip: 当生命值高于75%时，暴击率增加20%
+			}
+
+			GraniteCoreAccess: {
+				DisplayName: 花岗岩核心
+				Tooltip:
+					'''
+					受到超过1点伤害时，伤害增加30%，持续4秒
+					此后有10秒的冷却时间
+					'''
+			}
+
+			HeartJar: {
+				DisplayName: 生命徽章
+				Tooltip:
+					'''
+					当敌人的生命值低于半条命时，敌人有机会为你治疗一次，恢复20点生命值，而Boss总是为你治疗75点生命值
+					为你治疗的敌人将迅速失去生命值
+					在事件期间被治疗的几率降低
+					'''
+			}
+
+			HeartJarPS: {
+				DisplayName: 生命魅力
+				Tooltip:
+					'''
+					提供生命恢复能力，并将治疗药水的冷却时间缩短25%
+					当敌人的生命值低于半条命时，敌人有机会为你治疗一次，恢复20点生命值，而Boss总是为你治疗75点生命值
+					为你治疗的敌人将迅速失去生命值
+					在事件期间被治疗的几率降低
+					'''
+			}
+
+			HellSoulWings: {
+				DisplayName: 灵魂火焰之翼
+				Tooltip:
+					'''
+					允许飞行和缓慢下落
+					按住上键可以更快地上升
+					'''
+			}
+
+			LightDarkWings: {
+				DisplayName: 和谐之翼
+				Tooltip:
+					'''
+					允许飞行和缓慢下落
+					以较低的飞行时间换取高加速度
+					'''
+			}
+
+			LunaticHood: {
+				DisplayName: 发狂指挥兜帽
+				Tooltip: 召唤2个迷你信徒仆从，在你旁边飞行并向敌人发射暗影火球
+			}
+
+			PrimeAccess: {
+				DisplayName: 机械刺
+				Tooltip:
+					'''
+					有六个刺球围绕你旋转，伤害到达附近的敌人
+					有小概率摧毁几乎任何接近的投射物
+					'''
+			}
+
+			SantaWires: {
+				DisplayName: 圣坦克能源核心
+				Tooltip:
+					'''
+					当你承受了致命伤害后，裸露的电缆会通过电击使你复活，并提供10秒的缓冲期
+					在该时段内，你将不受伤害，并能施加更高的伤害
+					如果在十秒内未能将生命值回复至33%以上，你将面临死亡
+					如果你成功存活下来，将会有5分钟的冷却时间
+					当攻击之伤害深重，超越生命顶峰之际，救赎之术亦无力回天
+					'''
+			}
+
+			ShroomAccessory: {
+				DisplayName: 蘑菇石发射器附件
+				Tooltip:
+					'''
+					使所有枪械发射出迷你蘑菇石火箭
+					当持枪并按住右键时，生成一条激光瞄准线
+					'''
+			}
+
+			ShroomAccessorySnipe: {
+				DisplayName: 蘑菇石发射器狙击镜
+				Tooltip:
+					'''
+					使所有枪械发射出迷你蘑菇石火箭
+					当持枪并按住右键时，生成一条激光瞄准线
+					增加枪械的视野范围（右键缩放视野）
+					增加10%的远程伤害和暴击率
+					'''
+			}
+
+			SoulBoots: {
+				DisplayName: 灵魂行者
+				Tooltip:
+					'''
+					将玩家的基础速度提升至46英里每小时，并增加加速度
+					增加跳跃速度，允许自动跳跃，并增加抗摔性
+					“日夜不息的速度”
+					'''
+			}
+
+			SpaceRockWings: {
+				DisplayName: 小行星之翼
+				Tooltip:
+					'''
+					允许飞行和缓慢下落
+					具有快速的水平运动和加速度
+					'''
+			}
+
+			SpectreAccessory: {
+				DisplayName: 幽魂头骨
+				Tooltip:
+					'''
+					在魔力病效果下魔力消耗为零
+					增加40点魔力上限
+					'''
+			}
+
+			SpectreAccessoryMagnet: {
+				DisplayName: 磁铁头骨花
+				Tooltip:
+					'''
+					减少8%的魔力消耗
+					需要时自动使用魔力药水
+					增加魔力星的拾取范围
+					在魔力病效果下魔力消耗为零
+					增加40点魔力上限
+					'''
+			}
+
+			SpookyCore: {
+				DisplayName: 怪异徽章
+				Tooltip:
+					'''
+					在你周围创造恐惧光环，吓退敌人
+					生命值越低，光环范围越大
+					'''
+			}
+
+			StompBoot: {
+				DisplayName: 重靴
+				Tooltip:
+					'''
+					按住下键可加快下落速度并在落地时产生冲击波
+					你摔得越远，冲击波就会越大，造成的伤害就越大
+					下落加速时会伤害任何被你落在上面的敌人，并且不会受到接触伤害
+					落地后立即跳跃可获得大幅跳跃提升
+					'''
+			}
+
+			StompBootHorse: {
+				DisplayName: 重型马蹄火箭靴
+				Tooltip:
+					'''
+					允许飞行和免除坠落伤害
+					按住下键可加快下落速度并在落地时产生冲击波
+					你摔得越远，冲击波就会越大，造成的伤害就越大
+					下落加速时会伤害任何被你落在上面的敌人，并且不会受到接触伤害
+					落地后立即跳跃可获得大幅跳跃提升
+					'''
+			}
+
+			StormCoil: {
+				DisplayName: 超载风暴核心
+				Tooltip:
+					'''
+					按住上键并右击，可以向光标位置发送一个闪电传送门，对敌人造成电击
+					按住下键并右击，可以将传送门召回
+					'''
+			}
+
+			StormWings: {
+				DisplayName: 风暴之翼
+				Tooltip:
+					'''
+					允许飞行和缓慢下落
+					按住下键加跳跃键可以悬停
+					'''
+			}
+
+			SuperMushroom: {
+				DisplayName: 附魔蘑菇
+				Tooltip: 在失去生命值时增加造成的伤害，并减少受到的伤害
+			}
+
+			WoodNecklace: {
+				DisplayName: 木质吊坠
+				Tooltip: 在森林中减少4点受到的伤害，并轻微增加生命恢复速度
+			}
+
+			WoodNecklaceFrozen: {
+				DisplayName: 冰冷吊坠
+				Tooltip:
+					'''
+					在雪地或冰地生物群落中，创造一个暴风雪光环，减缓所有进入者的速度
+					免疫寒冷
+					“你的颈部可能会感到有点凉”
+					'''
+			}
+
+			WoodNecklaceDesert: {
+				DisplayName: 蚁颚吊坠
+				Tooltip:
+					'''
+					在沙漠中攻击敌人有几率发出伤害性火花
+					免疫强风和窒息
+					'''
+			}
+
+			AsteroidArrow: {
+				DisplayName: 小行星箭
+				Tooltip: 稍作延迟后快速向光标方向冲锋，冲锋后可穿透
+			}
+
+			AsteroidBullet: {
+				DisplayName: 小行星子弹
+				Tooltip:
+					'''
+					在被攻击的敌人上方召唤一个小型小行星碎片
+					碎片造成的伤害低，但忽略50点防御
+					'''
+			}
+
+			BouncyArrow: {
+				DisplayName: 弹力箭
+				Tooltip: 超级弹力
+			}
+
+			ChaosArrow: {
+				DisplayName: 混沌箭
+				Tooltip:
+					'''
+					击中敌人后立刻传送到光标位置，保持速度不变但损失50%的伤害
+					“释放混沌”
+					'''
+			}
+
+			CrackedShot: {
+				DisplayName: 裂纹子弹
+				Tooltip: 飞行中有几率分裂成4片碎片
+			}
+
+			DesertArrow: {
+				DisplayName: 禁忌箭
+				Tooltip: 短时间延迟后加速，无视重力并造成额外伤害
+			}
+
+			DesertBullet: {
+				DisplayName: 禁忌子弹
+				Tooltip: 撞击物块会产生一小片禁忌尘云
+			}
+
+			DualArrow: {
+				DisplayName: 双尖箭
+				Tooltip: 两枚箭矢绑在一起，有几率在空中分裂
+			}
+
+			FrostArrow: {
+				DisplayName: 霜冻箭
+				Tooltip: 撞击后爆炸成小碎片
+			}
+
+			FrostBullet: {
+				DisplayName: 霜冻子弹
+				Tooltip: 可以穿透墙壁，但在此过程中会散开
+			}
+
+			IronShot: {
+				DisplayName: 铁质弹头
+				Tooltip: 重型子弹受重力影响，具有强大的击退力
+			}
+
+			LeadShot: {
+				DisplayName: 铅质弹头
+				Tooltip: 重型子弹受重力影响，具有强大的击退力
+			}
+
+			MeteorArrow: {
+				DisplayName: 流星箭
+				Tooltip: 轻微地吸引敌人
+			}
+
+			OceanShard: {
+				DisplayName: 珊瑚子弹
+				Tooltip:
+					'''
+					不受水影响但射程有限
+					可穿透一次
+					'''
+			}
+
+			ProtoGrenade: {
+				DisplayName: 原型手雷
+				Tooltip: 适用于特定发射器
+			}
+
+			MineBomb: {
+				DisplayName: 粘性地雷
+				Tooltip:
+					'''
+					适用于粘性地雷引爆器
+					“小心不要让它粘在你身上”
+					'''
+			}
+
+			ShroomArrow: {
+				DisplayName: 蘑菇石箭
+				Tooltip:
+					'''
+					留下一道伤害性的蘑菇痕迹
+					可穿透一次
+					'''
+			}
+
+			ShroomBullet: {
+				DisplayName: 蘑菇石子弹
+				Tooltip: 反弹三次并可穿透两次
+			}
+
+			SantaBullet: {
+				DisplayName: 圣诞子弹
+				Tooltip:
+					'''
+					反弹两次，在第三次撞击或击中敌人时爆炸
+					“超级淘气名单上一定有你，所以才会有这些”
+					'''
+			}
+
+			AridBMask: {
+				DisplayName: 干旱面具
+				Tooltip: 增加5%的暴击率
+				SetBonus: 暴击击中的敌人爆炸，伤害附近的敌人
+			}
+
+			AridChestplate: {
+				DisplayName: 干旱胸甲
+				Tooltip: 增加10%的暴击伤害
+			}
+
+			AridGreaves: {
+				DisplayName: 干旱护胫
+				Tooltip:
+					'''
+					增加5%的暴击率
+					增加12%的移动速度
+					'''
+			}
+
+			BloodBHelmet: {
+				DisplayName: 血红头盔
+				Tooltip: 增加4%的近战伤害和暴击率
+				SetBonus: 用近战武器击中敌人时，多个伤害性血珠从你身上爆发出来
+			}
+
+			BloodChainmail: {
+				DisplayName: 血红链甲
+				Tooltip:
+					'''
+					增加6%的近战伤害
+					增加12%的近战速度
+					'''
+			}
+
+			BloodGreaves: {
+				DisplayName: 血红护胫
+				Tooltip:
+					'''
+					增加6%的近战暴击率
+					增加12%的移动速度
+					'''
+			}
+
+			ContestArmourBHelmet: {
+				DisplayName: 冷冻面具
+				Tooltip:
+					'''
+					哨兵数量上限提高1个
+					增加7%的伤害
+					“冷冽且迷雾缭绕”
+					'''
+				SetBonus1:
+					'''
+					免疫所有冷系的负面效果
+					使所有哨兵造成霜冻伤害
+					按
+					'''
+				SetBonus2:
+					'''
+					在光标位置召唤一个冷冻云，降下冰柱
+					仅在视野范围内生成并且有5秒的冷却时间
+					'''
+			}
+
+			ContestArmourChestplate: {
+				DisplayName: 冷冻胸甲
+				Tooltip:
+					'''
+					增加8%的伤害
+					增加6%的暴击率
+					'''
+			}
+
+			ContestArmourLeggings: {
+				DisplayName: 冷冻护胫
+				Tooltip:
+					'''
+					哨兵数量上限提高1个
+					增加7%的伤害
+					增加10%的移动速度
+					'''
+			}
+
+			DerplingBCrown: {
+				DisplayName: 使者的冠冕
+				Tooltip: 增加移速和加速度
+				SetBonus1: 3点防御
+				SetBonus2: 5点防御
+			}
+
+			DerplingBHeadgear: {
+				DisplayName: 古代跳跳兽头盔
+				Tooltip:
+					'''
+					增加10%的伤害
+					增加5%的暴击率
+					'''
+				SetBonus:
+					'''
+					大幅增加跳跃和上升速度，允许自动跳跃
+					按住下键增加下落速度
+					跳跃时创造大型震波，将附近敌人弹射至空中
+					'''
+			}
+
+			DerplingBMask: {
+				DisplayName: 跳跳兽面具
+				Tooltip:
+					'''
+					增加10%的伤害
+					增加5%的暴击率
+					'''
+				SetBonus:
+					'''
+					大幅增加跳跃和上升速度，允许自动跳跃
+					按住下键增加下落速度
+					跳跃时创造大型震波，将附近敌人弹射至空中
+					'''
+			}
+
+			DerplingBreastplate: {
+				DisplayName: 跳跳兽胸甲
+				Tooltip:
+					'''
+					增加8%的伤害
+					增加8%的暴击率
+					'''
+			}
+
+			DerplingGreaves: {
+				DisplayName: 跳跳兽护胫
+				Tooltip:
+					'''
+					增加7%的伤害和暴击率
+					免疫坠落伤害
+					'''
+			}
+
+			GraniteBMask: {
+				DisplayName: 花岗岩面具
+				Tooltip: 增加2%的近战伤害和暴击率
+				SetBonus1: 按
+				SetBonus2:
+					'''
+					提供50%的伤害抗性，免疫击退，并具有荆棘效果，持续5秒
+					激活时你的移动速度和跳跃高度将降低
+					每次使用间隔有20秒冷却时间
+					'''
+			}
+
+			GraniteChestplate: {
+				DisplayName: 花岗岩胸甲
+				Tooltip:
+					'''
+					增加4%的近战伤害
+					增加10%的近战速度
+					'''
+			}
+
+			GraniteGreaves: {
+				DisplayName: 花岗岩护胫
+				Tooltip: 增加2%的近战伤害和暴击率
+			}
+
+			HellSoulBCrown: {
+				DisplayName: 炼狱魂冠冕
+				Tooltip:
+					'''
+					增加15%的召唤伤害
+					仆从数量上限提高2个
+					'''
+				SetBonus1:
+					'''
+					仆从数量上限提高1个
+					在10秒内积聚一场强大的炼狱风暴
+					按
+					'''
+				SetBonus2: 一次充能后对最多15个附近的敌人释放风暴
+			}
+
+			HellSoulBHelmet: {
+				DisplayName: 炼狱之魂头盔
+				Tooltip:
+					'''
+					远程伤害增加5%
+					远程暴击率增加15%
+					'''
+				SetBonus1:
+					'''
+					在10秒内积攒一次强大的炼狱风暴
+					Press
+					'''
+				SetBonus2: 积攒完毕后，向最多15个附近的敌人释放风暴
+			}
+
+			HellSoulBHood: {
+				DisplayName: 炼狱之魂兜帽
+				Tooltip:
+					'''
+					魔法伤害增加5%
+					魔法暴击率增加15%
+					魔力上限增加80
+					'''
+				SetBonus1:
+					'''
+					在10秒内积攒一次强大的炼狱风暴
+					按
+					'''
+				SetBonus2: 积攒完毕后，向最多15个附近的敌人释放风暴
+			}
+
+			HellSoulBMask: {
+				DisplayName: 炼狱之魂面具
+				Tooltip:
+					'''
+					近战暴击率增加15%
+					近战速度增加15%
+					'''
+				SetBonus1:
+					'''
+					在10秒内积攒一次强大的炼狱风暴
+					按
+					'''
+				SetBonus2: 积攒完毕后，向最多15个附近的敌人释放风暴
+			}
+
+			HellSoulChestplate: {
+				DisplayName: 炼狱之魂胸甲
+				Tooltip: 暴击率增加10%
+			}
+
+			HellSoulLeggings: {
+				DisplayName: 炼狱之魂护胫
+				Tooltip:
+					'''
+					伤害增加10%
+					移动速度增加25%
+					'''
+			}
+
+			MushroomBMask: {
+				DisplayName: 蘑菇面具
+				Tooltip:
+					'''
+					远程暴击率增加3%
+					“里面空间不大”
+					'''
+				SetBonus: 有机会在攻击敌人时召唤生成一个伤害性蘑菇
+			}
+
+			MushroomChestplate: {
+				DisplayName: 蘑菇胸甲
+				Tooltip: 远程伤害增加1
+			}
+
+			MushroomGreaves: {
+				DisplayName: 蘑菇护胫
+				Tooltip: 远程暴击率增加3%
+			}
+
+			NightsBHelmet: {
+				DisplayName: 暮色兜帽
+				Tooltip:
+					'''
+					伤害增加6%
+					暴击率增加10%
+					'''
+				SetBonus1: 按
+				SetBonus2:
+					'''
+					在有限范围内向光标位置瞬移
+					瞬移有8秒的硬性冷却时间
+					“瞬移其实就是以光速冲刺”
+					'''
+			}
+
+			NightsChainmail: {
+				DisplayName: 暮色长袍
+				Tooltip:
+					'''
+					伤害增加6%
+					暴击率增加3%
+					轻微增加玩家加速度
+					'''
+			}
+
+			NightsGreaves: {
+				DisplayName: 暮色护腿
+				Tooltip:
+					'''
+					伤害增加3%
+					暴击率增加2%
+					轻微增加跳跃速度和高度
+					'''
+			}
+
+			NightsOldBHelmet: {
+				DisplayName: 远古暮色兜帽
+				Tooltip:
+					'''
+					伤害增加6%
+					暴击率增加10%
+					'''
+				SetBonus1: 按
+				SetBonus2:
+					'''
+					在有限范围内向光标位置瞬移
+					瞬移有8秒的硬性冷却时间
+					“瞬移其实就是以光速冲刺”
+					'''
+			}
+
+			NightsOldChainmail: {
+				DisplayName: 远古暮色长袍
+				Tooltip:
+					'''
+					伤害增加6%
+					暴击率增加3%
+					轻微增加玩家加速度
+					'''
+			}
+
+			NightsOldGreaves: {
+				DisplayName: 远古暮色护腿
+				Tooltip:
+					'''
+					伤害增加3%
+					暴击率增加2%
+					轻微增加跳跃速度和高度
+					'''
+			}
+
+			RainBoots: {
+				DisplayName: 雨靴
+				Tooltip: ""
+				SetBonus1: 下雨时移动速度增加50%
+				SetBonus2: 下雨时移动速度增加15%
+			}
+
+			SantankBMask: {
+				DisplayName: 圣坦克面具
+				Tooltip:
+					'''
+					远程伤害增加12%
+					远程暴击率增加8%
+					'''
+				SetBonus1: 随时间充能至多10枚自导导弹，按
+				SetBonus2: 发射已装载的导弹
+			}
+
+			SantankChestplate: {
+				DisplayName: 圣坦克胸甲
+				Tooltip:
+					'''
+					远程伤害和暴击率增加10%
+					有25%的几率不消耗弹药
+					'''
+			}
+
+			SantankGreaves: {
+				DisplayName: 圣坦克护胫
+				Tooltip:
+					'''
+					远程伤害增加8%
+					远程暴击率增加6%
+					移动速度增加25%
+					'''
+			}
+
+			ShadowFlameBMask: {
+				DisplayName: 暗影焰之面具
+				Tooltip:
+					'''
+					鞭子范围增加15%
+					鞭子速度增加10%
+					召唤伤害增加8%
+					'''
+				SetBonus:
+					'''
+					鞭子攻击敌人会附加暗影烈焰
+					被暗影烈焰附加的敌人受到额外伤害
+					'''
+			}
+
+			ShadowFlameChestplate: {
+				DisplayName: 暗影焰之袍
+				Tooltip:
+					'''
+					鞭子范围增加10%
+					仆从数量上限提高1个
+					召唤伤害增加8%
+					'''
+			}
+
+			ShadowFlameGreaves: {
+				DisplayName: 暗影焰护胫
+				Tooltip:
+					'''
+					鞭子范围增加10%
+					鞭子速度增加15%
+					召唤伤害增加8%
+					'''
+			}
+
+			SkyKnightBMask: {
+				DisplayName: 星战士面具
+				Tooltip: 伤害增加7%
+				SetBonus: 召唤一个在你上方漂浮的小星星，向敌人射出迷你跟踪星星
+			}
+
+			SkyKnightChest: {
+				DisplayName: 星战士铠甲
+				Tooltip:
+					'''
+					哨兵数量上限提高1个
+					伤害增加4%
+					'''
+			}
+
+			SkyKnightGreaves: {
+				DisplayName: 星战士护胫
+				Tooltip:
+					'''
+					哨兵数量上限提高1个
+					伤害增加4%
+					'''
+			}
+
+			SnowfallBMask: {
+				DisplayName: 落雪兜帽
+				Tooltip: 暴击率增加5%
+				SetBonus:
+					'''
+					按住跳跃键可滑翔
+					滑翔时按住上方向键会更慢
+					'''
+			}
+
+			SnowfallChest: {
+				DisplayName: 落雪外套
+				Tooltip: 伤害固定增加1
+			}
+
+			SnowfallLeg: {
+				DisplayName: 落雪靴
+				Tooltip: 跳跃和移动速度增加10%
+			}
+
+			SpaceRockBHelmet: {
+				DisplayName: 小行星头盔
+				Tooltip:
+					'''
+					伤害增加15%
+					暴击率增加8%
+					'''
+				SetBonus: 提供轨道打击增益，使下一个被攻击的敌人上方降落小行星砾石
+			}
+
+			SpaceRockBMask: {
+				DisplayName: 小行星面具
+				Tooltip:
+					'''
+					伤害增加5%
+					增加生命恢复速度，免疫击退
+					'''
+				SetBonus:
+					'''
+					提供轨道防御增益，减少下一次攻击的伤害25%
+					同时从天而降伤害性小行星砾石
+					若攻击只造成1点伤害则不触发
+					'''
+			}
+
+			SpaceRockChestplate: {
+				DisplayName: 小行星胸甲
+				Tooltip:
+					'''
+					伤害增加7%
+					暴击率增加5%
+					'''
+			}
+
+			SpaceRockLeggings: {
+				DisplayName: 小行星护胫
+				Tooltip:
+					'''
+					伤害增加6%
+					暴击率增加5%
+					移动速度增加50%
+					'''
+			}
+
+			TempleBMask: {
+				DisplayName: 蜥蜴族长面具
+				Tooltip:
+					'''
+					鞭子范围和速度增加10%
+					召唤伤害增加15%
+					仆从数量上限提高1个
+					'''
+				SetBonus:
+					'''
+					用鞭子击中敌人会召唤一架蜥蜴无人机，它会环绕被标记的敌人
+					无人机会靠近敌人并爆炸
+					如果敌人被杀死或失去标记，无人机也会爆炸
+					'''
+			}
+
+			TempleChest: {
+				DisplayName: 蜥蜴族长胸甲
+				Tooltip:
+					'''
+					鞭子范围和速度增加15%
+					召唤伤害增加15%
+					使鞭子可自动挥动
+					'''
+			}
+
+			TempleLegs: {
+				DisplayName: 蜥蜴族长护胫
+				Tooltip:
+					'''
+					鞭子范围增加15%
+					鞭子速度增加10%
+					召唤伤害增加10%
+					仆从数量上限提高1个
+					'''
+			}
+
+			AridBossBag: {
+				DisplayName: 宝藏袋（远古外壳）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			AridBossRelic: {
+				DisplayName: 远古外壳圣物
+				Tooltip: ""
+			}
+
+			AridBossTrophy: {
+				DisplayName: 远古外壳纪念章
+				Tooltip: ""
+			}
+
+			StormBossBag: {
+				DisplayName: 宝藏袋（超载扫描无人机）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			StormBossRelic: {
+				DisplayName: 超载扫描无人机圣物
+				Tooltip: ""
+			}
+
+			StormBossTrophy: {
+				DisplayName: 超载扫描无人机纪念章
+				Tooltip: ""
+			}
+
+			UltimateBossBag: {
+				DisplayName: 宝藏袋（痛苦使者）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			UltimateBossRelic: {
+				DisplayName: 痛苦使者圣物
+				Tooltip: ""
+			}
+
+			UltimateBossTrophy: {
+				DisplayName: 痛苦使者纪念章
+				Tooltip: ""
+			}
+
+			DerplingTrophyItem: {
+				DisplayName: 跳跳兽纪念章
+				Tooltip: 以一种完全正常的方式获得
+			}
+
+			PainMusicBoxitem: {
+				DisplayName: 音乐盒（痛苦混音）
+				Tooltip: 播放这个以体验真正的痛苦
+			}
+
+			TheGoodBoyItem: {
+				DisplayName: 最佳孩子
+				Tooltip: “你将被怀念”
+			}
+
+			BloodDrop: {
+				DisplayName: 血滴
+				Tooltip: 以某种方式保持形状的血滴
+			}
+
+			BlueCloth: {
+				DisplayName: 保温布料
+				Tooltip: 可用于保持温暖
+			}
+
+			ChaosShard: {
+				DisplayName: 混沌宝珠
+				Tooltip: “'充满纯粹的混沌”
+			}
+
+			CrackedHeart: {
+				DisplayName: 破碎之心
+				Tooltip: “几乎没有生命”
+			}
+
+			DerplingShell: {
+				DisplayName: 跳跳兽的壳
+				Tooltip: “坚硬但可塑性强”
+			}
+
+			DesertOre: {
+				DisplayName: 禁忌碎片
+				Tooltip: 来自荒废洞穴的深处
+			}
+
+			GraniteCore: {
+				DisplayName: 花岗岩能量核心
+				Tooltip: 似乎脉动着能量
+			}
+
+			IceOre: {
+				DisplayName: 霜冻碎片
+				Tooltip: 来自冰封洞穴的深处
+			}
+
+			RedSilk: {
+				DisplayName: 战士布匹
+				Tooltip: 用于制作堕落角斗士的物品
+			}
+
+			SantankScrap: {
+				DisplayName: 机械碎片
+				Tooltip: 强大的圣坦克所剩无几
+			}
+
+			SoulFire: {
+				DisplayName: 炼狱灵魂火焰
+				Tooltip: 一直不停燃烧的灵魂
+			}
+
+			SpaceRock: {
+				DisplayName: 小行星碎片
+				Tooltip: 似乎注入了某种奇异的能量
+			}
+
+			DesertBar: {
+				DisplayName: 禁忌锭
+				Tooltip: 用于制作禁忌盔甲和武器
+			}
+
+			IceBar: {
+				DisplayName: 霜冻锭
+				Tooltip: 用于制作冰霜盔甲和武器
+			}
+
+			SpaceRockBar: {
+				DisplayName: 小行星锭
+				Tooltip: 散发着能量
+			}
+
+			AridBossPetItem: {
+				DisplayName: 发光的角
+				Tooltip: 召唤一个自由的外壳跟随你
+			}
+
+			DerplingVine: {
+				DisplayName: 神秘藤蔓
+				Tooltip: 似乎注入了某种奇异的能量
+			}
+
+			StabbyKnife: {
+				DisplayName: 刺骨利刃
+				Tooltip: 召唤一只迷你刺刀宠物
+			}
+
+			StormBossPetItem: {
+				DisplayName: 神秘装置
+				Tooltip:
+					'''
+					召唤一个小超载扫描无人机
+					“扫描完成！”
+					'''
+			}
+
+			StormLightItem: {
+				DisplayName: 可疑的头盔
+				Tooltip: 召唤某个难以想象的东西
+			}
+
+			TwilightPetItem: {
+				DisplayName: 奇特的暮光兜帽
+				Tooltip: 召唤一个神秘的身影照亮你的道路
+			}
+
+			UltimateBossPetItem: {
+				DisplayName: 小可爱
+				Tooltip: 召唤可爱且无害的东西
+			}
+
+			BarrierPotion: {
+				DisplayName: 耐力治疗药水
+				Tooltip: 减少下一次受到的攻击伤害25%
+			}
+
+			BeetlePotion: {
+				DisplayName: 甲虫穿透药水
+				Tooltip: 增加所有近战武器的护甲穿透20点
+			}
+
+			DoubleHealingPotion: {
+				DisplayName: 强化治疗药水
+				Tooltip: 药水病持续时间比正常情况更长
+			}
+
+			FruitHeartPotion: {
+				DisplayName: 超级心瓶
+				Tooltip: 敌人死亡时有几率掉落治疗50点生命值的超级之心，Boss总是掉落2个
+			}
+
+			GunPotion: {
+				DisplayName: 射击药水
+				Tooltip: 增加15%的枪械伤害
+			}
+
+			HeartPotion: {
+				DisplayName: 心瓶
+				Tooltip: 敌人死亡时更频繁地掉落心，Boss也会掉落更多心
+			}
+
+			ShroomitePotion: {
+				DisplayName: 蘑菇石暴击力药水
+				Tooltip: 增加远程暴击伤害10%
+			}
+
+			SpectrePotion: {
+				DisplayName: 幽魂强化药水
+				Tooltip: 当法力值低于50%时增加魔法伤害15%
+			}
+
+			SpookyPotion: {
+				DisplayName: 幽怪诅咒药水
+				Tooltip: 增加召唤伤害和鞭子速度10%
+			}
+
+			AridBossSummon: {
+				DisplayName: 破裂的角
+				Tooltip: 似乎受到了诅咒，谨慎使用
+			}
+
+			MoonlingSummoner: {
+				DisplayName: 月之核心
+				Tooltip:
+					'''
+					召唤一个试图杀死你的月之衍生物
+					在坚实的地面附近使用比较安全
+					'''
+			}
+
+			StormBossSummoner: {
+				DisplayName: 风暴信标
+				Tooltip: 发出吸引强大敌人的信号
+			}
+
+			UltimateBossSummoner: {
+				DisplayName: 神秘的头骨
+				Tooltip: 召唤痛苦使者Boss，请确保你准备好了
+			}
+
+			Aircan: {
+				DisplayName: 压缩气罐
+				Tooltip:
+					'''
+					射出一股气流，吹走敌人
+					“很适合清理蜘蛛网”
+					'''
+			}
+
+			BloodHammer: {
+				DisplayName: 血腥锤
+				Tooltip: “尽量不要在墙上留下血迹”
+			}
+
+			BloodPax: {
+				DisplayName: 血腥镐
+				Tooltip: “'尽量不弄得到处都是”
+			}
+
+			DerpHook: {
+				DisplayName: 跳跳兽钩爪
+				Tooltip: 可以同时发射4个钩爪，最多同时连接3个
+			}
+
+			DerplingChainsaw: {
+				DisplayName: 跳跳兽链锯
+				Tooltip: “砍倒树木”
+			}
+
+			DerplingDrill: {
+				DisplayName: 跳跳兽钻头
+				Tooltip: “钻穿地面”
+			}
+
+			DerplingJackhammer: {
+				DisplayName: 跳跳兽手持冲击钻
+				Tooltip: “击碎墙壁”
+			}
+
+			DesertHamaxe: {
+				DisplayName: 禁忌锤斧
+				Tooltip: 足以摧毁祭坛
+			}
+
+			DesertPick: {
+				DisplayName: 禁忌镐
+				Tooltip: 可以开采精金和钛金矿
+			}
+
+			EyeHook: {
+				DisplayName: 眼球钩爪
+				Tooltip: 发射一个长而慢的钩爪
+			}
+
+			FastDrill: {
+				DisplayName: 迷你钻头
+				Tooltip: “加快你的挖矿速度”
+			}
+
+			FastDrill2: {
+				DisplayName: 超级钻头
+				Tooltip: “极大地加快你的挖矿速度”
+			}
+
+			FishingRodCoral: {
+				DisplayName: 海之渔者
+				Tooltip: 一次抛两根线
+			}
+
+			FishingRodDerpling: {
+				DisplayName: 跳跳兽钓竿
+				Tooltip: 一次抛三根线
+			}
+
+			FishingRodLunar: {
+				DisplayName: 天体之杆
+				Tooltip:
+					'''
+					一次抛四根线
+					能够在熔岩中钓鱼
+					'''
+			}
+
+			FrostHamaxe: {
+				DisplayName: 霜冻锤斧
+				Tooltip: 足以摧毁祭坛
+			}
+
+			FrostPick: {
+				DisplayName: 霜冻镐
+				Tooltip: 可以开采精金和钛金矿
+			}
+
+			GladiatorAxe: {
+				DisplayName: 角斗士之斧
+				Tooltip: 曾是一件强大的武器，现在只用来砍树
+			}
+
+			GladiatorHammer: {
+				DisplayName: 角斗士之锤
+				Tooltip: 曾是一件强大的武器，现在只用来砸墙
+			}
+
+			GladiatorPick: {
+				DisplayName: 角斗士之镐
+				Tooltip: 可以开采陨石
+			}
+
+			GraniteAxe: {
+				DisplayName: 花岗岩斧
+				Tooltip: ""
+			}
+
+			GraniteHammer: {
+				DisplayName: 花岗岩锤
+				Tooltip: ""
+			}
+
+			GranitePick: {
+				DisplayName: 花岗岩镐
+				Tooltip: 可以开采陨石
+			}
+
+			HellSoulHamaxe: {
+				DisplayName: 灵魂火焰锤斧
+				Tooltip: 注入了地狱燃烧灵魂的力量
+			}
+
+			HellSoulPick: {
+				DisplayName: 灵魂火焰镐
+				Tooltip: 注入了地狱燃烧灵魂的力量
+			}
+
+			MushroomAxe: {
+				DisplayName: 蘑菇斧
+				Tooltip: “用蘑菇砍蘑菇”
+			}
+
+			MushroomHammer: {
+				DisplayName: 蘑菇锤
+				Tooltip: “蘑菇锤的小兄弟”
+			}
+
+			MushroomPick: {
+				DisplayName: 蘑菇镐
+				Tooltip: 可以开采陨石
+			}
+
+			Oilcan: {
+				DisplayName: 油罐
+				Tooltip:
+					'''
+					左键向外射出一团油，给敌人和城镇NPC施加油腻负面效果
+					右键点燃附近的油腻敌人，消耗3个罐子
+					“用油覆盖你的敌人”
+					'''
+			}
+
+			Quack: {
+				DisplayName: 橡皮鸭
+				Tooltip: “嘎嘎！”
+			}
+
+			SantankDrill: {
+				DisplayName: 圣诞钻头
+				Tooltip: “用于那些淘气的人”
+			}
+
+			SantankJackham: {
+				DisplayName: 圣诞手持冲击钻
+				Tooltip: “用于那些淘气的人”
+			}
+
+			SantankSaw: {
+				DisplayName: 圣诞链锯
+				Tooltip: “用于那些淘气的人”
+			}
+
+			SentryKiller: {
+				DisplayName: 远程哨兵引爆器
+				Tooltip: 移除你放置的所有哨兵
+			}
+
+			ShieldKiller: {
+				DisplayName: 天体地球仪
+				Tooltip: 移除所有活跃的天界柱的护盾
+			}
+
+			SuperPainDummyItem: {
+				DisplayName: 超级痛苦假人
+				Tooltip:
+					'''
+					左键在任何地方放置一个超级痛苦假人，一次最多放置50个
+					右键移除所有放置的假人，如果世界存在Boss，假人也会被移除
+					假人可以被召唤物/追踪弹药瞄准，并且可以激活任何物品的特殊效果
+					在背包中右键更改假人类型（标准/浮动/坚固/破损/轻盈）
+					'''
+			}
+
+			SpaceRockDrillSaw: {
+				DisplayName: 小行星钻锯
+				Tooltip: “不要与锯钻混淆”
+			}
+
+			SpaceRockJackhammer: {
+				DisplayName: 小行星手持冲击钻
+				Tooltip: “非常适合砸墙”
+			}
+
+			StormHook: {
+				DisplayName: 闪电钩爪
+				Tooltip: 射出一个快速的单钩
+			}
+
+			SuperHeartPickup: {
+				DisplayName: 超级之心
+				Tooltip: 拾取时治疗50点生命
+			}
+
+			TeddyBear: {
+				DisplayName: 泰迪熊
+				Tooltip:
+					'''
+					拥抱熊以恢复生命
+					“充满爱意”
+					'''
+			}
+
+			BossMaskAridBoss: {
+				DisplayName: 远古外壳面具
+				Tooltip: ""
+			}
+
+			BossMaskStormBoss: {
+				DisplayName: 扫描无人机面具
+				Tooltip: ""
+			}
+
+			BossMaskUltimateBoss: {
+				DisplayName: 痛苦使者面具
+				Tooltip: ""
+			}
+
+			FlatCap: {
+				DisplayName: 雪人的平顶帽
+				Tooltip: 天还挺冷的呢。
+			}
+
+			PredictorBMask: {
+				DisplayName: 预言家面具
+				Tooltip: 遗憾的是，这并不能提高你的智力
+			}
+
+			PredictorBody: {
+				DisplayName: 预言家身体
+				Tooltip: ""
+			}
+
+			PredictorLegs: {
+				DisplayName: 预言家腿部
+				Tooltip: ""
+			}
+
+			SelenianBMask: {
+				DisplayName: 月壤面具
+				Tooltip: 不，你不能反射弹射物！
+			}
+
+			SelenianBody: {
+				DisplayName: 月壤身体
+				Tooltip: ""
+			}
+
+			SelenianLegs: {
+				DisplayName: 月壤腿部
+				Tooltip: ""
+			}
+
+			StargazerBMask: {
+				DisplayName: 观星者面具
+				Tooltip: “注意，这并不能真的帮你更好地看星星”
+			}
+
+			StargazerBody: {
+				DisplayName: 观星者身体
+				Tooltip: ""
+			}
+
+			StargazerLegs: {
+				DisplayName: 观星者腿部
+				Tooltip: ""
+			}
+
+			StormDiverBMask: {
+				DisplayName: 风暴潜水者面具
+				Tooltip: “你能看清楚吗？”
+			}
+
+			StormDiverBody: {
+				DisplayName: 风暴潜水者身体
+				Tooltip: ""
+			}
+
+			StormDiverLegs: {
+				DisplayName: 风暴潜水者腿部
+				Tooltip: ""
+			}
+
+			TheClaymanMask: {
+				DisplayName: 黏土人面具
+				Tooltip: 静静地审视你周围的每个人
+			}
+
+			ThePainMask: {
+				DisplayName: 痛苦面具
+				Tooltip: 当痛苦太多时
+			}
+
+			UltimateFearMask: {
+				DisplayName: 完全正常的面具
+				Tooltip: “为什么每个人都这样看着你，你明明很正常”
+			}
+
+			AncientFlame: {
+				DisplayName: 干旱喷沙器
+				Tooltip:
+					'''
+					发射一束燃烧的沙流
+					使用凝胶作为弹药
+					忽视5点敌人防御
+					'''
+			}
+
+			AncientKnives: {
+				DisplayName: 干旱刀
+				Tooltip: 扔出几把在旋转后穿透的刀
+			}
+
+			AncientMinion: {
+				DisplayName: 干旱召唤杖
+				Tooltip:
+					'''
+					召唤一个远古干旱爪牙为你而战
+					爪牙会向敌人飞去，范围内会保持静止并发射沙爆
+					'''
+			}
+
+			AncientStaff: {
+				DisplayName: 干旱喷沙杖
+				Tooltip: 在光标位置创造一个沙爆
+			}
+
+			Bazooka: {
+				DisplayName: 清道夫的火箭筒
+				Tooltip:
+					'''
+					按住左键装填最多6枚导弹，释放后快速连发
+					连发中每枚导弹的伤害略有增加
+					导弹略有扩散
+					使用火箭作为弹药
+					“粗制滥造，但足够有效”
+					'''
+			}
+
+			BeetleShellWeapon: {
+				DisplayName: 巨型甲虫壳
+				Tooltip:
+					'''
+					扔出快速伤害壳，可从瓷砖弹回
+					撞击时召唤甲虫，攻击并围攻敌人
+					'''
+			}
+
+			BeetleSpear: {
+				DisplayName: 甲虫之矛
+				Tooltip:
+					'''
+					每次刺击召唤2根额外的矛与主矛并行
+					每根矛召唤一只甲虫攻击并围攻敌人
+					'''
+			}
+
+			BeetleYoyo: {
+				DisplayName: 胸腔
+				Tooltip: 持续时召唤攻击并围攻敌人的甲虫
+			}
+
+			BloodPotion: {
+				DisplayName: 血之手榴弹
+				Tooltip: 破坏时爆出多个血滴
+			}
+
+			BloodSpear: {
+				DisplayName: 穿心者
+				Tooltip: 非常适合快速刺杀
+			}
+
+			BloodSword: {
+				DisplayName: 血腥之刃
+				Tooltip: 每隔一次挥动，就射出一道血迹
+			}
+
+			BloodWhip: {
+				DisplayName: 血腥腱
+				Tooltip:
+					'''
+					召唤标记暴击率增加8%
+					你的召唤物将专注于被击中的敌人
+					当召唤物击中时，伤害性血珠会围绕被瞄准的敌人旋转
+					'''
+			}
+
+			BloodYoyo: {
+				DisplayName: 心脏病发作
+				Tooltip: 留下一道伤害性的血迹
+			}
+
+			BloodyRifle: {
+				DisplayName: 血射步枪
+				Tooltip:
+					'''
+					将火枪子弹转换为血弹，击中敌人后爆出血滴
+					右键缩放视野
+					'''
+			}
+
+			BloodySentry: {
+				DisplayName: 血之海胆法杖
+				Tooltip: 召唤一个血海胆哨兵，它会快速向敌人喷射穿透防御的血流
+			}
+
+			BoneBoomerang: {
+				DisplayName: 股骨环
+				Tooltip:
+					'''
+					一次能扔出3个
+					“你以为这很搞笑？”
+					'''
+			}
+
+			CaptainsGun: {
+				DisplayName: 船长的大炮
+				Tooltip:
+					'''
+					迅速连发子弹，起始速度慢，连发几秒后达到最高速度
+					右键发射时发射炮弹，需要炮弹作为弹药
+					“想做什么就做什么，因为海盗是自由的”
+					'''
+			}
+
+			ChloroDartGun: {
+				DisplayName: 氯金飞镖散弹枪
+				Tooltip: 发射一串飞镖
+			}
+
+			ChloroStaff: {
+				DisplayName: 氯金孢子法杖
+				Tooltip: 在光标位置或撞击瓷砖时发射孢子，孢子爆炸成多个孢子云
+			}
+
+			ClaymanStick: {
+				DisplayName: 审判之杖
+				Tooltip:
+					'''
+					左键对你面前的敌人进行审判
+					右键对特定点进行审判，造成更高伤害
+					“每个人都将受到审判”
+					'''
+			}
+
+			CrackedDagger: {
+				DisplayName: 破碎匕首
+				Tooltip:
+					'''
+					在光标周围召唤3把破碎匕首，每次使用都会向内飞行
+					攻击范围有限，使用时需要视线范围内
+					'''
+			}
+
+			CultistBow: {
+				DisplayName: 疯狂的冰之弓
+				Tooltip:
+					'''
+					除了2到3支普通箭外，还会发射一支冰箭，撞击后从空中降下冰柱
+					冰箭会造成超级冻结，对敌人造成高额持续伤害并减慢敌人
+					'''
+			}
+
+			CultistLazor: {
+				DisplayName: 神秘邪教兜帽
+				Tooltip:
+					'''
+					蓄能并发射一束强大的激光，能快速消耗魔力
+					等等，这是什么！？
+					'''
+			}
+
+			CultistSpear: {
+				DisplayName: 疯狂的火之矛
+				Tooltip: 每次刺击发射一波5个穿墙火球
+			}
+
+			CultistStaff: {
+				DisplayName: 疯狂的雷之杖
+				Tooltip:
+					'''
+					召唤一个闪电宝珠哨兵，它会快速向敌人发射闪电
+					右键瞄准指定的敌人
+					'''
+			}
+
+			CultistTome: {
+				DisplayName: 疯狂的远古之光咒语
+				Tooltip: 召唤多个追踪敌人的远古之光
+			}
+
+			CursedSkullMinion: {
+				DisplayName: 诅咒骷髅法杖
+				Tooltip:
+					'''
+					召唤一个诅咒骷髅仆从为你而战
+					仆从会在敌人旁边飞行，并向他们发射可弹跳和穿透的诅咒骨投射物
+					'''
+			}
+
+			CursedSpearGun: {
+				DisplayName: 诅咒之矛霰弹枪
+				Tooltip:
+					'''
+					左键使用快速矛攻击并灼烧敌人，可无视10点防御
+					右键作为散弹枪使用，散布范围小
+					“是谁想出来把霰弹枪绑在长矛上的？”
+					'''
+			}
+
+			DerplingGun: {
+				DisplayName: 跳跳兽步枪
+				Tooltip:
+					'''
+					四连发，只有第一枪消耗弹药
+					“我知道这看起来很残忍，但这是必需的”
+					'''
+			}
+
+			DerplingMinion: {
+				DisplayName: 跳跳兽法杖
+				Tooltip:
+					'''
+					召唤一个强化的小跳跳兽为你而战
+					仆从会沿着地面跳跃，但处于敌人范围内时，它会长出翅膀并冲向敌人
+					'''
+			}
+
+			DerplingStaff: {
+				DisplayName: 跳跳兽权杖
+				Tooltip:
+					'''
+					迅速发射魔法跳跳兽壳碎片
+					有小概率发射一个更大的追踪碎片，碎片爆炸成更多小碎片
+					'''
+			}
+
+			DerplingSword: {
+				DisplayName: 跳跳兽剑
+				Tooltip:
+					'''
+					每隔一次挥动发射多个跳跳兽壳碎片，碎片可从物块弹回
+					碎片可穿透两次，但每次会减速和减伤
+					'''
+			}
+
+			DesertBow: {
+				DisplayName: 禁忌之怒
+				Tooltip: 将所有箭矢转化为古代禁忌箭矢，降下沙漠之热
+			}
+
+			DesertSpear: {
+				DisplayName: 禁忌之矛
+				Tooltip: 释放禁忌沙砾的力量
+			}
+
+			DesertSpell: {
+				DisplayName: 禁忌风暴
+				Tooltip: 召唤禁忌之沙
+			}
+
+			DesertStaff: {
+				DisplayName: 禁忌法杖
+				Tooltip: 召唤一个飘浮的禁忌哨兵，向各个方向喷射沙子
+			}
+
+			DesertWhip: {
+				DisplayName: 禁忌之鞭
+				Tooltip:
+					'''
+					召唤标记暴击率增加12%
+					你的召唤物将专注于被击中的敌人
+					被召唤物击中后，禁忌之沙会从被瞄准的敌人跳出
+					'''
+			}
+
+			EnchantedAxeMagic: {
+				DisplayName: 灵魂分裂者
+				Tooltip:
+					'''
+					召唤小型血腥斧头，分裂成多个斧头
+					“分裂你敌人的灵魂”
+					'''
+			}
+
+			EnchantedHammer: {
+				DisplayName: 梦想粉碎者
+				Tooltip:
+					'''
+					召唤附魔之锤的迷你版本，它们会降下更多的锤子
+					“粉碎你敌人的梦想”
+					'''
+			}
+
+			EnchantedSword: {
+				DisplayName: 光之刃
+				Tooltip:
+					'''
+					召唤会朝光标冲刺的附魔之剑的迷你版本，它们能够反弹和穿透
+					“不要与夜之刃混淆”
+					'''
+			}
+
+			EyeGun: {
+				DisplayName: 眼球步枪
+				Tooltip:
+					'''
+					快速连续射出两颗子弹
+					只有第一枪会消耗弹药
+					'''
+			}
+
+			EyeMinion: {
+				DisplayName: 眼球法杖
+				Tooltip:
+					'''
+					召唤食人眼的仆从为你而战
+					仆从会在范围内向敌人冲锋
+					'''
+			}
+
+			EyeStaff: {
+				DisplayName: 闲眼碎语
+				Tooltip: 召唤可穿透的眼球，它会反弹回你身边
+			}
+
+			EyeSword: {
+				DisplayName: 眼部护理
+				Tooltip: 每次挥动会发射弹跳的眼球
+			}
+
+			FlailLocker: {
+				DisplayName: 连枷储物柜
+				Tooltip: 一个失落谜题的遗物
+			}
+
+			FrostLauncher: {
+				DisplayName: 霜冻发射器
+				Tooltip:
+					'''
+					发射会在撞击时爆炸的手雷，造成霜冻效果
+					需要原型榴弹，从爆破专家那里购买更多
+					'''
+			}
+
+			FrostSentry: {
+				DisplayName: 霜刺法杖
+				Tooltip: 召唤一个霜冻哨兵，以高速向敌人发射穿透性冰刺
+			}
+
+			FrostSpinner: {
+				DisplayName: 冰冻极星
+				Tooltip:
+					'''
+					旋转时击退敌人
+					对敌人造成霜冻效果
+					'''
+			}
+
+			FrostStar: {
+				DisplayName: 霜冻飞盘
+				Tooltip: 扔出一个撞击时会破碎的飞盘
+			}
+
+			Frostthrower: {
+				DisplayName: 深冻冷冻器
+				Tooltip:
+					'''
+					喷射超冷气体流，造成霜冻效果
+					使用凝胶作为弹药
+					忽视15点敌人防御
+					'''
+			}
+
+			GladiatorBow: {
+				DisplayName: 角斗士之弓
+				Tooltip:
+					'''
+					高速连发三支箭
+					只有第一箭会消耗弹药
+					'''
+			}
+
+			GladiatorSpear: {
+				DisplayName: 角斗士之矛
+				Tooltip: 慢但力量强大
+			}
+
+			GladiatorStaff: {
+				DisplayName: 角斗士法杖
+				Tooltip: 发射三束剑光束，分布均匀
+			}
+
+			GraniteRifle: {
+				DisplayName: 花岗岩步枪
+				Tooltip: 将火枪子弹转换为可穿透一次的花岗岩子弹
+			}
+
+			GraniteStaff: {
+				DisplayName: 花岗岩权杖
+				Tooltip: 发射一束能量螺旋
+			}
+
+			GraniteYoyo: {
+				DisplayName: 激流
+				Tooltip: ""
+			}
+
+			HarpyBow: {
+				DisplayName: 羽毛之弓
+				Tooltip: 将木箭转换为无视重力并且可穿透的羽箭
+			}
+
+			HarpyMinion: {
+				DisplayName: 羽毛指挥法杖
+				Tooltip:
+					'''
+					召唤一个魔法羽毛爪牙为你而战
+					爪牙会在敌人上方飞行，并缓慢发射旋转的羽毛，这些羽毛会缓慢追踪敌人
+					'''
+			}
+
+			HarpyStaff: {
+				DisplayName: 羽毛权杖
+				Tooltip:
+					'''
+					发射三束羽毛
+					中间的羽毛伤害更高，并可穿透一次
+					'''
+			}
+
+			HarpyYoyo: {
+				DisplayName: 羽毛投掷器
+				Tooltip: 向附近敌人发射锋利的羽毛
+			}
+
+			HellSoulBow: {
+				DisplayName: 炼狱之怒
+				Tooltip: 每次射击都会发射一个追踪之魂箭
+			}
+
+			HellSoulFlare: {
+				DisplayName: 炼狱之魂焰
+				Tooltip: 快速召唤向光标冲刺的灵魂火焰
+			}
+
+			HellSoulMinion: {
+				DisplayName: 灵魂火焰法杖
+				Tooltip:
+					'''
+					召唤一个灵魂火焰仆从为你而战
+					仆从会在敌人上方飞行，并向他们射击迷你灵魂火焰
+					'''
+			}
+
+			HellSoulRifle: {
+				DisplayName: 灵魂爆破枪
+				Tooltip: 发射一束多重穿透灵魂子弹
+			}
+
+			HellSoulSword: {
+				DisplayName: 炼狱之刃
+				Tooltip: 每挥动一次就召唤一把灵魂之焰刀，它会在延迟后追踪敌人
+			}
+
+			IceGrenade: {
+				DisplayName: 冰霜手榴弹
+				Tooltip: 对敌人造成霜燃伤害
+			}
+
+			IceSentry: {
+				DisplayName: 冰霜女王之杖
+				Tooltip:
+					'''
+					召唤一个漂浮的冰霜哨兵，向附近敌人射出一股冰流使他们减速
+					右键瞄准指定的敌人
+					'''
+			}
+
+			IceStaff: {
+				DisplayName: 冰锥权杖
+				Tooltip: 快速射出伤害性冰锥
+			}
+
+			IceStaff2: {
+				DisplayName: 冰锥权杖
+				Tooltip:
+					'''
+					左键点击可快速射出伤害性冰锥。
+					右键点击发射一个大型旋转冰锥，击中敌人后会减速。
+					较大的冰锥耗费更多法力值，并且射击频率较低。
+					'''
+			}
+
+			JungleSentry: {
+				DisplayName: 丛林之树法杖
+				Tooltip: 召唤一个丛林之树，发射一堆荆棘球
+			}
+
+			LightDarkSword: {
+				DisplayName: 昼夜均衡
+				Tooltip:
+					'''
+					左键每次挥动发射出追踪敌人的光之精髓
+					右键创造一片巨大的黑暗光环，在首个被击中的敌人上制造一次黑暗之爆炸
+					“完美平衡，正如万物应有的样子”
+					'''
+			}
+
+			LizardFlame: {
+				DisplayName: 蜥蜴喷火器
+				Tooltip:
+					'''
+					发射一股超热的火焰，能在物块上弹射且不受水影响
+					使用凝胶作为弹药
+					忽视20点敌人防御
+					'''
+			}
+
+			LizardMinion: {
+				DisplayName: 蜥蜴守卫法杖
+				Tooltip:
+					'''
+					召唤一个迷你神庙守卫为你而战
+					仆从会围绕敌人飞行，并向他们射击穿透的激光
+					'''
+			}
+
+			LizardSpell: {
+				DisplayName: 蜥蜴烈焰爆破魔典
+				Tooltip: 召唤一阵弹射的火球
+			}
+
+			LizardSpinner: {
+				DisplayName: 蜥蜴刀锯
+				Tooltip:
+					'''
+					扔出旋转的锯片，在原地逗留
+					一次最多投掷6个锯片，右键移除所有已投掷的锯片
+					'''
+			}
+
+			LunarNebulaStaff: {
+				DisplayName: 星云风暴
+				Tooltip:
+					'''
+					发射出一个星云尘云，在光标位置或撞击瓷砖时爆炸成追踪星云破片
+					追踪破片可穿墙，但仅限于视野范围内
+					'''
+			}
+
+			LunarPredictorBrain: {
+				DisplayName: 预言家大脑
+				Tooltip: 召唤追踪光标的星云投射物
+			}
+
+			LunarSelenianBlade: {
+				DisplayName: 月壤刀刃
+				Tooltip: 击中敌人后原地转动
+			}
+
+			LunarSolarSpin: {
+				DisplayName: 炽烈之星
+				Tooltip:
+					'''
+					如星星般力量的旋转，击退朝向的敌人
+					旋转时有几率反射基础投射物
+					'''
+			}
+
+			LunarStardustSentry: {
+				DisplayName: 星际入侵者法杖
+				Tooltip:
+					'''
+					召唤一个漂浮的星尘哨兵，发射迷你流浪者侵略者追踪敌人
+					右键瞄准指定的敌人
+					'''
+			}
+
+			LunarStargazerLaser: {
+				DisplayName: 观星者之核
+				Tooltip:
+					'''
+					召唤一个漂浮的星尘传送门，向附近的敌人连发穿透性投射物
+					右键瞄准指定的敌人
+					'''
+			}
+
+			LunarVortexLauncher: {
+				DisplayName: 星旋发射器
+				Tooltip:
+					'''
+					发射大量星旋火箭
+					永远是完全精准的，具有更高的速度并造成更多的伤害
+					'''
+			}
+
+			LunarVortexShotgun: {
+				DisplayName: 风暴潜水者散弹枪
+				Tooltip:
+					'''
+					长按左键充能，提高精准度、速度和伤害
+					最大充能时增加额外伤害、速度和击退
+					充满后将火枪子弹转化为夜明弹
+					“来自传奇风暴潜水者的赃物”
+					'''
+			}
+
+			MagicArrow: {
+				DisplayName: 寻求之箭
+				Tooltip:
+					'''
+					按住左键使箭矢瞄准并追踪范围内的任何敌人
+					不使用时返回到你的身边
+					“我是玛丽·波平斯，哟！”
+					'''
+			}
+
+			MechanicalRepeater: {
+				DisplayName: 机械连弩
+				Tooltip:
+					'''
+					三连发箭矢
+					只有第一箭会消耗弹药
+					'''
+			}
+
+			MechanicalRifle: {
+				DisplayName: 超级充能步枪
+				Tooltip:
+					'''
+					可以通过按住左键进行充能
+					充满后会发射威力更强的子弹，造成双倍击退和三倍伤害
+					将火枪子弹球转化为高速子弹
+					充满后，它会将它们转换为一种特殊的变体，造成混乱并且不会造成伤害下降
+					右键缩放视野
+					'''
+			}
+
+			MechDestroyerFlail: {
+				DisplayName: 蒸发器
+				Tooltip: 旋转时连续发射8个刺，并在伸出时持续
+			}
+
+			MechPrimeStaff: {
+				DisplayName: 毁灭者
+				Tooltip: 发射旋转的骷髅头，它们会追踪任何接触的敌人
+			}
+
+			MechSawBlade: {
+				DisplayName: 粉碎机
+				Tooltip:
+					'''
+					接触到的任何敌人都会被粉碎
+					发射在地面上逗留的火花
+					'''
+			}
+
+			MechTheSeeker: {
+				DisplayName: 探寻者
+				Tooltip:
+					'''
+					生成爆破弹，按住右键时可以将其引导向光标
+					需要原型榴弹，从爆破专家那里购买更多
+					'''
+			}
+
+			MetalSilverKnive: {
+				DisplayName: 银色飞刀
+				Tooltip: 可在物块上弹射
+			}
+
+			MetalTungstenKnive: {
+				DisplayName: 钨金飞刀
+				Tooltip: 可在物块上弹射
+			}
+
+			MeteorBow: {
+				DisplayName: 太空之弓
+				Tooltip:
+					'''
+					从天而降箭矢
+					陨石箭能够穿透物块
+					'''
+			}
+
+			MeteorKnives: {
+				DisplayName: 太空羽毛飞刀
+				Tooltip: 投掷出几把太空羽毛飞刀
+			}
+
+			MeteorSentry: {
+				DisplayName: 太空飞碟法杖
+				Tooltip:
+					'''
+					召唤一个漂浮的飞碟，对下方的敌人射击激光
+					右键瞄准指定的敌人
+					'''
+			}
+
+			MeteorSpear: {
+				DisplayName: 太空之矛
+				Tooltip: 击中敌人后从天而降陨石碎片
+			}
+
+			MineDetonate: {
+				DisplayName: 粘性地雷引爆器
+				Tooltip:
+					'''
+					左键投掷粘性地雷，可粘附在表面，一次最多投掷6个
+					右键引爆所有地雷
+					可用于将自己弹射到空中，同样适用于敌人和城镇NPC
+					需要粘性地雷作为弹药
+					'''
+			}
+
+			MoltenDagger: {
+				DisplayName: 熔岩匕首
+				Tooltip: 快速刺伤你的敌人
+			}
+
+			MoltenSeedLauncher: {
+				DisplayName: 火焰种子发射器
+				Tooltip:
+					'''
+					点燃种子
+					允许收集种子作为弹药
+					50%几率不消耗种子
+					'''
+			}
+
+			MoltenSentry: {
+				DisplayName: 岩浆宝珠法杖
+				Tooltip:
+					'''
+					召唤一个岩浆宝珠哨兵，向敌人发射弹跳火球
+					右键瞄准指定的敌人
+					'''
+			}
+
+			MoltenSpell: {
+				DisplayName: 岩浆爆破
+				Tooltip: 召唤一个岩浆球，在撞击时溅开
+			}
+
+			MossRepeater: {
+				DisplayName: 青苔连弩
+				Tooltip: 似乎有点旧和疏忽，但应该还能使用
+			}
+
+			MushroomBow: {
+				DisplayName: 蘑菇之弓
+				Tooltip: 一次射出两箭
+			}
+
+			MushroomStaff: {
+				DisplayName: 蘑菇法杖
+				Tooltip: 召唤弹跳的蘑菇
+			}
+
+			MushroomSword: {
+				DisplayName: 蘑菇剑
+				Tooltip:
+					'''
+					生成一个旋转的蘑菇攻击敌人
+					“没有空间停留”
+					'''
+			}
+
+			OceanGun: {
+				DisplayName: 珊瑚爆破枪
+				Tooltip: 将所有子弹转换成不受水影响、受重力作用的珊瑚碎片
+			}
+
+			OceanSpell: {
+				DisplayName: 潮汐波
+				Tooltip: 召唤一个水球，撞击时溅开并忽视部分防御
+			}
+
+			OceanSword: {
+				DisplayName: 海之刃
+				Tooltip: 每次挥动发出水流冲击
+			}
+
+			PainSword: {
+				DisplayName: 痛苦赐予者
+				Tooltip:
+					'''
+					你经历了难以想象的痛苦才得到它，现在你可以将那份痛苦施加给你的敌人
+					持握时点击右键以循环伤害类型
+					'''
+			}
+
+			PainStaff: {
+				DisplayName: 痛苦使者之杖
+				Tooltip:
+					'''
+					召唤多个判决头骨，以各种模式寻找敌人并传递痛苦
+					持握时点击右键以循环伤害类型
+					'''
+			}
+
+			PizzaCutter: {
+				DisplayName: 电动披萨切割器
+				Tooltip:
+					'''
+					攻击敌人时会召唤更大的旋转披萨刀片。
+					这把较大的刀片能忽略敌人15点防御力，并会缓慢追踪附近的敌人。
+					这款披萨是为哪种口味设计的？
+					'''
+			}
+
+			ProtoLauncher: {
+				DisplayName: 原型发射器
+				Tooltip:
+					'''
+					发射撞击爆炸的手雷，有小概率提前破碎成碎片
+					碎片可能会伤到你
+					需要原型榴弹，从爆破专家那里购买更多
+					'''
+			}
+
+			QuackStaff: {
+				DisplayName: 断裂鸭子
+				Tooltip:
+					'''
+					每次使用召唤3只迷你鸭子
+					“可能会发出嘎嘎叫”
+					'''
+			}
+
+			QuackStaffSuper: {
+				DisplayName: 鸭子分裂
+				Tooltip:
+					'''
+					快速召唤被月之能量增强的迷你鸭子
+					鸭子可能会有四种不同效果之一
+					“极其容易发出嘎嘎叫”
+					'''
+			}
+
+			RoseSickle: {
+				DisplayName: 新月步枪镰
+				Tooltip:
+					'''
+					左键挥动镰刀产生一个巨大的伤害光环，可无视30点防御
+					右键发射步枪，不在地面时后坐力强，需要子弹作为弹药
+					“一把大口径狙击镰刀，将你的敌人化为尘埃”
+					'''
+			}
+
+			SandstoneGun: {
+				DisplayName: 远古左轮手枪
+				Tooltip:
+					'''
+					六连发子弹，只有第一枪消耗弹药
+					连发间需要时间重新装填
+					'''
+			}
+
+			SantankMinion: {
+				DisplayName: 圣诞的指挥法杖
+				Tooltip:
+					'''
+					召唤一个迷你飞行圣坦克仆从为你而战
+					仆从会飞向敌人，迅速发射穿透防御的子弹，并且也会较慢地发射追踪火箭
+					“寻找所有淘气的敌人”
+					'''
+			}
+
+			SeekerBolt: {
+				DisplayName: 猎人之刃
+				Tooltip: 一把大型的可投掷刀刃，当在范围内时会追踪敌人
+			}
+
+			ShroomiteFury: {
+				DisplayName: 蘑菇石之怒
+				Tooltip: 每次射击都会射出两支额外的超弹性穿透箭矢
+			}
+
+			ShroomiteLauncher: {
+				DisplayName: 蘑菇石发射器
+				Tooltip:
+					'''
+					发射蘑菇石火箭，在爆炸时分裂成蘑菇
+					右键发射蘑菇石手雷
+					'''
+			}
+
+			ShroomiteSharpshooter: {
+				DisplayName: 蘑菇石神枪手
+				Tooltip:
+					'''
+					有33%的几率不消耗弹药
+					几秒钟内建立精准度，全精准时造成额外伤害
+					右键缩放视野
+					'''
+			}
+
+			SoulStaff: {
+				DisplayName: 灵魂风暴
+				Tooltip: 每次使用在光标周围召唤3个造成伤害的灵魂，它们会向内移动
+			}
+
+			SpaceRockGlobe: {
+				DisplayName: 小行星球体
+				Tooltip: 在光标位置召唤一个漂浮的小行星巨石，并爆炸成许多碎片
+			}
+
+			SpaceRockGun: {
+				DisplayName: 小行星爆破枪
+				Tooltip:
+					'''
+					有50%的几率不消耗弹药
+					每次射击发射2颗子弹
+					'''
+			}
+
+			SpaceRockMinion: {
+				DisplayName: 小行星法杖
+				Tooltip:
+					'''
+					召唤一个迷你小行星为你而战
+					仆从会迅速冲向敌人
+					'''
+			}
+
+			SpaceRockSword: {
+				DisplayName: 小行星之刃
+				Tooltip:
+					'''
+					从天而降小行星巨石
+					每次挥动都会创造一个造成大面积伤害的光环
+					'''
+			}
+
+			SpaceRockWhip: {
+				DisplayName: 小行星带
+				Tooltip:
+					'''
+					召唤标记伤害8点
+					召唤标记暴击率18%
+					你的召唤物会专注于被击中的敌人
+					当召唤物击中目标时，小行星碎片会落在被瞄准的敌人上
+					'''
+			}
+
+			SpectreDagger: {
+				DisplayName: 幽魂匕首
+				Tooltip:
+					'''
+					召唤可控的魔法匕首
+					一次最多可控制5个
+					'''
+			}
+
+			SpectreHose: {
+				DisplayName: 幽魂权杖
+				Tooltip:
+					'''
+					快速发射迷你幽魂头，它们会迅速加速
+					骷髅头移动得越快，伤害就越大
+					'''
+			}
+
+			SpectreStaff2: {
+				DisplayName: 幽魂神器
+				Tooltip:
+					'''
+					召唤围绕你不同距离的幽魂球体
+					右键在光标处发射任何处于最大轨道距离的球体
+					发射球体无需持握武器
+					'''
+			}
+
+			SpiritStaff: {
+				DisplayName: 冰霜之灵法杖
+				Tooltip:
+					'''
+					召唤一个冰霜之灵头为你而战
+					仆从会在敌人上空扫过，并一次向他们发射3个冰碎片
+					'''
+			}
+
+			SpookyStaff: {
+				DisplayName: 幽怪法杖
+				Tooltip: 从天而降追踪之火
+			}
+
+			StickyBomb: {
+				DisplayName: 尖刺炸弹
+				Tooltip:
+					'''
+					爆炸成许多伤害性尖刺
+					不破坏物块
+					'''
+			}
+
+			StickyLauncher: {
+				DisplayName: 尖刺炸弹发射器
+				Tooltip:
+					'''
+					发射最多16个尖刺炸弹，粘附在表面上，当射出第17个时，最早的炸弹会自动爆炸
+					在光标附近的炸弹可以通过按右键引爆，持武器按住右键可以引爆所有炸弹
+					炸弹发射距离取决于光标距离
+					可用于将自己弹射到空中，同样适用于敌人和城镇NPC
+					使用火箭作为弹药
+					'''
+			}
+
+			StoneShot: {
+				DisplayName: 压缩巨石
+				Tooltip: 你可能会觉得扔这个很远很难
+			}
+
+			StoneThrower: {
+				DisplayName: 石头大炮
+				Tooltip: 向敌人发射所有不想要的石头
+			}
+
+			StoneThrowerHard: {
+				DisplayName: 超级石头大炮
+				Tooltip: 升级版的石头大炮，使石头变得更加致命
+			}
+
+			StoneThrowerSuper: {
+				DisplayName: 炽热石头大炮
+				Tooltip: 将你的石头超热化为炽热的石头巨石
+			}
+
+			StoneThrowerSuperLunar: {
+				DisplayName: 天体石头大炮
+				Tooltip: 用天体碎片的力量强化你的石头
+			}
+
+			StormKnife: {
+				DisplayName: 闪电飞刀
+				Tooltip: 召唤强大的闪电击中被攻击的敌人
+			}
+
+			StormLauncher: {
+				DisplayName: 超载闪电发射器
+				Tooltip:
+					'''
+					发射超载手雷，在爆炸中释放闪电冲击波
+					使用普通火箭作为弹药
+					'''
+			}
+
+			StormSentryStaff: {
+				DisplayName: 超载法杖
+				Tooltip:
+					'''
+					召唤扫描无人机哨兵，向敌人发射3道闪电
+					右键瞄准指定的敌人
+					'''
+			}
+
+			StormStaff: {
+				DisplayName: 闪电权杖
+				Tooltip: 快速射出刺目的闪电
+			}
+
+			SuperDartLauncher: {
+				DisplayName: 火星飞镖发射器
+				Tooltip:
+					'''
+					快速连射飞镖
+					有50%几率不消耗飞镖
+					'''
+			}
+
+			TheSickle: {
+				DisplayName: 九魂镰
+				Tooltip:
+					'''
+					左键作为旋转武器使用，右键连续投掷两把刀刃
+					杀死敌人收集多达9个灵魂，每个收集的灵魂都会增加武器的伤害和暴击率
+					如果9秒内没有杀死敌人，灵魂将开始逃离
+					“捡起来！捡！起！来！”
+					'''
+			}
+
+			ThrowingKnifeBouncy: {
+				DisplayName: 弹跳飞刀
+				Tooltip: 弹性十足
+			}
+
+			TombStaff: {
+				DisplayName: 墓碑法杖
+				Tooltip:
+					'''
+					发射弹跳的魔法墓碑
+					墓碑在击中敌人时产生微型幽灵
+					'''
+			}
+
+			TommyGun: {
+				DisplayName: 雪人汤姆冲锋枪
+				Tooltip:
+					'''
+					只能左右射击
+					按住上/下键分别以45度角向上/下瞄准
+					“有了这武器，我就是个真正的黑帮”
+					'''
+			}
+
+			TurtleShellWeapon: {
+				DisplayName: 巨型龟壳
+				Tooltip:
+					'''
+					投掷出弹跳的龟壳
+					攻击敌人时提供额外防御
+					“不，这不是指意大利水管工的梗”
+					'''
+			}
+
+			TurtleSpear: {
+				DisplayName: 乌龟长矛
+				Tooltip:
+					'''
+					每次刺击都会伸出长矛
+					攻击敌人时提供额外防御
+					'''
+			}
+
+			TurtleYoyo: {
+				DisplayName: 旋转乌龟
+				Tooltip:
+					'''
+					伸出时可发射8个迷你悠悠球头，形成完美图案
+					直接攻击敌人时提供额外防御
+					'''
+			}
+
+			VortexiaWeapon: {
+				DisplayName: 星旋
+				Tooltip:
+					'''
+					召唤伤害性漩涡，它会召唤更小的追踪漩涡
+					“失落时代的遗物”
+					'''
+			}
+
+			WebStaff: {
+				DisplayName: 蛛网法杖
+				Tooltip: 射出粘在表面上的蛛网团
+			}
+
+			WebWhip: {
+				DisplayName: 蜘蛛鞭
+				Tooltip:
+					'''
+					召唤标记伤害3点
+					你的召唤物将专注于被击中的敌人
+					被召唤物击中的目标敌人有几率减速
+					'''
+			}
+
+			WoodCrossbow: {
+				DisplayName: 木弩
+				Tooltip:
+					'''
+					将所有箭矢转化为穿透弩箭
+					“慢但强力”
+					'''
+			}
+
+			WoodPointyStick: {
+				DisplayName: 尖木棍
+				Tooltip:
+					'''
+					每次刺击发射一片锋利的叶子
+					“用棍子戳它”
+					'''
+			}
+
+			WyvernBow: {
+				DisplayName: 飞龙之弓
+				Tooltip:
+					'''
+					三箭齐发，均匀分布
+					为所有箭矢提供额外速度
+					'''
+			}
+
+			BabyDerpBannerItem: {
+				DisplayName: 小双足翼龙旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：小双足翼龙？你这个怪物！
+			}
+
+			FrozenEyeBannerItem: {
+				DisplayName: 冰冻眼鱼旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：冰冻眼鱼
+			}
+
+			FrozenSoulBannerItem: {
+				DisplayName: 冰冻之灵旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：冰冻之灵
+			}
+
+			GladiatorMiniBossBannerItem: {
+				DisplayName: 堕落战士旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：堕落战士
+			}
+
+			GolemMinionBannerItem: {
+				DisplayName: 神庙守卫旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：神庙守卫
+			}
+
+			GolemSentryBannerItem: {
+				DisplayName: 蜥蜴火陷阱旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：蜥蜴火陷阱
+			}
+
+			GraniteMiniBossBannerItem: {
+				DisplayName: 涌动的花岗岩核心旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：涌动的花岗岩核心
+			}
+
+			HellMiniBossBannerItem: {
+				DisplayName: 灵魂熔炉旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：灵魂熔炉
+			}
+
+			HellSoulBannerItem: {
+				DisplayName: 无心之魂旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：无心之魂
+			}
+
+			IceCoreBannerItem: {
+				DisplayName: 严寒雪花旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：严寒雪花
+			}
+
+			MeteorDropperBannerItem: {
+				DisplayName: 陨石爆破者旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：陨石爆破者
+			}
+
+			MoonDerpBannerItem: {
+				DisplayName: 月灵旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：月灵
+			}
+
+			MushroomMiniBossBannerItem: {
+				DisplayName: 愤怒蘑菇旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：愤怒蘑菇
+			}
+
+			NebulaDerpBannerItem: {
+				DisplayName: 脑跳者旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：脑跳者
+			}
+
+			SandCoreBannerItem: {
+				DisplayName: 沙丘爆破者旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：沙丘爆破者
+			}
+
+			ScanDroneBannerItem: {
+				DisplayName: 扫描无人机旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：扫描无人机
+			}
+
+			SolarDerpBannerItem: {
+				DisplayName: 炽热跳虫旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：炽热跳虫
+			}
+
+			SpaceRockHeadBannerItem: {
+				DisplayName: 小行星飞行者旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：小行星飞行者
+			}
+
+			SpaceRockHeadLargeBannerItem: {
+				DisplayName: 小行星冲锋者旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：小行星冲锋者
+			}
+
+			StardustDerpBannerItem: {
+				DisplayName: 星尘跳虫旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：星尘跳虫和星尘跳虫仆从
+			}
+
+			StormDerpBannerItem: {
+				DisplayName: 风暴跳虫旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：风暴跳虫
+			}
+
+			VineDerpBannerItem: {
+				DisplayName: 伪装跳跳兽旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：伪装跳跳兽
+			}
+
+			VortCannonBannerItem: {
+				DisplayName: 星旋炮兵旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：星旋炮兵
+			}
+
+			TheClaySlimeBannerItem: {
+				DisplayName: 黏土史莱姆旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：黏土史莱姆
+			}
+
+			ThePainSlimeBannerItem: {
+				DisplayName: 痛苦史莱姆旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：痛苦史莱姆
+			}
+
+			SnowmanPizzaBannerItem: {
+				DisplayName: 雪人披萨快递员旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：
+			}
+
+			SnowmanBombBannerItem: {
+				DisplayName: 雪人爆破手旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：雪人爆破手
+			}
+		}
+
+		NPCs: {
+			BabyDerp.DisplayName: 小跳跳兽
+
+			AridBoss: {
+				DisplayName: 远古外壳
+
+				BossChecklistIntegration: {
+					SpawnInfo: 在沙漠使用 [i:StormDiversMod/AridBossSummon] 召唤
+					DespawnMessage: 远古外壳重归沙海深处
+				}
+			}
+
+			AridBossMinion.DisplayName: 远古灵魂
+
+			StormBoss: {
+				DisplayName: 超载扫描机
+
+				BossChecklistIntegration: {
+					SpawnInfo: 击败机械三王之后，使用 [i:StormDiversMod/StormBossSummoner] 召唤
+					DespawnMessage: 超载扫描机返回它的母星（并没有在回家的路上死去）
+				}
+			}
+
+			TheUltimateBoss: {
+				DisplayName: 痛苦使者
+
+				BossChecklistIntegration: {
+					SpawnInfo:
+						'''
+						击败月亮领主之后，使用 [i:StormDiversMod/UltimateBossSummoner] 召唤
+						击败月亮领主之后，且装备痛苦或黏土面具的情况下，击杀任何敌人都会掉落
+						粘土和痛苦史莱姆也会掉落
+						'''
+					DespawnMessage: 你无法承受痛苦，是吗？
+				}
+			}
+
+			DerpMimic.DisplayName: 完全正常的跳跳兽
+			FrozenEye.DisplayName: 冰冻眼鱼
+			FrozenSoul.DisplayName: 冰冻魂灵
+			GladiatorMiniBoss.DisplayName: 堕落战士
+			GolemMinion.DisplayName: 丛林神庙守卫
+			GolemSentry.DisplayName: 石头人火焰陷阱
+			GraniteMiniBoss.DisplayName: 激活的花岗岩核心
+			HellMiniBoss.DisplayName: 灵魂熔炉
+			HellMiniBossMinion.DisplayName: 灵魂熔炉仆从
+			HellSoul.DisplayName: 无心之魂
+			IceCore.DisplayName: 寒冰雪花
+			MeteorDropper.DisplayName: 陨石投掷者
+			MoonDerp.DisplayName: 月球小精灵
+			MushroomMiniBoss.DisplayName: 愤怒蘑菇
+			NebulaDerp.DisplayName: 大脑跳虫
+			SandCore.DisplayName: 沙丘爆破者
+			ScanDrone.DisplayName: 扫描机
+			SolarDerp.DisplayName: 炽热跳虫
+			SpaceRockHead.DisplayName: 小行星旋转者
+			SpaceRockHeadLarge.DisplayName: 小行星冲锋兵
+			StardustDerp.DisplayName: 星尘跳虫
+			StardustMiniDerp.DisplayName: 星尘跳虫仆从
+			StormDerp.DisplayName: 风暴跳虫
+			VineDerp.DisplayName: 伪装跳跳兽
+			VortexCannon.DisplayName: 星旋炮兵
+			ThePainSlime.DisplayName: 痛苦史莱姆
+			TheClaySlime.DisplayName: 黏土史莱姆
+			TheUltimateBossMinion.DisplayName: 痛苦碎片水晶
+			SuperPainDummy.DisplayName: 超级痛苦假人
+			SnowmanPizza.DisplayName: 雪人披萨快递员
+			SnowmanBomb.DisplayName: 雪人爆破手
+		}
+
+		Projectiles: {
+			AridBossFlameProj.DisplayName: 远古外壳沙火焰
+			AridBossSandProj.DisplayName: 远古外壳沙
+			AridBossShardProj.DisplayName: 远古外壳碎片
+			DerplingEnemyShellProj.DisplayName: 跳跳兽壳碎片
+			FrozenEyeProj.DisplayName: 迷你雪花
+			FrozenSoulProj.DisplayName: 巨大雪花
+			GladiatorMiniBossProj.DisplayName: 堕落战士之剑
+			GolemMinionProj.DisplayName: 丛林神庙守卫激光
+			GraniteMiniBossProj.DisplayName: 花岗岩箭矢
+			HellMiniBossProj1.DisplayName: 地狱灵魂箭矢
+			HellMiniBossProj2.DisplayName: 地狱灵魂巨型火焰
+			HellSoulEnemyProj.DisplayName: 红色灵魂
+			IceCoreProj.DisplayName: 霜冻之刺
+			MeteorDropperProj.DisplayName: 陨石碎片
+			MoonDerpBoltProj.DisplayName: 月球小精灵闪电
+			MoonDerpEyeProj.DisplayName: 月球小精灵之眼
+			MushroomMiniBossProj.DisplayName: 弹跳蘑菇
+			NebulaFlame.DisplayName: 星云火焰
+			SandCoreProj.DisplayName: 禁忌之沙
+			ScanDroneProj.DisplayName: 扫描机闪电
+			SolarDerpProj.DisplayName: 太阳火球
+			SpaceHeadProj.DisplayName: 小行星闪电
+			SpaceHeadProj2.DisplayName: 小行星雷电
+			StormBossBolt.DisplayName: 超载扫描机闪电
+			StormBossBomb.DisplayName: 超载扫描机炸弹
+			StormBossLightning.DisplayName: 超载扫描机雷电
+			StormBossLightningPortal.DisplayName: 超载扫描机传送门
+			StormBossMine.DisplayName: 超载扫描机雷管
+			StormBossMineLarge.DisplayName: 超载扫描机大雷管
+			StormDerpProj.DisplayName: 星旋尖刺
+			TheUltimateBossProj.DisplayName: 审判之颅
+			TheUltimateBossProj2.DisplayName: 审判之颅
+			TheUltimateBossProj3.DisplayName: 碎裂碎片
+			TheUltimateBossProj4.DisplayName: 痛苦爆炸
+			VortCannonProj.DisplayName: 星旋火箭
+			TheClaySlimeProj.DisplayName: 粘土史莱姆斑点
+			ThePainSlimeProj.DisplayName: 痛苦史莱姆斑点
+			AsteroidArrowProj.DisplayName: 小行星箭矢
+			AsteroidBulletProj.DisplayName: 小行星子弹
+			BouncyArrowProj.DisplayName: 弹跳箭矢
+			ChaosArrowProj.DisplayName: 混沌箭矢
+			CoralBulletProj.DisplayName: 珊瑚子弹
+			CrackedShotProj.DisplayName: 破裂子弹
+			CrackedShotProj2.DisplayName: 破裂子弹碎片
+			DesertArrowProj.DisplayName: 禁忌箭矢
+			DesertBulletProj.DisplayName: 禁忌子弹
+			DualArrowProj.DisplayName: 双尖箭矢
+			FrostArrowProj.DisplayName: 霜冻箭矢
+			FrostBulletProj.DisplayName: 霜冻子弹
+			FrostBulletProj2.DisplayName: 霜冻子弹
+			IronShotProj.DisplayName: 铁质子弹
+			LeadShotProj.DisplayName: 铅质子弹
+			MeteorArrowProj.DisplayName: 陨石箭矢
+			ProtoGrenadeProj.DisplayName: 原型榴弹
+			ProtoGrenadeProj2.DisplayName: 破片
+			ShroomArrowProj.DisplayName: 蘑菇箭矢
+			ShroomBulletProj.DisplayName: 蘑菇子弹
+			AncientArmourProj.DisplayName: 远古沙爆
+			AncientFlameProj.DisplayName: 远古沙流
+			AncientKnivesProj.DisplayName: 远古飞刀
+			AncientStaffProj.DisplayName: 远古沙爆
+			BeetleGloveProj.DisplayName: 微型甲虫
+			BeetleProj.DisplayName: 甲虫
+			BeetleShellProj.DisplayName: 甲虫壳
+			BeetleSpearProj.DisplayName: 甲虫长矛
+			BeetleYoyoProj.DisplayName: 甲虫悠悠球
+			BetsyFlameProj.DisplayName: 双足翼龙之焰
+			BloodBootProj.DisplayName: 血迹靴痕
+			BloodDropProj.DisplayName: 血滴
+			BloodGrenadeProj.DisplayName: 血色手雷
+			BloodSpearProj.DisplayName: 心脏穿刺者
+			BloodSwordProj.DisplayName: 血痕之刃
+			BloodyBulletProj.DisplayName: 血腥子弹
+			BloodyBulletProj2.DisplayName: 血滴子弹
+			BloodYoyoProj.DisplayName: 心脏袭击悠悠球
+			BloodYoyoProj2.DisplayName: 血色悠悠球痕迹
+			BoneAcProj.DisplayName: 旋转骨头
+			BoneBoomerangProj.DisplayName: 骨头回旋镖
+			CelestialShieldProj.DisplayName: 天界守护者
+			ChloroStaffProj.DisplayName: 叶绿流星
+			CrimsonAxeProj.DisplayName: 血腥斧头
+			CrimsonAxeProj2.DisplayName: 血腥斧头
+			CultistBowProj.DisplayName: 冰雾箭矢
+			CultistBowProj2.DisplayName: 冰雾尖刺
+			CultistLazorProj.DisplayName: 邪教徒激光
+			CultistSpearProj.DisplayName: 狂热之火矛
+			CultistSpearProj2.DisplayName: 火球爆破
+			CultistTomeProj.DisplayName: 邪教徒之星
+			CursedHammerProj.DisplayName: 诅咒之锤
+			CursedHammerProj2.DisplayName: 诅咒之锤
+			DerpMagicProj.DisplayName: 跳跳兽魔法壳
+			DerpMagicProj2.DisplayName: 跳跳兽魔法碎片
+			DerpMeleeProj.DisplayName: 跳跳兽壳碎片
+			DerpWaveProj.DisplayName: 跳跳兽冲击波
+			DesertArrowDust.DisplayName: 禁忌箭矢尘埃
+			DesertBowProj.DisplayName: 禁忌之怒箭矢
+			DesertJarProj.DisplayName: 禁忌尘埃轨迹
+			DesertJarProj2.DisplayName: 禁忌尘埃环绕
+			DesertSpearProj.DisplayName: 禁忌之矛
+			DesertSpearTipProj.DisplayName: 禁忌长矛尘埃
+			DesertSpellProj.DisplayName: 禁忌之沙
+			DestroyerFlailProj.DisplayName: 蒸汽链球
+			DestroyerFlailProj2.DisplayName: 摧毁者链球未使用
+			DestroyerFlailProj3.DisplayName: 蒸汽尖刺
+			EnchantedSwordProj.DisplayName: 魔剑
+			EnchantedSwordProj2.DisplayName: 魔剑
+			ExplosionAridProj.DisplayName: 沙漠爆炸
+			ExplosionDarkProj.DisplayName: 黑暗爆炸
+			ExplosionFrostProj.DisplayName: 霜冻爆炸
+			ExplosionGenericProj.DisplayName: 普通爆炸
+			ExplosionHellSoulProj.DisplayName: 灵魂爆炸
+			ExplosionPainProj.DisplayName: 痛苦爆炸
+			ExplosionPainNofaceProj.DisplayName: 无面痛苦爆炸
+			ExplosionShroomiteProj.DisplayName: 蘑菇爆炸
+			ExplosionVortexProj.DisplayName: 星旋爆炸
+			EyeStaffProj.DisplayName: 弹跳之眼
+			EyeSwordProj.DisplayName: 眼剑球
+			FlamingSeed.DisplayName: 灼热种子
+			FrostAccessProj.DisplayName: 霜冻碎片
+			FrostCryoArmourProj.DisplayName: 冰晶云
+			FrostGrenadeProj.DisplayName: 霜冻手雷
+			FrostSpinProj.DisplayName: 冰冻星极
+			FrostStarProj.DisplayName: 霜星飞盘
+			Frostthrowerproj.DisplayName: 霜冻
+			GhostProj.DisplayName: 微型幽灵
+			GladiatorSpearProj.DisplayName: 角斗士长矛
+			GladiatorSpearProj2.DisplayName: 角斗士矛射线
+			GladiatorStaffProj.DisplayName: 角斗士法杖光束
+			GraniteBulletProj.DisplayName: 花岗岩子弹
+			GraniteSpearProj.DisplayName: 花岗岩长矛
+			GraniteSpearProj2.DisplayName: 花岗岩长矛宝珠
+			GraniteStaffProj.DisplayName: 花岗岩能量球
+			GraniteYoyoProj.DisplayName: 花岗岩悠悠球
+			HarpyArrowProj.DisplayName: 羽毛箭矢
+			HarpyProj.DisplayName: 鹰身女妖羽毛
+			HarpyProj2.DisplayName: 大型鹰身女妖羽毛
+			HarpyYoyoProj.DisplayName: 鹰身女妖悠悠球
+			HellSoulArmourProj.DisplayName: 地狱灵魂爆破
+			HellSoulBowProj.DisplayName: 地狱灵魂箭矢
+			HellSoulMagicProj.DisplayName: 地狱灵魂光芒
+			HellSoulMagicProj2.DisplayName: 地狱灵魂光芒
+			HellSoulRifleProj.DisplayName: 地狱灵魂子弹
+			HellSoulSwordProj.DisplayName: 地狱灵魂之刃
+			IceGrenadeProj.DisplayName: 冰霜榴弹
+			IceStaffProj.DisplayName: 冰柱
+			LavaSmallProj.DisplayName: 小型熔岩箭矢
+			LavaSpellProj.DisplayName: 魔法熔岩球
+			LizardFlameProj.DisplayName: 石头人烈焰
+			LizardSpellProj.DisplayName: 石头人火球
+			LizardSpinnerProj.DisplayName: 石头人旋转器
+			MagicArrowProj.DisplayName: 魔法箭矢
+			MagicMushArmourProj.DisplayName: 魔法蘑菇
+			MagicMushProj.DisplayName: 魔法蘑菇
+			MeteorSpearProj.DisplayName: 太空长矛
+			MeteorSpearProj2.DisplayName: 陨石碎片
+			AncientMinionProj.DisplayName: 远古沙漠仆从
+			AncientMinionProj2.DisplayName: 远古沙漠仆从抛射物
+			DerplingMinionProj.DisplayName: 跳跳兽仆从
+			EyeMinionProj.DisplayName: 克苏鲁之眼仆从
+			FrozenSpiritMinionProj.DisplayName: 冰冻灵魂仆从
+			FrozenSpiritMinionProj2.DisplayName: 冰冻灵魂碎片
+			HellSoulMinionProj.DisplayName: 灵魂火焰仆从
+			HellSoulMinionProj2.DisplayName: 灵魂火焰仆从火焰
+			LizardMinionProj.DisplayName: 丛林神庙守卫仆从
+			LizardMinionProj2.DisplayName: 丛林神庙仆从激光
+			SpaceRockMinionProj.DisplayName: 小行星仆从
+			MoltenDaggerProj.DisplayName: 熔岩匕首
+			NebulaStaffProj.DisplayName: 星云火焰
+			NebulaStaffProj2.DisplayName: 星云火焰
+			OceanCoralProj.DisplayName: 珊瑚碎片
+			OceanSmallProj.DisplayName: 小型水球
+			OceanSpellProj.DisplayName: 魔法水球
+			PainProj.DisplayName: 痛苦抛射物
+			PainCoreProj.DisplayName: 痛苦魔颅
+			PainStaffProj.DisplayName: 判决魔颅
+			AridBossPetProj.DisplayName: 自由的外壳
+			GoldDerpie.DisplayName: 黄金憨憨
+			MrStabbyPetProj.DisplayName: 迷你刺刃
+			StormBossPetProj.DisplayName: 小型超载扫描机
+			StormLightProj.DisplayName: 小型风暴潜水者
+			TwilightPetProj.DisplayName: 暮光之光
+			UltimateBossPetProj.DisplayName: 小可爱
+			PredictorBrainProj.DisplayName: 星云大脑光束
+			PredictorBrainProj2.DisplayName: 星云大脑光束
+			PrimeAccessProj.DisplayName: 机械尖刺球
+			QuackNebulaProj.DisplayName: 微型星云鸭
+			QuackProj.DisplayName: 微型鸭
+			QuackSolarProj.DisplayName: 微型太阳鸭
+			QuackStardustMiniProj.DisplayName: 微微型星尘鸭
+			QuackStardustProj.DisplayName: 微型星尘鸭
+			QuackVortexProj.DisplayName: 微型星旋鸭
+			SantankMissleProj.DisplayName: 呼呼导弹
+			SawBladeChain.DisplayName: 机械链锯
+			SeekerBoltProj.DisplayName: 追踪光束
+			SeekerKnifeProj.DisplayName: 追踪飞刀
+			SelenianBladeProj.DisplayName: 太阳刃
+			BloodySentryProj.DisplayName: 血海胆炮塔
+			BloodySentryProj2.DisplayName: 胆炮塔血迹
+			CultistSentryProj.DisplayName: 邪教炮塔球
+			CultistSentryProj2.DisplayName: 狂热闪电
+			DesertStaffProj.DisplayName: 禁忌炮塔
+			DesertStaffProj2.DisplayName: 禁忌沙尘
+			DesertStaffProj3.DisplayName: 禁忌炮塔爆炸
+			FrostSentryProj.DisplayName: 霜刺炮塔
+			FrostSentryProj2.DisplayName: 霜冻炮塔抛射物
+			IceSentryProj.DisplayName: 冰冻炮塔
+			IceSentryProj2.DisplayName: 冰流
+			JungleSentryProj.DisplayName: 丛林炮塔
+			JungleSentryProj2.DisplayName: 丛林荆棘球
+			LunaticExpertSentryProj.DisplayName: 邪教炮塔
+			LunaticExpertSentryProj2.DisplayName: 邪教暗影火球
+			MagmaSentryProj.DisplayName: 岩浆球炮塔
+			MagmaSentryProj2.DisplayName: 岩浆火球
+			MeteorSentryProj.DisplayName: 陨石炮塔
+			MeteorSentryProj2.DisplayName: 陨石炮塔激光
+			SkyKnightSentryProj.DisplayName: 星战士炮塔
+			SkyKnightSentryProj2.DisplayName: 星战士之星
+			StardustSentryProj.DisplayName: 星尘炮塔
+			StardustSentryProj2.DisplayName: 金流入侵者
+			StardustSentryProj3.DisplayName: 快速金流入侵者
+			StargazerCoreProj.DisplayName: 观星者炮塔
+			StargazerCoreProj2.DisplayName: 观星者激光
+			StormSentryProj.DisplayName: 扫描机炮塔
+			StormSentryProj2.DisplayName: 风暴炮塔
+			ShroomBowArrowProj.DisplayName: 蘑菇光箭
+			ShroomGrenProj.DisplayName: 蘑菇手榴弹
+			ShroomMush.DisplayName: 旋转蘑菇
+			ShroomRocketProj.DisplayName: 蘑菇火箭
+			ShroomSetRocketProj.DisplayName: 发射器附件火箭
+			SkullSeek.DisplayName: 主宰骷髅
+			SolarSpinProj.DisplayName: 太阳旋转器
+			SoulsProj.DisplayName: 伤害灵魂
+			SpaceArmourProj.DisplayName: 小行星追踪巨石
+			SpaceFragment.DisplayName: 小行星碎片
+			SpaceGlobeProj.DisplayName: 小行星巨石
+			SpectreDaggerProj.DisplayName: 鬼魂匕首
+			SpectreDaggerProj2.DisplayName: 鬼魂匕首
+			SpectreHoseProj.DisplayName: 鬼魂光束
+			SpectreStaffSpinProj.DisplayName: 鬼魂球
+			SpectreStaffSpinProj2.DisplayName: 鬼魂球
+			SpikeBombProj.DisplayName: 尖刺炸弹
+			SpikeBombProj2.DisplayName: 尖刺炸弹尖刺
+			SpookyGlobeProj.DisplayName: 阴森天球
+			StickyBombProj.DisplayName: 粘性炸弹
+			StompBootProj.DisplayName: 震波
+			StompBootProj2.DisplayName: 践踏波
+			StoneFragCelestial.DisplayName: 天界碎片
+			StoneFragProj.DisplayName: 石头碎片
+			StoneFragSuperProj.DisplayName: 火焰碎片
+			StoneHardProj.DisplayName: 坚硬石头巨石
+			StoneNebula.DisplayName: 星云石头巨石
+			StoneProj.DisplayName: 石头巨石
+			StoneSolar.DisplayName: 太阳石头巨石
+			StoneStardust.DisplayName: 星尘石头巨石
+			StoneSuperProj.DisplayName: 火焰石头巨石
+			StoneVortex.DisplayName: 星旋石头巨石
+			StormAccessProj.DisplayName: 风暴传送门
+			StormExplosionProj.DisplayName: 超载雷电爆炸
+			StormGrenadeProj.DisplayName: 超载手雷
+			StormKnifeProj.DisplayName: 超载刀片
+			StormLightningProj.DisplayName: 超载闪电
+			SwordDarkProj.DisplayName: 暗能量精华
+			SwordLightProj.DisplayName: 光能量精华
+			TheSickleProj.DisplayName: 九魂镰旋转器
+			TheSickleProj2.DisplayName: 九魂镰投掷物
+			TheSickleProj3.DisplayName: 九命灵魂
+			ThrowingKnifeBouncyProj.DisplayName: 弹性飞刀
+			ThrowingSilverKniveProj.DisplayName: 银色飞刀
+			ThrowingTungstenKniveProj.DisplayName: 钨质飞刀
+			TombProj.DisplayName: 墓碑
+			AircanProj.DisplayName: 空气爆炸
+			OilCanProj.DisplayName: 油滴
+			BobberCoral.DisplayName: 珊瑚浮标
+			BobberDerpling.DisplayName: 跳跳兽浮标
+			BobberLunar.DisplayName: 月球浮标
+			BobberLunarNebula.DisplayName: 星云月球浮标
+			BobberLunarSolar.DisplayName: 太阳月球浮标
+			BobberLunarStardust.DisplayName: 星尘月球浮标
+			BobberLunarVortex.DisplayName: 星旋月球浮标
+			DerpChainProj.DisplayName: 跳跳兽链锯
+			DerpDrillProj.DisplayName: 跳跳兽钻机
+			DerpJackProj.DisplayName: 跳跳兽冲击钻
+			FastDrill2Proj.DisplayName: 超级钻机
+			FastDrillProj.DisplayName: 迷你钻机
+			HookDerpProj.DisplayName: 跳跳兽钩爪
+			HookEyeProj.DisplayName: 眼球钩爪
+			HookStormProj.DisplayName: 闪电钩爪
+			SantankDrillProj.DisplayName: 圣坦克钻机
+			SantankJackhamProj.DisplayName: 圣坦克冲击钻
+			SantankSawProj.DisplayName: 圣坦克链锯
+			SpaceRockDrillSawProj.DisplayName: 小行星钻锯
+			SpaceRockJackhammerProj.DisplayName: 小行星冲击钻
+			TurtleShellProj.DisplayName: 龟壳
+			TurtleSpearProj.DisplayName: 龟壳长矛
+			TurtleSpearProj2.DisplayName: 龟壳长矛
+			TurtleYoyoProj.DisplayName: 龟壳悠悠球
+			TurtleYoyoProj2.DisplayName: 龟壳悠悠球
+			VortexiaProj.DisplayName: 大型星旋
+			VortexiaProj2.DisplayName: 追踪星旋
+			VortexRocketProj.DisplayName: 星旋火箭
+			VortexRocketProj2.DisplayName: 大型星旋火箭
+			VortexShotgunGun.DisplayName: 风暴潜水者散弹枪
+			WebProj.DisplayName: 蛛网
+			BloodWhipProj.DisplayName: 血鞭
+			BloodWhipProj2.DisplayName: 血鞭之球
+			DesertWhipProj.DisplayName: 沙漠鞭子
+			DesertWhipProj2.DisplayName: 禁忌鞭尘
+			SpaceRockWhipProj.DisplayName: 小行星鞭子
+			SpaceRockWhipProj2.DisplayName: 小行星鞭碎片
+			WebWhipProj.DisplayName: 蛛网鞭子
+			WoodenBoltProj.DisplayName: 弩箭
+			WoodPointyStickProj.DisplayName: 尖木棒
+			SantaBulletProj.DisplayName: 圣诞子弹
+			SantaBulletProj2.DisplayName: 圣诞子弹爆炸
+			ExplosionChloroProj.DisplayName: 叶绿爆炸
+			MineBombProj.DisplayName: 粘性地雷
+			FlailLockerProj.DisplayName: 锁链球
+			LizardArmourProj.DisplayName: 蜥蜴无人机
+			BazookaProj.DisplayName: 战利品火箭筒
+			BazookaProj2.DisplayName: 火箭筒导弹
+			MechanicalRifleProj.DisplayName: 超级充能步枪
+			MechanicalRifleProj2.DisplayName: 超高速子弹
+			AncientArmourRingProj.DisplayName: 远古铠甲之环
+			PainbringerMaskProj.DisplayName: 痛苦使者面具水晶
+			AsteroidAura.DisplayName: 小行星刃
+			LightDarkAuraDark.DisplayName: 昼夜光刃
+			LightDarkAuraLight.DisplayName: 昼夜暗刃
+			SoulAura.DisplayName: 灵魂刃
+			DerpAura.DisplayName: 跳跳兽剑
+			SpaceSwordProj.DisplayName: 小行星剑巨石
+			CaptainsGunProj.DisplayName: 船长大炮
+			SantankMinionProj.DisplayName: 迷你圣坦克仆从
+			SantankMinionProj2.DisplayName: 迷你圣坦克导弹
+			SantankMinionProj3.DisplayName: 迷你圣坦克子弹
+			MeteorKnifeProj.DisplayName: 太空羽刃
+			HarpyMinionProj.DisplayName: 魔法羽毛仆从
+			HarpyMinionProj2.DisplayName: 魔法羽毛
+			DesertSparkProj.DisplayName: 沙漠火花
+			CursedSkullMinionProj.DisplayName: 诅咒骷髅仆从
+			CursedSkullMinionProj2.DisplayName: 诅咒骷髅骨头
+			WoodPointyStickProj2.DisplayName: 木质尖棒抛射物2
+			RoseAura.DisplayName: 镰刀步枪光环
+			ClaymanProj.DisplayName: 审判凝视
+			CursedSpearGunProj.DisplayName: 诅咒之矛霰弹枪
+			CrackedDaggerProj.DisplayName: 破碎匕首
+			SnowmanPizzaProj.DisplayName: 雪人披萨
+			DerpMimicProj.DisplayName: 影之蠕怪
+			PizzaCutterProj.DisplayName: 机动披萨切割器
+			PizzaCutterProj2.DisplayName: 比萨切割刀片
+			SnowmanExplosion.DisplayName: 雪人炸弹爆炸
+			SnowmanSnowball.DisplayName: 雪人雪球
+			IceStaff2Proj.DisplayName: 冰霜权杖之冰柱
+			IceStaff2Proj2.DisplayName: 冰霜权杖·巨型冰锥
+		}
+
+		Tiles: {
+			DesertOrePlaced.MapEntry: 禁忌矿石
+			IceOrePlaced.MapEntry: 霜冻矿石
+			BabyDerpBannerPlace.MapEntry: 旗帜
+			FrozenEyeBannerPlace.MapEntry: 旗帜
+			FrozenSoulBannerPlace.MapEntry: 旗帜
+			GladiatorMiniBossBannerPlace.MapEntry: 旗帜
+			GolemMinionBannerPlace.MapEntry: 旗帜
+			GolemSentryBannerPlace.MapEntry: 旗帜
+			GraniteMiniBossBannerPlace.MapEntry: 旗帜
+			HellMiniBossBannerPlace.MapEntry: 旗帜
+			HellSoulBannerPlace.MapEntry: 旗帜
+			IceCoreBannerPlace.MapEntry: 旗帜
+			MeteorDropperBannerPlace.MapEntry: 旗帜
+			MoonDerpBannerPlace.MapEntry: 旗帜
+			MushroomMiniBossBannerPlace.MapEntry: 旗帜
+			NebulaDerpBannerPlace.MapEntry: 旗帜
+			SandCoreBannerPlace.MapEntry: 旗帜
+			ScanDroneBannerPlace.MapEntry: 旗帜
+			SolarDerpBannerPlace.MapEntry: 旗帜
+			SpaceRockHeadBannerPlace.MapEntry: 旗帜
+			SpaceRockHeadLargeBannerPlace.MapEntry: 旗帜
+			StardustDerpBannerPlace.MapEntry: 旗帜
+			StormDerpBannerPlace.MapEntry: 旗帜
+			VineDerpBannerPlace.MapEntry: 旗帜
+			VortCannonBannerPlace.MapEntry: 旗帜
+			TheClaySlimeBannerPlaced.MapEntry: 旗帜
+			ThePainSlimeBannerPlaced.MapEntry: 旗帜
+			SnowmanPizzaBannerPlaced.MapEntry: 旗帜
+			SnowmanBombBannerPlaced.MapEntry: 旗帜
+			PainMusicBoxPlaced.MapEntry: 音乐盒
+			TheGoodBoyPlaced.MapEntry: 画作
+		}
+
+		Configs: {
+			ConfigurationsIndividual: {
+				DisplayName: 本地配置
+
+				Headers: {
+					Audio: 音频
+					Visual: 视频
+				}
+
+				NoPain: {
+					Tooltip: 禁用一些秘密物品所产生的文字转语音声音
+					Label: 禁用文字转语音声音
+				}
+
+				NoShake: {
+					Tooltip: 禁用这个模组中一些物品所产生的画面震动
+					Label: 禁用画面震动效果
+				}
+			}
+
+			ConfigurationsGlobal: {
+				DisplayName: 全局配置
+
+				Headers: {
+					EnemyMisc: 敌人杂项
+					EnemySpawning: 敌人生成
+					GenMisc: 杂项
+				}
+
+				PreventBossStorm: {
+					Tooltip: 这将阻止模组中的Boss在存活时改变天气
+					Label: 禁用Boss战天气变化
+				}
+
+				PreventBuffedDerps: {
+					Tooltip: 这将阻止跳跳兽在打败世纪之花后获得大幅度提升的属性
+					Label: 禁用增强型跳跳兽
+				}
+
+				StormBossSkipsPlant: {
+					Tooltip: 这将使打败超载扫描机触发所有打败世纪之花应有的效果
+					Label: 超载扫描机作为世纪之花的替代
+				}
+
+				NoMoonling4U: {
+					Tooltip: 这将阻止月球领主之后月仔在太空自然生成，它们仍可通过月球核心召唤
+					Label: 禁用月仔自然生成
+				}
+
+				PreventPillarEnemies: {
+					Tooltip: 这将阻止此模组中新的天界柱敌人生成
+					Label: 禁用天界柱新敌人
+				}
+
+				NoChestforu: {
+					Tooltip: 这将阻止在花岗岩、大理石和蘑菇生物群系中生成额外宝箱，以防止模组冲突
+					Label: 禁用额外的花岗岩、大理石和蘑菇宝箱
+				}
+
+				NoScaryCurse: {
+					Tooltip: 如果你的物品栏中有改动过的丛林神庙物品，这将阻止丛林神庙诅咒激活，但当尝试使用这些物品时，不会阻止伤害减益效果的发生
+					Label: 禁用丛林神庙诅咒
+				}
+			}
+		}
+
+		Emotes: {
+			ThePainEmote.Command: 痛苦表情
+			TheAngeryEmote.Command: 愤怒表情
+			TheEvilEmote.Command: 邪恶表情
+			TheSadEmote.Command: 悲伤表情
+			ClaymanEmote.Command: 粘土人表情
+			AridBossEmote.Command: 远古外壳
+			StormBossEmote.Command: 超载扫描机
+			UltimateBossEmote.Command: 痛苦使者
+		}
+	}
+}
