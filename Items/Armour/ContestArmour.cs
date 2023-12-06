@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Basefiles;
 using System;
+using Newtonsoft.Json;
 
 
 namespace StormDiversMod.Items.Armour
@@ -57,7 +58,7 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            //player.setBonus = "Grants immunity to all cold themed debuffs\nMakes all sentries inflict Frostbite\nPress '" + keyName + "' to summon a cryo cloud at the cursor that rains down icicles, requires a line of sight and has a 5 second cooldown";
+            //player.setBonus = "Grants immunity to all cold themed debuffs Press " + keyName + "' to summon a cryo cloud at the cursor that rains down icicles requires a line of sight and consumes 75 mana";
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.buffImmune[BuffID.Chilled] = true;

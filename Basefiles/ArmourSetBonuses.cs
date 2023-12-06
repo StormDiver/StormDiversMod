@@ -657,11 +657,11 @@ namespace StormDiversMod.Basefiles
                 Tile tile = Main.tile[xcursor, ycursor];
                 if ((tile != null && !tile.HasTile || !Main.tileSolid[tile.TileType]) && StormDiversMod.ArmourSpecialHotkey.JustPressed && cryosetcooldown >= 120 && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) //Activate set bonus
                 {
-                    if (Player.statMana >= 100)
+                    if (Player.statMana >= 75)
                     {
-                        int cryodamage = (int)Player.GetTotalDamage(DamageClass.Magic).ApplyTo(25); //31 with cryoset buffs alone
+                        //int cryodamage = (int)Player.GetTotalDamage(DamageClass.Magic).ApplyTo(25); //31 with cryoset buffs alone
                         
-                        Projectile.NewProjectile(null, new Vector2(cryocloudpos.X, cryocloudpos.Y), new Vector2(0, 0), ModContent.ProjectileType<FrostCryoArmourProj>(), cryodamage, 0, Player.whoAmI);
+                        Projectile.NewProjectile(null, new Vector2(cryocloudpos.X, cryocloudpos.Y), new Vector2(0, 0), ModContent.ProjectileType<FrostCryoArmourProj>(), 25, 0, Player.whoAmI);
                         Dust.QuickDustLine(Player.Center, cryocloudpos, 50, Color.LightSkyBlue); //centre to centre
 
                         //Kills oldest projectile when new is summoned
@@ -698,8 +698,9 @@ namespace StormDiversMod.Basefiles
                         int proj2 = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionFrostProj>(), 0, 0, Player.whoAmI);
                         Main.projectile[proj2].scale = .9f;
 
-                        Player.statMana -= 100;
+                        Player.statMana -= 75;
                         Player.manaRegenDelay = 120;
+                        Player.manaRegenCount = 0;
                         Player.manaRegen = 0;
                         cryosetcooldown = 0;
                     }

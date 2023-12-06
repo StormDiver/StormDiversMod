@@ -1456,7 +1456,8 @@ namespace StormDiversMod.Basefiles
                 }
                 Player.HealEffect(Player.statLifeMax2, true);                               
                 Player.statLife = Player.statLifeMax2; //restore life
-                Player.immuneTime = 120;
+                Player.immune = true;
+                Player.immuneTime = 300;
                 Player.ClearBuff(ModContent.BuffType<PainBuff>()); //Buff will go away on its own after 1 frame, allows it to satck with Pain boss
                 Player.AddBuff(ModContent.BuffType<PainlessDebuff>(), 7200);
 

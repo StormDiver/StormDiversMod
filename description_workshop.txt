@@ -24,13 +24,12 @@
 [*] Generates additional Granite, Marble, and Mushroom chests in their respective biomes
 [/list]
 
-Also has Chinese Localisation by jianjingqiao201314(简境巧)
-
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod
 
 Creator, coder, and main spriter: [b]TheStorm[/b]
 Spriter and playtester: [b]KittKatt[/b]
 Some additional sprites by: Charley#0571 
+Chinese Localisation by: by jianjingqiao201314(简境巧)
 
 Also try out Storm's Tweaks Mod, makes a few small configurable changes to Terraria that may be useful; https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250
