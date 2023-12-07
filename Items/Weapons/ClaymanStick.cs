@@ -39,7 +39,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 26;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.DamageType = DamageClass.Summon;
+            Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
             {
                 Item.mana = 30;

@@ -16,7 +16,7 @@ namespace StormDiversMod.Items.Vanitysets
 {
     [AutoloadEquip(EquipType.Head)]
     public class FlatCap : ModItem
-    {
+    { 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -25,7 +25,6 @@ namespace StormDiversMod.Items.Vanitysets
             Item.ResearchUnlockCount = 1;
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
         }
-
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -34,6 +33,5 @@ namespace StormDiversMod.Items.Vanitysets
             Item.rare = ItemRarityID.Blue;
             Item.vanity = true;
         }
-      
     }
-}
+} 

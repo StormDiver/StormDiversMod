@@ -110,18 +110,23 @@ namespace StormDiversMod.Items.BossTrophy
 
 		public override void SetStaticDefaults()
 		{
-			Main.tileShine[Type] = 400; // Responsible for golden particles
-			Main.tileFrameImportant[Type] = true; // Any multitile requires this
-			TileID.Sets.InteractibleByNPCs[Type] = true; // Town NPCs will palm their hand at this tile
+            Main.tileShine[Type] = 400; // Responsible for golden particles
+            Main.tileFrameImportant[Type] = true; // Any multitile requires this
+            TileID.Sets.InteractibleByNPCs[Type] = true; // Town NPCs will palm their hand at this tile
 
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4); // Relics are 3x4
-			TileObjectData.newTile.LavaDeath = false; // Does not break when lava touches it
-			TileObjectData.newTile.DrawYOffset = 2; // So the tile sinks into the ground
-			TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft; // Player faces to the left
-			TileObjectData.newTile.StyleHorizontal = false; // Based on how the alternate sprites are positioned on the sprite (by default, true)
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4); // Relics are 3x4
+            TileObjectData.newTile.LavaDeath = false; // Does not break when lava touches it
+            TileObjectData.newTile.DrawYOffset = 2; // So the tile sinks into the ground
+            TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft; // Player faces to the left
+            TileObjectData.newTile.StyleHorizontal = false; // Based on how the alternate sprites are positioned on the sprite (by default, true)
 
-			// Register an alternate tile data with flipped direction
-			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile); // Copy everything from above, saves us some code
+            // This controls how styles are laid out in the texture file. This tile is special in that all styles will use the same texture section to draw the pedestal.
+            TileObjectData.newTile.StyleWrapLimitVisualOverride = 2;
+            TileObjectData.newTile.StyleMultiplier = 2;
+            TileObjectData.newTile.StyleWrapLimit = 2;
+            TileObjectData.newTile.styleLineSkipVisualOverride = 0; // This forces the tile preview to draw as if drawing the 1st style.
+                                                                    // Register an alternate tile data with flipped direction
+            TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile); // Copy everything from above, saves us some code
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight; // Player faces to the right
 			TileObjectData.addAlternate(1);
 

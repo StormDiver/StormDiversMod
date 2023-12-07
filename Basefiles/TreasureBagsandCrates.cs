@@ -75,7 +75,7 @@ namespace StormDiversMod.Basefiles
                 ItemDropRule.Common(ModContent.ItemType<Items.Ammo.ProtoGrenade>(), 1, 60, 100),
                 };
                 itemLoot.Add(new FewFromRulesRule(2, 5, protoLauncherAmmo));*/
-                itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ProtoLauncher>(), ModContent.ItemType<CursedSkullMinion>(), ModContent.ItemType<EyeofDungeon>(), ModContent.ItemType<TwilightPetItem>()));
+                itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ProtoLauncher>(), ModContent.ItemType<CursedSkullMinion>(), ModContent.ItemType<CursedSpearGun>(), ModContent.ItemType<EyeofDungeon>(), ModContent.ItemType<TwilightPetItem>()));
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ProtoGrenade>(), 1, 20, 40));
 
             }

@@ -121,6 +121,12 @@ namespace StormDiversMod.Items.BossTrophy
 			TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft; // Player faces to the left
 			TileObjectData.newTile.StyleHorizontal = false; // Based on how the alternate sprites are positioned on the sprite (by default, true)
 
+			// This controls how styles are laid out in the texture file. This tile is special in that all styles will use the same texture section to draw the pedestal.
+			TileObjectData.newTile.StyleWrapLimitVisualOverride = 2;
+			TileObjectData.newTile.StyleMultiplier = 2;
+			TileObjectData.newTile.StyleWrapLimit = 2;
+			TileObjectData.newTile.styleLineSkipVisualOverride = 0; // This forces the tile preview to draw as if drawing the 1st style.
+
 			// Register an alternate tile data with flipped direction
 			TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile); // Copy everything from above, saves us some code
 			TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight; // Player faces to the right
