@@ -188,7 +188,6 @@ namespace StormDiversMod.Items.Weapons
                         double rad = deg * (Math.PI / 180); //Convert degrees to radians
                         double dist = 500; //Distance away from the cursor
 
-
                         position.X = Main.MouseWorld.X - (int)(Math.Cos(rad) * dist);
                         position.Y = Main.MouseWorld.Y - (int)(Math.Sin(rad) * dist);
                         float projspeed = 20;

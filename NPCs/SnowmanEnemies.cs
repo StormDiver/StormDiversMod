@@ -233,6 +233,8 @@ namespace StormDiversMod.NPCs
             npcLoot.Add(ItemDropRule.NormalvsExpert(ItemID.SnowGlobe, 12, 8));
             npcLoot.Add(ItemDropRule.Common(ItemID.SnowBlock, 1, 5, 10));
             npcLoot.Add(ItemDropRule.Common(ItemID.Pizza, 20, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PizzaCap>(), 25, 1, 1));
+
         }
     }
     //________________________________________
@@ -250,6 +252,8 @@ namespace StormDiversMod.NPCs
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<UltraFrostDebuff>()] = true;
 
             NPCID.Sets.BelongsToInvasionFrostLegion[Type] = true;
+
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
         }
         public override void SetDefaults()
         {
@@ -371,7 +375,7 @@ namespace StormDiversMod.NPCs
                 {
                     Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    var dust = Dust.NewDustDirect(NPC.Center, 0, 0, 76, perturbedSpeed.X, perturbedSpeed.Y);
+                    var dust = Dust.NewDustDirect(new Vector2((NPC.Center.X - 4) + (12 * NPC.spriteDirection), NPC.Center.Y - 10), 0, 0, 76, perturbedSpeed.X, perturbedSpeed.Y);
                     dust.noGravity = true;
                     dust.scale = 1.5f;
                 }
@@ -446,7 +450,6 @@ namespace StormDiversMod.NPCs
             npcLoot.Add(ItemDropRule.Common(ItemID.SnowBlock, 1, 5, 10));
             npcLoot.Add(ItemDropRule.Common(ItemID.Bomb, 1, 5, 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FlatCap>(), 50, 1, 1));
-
         }
     }
 }

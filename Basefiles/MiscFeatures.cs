@@ -32,6 +32,7 @@ using StormDiversMod.Items.Furniture;
 using StormDiversMod.Items.Weapons;
 using StormDiversMod.Projectiles.Minions;
 using StormDiversMod.Items.Armour;
+using StormDiversMod.Projectiles.Petprojs;
 
 namespace StormDiversMod.Basefiles
 {
@@ -309,6 +310,15 @@ namespace StormDiversMod.Basefiles
                 Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>()); 
             }
             //Main.NewText("Pain is " + paintime, 220, 63, 139);
+
+            //Achievements
+            if (Player.HasBuff(ModContent.BuffType<TwilightPetBuff>()) && Player.HasBuff(ModContent.BuffType<StormLightBuff>()))
+            {
+                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                {
+                    mod.Call("Event", "ThePets");
+                }
+            }
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         { 

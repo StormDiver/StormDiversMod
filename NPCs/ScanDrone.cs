@@ -72,10 +72,8 @@ namespace StormDiversMod.NPCs
         }
       
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-
-        
-            if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies)
+        {        
+            if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies && !NPC.AnyNPCs(ModContent.NPCType<ScanDrone>()))
             {
                 return SpawnCondition.VortexTower.Chance * 0.14f;
             }
@@ -104,7 +102,7 @@ namespace StormDiversMod.NPCs
 
             double deg = (NPC.ai[1]);
             double rad = deg * (Math.PI / 180);
-            double dist = 100; //Distance away from the player
+            double dist = 150; //Distance away from the player
 
             //position
             xpostion = (int)(Math.Cos(rad) * dist);

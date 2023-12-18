@@ -186,7 +186,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
             if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneUnderworldHeight && !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight &&
-                !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneNormalUnderground && Main.IsItStorming && StormWorld.stormBossDown == false && !npc.friendly && npc.lifeMax > 5) //StormBoss Summoner
+                !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneNormalUnderground && Main.IsItStorming && StormWorld.stormBossDown == false && !npc.friendly && npc.lifeMax > 5 && Main.hardMode) //StormBoss Summoner
             {
                 if (Main.rand.Next(50) == 0)
                 {
@@ -204,7 +204,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (!npc.friendly && npc.lifeMax > 5)
                 {
-                    if ((Main.rand.Next(25) == 0 && StormWorld.ultimateBossDown == false) || (Main.rand.Next(50) == 0 && StormWorld.ultimateBossDown == true) && NPC.downedMoonlord)
+                    if (((Main.rand.Next(25) == 0 && StormWorld.ultimateBossDown == false) || (Main.rand.Next(50) == 0 && StormWorld.ultimateBossDown == true)) && NPC.downedMoonlord)
                     {
                         Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
                     }

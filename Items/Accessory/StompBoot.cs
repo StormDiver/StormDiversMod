@@ -71,6 +71,9 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EquipmentEffects>().bootFall = true;
+            player.GetModPlayer<EquipmentEffects>().bootFallLuck = true;
+            player.rocketBoots = 1;
+            player.vanityRocketBoots = 1;
             player.noFallDmg = true;
         }
 

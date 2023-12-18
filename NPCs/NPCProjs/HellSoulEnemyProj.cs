@@ -41,7 +41,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.extraUpdates = 1;
             Projectile.ignoreWater = true;
 
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 900;
             //aiType = ProjectileID.LostSoulHostile;
             Projectile.aiStyle = -1;
             // Projectile.CloneDefaults(452);

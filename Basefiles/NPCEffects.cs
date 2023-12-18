@@ -1066,6 +1066,9 @@ namespace StormDiversMod.Basefiles
         }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
+            //if (npc.type == NPCID.Gnome) //secret
+              //  SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/Gnomed") with { Volume = 1.5f, MaxInstances = -1 }, npc.Center);
+
             base.OnHitPlayer(npc, target, hurtInfo);
         }
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
@@ -1084,6 +1087,7 @@ namespace StormDiversMod.Basefiles
 
         public override void GetChat(NPC npc, ref string chat)
         {
+            //if ()
             if (Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
             {
                 if (Main.rand.Next(4) == 0)

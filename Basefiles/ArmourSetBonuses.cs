@@ -202,6 +202,13 @@ namespace StormDiversMod.Basefiles
                 }
                 if (StormDiversMod.ArmourSpecialHotkey.JustPressed && santankcharge >= 10 && !santanktrigger) //Activates when player presses button
                 {
+                    if (santankcharge >= 100)
+                    {
+                        if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                        {
+                            mod.Call("Event", "Santanked");
+                        }
+                    }
                     santanktrigger = true;
 
                 }
@@ -336,6 +343,11 @@ namespace StormDiversMod.Basefiles
 
                         if (StormDiversMod.ArmourSpecialHotkey.JustPressed) //Activates when player presses button
                         {
+                            if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                            {
+                                mod.Call("Event", "TwilightWarp");
+                            }
+
                             Player.AddBuff(ModContent.BuffType<TwilightDebuff>(), 480);
                             //Player.AddBuff(BuffID.Obstructed, 10);
 

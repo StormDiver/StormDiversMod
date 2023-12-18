@@ -21,12 +21,18 @@ using Terraria.GameContent;
 using Terraria.Enums;
 using ReLogic.Content;
 using StormDiversMod.Items.Weapons;
+using StormDiversMod.Items.Tools;
+
 using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.NPCs.Boss;
 using StormDiversMod.Items.Summons;
 using System.Security.Policy;
 using StormDiversMod.Items.Armour;
 using StormDiversMod.NPCs.NPCProjs;
+using Terraria.Achievements;
+using StormDiversMod.Items.Vanitysets;
+using StormDiversMod.NPCs;
+using StormDiversMod.Items.Accessory;
 
 namespace StormDiversMod
 {
@@ -55,9 +61,9 @@ namespace StormDiversMod
                             ["collectibles"] = ItemID.MusicBoxBoss4,
                             ["customPortrait"] = (SpriteBatch sb, Rectangle rect, Color color) =>
                             {
-                            Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
-                            Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
-                            sb.Draw(texture, centered, color);
+                                Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
+                                Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+                                sb.Draw(texture, centered, color);
                             }
                         }
 
@@ -119,7 +125,89 @@ namespace StormDiversMod
             {
                 bossesAsNPCs.Call("AddToShop", "WithDiv", "Dreadnautilus", ModContent.ItemType<Items.Weapons.BloodySentry>(), new List<Condition>(), 0.125f);
             }
-        }
+
+            //for achivements
+            if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+            {
+                //mod.Call("AddAchievement", this, "TestAchievement", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/TestAchievement", null, false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<AridBoss>() });
+                //Boss kills
+                mod.Call("AddAchievement", this, "AchievementAridBoss", AchievementCategory.Slayer, "StormDiversMod/Assets/Achievements/AchievementAridBoss",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<AridBoss>() });
+                mod.Call("AddAchievement", this, "AchievementStormBoss", AchievementCategory.Slayer, "StormDiversMod/Assets/Achievements/AchievementStormBoss",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<StormBoss>() });
+                mod.Call("AddAchievement", this, "AchievementUltimateBoss", AchievementCategory.Slayer, "StormDiversMod/Assets/Achievements/AchievementUltimateBoss",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<TheUltimateBoss>() });
+
+                //Misc kills
+                mod.Call("AddAchievement", this, "AchievementNoPizza", AchievementCategory.Slayer, "StormDiversMod/Assets/Achievements/AchievementNoPizza",
+                   "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<SnowmanPizza>() });
+
+                mod.Call("AddAchievement", this, "AchievementMoonling", AchievementCategory.Slayer, "StormDiversMod/Assets/Achievements/AchievementMoonling",
+                  "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<MoonDerp>() });
+
+                mod.Call("AddAchievement", this, "AchievementScaryDerp", AchievementCategory.Slayer, "StormDiversMod/Assets/Achievements/AchievementScaryDerp",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<DerpMimic>() });
+
+                //Item crafts
+                mod.Call("AddAchievement", this, "AchievementBiomeCore", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementBiomeCore",
+                 "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<BiomeCore>() });
+                mod.Call("AddAchievement", this, "AchievementEquinox", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementEquinox",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<LightDarkSword>() });
+                mod.Call("AddAchievement", this, "AchievementStoneCannon4", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementStoneCannon4",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<StoneThrowerSuperLunar>() });
+                //Item Collects
+                mod.Call("AddAchievement", this, "AchievementThePain", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementThePain",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<ThePainMask>() });
+                mod.Call("AddAchievement", this, "AchievementClayman", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementClayman",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<TheClaymanMask>() });
+
+                mod.Call("AddAchievement", this, "AchievementDerpKing", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementDerpKing",
+                   "StormDiversMod/Assets/Achievements/AchievementBorder", true, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<DerplingBMask>(), "Collect_" + ModContent.ItemType<DerplingBreastplate>(),
+                       "Collect_" + ModContent.ItemType<DerplingGreaves>(), "Collect_" + ModContent.ItemType<DerplingSword>(), "Collect_" + ModContent.ItemType<DerplingGun>(),
+                   "Collect_" + ModContent.ItemType<DerplingStaff>(), "Collect_" + ModContent.ItemType<DerplingMinion>(),
+                       "Collect_" + ModContent.ItemType<DerplingDrill>() , "Collect_" + ModContent.ItemType<DerplingChainsaw>(), "Collect_" + ModContent.ItemType<DerplingJackhammer>(),
+                       "Collect_" + ModContent.ItemType<FishingRodDerpling>(), "Collect_" + ModContent.ItemType<DerpHook>() , "Collect_" + ModContent.ItemType<DerpEye>()});
+
+                mod.Call("AddAchievement", this, "AchievementLunarCosplay", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementLunarCosplay",
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<SelenianBMask>(), "Collect_" + ModContent.ItemType<SelenianBody>(), "Collect_" + ModContent.ItemType<SelenianLegs>(),
+                    "Collect_" + ModContent.ItemType<StormDiverBMask>(), "Collect_" + ModContent.ItemType<StormDiverBody>(), "Collect_" + ModContent.ItemType<StormDiverLegs>(),
+                    "Collect_" + ModContent.ItemType<PredictorBMask>(), "Collect_" + ModContent.ItemType<PredictorLegs>(), "Collect_" + ModContent.ItemType<PredictorLegs>(),
+                    "Collect_" + ModContent.ItemType<StargazerBMask>(), "Collect_" + ModContent.ItemType<StargazerBody>(), "Collect_" + ModContent.ItemType<StargazerLegs>()});
+
+                //Doing things
+
+                mod.Call("AddAchievement", this, "AchievementStompBounce", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementStompBounce",
+               "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_StompBounce" });
+
+                mod.Call("AddAchievement", this, "AchievementQuack", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementQuack",
+               "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "ValueEvent_Quack_5" });
+
+                mod.Call("AddAchievement", this, "AchievementHugBear", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementHugBear",
+                 "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_HugBear" });
+
+                mod.Call("AddAchievement", this, "AchievementTwilight", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementTwilight",
+                   "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_TwilightWarp" });
+
+                mod.Call("AddAchievement", this, "AchievementSuperHeart", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementSuperHeart",
+               "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_SuperHeart" });
+
+                mod.Call("AddAchievement", this, "AchievementSantanked", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementSantanked",
+              "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_Santanked" });
+
+                mod.Call("AddAchievement", this, "AchievementNoShield", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementNoShield",
+                  "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_NoShield" });
+
+                mod.Call("AddAchievement", this, "AchievementThePets", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementThePets",
+                 "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_ThePets" });
+
+                //place when activated
+                /*if (ModLoader.TryGetMod("TMLAchievements", out Mod mod)) 
+                {
+                    mod.Call("Event", "ExampleEvent");
+                }*/
+
+            }
+        } 
         public static ModKeybind ArmourSpecialHotkey;
 
         public override void Load()
@@ -150,16 +238,16 @@ namespace StormDiversMod
     {
         public override void AI(Projectile projectile)
         {
-            if (projectile.type == ProjectileID.SnowBallHostile) //make Snow Balla projectile not grief
+            /*if (projectile.type == ProjectileID.SnowBallHostile) //make Snow Balla projectile not grief
             {
                 int projid = Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(projectile.velocity.X, projectile.velocity.Y), 
                     ModContent.ProjectileType<SnowmanSnowball>(), projectile.damage, projectile.knockBack);
                 Main.projectile[projid].ai[2] = 1;
                 //projectile.Kill();
                 projectile.active = false;
-            }
+            }*/
 
-        }
+            }
             /*if (projectile.type == ProjectileID.VampireKnife)
             {
                 if (projectile.localAI[0] == 0f)

@@ -12,6 +12,7 @@
 [*]The Cultist drops his treasure bag with some new items
 [*]A new member for the Frost Legion
 [*]Full Wikithis support
+[*]21 new Achievements avalible via the Achievement Mod
 [/list]
 
 [u]It even contains some small Quality of Life features[/u]
@@ -28,7 +29,7 @@ Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod
 
 Creator, coder, and main spriter: [b]TheStorm[/b]
-Spriter and playtester: [b]KittKatt[/b]
+Spriter and playtester: [b]Lynxical[/b]
 Some additional sprites by: Charley#0571 
 Chinese Localisation by: by jianjingqiao201314(简境巧)
 

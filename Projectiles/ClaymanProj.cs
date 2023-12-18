@@ -27,7 +27,7 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 2;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
-            Projectile.DamageType = DamageClass.Generic;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.aiStyle = -1;
 
             Projectile.usesIDStaticNPCImmunity = true;

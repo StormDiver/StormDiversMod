@@ -169,7 +169,7 @@ namespace StormDiversMod.Items.Weapons
                 }
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y - (2 * player.gravDir)), new Vector2(velocity.X, velocity.Y), type, damage / 2, knockback * 1.5f, player.whoAmI);
 
-                SoundEngine.PlaySound(SoundID.Item36 with { Volume = 1f, Pitch = -0.25f }, player.Center);
+                SoundEngine.PlaySound(SoundID.Item36 with { Volume = 0.66f, Pitch = -0.25f }, player.Center);
                 return false;
 
             }

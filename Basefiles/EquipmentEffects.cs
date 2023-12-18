@@ -61,6 +61,9 @@ namespace StormDiversMod.Basefiles
 
         public bool bootFall; //The player has either heavy boots equipped
 
+        public bool bootFallLuck; //The player has the heavy horseshoe boots equipped
+
+
         public bool frostCube; //Player has the Summoners Core equipped
 
         public bool spooked; //Player has the Spooky Core equipped
@@ -157,6 +160,7 @@ namespace StormDiversMod.Basefiles
         public int bootdmg; //damage of the boots
         public bool bootstompjump; //if jmp boost can be done
         public int bootstompjumptime; //time for jump boost
+        public bool bootsound; //sound for boot stomp
 
         public bool ultimateBossMask; //player has Painbringer mask equipped
         public override void ResetEffects() //Resets bools if the item is unequipped
@@ -175,6 +179,8 @@ namespace StormDiversMod.Basefiles
             lunarBarrier = false;
             primeSpin = false;
             bootFall = false;
+            bootFallLuck = false;
+
             frostCube = false;
             spooked = false;     
             SpectreSkull = false;
@@ -227,6 +233,7 @@ namespace StormDiversMod.Basefiles
             ultimateBossMask = false;
             SantaRevived = false;
             SantaRevivedCooldown = 0;
+            bootsound = false;
         }
 
         //===============================================================================================================
@@ -352,6 +359,8 @@ namespace StormDiversMod.Basefiles
                 Player.luck += 0.3f;
             if (derpEyeGolem)
                 Player.luck += 0.3f;
+            if (bootFallLuck)
+                Player.luck += 0.05f;
 
             if (beetleFist && Player.HeldItem.CountsAsClass(DamageClass.Melee))
             {
@@ -729,12 +738,25 @@ namespace StormDiversMod.Basefiles
             }
                 
             //For the Heavy Boots===========================
+            if (bootFallLuck)
+            {
+                
+            }
             if (bootFall)
             {
                 //Player.rocketBoots = 1;            
                 //Player.vanityRocketBoots = 1;
                 if ((Player.controlDown) && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
+                    Player.grappling[0] = -1; //Remove grapple hooks
+                    Player.grapCount = 0;
+                    for (int p = 0; p < 1000; p++)
+                    {
+                        if (Main.projectile[p].active && Main.projectile[p].owner == Player.whoAmI && Main.projectile[p].aiStyle == 7)
+                        {
+                            Main.projectile[p].Kill();
+                        }
+                    }
                     //SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 15, 2, -0.5f);
                     Player.gravity += 1.2f;
                     Player.maxFallSpeed *= 1.5f;
@@ -811,6 +833,14 @@ namespace StormDiversMod.Basefiles
                 }
                 if (bootstompjump && Player.controlJump) //Super jump
                 {
+                    if (Player.velocity.Y == 0)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item150 with { Pitch = -0.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
+                    }
+                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                    {
+                        mod.Call("Event", "StompBounce");
+                    }
                     Player.frogLegJumpBoost = true;
                     Player.jumpHeight += 8;
                     Player.jumpSpeedBoost += 1.3f;
@@ -826,7 +856,6 @@ namespace StormDiversMod.Basefiles
                         Main.dust[dustIndex].noGravity = true;
                     }
                 }
-
                 //If the player slows down too much then the stomp bool is cancelled
                 /*if ((Player.velocity.Y <= 2 && Player.gravDir == 1) || (Player.velocity.Y >= -2 && Player.gravDir == -1))
                 {
@@ -1296,7 +1325,6 @@ namespace StormDiversMod.Basefiles
         {
             Player.ClearBuff(ModContent.BuffType<HeartBarrierBuff>()); //Removes buff on hit
 
-
             attackdmg = info.Damage; //Int for the damage taken
 
             //triggers the granite accessory buff for 5 seconds, and it cannot be refreshed until the 10 second timer hjas ran out
@@ -1392,6 +1420,11 @@ namespace StormDiversMod.Basefiles
                     CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", false);
 
                 }
+            }
+            if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>())
+            {
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/Gnomed") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", false);
             }
         }
         //Prevent Death
@@ -1741,7 +1774,8 @@ namespace StormDiversMod.Basefiles
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() ||
-                Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
+                Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() ||
+                Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>())
                 {
                     modifiers.DisableSound();
                 }

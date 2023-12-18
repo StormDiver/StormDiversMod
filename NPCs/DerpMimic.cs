@@ -244,7 +244,7 @@ namespace StormDiversMod.NPCs
                         {
                             NPC.ai[3]++;
 
-                            if ((NPC.ai[3] >= 120 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && Vector2.Distance(player.Center, NPC.Center) >= 600f)
+                            if ((NPC.ai[3] >= 120 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height) && Vector2.Distance(player.Center, NPC.Center) >= 800f)
                                 || (NPC.ai[3] >= 60 && !Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height)))
                             {
                                 if (Main.masterMode)

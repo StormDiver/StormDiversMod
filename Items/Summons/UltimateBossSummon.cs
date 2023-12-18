@@ -37,7 +37,7 @@ namespace StormDiversMod.Items.Summons
             Item.width = 16;
             Item.height = 24;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 30;

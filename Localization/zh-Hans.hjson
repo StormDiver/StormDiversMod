@@ -16,6 +16,114 @@ Mods: {
 			Stormtip10: 确保将跳跳兽引诱进入微光中，它们喜欢微光浴。
 		}
 
+		//Achievements Mod
+		Achievements: {
+			AchievementAridBoss: {
+				// Name: Freed Spirits
+				// Description: Defeat the Ancient Husk, the possessed set of heavily withered armour.
+			}
+
+			AchievementStormBoss: {
+				// Name: Overloaded
+				// Description: Defeat the Overloaded Scandrone, the dangerous and unstable experiment.
+			}
+
+			AchievementUltimateBoss: {
+				// Name: The Pain is Finally Over
+				// Description: Defeat The Painbringer, the ultimate bringer of pain.
+			}
+
+			AchievementEquinox: {
+				// Name: Balance of Light and Dark
+				// Description: Craft the Equinox, a sword that is perfectly balanced, as all things should be.
+			}
+
+			AchievementStoneCannon4: {
+				// Name: The Most Dangerous Stone
+				// Description: Craft the Celestial Stone Cannon, turns stone into devastating lunar boulders.
+			}
+
+			AchievementThePain: {
+				// Name: ThePain!
+				// Description: Obtain ThePain, to show everyone how much pain you're in.
+			}
+
+			AchievementClayman: {
+				// Name: Clayman!
+				// Description: Obtain Clayman, to silently judge everybody around you.
+			}
+
+			AchievementBiomeCore: {
+				// Name: Biome Power
+				// Description: Craft the Biome Core, the power of the 3 mini biomes combined.
+			}
+
+			AchievementScaryDerp: {
+				// Name: It's Perfectly Normal
+				// Description: Kill a perfectly Normal Derpling, nothing strange about it at all...
+			}
+
+			AchievementDerpKing: {
+				// Name: The Derpling Master
+				// Description: Obtain a full set of Derpling Armor, and all the Derpling Weapons, Tools and Equipment.
+			}
+
+			AchievementLunarCosplay: {
+				// Name: Lunar Cosplayer
+				// Description: Collect all 4 of the Lunar event vanity sets.
+			}
+
+			AchievementNoPizza: {
+				// Name: I'd like to make a complaint
+				// Description: Defeat a Pizza Delivery Snowman, the order was wrong anyway.
+			}
+
+			AchievementMoonling: {
+				// Name: The Final Derpling
+				// Description: Defeat a Moonling, a Derpling infested with Lunar energy.
+			}
+
+			AchievementStompBounce: {
+				// Name: Reach for the Slightly Higher Elevation
+				// Description: Perform a successful Stomp Bounce with the Heavy Boots.
+			}
+
+			AchievementQuack: {
+				// Name: QUACK!!!
+				// Description: Quack 5 times, quack, quack, quack, quack, quack...
+			}
+
+			AchievementHugBear: {
+				// Name: Awww!
+				// Description: Hug a Teddy Bear for the most unconditional love, enough to heal (almost) any wound.
+			}
+
+			AchievementTwilight: {
+				// Name: Twilight Warped
+				// Description: Warp using a full set of Twilight Armor, no time for walking.
+			}
+
+			AchievementNoShield: {
+				// Name: No shield for you
+				// Description: Use a Celestial Globe to break through the shields of the Celestial Pillars.
+			}
+
+			AchievementSuperHeart: {
+				// Name: That's super!
+				// Description: Collect a super heart dropped by an enemy after taking the Super Heart Vial.
+			}
+
+			AchievementThePets: {
+				// Name: The Twilight and The Storm
+				// Description: Have both the Twilight Figure light pet and the Baby Storm Diver pet active at the same time.
+			}
+
+			AchievementSantanked: {
+				// Name: Checking off the Naughty list
+				// Description: Fire a fully loaded set of missiles from the Santank armour.
+			}
+		}
+
 		Buffs: {
 			AridCoreDebuff: {
 				DisplayName: 干旱光环
@@ -1955,6 +2063,16 @@ Mods: {
 			FlatCap: {
 				DisplayName: 雪人的平顶帽
 				Tooltip: 天还挺冷的呢。
+			}
+
+			GnomedHat: {
+				// DisplayName: Gnome Hat
+				// Tooltip: "'You've been Gnomed'"
+			}
+
+			PizzaCap: {
+				// DisplayName: Snowman's Pizza Cap
+				// Tooltip: "'None pizza with left beef please'"
 			}
 
 			PredictorBMask: {

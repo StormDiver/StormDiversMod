@@ -86,6 +86,7 @@ namespace StormDiversMod.Basefiles
             if (item.type == ItemID.WoodenCrate || item.type == ItemID.WoodenCrateHard)
             {
                 itemLoot.Add(ItemDropRule.OneFromOptions(12, ItemType<WoodCrossbow>(), ItemType<WoodPointyStick>(), ItemType<Items.Accessory.WoodNecklace>()));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Vanitysets.GnomedHat>(), 40));
 
             }
 

@@ -135,7 +135,10 @@ namespace StormDiversMod.Items.Potions
             Item.ResearchUnlockCount = 20;
 
         }
-
+        public override void OnConsumeItem(Player player)
+        {
+           
+        }
         public override void SetDefaults()
         {
             Item.width = 24;

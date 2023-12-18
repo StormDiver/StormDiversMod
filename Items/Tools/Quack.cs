@@ -47,7 +47,10 @@ namespace StormDiversMod.Items.Tools
         {
             if (player.whoAmI == Main.myPlayer)
             {
-               
+                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                {
+                    mod.Call("ValueEvent", "Quack", 1f);
+                }
                 pitch = Vector2.Distance(Main.MouseWorld, player.Center) / 500 - 0.6f; //Lowest possible pitch is -0.6f;
                 if (pitch > 0.8f) //Caps the pitch at 0.8f;
                 {

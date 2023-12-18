@@ -23,7 +23,7 @@ namespace StormDiversMod.Items.Accessory
         {
             //DisplayName.SetDefault("Santank Power Core");
             //Tooltip.SetDefault("Exposed wires will shock you back to life for after taking lethal damage, granting a 10 second grace period
-            //During the peroid you are immune to damage and deal extra damage
+            //During the period you are immune to damage and deal extra damage
               //After 10 seconds you will die unless you heal to above 33 % life
               // Has a 5 minute cooldown if you survive between uses
               // Won't save you if the attacks deals more damage than your max life");

@@ -108,6 +108,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 109);
                 dust.scale = 2;
                 dust.velocity *= 2;
+                dust.noGravity = true;
             }
 
         }

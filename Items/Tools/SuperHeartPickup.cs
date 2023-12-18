@@ -59,6 +59,10 @@ namespace StormDiversMod.Items.Tools
         }
         public override bool OnPickup(Player player)
         {
+            if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+            {
+                mod.Call("Event", "SuperHeart");
+            }
             SoundEngine.PlaySound(SoundID.Grab, player.Center);
 
             player.statLife += 50;

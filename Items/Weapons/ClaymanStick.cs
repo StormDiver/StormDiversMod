@@ -12,6 +12,14 @@ using Terraria.DataStructures;
 using static Terraria.Main.CurrentFrameFlags;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.GameContent.Drawing;
+using StormDiversMod.Basefiles;
+using static Terraria.ModLoader.ModContent;
+using StormDiversMod.Buffs;
+using StormDiversMod.NPCs;
+using NVorbis.Contracts;
+using Microsoft.CodeAnalysis;
+using StormDiversMod.Items.Weapons;
+using System.Security.Policy;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -92,6 +100,7 @@ namespace StormDiversMod.Items.Weapons
         int xlimit;
         int ylimittop;
         int ylimitbottom;
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             xlimit = 600;
@@ -106,8 +115,12 @@ namespace StormDiversMod.Items.Weapons
                 bool lineOfSight = Collision.CanHitLine(Main.MouseWorld, 0, 0, player.position, player.width, player.height);
                 if (lineOfSight)
                 {
-                    Projectile.NewProjectile(null, Main.MouseWorld, new Vector2(0, 0), ModContent.ProjectileType<ClaymanProj>(), (int)(damage * 2.5f), 0, player.whoAmI, 1);
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                    Projectile.NewProjectile(source, Main.MouseWorld, new Vector2(0, 0), ModContent.ProjectileType<ClaymanProj>(), (int)(damage * 2.5f), 0, player.whoAmI, 1);
+                    if (!GetInstance<ConfigurationsIndividual>().NoPain)
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                    else
+                        SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1f, Pitch = 0.25f }, player.Center);
+
                     ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Excalibur, new ParticleOrchestraSettings
                     {
                         PositionInWorld = Main.MouseWorld,
@@ -132,7 +145,7 @@ namespace StormDiversMod.Items.Weapons
                         {
                             if (damage > 15) //only summon projectile if enemy will take 15> damage
                             {
-                                Projectile.NewProjectile(null, target.Center, new Vector2(0, 0), ModContent.ProjectileType<ClaymanProj>(), damage, 0, player.whoAmI);
+                                Projectile.NewProjectile(source, target.Center, new Vector2(0, 0), ModContent.ProjectileType<ClaymanProj>(), damage, 0, player.whoAmI);
                                 damage = (damage * 17) / 20; //15% damage falloff per enemy
                             }
                             //hellblazedmg = (hellblazedmg * 17) / 20; //15% damage falloff per enemy
@@ -159,7 +172,10 @@ namespace StormDiversMod.Items.Weapons
                     PositionInWorld = new Vector2(player.Center.X + 30 * player.direction, player.Center.Y + ylimitbottom * player.gravDir + extraheight),
 
                 }, player.whoAmI);*/
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                if (!GetInstance<ConfigurationsIndividual>().NoPain)
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                else
+                    SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1f, Pitch = 0.25f }, player.Center);
                 CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", false);
             }
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings

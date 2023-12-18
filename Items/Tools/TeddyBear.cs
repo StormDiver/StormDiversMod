@@ -61,6 +61,10 @@ namespace StormDiversMod.Items.Tools
             {
                 if (player.GetModPlayer<EquipmentEffects>().bearcool >= 0)
                 {
+                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                    {
+                        mod.Call("Event", "HugBear");
+                    }
                     player.AddBuff(ModContent.BuffType<Buffs.TeddyBuff>(), 300);
                     player.GetModPlayer<EquipmentEffects>().bearcool = 600;
                 }
