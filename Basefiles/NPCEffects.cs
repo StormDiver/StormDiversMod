@@ -321,6 +321,10 @@ namespace StormDiversMod.Basefiles
 
                                 if (Main.rand.Next(chance) == 0) //1 in 4 chance to have the debuff applied and to heal player, 1 in 7 for invasions
                                 {
+                                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                                    {
+                                        mod.Call("Event", "HeartSteal");
+                                    }
                                     //Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());                            
                                     //Main.LocalPlayer.statLife += 20;
                                     //Main.LocalPlayer.HealEffect(20, true);                               

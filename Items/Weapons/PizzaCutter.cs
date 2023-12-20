@@ -31,7 +31,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 2, 50, 0);
                      Item.rare = ItemRarityID.Pink;
-            Item.knockBack = 1.5f;
+            Item.knockBack = 2f;
            
             Item.useTurn = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.PizzaCutterProj>();

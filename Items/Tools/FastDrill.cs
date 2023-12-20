@@ -25,7 +25,7 @@ namespace StormDiversMod.Items.Tools
             Item.width = 40;
             Item.height = 22;
         
-            Item.useTime = 7;
+            Item.useTime = 6;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 2, 0, 0);
@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Tools
             Item.width = 40;
             Item.height = 22;
 
-            Item.useTime = 6;
+            Item.useTime = 5;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 5, 0, 0);

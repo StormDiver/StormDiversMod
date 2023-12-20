@@ -12,7 +12,7 @@
 [*]The Cultist drops his treasure bag with some new items
 [*]A new member for the Frost Legion
 [*]Full Wikithis support
-[*]21 new Achievements avalible via the Achievement Mod
+[*]25 new Achievements avalible via the Achievement Mod
 [/list]
 
 [u]It even contains some small Quality of Life features[/u]

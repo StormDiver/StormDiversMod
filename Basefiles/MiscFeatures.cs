@@ -270,11 +270,15 @@ namespace StormDiversMod.Basefiles
                 Player.GetCritChance(DamageClass.Melee) += 2 * ninelives; //increase crit from 2-18%
 
             }
-            /*if (ninelives == 9)
+            if (ninelives == 9)
             {
-                Player.GetDamage(DamageClass.Melee) += 0.1f; //extra 10% damage (55% total)
-                Player.GetCritChance(DamageClass.Melee) += 5; //extra 5% crit (32% total)
-            }*/
+                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                {
+                    mod.Call("Event", "NineLives");
+                }
+                //Player.GetDamage(DamageClass.Melee) += 0.1f; //extra 10% damage (55% total)
+                //Player.GetCritChance(DamageClass.Melee) += 5; //extra 5% crit (32% total)
+            }
             if (explosionflame > 0)
             {
                 if (Player.gravDir == 1)

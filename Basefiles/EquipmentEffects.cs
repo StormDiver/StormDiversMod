@@ -1070,6 +1070,16 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
+            //achievement
+            if ((Player.HasBuff(ModContent.BuffType<WoodenBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenBlizzardBuff>()) || 
+                (Player.HasBuff(ModContent.BuffType<WoodenBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>())) || 
+                (Player.HasBuff(ModContent.BuffType<WoodenBlizzardBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>()))))
+            {
+                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                {
+                    mod.Call("Event", "Pendants");
+                }
+            }
             if (!graniteBuff)//If the player removes the accessory the buff is gone
             {
                 Player.ClearBuff(ModContent.BuffType<GraniteAccessBuff>());

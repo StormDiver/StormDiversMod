@@ -33,6 +33,31 @@ Mods: {
 				Description: Defeat The Painbringer, the ultimate bringer of pain.
 			}
 
+			AchievementNoPizza: {
+				Name: I'd like to make a complaint
+				Description: Defeat a Pizza Delivery Snowman, the order was wrong anyway.
+			}
+
+			AchievementMoonling: {
+				Name: The Final Derpling
+				Description: Defeat a Moonling, a Derpling infested with Lunar energy.
+			}
+
+			AchievementScaryDerp: {
+				Name: It's Perfectly Normal
+				Description: Kill a perfectly Normal Derpling, nothing strange about it at all...
+			}
+
+			AchievementBiomeCore: {
+				Name: Biome Power
+				Description: Craft the Biome Core, the power of the 3 mini biomes combined.
+			}
+
+			AchievementFastDrill: {
+				Name: Drilling at Speed
+				Description: Craft the Mega Drill, really speeding up your mining experience
+			}
+
 			AchievementEquinox: {
 				Name: Balance of Light and Dark
 				Description: Craft the Equinox, a sword that is perfectly balanced, as all things should be.
@@ -53,16 +78,6 @@ Mods: {
 				Description: Obtain Clayman, to silently judge everybody around you.
 			}
 
-			AchievementBiomeCore: {
-				Name: Biome Power
-				Description: Craft the Biome Core, the power of the 3 mini biomes combined.
-			}
-
-			AchievementScaryDerp: {
-				Name: It's Perfectly Normal
-				Description: Kill a perfectly Normal Derpling, nothing strange about it at all...
-			}
-
 			AchievementDerpKing: {
 				Name: The Derpling Master
 				Description: Obtain a full set of Derpling Armor, and all the Derpling Weapons, Tools and Equipment.
@@ -73,14 +88,9 @@ Mods: {
 				Description: Collect all 4 of the Lunar event vanity sets.
 			}
 
-			AchievementNoPizza: {
-				Name: I'd like to make a complaint
-				Description: Defeat a Pizza Delivery Snowman, the order was wrong anyway.
-			}
-
-			AchievementMoonling: {
-				Name: The Final Derpling
-				Description: Defeat a Moonling, a Derpling infested with Lunar energy.
+			AchievementPendants: {
+				Name: Pendant Synergy
+				Description: Have the effects of at least 2 biome pendants active at once.
 			}
 
 			AchievementStompBounce: {
@@ -98,29 +108,39 @@ Mods: {
 				Description: Hug a Teddy Bear for the most unconditional love, enough to heal (almost) any wound.
 			}
 
+			AchievementHeartSteal: {
+				Name: You Stole my Heart
+				Description: Steal life from a regular enemy with the Life Emblem
+			}
+
 			AchievementTwilight: {
 				Name: Twilight Warped
 				Description: Warp using a full set of Twilight Armor, no time for walking.
 			}
 
-			AchievementNoShield: {
-				Name: No shield for you
-				Description: Use a Celestial Globe to break through the shields of the Celestial Pillars.
-			}
-
 			AchievementSuperHeart: {
-				Name: That's super!
+				Name: That's Super!
 				Description: Collect a super heart dropped by an enemy after taking the Super Heart Vial.
 			}
 
-			AchievementThePets: {
-				Name: The Twilight and The Storm
-				Description: Have both the Twilight Figure light pet and the Baby Storm Diver pet active at the same time.
+			AchievementNineLives: {
+				Name: I am Death!
+				Description: Have 9 souls reaped at once with the Nine Lives.
 			}
 
 			AchievementSantanked: {
-				Name: Checking off the Naughty list
+				Name: Checking off the Naughty List
 				Description: Fire a fully loaded set of missiles from the Santank armour.
+			}
+
+			AchievementNoShield: {
+				Name: No Shield for You
+				Description: Use a Celestial Globe to break through the shields of the Celestial Pillars.
+			}
+
+			AchievementThePets: {
+				Name: The Twins???
+				Description: Have both the Twilight Figure light pet and the Baby Storm Diver pet active at the same time.
 			}
 		}
 

@@ -156,13 +156,16 @@ namespace StormDiversMod.Basefiles
             flags2[1] = aridBossDown;
             flags2[2] = ultimateBossDown;
 
+            writer.Write(flags2);
+
             BitsByte flags3 = new BitsByte(); //Boss flags (8 max)
 
             flags3[0] = GraniteChestSpawn;
             flags3[1] = MarbleChestSpawn;
             flags3[2] = MushroomChestSpawn;
 
-            writer.Write(flags2);
+            writer.Write(flags3);
+
         }
         public override void NetReceive(BinaryReader reader)
         {
@@ -184,7 +187,7 @@ namespace StormDiversMod.Basefiles
 
             GraniteChestSpawn = flags3[0];
             MarbleChestSpawn = flags3[1];
-            MushroomChestSpawn = flags3[1];
+            MushroomChestSpawn = flags3[2];
 
         }
         public override void PostWorldGen()

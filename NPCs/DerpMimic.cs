@@ -124,6 +124,7 @@ namespace StormDiversMod.NPCs
         int projdamage = 300;
         bool onasphalt;
         Player player;
+      
         public override bool? CanFallThroughPlatforms()
         {
             if (player.position.Y > NPC.Bottom.Y && Collision.CanHitLine(NPC.Center, 0, 0, player.Center, 0, 0) && attackmode) // fall through platforms is player is below
@@ -138,7 +139,6 @@ namespace StormDiversMod.NPCs
         }
         public override void AI()
         {
-        
             player = Main.player[NPC.target];
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;

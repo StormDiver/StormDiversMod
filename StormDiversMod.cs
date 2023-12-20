@@ -151,6 +151,8 @@ namespace StormDiversMod
                 //Item crafts
                 mod.Call("AddAchievement", this, "AchievementBiomeCore", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementBiomeCore",
                  "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<BiomeCore>() });
+                mod.Call("AddAchievement", this, "AchievementFastDrill", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementFastDrill",
+                "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<FastDrill2>() });
                 mod.Call("AddAchievement", this, "AchievementEquinox", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementEquinox",
                     "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<LightDarkSword>() });
                 mod.Call("AddAchievement", this, "AchievementStoneCannon4", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementStoneCannon4",
@@ -176,6 +178,9 @@ namespace StormDiversMod
 
                 //Doing things
 
+                mod.Call("AddAchievement", this, "AchievementPendants", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementPendants",
+              "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_Pendants" });
+
                 mod.Call("AddAchievement", this, "AchievementStompBounce", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementStompBounce",
                "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_StompBounce" });
 
@@ -185,11 +190,17 @@ namespace StormDiversMod
                 mod.Call("AddAchievement", this, "AchievementHugBear", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementHugBear",
                  "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_HugBear" });
 
+                mod.Call("AddAchievement", this, "AchievementHeartSteal", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementHeartSteal",
+             "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_HeartSteal" });
+
                 mod.Call("AddAchievement", this, "AchievementTwilight", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementTwilight",
                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_TwilightWarp" });
 
                 mod.Call("AddAchievement", this, "AchievementSuperHeart", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementSuperHeart",
                "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_SuperHeart" });
+
+                mod.Call("AddAchievement", this, "AchievementNineLives", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementNineLives",
+            "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_NineLives" });
 
                 mod.Call("AddAchievement", this, "AchievementSantanked", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementSantanked",
               "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_Santanked" });
@@ -199,7 +210,10 @@ namespace StormDiversMod
 
                 mod.Call("AddAchievement", this, "AchievementThePets", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementThePets",
                  "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_ThePets" });
-
+                //equip 2/ all 3 pendants together "syngery"
+                //Life Elbem???
+                //baby Derping banner??
+                //Nine Lives nine souls
                 //place when activated
                 /*if (ModLoader.TryGetMod("TMLAchievements", out Mod mod)) 
                 {
