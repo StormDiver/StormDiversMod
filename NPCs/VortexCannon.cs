@@ -50,7 +50,6 @@ namespace StormDiversMod.NPCs
             NPC.knockBackResist = 0f;
             Item.buyPrice(0, 0, 0, 0);
             
-            
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.VortCannonBannerItem>();
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
@@ -88,16 +87,19 @@ namespace StormDiversMod.NPCs
         public override void AI()
         {
             NPC.timeLeft = 60;
-
             shoottime++;
             
             Player player = Main.player[NPC.target];
            
-            if (Vector2.Distance(player.Center, NPC.Center) <= 800f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
-            {             
+            if (Vector2.Distance(player.Center, NPC.Center) <= 1200f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            {
+                if (shoottime >= 150)
+                {
+                    NPC.aiStyle = -1;
+                    NPC.velocity.X *= 0.75f;
+                }
                 if (shoottime >= 180)
                 {
-                    NPC.velocity.X = 0;
                     //float projectileSpeed = 8f; // The speed of your projectile (in pixels per second).
                     int damage = 50; // The damage your projectile deals.
                     float knockBack = 3;
@@ -118,9 +120,8 @@ namespace StormDiversMod.NPCs
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15)); // 15 degree spread.
-                                                                                                                                        // If you want to randomize the speed to stagger the projectiles
-                                float scale = 1f - (Main.rand.NextFloat() * .2f);
+                                Vector2 perturbedSpeed = new Vector2(0, -6).RotatedByRandom(MathHelper.ToRadians(25)); 
+                                float scale = 1f - (Main.rand.NextFloat() * .4f);
                                 perturbedSpeed = perturbedSpeed * scale;
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
                             }
@@ -130,6 +131,8 @@ namespace StormDiversMod.NPCs
                     }
                     if (shoottime >= 220)
                     {
+                        NPC.aiStyle = 3;
+                        firerate = 0;
                         shoottime = 0;
                     }
                 }
@@ -139,7 +142,8 @@ namespace StormDiversMod.NPCs
             {
                 shoottime = 100;
                 firerate = 0;
-    
+                NPC.aiStyle = 3;
+
             }
         }
 
@@ -190,7 +194,7 @@ namespace StormDiversMod.NPCs
             //Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, NPC.height * 0.5f);
             for (int k = 0; k < NPC.oldPos.Length; k++)
             {
-                Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-4, -2);
+                Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-3, -1);
                 Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }

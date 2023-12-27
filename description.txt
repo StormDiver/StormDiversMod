@@ -4,15 +4,15 @@ This mod includes:
 -Over 100 new unique weapons across all classes, including some minions and sentries
 -Over 40 new accessories, including new expert exclusive ones and some tinkers with vanilla accessories
 -15 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
--29 new enemies across the game, with banners and bestiary entries
+-27 new enemies across the game, with banners and bestiary entries
 -3 new bosses, one late pre hardmode, one tiered around Plantera, with a config to fight it in its place, and a secret post Moon Lord one
 -New Ammo, tools, potions, vanity items, and pets
 -The Cultist drops his treasure bag with some new items
 -A new member for the Frost Legion
 -Full Wikithis support
--25 new Achievements avalible via the Achievement Mod
+-25 new Achievements available via the Achievement Mod
 
-It even contains some small Quality of Life features
+Quality of Life features:
  -New recipes and drops for certain uncraftable vanilla items, including the Rod of Discord, Snow and Gladiator armour, Chum caster, and even the Slime Staff
  -A special super dummy with multiple variants
  -Most NPCs sell their dropped weapon

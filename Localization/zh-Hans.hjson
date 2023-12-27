@@ -19,128 +19,128 @@ Mods: {
 		//Achievements Mod
 		Achievements: {
 			AchievementAridBoss: {
-				// Name: Freed Spirits
-				// Description: Defeat the Ancient Husk, the possessed set of heavily withered armour.
+				Name: 解放灵魂
+				Description: 击败“远古躯壳”，这是一套严重枯萎的盔甲。
 			}
 
 			AchievementStormBoss: {
-				// Name: Overloaded
-				// Description: Defeat the Overloaded Scandrone, the dangerous and unstable experiment.
+				Name: 超载
+				Description: 击败“超载扫描无人机”，这是一项危险且不稳定的实验。
 			}
 
 			AchievementUltimateBoss: {
-				// Name: The Pain is Finally Over
-				// Description: Defeat The Painbringer, the ultimate bringer of pain.
+				Name: 痛苦终于结束了
+				Description: 击败“痛苦使者”，终极痛苦使者。
 			}
 
 			AchievementNoPizza: {
-				// Name: I'd like to make a complaint
-				// Description: Defeat a Pizza Delivery Snowman, the order was wrong anyway.
+				Name: 我要投诉
+				Description: 击败“雪人披萨快递员”，反正订单是错的。
 			}
 
 			AchievementMoonling: {
-				// Name: The Final Derpling
-				// Description: Defeat a Moonling, a Derpling infested with Lunar energy.
+				Name: 最后的跳跳兽
+				Description: 击败“月灵”，这是一种被月能侵染的跳跳兽。
 			}
 
 			AchievementScaryDerp: {
-				// Name: It's Perfectly Normal
-				// Description: Kill a perfectly Normal Derpling, nothing strange about it at all...
+				Name: 这再正常不过了
+				Description: 杀死一个完全正常的跳跳兽，没有任何奇怪的地方……
 			}
 
 			AchievementBiomeCore: {
-				// Name: Biome Power
-				// Description: Craft the Biome Core, the power of the 3 mini biomes combined.
+				Name: 生物群落的力量
+				Description: 制作生物群落核心，这是3个小型生物群落的力量总和。
 			}
 
 			AchievementFastDrill: {
-				// Name: Drilling at Speed
-				// Description: Craft the Mega Drill, really speeding up your mining experience
+				Name: 快速钻探
+				Description: 制作巨型钻头，加快采矿速度
 			}
 
 			AchievementEquinox: {
-				// Name: Balance of Light and Dark
-				// Description: Craft the Equinox, a sword that is perfectly balanced, as all things should be.
+				Name: 光明与黑暗的平衡
+				Description: 制作均衡之剑，一把完美平衡的宝剑，万物皆应如此。
 			}
 
 			AchievementStoneCannon4: {
-				// Name: The Most Dangerous Stone
-				// Description: Craft the Celestial Stone Cannon, turns stone into devastating lunar boulders.
+				Name: 最危险的石头
+				Description: 制作月石炮，将石头变成毁灭性的月球巨石。
 			}
 
 			AchievementThePain: {
-				// Name: ThePain!
-				// Description: Obtain ThePain, to show everyone how much pain you're in.
+				Name: 痛苦！
+				Description: 获得“痛苦”，向所有人展示你有多痛苦。
 			}
 
 			AchievementClayman: {
-				// Name: Clayman!
-				// Description: Obtain Clayman, to silently judge everybody around you.
+				Name: 粘土人！
+				Description: 获得“粘土”，默默地评判你身边的每一个人。
 			}
 
 			AchievementDerpKing: {
-				// Name: The Derpling Master
-				// Description: Obtain a full set of Derpling Armor, and all the Derpling Weapons, Tools and Equipment.
+				Name: 跳跳兽大师
+				Description: 获得全套跳跳兽盔甲以及所有跳跳兽武器、工具和装备。
 			}
 
 			AchievementLunarCosplay: {
-				// Name: Lunar Cosplayer
-				// Description: Collect all 4 of the Lunar event vanity sets.
+				Name: 月亮扮演者
+				Description: 收集全部4套月亮事件时装套装。
 			}
 
 			AchievementPendants: {
-				// Name: Pendant Synergy
-				// Description: Have the effects of at least 2 biome pendants active at once.
+				Name: 配饰协作
+				Description: 同时激活至少2个配饰的效果。
 			}
 
 			AchievementStompBounce: {
-				// Name: Reach for the Slightly Higher Elevation
-				// Description: Perform a successful Stomp Bounce with the Heavy Boots.
+				Name: 向高处进发
+				Description: 使用重靴成功进行一次蹬地弹跳。
 			}
 
 			AchievementQuack: {
-				// Name: QUACK!!!
-				// Description: Quack 5 times, quack, quack, quack, quack, quack...
+				Name: 嘎嘎！！！
+				Description: 嘎嘎5次，嘎嘎，嘎嘎，嘎嘎，嘎嘎，嘎嘎……
 			}
 
 			AchievementHugBear: {
-				// Name: Awww!
-				// Description: Hug a Teddy Bear for the most unconditional love, enough to heal (almost) any wound.
+				Name: 啊呜!
+				Description: 抱抱泰迪熊，你会得到最无条件的爱，足以治愈（几乎）任何伤口。
 			}
 
 			AchievementHeartSteal: {
-				// Name: You Stole my Heart
-				// Description: Steal life from a regular enemy with the Life Emblem
+				Name: 你偷走了我的心
+				Description: 用生命徽章夺取普通敌人的生命
 			}
 
 			AchievementTwilight: {
-				// Name: Twilight Warped
-				// Description: Warp using a full set of Twilight Armor, no time for walking.
+				Name: 暮光之城
+				Description: 使用全套暮光盔甲进行扭曲，没有时间行走。
 			}
 
 			AchievementSuperHeart: {
-				// Name: That's Super!
-				// Description: Collect a super heart dropped by an enemy after taking the Super Heart Vial.
+				Name: 那太棒了！
+				Description: 取得超级心脏瓶后，收集敌人掉落的超级心脏。
 			}
 
 			AchievementNineLives: {
-				// Name: I am Death!
-				// Description: Have 9 souls reaped at once with the Nine Lives.
+				Name: 我是死神！
+				Description: 用九魂镰一次收割9个灵魂。
 			}
 
 			AchievementSantanked: {
-				// Name: Checking off the Naughty List
-				// Description: Fire a fully loaded set of missiles from the Santank armour.
+				Name: 核对“淘气鬼”名单
+				Description: 从圣坦克装甲发射一组满载的导弹。
 			}
 
 			AchievementNoShield: {
-				// Name: No Shield for You
-				// Description: Use a Celestial Globe to break through the shields of the Celestial Pillars.
+				Name: 不再有你的保护罩
+				Description: 使用天球仪突破天界柱的防护罩。
 			}
 
 			AchievementThePets: {
-				// Name: The Twins???
-				// Description: Have both the Twilight Figure light pet and the Baby Storm Diver pet active at the same time.
+				Name: 双胞胎？
+				Description: 同时激活暮光人物轻型宠物和婴儿风暴潜水员宠物。
 			}
 		}
 
@@ -1595,17 +1595,17 @@ Mods: {
 			}
 
 			AridBossBag: {
-				DisplayName: 宝藏袋（远古外壳）
+				DisplayName: 宝藏袋（远古躯壳）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			AridBossRelic: {
-				DisplayName: 远古外壳圣物
+				DisplayName: 远古躯壳圣物
 				Tooltip: ""
 			}
 
 			AridBossTrophy: {
-				DisplayName: 远古外壳纪念章
+				DisplayName: 远古躯壳纪念章
 				Tooltip: ""
 			}
 
@@ -2066,7 +2066,7 @@ Mods: {
 			}
 
 			BossMaskAridBoss: {
-				DisplayName: 远古外壳面具
+				DisplayName: 远古躯壳面具
 				Tooltip: ""
 			}
 
@@ -2086,13 +2086,13 @@ Mods: {
 			}
 
 			GnomedHat: {
-				// DisplayName: Gnome Hat
-				// Tooltip: "'You've been Gnomed'"
+				DisplayName: 侏儒帽子
+				Tooltip: “你像个侏儒”
 			}
 
 			PizzaCap: {
-				// DisplayName: Snowman's Pizza Cap
-				// Tooltip: "'None pizza with left beef please'"
+				DisplayName: 雪人的披萨帽
+				Tooltip: “请不要吃剩下的牛肉披萨”
 			}
 
 			PredictorBMask: {
@@ -2156,7 +2156,7 @@ Mods: {
 			}
 
 			TheClaymanMask: {
-				DisplayName: 黏土人面具
+				DisplayName: 粘土人面具
 				Tooltip: 静静地审视你周围的每个人
 			}
 
@@ -3474,8 +3474,8 @@ Mods: {
 			}
 
 			TheClaySlimeBannerItem: {
-				DisplayName: 黏土史莱姆旗帜
-				Tooltip: 附近的玩家获得针对以下怪的加成：黏土史莱姆
+				DisplayName: 粘土史莱姆旗帜
+				Tooltip: 附近的玩家获得针对以下怪的加成：粘土史莱姆
 			}
 
 			ThePainSlimeBannerItem: {
@@ -3498,11 +3498,11 @@ Mods: {
 			BabyDerp.DisplayName: 小跳跳兽
 
 			AridBoss: {
-				DisplayName: 远古外壳
+				DisplayName: 远古躯壳
 
 				BossChecklistIntegration: {
 					SpawnInfo: 在沙漠使用 [i:StormDiversMod/AridBossSummon] 召唤
-					DespawnMessage: 远古外壳重归沙海深处
+					DespawnMessage: 远古躯壳重归沙海深处
 				}
 			}
 
@@ -3524,7 +3524,7 @@ Mods: {
 					SpawnInfo:
 						'''
 						击败月亮领主之后，使用 [i:StormDiversMod/UltimateBossSummoner] 召唤
-						击败月亮领主之后，且装备痛苦或黏土面具的情况下，击杀任何敌人都会掉落
+						击败月亮领主之后，且装备痛苦或粘土面具的情况下，击杀任何敌人都会掉落
 						粘土和痛苦史莱姆也会掉落
 						'''
 					DespawnMessage: 你无法承受痛苦，是吗？
@@ -3557,7 +3557,7 @@ Mods: {
 			VineDerp.DisplayName: 伪装跳跳兽
 			VortexCannon.DisplayName: 星旋炮兵
 			ThePainSlime.DisplayName: 痛苦史莱姆
-			TheClaySlime.DisplayName: 黏土史莱姆
+			TheClaySlime.DisplayName: 粘土史莱姆
 			TheUltimateBossMinion.DisplayName: 痛苦碎片水晶
 			SuperPainDummy.DisplayName: 超级痛苦假人
 			SnowmanPizza.DisplayName: 雪人披萨快递员
@@ -3565,9 +3565,9 @@ Mods: {
 		}
 
 		Projectiles: {
-			AridBossFlameProj.DisplayName: 远古外壳沙火焰
-			AridBossSandProj.DisplayName: 远古外壳沙
-			AridBossShardProj.DisplayName: 远古外壳碎片
+			AridBossFlameProj.DisplayName: 远古躯壳沙火焰
+			AridBossSandProj.DisplayName: 远古躯壳沙
+			AridBossShardProj.DisplayName: 远古躯壳碎片
 			DerplingEnemyShellProj.DisplayName: 跳跳兽壳碎片
 			FrozenEyeProj.DisplayName: 迷你雪花
 			FrozenSoulProj.DisplayName: 巨大雪花
@@ -4026,7 +4026,7 @@ Mods: {
 			TheEvilEmote.Command: 邪恶表情
 			TheSadEmote.Command: 悲伤表情
 			ClaymanEmote.Command: 粘土人表情
-			AridBossEmote.Command: 远古外壳
+			AridBossEmote.Command: 远古躯壳
 			StormBossEmote.Command: 超载扫描机
 			UltimateBossEmote.Command: 痛苦使者
 		}

@@ -12,15 +12,13 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Vortexian Rocket");
-            
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 10;
+            Projectile.width = 14;
+            Projectile.height = 14;
 
-            
             Projectile.light = 0.4f;
             
             Projectile.friendly = false;
@@ -28,14 +26,11 @@ namespace StormDiversMod.NPCs.NPCProjs
             
             Projectile.penetrate = 1;
             
-            
             Projectile.tileCollide = true;
             Projectile.scale = 1.1f;
 
-            
             Projectile.extraUpdates = 1;
             
-           
             Projectile.timeLeft = 600;
             //aiType = ProjectileID.LostSoulHostile;
             Projectile.aiStyle = -1;
@@ -44,16 +39,11 @@ namespace StormDiversMod.NPCs.NPCProjs
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
         }
-        
-       
-        
-        
+        float speed = 5f;
+        float inertia = 15;
+        Vector2 idlePosition;
         public override void AI()
         {
-            
-          
-            
-          
             for (int i = 0; i < 10; i++)
             {
                 float x2 = Projectile.Center.X - Projectile.velocity.X / 20f * (float)i;
@@ -62,9 +52,9 @@ namespace StormDiversMod.NPCs.NPCProjs
                 //Main.dust[num165].alpha = alpha;
                 Main.dust[j].position.X = x2;
                 Main.dust[j].position.Y = y2;
-                Main.dust[j].velocity *= 0.3f;
+                Main.dust[j].velocity *= 0.15f;
                 Main.dust[j].noGravity = true;
-                Main.dust[j].scale = 0.8f;
+                Main.dust[j].scale = 1.2f;
             }
             if (Projectile.timeLeft <= 3)
             {
@@ -85,8 +75,23 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             }
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-            
-         
+            Projectile.ai[0]++;
+
+            idlePosition = new Vector2(Main.LocalPlayer.Center.X, Main.LocalPlayer.Center.Y + 0);
+            Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
+            float distanceToIdlePosition = vectorToIdlePosition.Length();
+            if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 120)
+            //if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
+            {
+                if (distanceToIdlePosition > 10f)
+                {
+                    vectorToIdlePosition.Normalize();
+                    vectorToIdlePosition *= speed;
+                }
+                if (Vector2.Distance(idlePosition, Projectile.Center) > 30)
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+            }
+
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {

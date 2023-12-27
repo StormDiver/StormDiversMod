@@ -1035,7 +1035,6 @@ namespace StormDiversMod.NPCs.Banners
             }
         }
     }
-
     public class SnowmanBombBannerPlaced : ModTile
     {
         public override void SetStaticDefaults()

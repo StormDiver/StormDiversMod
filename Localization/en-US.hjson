@@ -954,8 +954,8 @@ Mods: {
 				DisplayName: Asteroid Bullet
 				Tooltip:
 					'''
-					Summons a small asteroid fragment above struck enemies
-					The fragment deals low damage but ignores 50 defense
+					Summons 2 small asteroid fragments above struck enemies
+					The fragments deals low damage but ignore 50 defense
 					'''
 			}
 

@@ -706,7 +706,6 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
             Item.placeStyle = 0;
         }
     }
-
     public class SnowmanBombBannerItem : ModItem
     {
         public override void SetStaticDefaults()

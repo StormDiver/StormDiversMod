@@ -1,21 +1,21 @@
 [img]https://i.imgur.com/ZuF6EHw.png[/img]
 [b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 300 items. It flushes out some vanilla item sets, and has many new unique sets spread across the entire game, along with many individual items obtained in their own way.
 
-[u]This mod includes:[/u]
+[h2]This mod includes:[/h2]
 [list]
 [*]Over 100 new unique weapons across all classes, including some minions and sentries
 [*]Over 40 new accessories, including new expert exclusive ones and some tinkers with vanilla accessories
 [*]15 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
-[*]29 new enemies across the game, with banners and bestiary entries
+[*]27 new enemies across the game, with banners and bestiary entries
 [*]3 new bosses, one late pre hardmode, one tiered around Plantera, with a config to fight it in its place, and a secret post Moon Lord one
 [*]New Ammo, tools, potions, vanity items, and pets
 [*]The Cultist drops his treasure bag with some new items
 [*]A new member for the Frost Legion
 [*]Full Wikithis support
-[*]25 new Achievements avalible via the Achievement Mod
+[*][b]25 new Achievements available via the Achievement Mod[/b]
 [/list]
 
-[u]It even contains some small Quality of Life features[/u]
+[h2]Quality of Life features:[/h2]
 [list]
 [*] New recipes and drops for certain uncraftable vanilla items, including the Rod of Discord, Snow and Gladiator armour, Chum caster, and even the Slime Staff
 [*] A special super dummy with multiple variants
@@ -25,9 +25,11 @@
 [*] Generates additional Granite, Marble, and Mushroom chests in their respective biomes
 [/list]
 
+[h2]Links[/h2]
 Join the Discord server here: https://discord.gg/VJvf2HkxtA
 Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod
 
+[h2]Credits[/h2]
 Creator, coder, and main spriter: [b]TheStorm[/b]
 Spriter and playtester: [b]Lynxical[/b]
 Some additional sprites by: Charley#0571 

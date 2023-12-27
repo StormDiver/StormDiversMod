@@ -52,18 +52,26 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X, target.Center.Y - 400), new Vector2(target.velocity.X * 0.5f, 10), ModContent.ProjectileType<Projectiles.SpaceFragment>(), (int)(Projectile.damage * 0.15f), Projectile.knockBack / 2, Projectile.owner);
+            int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 75, target.Center.Y - 300), new Vector2(-4 + target.velocity.X * 0.5f, 15), ModContent.ProjectileType<Projectiles.SpaceFragment>(), (int)(Projectile.damage * 0.2f), 0, Projectile.owner);
             Main.projectile[projID].DamageType = DamageClass.Ranged;
             Main.projectile[projID].penetrate = 1;
             Main.projectile[projID].ArmorPenetration = 50;
 
+            int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 75, target.Center.Y - 300), new Vector2(4 + target.velocity.X * 0.5f, 15), ModContent.ProjectileType<Projectiles.SpaceFragment>(), (int)(Projectile.damage * 0.2f), 0, Projectile.owner);
+            Main.projectile[projID2].DamageType = DamageClass.Ranged;
+            Main.projectile[projID2].penetrate = 1;
+            Main.projectile[projID2].ArmorPenetration = 50;
+
             for (int i = 0; i < 25; i++)
             {
-
-                var dust = Dust.NewDustDirect(new Vector2(target.Center.X, target.Center.Y - 400), 0, 0, 6);
+                var dust = Dust.NewDustDirect(new Vector2(target.Center.X + 75, target.Center.Y - 300), 0, 0, 6);
                 dust.scale = 1.2f;
                 dust.noGravity = true;
                 dust.velocity *= 3;
+                var dust2 = Dust.NewDustDirect(new Vector2(target.Center.X - 75, target.Center.Y - 300), 0, 0, 6);
+                dust2.scale = 1.2f;
+                dust2.noGravity = true;
+                dust2.velocity *= 3;
             }
         }
 

@@ -1,4 +1,4 @@
 displayName = [c/22DD97:Storm's Additions Mod]
 author = TheStorm
-version = 2.5.1.1
+version = 2.5.1.2
 homepage = https://discord.gg/VJvf2HkxtA
