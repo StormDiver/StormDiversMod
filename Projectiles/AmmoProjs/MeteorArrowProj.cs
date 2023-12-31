@@ -11,15 +11,12 @@ using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles.AmmoProjs
 {
- 
-
     public class MeteorArrowProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Meteor Arrow");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
         }
 
         public override void SetDefaults()
@@ -57,7 +54,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             else
             {
                 Projectile.tileCollide = true;
-
             }
 
             int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 0.7f);

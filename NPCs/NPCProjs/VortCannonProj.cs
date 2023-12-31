@@ -80,7 +80,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             idlePosition = new Vector2(Main.LocalPlayer.Center.X, Main.LocalPlayer.Center.Y + 0);
             Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
             float distanceToIdlePosition = vectorToIdlePosition.Length();
-            if (Projectile.ai[0] >= 60 && Projectile.ai[0] <= 120)
+            if (Projectile.ai[0] >= 40 && Projectile.ai[0] <= 100)
             //if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
             {
                 if (distanceToIdlePosition > 10f)

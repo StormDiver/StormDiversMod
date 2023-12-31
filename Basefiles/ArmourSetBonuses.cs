@@ -890,43 +890,7 @@ namespace StormDiversMod.Basefiles
                 SoundEngine.PlaySound(SoundID.Item45 with { Volume = 0.5f }, Player.Center);
                 spaceStrikecooldown = 0;
                 Player.ClearBuff(ModContent.BuffType<SpaceRockOffence>());
-
             }
-
-            //For the Hemogoblin armour setbonus ======================
-
-            if (Player.HeldItem.CountsAsClass(DamageClass.Melee))
-            {
-                if (BloodDrop)
-                {
-
-                    if (bloodtime >= 300 && !Player.dead)
-                    {
-
-                        SoundEngine.PlaySound(SoundID.NPCHit9, Player.Center);
-
-                        float numberProjectiles = 10 + Main.rand.Next(5);
-
-                        for (int i = 0; i < numberProjectiles; i++)
-                        {
-                            float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
-
-                            float speedX = 0f;
-                            float speedY = -6f;
-                            int blooddamage = (int)(Player.HeldItem.damage);
-                            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
-                            float scale = 1f - (Main.rand.NextFloat() * .5f);
-                            perturbedSpeed = perturbedSpeed * scale;
-                            
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
-                            bloodtime = 0;
-                        }
-                    }
-                }
-            }
-
-
-
             base.OnHitAnything(x, y, victim);
         }
 
@@ -996,33 +960,59 @@ namespace StormDiversMod.Basefiles
                     Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("HellSoulArmourProj"), hellsouldmg, 0, Player.whoAmI);
                 }*/
 
-               /* int helldamagemelee = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(80); //89 with armour buffs
+            /* int helldamagemelee = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(80); //89 with armour buffs
 
-                float speedX = 0f;
-                float speedY = -8f;
+             float speedX = 0f;
+             float speedY = -8f;
 
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(100));
+             Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(100));
 
-                Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), helldamagemelee, 0, Player.whoAmI);
+             Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<HellSoulArmourProj>(), helldamagemelee, 0, Player.whoAmI);
 
-                for (int i = 0; i < 20; i++)
+             for (int i = 0; i < 20; i++)
+             {
+                 var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 173);
+                 dust.scale = 1.5f;
+                 dust.velocity *= 3;
+
+             }
+             for (int i = 0; i < 20; i++)
+             {
+                 var dust = Dust.NewDustDirect(target.position, target.width, target.height, 173);
+                 dust.scale = 1.5f;
+                 dust.velocity *= 3;
+
+             }
+             SoundEngine.PlaySound(SoundID.Item8, target.Center);
+
+             hellblazetime = 30;
+         }*/
+
+            //For the Hemogoblin armour setbonus true melee ======================
+            if (BloodDrop)
+            {
+                if (bloodtime >= 300 && !Player.dead)
                 {
-                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 173);
-                    dust.scale = 1.5f;
-                    dust.velocity *= 3;
+                    SoundEngine.PlaySound(SoundID.NPCHit9, Player.Center);
 
+                    float numberProjectiles = 10 + Main.rand.Next(5);
+
+                    for (int i = 0; i < numberProjectiles; i++)
+                    {
+                        float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
+
+                        float speedX = 0f;
+                        float speedY = -6f;
+                        int blooddamage = (int)(Player.HeldItem.damage);
+                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
+                        float scale = 1f - (Main.rand.NextFloat() * .5f);
+                        perturbedSpeed = perturbedSpeed * scale;
+
+                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
+                        bloodtime = 0;
+                    }
                 }
-                for (int i = 0; i < 20; i++)
-                {
-                    var dust = Dust.NewDustDirect(target.position, target.width, target.height, 173);
-                    dust.scale = 1.5f;
-                    dust.velocity *= 3;
-
-                }
-                SoundEngine.PlaySound(SoundID.Item8, target.Center);
-
-                hellblazetime = 30;
-            }*/
+            }
 
             //For Arid Armour with true melee
 
@@ -1105,6 +1095,35 @@ namespace StormDiversMod.Basefiles
 
                 hellblazetime = 30;
             }*/
+
+            //For the Hemogoblin armour setbonus p[rojs ======================
+            if (BloodDrop)
+            {
+                if (proj.DamageType == DamageClass.Melee || proj.DamageType == DamageClass.MeleeNoSpeed)
+                {
+                    if (bloodtime >= 300 && !Player.dead)
+                    {
+                        SoundEngine.PlaySound(SoundID.NPCHit9, Player.Center);
+
+                        float numberProjectiles = 10 + Main.rand.Next(5);
+
+                        for (int i = 0; i < numberProjectiles; i++)
+                        {
+                            float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
+
+                            float speedX = 0f;
+                            float speedY = -6f;
+                            int blooddamage = (int)(Player.HeldItem.damage);
+                            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
+                            float scale = 1f - (Main.rand.NextFloat() * .5f);
+                            perturbedSpeed = perturbedSpeed * scale;
+
+                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<BloodDropProj>(), blooddamage, 1, Player.whoAmI);
+                            bloodtime = 0;
+                        }
+                    }
+                }
+            }
 
             //Arid armour with projectiles
             if (aridCritSet)
