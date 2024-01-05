@@ -58,8 +58,6 @@ namespace StormDiversMod.Items.Weapons
             return new Vector2(-8, 1);
         }
 
-
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 
@@ -77,7 +75,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void HoldItem(Player player)
         {
-            player.scope = true;
+            //player.scope = true;
         }
 
         public override void AddRecipes()

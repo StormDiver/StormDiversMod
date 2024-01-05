@@ -71,7 +71,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void HoldItem(Player player)
         {
-            player.scope = true;
+            //player.scope = true;
             if (resetaccuracy == 0) //Resets accuracy when not firing
             {
                 accuracy = 15;

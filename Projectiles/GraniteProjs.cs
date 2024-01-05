@@ -42,14 +42,10 @@ namespace StormDiversMod.Projectiles
             AIType = ProjectileID.Bullet;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-
         }
-
-
         int dusttime;
         public override void AI()
         {
-
             dusttime++;
 
             if (dusttime > 5)
@@ -59,23 +55,20 @@ namespace StormDiversMod.Projectiles
                     float X = Projectile.Center.X - Projectile.velocity.X / 5f * (float)i;
                     float Y = Projectile.Center.Y - Projectile.velocity.Y / 5f * (float)i;
 
-
-                    int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 70, 0, 0, 100, default, 1f);
+                    int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 187, 0, 0, 100, default, 1.25f);
                     Main.dust[dust].position.X = X;
                     Main.dust[dust].position.Y = Y;
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 0f;
-
                 }
             }
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 15; i++)
             {
 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 70, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 130, default, 1.2f);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 229, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 130, default, 1.2f);
                 dust.noGravity = true;
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -83,26 +76,20 @@ namespace StormDiversMod.Projectiles
 
         public override void OnKill(int timeLeft)
         {
-
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 10; i++)
             {
 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 70);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 229);
                 dust.noGravity = true;
 
             }
-
         }
-
         public override Color? GetAlpha(Color lightColor)
         {
-
             return Color.White;
         }
-
-
     }
     //______________________________________________________________________________________________________________________
     public class GraniteSpearProj : ModProjectile
@@ -132,7 +119,6 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
         }
-
 
         public float MovementFactor // Change this value to alter how fast the spear moves
         {
@@ -189,7 +175,7 @@ namespace StormDiversMod.Projectiles
             // These dusts are added later, for the 'ExampleMod' effect
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 70, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 1, Scale: 1.2f);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 229, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 1, Scale: 1.2f);
                 dust.noGravity = true;
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
@@ -239,7 +225,7 @@ namespace StormDiversMod.Projectiles
                     float Y = Projectile.Center.Y - Projectile.velocity.Y / 5f * (float)i;
 
 
-                    int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 70, 0, 0, 100, default, 1);
+                    int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 229, 0, 0, 100, default, 1);
                     Main.dust[dust].position.X = X;
                     Main.dust[dust].position.Y = Y;
                     Main.dust[dust].noGravity = true;
@@ -250,7 +236,7 @@ namespace StormDiversMod.Projectiles
             Dust dust2;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position2 = Projectile.Center;
-            dust2 = Terraria.Dust.NewDustPerfect(position2, 65, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);
+            dust2 = Terraria.Dust.NewDustPerfect(position2, 187, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);
             dust2.noGravity = true;
             dust2.noLight = true;
 
@@ -271,7 +257,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 10; i++)
             {
 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 70);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 229);
                 dust.noGravity = true;
             }
         }
@@ -289,7 +275,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 10;
             Projectile.height = 10;
             Projectile.friendly = true;
@@ -297,34 +282,22 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 300;
             Projectile.aiStyle = 14;
-
-
         }
 
         public override void AI()
         {
-
-
             for (int i = 0; i < 10; i++)
             {
                 float X = Projectile.Center.X - Projectile.velocity.X / 5f * (float)i;
                 float Y = Projectile.Center.Y - Projectile.velocity.Y / 5f * (float)i;
 
-
-                int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 70, 0, 0, 100, default, 1f);
+                int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 229, 0, 0, 100, default, 0.8f);
                 Main.dust[dust].position.X = X;
                 Main.dust[dust].position.Y = Y;
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0f;
                 Main.dust[dust].scale *= 1f;
             }
-            Dust dust2;
-            Vector2 position2 = Projectile.Center;
-            dust2 = Terraria.Dust.NewDustPerfect(position2, 65, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);
-            dust2.noGravity = true;
-            dust2.noLight = true;
-
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -340,8 +313,7 @@ namespace StormDiversMod.Projectiles
         {
             for (int i = 0; i < 10; i++)
             {
-
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 70);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 229);
                 dust.noGravity = true;
             }
         }
@@ -406,16 +378,17 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 229);
+                dust.noGravity = true;
+            }
         }
         public override void PostDraw(Color drawColor)
         {
-            
                 Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/GraniteYoyoProj_Glow");
 
                 Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-            
-
         }
     }
 }

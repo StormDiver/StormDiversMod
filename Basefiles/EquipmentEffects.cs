@@ -284,6 +284,34 @@ namespace StormDiversMod.Basefiles
 
             }
         }
+
+        public override void ModifyZoom(ref float zoom)
+        {
+            if (Player.controlUseTile && Player.noThrow == 0)
+            {
+                if (Player.HeldItem.type == ModContent.ItemType<BloodyRifle>())
+                {
+                    if (Player.scope)
+                        zoom = 0.5f;
+                    else
+                        zoom = 0.33f;
+                }
+                if (Player.HeldItem.type == ModContent.ItemType<MechanicalRifle>())
+                {
+                    if (Player.scope)
+                        zoom = 0.66f;
+                    else
+                        zoom = 0.4f;
+                }
+                if (Player.HeldItem.type == ModContent.ItemType<ShroomiteSharpshooter>())
+                {
+                    if (Player.scope)
+                        zoom = 0.75f;
+                    else
+                        zoom = 0.5f;
+                }
+            }
+        }
         public override void PostUpdateEquips() //Updates every frame
         {
             /*if (Player.sitting.isSitting || Player.controlDown)
@@ -1344,10 +1372,9 @@ namespace StormDiversMod.Basefiles
                 SoundEngine.PlaySound(SoundID.NPCHit41 with { Volume = 1f, Pitch = -0.3f }, Player.Center);
                 for (int i = 0; i < 25; i++)
                 {
-
-                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 65);
+                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 187);
                     dust.noGravity = true;
-                    dust.scale = 2f;
+                    dust.scale = 1.5f;
                     dust.velocity *= 2;
                 }
                 granitebufftime = 0; //Activates the 10 second cooldown

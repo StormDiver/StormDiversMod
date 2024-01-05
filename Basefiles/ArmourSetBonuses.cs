@@ -796,7 +796,7 @@ namespace StormDiversMod.Basefiles
                     for (int i = 0; i < 50; i++)
                     {
                         Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
-                        var dust = Dust.NewDustDirect(Player.Center, 0, 0, 27, perturbedSpeed.X, perturbedSpeed.Y);
+                        var dust = Dust.NewDustDirect(Player.Center, 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y);
                         dust.scale = 1.5f;
                         dust.noGravity = true;
                     }
@@ -810,7 +810,7 @@ namespace StormDiversMod.Basefiles
                     SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 0.25f, Pitch = 0.75f, MaxInstances = 0 }, Player.Center);
                     for (int i = 0; i < 3; i++)
                     {
-                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 27);
+                        var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 187);
                         dust.scale = 1f;
                         dust.velocity *= 1.5f;
                         //dust.noGravity = true;

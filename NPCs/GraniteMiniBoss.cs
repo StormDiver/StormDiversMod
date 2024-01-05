@@ -107,10 +107,9 @@ namespace StormDiversMod.NPCs
             {
                 if (shoottime >= 100)
                 {
-                    if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
+                    if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                     {
-                        var dust2 = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 70);
-                        //int dust2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 72, projectile.velocity.X, projectile.velocity.Y, 130, default, 1.5f);
+                        var dust2 = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y-10), 20, 20, 229);
                         dust2.noGravity = true;
                         dust2.scale = 1.5f;
 
@@ -128,9 +127,7 @@ namespace StormDiversMod.NPCs
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) -
                     new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
 
-
                     SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
-
 
                     for (int i = 0; i < 1; i++)
                     {
@@ -143,11 +140,9 @@ namespace StormDiversMod.NPCs
                     }
                     for (int i = 0; i < 20; i++)
                     {
-
-                        var dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 70);
+                        var dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 229);
                         dust.noGravity = true;
                         dust.velocity *= 3;
-
                     }
 
                     shoottime = 0;
@@ -167,14 +162,13 @@ namespace StormDiversMod.NPCs
             else
             {
                 NPC.noTileCollide = true;
-        
             }
           
-
             if (Main.rand.Next(2) == 0)
             {
+                int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 187, NPC.velocity.X, NPC.velocity.Y, 0, default, 1.2f);
+                Main.dust[dust2].noGravity = true;
 
-                int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 70, NPC.velocity.X, NPC.velocity.Y, 0, default, 0.5f);
             }
         }
 
@@ -198,7 +192,7 @@ namespace StormDiversMod.NPCs
             for (int i = 0; i < 3; i++)
             {
                  
-                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 70);
+                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 229);
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
@@ -207,33 +201,24 @@ namespace StormDiversMod.NPCs
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("GraniteMiniBossGore3").Type, 1f);
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("GraniteMiniBossGore4").Type, 1f);
 
-              
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 25; i++)
                 {
                      
-                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 70);
+                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 229);
                 }
-              
-
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-
             npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Accessory.GraniteCoreAccess>(), 3, 2));
-
-
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/GraniteMiniBoss_Glow");
             Vector2 drawPos = new Vector2(0, 2) + NPC.Center - Main.screenPosition;
 
             spriteBatch.Draw(texture, drawPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-
-
         }
 
     }

@@ -307,13 +307,13 @@ namespace StormDiversMod.NPCs.Boss
                 if (NPC.ai[0] >= shootspeed && canshoot && target != null)
                 {
 
-                    for (int j = 0; j < 50; j++)
+                    for (int j = 0; j < 5; j++)
                     {
                         float speedY = -6f;
 
                         Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                        int dust1 = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                        int dust1 = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.25f);
                         Main.dust[dust1].noGravity = true;
 
                     }

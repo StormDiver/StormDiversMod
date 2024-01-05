@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Granite Rifle");
-            //Tooltip.SetDefault("Converts Musket Balls into Granite Bullets that pierce once");
+            //Tooltip.SetDefault("Converts Musket Balls into Granite Bullets that pierce twice");
 
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -58,31 +58,22 @@ namespace StormDiversMod.Items.Weapons
             Item.noMelee = true; 
         }
 
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
         }
-
-
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
             if (type == ProjectileID.Bullet)
             {
                 type = ModContent.ProjectileType<Projectiles.GraniteBulletProj>();
             }
 
-
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
             //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
-
-
             return false;
         }
-
 
         public override void AddRecipes()
         {
@@ -91,9 +82,6 @@ namespace StormDiversMod.Items.Weapons
           .AddIngredient(ModContent.ItemType<Items.Materials.GraniteCore>(), 3)
           .AddTile(TileID.Anvils)
           .Register();
-           
-
-
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
@@ -128,19 +116,19 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
             Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
             {
-                Item.mana = 9;
+                Item.mana = 8;
             }
             else
             {
-                Item.mana = 6;
+                Item.mana = 5;
             }
             Item.UseSound = SoundID.Item8;
 
@@ -161,8 +149,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 60f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 65f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
@@ -175,9 +162,7 @@ namespace StormDiversMod.Items.Weapons
                 float scale = 1f - (Main.rand.NextFloat() * .1f);
                 perturbedSpeed = perturbedSpeed * scale;
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
-
             }
-
             return false;
         }
 

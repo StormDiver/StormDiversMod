@@ -259,7 +259,7 @@ namespace StormDiversMod.Buffs
             // jump speed in armorsetbonuses
             if (Main.rand.Next(4) == 0)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 27, player.velocity.X, player.velocity.Y, 100, default, 1.5f);
+                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 187, player.velocity.X, player.velocity.Y, 100, default, 1.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 1f;
                 Main.dust[dust].velocity.Y -= 0.5f;
@@ -282,7 +282,7 @@ namespace StormDiversMod.Buffs
 
             if (Main.rand.Next(4) == 0)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 70, player.velocity.X, player.velocity.Y, 100, default, 1.5f);
+                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 229, player.velocity.X, player.velocity.Y, 100, default, 1.2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 1f;
                 Main.dust[dust].velocity.Y = 1f;

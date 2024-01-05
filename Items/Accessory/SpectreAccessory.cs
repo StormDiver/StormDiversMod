@@ -8,7 +8,6 @@ using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 
-
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -17,7 +16,6 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Buffs;
 using StormDiversMod.Basefiles;
 using Terraria.GameContent.Creative;
-
 
 namespace StormDiversMod.Items.Accessory
 {
@@ -56,20 +54,12 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            
-
         }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statManaMax2 += 40;
-            
                 player.GetModPlayer<EquipmentEffects>().SpectreSkull = true;
-            
-            
-
         }
-
 
         public override void AddRecipes()
         {
@@ -83,11 +73,9 @@ namespace StormDiversMod.Items.Accessory
 
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 150;
             return color;
-
         }
     }
     public class SpectreAccessoryMagnet : ModItem

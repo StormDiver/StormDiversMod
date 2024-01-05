@@ -2566,7 +2566,7 @@ Mods: {
 
 			GraniteRifle: {
 				DisplayName: Granite Rifle
-				Tooltip: Converts Musket Balls into Granite Bullets that pierce once
+				Tooltip: Converts Musket Balls into Granite Bullets that pierce twice
 			}
 
 			GraniteStaff: {
