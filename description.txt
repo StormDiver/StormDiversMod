@@ -1,5 +1,7 @@
 [c/22DD97:Storm's Additions Mod] (Formerly Storm Diver’s Additions Mod), is a mod that adds a range of new unique content to the game, with a total of over 300 items. It flushes out some vanilla item sets, and has many new unique sets spread across the entire game, along with many individual items obtained in their own way.
 
+This mod has ceased active development and with not recieve any updates to add new features, but will be updated to work with the lastest tmod version plus any major bugs will be patched.
+
 This mod includes:
 -Over 100 new unique weapons across all classes, including some minions and sentries
 -Over 40 new accessories, including new expert exclusive ones and some tinkers with vanilla accessories

@@ -17,7 +17,7 @@ using StormDiversMod.Items.Weapons;
 
 using static Terraria.ModLoader.ModContent;
 using Terraria.Localization;
-
+using StormDiversMod.Items.Furniture;
 
 namespace StormDiversMod.Basefiles
 {
@@ -494,6 +494,11 @@ namespace StormDiversMod.Basefiles
             if (shop.NpcType == NPCID.Painter && shop.Name != "Decor")
             {
                 shop.Add(ItemID.PainterPaintballGun);
+            }
+
+            if (shop.NpcType == NPCID.Painter && shop.Name == "Decor")
+            {
+                shop.Add(ModContent.ItemType<VortexiaPaintingItem>());
             }
 
             if (shop.NpcType == NPCID.Stylist)

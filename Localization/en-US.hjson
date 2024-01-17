@@ -1653,6 +1653,11 @@ Mods: {
 				Tooltip: "'You will be missed'"
 			}
 
+			VortexiaPaintingItem: {
+				DisplayName: Storm's Additions Mod
+				Tooltip: Thanks for playing
+			}
+
 			BloodDrop: {
 				DisplayName: Bloody Drop
 				Tooltip: A drop of blood that's somehow able to hold its shape
@@ -3951,6 +3956,7 @@ Mods: {
 			SnowmanBombBannerPlaced.MapEntry: Banner
 			PainMusicBoxPlaced.MapEntry: Music Box
 			TheGoodBoyPlaced.MapEntry: Painting
+			VortexiaPaintingPlaced.MapEntry: Painting
 		}
 
 		Configs: {

@@ -1654,6 +1654,11 @@ Mods: {
 				Tooltip: “你将被怀念”
 			}
 
+			VortexiaPaintingItem: {
+				// DisplayName: Storm's Additions Mod
+				// Tooltip: Thanks for playing
+			}
+
 			BloodDrop: {
 				DisplayName: 血滴
 				Tooltip: 以某种方式保持形状的血滴
@@ -3952,6 +3957,7 @@ Mods: {
 			SnowmanBombBannerPlaced.MapEntry: 旗帜
 			PainMusicBoxPlaced.MapEntry: 音乐盒
 			TheGoodBoyPlaced.MapEntry: 画作
+			// VortexiaPaintingPlaced.MapEntry: Painting
 		}
 
 		Configs: {
