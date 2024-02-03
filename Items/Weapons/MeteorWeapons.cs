@@ -251,7 +251,6 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Space Feather Knives");
             //Tooltip.SetDefault("Throws out several space feather knives");
             Item.ResearchUnlockCount = 1;
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AncientFlame>();
         }
         public override void SetDefaults()
         {

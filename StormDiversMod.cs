@@ -148,15 +148,15 @@ namespace StormDiversMod
                 mod.Call("AddAchievement", this, "AchievementScaryDerp", AchievementCategory.Slayer, "StormDiversMod/Assets/Achievements/AchievementScaryDerp",
                     "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<DerpMimic>() });
 
-                //Item crafts
+                //Item crafts (just make collect)
                 mod.Call("AddAchievement", this, "AchievementBiomeCore", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementBiomeCore",
-                 "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<BiomeCore>() });
+                 "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<BiomeCore>() });
                 mod.Call("AddAchievement", this, "AchievementFastDrill", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementFastDrill",
-                "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<FastDrill2>() });
+                "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<FastDrill2>() });
                 mod.Call("AddAchievement", this, "AchievementEquinox", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementEquinox",
-                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<LightDarkSword>() });
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<LightDarkSword>() });
                 mod.Call("AddAchievement", this, "AchievementStoneCannon4", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementStoneCannon4",
-                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Craft_" + ModContent.ItemType<StoneThrowerSuperLunar>() });
+                    "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<StoneThrowerSuperLunar>() });
                 //Item Collects
                 mod.Call("AddAchievement", this, "AchievementThePain", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/AchievementThePain",
                     "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Collect_" + ModContent.ItemType<ThePainMask>() });
