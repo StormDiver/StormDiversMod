@@ -33,6 +33,7 @@ using StormDiversMod.Items.Weapons;
 using StormDiversMod.Projectiles.Minions;
 using StormDiversMod.Items.Armour;
 using StormDiversMod.Projectiles.Petprojs;
+using StormDiversMod.NPCs.Boss;
 
 namespace StormDiversMod.Basefiles
 {
@@ -299,7 +300,7 @@ namespace StormDiversMod.Basefiles
             }
             if (explosionfall)//Correct fall damage when launched via sticky bomb
             {
-               
+
                 if (Player.velocity.Y > 0)
                 {
                     Player.fallStart = (int)Player.tileTargetY;
@@ -308,10 +309,10 @@ namespace StormDiversMod.Basefiles
                     explosionfall = false;
                 }
             }
-            
+
             if (NPC.CountNPCS(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>()) == 0)
             {
-                Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>()); 
+                Player.ClearBuff(ModContent.BuffType<YouCantEscapeDebuff>());
             }
             //Main.NewText("Pain is " + paintime, 220, 63, 139);
 
@@ -325,9 +326,9 @@ namespace StormDiversMod.Basefiles
             }
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
-        { 
-        //public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
-        
+        {
+            //public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+
             if (proj.type == ModContent.ProjectileType<StompBootProj2>() && target.type != NPCID.TargetDummy) //10 frames of immunity
             {
                 playerimmunetime = 10;
@@ -342,7 +343,7 @@ namespace StormDiversMod.Basefiles
                     if (ninelivescooldown < 540 && ninelives > 0)
                     {
                         if (proj.type == ModContent.ProjectileType<TheSickleProj>())
-                        ninelivescooldown += 5; //add some small time if an enemy is attacked
+                            ninelivescooldown += 5; //add some small time if an enemy is attacked
                         if (proj.type == ModContent.ProjectileType<TheSickleProj2>())
                             ninelivescooldown += 9; //add some small time if an enemy is attacked
                     }
@@ -474,6 +475,13 @@ namespace StormDiversMod.Basefiles
         //String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
+            /*if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) >= 1 && Player.respawnTimer < 5)
+            {
+                Main.NewText("Stop cheating please, set respawn timer to 5 or more seconds", 220, 63, 139);
+
+                Player.respawnTimer = 5;
+            }*/
+
             /*if (Player.HasBuff(ModContent.BuffType<YouCantEscapeDebuff>()) && !Player.HasBuff(ModContent.BuffType<PainBuff>())) //Save you from death once, won't activate if accessory does
             {
                 Suffertext = "HOW CAN YOU SUFFER IF YOU'RE DEAD???";
@@ -544,7 +552,11 @@ namespace StormDiversMod.Basefiles
         public override void OnHurt(Player.HurtInfo info)
         {
             base.OnHurt(info);
-        }        
+        }
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            
+        }
     }
     public class Itemchanges : GlobalItem
     {

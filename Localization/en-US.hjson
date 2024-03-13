@@ -3279,7 +3279,7 @@ Mods: {
 					'''
 					Can only be fired left and right
 					Hold UP/DOWN to aim upwards/downwards at a 45 degree angle respectively
-					'Wit' dis weapon I be a me a real gangsta'
+					'Wit' dis weapon I be me a real gangsta'
 					'''
 			}
 
@@ -3599,9 +3599,9 @@ Mods: {
 			StormBossMine.DisplayName: Overloaded Scandrone Mine
 			StormBossMineLarge.DisplayName: Overloaded Scandrone Large Mine
 			StormDerpProj.DisplayName: Vortex Spike
-			TheUltimateBossProj.DisplayName: Skull of Judgement
-			TheUltimateBossProj2.DisplayName: Skull of Judgement
-			TheUltimateBossProj3.DisplayName: Shattered Shard
+			TheUltimateBossProj.DisplayName: Skull of Pain
+			TheUltimateBossProj2.DisplayName: Skull of Pain
+			TheUltimateBossProj3.DisplayName: Shard of Pain
 			TheUltimateBossProj4.DisplayName: Explosion of Pain
 			VortCannonProj.DisplayName: Vortexian Rocket
 			TheClaySlimeProj.DisplayName: Clay Slime Blob

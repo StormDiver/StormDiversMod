@@ -59,7 +59,7 @@ namespace StormDiversMod.Items.Summons
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            foreach (TooltipLine line in tooltips)
+            /*foreach (TooltipLine line in tooltips)
             {              
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
@@ -69,7 +69,7 @@ namespace StormDiversMod.Items.Summons
                         line.Text = line.Text + "\n[c/ffa500:Fairy Buggy on multiplayer!]\n[c/ffa500:For the best experience fight the boss on single player!]"; //multiplayer sucks
                     }
                 }
-            }
+            }*/
         }
         public override Vector2? HoldoutOffset()
         {

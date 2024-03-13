@@ -106,7 +106,10 @@ namespace StormDiversMod.NPCs.Boss
         float extravel;
         public override void AI()
         {
-            NPC.boss = true; //prevent despawn
+            //if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC.boss = true; //prevent despawn
+            }
             NPC.damage = 0;
             //===============AI fields================
             //NPC.ai[1] = X postion
@@ -357,6 +360,10 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
+            if (NPC.life <= 0)
+            {
+                NPC.boss = false; //no death message
+            }
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers

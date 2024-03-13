@@ -1809,6 +1809,7 @@ namespace StormDiversMod.NPCs.Boss
             LeadingConditionRule notExpert = new LeadingConditionRule(new Conditions.NotExpert());
             //boss trophy
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.BossTrophy.UltimateBossTrophy>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Furniture.VortexiaPaintingItem>(), 1));
 
             //pain
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapons.PainStaff>(), 1));

@@ -42,14 +42,14 @@ namespace StormDiversMod.Items.Summons
                         line.Text = line.Text + "\n[c/00FFA5:The Signal appears to be blocked by the souls of the mechanical bosses]"; //Unusable pre mechs
                     }
                 }
-                if (Main.netMode == NetmodeID.MultiplayerClient)
+                /*if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
 
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
                         line.Text = line.Text + "\n[c/ffa500:Fairy Buggy on multiplayer!]\n[c/ffa500:For the best experience fight the boss on single player!]"; //multiplayer sucks
                     }
-                }
+                }*/
             }
         }
         public override void SetDefaults()
