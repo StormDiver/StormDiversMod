@@ -649,8 +649,10 @@ Mods: {
 				DisplayName: 痛苦使者核心
 				Tooltip:
 					'''
-					每2分钟救你一次于死亡边缘
-					“活着，再次经历苦难”
+					每 2 分钟使你免于死亡一次，并获得 5 秒的免疫时间
+					还会释放一堆自动寻的痛苦头骨，每次你复活时都会造成严重伤害	
+					如果致命一击造成超过 9999 点伤害，则不会激活
+					“活着再受苦一天”
 					'''
 			}
 
@@ -1112,8 +1114,7 @@ Mods: {
 				DisplayName: 冷冻面具
 				Tooltip:
 					'''
-					哨兵数量上限提高1个
-					增加7%的伤害
+					魔法和召唤伤害提高 10%
 					“冷冽且迷雾缭绕”
 					'''
 				SetBonus1:
@@ -1133,8 +1134,8 @@ Mods: {
 				DisplayName: 冷冻胸甲
 				Tooltip:
 					'''
-					增加8%的伤害
-					增加6%的暴击率
+					仆从最大数量增加 1
+					增加法力再生
 					'''
 			}
 
@@ -1142,9 +1143,8 @@ Mods: {
 				DisplayName: 冷冻护胫
 				Tooltip:
 					'''
-					哨兵数量上限提高1个
-					增加7%的伤害
-					增加10%的移动速度
+					哨兵最大数量增加 1
+					最大法力值增加 20
 					'''
 			}
 
@@ -1160,7 +1160,7 @@ Mods: {
 				Tooltip:
 					'''
 					增加10%的伤害
-					增加5%的暴击率
+					仆从最大数量增加 1
 					'''
 				SetBonus:
 					'''
@@ -1175,7 +1175,7 @@ Mods: {
 				Tooltip:
 					'''
 					增加10%的伤害
-					增加5%的暴击率
+					仆从最大数量增加 1
 					'''
 				SetBonus:
 					'''
@@ -1495,7 +1495,7 @@ Mods: {
 
 			SnowfallBMask: {
 				DisplayName: 落雪兜帽
-				Tooltip: 暴击率增加5%
+				Tooltip: 略微增加加速度
 				SetBonus:
 					'''
 					按住跳跃键可滑翔
@@ -1505,12 +1505,12 @@ Mods: {
 
 			SnowfallChest: {
 				DisplayName: 落雪外套
-				Tooltip: 伤害固定增加1
+				Tooltip: 略微增加加速度
 			}
 
 			SnowfallLeg: {
 				DisplayName: 落雪靴
-				Tooltip: 跳跃和移动速度增加10%
+				Tooltip: 略微增加加速度
 			}
 
 			SpaceRockBHelmet: {

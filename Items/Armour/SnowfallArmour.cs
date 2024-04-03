@@ -34,6 +34,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
+            player.runAcceleration += 0.1f;
+            player.runSlowdown += 0.05f;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -101,7 +103,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-
+            player.runAcceleration += 0.1f;
+            player.runSlowdown += 0.05f;
         }
         public override void AddRecipes()
         {
@@ -135,7 +138,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            
+            player.runAcceleration += 0.1f;
+            player.runSlowdown += 0.05f;
         }
         public override void AddRecipes()
         {

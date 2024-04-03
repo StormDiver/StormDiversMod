@@ -10,6 +10,7 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
+using System.Reflection.Metadata.Ecma335;
 
 namespace StormDiversMod.Projectiles
 {
@@ -214,7 +215,7 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
-
+       
         public override void SetDefaults()
         {
             Projectile.width = 32;
@@ -227,13 +228,24 @@ namespace StormDiversMod.Projectiles
             //aiType = ProjectileID.Bullet;
             Projectile.aiStyle = 0;
             Projectile.scale = 0.75f;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = true; 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            Projectile.extraUpdates = 1;
+            if (Projectile.ai[2] == 2)
+                Projectile.extraUpdates = 0;
+            else
+                Projectile.extraUpdates = 1;
+
 
             //drawOffsetX = 2;
             //drawOriginOffsetY = -10;
+        }
+        public override bool? CanDamage()
+        {
+            if (Projectile.ai[2] == 1 && Projectile.timeLeft > 240)
+                return false;
+            else
+                return true;
         }
         public override void OnSpawn(IEntitySource source)
         {
@@ -254,7 +266,7 @@ namespace StormDiversMod.Projectiles
         {
             var player = Main.player[Projectile.owner];
 
-            if (Projectile.position.Y > Main.MouseWorld.Y && Projectile.ai[0] == 0)
+            if (Projectile.position.Y > Main.MouseWorld.Y && Projectile.ai[0] == 0 || Projectile.ai[2] == 1)
             {
                 Projectile.tileCollide = true;
             }
@@ -290,39 +302,41 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.knockBack = 6;
             }
-            if (Projectile.localAI[0] == 0f)
+            if (Projectile.ai[2] == 0 || Projectile.timeLeft <= 240)
             {
-                AdjustMagnitude(ref Projectile.velocity);
-                Projectile.localAI[0] = 1f;
-            }
-            Vector2 move = Vector2.Zero;
-            float distance = 1000f;
-            bool target = false;
-            for (int k = 0; k < 200; k++)
-            {
-                if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
+                if (Projectile.localAI[0] == 0f)
                 {
-                    if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
+                    AdjustMagnitude(ref Projectile.velocity);
+                    Projectile.localAI[0] = 1f;
+                }
+                Vector2 move = Vector2.Zero;
+                float distance = 1000f;
+                bool target = false;
+                for (int k = 0; k < 200; k++)
+                {
+                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
                     {
-                        Vector2 newMove = Main.npc[k].Center - Projectile.Center;
-                        float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-                        if (distanceTo < distance)
+                        if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                         {
-                            move = newMove;
-                            distance = distanceTo;
-                            target = true;
+                            Vector2 newMove = Main.npc[k].Center - Projectile.Center;
+                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                            if (distanceTo < distance)
+                            {
+                                move = newMove;
+                                distance = distanceTo;
+                                target = true;
+                            }
                         }
                     }
                 }
-            }
 
-            if (target)
-            {
-                AdjustMagnitude(ref move);
-                Projectile.velocity = (10f * Projectile.velocity + move) / 10f;
-                AdjustMagnitude(ref Projectile.velocity);
+                if (target)
+                {
+                    AdjustMagnitude(ref move);
+                    Projectile.velocity = (10f * Projectile.velocity + move) / 10f;
+                    AdjustMagnitude(ref Projectile.velocity);
+                }
             }
-
         }
 
         private void AdjustMagnitude(ref Vector2 vector)
@@ -346,12 +360,25 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.timeLeft > 3)
+            if (Projectile.ai[2] == 1 && Projectile.timeLeft > 240)
             {
-                Projectile.timeLeft = 3;
+                if (Projectile.velocity.X != oldVelocity.X)
+                {
+                    Projectile.velocity.X = -oldVelocity.X;
+                }
+                if (Projectile.velocity.Y != oldVelocity.Y)
+                {
+                    Projectile.velocity.Y = -oldVelocity.Y;
+                }
+            }
+            else
+            {
+                if (Projectile.timeLeft > 3)
+                {
+                    Projectile.timeLeft = 3;
+                }
             }
             return false;
-
         }
 
         public override void OnKill(int timeLeft)

@@ -649,7 +649,8 @@ Mods: {
 				DisplayName: The Painbringer Core
 				Tooltip:
 					'''
-					Saves you from death once every 2 minutes
+					Saves you from death once every 2 minutes, granting 5 seconds of immunity
+					Also releases a bunch of homing pain skulls that deal heavy damage each time you're revived
 					Doesn't activate if the killing blow deals over 9999 damage
 					'Live to suffer another day'
 					'''
@@ -1112,7 +1113,7 @@ Mods: {
 				DisplayName: Cryogenic Mask
 				Tooltip:
 					'''
-					8% increased magic damage
+					10% increased magic and summon damage
 					Increases maximum mana by 40
 					'Cold and Misty'
 					'''
@@ -1133,8 +1134,8 @@ Mods: {
 				DisplayName: Cryogenic Chestplate
 				Tooltip:
 					'''
-					6% increased magic damage 
-					4% increased magic critical strike chance
+					Increases maximum number of minions by 1
+					Increases mana regeneration
 					'''
 			}
 
@@ -1142,7 +1143,7 @@ Mods: {
 				DisplayName: Cryogenic Greaves
 				Tooltip:
 					'''
-					6% increased magic critical strike chance
+					Increases maximum number of sentries by 1
 					Increases maximum mana by 20
 					'''
 			}
@@ -1159,7 +1160,7 @@ Mods: {
 				Tooltip:
 					'''
 					10% increased damage
-					5% increased critical strike chance
+					Increases maximum number of minions by 1
 					'''
 				SetBonus:
 					'''
@@ -1174,7 +1175,7 @@ Mods: {
 				Tooltip:
 					'''
 					10% increased damage
-					5% increased critical strike chance
+					Increases maximum number of minions by 1
 					'''
 				SetBonus:
 					'''
@@ -1232,7 +1233,7 @@ Mods: {
 				DisplayName: Infernal Soul Crown
 				Tooltip:
 					'''
-					15% increased summoner damage
+					15% increased summon damage
 					Increases maximum number of minions by 2
 					'''
 				SetBonus1:
@@ -1439,7 +1440,7 @@ Mods: {
 					'''
 					15% increased whip range
 					10% increased whip speed
-					8% increased summoner damage
+					8% increased summon damage
 					'''
 				SetBonus:
 					'''
@@ -1454,7 +1455,7 @@ Mods: {
 					'''
 					10% increased whip range
 					Increases maximum minions by 1
-					8% increased summoner damage
+					8% increased summon damage
 					'''
 			}
 
@@ -1464,7 +1465,7 @@ Mods: {
 					'''
 					10% increased whip range
 					15% increased whip speed
-					8% increased summoner damage
+					8% increased summon damage
 					'''
 			}
 
@@ -1494,7 +1495,7 @@ Mods: {
 
 			SnowfallBMask: {
 				DisplayName: Snowfall Hood
-				Tooltip: ""
+				Tooltip: Slightly increases acceleration
 				SetBonus:
 					'''
 					Hold JUMP to glide for a short time
@@ -1504,12 +1505,12 @@ Mods: {
 
 			SnowfallChest: {
 				DisplayName: Snowfall Coat
-				Tooltip: ""
+				Tooltip: Slightly increases acceleration
 			}
 
 			SnowfallLeg: {
 				DisplayName: Snowfall Boots
-				Tooltip: ""
+				Tooltip: Slightly increases acceleration
 			}
 
 			SpaceRockBHelmet: {
@@ -1561,7 +1562,7 @@ Mods: {
 				Tooltip:
 					'''
 					10% increased whip range and speed
-					15% increased summoner damage
+					15% increased summon damage
 					Increases maximum minions by 1
 					'''
 				SetBonus:
@@ -1577,7 +1578,7 @@ Mods: {
 				Tooltip:
 					'''
 					15% increased whip range and speed
-					15% increased summoner damage
+					15% increased summon damage
 					Enables autoswing for whips
 					'''
 			}
@@ -1588,7 +1589,7 @@ Mods: {
 					'''
 					15% increased whip range
 					10% increased whip speed
-					10% increased summoner damage
+					10% increased summon damage
 					Increases maximum minions by 1
 					'''
 			}

@@ -40,8 +40,15 @@ namespace StormDiversMod.Items.Weapons
                         line.Text = "You haven't experienced pain yet, why do you have this?";
                     }
                 }
+
+                if (line.Mod == "Terraria" && line.Name == "ItemName")
+                {
+                    line.Text = line.Text + " (" + classtext + ")";
+                }
             }
         }
+
+        
         public override void SetDefaults()
         {
             Item.damage = 200;
@@ -200,6 +207,7 @@ namespace StormDiversMod.Items.Weapons
             }
             return false;
         }
+      
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
@@ -303,6 +311,10 @@ namespace StormDiversMod.Items.Weapons
                     {
                         line.Text = "You haven't experienced pain yet, why do you have this?";
                     }
+                }
+                if (line.Mod == "Terraria" && line.Name == "ItemName")
+                {
+                    line.Text = line.Text + " (" + classtext + ")";
                 }
             }
         }

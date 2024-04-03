@@ -1356,18 +1356,7 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            if (!Main.expertMode)
-            {
-                //No Debuff
-            }
-            if (Main.expertMode && !Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 150); //2.5 seconds
-            }
-            if (Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 300); //5 seconds
-            }
+            
         }
         public override void HitEffect(NPC.HitInfo hit)
         {  

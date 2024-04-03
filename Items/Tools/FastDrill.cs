@@ -57,7 +57,7 @@ namespace StormDiversMod.Items.Tools
         public override void SetDefaults()
         {
 
-            Item.damage = 25;
+            Item.damage = 15;
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 40;
             Item.height = 22;

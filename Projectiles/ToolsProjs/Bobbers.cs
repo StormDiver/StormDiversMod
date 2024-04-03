@@ -26,7 +26,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
         // This holds the index of the fishing line color in the PossibleLineColors array.
         private int fishingLineColorIndex;
 
-        private Color FishingLineColor => PossibleLineColors[fishingLineColorIndex];
+		public Color FishingLineColor => PossibleLineColors[fishingLineColorIndex];
 
         public override void SetStaticDefaults()
         {
@@ -64,14 +64,14 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             }
         }
 
-        public override void ModifyFishingLine(ref Vector2 lineOriginOffset, ref Color lineColor)
+        /*public override void ModifyFishingLine(ref Vector2 lineOriginOffset, ref Color lineColor)
         {
             // Change these two values in order to change the origin of where the line is being drawn.
             // This will make it draw 47 pixels right and 31 pixels up from the player's center, while they are looking right and in normal gravity.
             lineOriginOffset = new Vector2(43, -25);
             // Sets the fishing line's color. Note that this will be overridden by the colored string accessories.
             lineColor = FishingLineColor;
-        }
+        }*/
 
         // These last two methods are required so the line color is properly synced in multiplayer.
         public override void SendExtraAI(BinaryWriter writer)
@@ -94,7 +94,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 		// This holds the index of the fishing line color in the PossibleLineColors array.
 		private int fishingLineColorIndex;
 
-		private Color FishingLineColor => PossibleLineColors[fishingLineColorIndex];
+        public Color FishingLineColor => PossibleLineColors[fishingLineColorIndex];
 
 		public override void SetStaticDefaults()
 		{
@@ -132,14 +132,14 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 			}
 		}
 
-		public override void ModifyFishingLine(ref Vector2 lineOriginOffset, ref Color lineColor)
+		/*public override void ModifyFishingLine(ref Vector2 lineOriginOffset, ref Color lineColor)
 		{
 			// Change these two values in order to change the origin of where the line is being drawn.
 			// This will make it draw 47 pixels right and 31 pixels up from the player's center, while they are looking right and in normal gravity.
 			lineOriginOffset = new Vector2(47, -25);
 			// Sets the fishing line's color. Note that this will be overridden by the colored string accessories.
 			lineColor = FishingLineColor;
-		}
+		}*/
 
 		// These last two methods are required so the line color is properly synced in multiplayer.
 		public override void SendExtraAI(BinaryWriter writer)
@@ -162,7 +162,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
         // This holds the index of the fishing line color in the PossibleLineColors array.
         private int fishingLineColorIndex;
 
-        private Color FishingLineColor => PossibleLineColors[fishingLineColorIndex];
+        public Color FishingLineColor => PossibleLineColors[fishingLineColorIndex];
 
         public override void SetStaticDefaults()
         {
@@ -229,7 +229,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             }
         }
 
-        public override void ModifyFishingLine(ref Vector2 lineOriginOffset, ref Color lineColor)
+        /*public override void ModifyFishingLine(ref Vector2 lineOriginOffset, ref Color lineColor)
         {
             // Change these two values in order to change the origin of where the line is being drawn.
             // This will make it draw 47 pixels right and 31 pixels up from the player's center, while they are looking right and in normal gravity.
@@ -247,7 +247,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
                 lineColor = new Color(0, 173, 246);
 
             lineColor.A = 255;
-        }
+        }*/
 
         // 225, 154, 0
         // 0, 238, 161

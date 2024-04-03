@@ -19,7 +19,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Cryogenic Mask");
-            //Tooltip.SetDefault("8% increased magic damage
+            //Tooltip.SetDefault("10% increased magic and summon damage
             //Increases maximum mana by 40
               //'Cold and Misty'");
             Item.ResearchUnlockCount = 1;
@@ -35,13 +35,15 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Orange;
-            Item.defense = 6;
+            Item.defense = 5;
         }
         public override void UpdateEquip(Player player)
         {
             //player.maxTurrets += 1;
             //player.GetDamage(DamageClass.Generic) += 0.07f;
-            player.GetDamage(DamageClass.Magic) += 0.08f;
+            player.GetDamage(DamageClass.Magic) += 0.1f;
+            player.GetDamage(DamageClass.Summon) += 0.1f;
+
             player.statManaMax2 += 40;
         }
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -124,8 +126,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Cryogenic Chestplate");
-            //Tooltip.SetDefault("6% increased magic damage 
-            //4 % increased magic critical strike chance");
+            //Tooltip.SetDefault("Increases maximum minions by 1\nIncreases Mana regeneration");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -136,16 +137,15 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Orange;
-            Item.defense = 6;
+            Item.defense = 5;
 
         }
         public override void UpdateEquip(Player player)
         {
-            //player.GetDamage(DamageClass.Generic) += 0.08f;
-            //player.GetCritChance(DamageClass.Generic) += 6;
-            player.GetDamage(DamageClass.Magic) += 0.06f;
-            player.GetCritChance(DamageClass.Magic) += 4;
-
+            //player.GetDamage(DamageClass.Magic) += 0.06f;
+            //player.GetCritChance(DamageClass.Magic) += 4;
+            player.maxMinions += 1;
+            player.manaRegenBuff = true;
         }
         public override void AddRecipes()
         {
@@ -166,7 +166,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Cryogenic Greaves");
-            //Tooltip.SetDefault("6% increased magic critical strike chance
+            //Tooltip.SetDefault("Increases your max number of sentries by 1\n
             //Increases maximum mana by 20");
             Item.ResearchUnlockCount = 1;
         }
@@ -177,15 +177,16 @@ namespace StormDiversMod.Items.Armour
             Item.height = 18;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Orange;
-            Item.defense = 6;
+            Item.defense = 5;
 
         }
         public override void UpdateEquip(Player player)
         {
             //player.maxTurrets += 1;
             //player.GetDamage(DamageClass.Generic) += 0.07f;
-            player.GetCritChance(DamageClass.Magic) += 6;
+            //player.GetCritChance(DamageClass.Magic) += 6;
             player.statManaMax2 += 20;
+            player.maxTurrets += 1;
         }
         public override void AddRecipes()
         {

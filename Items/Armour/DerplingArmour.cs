@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Derpling Mask");
-            //Tooltip.SetDefault("10% increased damage\n5% increased critical strike chance");
+            //Tooltip.SetDefault("10% increased damage\nIncreases maximum number of minions by 1");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -35,7 +35,8 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Generic) += 0.10f;
-            player.GetCritChance(DamageClass.Generic) += 5;
+            //player.GetCritChance(DamageClass.Generic) += 5;
+            player.maxMinions += 1;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -97,7 +98,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Ancient Derpling Helmet");
-            //Tooltip.SetDefault("10% increased damage\n5% increased critical strike chance");
+            //Tooltip.SetDefault("10% increased damage\nIncreases maximum number of minions by 1");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -114,7 +115,8 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Generic) += 0.10f;
-            player.GetCritChance(DamageClass.Generic) += 5;
+            //player.GetCritChance(DamageClass.Generic) += 5;
+            player.maxMinions += 1;
         }
 
         public override void ArmorSetShadows(Player player)

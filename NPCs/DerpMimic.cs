@@ -121,7 +121,7 @@ namespace StormDiversMod.NPCs
         float oldmovespeed;
 
         int groundtime;
-        int projdamage = 300;
+        int projdamage;
         bool onasphalt;
         Player player;
       

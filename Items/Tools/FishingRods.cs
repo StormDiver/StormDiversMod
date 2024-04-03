@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using StormDiversMod.Projectiles.ToolsProjs;
 
 namespace StormDiversMod.Items.Tools
 {
@@ -52,6 +53,24 @@ namespace StormDiversMod.Items.Tools
                 Projectile.NewProjectile(source, position, bobberSpeed, type, 0, 0f, player.whoAmI);
             }
             return false;
+        }
+
+        public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor)
+        {
+            // Change these two values in order to change the origin of where the line is being drawn.
+            lineOriginOffset = new Vector2(43, -25);
+
+            // Sets the fishing line's color. Note that this will be overridden by the colored string accessories.
+            if (bobber.ModProjectile is BobberCoral bobberCoral)
+            {
+                // ExampleBobber has custom code to decide on a line color.
+                lineColor = bobberCoral.FishingLineColor;
+            }
+            else
+            {
+                // If the bobber isn't ExampleBobber, a Fishing Bobber accessory is in effect and we use DiscoColor instead.
+                lineColor = Main.DiscoColor;
+            }
         }
 
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
@@ -111,7 +130,25 @@ namespace StormDiversMod.Items.Tools
 			}
 			return false;
 		}
-		public override void AddRecipes()
+
+        public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor)
+        {
+            // Change these two values in order to change the origin of where the line is being drawn.
+            lineOriginOffset = new Vector2(47, -25);
+
+            // Sets the fishing line's color. Note that this will be overridden by the colored string accessories.
+            if (bobber.ModProjectile is BobberDerpling bobberDerpling)
+            {
+                // ExampleBobber has custom code to decide on a line color.
+                lineColor = bobberDerpling.FishingLineColor;
+            }
+            else
+            {
+                // If the bobber isn't ExampleBobber, a Fishing Bobber accessory is in effect and we use DiscoColor instead.
+                lineColor = Main.DiscoColor;
+            }
+        }
+        public override void AddRecipes()
 		{
 			CreateRecipe()
 		 .AddIngredient(ItemID.ChlorophyteBar, 10)
@@ -173,7 +210,34 @@ namespace StormDiversMod.Items.Tools
             return false;
         }
 
-        // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
+        public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor)
+        {
+            // Change these two values in order to change the origin of where the line is being drawn.
+            lineOriginOffset = new Vector2(47, -25);
+
+            // Sets the fishing line's color. Note that this will be overridden by the colored string accessories.
+            if (bobber.ModProjectile is BobberLunar bobberLunar)
+            {
+                if (bobberLunar.Projectile.ai[2] == 0)//solar
+                    lineColor = new Color(225, 154, 0, 255);
+                else if (bobberLunar.Projectile.ai[2] == 1) //vortex
+                    lineColor = new Color(0, 238, 161, 255);
+                else if (bobberLunar.Projectile.ai[2] == 2) //nebula
+                    lineColor = new Color(255, 96, 232, 255);
+                else  //Stardust
+                    lineColor = new Color(0, 173, 246, 255);
+
+                //lineColor.A = 0;
+                // ExampleBobber has custom code to decide on a line color.
+                //lineColor = bobberLunar.FishingLineColor;
+            }
+            else
+            {
+                // If the bobber isn't ExampleBobber, a Fishing Bobber accessory is in effect and we use DiscoColor instead.
+                lineColor = Main.DiscoColor;
+            }
+        }
+
         public override void AddRecipes()
         {
          CreateRecipe()

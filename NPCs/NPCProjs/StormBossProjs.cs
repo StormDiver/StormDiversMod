@@ -64,18 +64,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            /*if (!Main.expertMode)
-            {
-                //No Debuff
-            }
-            if (Main.expertMode && !Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 60);
-            }
-            if (Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 120);
-            }*/
+           
         }
 
         public override void OnKill(int timeLeft)
@@ -202,7 +191,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                    
                     if (Vector2.Distance(target.Center, Projectile.Center) < 2000f && target.active)
                     {
-                        float projspeed = 6.5f;
+                        float projspeed = 6f;
                         Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
                         Projectile.velocity.X = velocity.X;
@@ -214,19 +203,6 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            /*if (!Main.expertMode)
-            {
-                //No Debuff
-            }
-            if (Main.expertMode && !Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 60);
-            }
-            if (Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 120);
-            }*/
-
             Projectile.Kill();
         }
 
@@ -358,7 +334,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
                     if (Vector2.Distance(target.Center, Projectile.Center) < 2000f && target.active)
                     {
-                        float projspeed = 8f;
+                        float projspeed = 7f;
                         Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
                         Projectile.velocity.X = velocity.X;
@@ -391,18 +367,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 Projectile.timeLeft = 3;
             }
-            /*if (!Main.expertMode)
-            {
-                //No Debuff
-            }
-            if (Main.expertMode && !Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 60);
-            }
-            if (Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 120);
-            }*/
         }
 
         public override void OnKill(int timeLeft)
@@ -488,9 +452,11 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
-
+            Player player= Main.LocalPlayer;
+            if (player.position.Y < Projectile.position.Y)
             fallThrough = false;
-
+            else
+            fallThrough = true;
             return true;
         }
         public override void AI()
@@ -533,19 +499,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 Projectile.timeLeft = 3;
             }
-
-            /*if (!Main.expertMode)
-            {
-                //No Debuff
-            }
-            if (Main.expertMode && !Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 60);
-            }
-            if (Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 120);
-            }*/
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
 
@@ -838,18 +791,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            if (!Main.expertMode)
-            {
-                //No Debuff
-            }
-            if (Main.expertMode && !Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 90); //1.5
-            }
-            if (Main.masterMode)
-            {
-                target.AddBuff(BuffID.Electrified, 180); //3
-            }
+           
         }
         public override void OnKill(int timeLeft)
         {

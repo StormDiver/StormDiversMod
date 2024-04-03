@@ -120,7 +120,7 @@ namespace StormDiversMod.Basefiles
 
         public bool DeathCore; //Player has Prignerbringer Core equipped
 
-        public bool SantaCore; //Player has Prignerbringer Core equipped
+        public bool SantaCore; //Player has santa Core equipped
 
         public bool frozenNecklace; //Player has Frost necklace equipped
 
@@ -1486,15 +1486,15 @@ namespace StormDiversMod.Basefiles
                 int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainNofaceProj>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 2.5f;
 
-                float numberProjectiles = 24;
+                float numberProjectiles = 20;
                 float rotation = MathHelper.ToRadians(180);
                 //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
                 for (int j = 0; j < numberProjectiles; j++)
                 {
                     float speedX = 0f;
-                    float speedY = 20f;
+                    float speedY = 7f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles - 1)));
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainCoreProj>(), 0, 0, Main.myPlayer, 1);
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainStaffProj>(), 2000, 0, Main.myPlayer, 0, 0, 1);
                 }
                 SoundEngine.PlaySound(SoundID.Item109 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
 
