@@ -74,8 +74,7 @@ namespace StormDiversMod.NPCs
     BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
     // Sets the description of this NPC that is listed in the bestiary.
-    new FlavorTextBestiaryInfoElement("A cauldron filled with hundreds of burning souls, doomed to spend eternity in hell.")
-});
+    new FlavorTextBestiaryInfoElement("A cauldron filled with hundreds of burning souls, doomed to spend eternity in hell.")});
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -91,16 +90,47 @@ namespace StormDiversMod.NPCs
             }
 
         }
+
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.5f);
+                    NPC.damage = (int)(NPC.damage * 1.66f);
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
+                    NPC.damage = (int)(NPC.damage * 1.33f);
+                }
+            }
+        }
         int shoottime = 0;
         int phasetime; //How long to remain in a phase
 
         int phase = 0; //0 = phase 1, 1 = phase 2, 2 = phase 3
 
         float distance;
-
+        int clamteadmg = 100;
         public override void AI()
         {
-
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    clamteadmg = 166; //1.66x
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    clamteadmg = 133; //1.33x
+                }
+                else
+                {
+                    clamteadmg = 100; //1x
+                }
+            }
             NPC.spriteDirection = NPC.direction;
             if (!Main.dedServ)
             {
@@ -123,7 +153,7 @@ namespace StormDiversMod.NPCs
                     if (shoottime >= 90)
                     {
                         float projectileSpeed = 4.5f; // The speed of your projectile (in pixels per second).
-                        int damage = 30; // The damage your projectile deals. normal x2, expert x4
+                        int damage = (30 * clamteadmg) / 100; // The damage your projectile deals. normal x2, expert x4
                         float knockBack = 1;
                         int type = ModContent.ProjectileType<NPCs.NPCProjs.HellMiniBossProj1>();
 
@@ -192,7 +222,7 @@ namespace StormDiversMod.NPCs
                     if (shoottime >= 150)
                     {
                         float projectileSpeed = 5f; // The speed of your projectile (in pixels per second).
-                        int damage = 20; // The damage your projectile deals. normal x2, expert x4
+                        int damage = (20 * clamteadmg) / 100; // The damage your projectile deals. normal x2, expert x4
                         float knockBack = 1;
                         int type = ModContent.ProjectileType<NPCs.NPCProjs.HellMiniBossProj2>();
 

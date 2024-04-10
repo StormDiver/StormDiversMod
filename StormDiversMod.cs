@@ -49,27 +49,6 @@ namespace StormDiversMod
                 if (bossChecklist != null)
                 {
                     bossChecklist.Call
-                        ("LogBoss",
-                        this,
-                        nameof(StormBoss),
-                        11.9f,
-                        () => StormWorld.stormBossDown,
-                        ModContent.NPCType<NPCs.Boss.StormBoss>(),
-                        new Dictionary<string, object>()
-                        {
-                            ["spawnItems"] = ModContent.ItemType<StormBossSummoner>(),
-                            ["collectibles"] = ItemID.MusicBoxBoss4,
-                            ["customPortrait"] = (SpriteBatch sb, Rectangle rect, Color color) =>
-                            {
-                                Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
-                                Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
-                                sb.Draw(texture, centered, color);
-                            }
-                        }
-
-                        );
-
-                    bossChecklist.Call
                        ("LogBoss",
                         this,
                         nameof(AridBoss),
@@ -89,6 +68,27 @@ namespace StormDiversMod
                          }
 
                        );
+
+                    bossChecklist.Call
+                        ("LogBoss",
+                        this,
+                        nameof(StormBoss),
+                        11.9f,
+                        () => StormWorld.stormBossDown,
+                        ModContent.NPCType<NPCs.Boss.StormBoss>(),
+                        new Dictionary<string, object>()
+                        {
+                            ["spawnItems"] = ModContent.ItemType<StormBossSummoner>(),
+                            ["collectibles"] = ItemID.MusicBoxBoss4,
+                            ["customPortrait"] = (SpriteBatch sb, Rectangle rect, Color color) =>
+                            {
+                                Texture2D texture = ModContent.Request<Texture2D>("StormDiversMod/NPCs/Boss/StormBoss_Image").Value;
+                                Vector2 centered = new Vector2(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
+                                sb.Draw(texture, centered, color);
+                            }
+                        }
+
+                        );
 
                     bossChecklist.Call
                        ("LogBoss",
@@ -221,6 +221,7 @@ namespace StormDiversMod
                 }*/
 
             }
+            
         } 
         public static ModKeybind ArmourSpecialHotkey;
 

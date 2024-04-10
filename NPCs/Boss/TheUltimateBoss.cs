@@ -112,6 +112,20 @@ namespace StormDiversMod.NPCs.Boss
             }
             //250/350/450
             NPC.damage = (int)(NPC.damage * 0.75f);
+
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.5f);
+                    NPC.damage = (int)(NPC.damage * 1.66f);
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
+                    NPC.damage = (int)(NPC.damage * 1.33f);
+                }
+            }
         }
         float speed = 50;
         float inertia = 10;
@@ -131,6 +145,7 @@ namespace StormDiversMod.NPCs.Boss
         float movespeed = 1; //movespeed for attack 7
         int projspread; //spread for attack 10
         int teleporttime; // time till teleport
+        int clamteadmg = 100;
         Player player;
         public override bool CheckDead() //For death animation
         {
@@ -154,16 +169,31 @@ namespace StormDiversMod.NPCs.Boss
 
         public override void AI()
         {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    clamteadmg = 166; //1.66x
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    clamteadmg = 133; //1.33x
+                }
+                else
+                {
+                    clamteadmg = 100; //1x
+                }
+            }
             if ((NPC.ai[3] == 9 && NPC.ai[0] >= 120) || NPC.ai[3] == 10) //Gain contact damage on last phases, after a small delay at first
             {
                 if (Main.getGoodWorld)
-                    NPC.damage = 500; 
+                    NPC.damage = (500 * clamteadmg) / 100; 
                 else if (Main.masterMode)
-                    NPC.damage = 350; 
+                    NPC.damage = (350 * clamteadmg) / 100; 
                 else if (Main.expertMode && !Main.masterMode)
-                    NPC.damage = 250; 
+                    NPC.damage = (250 * clamteadmg) / 100; 
                 else
-                    NPC.damage = 150; 
+                    NPC.damage = (150 * clamteadmg) / 100; 
             }
             else
                 NPC.damage = 0;
@@ -713,13 +743,13 @@ namespace StormDiversMod.NPCs.Boss
 
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 70; //140/280/420 on ftw                          
+                    projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 50; // 300 on master               
+                    projdamage = (50 * clamteadmg) / 100; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 55; // 220 On expert
+                    projdamage = (55 * clamteadmg) / 100; // 220 On expert
                 else
-                    projdamage = 70; // 140 on normal
+                    projdamage = (70 * clamteadmg) / 100; // 140 on normal
                     
                 if (NPC.ai[0] > 90) //Delay before firing
                 {
@@ -790,13 +820,13 @@ namespace StormDiversMod.NPCs.Boss
 
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 60; //120/240/360 on ftw                          
+                    projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 40; // 240 on master               
+                    projdamage = (40 * clamteadmg) / 100; // 240 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 45; // 180 On expert
+                    projdamage = (45 * clamteadmg) / 100; // 180 On expert
                 else
-                    projdamage = 60; // 120 on normal
+                    projdamage = (60 * clamteadmg) / 100; // 120 on normal
 
                 if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[3] < 9)
                 {
@@ -907,13 +937,13 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 70; //140/280/420 on ftw                          
+                    projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 50; // 300 on master               
+                    projdamage = (50 * clamteadmg) / 100; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 55; // 220 On expert
+                    projdamage = (55 * clamteadmg) / 100; // 220 On expert
                 else
-                    projdamage = 70; // 140 on normal
+                    projdamage = (70 * clamteadmg) / 100; // 140 on normal
 
                 if (NPC.ai[0] > 60) //Delay before firing
                 {
@@ -1017,13 +1047,13 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 60; //120/240/360 on ftw                          
+                    projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 40; // 240 on master               
+                    projdamage = (40 * clamteadmg) / 100; // 240 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 45; // 180 On expert
+                    projdamage = (45 * clamteadmg) / 100; // 180 On expert
                 else
-                    projdamage = 60; // 120 on normal
+                    projdamage = (60 * clamteadmg) / 100; // 120 on normal
 
                 if (NPC.ai[0] > 60) //Delay before firing
                 {
@@ -1109,13 +1139,13 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 70; //140/280/420 on ftw                          
+                    projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 50; // 300 on master               
+                    projdamage = (50 * clamteadmg) / 100; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 55; // 220 On expert
+                    projdamage = (55 * clamteadmg) / 100; // 220 On expert
                 else
-                    projdamage = 70; // 140 on normal
+                    projdamage = (70 * clamteadmg) / 100; // 140 on normal
 
                 if (NPC.ai[0] > 60) //Delay before firing
                 {
@@ -1196,13 +1226,13 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 60; //120/240/360 on ftw                          
+                    projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 40; // 240 on master               
+                    projdamage = (40 * clamteadmg) / 100; // 240 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 45; // 180 On expert
+                    projdamage = (45 * clamteadmg) / 100; // 180 On expert
                 else
-                    projdamage = 60; // 120 on normal
+                    projdamage = (60 * clamteadmg) / 100; // 120 on normal
                 if (NPC.ai[0] > 90) //Delay before firing
                 {
                     NPC.localAI[0]++;
@@ -1306,13 +1336,13 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 70; //140/280/420 on ftw                          
+                    projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 50; // 300 on master               
+                    projdamage = (50 * clamteadmg) / 100; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 55; // 220 On expert
+                    projdamage = (55 * clamteadmg) / 100; // 220 On expert
                 else
-                    projdamage = 70; // 140 on normal
+                    projdamage = (70 * clamteadmg) / 100; // 140 on normal
 
                 if (NPC.ai[0] > 120) //Delay before firing
                 {
@@ -1402,13 +1432,13 @@ namespace StormDiversMod.NPCs.Boss
 
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 60; //120/240/360 on ftw                          
+                    projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 40; // 240 on master               
+                    projdamage = (40 * clamteadmg) / 100; // 240 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 45; // 180 On expert
+                    projdamage = (45 * clamteadmg) / 100; // 180 On expert
                 else
-                    projdamage = 60; // 120 on normal
+                    projdamage = (60 * clamteadmg) / 100; // 120 on normal
 
                 if (NPC.ai[0] > 75) //Delay before firing
                 {
@@ -1566,13 +1596,13 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = 70; //140/280/420 on ftw                          
+                    projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw                          
                 else if (Main.masterMode)
-                    projdamage = 50; // 300 on master               
+                    projdamage = (50 * clamteadmg) / 100; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
-                    projdamage = 55; // 220 On expert
+                    projdamage = (55 * clamteadmg) / 100; // 220 On expert
                 else
-                    projdamage = 70; // 140 on normal
+                    projdamage = (70 * clamteadmg) / 100; // 140 on normal
                 if (NPC.ai[0] > 60)
                 {
                     NPC.localAI[0]++;

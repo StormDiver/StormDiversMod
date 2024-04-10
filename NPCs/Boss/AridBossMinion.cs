@@ -71,7 +71,6 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            //NA, has no health scaling so always 750
             if (Main.masterMode)
             {
                 NPC.lifeMax = (int)(NPC.lifeMax * 0.5f); //1125
@@ -82,6 +81,17 @@ namespace StormDiversMod.NPCs.Boss
 
             }
             //NPC.damage = (int)(NPC.damage * 0.75f);
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.5f);
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
+                }
+            }
         }
         
         bool shooting;
@@ -104,8 +114,25 @@ namespace StormDiversMod.NPCs.Boss
         float inertia = 40;
         float distanceToIdlePosition; //distance to player
         float extravel;
+
+        int clamteadmg = 100;
         public override void AI()
         {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    clamteadmg = 166; //1.66x
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    clamteadmg = 133; //1.33x
+                }
+                else
+                {
+                    clamteadmg = 100; //1x
+                }
+            }
             //if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 NPC.boss = true; //prevent despawn
@@ -235,7 +262,7 @@ namespace StormDiversMod.NPCs.Boss
                     shooting = true;
 
                     float projectileSpeed = 13f; // The speed of your projectile (in pixels per second).
-                    int damage = 12; // 24/48/72 damage
+                    int damage = (12 * clamteadmg) / 100; // 24/48/72 damage
                     float knockBack = 3;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.AridBossSandProj>();
 

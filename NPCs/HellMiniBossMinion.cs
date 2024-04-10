@@ -70,16 +70,46 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("The strongest of souls can be separated from the main cauldron, to assist it in battle.")
             });
         }
-        
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.5f);
+                    NPC.damage = (int)(NPC.damage * 1.66f);
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
+                    NPC.damage = (int)(NPC.damage * 1.33f);
+                }
+            }
+        }
         int shoottime = 0;
         //private float rotation;
         //private float scale;
         bool shooting;
+        int clamteadmg;
         public override void AI()
         {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    clamteadmg = 166; //1.66x
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    clamteadmg = 133; //1.33x
+                }
+                else
+                {
+                    clamteadmg = 100; //1x
+                }
+            }
             shoottime++;
             NPC.rotation = NPC.velocity.X / 100;
-
 
             Player player = Main.player[NPC.target];           
             
@@ -87,7 +117,6 @@ namespace StormDiversMod.NPCs
             {
                 if (shoottime >=  120)
                 {
-                  
                     shooting = true;
                     if (Main.rand.Next(5) == 0)
                     {
@@ -101,7 +130,7 @@ namespace StormDiversMod.NPCs
                     NPC.velocity *= 0f;
               
                     float projectileSpeed = 3.5f; // The speed of your projectile (in pixels per second).
-                    int damage = 25; // The damage your projectile deals.
+                    int damage = (25 * clamteadmg) / 100; // The damage your projectile deals.
                     float knockBack = 3;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.HellMiniBossProj1>();
                     //int type = ProjectileID.PinkLaser;

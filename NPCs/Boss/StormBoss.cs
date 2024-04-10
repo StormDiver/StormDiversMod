@@ -103,6 +103,22 @@ namespace StormDiversMod.NPCs.Boss
 
             }
             NPC.damage = (int)(NPC.damage * 0.75f);
+
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.5f);
+                    NPC.damage = (int)(NPC.damage * 1.66f);
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
+                    NPC.damage = (int)(NPC.damage * 1.33f);
+
+                }
+            }
+
         }
     
         float movespeed = 5f; //Speed of the npc
@@ -119,6 +135,8 @@ namespace StormDiversMod.NPCs.Boss
         int projdamage; //Damage of all projectiles
 
         int portalamount; //how many portals to summon
+
+        int clamteadmg = 100; // 1x (100) normaly, 1.33x (133) for rev and 1.66x (166) for death
 
         public static int phase2HeadSlot = -1;
         public static int phase3HeadSlot = -1;
@@ -169,6 +187,23 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void AI()
         {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    clamteadmg = 166; //1.66x
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    clamteadmg = 133; //1.33x
+                }
+                else
+                {
+                    clamteadmg = 100; //1x
+                }
+            }
+            //Main.NewText("pain " + clamteadmg, 175, 17, 96);
+
             if (Main.netMode != NetmodeID.Server)
             {
                 // For visuals regarding NPC position, netOffset has to be concidered to make visuals align properly
@@ -256,15 +291,15 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (!Main.expertMode)
                     {
-                        NPC.damage = 100;
+                        NPC.damage = (100 * clamteadmg) / 100;
                     }
                     if (Main.expertMode && !Main.masterMode)
                     {
-                        NPC.damage = 150;
+                        NPC.damage = (150 * clamteadmg) / 100;
                     }
                     if (Main.masterMode)
                     {
-                        NPC.damage = 200;
+                        NPC.damage = (200 * clamteadmg) / 100;
                     }
                     NPC.netUpdate = true;
                 }
@@ -569,11 +604,11 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (Main.expertMode) //Projectile damage
                     {
-                        projdamage = 25; // 100 On expert (150 on master)
+                        projdamage = (25 * clamteadmg) / 100; // 100 On expert (150 on master)
                     }
                     else
                     {
-                        projdamage = 35; // 70 on normal
+                        projdamage = (35 * clamteadmg) / 100; // 70 on normal
                     }
 
                     animateclaws = true;
@@ -707,11 +742,11 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (Main.expertMode) //Projectile damage
                     {
-                        projdamage = 30; // 120 On expert (180 on master)
+                        projdamage = (30 * clamteadmg) / 100; // 120 On expert (180 on master)
                     }
                     else
                     {
-                        projdamage = 40; // 80 on normal
+                        projdamage = (40 * clamteadmg) / 100; // 80 on normal
                     }
 
                     NPC.rotation = (float)Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 0f;
@@ -805,11 +840,11 @@ namespace StormDiversMod.NPCs.Boss
             {
                 if (Main.expertMode) //Projectile damage
                 {
-                    projdamage = 25; // 100 On expert (150 on master)
+                    projdamage = (25 * clamteadmg) / 100; // 100 On expert (150 on master)
                 }
                 else
                 {
-                    projdamage = 35; // 70 on normal
+                    projdamage = (35 * clamteadmg) / 100; // 70 on normal
                 }
                 NPC.ai[0]++;
                 animateclaws = false;
@@ -912,11 +947,11 @@ namespace StormDiversMod.NPCs.Boss
 
                     if (Main.expertMode)
                     {
-                        projdamage = 25; // 100 On expert (150 on master)
+                        projdamage = (25 * clamteadmg) / 100; // 100 On expert (150 on master)
                     }
                     else
                     {
-                        projdamage = 35; // 70 on normal
+                        projdamage = (35 * clamteadmg) / 100; // 70 on normal
                     }
 
                     animateclaws = false;
@@ -982,11 +1017,11 @@ namespace StormDiversMod.NPCs.Boss
             {
                 if (Main.expertMode) //Projectile damage
                 {
-                    projdamage = 25; // 100 On expert (150 on master)
+                    projdamage = (25 * clamteadmg) / 100; // 100 On expert (150 on master)
                 }
                 else
                 {
-                    projdamage = 35; // 70 on normal
+                    projdamage = (35 * clamteadmg) / 100; // 70 on normal
                 }
 
                 NPC.ai[0]++;
@@ -1125,11 +1160,11 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (Main.expertMode) //Projectile damage
                     {
-                        projdamage = 35; // 140 On expert (126 portal) (210 on master (189 portal))
+                        projdamage = (35 * clamteadmg) / 100; // 140 On expert (126 portal) (210 on master (189 portal))
                     }
                     else
                     {
-                        projdamage = 45; // 90 on normal (81 portal)
+                        projdamage = (45 * clamteadmg) / 100; // 90 on normal (81 portal)
                     }
                     if (Main.masterMode) //Portal amounts
                     {

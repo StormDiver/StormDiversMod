@@ -72,6 +72,20 @@ namespace StormDiversMod.NPCs
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax / 3 * 2);
+
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.5f);
+                    NPC.damage = (int)(NPC.damage * 1.66f);
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
+                    NPC.damage = (int)(NPC.damage * 1.33f);
+                }
+            }
         }
         public static int phase2HeadSlot = -1;
 
@@ -109,11 +123,29 @@ namespace StormDiversMod.NPCs
         int timetoshoot = 120; //How often bolts will fire, gets faster in phase 2
         int timetoshootspeed = 10; //How rapid it fires
         float movespeed = 8f; //Speed of the npc
-
+        int clamteadmg = 100;
         
         public int poschoice = 1;
         public override void AI()
         {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    clamteadmg = 166; //1.66x
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    clamteadmg = 133; //1.33x
+                }
+                else
+                {
+                    clamteadmg = 100; //1x
+                }
+            }
+
+            Main.NewText("pain " + clamteadmg, 175, 17, 96);
+
             //NPC.ai[0] = Xpos
             //NPC.ai[1] = Ypos
             // NPC.ai[2] = Pos choice
@@ -193,7 +225,7 @@ namespace StormDiversMod.NPCs
                 if (NPC.ai[3] >= timetoshoot)
                 {
                     float projectileSpeed = 13f; // The speed of your projectile (in pixels per second).
-                    int damage = 40; // The damage your projectile deals. normal x2, expert x4
+                    int damage = (40 * clamteadmg) / 100; // The damage your projectile deals. normal x2, expert x4
                     float knockBack = 2;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpBoltProj>();
                     //int type = ProjectileID.PhantasmalBolt;
@@ -242,8 +274,8 @@ namespace StormDiversMod.NPCs
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
 
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(-3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), 35, 6);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(-3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), (35 * clamteadmg) / 100, 6);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y), new Vector2(+3, -4), ModContent.ProjectileType<NPCs.NPCProjs.MoonDerpEyeProj>(), (35 * clamteadmg) / 100, 6);
 
                     }
                     SoundEngine.PlaySound(SoundID.Zombie103, NPC.Center);

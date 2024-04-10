@@ -109,6 +109,20 @@ namespace StormDiversMod.NPCs.Boss
             }
             //30/45/66
             NPC.damage = (int)(NPC.damage * 0.75f);
+
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.5f);
+                    NPC.damage = (int)(NPC.damage * 1.66f);
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
+                    NPC.damage = (int)(NPC.damage * 1.33f);
+                }
+            }
         }
         float speed = 10;
         float inertia = 40;
@@ -125,6 +139,7 @@ namespace StormDiversMod.NPCs.Boss
         float extravel; //extra velocity when far away
         public static int phase2HeadSlot = -1;
         bool deathani;
+        int clamteadmg = 100;
         public override void Load()
         {
             // We want to give it a second boss head icon, so we register one
@@ -159,7 +174,22 @@ namespace StormDiversMod.NPCs.Boss
             return true;
         }
         public override void AI()
-        {          
+        {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    clamteadmg = 166; //1.66x
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    clamteadmg = 133; //1.33x
+                }
+                else
+                {
+                    clamteadmg = 100; //1x
+                }
+            }
             if (Main.netMode != NetmodeID.Server)
             {
                 // For visuals regarding NPC position, netOffset has to be concidered to make visuals align properly
@@ -456,15 +486,15 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     if (!Main.expertMode)
                     {
-                        NPC.damage = 40;
+                        NPC.damage = (40 * clamteadmg) / 100;
                     }
                     if (Main.expertMode && !Main.masterMode)
                     {
-                        NPC.damage = 60;
+                        NPC.damage = (60 * clamteadmg) / 100;
                     }
                     if (Main.masterMode)
                     {
-                        NPC.damage = 90;
+                        NPC.damage = (90 * clamteadmg) / 100;
                     }            
                     NPC.netUpdate = true;
                 }
@@ -530,20 +560,20 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (Main.masterMode) //Projectile changes
                 {
-                    projdamage = 14; //84 on master
+                    projdamage = (14 * clamteadmg) / 100; //84 on master
                     projvelocity = 11f;
                     projcount = 3;
 
                 }
                 else if (Main.expertMode && !Main.masterMode)
                 {
-                    projdamage = 15; // 60 On expert
+                    projdamage = (15 * clamteadmg) / 100; // 60 On expert
                     projvelocity = 10f;
                     projcount = 2;
                 }
                 else
                 {
-                    projdamage = 20; // 40 on normal
+                    projdamage = (20 * clamteadmg) / 100; // 40 on normal
                     projvelocity = 9f;
                     projcount = 1;
                 }
@@ -655,21 +685,21 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (Main.masterMode) //Projectile changes
                 {
-                    projdamage = 12; //72 on master
+                    projdamage = (12 * clamteadmg) / 100; //72 on master
                     projvelocity = 12f;
                     projcount = 5;
 
                 }
                 else if(Main.expertMode && !Main.masterMode)
                 {
-                    projdamage = 13; // 52 On expert
+                    projdamage = (13 * clamteadmg) / 100; // 52 On expert
                     projvelocity = 11f;
                     projcount = 4;
 
                 }
                 else
                 {
-                    projdamage = 16; // 32 on normal
+                    projdamage = (16 * clamteadmg) / 100; // 32 on normal
                     projvelocity = 10f;
                     projcount = 3;
                 }
@@ -766,19 +796,19 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (Main.masterMode) //Projectile changes
                 {
-                    projdamage = 10; //60 on master
+                    projdamage = (10 * clamteadmg) / 100; //60 on master
                     projvelocity = 4.5f;
 
                 }
                 else if(Main.expertMode && !Main.masterMode)
                 {
-                    projdamage = 12; // 48 On expert
+                    projdamage = (12 * clamteadmg) / 100; // 48 On expert
                     projvelocity = 3.5f;
 
                 }
                 else
                 {
-                    projdamage = 15; // 30 on normal
+                    projdamage = (15 * clamteadmg) / 100; // 30 on normal
                     projvelocity = 2.5f;
 
                 }
@@ -980,17 +1010,17 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (Main.masterMode) //Projectile changes
                 {
-                    projdamage = 16; //96 on master
+                    projdamage = (16 * clamteadmg) / 100; //96 on master
                     projvelocity = 13f;
                 }
                 else if (Main.expertMode && !Main.masterMode)
                 {
-                    projdamage = 18; // 72 On expert
+                    projdamage = (18 * clamteadmg) / 100; // 72 On expert
                     projvelocity = 11f;
                 }
                 else
                 {
-                    projdamage = 25; // 50 on normal
+                    projdamage = (25 * clamteadmg) / 100; // 50 on normal
                     projvelocity = 9f;
                 }
                 if (halflife) //fire sand below half life
@@ -1085,7 +1115,18 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.dontTakeDamage = false;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.damage = 30;
+                    if (!Main.expertMode)
+                    {
+                        NPC.damage = (40 * clamteadmg) / 100;
+                    }
+                    if (Main.expertMode && !Main.masterMode)
+                    {
+                        NPC.damage = (60 * clamteadmg) / 100;
+                    }
+                    if (Main.masterMode)
+                    {
+                        NPC.damage = (90 * clamteadmg) / 100;
+                    }
                     NPC.netUpdate = true;
                 }
                 if (!halflife)
@@ -1118,20 +1159,20 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (Main.masterMode) //Projectile changes
                 {
-                    projdamage = 16; //96 on master
+                    projdamage = (16 * clamteadmg) / 100; //96 on master
                     projvelocity = 14f;
                     projcount = 4;
 
                 }
                 else if (Main.expertMode && !Main.masterMode)
                 {
-                    projdamage = 18; // 72 On expert
+                    projdamage = (18 * clamteadmg) / 100; // 72 On expert
                     projvelocity = 13f;
                     projcount = 3;
                 }
                 else
                 {
-                    projdamage = 25; // 50 on normal
+                    projdamage = (25 * clamteadmg) / 100; // 50 on normal
                     projvelocity = 12f;
                     projcount = 2;
 

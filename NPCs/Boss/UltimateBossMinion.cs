@@ -39,17 +39,11 @@ namespace StormDiversMod.NPCs.Boss
 
             NPC.aiStyle = -1;
 
-            NPC.damage = 0;//No contact damage
-           
+            NPC.damage = 10;//Contact damage removed in AI
+
             NPC.defense = 75;
-            if (Main.getGoodWorld)
-                NPC.lifeMax = 80000;
-            else if (Main.masterMode)
-                NPC.lifeMax = 60000;
-            else if (Main.expertMode && !Main.masterMode)
-                NPC.lifeMax = 45000;
-            else
-                NPC.lifeMax = 30000;
+            
+            NPC.lifeMax = 30000;
 
             NPC.HitSound = SoundID.Item25;
             NPC.DeathSound = SoundID.Item107;
@@ -79,7 +73,27 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
+            if (Main.masterMode)
+            {
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.67f) - 100; //60000
+            }
+            else if (Main.expertMode && !Main.masterMode)
+            {
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f); //45000
+
+            }
             //NPC.damage = (int)(NPC.damage * 0.75f);
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.5f);
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
+                }
+            }
         }
         
         NPC target; //target boss?
@@ -104,12 +118,29 @@ namespace StormDiversMod.NPCs.Boss
         int shootspeed = 1;
         bool canshoot = true;
         bool fastshoot = false;
+        int clamteadmg = 100;
         public override void AI()
         {
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
+            {
+                if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
+                {
+                    clamteadmg = 166; //1.66x
+                }
+                else if ((bool)calamityMod.Call("GetDifficultyActive", "revengeance"))
+                {
+                    clamteadmg = 133; //1.33x
+                }
+                else
+                {
+                    clamteadmg = 100; //1x
+                }
+            }
             //if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 NPC.boss = true;//prevent despawn
             }
+            NPC.damage = 0;
             if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) > 0)
             {
                 for (int i = 0; i < Main.maxNPCs; i++)
@@ -222,22 +253,22 @@ namespace StormDiversMod.NPCs.Boss
             //Damage values and projspeed===============================
             if (Main.getGoodWorld)
             {
-                projdamage = 70; //140/280/420 on ftw
+                projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw
                 projvelocity = 1.4f;
             }
             else if (Main.masterMode)
             {
-                projdamage = 50; // 300 on master               
+                projdamage = (50 * clamteadmg) / 100; // 300 on master               
                 projvelocity = 1.3f;
             }
             else if (Main.expertMode && !Main.masterMode)
             {
-                projdamage = 55; // 220 On expert
+                projdamage = (55 * clamteadmg) / 100; // 220 On expert
                 projvelocity = 1.2f;
             }
             else
             {
-                projdamage = 70; // 140 on normal
+                projdamage = (70 * clamteadmg) / 100; // 140 on normal
                 projvelocity = 1.1f;
             }
             //projectile count and spread
