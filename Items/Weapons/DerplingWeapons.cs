@@ -30,7 +30,7 @@ namespace StormDiversMod.Items.Weapons
 			Item.height = 50;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
-			Item.useStyle = ItemUseStyleID.Swing;  
+			Item.useStyle = ItemUseStyleID.Swing;
             Item.value = Item.sellPrice(0, 5, 0, 0);
                      Item.rare = ItemRarityID.Lime;
 			Item.UseSound = SoundID.Item1;
@@ -44,7 +44,6 @@ namespace StormDiversMod.Items.Weapons
             Item.scale = 1f;
         }
         int weaponattack = 2;
-      
         public override void UseAnimation(Player player)
         {
 

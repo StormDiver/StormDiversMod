@@ -95,11 +95,11 @@ namespace StormDiversMod.NPCs.Boss
         {
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f); //60K
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance); //60K
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f); //84K 
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance); //84K 
 
             }
             NPC.damage = (int)(NPC.damage * 0.75f);

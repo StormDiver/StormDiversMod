@@ -77,7 +77,6 @@ namespace StormDiversMod.Items.Summons
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.MoonDerp>());
-
                 }
                 else
                 {

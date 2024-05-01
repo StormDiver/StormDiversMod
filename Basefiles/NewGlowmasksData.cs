@@ -461,7 +461,7 @@ namespace StormDiversMod.Basefiles
 					origin = new Vector2(weaponGlow.Width + num12, weaponGlow.Height / 2);
 				}
 
-				DrawData drawData = new DrawData(weaponGlow, new Vector2((int)(drawInfo.ItemLocation.X - Main.screenPosition.X + vector5.X), (int)(drawInfo.ItemLocation.Y - Main.screenPosition.Y + vector5.Y)), sourceRect, data.Color(), drawPlayer.itemRotation, origin, adjustedItemScale, drawInfo.itemEffect, 0);
+				DrawData drawData = new DrawData(weaponGlow, new Vector2((int)(drawInfo.ItemLocation.X - Main.screenPosition.X), (int)(drawInfo.ItemLocation.Y - Main.screenPosition.Y + vector5.Y)), sourceRect, data.Color(), drawPlayer.itemRotation, origin, adjustedItemScale, drawInfo.itemEffect, 0);
 				drawInfo.DrawDataCache.Add(drawData);
 			}
 		}

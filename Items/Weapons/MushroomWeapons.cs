@@ -40,7 +40,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 38;
             Item.useTime = 22;
             Item.useAnimation = 22;
-            Item.useStyle = ItemUseStyleID.Swing;  
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.scale = 1f;

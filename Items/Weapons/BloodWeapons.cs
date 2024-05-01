@@ -32,7 +32,7 @@ namespace StormDiversMod.Items.Weapons
 			Item.height = 42;
 			Item.useTime = 18;
 			Item.useAnimation = 18;
-			Item.useStyle = ItemUseStyleID.Swing;  
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.value = Item.sellPrice(0, 0, 75, 0);
             Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item1;
@@ -45,6 +45,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shootSpeed = 8f;
         }
+       
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             if (Main.rand.Next(4) < 2)

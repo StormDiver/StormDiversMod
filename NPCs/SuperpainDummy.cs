@@ -29,9 +29,12 @@ namespace StormDiversMod.NPCs
                 Hide = true // Hides this NPC from the bestiary
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, bestiaryData);
+            NPCID.Sets.MPAllowedEnemies[Type] = true;
+
         }
         public override void SetDefaults()
         {
+
             NPC.width = 24;
             NPC.height = 48;
 

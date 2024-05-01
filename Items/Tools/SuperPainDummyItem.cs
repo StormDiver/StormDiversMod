@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Tools
         int dummytype = 0;
         public override bool CanUseItem(Player player)
         {
-            if (NPC.CountNPCS(ModContent.NPCType<SuperPainDummy>()) < 50)
+            if (NPC.CountNPCS(ModContent.NPCType<SuperPainDummy>()) < 50 && Main.netMode != NetmodeID.MultiplayerClient)
                 return true;
             else
                 return false;
@@ -81,9 +81,13 @@ namespace StormDiversMod.Items.Tools
                     else if (dummytype == 4)
                         line.Text = line.Text + "\n[c/af1160:Current mode: Light; Very fast health regeneration but no knockback resistance]";
 
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    line.Text = line.Text + "\n[c/ff2500:Doesn't work on Multiplayer]"; //multiplayer sucks
+
                 }
             }
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -106,6 +110,7 @@ namespace StormDiversMod.Items.Tools
                     Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
                 }
             }
+
             return false;
         }
         public override bool ConsumeItem(Player player) => false;

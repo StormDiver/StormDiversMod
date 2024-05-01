@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Weapons
 			Item.useTime = 20;
 			Item.useAnimation = 20;
 
-			Item.useStyle = ItemUseStyleID.Swing;  
+            Item.useStyle = ItemUseStyleID.Swing; 
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
 			//Item.UseSound = SoundID.Item1;
@@ -57,18 +57,15 @@ namespace StormDiversMod.Items.Weapons
         {
             return true;
         }
-         public override bool CanUseItem(Player player)
+        public override bool CanUseItem(Player player)
         {
-
             if (player.altFunctionUse == 2)
             {
                 aura = ModContent.ProjectileType<Projectiles.LightDarkAuraDark>();
-
             }
             else
             {
                 aura = ModContent.ProjectileType<Projectiles.LightDarkAuraLight>();
-            
             }
             return true;
         }
