@@ -97,17 +97,11 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
                 int numberProjectiles = 6 + Main.rand.Next(3);
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-                    float speedX = Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-3.5f, 3.5f);
-                    float speedY = Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-3.5f, 3.5f);
+                    float speedX = Main.rand.NextFloat(-4f, 4f);
+                    float speedY = Main.rand.NextFloat(-4f, 4f);
 
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(speedX, speedY),
-                         ProjectileID.SporeCloud, (int)(Projectile.damage * 0.8f), 0.5f, Projectile.owner);
-
-                    Main.projectile[projID].usesIDStaticNPCImmunity = true;
-                    Main.projectile[projID].idStaticNPCHitCooldown = 10;
-                    Main.projectile[projID].DamageType = DamageClass.Magic;
-                    Main.projectile[projID].extraUpdates = 1;
-
+                         ModContent.ProjectileType<ChloroStaffProj2>(), (int)(Projectile.damage), 0.5f, Projectile.owner);
                 }
             }
             for (int i = 0; i < 60; i++) 
@@ -122,5 +116,54 @@ namespace StormDiversMod.Projectiles       //We need this to basically indicate 
             }
         }
     }
-    
+    //______________________________________________________________________________________________________________
+    public class ChloroStaffProj2 : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Spore Cloud");
+            Main.projFrames[Projectile.type] = 5;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 28;
+            Projectile.height = 28;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.timeLeft = 150;
+            Projectile.tileCollide = false;
+            Projectile.usesIDStaticNPCImmunity = true; //static iframes
+            Projectile.idStaticNPCHitCooldown = 10;
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.frame = Main.rand.Next(0, 6); //start at random animnation frame
+        }
+        public override void AI()
+        {
+            Projectile.velocity *= 0.95f;
+            Projectile.alpha += 3;
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 6) 
+            {
+                Projectile.frame++;
+                Projectile.frame %= 5; 
+                Projectile.frameCounter = 0;
+            }
+
+            if (Projectile.alpha >= 255)
+                Projectile.Kill();
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.damage = (Projectile.damage * 9) / 10;
+        }
+        public override void OnKill(int timeLeft)
+        {
+           
+        }
+    }
 }
