@@ -88,6 +88,11 @@ Mods: {
 				Description: Collect all 4 of the Lunar event vanity sets.
 			}
 
+			AchievementGnomed: {
+				Name: You've been G'nomed!
+				Description: Wear the Gnome Hat, and get Gnomed.
+			}
+
 			AchievementPendants: {
 				Name: Pendant Synergy
 				Description: Have the effects of at least 2 biome pendants active at once.
@@ -141,6 +146,11 @@ Mods: {
 			AchievementThePets: {
 				Name: The Twins???
 				Description: Have both the Twilight Figure light pet and the Baby Storm Diver pet active at the same time.
+			}
+
+			AchievementWhack: {
+				Name: No... that's not how you're meant to use it!!!!
+				Description: Whack enemies a toal of 100 times with The Staff of The Painbringer
 			}
 		}
 
@@ -2037,7 +2047,8 @@ Mods: {
 					Left click to place a Super Pain Dummy anywhere, a limit of 50 can be placed at a time
 					Right click to remove all placed dummies, dummies are also removed if a boss is alive
 					Dummies can be targeted by minions/homing projectiles, and can activate any item's special effect
-					Right click in the inventory to change dummy type (Standard/Floating/Tough/Broken/Light)
+					Right click in the inventory to change dummy type (Standard/Tough/Broken/Light)
+					Shift-Right click to toggle between flying or grounded
 					'''
 			}
 
@@ -2246,7 +2257,7 @@ Mods: {
 
 			BloodSpear: {
 				DisplayName: Heart Piercer
-				Tooltip: Great for stabbing in a hurry
+				Tooltip: Great for stabbing in a hurry, but be careful of your accuracy
 			}
 
 			BloodSword: {
@@ -2383,7 +2394,7 @@ Mods: {
 					'''
 					Left click to use as a fast spear that burns enemies and ignores 10 defense
 					Right click to fire as a shotgun with low spread, requires bullets as ammo
-					'Who's idea was it to strap a shotgun to a spear?'
+					'Whose idea was it to strap a shotgun to a spear?'
 					'''
 			}
 
@@ -2571,7 +2582,7 @@ Mods: {
 			}
 
 			GraniteRifle: {
-				DisplayName: Granite Rifle
+				DisplayName: Granite Blaster
 				Tooltip: Converts Musket Balls into Granite Bullets that pierce twice
 			}
 
@@ -2690,7 +2701,7 @@ Mods: {
 				DisplayName: Lihzahrd Flamer
 				Tooltip:
 					'''
-					Fires out a stream of super heated flames that ricohet off tiles and are unaffected by water
+					Fires out a stream of super heated flames that slide along tiles and are unaffected by water
 					Uses gel for ammo
 					Ignores 20 points of enemy defense
 					'''
@@ -2872,7 +2883,7 @@ Mods: {
 				DisplayName: Space Saucer Staff
 				Tooltip:
 					'''
-					Summons a floating saucer that fires lasers at enemies below
+					Summons a floating saucer that rapidly fires defense-piercing lasers at enemies below
 					Right click to target a specific enemy
 					'''
 			}
@@ -2894,8 +2905,8 @@ Mods: {
 			}
 
 			MoltenDagger: {
-				DisplayName: Molten Dagger
-				Tooltip: Rapidly stab your foes
+				DisplayName: Hell's Blade
+				Tooltip: Rapidly slash your foes
 			}
 
 			MoltenSeedLauncher: {
@@ -2966,7 +2977,8 @@ Mods: {
 				Tooltip:
 					'''
 					You went through unimaginable pain to get this, now you can inflict that pain upon your enemies
-					Right click while holding to cycle damage types
+					You can also whack enemies on the head with it by right clicking...
+					Right click in your inventory to cycle damage types (make sure to disable autopause)
 					'''
 			}
 
@@ -2974,8 +2986,9 @@ Mods: {
 				DisplayName: The Staff of The Painbringer
 				Tooltip:
 					'''
-					Summons multiple Judgment skulls in various patterns that seek out enemies and deliver pain
-					Right click while holding to cycle damage types
+					Summons multiple Pain skulls in various patterns that seek out enemies and deliver pain
+					You can also whack enemies on the head with it by right clicking...
+					Right click in your inventory to cycle damage types (make sure to disable autopause)
 					'''
 			}
 
@@ -3042,7 +3055,7 @@ Mods: {
 				Tooltip:
 					'''
 					Summons a mini flying Santank minion to fight for you
-					The minions will fly towards enemies and rapdily fire out defense piercing bullets, and will also fire homing rockets at a slower rate
+					The minions will fly towards enemies and rapidly fire out defense-piercing bullets, and will also fire homing rockets at a slower rate
 					'Seeks out all the naughty foes'
 					'''
 			}
@@ -3738,6 +3751,7 @@ Mods: {
 			LizardMinionProj2.DisplayName: Temple Minion Laser
 			SpaceRockMinionProj.DisplayName: Asteroid Minion
 			MoltenDaggerProj.DisplayName: Molten Dagger
+			MoltenDaggerSlashProj.DisplayName: Molten Dagger Slash
 			NebulaStaffProj.DisplayName: Nebula Flame
 			NebulaStaffProj2.DisplayName: Nebula Flame
 			OceanCoralProj.DisplayName: Coral Shard
@@ -3991,7 +4005,7 @@ Mods: {
 				}
 
 				PreventBossStorm: {
-					Tooltip: This will prevent bosses in the mod from chaing the weather when alive
+					Tooltip: This will prevent bosses in the mod from changing the weather when alive
 					Label: Prevent Boss weather changes
 				}
 

@@ -12,6 +12,8 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.DataStructures;
+using StormDiversMod.Basefiles;
 
 namespace StormDiversMod.NPCs
 
@@ -22,7 +24,7 @@ namespace StormDiversMod.NPCs
         {
             //DisplayName.SetDefault("Super Pain Dummy");
             NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
-            Main.npcFrameCount[NPC.type] = 5;
+            Main.npcFrameCount[NPC.type] = 16;
 
             NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
@@ -46,8 +48,8 @@ namespace StormDiversMod.NPCs
             NPC.defense = 0;
             NPC.lifeMax = 999999999; //999 Million
             NPC.noGravity = false;
-            
             NPC.HitSound = SoundID.NPCHit15;
+
             NPC.DeathSound = SoundID.NPCDeath6;
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 0, 0, 0);
@@ -59,46 +61,94 @@ namespace StormDiversMod.NPCs
             if (NPC.ai[0] == 0)
                 typeName = "Standard " + typeName;
 
-            else if (NPC.ai[0] == 1)
-                typeName = "Floating " + typeName;
+            /*else if (NPC.ai[0] == 1)
+                typeName = "Floating " + typeName;*/
 
-            else if (NPC.ai[0] == 2)
+            else if (NPC.ai[0] == 1)
                 typeName = "Tough " + typeName;
 
-            else if (NPC.ai[0] == 3)
+            else if (NPC.ai[0] == 2)
                 typeName = "Broken " + typeName;
 
-            else if (NPC.ai[0] == 4)
+            else if (NPC.ai[0] == 3)
                 typeName = "Light " + typeName;
+
+            if (NPC.ai[1] == 0)
+                typeName = "Grounded " + typeName;
+            else if (NPC.ai[1] == 1)
+                typeName = "Flying " + typeName;
+
         }
         bool die;
+        int hurttime;
+        int extraframe;
+        float yheight;
+        public override void OnSpawn(IEntitySource source)
+        {
+            yheight = NPC.position.Y;
+
+            if (NPC.ai[0] == 0) //each type uses the next 4 frames
+                extraframe = 0;
+            else if (NPC.ai[0] == 1)
+                extraframe = 4;
+            else if (NPC.ai[0] == 2)
+                extraframe = 8;
+            else if (NPC.ai[0] == 3)
+                extraframe = 12;
+
+            if (NPC.ai[1] == 1) //extra 2 frames if flying
+                extraframe += 2;
+
+        }
+        public override bool? CanFallThroughPlatforms()
+        {
+            if (NPC.ai[1] is 1)
+                return true;
+            else
+                return false;
+        }
         public override void AI()
         {
-            //Ai 0 = Normal
-            //Ai 1 = Floating
-            //Ai 2 = Tough
-            //Ai 3 = Broken (Less health, no regen)
-            //Ai 4 = Weak (No KB resist)
+            //Ai 0 0 = Normal
+            //Ai 0 1 = Tough
+            //Ai 0 2 = Broken (Less health, no regen)
+            //Ai 0 3 = Light (No KB resist)
 
-            if (NPC.ai[0] == 1)
-            {
-                NPC.velocity.Y = 0;
-                NPC.noGravity = true;
-            }
-            if (NPC.ai[0] == 2)
+            //Ai 1 0 = Grounded
+            //Ai 1 1 = Flying
+
+            if (NPC.ai[0] == 1) //Tough
             {
                 NPC.defense = 50;
             }
-            if (NPC.ai[0] == 3 && NPC.life > 50000)
+            if (NPC.ai[0] == 2 && NPC.life > 50000) //Broken
             {
                 NPC.lifeMax = 50000;
                 NPC.life = 50000;
             }
-            if (NPC.ai[0] == 4)
+            if (NPC.ai[0] == 3 && NPC.ai[1] == 0) //Light grounded
             {
                 NPC.knockBackResist = 1;
                 if (NPC.velocity.Y == 0)
-                    NPC.velocity.X *= 0.95f;
+                    NPC.velocity.X *= 0.9f;
+            }
+
+            if (NPC.ai[1] == 1 && NPC.ai[0] != 3) //Non light floating
+            {
+                NPC.velocity.Y = 0;
+                NPC.noGravity = true;
+            }
+            else if (NPC.ai[1] == 1 && NPC.ai[0] == 3) //Light Floating
+            {
+                NPC.knockBackResist = 1;
+                NPC.velocity *= 0.98f;
+                NPC.noGravity = true;
+
+                if (NPC.position.Y < (yheight - 95) && hurttime == 0) //move down to orignal ypos
+                {
+                    if (NPC.velocity.Y < 2)
+                        NPC.velocity.Y += 0.1f;
+                }
             }
 
             Player player = Main.LocalPlayer;
@@ -106,15 +156,19 @@ namespace StormDiversMod.NPCs
             {
                 die = true;
             }
+            if (player.position.X <= NPC.position.X)//face the player
+                NPC.spriteDirection = -1;
+            else
+                NPC.spriteDirection = 1;
 
-            for (int i = 0; i < Main.maxNPCs; i++)
+            for (int i = 0; i < Main.maxNPCs; i++) //remove if boss is active
             {
                 NPC bosscheck = Main.npc[i];
 
                 if (bosscheck.active && bosscheck.boss)
-                 die = true;
+                    die = true;
             }
-            if (die)
+            if (die)//rip
             {
                 NPC.life -= 2147483647;
                 SoundEngine.PlaySound(SoundID.NPCDeath6, NPC.Center);
@@ -135,10 +189,16 @@ namespace StormDiversMod.NPCs
                     Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
                 }
             }
+            if (NPC.ai[0] != 3 || (NPC.ai[0] == 3 && NPC.velocity.Y == 0 && NPC.ai[1] == 0) || (NPC.ai[0] == 3 && (NPC.velocity.X <= 0.5f && NPC.velocity.X >= -0.5f) && NPC.ai[1] == 1)) // light one only changes to normal once landed on ground, or when x is slower than 0.5
+            {
+                if (hurttime > 0)
+                    hurttime--;
+            }
+
         }
         public override void UpdateLifeRegen(ref int damage)
         {
-            if (NPC.ai[0] is 0 or 1 or 2 or 4)
+            if (NPC.ai[0] is 0 or 1 or 3) //Standard, Tough, and Light have regen
                 NPC.lifeRegen += 50000;
         }
         int npcframe = 0;
@@ -147,20 +207,25 @@ namespace StormDiversMod.NPCs
         {
             NPC.frame.Y = npcframe * frameHeight;
 
-            if (NPC.ai[0] == 0)
-            npcframe = 0;
-            else if (NPC.ai[0] == 1)
-                npcframe = 1;
-            else if(NPC.ai[0] == 2)
-                npcframe = 2;
-            else if(NPC.ai[0] == 3)
-                npcframe = 3;
-            else if (NPC.ai[0] == 4)
-                npcframe = 4;
+            if (hurttime == 0) //when hurt is displays the pained frame for 60 frames (60 frames after landing on the ground for light)
+            npcframe = 0 + extraframe;
+            else
+                npcframe = 1 + extraframe;
         }
-        
+
         public override void HitEffect(NPC.HitInfo hit)
         {
+            if (Main.rand.Next(500) == 0) //1 in 500 to pain :thepain:
+            {
+                if (!GetInstance<ConfigurationsIndividual>().NoPain)
+                {
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/PainSound") with { Volume = 1f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
+                }
+                CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, "Existence is Pain!", true);
+            }
+
+            hurttime = 60;
+            
             if (Main.netMode == NetmodeID.Server)
             {
                 // We don't want Mod.Find<ModGore> to run on servers as it will crash because gores are not loaded on servers
@@ -189,7 +254,7 @@ namespace StormDiversMod.NPCs
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
-            if (NPC.ai[0] == 3)
+            if (NPC.ai[0] == 2) //Only broken has health bar
                 return true;
             else
                 return false;

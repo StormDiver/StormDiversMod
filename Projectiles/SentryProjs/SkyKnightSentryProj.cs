@@ -272,21 +272,21 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
 
             if (Projectile.localAI[0] == 0f)
-                {
-                    AdjustMagnitude(ref Projectile.velocity);
-                    Projectile.localAI[0] = 1f;
-                }
+            {
+                AdjustMagnitude(ref Projectile.velocity);
+                Projectile.localAI[0] = 1f;
+            }
 
             Player player = Main.player[Projectile.owner];
             Vector2 move = Vector2.Zero;
-                float distance = 100f;
-                bool target = false;
-                for (int k = 0; k < 200; k++)
+            float distance = 100f;
+            bool target = false;
+            for (int k = 0; k < 200; k++)
+            {
+                if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
                 {
-                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
+                    if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                     {
-                        if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
-                        {
                         if (player.HasMinionAttackTargetNPC)
                         {
 
@@ -298,22 +298,22 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         }
 
                         float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-                            if (distanceTo < distance)
-                            {
-                                move = newMove;
-                                distance = distanceTo;
-                                target = true;
-                            }
+                        if (distanceTo < distance)
+                        {
+                            move = newMove;
+                            distance = distanceTo;
+                            target = true;
                         }
                     }
                 }
-                if (target)
-                {
-                    AdjustMagnitude(ref move);
-                    Projectile.velocity = (10 * Projectile.velocity + move) / 11f;
-                    AdjustMagnitude(ref Projectile.velocity);
-                }
             }
+            if (target)
+            {
+                AdjustMagnitude(ref move);
+                Projectile.velocity = (10 * Projectile.velocity + move) / 11f;
+                AdjustMagnitude(ref Projectile.velocity);
+            }
+        }
         
         private void AdjustMagnitude(ref Vector2 vector)
         {

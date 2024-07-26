@@ -50,7 +50,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           int projid = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X * 4f, velocity.Y * 4f), ModContent.ProjectileType<WoodPointyStickProj2>(), (int)(damage * .75f), 0.5f, player.whoAmI);
+           int projid = Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X * 4f, velocity.Y * 4f), ModContent.ProjectileType<WoodPointyStickProj2>(), (int)(damage * .4f), 0.5f, player.whoAmI);
 
             return true;
         }
@@ -79,14 +79,14 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 0, 50);
             Item.rare = ItemRarityID.White;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 50;
-            Item.useAnimation = 50;
+            Item.useTime = 45;
+            Item.useAnimation = 45;
             Item.useTurn = false;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Ranged;
             //Item.UseSound = SoundID.Item5;
             Item.damage = 18;
-            Item.knockBack = 2f;
+            Item.knockBack = 3f;
             Item.shoot = ModContent.ProjectileType<Projectiles.WoodenBoltProj>();
             Item.shootSpeed = 5f;
             Item.useAmmo = AmmoID.Arrow;

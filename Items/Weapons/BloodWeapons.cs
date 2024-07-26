@@ -115,8 +115,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 50;
             Item.height = 64;
-            Item.useTime = 23;
-            Item.useAnimation = 23;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 0, 75, 0);
             Item.rare = ItemRarityID.Green;
@@ -130,6 +130,21 @@ namespace StormDiversMod.Items.Weapons
             Item.noUseGraphic = true;
 
         }
+        float accuracy = 0; //The amount of spread
+        int resetaccuracy = 20; //How long to not fire for the accuracy to reset
+        public override void HoldItem(Player player)
+        {
+            //player.scope = true;
+            if (resetaccuracy == 0 && accuracy > 0) //Resets accuracy when not firing
+            {
+                accuracy -= 0.5f;
+            }
+            if (resetaccuracy > 0)
+            resetaccuracy--;
+
+            //Main.NewText("" + accuracy, 175, 17, 96);
+            accuracy = (Math.Min(40, Math.Max(0, accuracy))); //clamp between 0 and 30
+        }
         public override bool CanUseItem(Player player)
         {
             // Ensures no more than one spear can be thrown out, use this when using autoReuse
@@ -137,10 +152,17 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-         
-                SoundEngine.PlaySound(SoundID.NPCHit9, player.position);
-                
-            return true;
+            if (accuracy < 40)//Increases accuracy every shot
+            {
+                accuracy += 0.66f;
+            }
+            resetaccuracy = 20; //Prevents the accuracy from reseting while firing
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy)); // This defines the projectiles random spread . 10 degree spread.
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+
+            SoundEngine.PlaySound(SoundID.NPCHit9, player.position);
+
+            return false;
         }
 
         public override void AddRecipes()

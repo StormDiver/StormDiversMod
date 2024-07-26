@@ -62,7 +62,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 25;
             Item.useTurn = false;
             Item.autoReuse = true;
-            Item.damage = 32;
+            Item.damage = 26;
             Item.DamageType = DamageClass.Ranged;
 
             Item.shoot = ModContent.ProjectileType<StoneProj>();

@@ -182,8 +182,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 42;
+            Item.useAnimation = 42;
             Item.useTurn = false;
             Item.autoReuse = true;
 
@@ -198,7 +198,7 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item8;
 
-            Item.damage = 12;
+            Item.damage = 20;
 
             Item.knockBack = 3f;
 
@@ -225,7 +225,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
            
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 50f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 60;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;

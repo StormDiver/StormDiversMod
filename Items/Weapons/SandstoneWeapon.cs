@@ -31,7 +31,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 6;
             Item.useAnimation = 32;
-            Item.reuseDelay = 60;
+            Item.reuseDelay = 50;
             Item.useTurn = false;
             Item.autoReuse = true;
             //Item.UseSound = SoundID.Item41;

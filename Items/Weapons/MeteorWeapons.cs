@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Weapons
             Item.mana = 10;
             Item.UseSound = SoundID.Item60;
 
-            Item.damage = 28;
+            Item.damage = 18;
             //Item.crit = 4;
             Item.knockBack = 1f;
 
@@ -105,8 +105,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 40, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useTurn = true;
             Item.autoReuse = true;
 

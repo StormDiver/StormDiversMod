@@ -47,7 +47,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnSpawn(IEntitySource source)
         {
-
             for (int i = 0; i < 10; i++)
             {
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 72, 0f, 0f, 0, default, 1.5f);

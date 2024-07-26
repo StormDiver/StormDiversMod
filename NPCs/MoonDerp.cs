@@ -144,7 +144,7 @@ namespace StormDiversMod.NPCs
                 }
             }
 
-            Main.NewText("pain " + clamteadmg, 175, 17, 96);
+            //Main.NewText("pain " + clamteadmg, 175, 17, 96);
 
             //NPC.ai[0] = Xpos
             //NPC.ai[1] = Ypos

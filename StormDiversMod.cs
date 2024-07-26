@@ -126,7 +126,7 @@ namespace StormDiversMod
                 bossesAsNPCs.Call("AddToShop", "WithDiv", "Dreadnautilus", ModContent.ItemType<Items.Weapons.BloodySentry>(), new List<Condition>(), 0.125f);
             }
 
-            //for achivements
+            //for achievements
             if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
             {
                 //mod.Call("AddAchievement", this, "TestAchievement", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/TestAchievement", null, false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<AridBoss>() });
@@ -178,6 +178,9 @@ namespace StormDiversMod
 
                 //Doing things
 
+                mod.Call("AddAchievement", this, "AchievementGnomed", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementGnomed",
+             "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_Gnomed" });
+
                 mod.Call("AddAchievement", this, "AchievementPendants", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementPendants",
               "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_Pendants" });
 
@@ -210,18 +213,15 @@ namespace StormDiversMod
 
                 mod.Call("AddAchievement", this, "AchievementThePets", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementThePets",
                  "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "Event_ThePets" });
-                //equip 2/ all 3 pendants together "syngery"
-                //Life Elbem???
-                //baby Derping banner??
-                //Nine Lives nine souls
-                //place when activated
+
+                mod.Call("AddAchievement", this, "AchievementWhack", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementWhack",
+             "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "ValueEvent_Whack_100" });
+                //place where activated
                 /*if (ModLoader.TryGetMod("TMLAchievements", out Mod mod)) 
                 {
                     mod.Call("Event", "ExampleEvent");
                 }*/
-
             }
-            
         } 
         public static ModKeybind ArmourSpecialHotkey;
 
@@ -248,8 +248,8 @@ namespace StormDiversMod
         }
 
     }
-  
-    public class explosioneffects : GlobalProjectile
+ 
+    public class Miscprojeffects : GlobalProjectile //Unused
     {
         public override void AI(Projectile projectile)
         {
@@ -263,7 +263,7 @@ namespace StormDiversMod
             }*/
 
             }
-            /*if (projectile.type == ProjectileID.VampireKnife)
+            /*if (projectile.type == ProjectileID.VampireKnife) //homing vampire knives
             {
                 if (projectile.localAI[0] == 0f)
                 {
@@ -308,7 +308,7 @@ namespace StormDiversMod
         }*/
         public override void SetDefaults(Projectile projectile)
         {
-            /*if (projectile.type == ProjectileID.ChlorophyteBullet)
+            /*if (projectile.type == ProjectileID.ChlorophyteBullet) //Infinite pierce Chlorophyte bullets
             {
                 projectile.penetrate = -1;
             }*/
@@ -374,14 +374,5 @@ namespace StormDiversMod
             }
         }*/
 
-    }
-    public class treasurebagresearch : GlobalItem
-    {
-        public override void SetStaticDefaults()
-        {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[ItemID.CultistBossBag] = 3;
-
-            base.SetStaticDefaults();
-        }
     }
 }

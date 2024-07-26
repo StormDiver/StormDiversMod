@@ -72,7 +72,7 @@ namespace StormDiversMod.Basefiles
         public bool PreventBuffedDerps { get; set; }
 
         //[Label("Prevent Boss weather changes")]
-        //[Tooltip("This will prevent bosses in the mod from chaing the weather when alive")]
+        //[Tooltip("This will prevent bosses in the mod from changing the weather when alive")]
         //[ReloadRequired] //No reload required 
         [DefaultValue(false)]
         [BackgroundColor(27, 130, 114)]

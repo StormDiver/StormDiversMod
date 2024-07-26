@@ -198,7 +198,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.height = 22;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 240;
+            Projectile.timeLeft = 180;
             Projectile.aiStyle = 14;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.usesLocalNPCImmunity = true;

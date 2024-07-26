@@ -176,7 +176,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Lihzahrd Flame");
-            //Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -189,7 +189,7 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 160;
-            Projectile.extraUpdates = 4;
+            Projectile.extraUpdates = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 60;
             Projectile.scale = 0.1f;
@@ -200,7 +200,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage()
         {
-            if (Projectile.ai[0] == 0) // only on proj deals damage
+            if (Projectile.alpha < 150 && Projectile.ai[1] == 0)
             {
                 return true;
             }
@@ -209,39 +209,79 @@ namespace StormDiversMod.Projectiles
                 return false;
             }
         }
+        public override void OnSpawn(IEntitySource source)
+        {
+            //Projectile.rotation = Main.rand.NextFloat(0, 6.2f); //speen start
+        }
         int dustoffset;
+        int alphaadd; //add alpha to the trail
+        int posadd = 5; //adjust trail position
+        bool createtrail = true; //trail will stop being created on impact with tiles
+        int trailofftime;
         public override void AI()
         {
-            Projectile.rotation += Main.rand.NextFloat(0.05f, 0.1f); //speen
-
-                if (Main.rand.Next(10) == 0)  //dust spawn sqaure increases with hurtbox size
+            Projectile.rotation += 0.05f * -Projectile.direction;
+            if (dustoffset > 5)
+            {
+                if (Main.rand.Next(30) == 0)  //dust spawn sqaure increases with hurtbox size
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 6, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 174, Projectile.velocity.X * 1.5f, -5, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1.5f;
+                    Main.dust[dust].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
                 }
-           
+            }
+
             if (Projectile.scale <= 1f) //increase size until specified amount
             {
-                dustoffset += 2;//makes dust expand with projectile, also used for hitbox
+                dustoffset += 1;//makes dust expand with projectile, also used for hitbox
 
-                Projectile.scale += 0.02f;
+                Projectile.scale += 0.013f;
             }
-            if (Projectile.timeLeft < 60) // fade out and slow down
+            else//once the size has been reached begin to fade out and slow down
             {
-                Projectile.alpha += 10;
+                Projectile.alpha += 2;
+                Projectile.velocity *= 0.96f;
 
                 //begin animation
-                /*Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 10)
+                if (Projectile.frame < 2)//stop at frame 3
                 {
-                    Projectile.frame++;
-                    Projectile.frameCounter = 0;
-                }*/
+                    Projectile.frameCounter++;
+                    if (Projectile.frameCounter >= 50)
+                    {
+                        Projectile.frame++;
+                        Projectile.frameCounter = 0;
+                    }
+                }
             }
-            if (Projectile.alpha > 255) //once faded enough kill projectile
+            if (Projectile.alpha > 200) //once faded enough kill projectile
             {
                 Projectile.Kill();
+            }
+            //Trail effect(it works don't judge)
+            if (Projectile.ai[1] == 0 && createtrail)
+            {
+                Projectile.ai[2]++;
+
+                if (Projectile.ai[2] % 6 == 0 && Projectile.ai[2] <= 36) //summon a trail projectile every X frames
+                {
+                    posadd += 5; //add X times velcity to position each time
+                    Vector2 velocity = Projectile.velocity * posadd;
+
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
+                    alphaadd += 8; //Add alpha so it fades out at the same time
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - perturbedSpeed.X, Projectile.Center.Y - perturbedSpeed.Y), Projectile.velocity, ModContent.ProjectileType<LizardFlameProj>(), 0, 0, Projectile.owner);
+                    Main.projectile[projID].ai[1] = 1;
+                    Main.projectile[projID].alpha += alphaadd;
+                }
+            }
+            if (!createtrail) //trail will stop rendering for a short time after hitting a tile to fix a visual bug
+            {
+                trailofftime++;
+            }
+            if (trailofftime > 20)
+            {
+                createtrail = true;
+                trailofftime = 0;
             }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
@@ -272,16 +312,15 @@ namespace StormDiversMod.Projectiles
         int reflect = 3;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
+            createtrail = false; //stop creating trails on the wall for a few frames
             reflect--;
             if (reflect <= 0)
             {
                 Projectile.velocity *= 0;
                 //Projectile.Kill();
             }
-            else
+            /*else
             {
-
                 if (Projectile.velocity.X != oldVelocity.X)
                 {
                     Projectile.velocity.X = -oldVelocity.X * 1f;
@@ -290,12 +329,12 @@ namespace StormDiversMod.Projectiles
                 {
                     Projectile.velocity.Y = -oldVelocity.Y * 1f;
                 }
-            }
+            }*/
             return false;
         }
         public override Color? GetAlpha(Color lightColor)
         {
-            Color color = Color.Orange;
+            Color color = Color.Chocolate;
             color.A = (Byte)Projectile.alpha;
             return color;
         }

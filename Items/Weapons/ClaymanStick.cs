@@ -117,7 +117,12 @@ namespace StormDiversMod.Items.Weapons
                 {
                     Projectile.NewProjectile(source, Main.MouseWorld, new Vector2(0, 0), ModContent.ProjectileType<ClaymanProj>(), (int)(damage * 2.5f), 0, player.whoAmI, 1);
                     if (!GetInstance<ConfigurationsIndividual>().NoPain)
-                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                    {
+                        if (player.Male)
+                            SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                        else
+                            SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSoundFemale") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                    }
                     else
                         SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1f, Pitch = 0.25f }, player.Center);
 
@@ -173,7 +178,12 @@ namespace StormDiversMod.Items.Weapons
 
                 }, player.whoAmI);*/
                 if (!GetInstance<ConfigurationsIndividual>().NoPain)
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                {
+                    if (player.Male)
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                    else
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSoundFemale") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                }
                 else
                     SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1f, Pitch = 0.25f }, player.Center);
                 CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", false);

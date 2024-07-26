@@ -90,16 +90,21 @@ namespace StormDiversMod.NPCs.NPCProjs
             //0 = Normal Shot
             //1 = No Dust telegraph
             //2 = From circle attack
-
+            //3 = Faster Acceleration normal shot
             //4 = Horizontal
             //5 = Cross attack
             Projectile.ai[1]++;
 
-            if (Projectile.ai[1] < 60)
+            if (Projectile.ai[1] < 60 && Projectile.ai[0] != 3)
             {
                 Projectile.velocity *= 1.04f;
             }
-            
+            if (Projectile.ai[1] < 25 && Projectile.ai[0] == 3)
+            {
+                Projectile.velocity *= 1.1f;
+            }
+
+
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
             Projectile.spriteDirection = Projectile.direction;
@@ -254,7 +259,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override bool? CanDamage()
         {
-            if (Projectile.ai[0] == 2 && Projectile.timeLeft >= 120)
+            if (Projectile.ai[0] == 2 && Projectile.timeLeft >= 210) //30 frames after starting to move, deal damaging for homing 
                 return false;
             else
                 return true;
@@ -276,8 +281,8 @@ namespace StormDiversMod.NPCs.NPCProjs
                 //Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }*/
-            if (Projectile.ai[0] == 2) //Stationary Attack
-                Projectile.timeLeft = 180;
+            if (Projectile.ai[0] == 2) //Homing Attack
+                Projectile.timeLeft = 300;
 
             projpos = Projectile.Center;
 
@@ -286,6 +291,11 @@ namespace StormDiversMod.NPCs.NPCProjs
         double dist = 0; //Distance away from the projectile
 
         float projspeed = 2f;
+
+        //For homing attack
+        float speed;
+        float inertia;
+        float distanceToIdlePosition; //distance to player
         public override void AI()
         {
             if (linewidth > 0.1f)
@@ -294,8 +304,8 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             //Projectile.ai[0]
             //1 = Ring attack
-            //4 = Rapid summon attack
-            //2 = Stationary
+            //4 = Rapid summon attack //unused
+            //2 = Homing
             //3 = Vertical
             Projectile.ai[1]++;
             if (Projectile.ai[0] == 3) //Accelerate
@@ -340,13 +350,13 @@ namespace StormDiversMod.NPCs.NPCProjs
                     if (Projectile.ai[0] == 4)
                     {
                         if (Main.getGoodWorld)
-                            projspeed = 3f;
+                            projspeed = 4f;
                         else if (Main.masterMode)
-                            projspeed = 2.6f;
+                            projspeed = 3.6f;
                         else if (Main.expertMode && !Main.masterMode)
-                            projspeed = 2.3f;
+                            projspeed = 3.3f;
                         else
-                            projspeed = 2f;
+                            projspeed = 3f;
                     }
                     else
                     {
@@ -357,7 +367,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                     {
                         Player player = Main.player[i];
                         //Dust.QuickDustLine(Projectile.Center, player.Center, 35, Color.DeepPink); //centre to centre
-                        Vector2 velocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X, player.Center.Y)) * -projspeed;
+                        Vector2 velocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X + (player.velocity.X / 5), player.Center.Y + (player.velocity.Y / 5))) * -projspeed;
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<TheUltimateBossProj>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, 10);
                         Projectile.Kill();
                         //Set the velocities to the shoot values
@@ -366,58 +376,70 @@ namespace StormDiversMod.NPCs.NPCProjs
                     }
                 }
             }
-            if (Projectile.ai[0] == 2 && Projectile.timeLeft > 3) //Dust warning for stationary ones
+            if (Projectile.ai[0] == 2 && Projectile.timeLeft > 3) //For homing ones
             {
-                Projectile.rotation += 0.3f;
-                if (Projectile.timeLeft > 140)
+                Projectile.rotation += 0.2f;
+                if (Projectile.timeLeft > 240)
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 0, default, 1.5f);
                     Main.dust[dust].noGravity = true;
-                }
-                if (Projectile.timeLeft > 120) //not visble and deals no damage for 1 second after spawning
-                {
                     Projectile.hide = true;
                 }
                 else
-                {
                     Projectile.hide = false;
-                    if (dist < 70)
-                    {
-                        dist += 1f; //Distance away from the projectile
-                    }
-                    for (int i = 0; i < 2; i++)
-                    {
-                        double deg = Main.rand.Next(0, 360); //The degrees
-                        double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                        
-                        float dustx = Projectile.Center.X - (int)(Math.Cos(rad) * dist);
-                        float dusty = Projectile.Center.Y - (int)(Math.Sin(rad) * dist);
 
-                        var dust = Dust.NewDustDirect(new Vector2(dustx - 5, dusty - 5), 0, 0, 72, 0, 0);
-                        dust.noGravity = true;
-                        dust.velocity *= 0;
-                        dust.scale = 1f;
+                if (Projectile.timeLeft == 240)
+                {
+                    //Projectile.velocity.Y = -6;
+                }
 
+                if (Projectile.timeLeft >= 60 && Projectile.timeLeft <= 240)
+                {
+                    if (Main.getGoodWorld)
+                    {
+                        speed = 17;
+                        inertia = 80;
                     }
+                    else if (Main.masterMode)
+                    {
+                        speed = 16;
+                        inertia = 80;
+                    }
+                    else if (Main.expertMode && !Main.masterMode)
+                    {
+                        speed = 15;
+                        inertia = 80;
+                    }
+                    else
+                    {
+                        speed = 14;
+                        inertia = 80;
+                    }
+                    //Player target = Main.player;
+                    Vector2 idlePosition = Main.LocalPlayer.Center;
+                    Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
+                    distanceToIdlePosition = vectorToIdlePosition.Length();
+
+                    //if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
+                    {
+                        if (distanceToIdlePosition > 10f)
+                        {
+                            vectorToIdlePosition.Normalize();
+                            vectorToIdlePosition *= speed;
+                        }
+                        Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                    }
+
                 }
             }
-            if (Projectile.ai[0] == 3) //Dust warning for vertical ones
+            if (Projectile.ai[0] == 3) //For vertical ones
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 0, default, 1f);
                 Main.dust[dust].noGravity = true;
 
                 if (Projectile.ai[1] == 1)
                 {
-                    //Dust.QuickDustLine(Projectile.Center, new Vector2(Projectile.Center.X, Projectile.Center.Y + 600), 35, Color.DeepPink); //centre to centre
-
-                    /*for (int i = 0; i < 100; i++)
-                    {
-                        int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 600, 72, 0f, 0f, 0, default, 1f);
-                        Main.dust[dust].noGravity = true;
-                        Main.dust[dust].velocity *= 0;
-
-                    }*/
-
+                    
                 }
             }
             if (!NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())) //remove all proejctiles if boss is dead
@@ -540,9 +562,11 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Main.dust[dustIndex].velocity *= 3;
 
             }
-            if (Projectile.ai[0] == 2) //Stationary Attack
-                Projectile.timeLeft = 90;
+            if (Projectile.ai[2] == 0) //Burst has slower vlecoity, so increase line range
             projspeed = Projectile.velocity * 300;
+            else
+                projspeed = Projectile.velocity * 600;
+
             projpos = Projectile.Center;
 
             base.OnSpawn(source);

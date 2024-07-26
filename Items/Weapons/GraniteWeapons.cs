@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Granite Rifle");
+            //DisplayName.SetDefault("Granite Blaster");
             //Tooltip.SetDefault("Converts Musket Balls into Granite Bullets that pierce twice");
 
             Item.ResearchUnlockCount = 1;
@@ -45,14 +45,14 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item40;
 
-            Item.damage = 17;
+            Item.damage = 22;
             
             Item.knockBack = 2f;
        
             Item.shoot = ProjectileID.Bullet;
             Item.shootSpeed = 11f;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
             Item.useAmmo = AmmoID.Bullet;
 
             Item.noMelee = true; 

@@ -203,7 +203,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.DamageType = DamageClass.Ranged;
 
-            Item.UseSound = SoundID.Item34;
+            Item.UseSound = SoundID.Item13;
 
             Item.damage = 25;
             Item.knockBack = 0.25f;
@@ -222,40 +222,15 @@ namespace StormDiversMod.Items.Weapons
         int alpha = 200;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 2;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 50;
 
-            for (int i = 0; i < 2; i++) //trail effect
-            {
-                if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
-                    position += muzzleOffset * 10f;
-
-                int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
-                Main.projectile[proj1].alpha = alpha;
-
-                alpha -= 50;
-
-            }
-            
             if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
-                position += muzzleOffset * 10f;
-            
-            //middle proj deals damage
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, damage, knockback, player.whoAmI);
-            alpha -= 50;
+                position += muzzleOffset;
 
-            for (int i = 0; i < 2; i++) //trail effect
-            {
-                if (Collision.CanHit(player.Center, 0, 0, position + muzzleOffset, 0, 0))
-                    position += muzzleOffset * 10f;
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(2));
 
-                int proj1 = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X + player.velocity.X / 8, velocity.Y + player.velocity.Y / 8), type, 0, knockback, player.whoAmI, 1);
-                Main.projectile[proj1].alpha = alpha;
-                alpha -= 50;
-
-            }
-            
-            alpha = 200;
-
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X + player.velocity.X / 8, perturbedSpeed.Y + player.velocity.Y / 8), type, damage, knockback, player.whoAmI);
+          
             return false;
         }
         public override void HoldItem(Player player)

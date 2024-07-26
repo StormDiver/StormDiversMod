@@ -17,7 +17,7 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
-			//DisplayName.SetDefault("Molten Dagger"); 
+			//DisplayName.SetDefault("Hell's Blade"); 
 			//Tooltip.SetDefault("Rapidly stab your foes");
             Item.ResearchUnlockCount = 1;
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
@@ -29,24 +29,32 @@ namespace StormDiversMod.Items.Weapons
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 30;
+			Item.damage = 20;
             Item.crit = 0;
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
 			Item.height = 30;
-			Item.useTime = 12;
-			Item.useAnimation = 12;
-			Item.useStyle = ItemUseStyleID.Rapier;
+            Item.useTime = 15;
+            Item.useAnimation = 25;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
             Item.noUseGraphic = true;
             Item.noMelee = true;
-            Item.knockBack = 3;
-            Item.scale = 1.2f;
-            Item.shoot = ModContent.ProjectileType<Projectiles.MoltenDaggerProj>();
-            Item.shootSpeed = 3.5f;
+            Item.knockBack = 3.5f;
+            Item.scale = 1f;
+            Item.shoot = ModContent.ProjectileType<Projectiles.MoltenDaggerSlashProj>();
+            Item.shootSpeed = 18;
+
+            Item.channel = true;
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.ownedProjectileCounts[Item.shoot] < 1)
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.MoltenDaggerSlashProj>(), damage, knockback, player.whoAmI);
+            return false;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -57,23 +65,12 @@ namespace StormDiversMod.Items.Weapons
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-       /* public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(ModContent.BuffType<Buffs.SuperBurnDebuff>(), 300);
-        }
-        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
-        {
-            target.AddBuff(ModContent.BuffType < Buffs.SuperBurnDebuff>(), 300);
-        }*/
-       
         public override void AddRecipes()
         {
             CreateRecipe()
           .AddIngredient(ItemID.HellstoneBar, 16)
           .AddTile(TileID.Anvils)
           .Register();
-
-           
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

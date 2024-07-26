@@ -12,6 +12,7 @@ using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.Items.Furniture;
 using StormDiversMod.Items.Vanitysets;
 using System.Collections.Generic;
+using Terraria.UI;
 
 namespace StormDiversMod.Items.Tools
 {
@@ -23,7 +24,8 @@ namespace StormDiversMod.Items.Tools
             //Tooltip.SetDefault("Left click to place a Super Pain Dummy anywhere, a limit of 50 can be placed at a time
             //Right click to remove all placed dummies, dummies are also removed if a boss is alive
             //Dummies can be targeted by minions / homing projectiles, and can activate any item's special effect
-            //Right click in inventory slot to change dummy type");
+            //Right click in the inventory to change dummy type (Standard/Tough/Broken/Light)
+            //Shift - Right click to toggle between flying or grounded");
             Item.ResearchUnlockCount = 1;
         }
 
@@ -42,6 +44,7 @@ namespace StormDiversMod.Items.Tools
             Item.UseSound = SoundID.Item20;
         }
         int dummytype = 0;
+        int dummyflight = 0; //0 = No fly, 1 = fly
         public override bool CanUseItem(Player player)
         {
             if (NPC.CountNPCS(ModContent.NPCType<SuperPainDummy>()) < 50 && Main.netMode != NetmodeID.MultiplayerClient)
@@ -51,11 +54,18 @@ namespace StormDiversMod.Items.Tools
         }
         public override void RightClick(Player player)
         {
-            dummytype++;
-
-            if (dummytype > 4)
-                dummytype = 0;
-
+            if (!ItemSlot.ShiftInUse) //change type
+            {
+                dummytype++;
+                if (dummytype > 3)
+                    dummytype = 0;
+            }
+            else //toggle flight
+            {
+                dummyflight++;
+                if (dummyflight > 1)
+                    dummyflight = 0;
+            }
             //Main.NewText("pls: " + dummytype, 175, 17, 96);
         }
 
@@ -64,26 +74,48 @@ namespace StormDiversMod.Items.Tools
             foreach (TooltipLine line in tooltips)
             {
 
-                if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                if (line.Mod == "Terraria" && line.Name == "Tooltip4")
                 {
+                    line.Text = line.Text + "\n[c/af1160:Current mode:]";
+
+                    if (dummyflight == 0)
+                        line.Text = line.Text + "[c/af1160: Grounded -]";
+
+                    if (dummyflight == 1)
+                        line.Text = line.Text + "[c/af1160: Flying -]";
+
                     if (dummytype == 0)
-                        line.Text = line.Text + "\n[c/af1160:Current mode: Standard; Very fast health regeneration]";
+                        line.Text = line.Text + "[c/af1160: Standard; Very fast health regeneration]";
 
                     else if (dummytype == 1)
-                        line.Text = line.Text + "\n[c/af1160:Current mode: Floating; Very fast health regeneration and floats in the air]";
+                        line.Text = line.Text + "[c/af1160: Tough; Very fast health regeneration and high defense (50)]";
 
                     else if (dummytype == 2)
-                        line.Text = line.Text + "\n[c/af1160:Current mode: Tough; Very fast health regeneration and high defense (50)]";
+                        line.Text = line.Text + "[c/af1160: Broken; Lower health and no regeneration]";
 
                     else if (dummytype == 3)
-                        line.Text = line.Text + "\n[c/af1160:Current mode: Broken; Lower health and no regeneration]";
+                        line.Text = line.Text + "[c/af1160: Light; Very fast health regeneration but no knockback resistance]";
 
-                    else if (dummytype == 4)
-                        line.Text = line.Text + "\n[c/af1160:Current mode: Light; Very fast health regeneration but no knockback resistance]";
 
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     line.Text = line.Text + "\n[c/ff2500:Doesn't work on Multiplayer]"; //multiplayer sucks
 
+                }
+                if (line.Mod == "Terraria" && line.Name == "ItemName")
+                {
+                    if (dummytype == 0)
+                        line.Text = "Standard " + line.Text;
+                    else if (dummytype == 1)
+                        line.Text = "Tough " + line.Text;
+                    else if (dummytype == 2)
+                        line.Text = "Broken " + line.Text;
+                    else if (dummytype == 3)
+                        line.Text = "Light " + line.Text;
+
+                    if (dummyflight == 0)
+                        line.Text = "Grounded " + line.Text;
+                    else if (dummyflight == 1)
+                        line.Text = "Flying " + line.Text;
                 }
             }
         }
@@ -92,7 +124,7 @@ namespace StormDiversMod.Items.Tools
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                    NPC.NewNPC(source, (int)Math.Round(Main.MouseWorld.X), (int)Math.Round(Main.MouseWorld.Y), ModContent.NPCType<SuperPainDummy>(), 0, dummytype);
+                    NPC.NewNPC(source, (int)Math.Round(Main.MouseWorld.X), (int)Math.Round(Main.MouseWorld.Y), ModContent.NPCType<SuperPainDummy>(), 0, dummytype, dummyflight); //Ai 0 for type, Ai 1 for flight
 
                 for (int i = 0; i < 2; i++)
                 {

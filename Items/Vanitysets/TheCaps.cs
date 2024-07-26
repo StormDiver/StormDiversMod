@@ -58,21 +58,21 @@ namespace StormDiversMod.Items.Vanitysets
     public class GnomedHat : ModItem
     {
         public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
+        { 
+            base.SetStaticDefaults(); 
             //DisplayName.SetDefault("Gnome Hat");
             //Tooltip.SetDefault("'You've been Gnomed'");
             Item.ResearchUnlockCount = 1;
-            //ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
+            ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
         }    
-        public override void SetDefaults()
+        public override void SetDefaults() 
         {
             Item.width = 18;
-            Item.height = 18;
+            Item.height = 18; 
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Blue;
             Item.vanity = true; 
-        }
+        } 
         public override void AddRecipes()
         {
            CreateRecipe()

@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using StormDiversMod.Basefiles;
 using StormDiversMod.Buffs;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles
 {
@@ -90,7 +91,16 @@ namespace StormDiversMod.Projectiles
                     dust.fadeIn = 1f;
 
                 }
-         
+                for (int i = 0; i < 50; i++)
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -7.5f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 138, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+
+                }
+
             }
             if (Projectile.timeLeft <= 20)
             {
@@ -237,7 +247,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Ancient Sand Stream");
-            //Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
         {
@@ -250,7 +260,7 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 100;
             Projectile.extraUpdates = 3;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = -1;
             Projectile.scale = 0.1f;
             DrawOffsetX = -35;
             DrawOriginOffsetY = -35;
@@ -260,7 +270,7 @@ namespace StormDiversMod.Projectiles
         
         public override bool? CanDamage()
         {
-            if (Projectile.ai[0] == 0) // only on proj deals damage
+            if (Projectile.alpha < 100 && Projectile.ai[1] == 0)
             {
                 return true;
             }
@@ -269,39 +279,69 @@ namespace StormDiversMod.Projectiles
                 return false;
             }
         }
+        public override void OnSpawn(IEntitySource source)
+        {
+            //Projectile.rotation = Main.rand.NextFloat(0, 6.2f); //speen start
+        }
         int dustoffset;
+        int alphaadd; //add alpha to the trail
+        int posadd = 5; //adjust trail position
         public override void AI()
         {
-            Projectile.rotation += Main.rand.NextFloat(0.1f, 0.15f); //speen
-
-            if (Main.rand.Next(10) == 0) //dust spawn sqaure increases with hurtbox size
+            Projectile.rotation += 0.05f * -Projectile.direction;
+            if (dustoffset > 5)
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 138, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 0.5f;
-                //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
-            }
+                if (Main.rand.Next(20) == 0) //dust spawn sqaure increases with hurtbox size
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 138, Projectile.velocity.X * 1f, -5, 130, default, 0.8f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].fadeIn = 0.8f + (float)Main.rand.Next(5) * 0.1f;
 
+                    //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
+                }
+            }
             if (Projectile.scale <= 1f)//increase size until specified amount
             {
-                dustoffset += 2;//makes dust expand with projectile, also used for hitbox
+                dustoffset += 1;//makes dust expand with projectile, also used for hitbox
 
-                Projectile.scale += 0.024f;
+                Projectile.scale += 0.016f;
             }
-            if (Projectile.timeLeft < 60) // fade out and slow down
+            else
             {
-                Projectile.alpha += 10;
+                Projectile.alpha += 2;
+                Projectile.velocity *= 0.96f;
                 //begin animation
-                /*Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 10) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+                if (Projectile.frame < 2) //stop at frame 3
                 {
-                    Projectile.frame++;
-                    Projectile.frameCounter = 0;
-                }*/
+                    Projectile.frameCounter++;
+                    if (Projectile.frameCounter >= 30)
+                    {
+                        Projectile.frame++;
+                        Projectile.frameCounter = 0;
+                    }
+                }
             }
-            if (Projectile.alpha > 255 || Projectile.wet)//once faded enough or touches water kill projectile
+            if (Projectile.alpha > 200 || Projectile.wet)//once faded enough or touches water kill projectile
             {
                 Projectile.Kill();
+            }
+            //Trail effect(it works don't judge)
+            if (Projectile.ai[1] == 0)
+            {
+                Projectile.ai[2]++;
+
+                if (Projectile.ai[2] % 6 == 0 && Projectile.ai[2] <= 24) //summon a trail projectile every X frames
+                {
+                    posadd += 5; //add X times velcity to position each time
+                    Vector2 velocity = Projectile.velocity * posadd;
+
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
+                    alphaadd += 10; //Add alpha so trail is slighly darker
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - perturbedSpeed.X, Projectile.Center.Y - perturbedSpeed.Y), Projectile.velocity, ModContent.ProjectileType<AncientFlameProj>(), 0, 0, Projectile.owner);
+                    Main.projectile[projID].ai[1] = 1;
+                    Main.projectile[projID].alpha += alphaadd;
+                }
+
             }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
@@ -337,7 +377,7 @@ namespace StormDiversMod.Projectiles
         }
         public override Color? GetAlpha(Color lightColor)
         {
-            Color color = Color.Gold;
+            Color color = Color.Sienna;
             color.A = (Byte)Projectile.alpha;
             return color;
         }

@@ -18,26 +18,22 @@ namespace StormDiversMod.NPCs.NPCProjs
             //DisplayName.SetDefault("Red Soul");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 16;
             Projectile.height = 16;
 
-            Projectile.light = 0.4f;
+            //Projectile.light = 0.4f;
 
             Projectile.friendly = false;
             Projectile.hostile = true;
 
             Projectile.penetrate = 1;
 
-
             Projectile.tileCollide = false;
             Projectile.scale = 1.1f;
-
-            Projectile.alpha = 150;
+            Projectile.alpha = 200;
             Projectile.extraUpdates = 1;
             Projectile.ignoreWater = true;
 
@@ -130,14 +126,12 @@ namespace StormDiversMod.NPCs.NPCProjs
             return true;
 
         }
-        /*public override Color? GetAlpha(Color lightColor)
+        public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
-            color.A = 150;
+            color.A = 200;
             return color;
-
-        }*/
+        }
 
     }
 }

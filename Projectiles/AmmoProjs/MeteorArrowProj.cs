@@ -38,7 +38,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             AIType = ProjectileID.WoodenArrowFriendly;
             //Creates no immunity frames
            
-
             DrawOffsetX =0;
             DrawOriginOffsetY = 0;
         }

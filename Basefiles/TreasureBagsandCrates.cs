@@ -42,8 +42,6 @@ namespace StormDiversMod.Basefiles
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
-            IItemDropRule MechItemDrop = new LeadingConditionRule(new PostMechItemDrop());
-
             if (item.type == ItemID.EyeOfCthulhuBossBag)
             {
                 itemLoot.Add(ItemDropRule.OneFromOptions(1, ItemType<EyeSword>(), ItemType<EyeGun>(), ItemType<EyeStaff>(), ItemType<EyeMinion>()));
@@ -53,7 +51,7 @@ namespace StormDiversMod.Basefiles
             }
             if (item.type == ItemID.SkeletronPrimeBossBag || item.type == ItemID.TwinsBossBag || item.type == ItemID.DestroyerBossBag)
             {
-                MechItemDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.PrimeAccess>(), 1));
+                itemLoot.Add(ItemDropRule.ByCondition(new PostMechItemDrop(), ModContent.ItemType<Items.Accessory.PrimeAccess>(), 1, 1, 1));
             }
             if (item.type == ItemID.BossBagBetsy)
             {
@@ -123,9 +121,6 @@ namespace StormDiversMod.Basefiles
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.OresandBars.DesertBar>(), 6, 1, 10));
 
             }
-
-            itemLoot.Add(MechItemDrop);
-
         }
         /*public override void OpenVanillaBag(string context, Player player, int arg)
         {

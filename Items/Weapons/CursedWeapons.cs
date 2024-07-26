@@ -76,7 +76,7 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Cursed Spear Shotgun"); 
             //Left click to use as a fast spear that inflicts frostburn and ignores 10 defense
             //Right cick to fire as highly accurate shotgun
-            //'Who's idea was it to strap a shotgun to a spear ?'");
+            //'Whose idea was it to strap a shotgun to a spear ?'");
             Item.ResearchUnlockCount = 1;
             Item.staff[Item.type] = true;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
@@ -88,7 +88,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 24;
+            Item.damage = 32;
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 30;

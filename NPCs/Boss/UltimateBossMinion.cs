@@ -272,25 +272,25 @@ namespace StormDiversMod.NPCs.Boss
                 projvelocity = 1.1f;
             }
             //projectile count and spread
-            if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBossMinion>()) == 4) 
+            if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBossMinion>()) == 1) 
             {
-                projcount = 1;
-                projspread = 0;
-            }
-            else if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBossMinion>()) == 3)
-            {
-                projcount = 2;
-                projspread = 10;
+                projcount = 4;
+                projspread = 30; 
             }
             else if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBossMinion>()) == 2)
             {
                 projcount = 3;
                 projspread = 20;
             }
+            else if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBossMinion>()) == 3)
+            {
+                projcount = 2;
+                projspread = 10;
+            }
             else
             {
-                projcount = 4;
-                projspread = 30;
+                projcount = 1;
+                projspread = 0; 
             }
             if (!canshoot) //charge up between 2 attacks
             {

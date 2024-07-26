@@ -27,28 +27,8 @@ namespace StormDiversMod.Items.Weapons
 
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PainSword>();
-
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            foreach (TooltipLine line in tooltips)
-            {
-                if (!StormWorld.ultimateBossDown)
-                {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                    {
-                        line.Text = "You haven't experienced pain yet, why do you have this?";
-                    }
-                }
-
-                if (line.Mod == "Terraria" && line.Name == "ItemName")
-                {
-                    line.Text = line.Text + " (" + classtext + ")";
-                }
-            }
-        }
-
-        
         public override void SetDefaults()
         {
             Item.damage = 200;
@@ -70,7 +50,6 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 30f;
             Item.noMelee = true;
             Item.crit = 11;
-            
         }
         public override bool WeaponPrefix()
         {
@@ -84,26 +63,120 @@ namespace StormDiversMod.Items.Weapons
         {
             if (Main.rand.Next(1) == 0)
             {
-                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6, 0f, 0f, 100, default, 1.5f);
+                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 72, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
         }
         float posY;
         int damagetype = 0;
-        string classtext;
+        string classtext = "Generic Pain";
+        public override bool ConsumeItem(Player player) => false;
+
+        public override bool CanRightClick()
+        {
+            return true;
+        }
+        public override void RightClick(Player player) //Right click in inventory
+        {
+            damagetype++;
+
+            if (damagetype > 4)
+                damagetype = 0;
+            if (!Main.autoPause)
+            {
+                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
+            }
+            SoundEngine.PlaySound(SoundID.Item73, player.Center);
+            for (int i = 0; i < 30; i++) //Pink particles
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                var dust = Dust.NewDustDirect(player.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
+                dust.scale = 1.5f;
+
+            }
+            //Main.NewText("pls: " + dummytype, 175, 17, 96);
+        }
+        public override void UpdateInventory(Player player) //cycle damage types
+        {
+            if (damagetype == 1)
+            {
+                Item.DamageType = DamageClass.Melee;
+                classtext = "Melee Pain";
+            }
+            else if (damagetype == 2)
+            {
+                Item.DamageType = DamageClass.Ranged;
+                classtext = "Ranged Pain";
+            }
+            else if (damagetype == 3)
+            {
+                Item.DamageType = DamageClass.Magic;
+                classtext = "Magic Pain";
+            }
+            else if (damagetype == 4)
+            {
+                Item.DamageType = DamageClass.Summon;
+                classtext = "Summoner Pain";
+            }
+            else
+            {
+                Item.DamageType = DamageClass.Generic;
+                classtext = "Generic Pain";
+            }
+            base.UpdateInventory(player);
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (!StormWorld.ultimateBossDown)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "You haven't experienced pain yet, why do you have this?";
+                    }
+                }
+
+                if (line.Mod == "Terraria" && line.Name == "ItemName")
+                {
+                    line.Text = line.Text + " (" + classtext + ")";
+                }
+            }
+        }
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2) //swing
+            {
+                Item.useStyle = ItemUseStyleID.Swing;
+                Item.ArmorPenetration = 0;
+                Item.noMelee = false;
+                Item.UseSound = SoundID.DD2_MonkStaffSwing;
+            }
+            else //shoot
+            {
+                //aura = 0;
+                Item.useStyle = ItemUseStyleID.Shoot;
+                Item.ArmorPenetration = 0;
+                Item.noMelee = true;
+                Item.UseSound = SoundID.Item42;
+            }
+            return true;
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.altFunctionUse == 2) //Right Click
             {
                 //Main.NewText("Hello? " + damagetype, 0, 204, 170); //Inital Scale
 
-                damagetype++;
+                /*damagetype++;
 
                 if (damagetype > 4)
-                    damagetype = 0;
+                    damagetype = 0;*/
 
-                if (damagetype == 1)
+                /*if (damagetype == 1)
                 {
                     Item.DamageType = DamageClass.Melee;
                     classtext = "Melee Pain";
@@ -127,9 +200,9 @@ namespace StormDiversMod.Items.Weapons
                 {
                     Item.DamageType = DamageClass.Generic;
                     classtext = "Generic Pain";
-                }
+                }*/
 
-                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
+                /*CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
                 SoundEngine.PlaySound(SoundID.Item73, player.Center);
                 for (int i = 0; i < 30; i++) //Pink particles
                 {
@@ -139,7 +212,7 @@ namespace StormDiversMod.Items.Weapons
                     dust.noGravity = true;
                     dust.scale = 1.5f;
 
-                }
+                }*/
             }
             else //left Click
             {
@@ -288,6 +361,7 @@ namespace StormDiversMod.Items.Weapons
             return true;
         }
     }
+    //____________________________________________________________________________
     public class PainSword : ModItem
     {
         public override void SetStaticDefaults()
@@ -299,24 +373,7 @@ namespace StormDiversMod.Items.Weapons
             Item.ResearchUnlockCount = 1;
 
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PainStaff>();
-
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            foreach (TooltipLine line in tooltips)
-            {
-                if (!StormWorld.ultimateBossDown)
-                {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                    {
-                        line.Text = "You haven't experienced pain yet, why do you have this?";
-                    }
-                }
-                if (line.Mod == "Terraria" && line.Name == "ItemName")
-                {
-                    line.Text = line.Text + " (" + classtext + ")";
-                }
-            }
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
         public override void SetDefaults()
         {
@@ -339,6 +396,7 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 30f;
             Item.noMelee = true;
             Item.crit = 11;
+
         }
         public override bool WeaponPrefix()
         {
@@ -352,60 +410,113 @@ namespace StormDiversMod.Items.Weapons
         {
             if (Main.rand.Next(1) == 0)
             {
-                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6, 0f, 0f, 100, default, 1.5f);
+                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 72, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
         }
         float posY;
         int damagetype = 0;
-        string classtext;
+        string classtext = "Generic Pain";
+        public override bool ConsumeItem(Player player) => false;
+
+        public override bool CanRightClick()
+        {
+            return true;
+        }
+        public override void RightClick(Player player) //Right click in inventory
+        {
+            damagetype++;
+
+            if (damagetype > 4)
+                damagetype = 0;
+            if (!Main.autoPause)
+            {
+                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
+            }
+            SoundEngine.PlaySound(SoundID.Item73, player.Center);
+            for (int i = 0; i < 30; i++) //Pink particles
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                var dust = Dust.NewDustDirect(player.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                dust.noGravity = true;
+                dust.scale = 1.5f;
+
+            }
+            //Main.NewText("pls: " + dummytype, 175, 17, 96);
+        }
+        public override void UpdateInventory(Player player) //cycle damage types
+        {
+            if (damagetype == 1)
+            {
+                Item.DamageType = DamageClass.Melee;
+                classtext = "Melee Pain";
+            }
+            else if (damagetype == 2)
+            {
+                Item.DamageType = DamageClass.Ranged;
+                classtext = "Ranged Pain";
+            }
+            else if (damagetype == 3)
+            {
+                Item.DamageType = DamageClass.Magic;
+                classtext = "Magic Pain";
+            }
+            else if (damagetype == 4)
+            {
+                Item.DamageType = DamageClass.Summon;
+                classtext = "Summoner Pain";
+            }
+            else
+            {
+                Item.DamageType = DamageClass.Generic;
+                classtext = "Generic Pain";
+            }
+            base.UpdateInventory(player);
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (!StormWorld.ultimateBossDown)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "You haven't experienced pain yet, why do you have this?";
+                    }
+                }
+
+                if (line.Mod == "Terraria" && line.Name == "ItemName")
+                {
+                    line.Text = line.Text + " (" + classtext + ")";
+                }
+            }
+        }
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2) //swing
+            {
+                Item.useStyle = ItemUseStyleID.Swing;
+                Item.ArmorPenetration = 0;
+                Item.noMelee = false;
+                Item.UseSound = SoundID.DD2_MonkStaffSwing;
+            }
+            else //shoot
+            {
+                //aura = 0;
+                Item.useStyle = ItemUseStyleID.Shoot;
+                Item.ArmorPenetration = 0;
+                Item.noMelee = true;
+                Item.UseSound = SoundID.Item1;
+            }
+            return true;
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.altFunctionUse == 2) //Right Click
             {
-                damagetype++;
-
-                if (damagetype > 4)
-                    damagetype = 0;
-
-                if (damagetype == 1)
-                {
-                    Item.DamageType = DamageClass.Melee;
-                    classtext = "Melee Pain";
-                }
-                else if (damagetype == 2)
-                {
-                    Item.DamageType = DamageClass.Ranged;
-                    classtext = "Ranged Pain";
-                }
-                else if (damagetype == 3)
-                {
-                    Item.DamageType = DamageClass.Magic;
-                    classtext = "Magic Pain";
-                }
-                else if (damagetype == 4)
-                {
-                    Item.DamageType = DamageClass.Summon;
-                    classtext = "Summoner Pain";
-                }
-                else
-                {
-                    Item.DamageType = DamageClass.Generic;
-                    classtext = "Generic Pain";
-                }
-
-                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
-                for (int i = 0; i < 30; i++) //Pink particles
-                {
-                    Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
-
-                    var dust = Dust.NewDustDirect(player.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
-                    dust.noGravity = true;
-                    dust.scale = 1.5f;
-
-                }
+               
             }
             else //left Click
             {

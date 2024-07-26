@@ -204,7 +204,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (!npc.friendly && npc.lifeMax > 5)
                 {
-                    if (((Main.rand.Next(25) == 0 && StormWorld.ultimateBossDown == false) || (Main.rand.Next(50) == 0 && StormWorld.ultimateBossDown == true)) && NPC.downedMoonlord)
+                    if (Main.rand.Next(20) == 0 && StormWorld.ultimateBossDown == false && NPC.downedMoonlord)
                     {
                         Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
                     }

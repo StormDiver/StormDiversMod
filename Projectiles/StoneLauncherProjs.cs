@@ -71,7 +71,7 @@ namespace StormDiversMod.Projectiles
                     float speedX = Main.rand.NextFloat(-4f, 4f);
                     float speedY = Main.rand.NextFloat(-4f, 4f);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragProj>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragProj>(), (int)(Projectile.damage * 0.25), 0, Projectile.owner);
                 }
             }
         }

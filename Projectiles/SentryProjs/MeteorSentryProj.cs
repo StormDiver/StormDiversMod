@@ -37,7 +37,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.Summon;
-
         }
         public override bool? CanDamage()
         {
@@ -87,7 +86,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Player player = Main.player[Projectile.owner];
 
             //Getting the npc to fire at
-            if (Projectile.ai[0] >= 30)
+            if (Projectile.ai[0] >= 10) //charge up dust first
             {
                 for (int i = 0; i < 200; i++)
                 {
@@ -125,9 +124,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         //float xpos = (Main.rand.NextFloat(-10, 10));
 
-                        if (Projectile.ai[1] > 60)
+                        if (Projectile.ai[1] > 17) //actually fire
                         {
-                            float projspeed = 20;
+                            float projspeed = 16;
                             Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
                           
                             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
@@ -239,7 +238,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.width = 10;
             Projectile.height = 20;
             Projectile.friendly = true;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 1;
             Projectile.timeLeft = 300;
             Projectile.light = 0.4f;
             Projectile.scale = 1f;
@@ -249,9 +248,12 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.DamageType = DamageClass.Summon;
-
+            Projectile.ArmorPenetration = 5;
+            Projectile.extraUpdates = 1;
         }
         int dusttime;
+        int hometime;
+        Vector2 newMove;
 
         public override void AI()
         {
@@ -268,6 +270,60 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 dust.noGravity = true;
                 dust.scale = 0.8f;
             }
+            if (Projectile.localAI[0] == 0f)
+            {
+                AdjustMagnitude(ref Projectile.velocity);
+                Projectile.localAI[0] = 1f;
+            }
+            /*Player player = Main.player[Projectile.owner];
+            Vector2 move = Vector2.Zero;
+            float distance = 200f;
+            bool target = false;
+            if (hometime <= 15)
+            {
+                for (int k = 0; k < 200; k++)
+                {
+                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
+                    {
+                        if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
+                        {
+                            if (player.HasMinionAttackTargetNPC) //Make sure it homes into targetted enemy
+                            {
+
+                                newMove = Main.npc[player.MinionAttackTargetNPC].Center - Projectile.Center;
+                            }
+                            else
+                            {
+                                newMove = Main.npc[k].Center - Projectile.Center;
+                            }
+                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                            if (distanceTo < distance)
+                            {
+                                move = newMove;
+                                distance = distanceTo;
+                                target = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if (target && hometime <= 15)
+            {
+                hometime++;
+                AdjustMagnitude(ref move);
+                Projectile.velocity = (10 * Projectile.velocity + move) / 9.5f;
+                AdjustMagnitude(ref Projectile.velocity);
+            }*/
+        }
+        private void AdjustMagnitude(ref Vector2 vector)
+        {
+
+            /*float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+            if (magnitude > 9f)
+            {
+                vector *= 9f / magnitude;
+            }*/
+
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -285,7 +341,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 dust.velocity *= 0.5f;
 
             }
-            Projectile.damage = Projectile.damage / 10 * 9;
+            //Projectile.damage = Projectile.damage / 10 * 9;
         }
 
         public override void OnKill(int timeLeft)

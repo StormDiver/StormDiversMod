@@ -33,22 +33,21 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 180;
             Projectile.penetrate = 3;
 
-
             Projectile.tileCollide = true;
-
 
             Projectile.DamageType = DamageClass.Ranged;
 
             AIType = ProjectileID.Bullet;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
+            Projectile.extraUpdates = 1;
         }
         int dusttime;
         public override void AI()
         {
             dusttime++;
 
-            if (dusttime > 5)
+            if (dusttime > 4)
             {
                 for (int i = 0; i < 10; i++)
                 {

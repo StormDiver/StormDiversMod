@@ -34,7 +34,7 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 6;
         }
-        protected virtual float HoldoutRangeMin => 50f;
+        protected virtual float HoldoutRangeMin => 40f;
         protected virtual float HoldoutRangeMax => 180f;
         public override bool? CanDamage()
         {
@@ -128,7 +128,7 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 6;
         }
-        protected virtual float HoldoutRangeMin => 20f;
+        protected virtual float HoldoutRangeMin => 40f;
         protected virtual float HoldoutRangeMax => 280;
 
         public override void AI()

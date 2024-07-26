@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using StormDiversMod.Basefiles;
 using Terraria.DataStructures;
+using StormDiversMod.Projectiles;
 
 namespace StormDiversMod.NPCs.NPCProjs
 {
@@ -224,7 +225,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         
         public override bool? CanDamage()
         {
-            if (Projectile.alpha < 45)
+            if (Projectile.alpha < 45 && Projectile.ai[1] == 0)
             {
                 return true;
             }
@@ -234,13 +235,15 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
         }
         int dustoffset;
+        int alphaadd; //add alpha to the trail
+        int posadd; //adjust trail position
         public override void AI()
         {
             Projectile.rotation += 0.1f;
 
             if (Main.rand.Next(10) == 0) //dust spawn sqaure increases with hurtbox size
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 138, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1f);
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X - (dustoffset / 2), Projectile.position.Y - (dustoffset / 2)), Projectile.width + dustoffset, Projectile.height + dustoffset, 138, Projectile.velocity.X * 1f, -5, 130, default, 1f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0.5f;
                 //int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 55, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
@@ -254,7 +257,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             else//once the size has been reached begin to fade out and slow down
             {
-                Projectile.alpha += 3;
+                Projectile.alpha += 5;
 
                 Projectile.velocity.X *= 0.98f;
                 Projectile.velocity.Y *= 0.98f;
@@ -270,6 +273,25 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 Projectile.Kill();
             }
+
+            //Trail effect(it works don't judge)
+            if (Projectile.ai[1] == 0)
+            {
+                Projectile.ai[2]++;
+
+                if (Projectile.ai[2] % 5 == 0 && Projectile.ai[2] <= 40) //summon a trail projectile every 5 frames
+                {
+                    posadd += 2; //add 4 times velcity to position each time
+                    Vector2 velocity = Projectile.velocity * posadd;
+
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
+                    alphaadd += 5; //Add alpha so it fades out at the same time
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - perturbedSpeed.X, Projectile.Center.Y - perturbedSpeed.Y), Projectile.velocity, ModContent.ProjectileType<AridBossFlameProj>(), 0, 0, Projectile.owner);
+                    Main.projectile[projID].ai[1] = 1;
+                    Main.projectile[projID].alpha += alphaadd;
+                }
+
+            }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {
@@ -282,6 +304,12 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {         
             target.AddBuff(BuffID.OnFire, 180);
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = Color.Chocolate;
+            color.A = (Byte)Projectile.alpha;
+            return color;
         }
     }  
 }

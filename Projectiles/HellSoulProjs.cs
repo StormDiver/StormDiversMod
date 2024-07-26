@@ -195,6 +195,14 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
                 dust.scale = 0.8f;
             }
+            if (dusttime == 3)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173, Projectile.velocity.X * 0.25f, Projectile.velocity.Y * 0.25f);
+                    dust.scale = 1f;
+                }
+            }
         }
         
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -206,11 +214,8 @@ namespace StormDiversMod.Projectiles
         {
             for (int i = 0; i < 10; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
                 dust.scale = 1.5f;
-
-
             }
             target.AddBuff(ModContent.BuffType<HellSoulFireDebuff>(), 300);
             Projectile.damage= Projectile.damage / 10 *  8;

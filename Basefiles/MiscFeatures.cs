@@ -34,6 +34,7 @@ using StormDiversMod.Projectiles.Minions;
 using StormDiversMod.Items.Armour;
 using StormDiversMod.Projectiles.Petprojs;
 using StormDiversMod.NPCs.Boss;
+using Terraria.GameContent.Creative;
 
 namespace StormDiversMod.Basefiles
 {
@@ -325,8 +326,120 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
+        int whackcount;
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (target.lifeMax > 5 && target.type != NPCID.TargetDummy)
+            {
+                if (item.type == ModContent.ItemType<PainStaff>() || item.type == ModContent.ItemType<PainSword>())
+                {
+                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                    {
+                        mod.Call("ValueEvent", "Whack", 1f);
+                    }
+                    for (int i = 0; i < 20; i++) //Frost dust
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, -3f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        var dust = Dust.NewDustDirect(target.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                        dust.noGravity = true;
+                    }
+                    SoundEngine.PlaySound(SoundID.Item175 with { Volume = 0.5f, Pitch = 0f, MaxInstances = 0 }, target.Center);
+                    whackcount += 1;
+                    if (whackcount == 15)
+                    {
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Seriously, you have a weapon that summons powerful homing projectiles..."), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText("Seriously, you have a weapon that summons powerful homing projectiles...", 175, 17, 96);
+                        }
+                    }
+                    if (whackcount == 30)
+                    {
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Yet you choose to whack enemies over the head with it..."), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText("Yet you choose to whack enemies over the head with it...", 175, 17, 96);
+                        }
+                    }
+                    if (whackcount == 45)
+                    {
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Like come on, are you some kind of true-melee player or something?"), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText("Like come on, are you some kind of true-melee player or something?", 175, 17, 96);
+                        }
+                    }
+                    if (whackcount == 60)
+                    {
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("You do know you're only dealing a fraction of the weapon's damage like this right??"), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText("You do know you're only dealing a fraction of the weapon's damage like this right??", 175, 17, 96);
+                        }
+                    }
+                    if (whackcount == 75)
+                    {
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Just left click already!!!"), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText("Just left click already!!!", 175, 17, 96);
+                        }
+                    }
+                    if (whackcount == 90)
+                    {
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("!$%!£&%!"), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText("!$%!£&%!", 175, 17, 96);
+                        }
+                    }
+                    if (whackcount >= 175) // + 15 gives 100 hits bfore restarting text
+                    {
+                        whackcount = 0;
+                    }
+                    //CombatText.NewText(new Rectangle((int)target.Center.X, (int)target.Center.Y, 12, 4), Color.DeepPink, "Whacks = " + whackcount, false);
+                }
+            }
+        }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (target.lifeMax > 5 && target.type != NPCID.TargetDummy)
+            {
+                if (proj.type == ModContent.ProjectileType<PainProj>() || proj.type == ModContent.ProjectileType<PainStaffProj>())
+                {
+                    if (whackcount >= 15)
+                    {
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("See that's better now isn't it?"), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText("See that's better now isn't it?", 175, 17, 96);
+                        }
+                        whackcount = 0;
+                    }
+                }
+            }
             //public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
 
             if (proj.type == ModContent.ProjectileType<StompBootProj2>() && target.type != NPCID.TargetDummy) //10 frames of immunity
@@ -402,7 +515,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
         }
-        //String Paintext = "";
+        String Paintext = "";
         //public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
@@ -426,35 +539,33 @@ namespace StormDiversMod.Basefiles
                 //damage = (Player.statLife / 3); //Deals 1/3 the player's
             }
         }
-        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo) //taunt messages when harmed by the final boss
         {
-            /*if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>())
+            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj2>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj3>())
             {
                 if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
                 {
-                    int choice = Main.rand.Next(0, 6);
-
-                    if (Main.rand.Next(1) == 0)
+                    if (Main.rand.Next(2) == 0)
                     {
+                        int choice = Main.rand.Next(0, 5);
+
                         if (choice == 0)
                             Paintext = "That looked very Painful!";
                         else if (choice == 1)
                             Paintext = "Enjoy the pain!";
                         else if (choice == 2)
-                            Paintext = "Are you enjoying this?";
-                        else if (choice == 3)
                             Paintext = "How does the pain feel?";
-                        else if (choice == 4)
+                        else if (choice == 3)
                             Paintext = "Skill issue!";
-                        else if (choice == 5)
+                        else if (choice == 4)
                             Paintext = "You seem to be in a lot of pain!";
-                        
+
                         for (int i = 0; i < 200; i++)//message also appears from boss
                         {
                             NPC painTarget = Main.npc[i];
                             if (painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())
                             {
-                                CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                                CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.DeepPink, Paintext, false);
                             }
                         }
                         if (Main.netMode == 2) // Server
@@ -465,19 +576,17 @@ namespace StormDiversMod.Basefiles
                         {
                             Main.NewText(Paintext, 175, 17, 96);
                         }
-
-                        //Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
-
                     }
-                }    
-            }*/
+                    //Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
+                }
+            }
         }
         //String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             /*if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) >= 1 && Player.respawnTimer < 5)
             {
-                Main.NewText("Stop cheating please, set respawn timer to 5 or more seconds", 220, 63, 139);
+                Main.NewText("Stop cheating please, set your respawn timer to 5 or more seconds", 220, 63, 139);
 
                 Player.respawnTimer = 5;
             }*/
@@ -535,9 +644,6 @@ namespace StormDiversMod.Basefiles
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-            if (playerimmunetime > 0)
-            {
-            }
             base.ModifyHurt(ref modifiers);
         }
         public override bool FreeDodge(Player.HurtInfo info)
@@ -609,6 +715,11 @@ namespace StormDiversMod.Basefiles
             }
             return true;
         }*/
+        public override void SetStaticDefaults() //allows the Cultist bag to be researched
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[ItemID.CultistBossBag] = 3;
+            base.SetStaticDefaults();
+        }
         public override void SetDefaults(Item item)
         {
             /*if (item.type == ItemID.Tombstone)

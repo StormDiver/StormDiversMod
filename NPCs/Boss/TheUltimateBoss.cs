@@ -223,7 +223,7 @@ namespace StormDiversMod.NPCs.Boss
 
              player = Main.player[NPC.target]; //Code to move towards player
 
-            if (!player.dead && !deathani && NPC.ai[3] != 7) //base movement on all except attack 3 and 7
+            if (!player.dead && !deathani && NPC.ai[3] != 7) //base movement on all except attack 7
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -243,7 +243,7 @@ namespace StormDiversMod.NPCs.Boss
 
             }
             NPC.rotation = NPC.velocity.X / 150;
-            if (NPC.ai[3] is 1 or 8) //attacks have same movement
+            if (NPC.ai[3] is 1) //attacks 1 movement
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -716,12 +716,12 @@ namespace StormDiversMod.NPCs.Boss
             if (Main.getGoodWorld)
             {
                 projvelocity = 1.9f;
-                    projcount = (Main.rand.Next(13, 21)); // 13-20 
+                projcount = (Main.rand.Next(13, 21)); // 13-20 
             }
             else if (Main.masterMode) //Projectile changes, same for all attacks
             {
-                projvelocity = 1.7f;        
-                    projcount = (Main.rand.Next(10, 16)); // 10-15
+                projvelocity = 1.7f;
+                projcount = (Main.rand.Next(10, 16)); // 10-15
             }
             else if (Main.expertMode && !Main.masterMode)
             {
@@ -730,7 +730,7 @@ namespace StormDiversMod.NPCs.Boss
             }
             else
             {
-                projvelocity = 1.3f;              
+                projvelocity = 1.3f;
                 projcount = (Main.rand.Next(6, 10)); // 6-9
             }
 
@@ -896,42 +896,24 @@ namespace StormDiversMod.NPCs.Boss
 
             if (NPC.ai[3] == 3) //Attack 3 rapidly summon projectiles in a plus shape
             {
-                //NPC.localAI[2] == picks one of 4 positions 
                 NPC.ai[0]++;
                 shooting = true;
-                if (NPC.localAI[2] == 0)
-                {
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = -450;
-                }
-                else if (NPC.localAI[2] == 1)
-                {
-                    NPC.ai[1] = 450;
-                    NPC.ai[2] = -20;
-                }
-                else if (NPC.localAI[2] == 2)
-                {
-                    NPC.ai[1] = 0;
-                    NPC.ai[2] = 450;
-                }
-                else if (NPC.localAI[2] == 3)
-                {
-                    NPC.ai[1] = -450;
-                    NPC.ai[2] = -20;
-                }
+               //Moves directly towards the player, its own speed values
+                NPC.ai[1] = 0;
+                NPC.ai[2] = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[3] < 9)
                 {
                     if (distanceToIdlePosition > 500f)
                     {
                         // Speed up the boss if it's away from the player
-                        speed = 20f;
-                        inertia = 20f;
+                        speed = 30f;
+                        inertia = 50f;
                     }
                     else
                     {
                         // Slow down the boss if closer to the player
-                        speed = 15f;
-                        inertia = 30f;
+                        speed = 20f;
+                        inertia = 60f;
                     }
                     NPC.netUpdate = true;
                 }
@@ -973,42 +955,23 @@ namespace StormDiversMod.NPCs.Boss
                             int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
                             Main.dust[dust4].noGravity = true;
                         }
-                        //Dust.QuickDustLine(new Vector2(NPC.Center.X - 500, NPC.Center.Y + 4), new Vector2(NPC.Center.X + 500, NPC.Center.Y + 4), 35, Color.DeepPink); //centre to centre
-                        //Dust.QuickDustLine(new Vector2(NPC.Center.X - 500, NPC.Center.Y + 58), new Vector2(NPC.Center.X + 500, NPC.Center.Y + 58), 35, Color.DeepPink); //centre to centre
-                        //Dust.QuickDustLine(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 500), new Vector2(NPC.Center.X -54, NPC.Center.Y - 500), 35, Color.DeepPink); //centre to centre
-                        //Dust.QuickDustLine(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 500), new Vector2(NPC.Center.X + 54, NPC.Center.Y - 500), 35, Color.DeepPink); //centre to centre
-                        //Dust.QuickDustLine(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 500), new Vector2(NPC.Center.X + 30, NPC.Center.Y - 500), 35, Color.DeepPink); //centre to centre
-                        //Dust.QuickDustLine(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 500), new Vector2(NPC.Center.X - 30, NPC.Center.Y - 500), 35, Color.DeepPink); //centre to centre
-
+                     
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-
                             float rotation = MathHelper.ToRadians(180);
-                            float numberProjectiles = 4; //4
-
+                            float numberProjectiles = Main.rand.Next(4, 7); //4-6
                             for (int j = 0; j < numberProjectiles; j++)
                             {
                                 Vector2 perturbedSpeed = new Vector2(0, projvelocity).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 5, 0);
-                            }
-                            for (int j = 0; j < numberProjectiles; j++)
-                            {
-                                Vector2 perturbedSpeed = new Vector2(0, projvelocity).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 5, 0);
-                            }
-                            for (int j = 0; j < numberProjectiles; j++)
-                            {
-                                Vector2 perturbedSpeed = new Vector2(0, projvelocity).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 5, 0);
-                            }
-                            for (int j = 0; j < numberProjectiles; j++)
-                            {
-                                Vector2 perturbedSpeed = new Vector2(0, projvelocity).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 5, 0);
                             }
-
                         }
-
                         NPC.localAI[0] = 0;
                     }
                 }
@@ -1111,7 +1074,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
             }
 
-            if (NPC.ai[3] == 5) //Attack 5 summon random projectiles that splode early (Phase 2+ Only)
+            if (NPC.ai[3] == 5) //Attack 5 summon random projectiles that home in after a delay (Phase 2+ Only)
             {
                 NPC.ai[0]++;
 
@@ -1147,11 +1110,11 @@ namespace StormDiversMod.NPCs.Boss
                 else
                     projdamage = (70 * clamteadmg) / 100; // 140 on normal
 
-                if (NPC.ai[0] > 60) //Delay before firing
+                if (NPC.ai[0] > 90) //Delay before firing
                 {
                     NPC.localAI[0]++;
 
-                    if ((NPC.localAI[0] > 35 && lifeleft == 0) || (NPC.localAI[0] > 30 && lifeleft == 1) || (NPC.localAI[0] > 25 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 45 && lifeleft == 0) || (NPC.localAI[0] > 40 && lifeleft == 1) || (NPC.localAI[0] > 35 && lifeleft == 2))
                     {
 
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -1175,10 +1138,10 @@ namespace StormDiversMod.NPCs.Boss
                                 //For the radius
                                 double deg = Main.rand.Next(0, 360); //The degrees
                                 double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                                double dist = Main.rand.Next(50, 750); //Distance away from the player
+                                double dist = Main.rand.Next(500, 750); //Distance away from the player
 
-                                float posX = player.Center.X - (int)(Math.Cos(rad) * dist);
-                                float posY = player.Center.Y - (int)(Math.Sin(rad) * dist);
+                                float posX = player.Center.X - (int)(Math.Cos(rad) * dist) + player.velocity.X;
+                                float posY = player.Center.Y - (int)(Math.Sin(rad) * dist) + player.velocity.X;
 
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(posX, posY), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj2>(), projdamage, 1, Main.myPlayer, 2, 0);
                             }
@@ -1187,7 +1150,7 @@ namespace StormDiversMod.NPCs.Boss
                 
                     }
                 }
-                if (NPC.ai[0] >= Main.rand.Next(300, 500) && NPC.localAI[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.ai[0] >= Main.rand.Next(240, 300) && NPC.localAI[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.ai[3]++;
 
@@ -1233,7 +1196,7 @@ namespace StormDiversMod.NPCs.Boss
                     projdamage = (45 * clamteadmg) / 100; // 180 On expert
                 else
                     projdamage = (60 * clamteadmg) / 100; // 120 on normal
-                if (NPC.ai[0] > 90) //Delay before firing
+                if (NPC.ai[0] > 120) //Delay before firing
                 {
                     NPC.localAI[0]++;
                     if ((NPC.localAI[0] > 45 && lifeleft == 1) || (NPC.localAI[0] > 40 && lifeleft == 2))
@@ -1392,7 +1355,7 @@ namespace StormDiversMod.NPCs.Boss
                             int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
                             Main.dust[dust4].noGravity = true;
                         }
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < projcount / 2; i++)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -1428,7 +1391,24 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.localAI[0]++;
                 shooting = true;
 
-                //movement code at top
+                NPC.ai[1] = 0;
+                NPC.ai[2] = 0;
+                if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[3] < 9)
+                {
+                    if (distanceToIdlePosition > 500f)
+                    {
+                        // Speed up the boss if it's away from the player
+                        speed = 40f;
+                        inertia = 50f;
+                    }
+                    else
+                    {
+                        // Slow down the boss if closer to the player
+                        speed = 30f;
+                        inertia = 60f;
+                    }
+                    NPC.netUpdate = true;
+                }
 
                 //damage
                 if (Main.getGoodWorld)
@@ -1442,7 +1422,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (NPC.ai[0] > 75) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 10 && lifeleft == 0) || (NPC.localAI[0] > 8 && lifeleft == 1) || (NPC.localAI[0] > 5 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 10 && lifeleft == 0) || (NPC.localAI[0] > 8 && lifeleft == 1) || (NPC.localAI[0] > 6 && lifeleft == 2))
                     {
                         int shoot = Main.rand.Next(0, 4);
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -1480,7 +1460,12 @@ namespace StormDiversMod.NPCs.Boss
                         }
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(xpos, ypos), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj2>(), projdamage, 1, Main.myPlayer, 4, -20);
+                            for (int i = 0; i < 1; i++)
+                            {
+                                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity;
+                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(xpos, ypos), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 3, 0);
+                            }
                         }
 
                         NPC.localAI[0] = 0;
@@ -1671,6 +1656,16 @@ namespace StormDiversMod.NPCs.Boss
                                 Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
                                 int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            }
+                            for (int i = 0; i < projcount * 6; i++)
+                            {
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity / 2;
+                                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(360));
+
+                                    Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y + 10), new Vector2(perturbedSpeed.X * 1.5f, perturbedSpeed.Y * 1.5f), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj3>(), projdamage, 1, Main.myPlayer, 0, 0, 1);
+                                }
                             }
                             NPC.localAI[0] = 0;
                         }

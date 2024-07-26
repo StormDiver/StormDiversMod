@@ -88,6 +88,11 @@ Mods: {
 				Description: 收集全部4套月亮事件时装套装。
 			}
 
+			AchievementGnomed: {
+				Name: 你被侏儒了！
+				Description: 戴上侏儒帽，成为侏儒。
+			}
+
 			AchievementPendants: {
 				Name: 配饰协作
 				Description: 同时激活至少2个配饰的效果。
@@ -141,6 +146,11 @@ Mods: {
 			AchievementThePets: {
 				Name: 双胞胎？
 				Description: 同时激活暮光人物轻型宠物和婴儿风暴潜水员宠物。
+			}
+
+			AchievementWhack: {
+				Name: 不。。。这不是你应该使用它的方式!!!
+				Description: 用 The Painbringer 的法杖殴打敌人 100 次
 			}
 		}
 
@@ -1655,8 +1665,8 @@ Mods: {
 			}
 
 			VortexiaPaintingItem: {
-				// DisplayName: Storm's Additions Mod
-				// Tooltip: Thanks for playing
+				DisplayName: Storm's Additions Mod
+				Tooltip: 感谢您的参与
 			}
 
 			BloodDrop: {
@@ -2037,7 +2047,8 @@ Mods: {
 					左键在任何地方放置一个超级痛苦假人，一次最多放置50个
 					右键移除所有放置的假人，如果世界存在Boss，假人也会被移除
 					假人可以被召唤物/追踪弹药瞄准，并且可以激活任何物品的特殊效果
-					在背包中右键更改假人类型（标准/浮动/坚固/破损/轻盈）
+					右键点击库存可更改假人类型（标准/坚固/破碎/轻便）
+					按住 Shift 键并右键点击可在飞行或接地之间切换
 					'''
 			}
 
@@ -2246,7 +2257,7 @@ Mods: {
 
 			BloodSpear: {
 				DisplayName: 穿心者
-				Tooltip: 非常适合快速刺杀
+				Tooltip: 非常适合匆忙刺伤，但要注意你的准确性
 			}
 
 			BloodSword: {
@@ -2894,8 +2905,8 @@ Mods: {
 			}
 
 			MoltenDagger: {
-				DisplayName: 熔岩匕首
-				Tooltip: 快速刺伤你的敌人
+				DisplayName: 地狱之刃
+				Tooltip: 快速砍杀你的敌人
 			}
 
 			MoltenSeedLauncher: {
@@ -2965,8 +2976,9 @@ Mods: {
 				DisplayName: 痛苦赐予者
 				Tooltip:
 					'''
-					你经历了难以想象的痛苦才得到它，现在你可以将那份痛苦施加给你的敌人
-					持握时点击右键以循环伤害类型
+					你经历了难以想象的痛苦才能得到这个，现在你可以把这种痛苦施加给你的敌人 
+					您还可以通过右键单击来用它击打敌人的头部...... 
+					在您的库存中单击鼠标右键以循环损坏类型（确保禁用自动暂停）
 					'''
 			}
 
@@ -2974,8 +2986,9 @@ Mods: {
 				DisplayName: 痛苦使者之杖
 				Tooltip:
 					'''
-					召唤多个判决头骨，以各种模式寻找敌人并传递痛苦
-					持握时点击右键以循环伤害类型
+					以各种模式召唤多个痛苦头骨，寻找敌人并传递痛苦 
+					您还可以通过右键单击来用它击打敌人的头部...... 
+					在您的库存中单击鼠标右键以循环损坏类型（确保禁用自动暂停）
 					'''
 			}
 
@@ -3738,6 +3751,7 @@ Mods: {
 			LizardMinionProj2.DisplayName: 丛林神庙仆从激光
 			SpaceRockMinionProj.DisplayName: 小行星仆从
 			MoltenDaggerProj.DisplayName: 熔岩匕首
+			MoltenDaggerSlashProj.DisplayName: 熔融匕首斩
 			NebulaStaffProj.DisplayName: 星云火焰
 			NebulaStaffProj2.DisplayName: 星云火焰
 			OceanCoralProj.DisplayName: 珊瑚碎片
@@ -3958,7 +3972,7 @@ Mods: {
 			SnowmanBombBannerPlaced.MapEntry: 旗帜
 			PainMusicBoxPlaced.MapEntry: 音乐盒
 			TheGoodBoyPlaced.MapEntry: 画作
-			// VortexiaPaintingPlaced.MapEntry: Painting
+			VortexiaPaintingPlaced.MapEntry: 画作
 		}
 
 		Configs: {

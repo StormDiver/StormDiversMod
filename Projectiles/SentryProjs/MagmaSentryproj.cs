@@ -9,7 +9,6 @@ using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
-    
     public class MagmaSentryProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -17,7 +16,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             //DisplayName.SetDefault("Magma Orb Sentry");
             Main.projFrames[Projectile.type] = 7;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
-
         }
         public override void SetDefaults()
         {
@@ -36,7 +34,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             DrawOriginOffsetY = 2;
             Projectile.aiStyle = -1;
             Projectile.DamageType = DamageClass.Summon;
-
         }
         public override bool? CanDamage()
         {

@@ -192,7 +192,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             dust.fadeIn = 1f;
             if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 180)
             {
-               
                     //Player target = Main.player;
                     Vector2 idlePosition = Main.LocalPlayer.Center;
                     Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
