@@ -24,8 +24,8 @@ namespace StormDiversMod.Items.Tools
             //Tooltip.SetDefault("Left click to place a Super Pain Dummy anywhere, a limit of 50 can be placed at a time
             //Right click to remove all placed dummies, dummies are also removed if a boss is alive
             //Dummies can be targeted by minions / homing projectiles, and can activate any item's special effect
-            //Right click in the inventory to change dummy type (Standard/Tough/Broken/Light)
-            //Shift - Right click to toggle between flying or grounded");
+            //Right click in the inventory to change dummy type (Standard/Tough/Broken/Light/Chonky)
+            //Shift - Right click to toggle between floating or grounded");
             Item.ResearchUnlockCount = 1;
         }
 
@@ -43,7 +43,7 @@ namespace StormDiversMod.Items.Tools
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.UseSound = SoundID.Item20;
         }
-        int dummytype = 0;
+        int dummytype = 0; //0 = Standard, 1 = Tough, 2 = Broken, 3 = Light, 4 = Chonky
         int dummyflight = 0; //0 = No fly, 1 = fly
         public override bool CanUseItem(Player player)
         {
@@ -57,7 +57,7 @@ namespace StormDiversMod.Items.Tools
             if (!ItemSlot.ShiftInUse) //change type
             {
                 dummytype++;
-                if (dummytype > 3)
+                if (dummytype > 4)
                     dummytype = 0;
             }
             else //toggle flight
@@ -79,23 +79,25 @@ namespace StormDiversMod.Items.Tools
                     line.Text = line.Text + "\n[c/af1160:Current mode:]";
 
                     if (dummyflight == 0)
-                        line.Text = line.Text + "[c/af1160: Grounded -]";
+                        line.Text = line.Text + "[c/af1160: Grounded,]";
 
                     if (dummyflight == 1)
-                        line.Text = line.Text + "[c/af1160: Flying -]";
+                        line.Text = line.Text + "[c/af1160: Floating,]";
 
                     if (dummytype == 0)
-                        line.Text = line.Text + "[c/af1160: Standard; Very fast health regeneration]";
+                        line.Text = line.Text + "[c/af1160: Standard;]\n[c/af1160:- Very fast health regeneration]\n[c/af1160:- Useful for general weapon testing]";
 
                     else if (dummytype == 1)
-                        line.Text = line.Text + "[c/af1160: Tough; Very fast health regeneration and high defense (50)]";
+                        line.Text = line.Text + "[c/af1160: Tough;]\n[c/af1160:- Very fast health regeneration and high defense (50)]\n[c/af1160:- Useful for testing armor penetration or low damage weapons]";
 
                     else if (dummytype == 2)
-                        line.Text = line.Text + "[c/af1160: Broken; Lower health and no regeneration]";
+                        line.Text = line.Text + "[c/af1160: Broken;]\n[c/af1160:- Lower health and no regeneration]\n[c/af1160:- Useful for seeing how quickly you can deal a certain amount of damage]";
 
                     else if (dummytype == 3)
-                        line.Text = line.Text + "[c/af1160: Light; Very fast health regeneration but no knockback resistance]";
+                        line.Text = line.Text + "[c/af1160: Light;]\n[c/af1160:- Very fast health regeneration but no knockback resistance]\n[c/af1160:- Useful for testing knockback]";
 
+                    else if (dummytype == 4)
+                        line.Text = line.Text + "[c/af1160: Chonky;]\n[c/af1160:- Very fast health regeneration and reflects certain projectiles]\n[c/af1160:- Useful for testing which projectiles can be reflected]";
 
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     line.Text = line.Text + "\n[c/ff2500:Doesn't work on Multiplayer]"; //multiplayer sucks
@@ -111,11 +113,13 @@ namespace StormDiversMod.Items.Tools
                         line.Text = "Broken " + line.Text;
                     else if (dummytype == 3)
                         line.Text = "Light " + line.Text;
+                    else if (dummytype == 4)
+                        line.Text = "Chonky " + line.Text;
 
                     if (dummyflight == 0)
                         line.Text = "Grounded " + line.Text;
                     else if (dummyflight == 1)
-                        line.Text = "Flying " + line.Text;
+                        line.Text = "Floating " + line.Text;
                 }
             }
         }

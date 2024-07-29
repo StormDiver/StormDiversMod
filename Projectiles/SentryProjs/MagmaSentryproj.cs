@@ -19,7 +19,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-      
             Projectile.width = 20;
             Projectile.height = 70;
             Projectile.friendly = true;

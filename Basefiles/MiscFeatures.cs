@@ -545,7 +545,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
                 {
-                    if (Main.rand.Next(2) == 0)
+                    if (Main.rand.Next(3) == 0)
                     {
                         int choice = Main.rand.Next(0, 5);
 

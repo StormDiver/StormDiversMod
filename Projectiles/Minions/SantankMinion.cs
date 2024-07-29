@@ -237,7 +237,7 @@ namespace StormDiversMod.Projectiles.Minions
 
                         if (!Main.dedServ)
 						{
-							Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)).RotatedByRandom(MathHelper.ToRadians(3)) * 12;
+							Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)).RotatedByRandom(MathHelper.ToRadians(1)) * 15;
 
 							int ProjID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + 10 * Projectile.spriteDirection, Projectile.Center.Y ), new Vector2(velocity.X, velocity.Y), 
 								ModContent.ProjectileType<SantankMinionProj3>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
@@ -460,7 +460,6 @@ namespace StormDiversMod.Projectiles.Minions
 				Projectile.velocity.X = 0;
 				Projectile.velocity.Y = 0;
 
-
 			}
 			if (timer > 25)
 			{
@@ -602,17 +601,16 @@ namespace StormDiversMod.Projectiles.Minions
 			ProjectileID.Sets.MinionShot[Projectile.type] = true;
 
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-		}
 
-		public override void SetDefaults()
+        }
+
+        public override void SetDefaults()
 		{
 			Projectile.width = 2;
 			Projectile.height = 2;
-
 			Projectile.friendly = true;
-			Projectile.aiStyle = 1;
-			AIType = ProjectileID.Bullet;
-
+			Projectile.aiStyle = 0;
+			//AIType = ProjectileID.Bullet;
 			Projectile.extraUpdates = 1;
 			Projectile.tileCollide = true;
 			Projectile.DamageType = DamageClass.Summon;
@@ -621,11 +619,14 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.localNPCHitCooldown = 10;
 
             Projectile.ArmorPenetration = 12;
-
         }
         public override void AI()
         {
-			
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.Kill();
         }
         public override void OnKill(int timeLeft)
         {
@@ -636,13 +637,12 @@ namespace StormDiversMod.Projectiles.Minions
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
                 dust.scale = 0.75f;
-
             }
-           
         }
-        public override Color? GetAlpha(Color lightColor)
-        {
-				return Color.White;
-        }
+
+		public override Color? GetAlpha(Color lightColor)
+		{
+			return Color.White;
+		}
     }
 }

@@ -35,7 +35,6 @@ namespace StormDiversMod.Items.Potions
             Item.healLife = 125;
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.potion = true;
-           
         }
         public override void OnConsumeItem(Player player)
         {
@@ -60,25 +59,22 @@ namespace StormDiversMod.Items.Potions
     }
     public class DoubleHealingPotion : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Enhanced Healing Potion");
             //Tooltip.SetDefault("Potion sickness lasts longer than normal");
             Item.ResearchUnlockCount = 30;
-
         }
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            foreach (TooltipLine line in tooltips)
+            /*foreach (TooltipLine line in tooltips)
             {
                 if (line.Mod == "Terraria" && line.Name == "HealLife")
                 {
-                    line.Text = "Restores 50% of your maximum life up to 300";
+                    line.Text = line.Text +"\nRestores 50% of your maximum life up to 300";
                 }
 
-            }
+            }*/
         }
         public override void SetDefaults()
         {
@@ -95,7 +91,7 @@ namespace StormDiversMod.Items.Potions
             Item.healLife = 300;
             Item.value = Item.sellPrice(0, 0, 15, 0);
             Item.potion = true;
-            
+            //Item.DefaultToHealingPotion(22, 32, 80);
         }
         public override void OnConsumeItem(Player player)
         {

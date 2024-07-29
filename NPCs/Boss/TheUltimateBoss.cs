@@ -1684,7 +1684,14 @@ namespace StormDiversMod.NPCs.Boss
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, "How's that for Pain?", true);
-            //UNUSED
+            if (Main.netMode == 2) // Server
+            {
+                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("How's that for Pain?"), new Color(175, 17, 96));
+            }
+            else if (Main.netMode == 0) // Single Player
+            {
+                Main.NewText("How's that for Pain?", 175, 17, 96);
+            }
         }
         int npcframe = 0;
         public override void FindFrame(int frameHeight)//Animations

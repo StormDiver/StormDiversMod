@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Magic Lava Orb");
-            Main.projFrames[Projectile.type] = 5;
+            Main.projFrames[Projectile.type] = 4;
 
         }
         public override void SetDefaults()
@@ -47,13 +47,12 @@ namespace StormDiversMod.Projectiles
                 /*Dust dust2;
                 dust2 = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, 127, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                 dust2.noGravity = true;*/
-               
 
             }
             Dust dust3;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position2 = Projectile.Center;
-            dust3 = Terraria.Dust.NewDustPerfect(position2, 127, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+            dust3 = Terraria.Dust.NewDustPerfect(position2, 127, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);
             dust3.noGravity = true;
             dust3.noLight = true;
 
@@ -113,7 +112,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.frameCounter >= 4) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
             {
                 Projectile.frame++;
-                Projectile.frame %= 5; // Will reset to the first frame if you've gone through them all.
+                Projectile.frame %= 4; // Will reset to the first frame if you've gone through them all.
                 Projectile.frameCounter = 0;
             }
         }
@@ -133,8 +132,8 @@ namespace StormDiversMod.Projectiles
         public override void SetDefaults()
         {
 
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 60;
@@ -146,6 +145,7 @@ namespace StormDiversMod.Projectiles
             //drawOffsetX = -2;
             //drawOriginOffsetY = -2;
             Projectile.ignoreWater = true;
+            Projectile.ArmorPenetration = 6;
         }
 
         public override void AI()

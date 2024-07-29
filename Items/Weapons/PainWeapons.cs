@@ -85,7 +85,7 @@ namespace StormDiversMod.Items.Weapons
                 damagetype = 0;
             if (!Main.autoPause)
             {
-                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
+                //CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
             }
             SoundEngine.PlaySound(SoundID.Item73, player.Center);
             for (int i = 0; i < 30; i++) //Pink particles
@@ -432,7 +432,7 @@ namespace StormDiversMod.Items.Weapons
                 damagetype = 0;
             if (!Main.autoPause)
             {
-                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
+                //CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, classtext, true);
             }
             SoundEngine.PlaySound(SoundID.Item73, player.Center);
             for (int i = 0; i < 30; i++) //Pink particles
@@ -527,7 +527,13 @@ namespace StormDiversMod.Items.Weapons
                 int shoottype = Main.rand.Next(0, 4);
                 int numberProjectiles = 3 + Main.rand.Next(3);
                 //SoundEngine.PlaySound(SoundID.ScaryScream with{ Volume = 0.5f, Pitch = 0.5f, PitchVariance = 0.1f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew}, player.Center);
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                if (!GetInstance<ConfigurationsIndividual>().NoPain)
+                {
+                    if (player.Male)
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                    else
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSoundFemale") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                }
 
                 for (int index = 0; index < numberProjectiles; ++index)
                 {

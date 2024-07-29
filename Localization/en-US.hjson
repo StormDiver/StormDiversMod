@@ -150,7 +150,7 @@ Mods: {
 
 			AchievementWhack: {
 				Name: No... that's not how you're meant to use it!!!!
-				Description: Whack enemies a toal of 100 times with The Staff of The Painbringer
+				Description: Whack enemies a toal of 100 times with The Staff of The Painbringer.
 			}
 		}
 
@@ -1071,7 +1071,7 @@ Mods: {
 				Tooltip:
 					'''
 					Ricochets twice, exploding on the third impact, or on impact with enemies
-					'You must be on the super naughty list to have one of these'
+					'You must be on the super naughty list to receive one of these'
 					'''
 			}
 
@@ -1795,7 +1795,11 @@ Mods: {
 
 			DoubleHealingPotion: {
 				DisplayName: Enhanced Healing Potion
-				Tooltip: Potion sickness lasts longer than normal
+				Tooltip:
+					'''
+					Restores 50% of your maximum life up to 300
+					Potion sickness lasts longer than normal
+					'''
 			}
 
 			FruitHeartPotion: {
@@ -2047,8 +2051,8 @@ Mods: {
 					Left click to place a Super Pain Dummy anywhere, a limit of 50 can be placed at a time
 					Right click to remove all placed dummies, dummies are also removed if a boss is alive
 					Dummies can be targeted by minions/homing projectiles, and can activate any item's special effect
-					Right click in the inventory to change dummy type (Standard/Tough/Broken/Light)
-					Shift-Right click to toggle between flying or grounded
+					Right click in the inventory to change dummy type (Standard/Tough/Broken/Light/Chonky)
+					Shift-Right click to toggle between floating or grounded
 					'''
 			}
 
@@ -2346,7 +2350,7 @@ Mods: {
 				DisplayName: Lunatic Bow of Ice
 				Tooltip:
 					'''
-					Fires out an ice arrow alongside 2 to 3 regular arrows which rains down icicles on impact
+					Fires out 2 to 3 regular arrows along side a special ice arrow which rains down icicles on impact
 					The ice arrow inflicts Ultrafreeze that deals high damage over time and slows enemies
 					'''
 			}
@@ -2626,7 +2630,7 @@ Mods: {
 
 			HellSoulBow: {
 				DisplayName: Infernal Fury
-				Tooltip: Fires out a homing soul arrow every shot
+				Tooltip: Fires out an additional homing soul arrow every shot
 			}
 
 			HellSoulFlare: {

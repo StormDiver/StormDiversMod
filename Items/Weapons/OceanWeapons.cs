@@ -71,7 +71,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Coral, 10)
+            .AddIngredient(ItemID.Coral, 8)
             .AddIngredient(ItemID.Starfish, 2)
             .AddIngredient(ItemID.Seashell, 2)
             .AddTile(TileID.WorkBenches)
@@ -142,7 +142,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ItemID.Coral, 10)
+           .AddIngredient(ItemID.Coral, 8)
            .AddIngredient(ItemID.Starfish, 2)
            .AddIngredient(ItemID.Seashell, 2)
            .AddTile(TileID.WorkBenches)
@@ -206,7 +206,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-           .AddIngredient(ItemID.Coral, 10)
+           .AddIngredient(ItemID.Coral, 8)
            .AddIngredient(ItemID.Starfish, 2)
            .AddIngredient(ItemID.Seashell, 2)
            .AddTile(TileID.WorkBenches)

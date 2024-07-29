@@ -202,6 +202,12 @@ namespace StormDiversMod.Basefiles
             recipe5.AddTile(TileID.WorkBenches);
             recipe5.Register();
 
+            //Fledging Wings
+            Recipe recipe6 = Recipe.Create(ItemID.CreativeWings, 1);
+            recipe6.AddIngredient(ItemID.Feather, 6);
+            recipe6.AddTile(TileID.WorkBenches);
+            recipe6.Register();
+
             //Frost armour
             Recipe recipe7 = Recipe.Create(ItemID.FrostHelmet, 1);
             recipe7.AddIngredient(ModContent.ItemType<IceBar>(), 10);

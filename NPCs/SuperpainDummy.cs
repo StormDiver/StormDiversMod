@@ -24,7 +24,7 @@ namespace StormDiversMod.NPCs
         {
             //DisplayName.SetDefault("Super Pain Dummy");
             NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
-            Main.npcFrameCount[NPC.type] = 16;
+            Main.npcFrameCount[NPC.type] = 20;
 
             NPCID.Sets.NPCBestiaryDrawModifiers bestiaryData = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
@@ -32,7 +32,6 @@ namespace StormDiversMod.NPCs
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, bestiaryData);
             NPCID.Sets.MPAllowedEnemies[Type] = true;
-
         }
         public override void SetDefaults()
         {
@@ -73,10 +72,13 @@ namespace StormDiversMod.NPCs
             else if (NPC.ai[0] == 3)
                 typeName = "Light " + typeName;
 
+            else if (NPC.ai[0] == 4)
+                typeName = "Chonky " + typeName;
+
             if (NPC.ai[1] == 0)
                 typeName = "Grounded " + typeName;
             else if (NPC.ai[1] == 1)
-                typeName = "Flying " + typeName;
+                typeName = "Floating " + typeName;
 
         }
         bool die;
@@ -85,9 +87,11 @@ namespace StormDiversMod.NPCs
         float yheight;
         public override void OnSpawn(IEntitySource source)
         {
-            yheight = NPC.position.Y;
+            yheight = NPC.position.Y; //Set spawn Y postion for floating light
+            //set frame for each type
+            extraframe = (int)(NPC.ai[0] * 4); // 0 for standard, 4 for tough, 8 for broken, 12 for light, 16 for chonky
 
-            if (NPC.ai[0] == 0) //each type uses the next 4 frames
+            /*if (NPC.ai[0] == 0)
                 extraframe = 0;
             else if (NPC.ai[0] == 1)
                 extraframe = 4;
@@ -95,14 +99,15 @@ namespace StormDiversMod.NPCs
                 extraframe = 8;
             else if (NPC.ai[0] == 3)
                 extraframe = 12;
+            else if (NPC.ai[0] == 4)
+                extraframe = 16;*/
 
-            if (NPC.ai[1] == 1) //extra 2 frames if flying
+            if (NPC.ai[1] == 1) //extra 2 frames if Floating
                 extraframe += 2;
-
         }
         public override bool? CanFallThroughPlatforms()
         {
-            if (NPC.ai[1] is 1)
+            if (NPC.ai[1] is 1) //Fall through if floating
                 return true;
             else
                 return false;
@@ -113,9 +118,11 @@ namespace StormDiversMod.NPCs
             //Ai 0 1 = Tough
             //Ai 0 2 = Broken (Less health, no regen)
             //Ai 0 3 = Light (No KB resist)
+            //Ai 0 4 = Chonky (reflects projects)
+
 
             //Ai 1 0 = Grounded
-            //Ai 1 1 = Flying
+            //Ai 1 1 = Floating
 
             if (NPC.ai[0] == 1) //Tough
             {
@@ -149,6 +156,10 @@ namespace StormDiversMod.NPCs
                     if (NPC.velocity.Y < 2)
                         NPC.velocity.Y += 0.1f;
                 }
+            }
+            if (NPC.ai[0] == 4) //Chonky
+            {
+                NPC.reflectsProjectiles = true;
             }
 
             Player player = Main.LocalPlayer;
@@ -198,8 +209,8 @@ namespace StormDiversMod.NPCs
         }
         public override void UpdateLifeRegen(ref int damage)
         {
-            if (NPC.ai[0] is 0 or 1 or 3) //Standard, Tough, and Light have regen
-                NPC.lifeRegen += 50000;
+            if (NPC.ai[0] is 0 or 1 or 3 or 4) //Standard, Tough, Light, and Chonky have regen
+                NPC.lifeRegen += 100000;
         }
         int npcframe = 0;
 
@@ -208,7 +219,7 @@ namespace StormDiversMod.NPCs
             NPC.frame.Y = npcframe * frameHeight;
 
             if (hurttime == 0) //when hurt is displays the pained frame for 60 frames (60 frames after landing on the ground for light)
-            npcframe = 0 + extraframe;
+                npcframe = 0 + extraframe;
             else
                 npcframe = 1 + extraframe;
         }

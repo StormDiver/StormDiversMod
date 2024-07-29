@@ -663,6 +663,7 @@ namespace StormDiversMod.Basefiles
                     }
                 }
                 //circle of dust
+                //Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2CircularEdge(Range, Range);
                 for (int i = 0; i < 8; i++)
                 {
                     double deg = Main.rand.Next(0, 360); //The degrees

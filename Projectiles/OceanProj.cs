@@ -16,8 +16,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Magic Water Orb");
-            Main.projFrames[Projectile.type] = 5;
-
+            Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
         {
@@ -76,19 +75,14 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 SoundEngine.PlaySound(SoundID.Item86, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 33);
                 }
-
             }
             {
-
                 int numberProjectiles = 4 + Main.rand.Next(2); //This defines how many projectiles to shot.
-
 
                 for (int i = 0; i < numberProjectiles; i++)
                 {
@@ -101,7 +95,6 @@ namespace StormDiversMod.Projectiles
                     int ProjID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<OceanSmallProj>(), (int)(Projectile.damage * 0.33f), 1, Projectile.owner);
                     Main.projectile[ProjID].ArmorPenetration = 10;
                     Main.projectile[ProjID].DamageType = DamageClass.Magic;
-
                 }
             }
         }
@@ -111,7 +104,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.frameCounter >= 4) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
             {
                 Projectile.frame++;
-                Projectile.frame %= 5; // Will reset to the first frame if you've gone through them all.
+                Projectile.frame %= 4; // Will reset to the first frame if you've gone through them all.
                 Projectile.frameCounter = 0;
             }
         }

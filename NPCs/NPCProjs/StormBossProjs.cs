@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Terraria.Utilities;
 using StormDiversMod.NPCs;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.NPCs.NPCProjs
 {
@@ -845,7 +846,42 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         int movespeed = 20;
         float linewidth = 5;
+        public override void OnSpawn(IEntitySource source)
+        {
+            //set the target
+            Projectile.scale = 0f;
 
+            for (int i = 0; i < 1; i++)
+            {
+                player = Main.player[i];
+                //player = Main.npc[NPCs.StormBoss].target;
+
+                for (int j = 0; j < 50; j++)
+                {
+                    float speedY = -4f;
+
+                    Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 110, dustspeed.X, dustspeed.Y, 229, default, 1.5f);
+                    Main.dust[dust2].noGravity = true;
+                }
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    float projspeed = 6;
+                    velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+
+                    xPos = Projectile.Center.X - player.Center.X;
+                    yPos = Projectile.Center.Y - player.Center.Y;
+                    Projectile.netUpdate = true;
+                }
+                rotation = -Projectile.Center + player.Center; //set the lightning rotation as well
+
+            }
+            if (Projectile.ai[1] == 1)
+            {
+                Projectile.ai[0] += 30; //Skip ahead when firing down
+            }
+        }
         public override void AI()
         {
             
@@ -892,43 +928,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                     }
 
                 }
-            }
-
-            if (Projectile.ai[0] == 1) //set the target
-            {
-                Projectile.scale = 0f;
-
-                for (int i = 0; i < 1; i++)
-                {
-                    player = Main.player[i];
-                    //player = Main.npc[NPCs.StormBoss].target;
-                    
-                        for (int j = 0; j < 50; j++)
-                        {
-                            float speedY = -4f;
-
-                            Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-
-                            int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 110, dustspeed.X, dustspeed.Y, 229, default, 1.5f);
-                            Main.dust[dust2].noGravity = true;
-                        }
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {                      
-                        float projspeed = 6;
-                        velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
-
-                        xPos = Projectile.Center.X - player.Center.X;
-                        yPos = Projectile.Center.Y - player.Center.Y;
-                        Projectile.netUpdate = true;
-                    }
-                    rotation = -Projectile.Center + player.Center; //set the lightning rotation as well
-
-                }
-                if (Projectile.ai[1] == 1)
-                {
-                    Projectile.ai[0] += 30; //Skip ahead when firing down
-                }
-
             }
             
             if (Projectile.ai[0] < 60)
