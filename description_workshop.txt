@@ -21,11 +21,11 @@ This mod will receive occasional updates, mostly balance changes and any bug fix
 [h2]Quality of Life features:[/h2]
 [list]
 [*] New recipes and drops for certain uncraftable vanilla items, including the Rod of Discord, Snow and Gladiator armour, Chum caster, and even the Slime Staff
-[*] A special super dummy with multiple variants
 [*] Most NPCs sell their dropped weapon
 [*] A special Post Moon Lord miniboss that drops Lunar fragments and Luminite
 [*] An item that can remove the shields from the pillars
 [*] Generates additional Granite, Marble, and Mushroom chests in their respective biomes
+[*] A Super Pain Dummy with multiple variants - [b]this is now available as its own mod:[/b] https://steamcommunity.com/sharedfiles/filedetails/?id=3299885526
 [/list]
 
 [h2]Links[/h2]

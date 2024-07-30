@@ -45,6 +45,10 @@ namespace StormDiversMod.Items.Tools
         }
         int dummytype = 0; //0 = Standard, 1 = Tough, 2 = Broken, 3 = Light, 4 = Chonky
         int dummyflight = 0; //0 = No fly, 1 = fly
+        int dummyextra = 0; //Extra attributes for certain types (3 for now)
+        string defencevalue;
+        string healthvalue;
+        string knockbackvalue;
         public override bool CanUseItem(Player player)
         {
             if (NPC.CountNPCS(ModContent.NPCType<SuperPainDummy>()) < 50 && Main.netMode != NetmodeID.MultiplayerClient)
@@ -54,19 +58,52 @@ namespace StormDiversMod.Items.Tools
         }
         public override void RightClick(Player player)
         {
-            if (!ItemSlot.ShiftInUse) //change type
+            if (!ItemSlot.ShiftInUse && !ItemSlot.ControlInUse) //change type
             {
+                dummyextra = 0; //reset extra attribute
                 dummytype++;
                 if (dummytype > 4)
                     dummytype = 0;
             }
-            else //toggle flight
+            if (ItemSlot.ShiftInUse && !ItemSlot.ControlInUse) //toggle flight
             {
                 dummyflight++;
                 if (dummyflight > 1)
                     dummyflight = 0;
             }
+            if (!ItemSlot.ShiftInUse && ItemSlot.ControlInUse) //toggle extra
+            {
+                dummyextra++;
+                if (dummyextra > 3)
+                    dummyextra = 0;
+            }
             //Main.NewText("pls: " + dummytype, 175, 17, 96);
+        }
+        public override void UpdateInventory(Player player) //cycle damage types
+        {
+            switch (dummyextra)
+            {
+                case 0:
+                    defencevalue = "5";
+                    healthvalue = "5,000";
+                    knockbackvalue = "0%";
+                    break;
+                case 1:
+                    defencevalue = "10";
+                    healthvalue = "10,000";
+                    knockbackvalue = "25%";
+                    break;
+                case 2:
+                    defencevalue = "25";
+                    healthvalue = "25,000";
+                    knockbackvalue = "50%";
+                    break;
+                case 3:
+                    defencevalue = "50";
+                    healthvalue = "50,000";
+                    knockbackvalue = "75%";
+                    break;
+            }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -74,52 +111,73 @@ namespace StormDiversMod.Items.Tools
             foreach (TooltipLine line in tooltips)
             {
 
-                if (line.Mod == "Terraria" && line.Name == "Tooltip4")
+                if (line.Mod == "Terraria" && line.Name == "Tooltip5")
                 {
                     line.Text = line.Text + "\n[c/af1160:Current mode:]";
+                    switch (dummyflight)
+                    {
+                        case 0:
+                            line.Text = line.Text + "[c/b0791b: Grounded,]";
+                            break;
+                        case 1:
+                            line.Text = line.Text + "[c/1dc3ba: Floating,]";
+                            break;
+                    }
 
-                    if (dummyflight == 0)
-                        line.Text = line.Text + "[c/af1160: Grounded,]";
-
-                    if (dummyflight == 1)
-                        line.Text = line.Text + "[c/af1160: Floating,]";
-
-                    if (dummytype == 0)
-                        line.Text = line.Text + "[c/af1160: Standard;]\n[c/af1160:- Very fast health regeneration]\n[c/af1160:- Useful for general weapon testing]";
-
-                    else if (dummytype == 1)
-                        line.Text = line.Text + "[c/af1160: Tough;]\n[c/af1160:- Very fast health regeneration and high defense (50)]\n[c/af1160:- Useful for testing armor penetration or low damage weapons]";
-
-                    else if (dummytype == 2)
-                        line.Text = line.Text + "[c/af1160: Broken;]\n[c/af1160:- Lower health and no regeneration]\n[c/af1160:- Useful for seeing how quickly you can deal a certain amount of damage]";
-
-                    else if (dummytype == 3)
-                        line.Text = line.Text + "[c/af1160: Light;]\n[c/af1160:- Very fast health regeneration but no knockback resistance]\n[c/af1160:- Useful for testing knockback]";
-
-                    else if (dummytype == 4)
-                        line.Text = line.Text + "[c/af1160: Chonky;]\n[c/af1160:- Very fast health regeneration and reflects certain projectiles]\n[c/af1160:- Useful for testing which projectiles can be reflected]";
-
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    switch (dummytype)
+                    {
+                        case 0:
+                            line.Text = line.Text + "[c/e272e1: Standard;]\n[c/af1160:- Very fast health regeneration]\n[c/af1160:- Useful for general weapon testing]";
+                            break;
+                        case 1:
+                            line.Text = line.Text + "[c/7d28df: Tough;]\n[c/af1160:- Very fast health regeneration and high defense]\n[c/af1160:- Useful for testing armor penetration or low damage weapons]" +
+                                "\n[c/af1160:Extra Attribute: Defense = " + defencevalue + "]";
+                            break;
+                        case 2:
+                            line.Text = line.Text + "[c/3ecd0d: Broken;]\n[c/af1160:- Lower health and no regeneration]\n[c/af1160:- Useful for seeing how quickly you can deal a certain amount of damage]" +
+                                "\n[c/af1160:Extra Attribute: Health = " + healthvalue + "]";
+                            break;
+                        case 3:
+                            line.Text = line.Text + "[c/0db9cd: Light;]\n[c/af1160:- Very fast health regeneration but no knockback resistance]\n[c/af1160:- Useful for testing knockback]" +
+                                "\n[c/af1160:Extra Attribute: Knockback resistance = " + knockbackvalue + "]";
+                            break;
+                        case 4:
+                            line.Text = line.Text + "[c/e8e006: Chonky;]\n[c/af1160:- Very fast health regeneration and reflects certain projectiles]\n[c/af1160:- Useful for testing which projectiles can be reflected]";
+                            break;
+                    }
+                            if (Main.netMode == NetmodeID.MultiplayerClient)
                     line.Text = line.Text + "\n[c/ff2500:Doesn't work on Multiplayer]"; //multiplayer sucks
 
                 }
                 if (line.Mod == "Terraria" && line.Name == "ItemName")
                 {
-                    if (dummytype == 0)
-                        line.Text = "Standard " + line.Text;
-                    else if (dummytype == 1)
-                        line.Text = "Tough " + line.Text;
-                    else if (dummytype == 2)
-                        line.Text = "Broken " + line.Text;
-                    else if (dummytype == 3)
-                        line.Text = "Light " + line.Text;
-                    else if (dummytype == 4)
-                        line.Text = "Chonky " + line.Text;
-
-                    if (dummyflight == 0)
-                        line.Text = "Grounded " + line.Text;
-                    else if (dummyflight == 1)
-                        line.Text = "Floating " + line.Text;
+                    switch (dummytype)
+                    {
+                        case 0:
+                            line.Text = "Standard " + line.Text;
+                            break;
+                        case 1:
+                            line.Text = "Tough " + line.Text;
+                            break;
+                        case 2:
+                            line.Text = "Broken " + line.Text;
+                            break;
+                        case 3:
+                            line.Text = "Light " + line.Text;
+                            break;
+                        case 4:
+                            line.Text = "Chonky " + line.Text;
+                            break;
+                    }
+                    switch (dummyflight)
+                    {
+                        case 0:
+                            line.Text = "Grounded " + line.Text;
+                            break;
+                        case 1:
+                            line.Text = "Floating " + line.Text;
+                            break;
+                    }
                 }
             }
         }
@@ -128,7 +186,7 @@ namespace StormDiversMod.Items.Tools
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                    NPC.NewNPC(source, (int)Math.Round(Main.MouseWorld.X), (int)Math.Round(Main.MouseWorld.Y), ModContent.NPCType<SuperPainDummy>(), 0, dummytype, dummyflight); //Ai 0 for type, Ai 1 for flight
+                    NPC.NewNPC(source, (int)Math.Round(Main.MouseWorld.X), (int)Math.Round(Main.MouseWorld.Y), ModContent.NPCType<SuperPainDummy>(), 0, dummytype, dummyflight, dummyextra); //Ai 0 for type, Ai 1 for flight, Ai 2 for extra attribute
 
                 for (int i = 0; i < 2; i++)
                 {

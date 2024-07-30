@@ -2053,6 +2053,7 @@ Mods: {
 					Dummies can be targeted by minions/homing projectiles, and can activate any item's special effect
 					Right click in the inventory to change dummy type (Standard/Tough/Broken/Light/Chonky)
 					Shift-Right click to toggle between floating or grounded
+					Control-Right click to change extra attributes for certain types
 					'''
 			}
 
