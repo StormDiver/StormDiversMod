@@ -61,7 +61,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
             }
            
-            for (int i = 0; i < 200; i++)//for town npcs
+            for (int i = 0; i < 200; i++)//for applying oil to enemies
             {
                 NPC target = Main.npc[i];
 
@@ -69,7 +69,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
                 if (npcdistance <= Projectile.width / 2 + target.width / 2 && target.active && target.lifeMax >= 5 && !target.dontTakeDamage)
                 {
-                    target.AddBuff(BuffID.Oiled, Main.rand.Next(720, 1081)); //12-18 seconds
+                    target.AddBuff(BuffID.Oiled, Main.rand.Next(900, 1201)); //15-20 seconds
                     Projectile.Kill();
                 }
             }

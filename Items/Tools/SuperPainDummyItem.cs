@@ -25,7 +25,8 @@ namespace StormDiversMod.Items.Tools
             //Right click to remove all placed dummies, dummies are also removed if a boss is alive
             //Dummies can be targeted by minions / homing projectiles, and can activate any item's special effect
             //Right click in the inventory to change dummy type (Standard/Tough/Broken/Light/Chonky)
-            //Shift - Right click to toggle between floating or grounded");
+            //Shift-Right click to toggle between floating or grounded
+            //Ctrl-Right click to change extra attributes for certain types");
             Item.ResearchUnlockCount = 1;
         }
 
@@ -51,6 +52,13 @@ namespace StormDiversMod.Items.Tools
         string knockbackvalue;
         public override bool CanUseItem(Player player)
         {
+            for (int i = 0; i < Main.maxNPCs; i++) //can't spawn if boss is active
+            {
+                NPC bosscheck = Main.npc[i];
+
+                if (bosscheck.active && bosscheck.boss)
+                    return false;
+            }
             if (NPC.CountNPCS(ModContent.NPCType<SuperPainDummy>()) < 50 && Main.netMode != NetmodeID.MultiplayerClient)
                 return true;
             else
@@ -110,7 +118,20 @@ namespace StormDiversMod.Items.Tools
         {
             foreach (TooltipLine line in tooltips)
             {
-
+                if (line.Mod == "Terraria" && line.Name == "Tooltip4")
+                {
+                    if (ItemSlot.ShiftInUse && !ItemSlot.ControlInUse) //toggle flight
+                    {
+                        line.Text = "[c/ffdf00:> " + line.Text + "]";
+                    }
+                }
+                if (line.Mod == "Terraria" && line.Name == "Tooltip5")
+                {
+                    if (!ItemSlot.ShiftInUse && ItemSlot.ControlInUse) //toggle extra
+                    {
+                        line.Text = "[c/ffdf00:> " + line.Text + "]";
+                    }
+                }
                 if (line.Mod == "Terraria" && line.Name == "Tooltip5")
                 {
                     line.Text = line.Text + "\n[c/af1160:Current mode:]";
@@ -181,12 +202,11 @@ namespace StormDiversMod.Items.Tools
                 }
             }
         }
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                    NPC.NewNPC(source, (int)Math.Round(Main.MouseWorld.X), (int)Math.Round(Main.MouseWorld.Y), ModContent.NPCType<SuperPainDummy>(), 0, dummytype, dummyflight, dummyextra); //Ai 0 for type, Ai 1 for flight, Ai 2 for extra attribute
+                NPC.NewNPC(source, (int)Math.Round(Main.MouseWorld.X), (int)Math.Round(Main.MouseWorld.Y), ModContent.NPCType<SuperPainDummy>(), 0, dummytype, dummyflight, dummyextra); //Ai 0 for type, Ai 1 for flight, Ai 2 for extra attribute
 
                 for (int i = 0; i < 2; i++)
                 {
@@ -204,7 +224,6 @@ namespace StormDiversMod.Items.Tools
                     Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
                 }
             }
-
             return false;
         }
         public override bool ConsumeItem(Player player) => false;

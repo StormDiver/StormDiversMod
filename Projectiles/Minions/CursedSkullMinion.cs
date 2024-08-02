@@ -178,7 +178,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 							if ((lineOfSight || closeThroughWall) && npcDistance < 750)
 							{
-								targetCenter = npc.Center + new Vector2(xpos, Main.rand.Next(-75, -25));
+								targetCenter = npc.Center + new Vector2(xpos, Main.rand.Next(-50, 0));
 								targetNPC = npc.Center + new Vector2(0, 0);
 								foundTarget = true;
 							}
@@ -197,8 +197,8 @@ namespace StormDiversMod.Projectiles.Minions
 			}
 			if (foundTarget)
 			{
-                speed = 10f;
-                inertia = 20f;
+                speed = 12f;
+                inertia = 15f;
 
                 if (Projectile.position.X < targetNPC.X)
                     xpos = -100;
@@ -272,7 +272,7 @@ namespace StormDiversMod.Projectiles.Minions
 
                     // Speed up the minion if it's away from the player
                     speed = 12f;
-					inertia = 30f;
+					inertia = 20f;
 				}
 				else
 				{

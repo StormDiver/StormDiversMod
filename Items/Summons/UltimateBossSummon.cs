@@ -86,9 +86,9 @@ namespace StormDiversMod.Items.Summons
             if (player.whoAmI == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.Roar, player.Center);
-                
+
                 int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 16 * player.gravDir), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
-               
+
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
@@ -97,29 +97,31 @@ namespace StormDiversMod.Items.Summons
                 {
                     NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
                 }
-                if (StormWorld.ultimateBossDown)
+                if (!GetInstance<ConfigurationsIndividual>().NoMessage)
                 {
-                    Paintext = "Ready to experience pain again?";
-                }
-                else if (Main.getGoodWorld)
-                {
-                    Paintext = "Ready to prove your worth?";
-                }
-                else
-                {
-                    Paintext = "Ready to experience pain?";
-                }
-                CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
-                if (Main.netMode == 2) // Server
-                {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
-                }
-                else if (Main.netMode == 0) // Single Player
-                {
-                    Main.NewText(Paintext, 175, 17, 96);
+                    if (StormWorld.ultimateBossDown)
+                    {
+                        Paintext = "Ready to experience pain again?";
+                    }
+                    else if (Main.getGoodWorld)
+                    {
+                        Paintext = "Ready to prove your worth?";
+                    }
+                    else
+                    {
+                        Paintext = "Ready to experience pain?";
+                    }
+                    CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                    if (Main.netMode == 2) // Server
+                    {
+                        Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                    }
+                    else if (Main.netMode == 0) // Single Player
+                    {
+                        Main.NewText(Paintext, 175, 17, 96);
+                    }
                 }
             }
-
             return true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

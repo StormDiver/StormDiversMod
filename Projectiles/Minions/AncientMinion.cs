@@ -79,7 +79,7 @@ namespace StormDiversMod.Projectiles.Minions
 		}
 		bool shooting = false;
 		float speed = 12f;
-		float inertia = 50f;
+		float inertia = 30f;
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
@@ -220,7 +220,7 @@ namespace StormDiversMod.Projectiles.Minions
                 {
 					shooting = false;
 					speed = 15f;
-					inertia = 50f;
+					inertia = 30f;
 				}
 
 				if (Projectile.ai[1] >= 20 && Vector2.Distance(Projectile.Center, targetCenter) < 400f)
@@ -256,13 +256,13 @@ namespace StormDiversMod.Projectiles.Minions
 				{
 					// Speed up the minion if it's away from the player
 					speed = 12f;
-					inertia = 50f;
+					inertia = 30f;
 				}
 				else
 				{
 					// Slow down the minion if closer to the player
 					speed = 4f;
-					inertia = 80f;
+					inertia = 50f;
 				}
 				if (distanceToIdlePosition > 10f)
 				{

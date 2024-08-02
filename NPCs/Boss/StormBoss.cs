@@ -934,7 +934,7 @@ namespace StormDiversMod.NPCs.Boss
 
                     if (Main.masterMode) //Portal amounts
                     {
-                        portalamount = 7;
+                        portalamount = 6;
                     }
                     else if (Main.expertMode && !Main.masterMode)
                     {
@@ -1168,7 +1168,7 @@ namespace StormDiversMod.NPCs.Boss
                     }
                     if (Main.masterMode) //Portal amounts
                     {
-                        portalamount = 2;
+                        portalamount = 1;
                     }
                     else
                     {

@@ -81,7 +81,9 @@ namespace StormDiversMod.Projectiles.Minions
 		{
 			return false;
 		}
-		public override void AI()
+        float speed = 18f;
+        float inertia = 20f;
+        public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
 
@@ -187,8 +189,8 @@ namespace StormDiversMod.Projectiles.Minions
 
 
 			// Default movement parameters (here for attacking)
-			float speed = 12f;
-			float inertia = 50f;
+			//float speed = 18f;
+			//float inertia = 20f;
 			if (Projectile.ai[0] <= 6)
 			{
 				Projectile.ai[0] += 1; //Fix issue where minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
@@ -200,7 +202,7 @@ namespace StormDiversMod.Projectiles.Minions
 					Projectile.ai[1]++; //Shoottime
 				}
 				// Minion has a target: attack (here, fly towards the enemy)
-				if (Vector2.Distance(Projectile.Center, targetCenter) > 30f || Projectile.ai[0] <= 5)
+				if (Vector2.Distance(Projectile.Center, targetCenter) > 30 || Projectile.ai[0] <= 5)
 				{
 					// The immediate range around the target (so it doesn't latch onto it when close)
 					Vector2 direction = targetCenter - Projectile.Center;
@@ -214,12 +216,13 @@ namespace StormDiversMod.Projectiles.Minions
 				{
 					if (!Main.dedServ)
 					{					
-                        float projspeed = 12;
-                        Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                        //float projspeed = 0.1f;
+                        //Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Main.rand.NextFloat(-3, 3), -3), ModContent.ProjectileType<HellSoulMinionProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 
-						for (int i = 0; i < 10; i++)
+                        for (int i = 0; i < 10; i++)
 						{
 							var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 173);
 							dust.scale = 1.5f;
@@ -228,22 +231,31 @@ namespace StormDiversMod.Projectiles.Minions
 					}
 					Projectile.ai[1] = 0;
 				}
-				
-			}
+                if (Vector2.Distance(Projectile.Center, targetNPC) < 150f && Collision.CanHit(Projectile.Center, 0, 0, targetNPC, 0, 0)) //Slow down if close
+                {
+                    speed *= 0.5f;
+                    inertia = 10f;
+                }
+                else
+                {
+                    speed = 18f;
+                    inertia = 18f;
+                }
+            }
 			else
 			{
 				// Minion doesn't have a target: return to player and idle
 				if (distanceToIdlePosition > 300f)
 				{
 					// Speed up the minion if it's away from the player
-					speed = 12f;
-					inertia = 60f;
+					speed = 18;
+					inertia = 18;
 				}
 				else
 				{
 					// Slow down the minion if closer to the player
-					speed = 4f;
-					inertia = 80f;
+					speed = 5f;
+					inertia = 50f;
 				}
 				if (distanceToIdlePosition > 10f)
 				{
@@ -338,21 +350,24 @@ namespace StormDiversMod.Projectiles.Minions
 		}
 		public override void SetDefaults()
 		{
-			Projectile.width = 8;
-			Projectile.height = 8;
+			Projectile.width = 12;
+			Projectile.height = 12;
 			Projectile.friendly = true;
 			Projectile.penetrate = 1;
-			Projectile.timeLeft = 180;
+			Projectile.timeLeft = 240;
 			Projectile.light = 0.4f;
 			Projectile.scale = 1f;
 			Projectile.aiStyle = 0;
-			Projectile.extraUpdates = 1;
+			//Projectile.extraUpdates = 1;
 			Projectile.DamageType = DamageClass.Summon;
 		}
+        Vector2 newMove;
 
 		public override void AI()
 		{
-			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.ai[2]++;
+			//Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.rotation = Projectile.velocity.X * 0.02f;
 
 			AnimateProjectile();
 			Dust dust;
@@ -360,10 +375,61 @@ namespace StormDiversMod.Projectiles.Minions
 			Vector2 position = Projectile.position;
 			dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 173, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f, 0, new Color(255, 255, 255), 1f)];
 			dust.noGravity = true;
-			dust.scale = 0.8f;
-		}
+			dust.scale = 1f;
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+			Player player = Main.player[Projectile.owner];
+			Vector2 move = Vector2.Zero;
+			float distance = 750;
+			bool target = false;
+			if (Projectile.ai[2] > 20)
+			{
+			for (int k = 0; k < 200; k++)
+			{
+				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
+				{
+					if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
+					{
+						if (player.HasMinionAttackTargetNPC)
+						{
+
+							newMove = Main.npc[player.MinionAttackTargetNPC].Center - Projectile.Center;
+						}
+						else
+						{
+							newMove = Main.npc[k].Center - Projectile.Center;
+						}
+
+						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+						if (distanceTo < distance)
+						{
+							move = newMove;
+							distance = distanceTo;
+							target = true;
+						}
+					}
+				}
+			}
+			if (target)
+			{
+				AdjustMagnitude(ref move);
+				Projectile.velocity = (10 * Projectile.velocity + move) / 10f;
+				AdjustMagnitude(ref Projectile.velocity);
+			}
+		}
+        }
+
+        private void AdjustMagnitude(ref Vector2 vector)
+        {
+
+            float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+            if (magnitude > 14f)
+            {
+                vector *= 15f / magnitude;
+            }
+
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 
 			target.AddBuff(ModContent.BuffType<Buffs.HellSoulFireDebuff>(), 120);

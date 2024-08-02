@@ -92,34 +92,36 @@ namespace StormDiversMod.NPCs
         string spawntext;
         public override void OnSpawn(IEntitySource source)
         {
-            switch (Main.rand.Next(6))
+            if (!GetInstance<ConfigurationsIndividual>().NoMessage)
             {
-                case 0:
-                    spawntext = "Existence is Pain!";
-                    break;
-                case 1:
-                    spawntext = "Time for me to suffer!";
-                    break;
-                case 2:
-                    spawntext = "How much pain is there?";
-                    break;
-                case 3:
-                    spawntext = "I'm Mr.PainDummy, look at me!!";
-                    break;
-                case 4:
-                    spawntext = "Why must you bring me into this world?";
-                    break;
-                case 5:
-                    spawntext = "ThePain!";
-                    break;
-            }
+                switch (Main.rand.Next(6))
+                {
+                    case 0:
+                        spawntext = "Existence is Pain!";
+                        break;
+                    case 1:
+                        spawntext = "Time for me to suffer!";
+                        break;
+                    case 2:
+                        spawntext = "How much pain is there?";
+                        break;
+                    case 3:
+                        spawntext = "I'm Mr.PainDummy, look at me!!";
+                        break;
+                    case 4:
+                        spawntext = "Why must you bring me into this world?";
+                        break;
+                    case 5:
+                        spawntext = "ThePain!";
+                        break;
+                }
 
-            if (!GetInstance<ConfigurationsIndividual>().NoPain)
-            {
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/PainSound") with { Volume = 1f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
+                if (!GetInstance<ConfigurationsIndividual>().NoPain)
+                {
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/PainSound") with { Volume = 1f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
+                }
+                CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, spawntext, false);
             }
-            CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, spawntext, false);
-
             yheight = NPC.position.Y; //Set spawn Y postion for floating light
             //set frame for each type
             extraframe = (int)(NPC.ai[0] * 4); // 0 for standard, 4 for tough, 8 for broken, 12 for light, 16 for chonky
@@ -271,29 +273,32 @@ namespace StormDiversMod.NPCs
             }
             if (die)//rip
             {
-                switch (Main.rand.Next(6))
+                if (!GetInstance<ConfigurationsIndividual>().NoMessage)
                 {
-                    case 0:
-                        spawntext = "Free at last!";
-                        break;
-                    case 1:
-                        spawntext = "No more pain for me!";
-                        break;
-                    case 2:
-                        spawntext = "RIP in peace me!";
-                        break;
-                    case 3:
-                        spawntext = "I fufilled my purpose!";
-                        break;
-                    case 4:
-                        spawntext = "It's finally over!";
-                        break;
-                    case 5:
-                        spawntext = "ThePain no more!";
-                        break;
-                }
+                    switch (Main.rand.Next(6))
+                    {
+                        case 0:
+                            spawntext = "Free at last!";
+                            break;
+                        case 1:
+                            spawntext = "No more pain for me!";
+                            break;
+                        case 2:
+                            spawntext = "RIP in peace me!";
+                            break;
+                        case 3:
+                            spawntext = "I fufilled my purpose!";
+                            break;
+                        case 4:
+                            spawntext = "It's finally over!";
+                            break;
+                        case 5:
+                            spawntext = "ThePain no more!";
+                            break;
+                    }
 
-                CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, spawntext, false);
+                    CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, spawntext, false);
+                }
                 NPC.life -= 2147483647;
                 SoundEngine.PlaySound(SoundID.NPCDeath6, NPC.Center);
 

@@ -33,6 +33,14 @@ namespace StormDiversMod.Basefiles
         [DefaultValue(false)]
         [BackgroundColor(27, 130, 114)]
         public bool NoShake { get; set; }
+
+        //[Label("Disable certain chat messages")]
+        //[Tooltip("Disables certain chat messages that appear from bosses/certain items, note that Status messages for world events will still be displayed")]
+        //[ReloadRequired] //None required
+        [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
+        public bool NoMessage { get; set; }
+
         [Header("Audio")]
 
         //[Label("Disable text to speech sounds")]

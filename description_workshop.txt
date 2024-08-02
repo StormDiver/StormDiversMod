@@ -25,12 +25,12 @@ This mod will receive occasional updates, mostly balance changes and any bug fix
 [*] A special Post Moon Lord miniboss that drops Lunar fragments and Luminite
 [*] An item that can remove the shields from the pillars
 [*] Generates additional Granite, Marble, and Mushroom chests in their respective biomes
-[*] A Super Pain Dummy with multiple variants - [b]this is now available as its own mod:[/b] https://steamcommunity.com/sharedfiles/filedetails/?id=3299885526
+[*] A Super Pain Dummy with multiple variants - [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3299885526][b]this is now available as its own mod[/b][/url]
 [/list]
 
 [h2]Links[/h2]
-Join the Discord server here: https://discord.gg/VJvf2HkxtA
-Check out the Mod wiki here: https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod
+Join the Discord server [url=https://discord.gg/VJvf2HkxtA]here[/url]
+Check out the Mod wiki [url=https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod]here[/url]
 
 [h2]Credits[/h2]
 Creator, coder, and main spriter: [b]TheStorm[/b]
@@ -38,4 +38,4 @@ Spriter and playtester: [b]Lynxical[/b]
 Some additional sprites by: Charley#0571 
 Chinese Localisation by: by jianjingqiao201314(简境巧)
 
-Also try out Storm's Tweaks Mod, makes a few small configurable changes to Terraria that may be useful; https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250
+Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful

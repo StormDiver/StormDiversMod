@@ -224,7 +224,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 			// Default movement parameters (here for attacking)
 			float speed = 15f;
-			float inertia = 20f;
+			float inertia = 10f;
 			if (Projectile.ai[0] <= 6)
 			{
 				Projectile.ai[0] += 1; //Fix issue where minion would not moveif summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
@@ -254,8 +254,8 @@ namespace StormDiversMod.Projectiles.Minions
 				if (distanceToIdlePosition > 300f)
 				{
 					// Speed up the minion if it's away from the player
-					speed = 12f;
-					inertia = 60f;
+					speed = 15f;
+					inertia = 20f;
 				}
 				else
 				{

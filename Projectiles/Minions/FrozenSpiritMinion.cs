@@ -210,8 +210,8 @@ namespace StormDiversMod.Projectiles.Minions
 
 
 			// Default movement parameters (here for attacking)
-			float speed = 11f;
-			float inertia = 65f;
+			float speed = 14f;
+			float inertia = 30f;
 			if (Projectile.ai[0] <= 6)
 			{
 				Projectile.ai[0] += 1; //Fix issue where minion would not moveif summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
@@ -250,7 +250,7 @@ namespace StormDiversMod.Projectiles.Minions
                             Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
                            
 							float numberProjectiles = 3;
-							float rotation = MathHelper.ToRadians(10);
+							float rotation = MathHelper.ToRadians(8);
 							for (int j = 0; j < numberProjectiles; j++)
 							{
 
@@ -282,14 +282,14 @@ namespace StormDiversMod.Projectiles.Minions
 				if (distanceToIdlePosition > 300f)
 				{
 					// Speed up the minion if it's away from the player
-					speed = 12f;
-					inertia = 40f;
+					speed = 14f;
+					inertia = 30f;
 				}
 				else
 				{
 					// Slow down the minion if closer to the player
 					speed = 5f;
-					inertia = 70f;
+					inertia = 50f;
 				}
 				if (distanceToIdlePosition > 10f)
 				{
@@ -392,6 +392,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 			DrawOffsetX = -2;
 			DrawOriginOffsetY = -2;
+			Projectile.extraUpdates = 1;
 		}
 
 		public override void AI()

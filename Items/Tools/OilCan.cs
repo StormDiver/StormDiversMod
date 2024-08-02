@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using StormDiversMod.Projectiles.ToolsProjs;
 using rail;
 using Humanizer;
+using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Items.Tools
 {
@@ -113,7 +114,7 @@ namespace StormDiversMod.Items.Tools
                         dust.scale = 2f;
 
                     }
-                    for (int i = 0; i < 200; i++)//for town npcs
+                    for (int i = 0; i < 200; i++)//To ignite oiled enemies
                     {
                         NPC target = Main.npc[i];
 
@@ -121,7 +122,10 @@ namespace StormDiversMod.Items.Tools
 
                         if (npcdistance <= 400 && target.HasBuff(BuffID.Oiled) && target.active && target.lifeMax >= 5 && !target.dontTakeDamage && Collision.CanHitLine(target.position, target.width, target.height, new Vector2(player.Center.X + (42 * player.direction), player.Center.Y - 36), 0, 0))
                         {
-                            target.AddBuff(BuffID.OnFire, Main.rand.Next(600, 901)); //10-15 seconds
+                            int buffindex = target.FindBuffIndex(BuffID.Oiled);
+
+                            target.AddBuff(BuffID.OnFire, Main.rand.Next(720, 961)); //12-16 seconds
+                            //target.AddBuff(BuffID.OnFire, target.buffTime[buffindex]); //Same time as oiled debuff
 
                             for (int j = 0; j < 15; j++) //Orange particles
                             {

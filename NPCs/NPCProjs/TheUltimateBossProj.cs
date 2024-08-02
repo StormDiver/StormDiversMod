@@ -317,7 +317,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             Projectile.spriteDirection = Projectile.direction;
 
-            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3 && Projectile.ai[0] != 2)
             {
                 Projectile.velocity.X = 0f;
                 Projectile.velocity.Y = 0f;
@@ -350,9 +350,9 @@ namespace StormDiversMod.NPCs.NPCProjs
                     if (Projectile.ai[0] == 4)
                     {
                         if (Main.getGoodWorld)
-                            projspeed = 4f;
+                            projspeed = 3.7f;
                         else if (Main.masterMode)
-                            projspeed = 3.6f;
+                            projspeed = 3.5f;
                         else if (Main.expertMode && !Main.masterMode)
                             projspeed = 3.3f;
                         else
@@ -458,21 +458,38 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void OnKill(int timeLeft)
         {
-            if (Projectile.ai[0] != 1 && Projectile.ai[0] != 4) //Circle Attack
+            if (Projectile.ai[0] != 1 && Projectile.ai[0] != 2 && Projectile.ai[0] != 4) //Circle Attack
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1.5f, Pitch = -0.5f, MaxInstances = -1 }, Projectile.Center);
 
                 int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Projectile.owner);
+                
+                for (int i = 0; i < 30; i++) //Pink particles
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+
+                }
             }
-            for (int i = 0; i < 30; i++) //Pink particles
+            if (Projectile.ai[0] == 2)
             {
-                Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
+                SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1.5f, Pitch = -0.5f, MaxInstances = 1 }, Projectile.Center);
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
-                dust.noGravity = true;
-                dust.scale = 1.5f;
+                int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Projectile.owner);
+                Main.projectile[proj].scale = 0.5f;
 
+                for (int i = 0; i < 50; i++) //Pink particles
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -1.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+
+                }
             }
+           
         }
         public override Color? GetAlpha(Color lightColor)
         {

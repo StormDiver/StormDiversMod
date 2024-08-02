@@ -108,7 +108,7 @@ namespace StormDiversMod.NPCs.Boss
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance); //630000K 
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.66f * balance + 2000); //594000K 
             }
             //250/350/450
             NPC.damage = (int)(NPC.damage * 0.75f);
@@ -169,6 +169,23 @@ namespace StormDiversMod.NPCs.Boss
 
         public override void AI()
         {
+            /*if (lifeleft == 0 || lifeleft == 1) //music for phases
+            {
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme1");
+            }
+            else if (lifeleft == 2)
+            {
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme2");
+            }
+            else if (lifeleft == 3 && NPC.ai[3] == 9)
+            {
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme3");
+            }
+            else if (lifeleft == 3 && NPC.ai[3] == 10)
+            {
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme4");
+            }*/
+
             if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
             {
                 if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
@@ -243,7 +260,7 @@ namespace StormDiversMod.NPCs.Boss
 
             }
             NPC.rotation = NPC.velocity.X / 150;
-            if (NPC.ai[3] is 1) //attacks 1 movement
+            if (NPC.ai[3] is 1 or 3) //attacks 1 and 3 movement
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -331,18 +348,20 @@ namespace StormDiversMod.NPCs.Boss
 
                 Dust.QuickDustLine(NPC.Center, new Vector2(NPC.oldPosition.X + NPC.width / 2, NPC.oldPosition.Y + NPC.height / 2), 152, Color.DeepPink); //centre to centre
 
-                Paintext = "You cannot escape the pain that easily!";
-
-                CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
-                if (Main.netMode == 2) // Server
+                if (!GetInstance<ConfigurationsIndividual>().NoMessage)
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
-                }
-                else if (Main.netMode == 0) // Single Player
-                {
-                    Main.NewText(Paintext, 175, 17, 96);
-                }
+                    Paintext = "You cannot escape the pain that easily!";
 
+                    CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                    if (Main.netMode == 2) // Server
+                    {
+                        Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                    }
+                    else if (Main.netMode == 0) // Single Player
+                    {
+                        Main.NewText(Paintext, 175, 17, 96);
+                    }
+                }
                 for (int i = 0; i < 150; i++)
                 {
                     float speedY = -8f;
@@ -362,7 +381,7 @@ namespace StormDiversMod.NPCs.Boss
             }*/
             if (player.dead && !deathani)//When player is dead slow down, mock the player, then fly away
             {
-                if (NPC.localAI[1] == 60)
+                if (NPC.localAI[1] == 60 && !GetInstance<ConfigurationsIndividual>().NoMessage)
                 {
                     if (StormWorld.ultimateBossDown)
                     {
@@ -449,27 +468,29 @@ namespace StormDiversMod.NPCs.Boss
                 if (NPC.ai[0] == 1)
                 {
                     SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
-
-                    if (StormWorld.ultimateBossDown)
+                    if (!GetInstance<ConfigurationsIndividual>().NoMessage)
                     {
-                        Paintext = "Well... you did it... again...";
-                    }
-                    else if (Main.getGoodWorld)
-                    {
-                        Paintext = "You....are.....Worthy!";
-                    }
-                    else
-                    {
-                        Paintext = "Guess.... you could.... handle the Pain...";
-                    }
-                    CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
-                    if (Main.netMode == 2) // Server
-                    {
-                        Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
-                    }
-                    else if (Main.netMode == 0) // Single Player
-                    {
-                        Main.NewText(Paintext, 175, 17, 96);
+                        if (StormWorld.ultimateBossDown)
+                        {
+                            Paintext = "Well... you did it... again...";
+                        }
+                        else if (Main.getGoodWorld)
+                        {
+                            Paintext = "You....are.....Worthy!";
+                        }
+                        else
+                        {
+                            Paintext = "Guess.... you could.... handle the Pain...";
+                        }
+                        CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText(Paintext, 175, 17, 96);
+                        }
                     }
                 }
                 if (NPC.ai[0] >= 300)
@@ -715,18 +736,18 @@ namespace StormDiversMod.NPCs.Boss
             //================================= projectile values ========================================== 
             if (Main.getGoodWorld)
             {
-                projvelocity = 1.9f;
-                projcount = (Main.rand.Next(13, 21)); // 13-20 
+                projvelocity = 1.7f;
+                projcount = (Main.rand.Next(12, 16)); // 12-15 
             }
             else if (Main.masterMode) //Projectile changes, same for all attacks
             {
-                projvelocity = 1.7f;
-                projcount = (Main.rand.Next(10, 16)); // 10-15
+                projvelocity = 1.6f;
+                projcount = (Main.rand.Next(9, 12)); // 10-13
             }
             else if (Main.expertMode && !Main.masterMode)
             {
                 projvelocity = 1.5f;
-                projcount = (Main.rand.Next(8, 13)); // 8-12
+                projcount = (Main.rand.Next(8, 12)); // 8-11
             }
             else
             {
@@ -888,7 +909,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     NPC.ai[3]++;
                     NPC.localAI[0] = 0;
-                    NPC.localAI[2] = 0;
+                    NPC.localAI[2] = 270;
                     NPC.ai[0] = 0;
                     NPC.netUpdate = true;
                 }
@@ -898,25 +919,8 @@ namespace StormDiversMod.NPCs.Boss
             {
                 NPC.ai[0]++;
                 shooting = true;
-               //Moves directly towards the player, its own speed values
-                NPC.ai[1] = 0;
-                NPC.ai[2] = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[3] < 9)
-                {
-                    if (distanceToIdlePosition > 500f)
-                    {
-                        // Speed up the boss if it's away from the player
-                        speed = 30f;
-                        inertia = 50f;
-                    }
-                    else
-                    {
-                        // Slow down the boss if closer to the player
-                        speed = 20f;
-                        inertia = 60f;
-                    }
-                    NPC.netUpdate = true;
-                }
+                //movement code at top
+
                 //damage
                 if (Main.getGoodWorld)
                     projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw                          
@@ -927,17 +931,12 @@ namespace StormDiversMod.NPCs.Boss
                 else
                     projdamage = (70 * clamteadmg) / 100; // 140 on normal
 
-                if (NPC.ai[0] > 60) //Delay before firing
+                if (NPC.ai[0] > 90) //Delay before firing
                 {
                     NPC.localAI[0]++;
 
-                    if ((NPC.localAI[0] > 35 && lifeleft == 0) || (NPC.localAI[0] > 30 && lifeleft == 1) || (NPC.localAI[0] > 25 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 40 && lifeleft == 0) || (NPC.localAI[0] > 35 && lifeleft == 1) || (NPC.localAI[0] > 30 && lifeleft == 2))
                     {
-                        NPC.localAI[2]++; //change position
-                        if (NPC.localAI[2] > 3)
-                        {
-                            NPC.localAI[2] = 1;
-                        }
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
                         for (int i = 0; i < 10; i++)
@@ -1317,14 +1316,14 @@ namespace StormDiversMod.NPCs.Boss
                         //For the radius
                         double deg = Main.rand.Next(0, 360); //The degrees
                         double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                        double dist = Main.rand.Next(400, 600); //Distance away from the player
+                        double dist = Main.rand.Next(500, 650); //Distance away from the player
 
                         NPC.ai[1] = (int)(Math.Cos(rad) * dist);
                         NPC.ai[2] = (int)(Math.Sin(rad) * dist);
                         SoundEngine.PlaySound(SoundID.DD2_BetsyWindAttack with { Volume = 2f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
                     }
-                    if (NPC.localAI[0] > 25)
+                    if (NPC.localAI[0] > 30)
                     {
                         for (int i = 0; i < 5; i++)
                         {
@@ -1336,7 +1335,7 @@ namespace StormDiversMod.NPCs.Boss
                             //Main.dust[dust2].noGravity = true;
                         }
                     }
-                    if (NPC.localAI[0] > 50)
+                    if (NPC.localAI[0] > 60)
                     {
 
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -1371,7 +1370,13 @@ namespace StormDiversMod.NPCs.Boss
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), new Vector2(perturbedSpeed.X * 0.8f, perturbedSpeed.Y * 0.8f), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 0, 0);
                             }
                         }
-                        NPC.localAI[0] = 0;
+                        if (Main.netMode != NetmodeID.MultiplayerClient) //one always aimed at the player
+                        {
+                            Vector2 velocity2 = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity;
+                            Vector2 perturbedSpeed2 = new Vector2(velocity2.X, velocity2.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed2.X * 0.8f, perturbedSpeed2.Y * 0.8f), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 0, 0);
+                        }
+                            NPC.localAI[0] = 0;
                     }
                 }
                 if (NPC.ai[0] >= Main.rand.Next(500, 700) && NPC.localAI[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
@@ -1385,26 +1390,26 @@ namespace StormDiversMod.NPCs.Boss
                     NPC.netUpdate = true;
                 }
             }
-            if (NPC.ai[3] == 8) //Attack 8 rapidly summon projectiles that charge towards player (Phase 3+ Only)// maybe spiral inwards?
+            if (NPC.ai[3] == 8) //Attack 8 rapidly summon projectiles that charge towards player (Phase 3+ Only)
             {
                 NPC.ai[0]++;
                 NPC.localAI[0]++;
                 shooting = true;
 
                 NPC.ai[1] = 0;
-                NPC.ai[2] = 0;
+                NPC.ai[2] = -350;
                 if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[3] < 9)
                 {
                     if (distanceToIdlePosition > 500f)
                     {
                         // Speed up the boss if it's away from the player
-                        speed = 40f;
+                        speed = 35f;
                         inertia = 50f;
                     }
                     else
                     {
                         // Slow down the boss if closer to the player
-                        speed = 30f;
+                        speed = 25f;
                         inertia = 60f;
                     }
                     NPC.netUpdate = true;
@@ -1420,7 +1425,7 @@ namespace StormDiversMod.NPCs.Boss
                 else
                     projdamage = (60 * clamteadmg) / 100; // 120 on normal
 
-                if (NPC.ai[0] > 75) //Delay before firing
+                if (NPC.ai[0] > 120) //Delay before firing
                 {
                     if ((NPC.localAI[0] > 10 && lifeleft == 0) || (NPC.localAI[0] > 8 && lifeleft == 1) || (NPC.localAI[0] > 6 && lifeleft == 2))
                     {
@@ -1464,7 +1469,7 @@ namespace StormDiversMod.NPCs.Boss
                             {
                                 Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity;
                                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(xpos, ypos), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 3, 0);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(xpos, ypos), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 0, 3);
                             }
                         }
 
@@ -1683,14 +1688,17 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, "How's that for Pain?", true);
-            if (Main.netMode == 2) // Server
+            if (!GetInstance<ConfigurationsIndividual>().NoMessage)
             {
-                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("How's that for Pain?"), new Color(175, 17, 96));
-            }
-            else if (Main.netMode == 0) // Single Player
-            {
-                Main.NewText("How's that for Pain?", 175, 17, 96);
+                CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, "How's that for Pain?", true);
+                if (Main.netMode == 2) // Server
+                {
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("How's that for Pain?"), new Color(175, 17, 96));
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText("How's that for Pain?", 175, 17, 96);
+                }
             }
         }
         int npcframe = 0;
@@ -1922,25 +1930,28 @@ namespace StormDiversMod.NPCs.Boss
             }
             if (!StormWorld.ultimateBossDown)
             {
-                if (projectile.type == ProjectileID.FinalFractal) //Zenith is overpowered >:(
+                if (!GetInstance<ConfigurationsIndividual>().NoMessage)
                 {
-                    //modifiers.FinalDamage.Flat = 1;
-                    //modifiers.DisableCrit();
-                    SoundEngine.PlaySound(SoundID.Item16 with { Volume = 2f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
-                    Paintext = "Zenith means no Pain >:(";
-                    if (!Zenithtext)
+                    if (projectile.type == ProjectileID.FinalFractal) //Zenith is overpowered >:(
                     {
-                        CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                        //modifiers.FinalDamage.Flat = 1;
+                        //modifiers.DisableCrit();
+                        SoundEngine.PlaySound(SoundID.Item16 with { Volume = 2f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
+                        Paintext = "Zenith means no Pain >:(";
+                        if (!Zenithtext)
+                        {
+                            CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
 
-                        if (Main.netMode == 2) // Server
-                        {
-                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                            if (Main.netMode == 2) // Server
+                            {
+                                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                            }
+                            else if (Main.netMode == 0) // Single Player
+                            {
+                                Main.NewText(Paintext, 175, 17, 96);
+                            }
+                            Zenithtext = true;
                         }
-                        else if (Main.netMode == 0) // Single Player
-                        {
-                            Main.NewText(Paintext, 175, 17, 96);
-                        }
-                        Zenithtext = true;
                     }
                 }
             }

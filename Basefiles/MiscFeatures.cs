@@ -541,43 +541,46 @@ namespace StormDiversMod.Basefiles
         }
         public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo) //taunt messages when harmed by the final boss
         {
-            if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj2>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj3>())
+            if (!GetInstance<ConfigurationsIndividual>().NoMessage)
             {
-                if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
+                if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj2>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj3>())
                 {
-                    if (Main.rand.Next(3) == 0)
+                    if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
                     {
-                        int choice = Main.rand.Next(0, 5);
-
-                        if (choice == 0)
-                            Paintext = "That looked very Painful!";
-                        else if (choice == 1)
-                            Paintext = "Enjoy the pain!";
-                        else if (choice == 2)
-                            Paintext = "How does the pain feel?";
-                        else if (choice == 3)
-                            Paintext = "Skill issue!";
-                        else if (choice == 4)
-                            Paintext = "You seem to be in a lot of pain!";
-
-                        for (int i = 0; i < 200; i++)//message also appears from boss
+                        if (Main.rand.Next(3) == 0)
                         {
-                            NPC painTarget = Main.npc[i];
-                            if (painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())
+                            int choice = Main.rand.Next(0, 5);
+
+                            if (choice == 0)
+                                Paintext = "That looked very Painful!";
+                            else if (choice == 1)
+                                Paintext = "Enjoy the pain!";
+                            else if (choice == 2)
+                                Paintext = "How does the pain feel?";
+                            else if (choice == 3)
+                                Paintext = "Skill issue!";
+                            else if (choice == 4)
+                                Paintext = "You seem to be in a lot of pain!";
+
+                            for (int i = 0; i < 200; i++)//message also appears from boss
                             {
-                                CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.DeepPink, Paintext, false);
+                                NPC painTarget = Main.npc[i];
+                                if (painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>())
+                                {
+                                    CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.DeepPink, Paintext, false);
+                                }
+                            }
+                            if (Main.netMode == 2) // Server
+                            {
+                                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                            }
+                            else if (Main.netMode == 0) // Single Player
+                            {
+                                Main.NewText(Paintext, 175, 17, 96);
                             }
                         }
-                        if (Main.netMode == 2) // Server
-                        {
-                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
-                        }
-                        else if (Main.netMode == 0) // Single Player
-                        {
-                            Main.NewText(Paintext, 175, 17, 96);
-                        }
+                        //Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
                     }
-                    //Player.QuickSpawnItem(null, ModContent.ItemType<ThePainMask>(), 1);
                 }
             }
         }

@@ -203,8 +203,8 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.friendly = foundTarget;
 
 			// Default movement parameters (here for attacking)
-			float speed = 5f;
-			float inertia = 50f;
+			float speed = 8f;
+			float inertia = 25f;
 			if (Projectile.ai[0] <= 6)
 			{
 				Projectile.ai[0] += 1; //Fix issue where minion would not moveif summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
@@ -228,7 +228,7 @@ namespace StormDiversMod.Projectiles.Minions
 					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;				
 				}
 
-				if (Projectile.ai[1] > 100 && Vector2.Distance(Projectile.Center, targetCenter) < 250f)
+				if (Projectile.ai[1] > 100 && Vector2.Distance(Projectile.Center, targetCenter) < 350f)
 				{
 					if (!Main.dedServ)
 					{
@@ -279,13 +279,13 @@ namespace StormDiversMod.Projectiles.Minions
                 if (distanceToIdlePosition > 300f)
 				{
 					// Speed up the minion if it's away from the player
-					speed = 7.5f;
-					inertia = 50f;
+					speed = 8f;
+					inertia = 25f;
 				}
 				else
 				{
 					// Slow down the minion if closer to the player
-					speed = 4f;
+					speed = 5f;
 					inertia = 50f;
 				}
 				if (distanceToIdlePosition > 10f)
@@ -449,7 +449,7 @@ namespace StormDiversMod.Projectiles.Minions
             if (target)
             {
                 AdjustMagnitude(ref move);
-                Projectile.velocity = (5f * Projectile.velocity + move) / 6f;
+                Projectile.velocity = (9f * Projectile.velocity + move) / 9f;
                 AdjustMagnitude(ref Projectile.velocity);
             }
         }
@@ -457,9 +457,9 @@ namespace StormDiversMod.Projectiles.Minions
 		private void AdjustMagnitude(ref Vector2 vector)
 		{
 			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-			if (magnitude > 5f)
+			if (magnitude > 7f)
 			{
-				vector *= 5f / magnitude;
+				vector *= 7f / magnitude;
 			}
 		}
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

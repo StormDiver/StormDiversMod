@@ -226,10 +226,10 @@ namespace StormDiversMod.Projectiles.Minions
 				else
 				{
 					shooting = false;
-					speed = 20f;
-					inertia = 40f;
-				}
-				if (Vector2.Distance(Projectile.Center, targetCenter) < 500f)
+                    speed = 22f;
+                    inertia = 25f;
+                }
+				if (Vector2.Distance(Projectile.Center, targetCenter) < 650f)
 				{
 					if (Projectile.ai[1] >= 15)
 					{
@@ -292,14 +292,14 @@ namespace StormDiversMod.Projectiles.Minions
 				{
 					// Speed up the minion if it's away from the player
 					speed = 20f;
-					inertia = 30f;
+					inertia = 25f;
 
                 }
                 else
 				{
 					// Slow down the minion if closer to the player
 					speed = 10f;
-					inertia = 80f;
+					inertia = 60f;
 
                 }
                 if (distanceToIdlePosition > 10f)
@@ -416,7 +416,7 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.timeLeft = 180;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
-
+			Projectile.extraUpdates = 1;
 			//Projectile.ArmorPenetration = 24;
 		}
 		int timer;
@@ -469,7 +469,7 @@ namespace StormDiversMod.Projectiles.Minions
 					Projectile.localAI[0] = 1f;
 				}
 				Vector2 move = Vector2.Zero;
-				float distance = 650;
+				float distance = 750;
 				bool target = false;
 				for (int k = 0; k < 200; k++)
 				{
@@ -597,8 +597,8 @@ namespace StormDiversMod.Projectiles.Minions
 	{
 		public override void SetStaticDefaults()
 		{
-			//DisplayName.SetDefault("Mini Homing missile");
-			ProjectileID.Sets.MinionShot[Projectile.type] = true;
+            //DisplayName.SetDefault("Mini Santank Bullet");
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
 
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
@@ -611,13 +611,12 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.friendly = true;
 			Projectile.aiStyle = 0;
 			//AIType = ProjectileID.Bullet;
-			Projectile.extraUpdates = 1;
+			Projectile.extraUpdates = 2;
 			Projectile.tileCollide = true;
 			Projectile.DamageType = DamageClass.Summon;
 			Projectile.timeLeft = 300;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
-
             Projectile.ArmorPenetration = 12;
         }
         public override void AI()

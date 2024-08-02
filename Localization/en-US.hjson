@@ -2053,7 +2053,7 @@ Mods: {
 					Dummies can be targeted by minions/homing projectiles, and can activate any item's special effect
 					Right click in the inventory to change dummy type (Standard/Tough/Broken/Light/Chonky)
 					Shift-Right click to toggle between floating or grounded
-					Control-Right click to change extra attributes for certain types
+					Ctrl-Right click to change extra attributes for certain types
 					'''
 			}
 
@@ -2644,7 +2644,7 @@ Mods: {
 				Tooltip:
 					'''
 					Summons a Soul Flame minion to fight for you
-					The minion will fly above the enemies and shoot mini soul flames at them
+					The minion will fly above the enemies and summon mini soul flames that home into them
 					'''
 			}
 
@@ -3992,6 +3992,11 @@ Mods: {
 				NoPain: {
 					Tooltip: Disables the text to speech sounds some secret items make
 					Label: Disable text to speech sounds
+				}
+
+				NoMessage: {
+					Tooltip: Disables certain chat messages that appear from bosses/certain items, note that Status messages for world events will still be displayed
+					Label: Disable certain chat messages
 				}
 
 				NoShake: {

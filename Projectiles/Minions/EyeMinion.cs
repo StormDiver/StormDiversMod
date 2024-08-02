@@ -71,7 +71,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
-
+			Projectile.ArmorPenetration = 5;
 		}
 
 		// Here you can decide if your minion breaks things like grass or pots
@@ -188,7 +188,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 			// Default movement parameters (here for attacking)
 			float speed = 16f;
-			float inertia = 25f;
+			float inertia = 20f;
 			if (Projectile.ai[0] <= 6)
 			{
 				Projectile.ai[0] += 1; //Fix issue where minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
@@ -223,14 +223,14 @@ namespace StormDiversMod.Projectiles.Minions
 
 					// Speed up the minion if it's away from the player
 					speed = 12f;
-					inertia = 60f;
+					inertia = 50f;
 				}
 				else
 				{
 
 					// Slow down the minion if closer to the player
 					speed = 4f;
-					inertia = 80f;
+					inertia = 60f;
 				}
 				if (distanceToIdlePosition > 10f)
 				{

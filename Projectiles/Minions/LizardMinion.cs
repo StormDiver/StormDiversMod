@@ -199,7 +199,7 @@ namespace StormDiversMod.Projectiles.Minions
 
 			// Default movement parameters (here for attacking)
 			float speed = 15f;
-			float inertia = 20f;
+			float inertia = 10f;
 			if (Projectile.ai[0] <= 6)
 			{
 				Projectile.ai[0] += 1; //Fix issue where minion would not moveif summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
@@ -224,21 +224,19 @@ namespace StormDiversMod.Projectiles.Minions
 
 				}
 				
-				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 550f)
+				if (Projectile.ai[1] > 40 && Vector2.Distance(Projectile.Center, targetCenter) < 700f)
 				{
 					var dust2 = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 2, Projectile.Center.Y - 2), 4, 4, 6, 0, 0);
 					dust2.noGravity = true;
 					dust2.scale = 1.5f;
-					
-					
 				}
-				if (Projectile.ai[1] > 60 && Vector2.Distance(Projectile.Center, targetCenter) < 550f)
+				if (Projectile.ai[1] > 60 && Vector2.Distance(Projectile.Center, targetCenter) < 700f)
 				{
 					if (!Main.dedServ)
 					{
 						xpos = Main.rand.Next(-30, 30);
 						ypos = Main.rand.Next(-100, -75);
-
+						//Projectile.velocity *= 0.5f;
 						float projspeed = 18;
 						Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
@@ -266,14 +264,14 @@ namespace StormDiversMod.Projectiles.Minions
 				if (distanceToIdlePosition > 300f)
 				{
 					// Speed up the minion if it's away from the player
-					speed = 15f;
-					inertia = 50f;
+					speed = 16f;
+					inertia = 30f;
 				}
 				else
 				{
 					// Slow down the minion if closer to the player
 					speed = 5f;
-					inertia = 70f;
+					inertia = 50f;
 				}
 				if (distanceToIdlePosition > 10f)
 				{
@@ -372,6 +370,7 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.timeLeft = 150;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
+			Projectile.extraUpdates = 2;
 		}
 
 		public override void AI()

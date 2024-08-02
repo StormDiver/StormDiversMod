@@ -178,9 +178,7 @@ namespace StormDiversMod.Projectiles.Minions
                 }
             }
 
-
             Projectile.friendly = foundTarget;
-
 
             // Default movement parameters (here for attacking)
             float speed = 30f;
@@ -200,13 +198,10 @@ namespace StormDiversMod.Projectiles.Minions
                     direction.Normalize();
                     direction *= speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-
-
                 }
                 else
                 {                 
-                        Projectile.velocity *= 1.02f; //Small little boost so that it doesn't slow down                  
-                 
+                        Projectile.velocity *= 1.03f; //Small little boost so that it doesn't slow down                  
                 }
             }
             else
@@ -215,17 +210,15 @@ namespace StormDiversMod.Projectiles.Minions
                 // Minion doesn't have a target: return to player and idle
                 if (distanceToIdlePosition > 300f)
                 {
-
                     // Speed up the minion if it's away from the player
-                    speed = 15f;
-                    inertia = 60f;
+                    speed = 20f;
+                    inertia = 20f;
                 }
                 else
                 {
-
                     // Slow down the minion if closer to the player
                     speed = 5f;
-                    inertia = 80f;
+                    inertia = 40f;
                 }
                 if (distanceToIdlePosition > 10f)
                 {
@@ -279,7 +272,6 @@ namespace StormDiversMod.Projectiles.Minions
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame++;
-                  
                 }
                 if (Projectile.frame >= 4)
                 {
@@ -299,9 +291,7 @@ namespace StormDiversMod.Projectiles.Minions
                         dust2.velocity *= 1;
                     }
                 }
-            }
-     
-           
+            }           
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

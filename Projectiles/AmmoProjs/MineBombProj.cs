@@ -92,6 +92,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                         player.velocity.X = -launchvelocity.X * 2.5f;
                         player.velocity.Y = -launchvelocity.Y * 2.5f;
                     }
+                    SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, player.Center);
+
                 }
                 for (int i = 0; i < 200; i++)//for town npcs
                 {
@@ -110,6 +112,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                             target.velocity.X = -npclaunchvelocity.X * 1.5f;
                             target.velocity.Y = -npclaunchvelocity.Y * 2f;
                         }
+                        SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, player.Center);
+
                     }
                 }
             }
