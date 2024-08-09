@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Basefiles;
 using Terraria.GameContent.Creative;
-
+using Microsoft.Xna.Framework.Graphics;
 
 namespace StormDiversMod.Items.Accessory
 {
@@ -15,11 +15,10 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Betsy's Flame");
-            //Tooltip.SetDefault("Summons homing flames when using any weapon\nIncreases acceleration");
+            //Tooltip.SetDefault("Summons homing flames when using any weapon near enemies\nIncreases acceleration");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             Item.ResearchUnlockCount = 1;
-
         }
         public override void PostUpdate()
         {
@@ -37,15 +36,13 @@ namespace StormDiversMod.Items.Accessory
            
             Item.accessory = true;
             Item.expert = true;
-            
-
         }
         //int particle = 5;
         public override void UpdateAccessory(Player player, bool hideVisual)
-        {   
+        {
+            player.GetModPlayer<EquipmentEffects>().FlameCoreItem = Item;
             player.GetModPlayer<EquipmentEffects>().flameCore = true;
               
         }
- 
     }
 }

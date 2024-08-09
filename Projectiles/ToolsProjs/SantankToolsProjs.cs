@@ -64,7 +64,15 @@ namespace StormDiversMod.Projectiles.ToolsProjs
                 Projectile.frameCounter = 0;
             }
         }
-      
+        public override void PostDraw(Color lightColor) //glowmask for animated
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/ToolsProjs/SantankDrillProj_Glow");
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
     }
     public class SantankSawProj : ModProjectile
     {
@@ -117,8 +125,16 @@ namespace StormDiversMod.Projectiles.ToolsProjs
                 Projectile.frameCounter = 0;
             }
         }
-      
 
+        public override void PostDraw(Color lightColor) //glowmask for animated
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/ToolsProjs/SantankSawProj_Glow");
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
     }
     public class SantankJackhamProj : ModProjectile
     {
@@ -172,6 +188,14 @@ namespace StormDiversMod.Projectiles.ToolsProjs
             }
         }
 
-      
+        public override void PostDraw(Color lightColor) //glowmask for animated
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/ToolsProjs/SantankJackhamProj_Glow");
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
     }
 }

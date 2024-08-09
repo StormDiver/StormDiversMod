@@ -51,18 +51,60 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
             }
         }
+        Vector2 dustposition;
+        Vector2 dustposition2;
+
+        double degrees;
+        double dist = 5;
         public override void AI()
         {
+            Player player = Main.player[Projectile.owner];
+
+            degrees += 8.5 * Projectile.direction; //The degrees
+            dist += 1; //Distance away from the player
+            for (int i = 0; i < 2; i++)
+            {
+
+                double rad = degrees * (Math.PI / 180); //Convert degrees to radians
+                if (dist > 120) //rest when reached edge
+                    dist = 5;
+                dustposition.X = Projectile.Center.X - (int)(Math.Cos(rad) * 120); //for edge
+                dustposition.Y = Projectile.Center.Y - (int)(Math.Sin(rad) * 120);
+
+                dustposition2.X = Projectile.Center.X - (int)(Math.Cos(rad) * dist); //moves out to edge
+                dustposition2.Y = Projectile.Center.Y - (int)(Math.Sin(rad) * dist);
+
+                Vector2 dustvelocity = Vector2.Normalize(new Vector2(dustposition.X, dustposition.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 5;
+                Vector2 dustvelocity2 = Vector2.Normalize(new Vector2(dustposition2.X, dustposition2.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 5;
+
+                for (int j = 0; j < 10; j++)
+                {
+                    int dust = Dust.NewDust(new Vector2(dustposition.X, dustposition.Y), 1, 1, 174, dustvelocity.X, dustvelocity.Y, 100, default, 1f);
+                    Main.dust[dust].fadeIn = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 0.5f;
+                }
+                for (int j = 0; j < 8; j++)
+                {
+                    float X = dustposition2.X - Projectile.velocity.X / 1f * (float)j;
+                    float Y = dustposition2.Y - Projectile.velocity.Y / 1f * (float)j;
+
+                    int dust = Dust.NewDust(new Vector2(dustposition2.X, dustposition2.Y), 1, 1, 174, dustvelocity2.X, dustvelocity2.Y, 100, default, 1f);
+                    Main.dust[dust].fadeIn = 0.5f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 0.3f;
+                }
+                degrees += 180; //for dust on other side
+            }
 
             //-------------------------------------------------------------Sound-------------------------------------------------------
             Projectile.soundDelay--;
             if (Projectile.soundDelay <= 0)
             {
-                SoundEngine.PlaySound(SoundID.Item116, Projectile.Center);    
+                SoundEngine.PlaySound(SoundID.Item116 with { Volume = 1f, Pitch = 0f }, Projectile.Center);    
                 Projectile.soundDelay = 60;    
             }
             //-----------------------------------------------How the projectile works---------------------------------------------------------------------
-            Player player = Main.player[Projectile.owner];
 
             Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
 
@@ -99,17 +141,17 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
 
             Projectile.spriteDirection = player.direction;
             
-            Projectile.rotation += 0.15f * player.direction; //this is the projectile rotation/spinning speed
+            Projectile.rotation += 0.148353f * player.direction; //this is the projectile rotation/spinning speed
            
             player.heldProj = Projectile.whoAmI;
             player.itemTime = 2;
             player.itemAnimation = 2;
             player.itemRotation = Projectile.rotation;
 
-            int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);  //this is the dust that this projectile will spawn
-            Main.dust[dust].velocity /= 1f;
-            Main.dust[dust].scale = 2f;
-            Main.dust[dust].noGravity = true;
+            int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);  //this is the dust that this projectile will spawn
+            Main.dust[dust2].velocity /= 1f;
+            Main.dust[dust2].scale = 2f;
+            Main.dust[dust2].noGravity = true;
             
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same

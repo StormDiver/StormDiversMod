@@ -27,8 +27,8 @@ namespace StormDiversMod.Items.Summons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Mysterious Emblem");
-            //Tooltip.SetDefault("Summons the ultimate boss, make sure you're prepared for all the pain\n[c/af1160:April Fools Boss, still worth fighting though]");
+            //DisplayName.SetDefault("Mysterious Skull");
+            //Tooltip.SetDefault("Summons the Painbringer, make sure you're prepared for all the pain");
             ItemID.Sets.SortingPriorityBossSpawns[Item.type] = 13; // This helps sort inventory know this is a boss summoning Item
             Item.ResearchUnlockCount = 3;
         }     
@@ -87,8 +87,6 @@ namespace StormDiversMod.Items.Summons
             {
                 SoundEngine.PlaySound(SoundID.Roar, player.Center);
 
-                int proj = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 16 * player.gravDir), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
-
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
@@ -125,7 +123,9 @@ namespace StormDiversMod.Items.Summons
             return true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {   
+        {
+            int proj = Projectile.NewProjectile(source, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 16 * player.gravDir), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
+
             SoundEngine.PlaySound(SoundID.Item14, player.Center);
             return false;
         }

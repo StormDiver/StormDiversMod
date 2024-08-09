@@ -29,23 +29,18 @@ namespace StormDiversMod.Items.Accessory
             Item.defense = 5;
             Item.accessory = true;
             Item.expert = true;
-            
-
         }
-
 
         //int skulltime = 0;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            
+            player.GetModPlayer<EquipmentEffects>().PrimeSpinItem = Item;
             player.GetModPlayer<EquipmentEffects>().primeSpin = true;
             //skulltime++;
 
             /*
             if (skulltime >=20)
             {
-                
-               
                 int damage = 20;
                 float speedX = 0f;
                 float speedY = -24f;
@@ -55,10 +50,7 @@ namespace StormDiversMod.Items.Accessory
                 Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("PrimeAccessProj"), damage, 3f, player.whoAmI);
                 
                 skulltime = 0;
-            }*/
-           
+            }*/  
         }
-
-
     }
 }

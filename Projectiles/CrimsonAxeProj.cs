@@ -153,9 +153,7 @@ namespace StormDiversMod.Projectiles
         {
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             //Dust.NewDust(Projectile.Center + Projectile.velocity, Projectile.width, Projectile.height, 175);
-            //Projectile.spriteDirection = Projectile.direction;
-
-           
+            Projectile.spriteDirection = Projectile.direction;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -163,7 +161,6 @@ namespace StormDiversMod.Projectiles
             {
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 87);
                 dust.noGravity = true;
-
             }
             if (Main.rand.Next(2) == 0) // the chance
             {
@@ -172,10 +169,8 @@ namespace StormDiversMod.Projectiles
             }
         }
 
-
         public override void OnKill(int timeLeft)
         {
-
             SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
             for (int i = 0; i < 30; i++)
             {
@@ -183,9 +178,7 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 87);
                 dust.noGravity = true;
             }
-
         }
-        
 
         public override Color? GetAlpha(Color lightColor)
         {
@@ -201,7 +194,7 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
 
             return true;

@@ -25,6 +25,7 @@ using NVorbis.Contracts;
 using Terraria.GameContent.Drawing;
 using Microsoft.CodeAnalysis;
 using StormDiversMod.Items.Weapons;
+using StormDiversMod.Items.Accessory;
 
 namespace StormDiversMod.Basefiles
 {
@@ -129,6 +130,7 @@ namespace StormDiversMod.Basefiles
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the Betsy Flame has fired its flames or not
+        public int flamecooldown; //Cooldown for betsy's flame with channeling weapons
         public bool spikespawned; //Wheter mechanical spieks ahev been spawned
         public bool falling; //Wheter the player is falling at speed
         public int stopfall; //If the player has stopped falling
@@ -138,7 +140,6 @@ namespace StormDiversMod.Basefiles
         public bool desertdustspawned; //has the Pahroh's urn creaed the oprbiting projectile?
         public int granitebufftime; //Cooldown for the granite Accessory Buff to be reapplied
         public bool granitesurge; //Makes it so the granite accessory cooldown can start and makes it so the next attack removes the buff
-        public int flamecooldown; //Cooldown for betsy's flame with channeling weapons
         public int shroomshotCount = 0; //Count show many times the player has fired with the shroomite access
         public bool shotrocket; //Wheter the shroomite rocket has been fired or not
    
@@ -161,6 +162,26 @@ namespace StormDiversMod.Basefiles
         public bool bootstompjump; //if jmp boost can be done
         public int bootstompjumptime; //time for jump boost
         public bool bootsound; //sound for boot stomp
+        public int ariddegrees; //degrees for the arid emblem dust
+        public int ariddistance; //distance for the arid emblem dust
+
+        //items here for the stupid GetSource_Accessory thing for projectiles
+
+        public Item CelestialbarrierItem;
+        public Item DeathCoreItem;
+        public Item BloodBootsItem;
+        public Item DesertJarItem;
+        public Item PrimeSpinItem;
+        public Item BootFallItem;
+        public Item CoralEmblemItem;
+        public Item ShroomAccessItem;
+        public Item FlameCoreItem;
+        public Item StormBossAccessItem;
+        public Item LunaticHoodItem;
+        public Item UltimateBossMaskItem;
+        public Item FrostSpikeItem;
+        public Item BeetleFistItem;
+        public Item DesertNecklaceItem;
 
         public bool ultimateBossMask; //player has Painbringer mask equipped
         public override void ResetEffects() //Resets bools if the item is unequipped
@@ -228,6 +249,7 @@ namespace StormDiversMod.Basefiles
             dropdust = 0;
             coraldrop = 0;
             stormBossProj = false;
+            shotflame = false;
             flamecooldown = 0;
             paintime = 0;
             ultimateBossMask = false;
@@ -235,7 +257,10 @@ namespace StormDiversMod.Basefiles
             SantaRevivedCooldown = 0;
             bootsound = false;
         }
-
+        public override void PreUpdate()
+        {
+            base.PreUpdate();
+        }
         //===============================================================================================================
 
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
@@ -375,7 +400,7 @@ namespace StormDiversMod.Basefiles
                     {
                         int xprojpos = Main.rand.Next(-40, 40);
                         int yprojpos = Main.rand.Next(-40, 40);
-                        int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X + xprojpos, Player.Center.Y - yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainCoreProj>(), 0, 0, Main.myPlayer);
+                        int proj = Projectile.NewProjectile(Player.GetSource_Accessory(DeathCoreItem), new Vector2(Player.Center.X + xprojpos, Player.Center.Y - yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainCoreProj>(), 0, 0, Main.myPlayer);
                     }
                 }
             }
@@ -622,7 +647,7 @@ namespace StormDiversMod.Basefiles
                         {
                             if (Player.gravDir == 1)
                             {
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Bottom.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_Accessory(BloodBootsItem), new Vector2(Player.Center.X, Player.Bottom.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
 
                                 SoundEngine.PlaySound(SoundID.Run, Player.Center);
 
@@ -630,7 +655,7 @@ namespace StormDiversMod.Basefiles
                             }
                             else
                             {
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Top.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
+                                Projectile.NewProjectile(Player.GetSource_Accessory(BloodBootsItem), new Vector2(Player.Center.X, Player.Top.Y - 4), new Vector2(0, 0), ModContent.ProjectileType<BloodBootProj>(), 20, 0, Player.whoAmI);
 
                                 SoundEngine.PlaySound(SoundID.Run, Player.Center);
                                 soundDelay = 0;
@@ -718,7 +743,7 @@ namespace StormDiversMod.Basefiles
                         //Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(180));
                         //float scale = 1f - (Main.rand.NextFloat() * .5f);
                         //perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.DesertJarProj>(), 40, 0, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.DesertJarProj>(), 40, 0, Player.whoAmI);
                         dropdust = 0;
 
                         //Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 13);
@@ -726,8 +751,8 @@ namespace StormDiversMod.Basefiles
                 }
                 if (!desertdustspawned) //spawn the 2 orbiting orojs
                 {
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 0);
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 180);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 0);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 180);
 
                     desertdustspawned = true;
                 }
@@ -742,24 +767,22 @@ namespace StormDiversMod.Basefiles
             //For the Mechanical Spikes===========================
             if (primeSpin)
             {
-
                 if (!spikespawned) 
                 {
+                    if (Player == Main.LocalPlayer)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_Accessory(PrimeSpinItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 0);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(PrimeSpinItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 60);
 
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 0);
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 60);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(PrimeSpinItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 120);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(PrimeSpinItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 180);
 
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 120);
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 180);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(PrimeSpinItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 240);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(PrimeSpinItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 300);
 
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 240);
-                    Projectile.NewProjectile(null, Player.Center, new Vector2(0, 0), ModContent.ProjectileType<PrimeAccessProj>(), 80, 0f, Player.whoAmI, 0, 300);
-
-                    spikespawned = true;
-
+                        spikespawned = true;
+                    }
                 }
-
-
             }
             if (!primeSpin)//reset bool
             {
@@ -777,6 +800,8 @@ namespace StormDiversMod.Basefiles
                 //Player.vanityRocketBoots = 1;
                 if ((Player.controlDown) && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
+                    Player.extraFall += 10;
+
                     Player.grappling[0] = -1; //Remove grapple hooks
                     Player.grapCount = 0;
                     for (int p = 0; p < 1000; p++)
@@ -796,7 +821,7 @@ namespace StormDiversMod.Basefiles
                         if (!falling)
                         {
                             Player.velocity.X *= 0.5f;
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 10, 6, Player.whoAmI);
+                            Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 10, 6, Player.whoAmI);
 
                         }
                         //immunity is in miscfeatures.cs
@@ -828,8 +853,8 @@ namespace StormDiversMod.Basefiles
                         Main.dust[dustIndex].noGravity = true;
                     }
 
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Right.Y + 2 * Player.gravDir), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Left.Y + 2 * Player.gravDir), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Right.Y + 2 * Player.gravDir), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Left.Y + 2 * Player.gravDir), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
 
                     bootstompjump = true;
                     bootstompjumptime = 15; //jump boost, 15 frame buffer after landing
@@ -932,7 +957,7 @@ namespace StormDiversMod.Basefiles
                             float num17 = num13 * num15;
                             float SpeedX = num16 + (float)Main.rand.Next(-2, 2) * 0.05f;  //this defines the projectile X position speed and randomnes
                             float SpeedY = num17 + (float)Main.rand.Next(-2, 2) * 0.05f;  //this defines the projectile Y position speed and randomnes
-                            int projID = Projectile.NewProjectile(null, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), ModContent.ProjectileType<OceanSpellProj>(), 25, 0.5f, Player.whoAmI, 0.0f, (float)Main.rand.Next(5));
+                            int projID = Projectile.NewProjectile(Player.GetSource_Accessory(CoralEmblemItem), new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), ModContent.ProjectileType<OceanSpellProj>(), 25, 0.5f, Player.whoAmI, 0.0f, (float)Main.rand.Next(5));
 
                             Main.projectile[projID].aiStyle = 0;
                             Main.projectile[projID].DamageType = DamageClass.Generic;
@@ -975,7 +1000,7 @@ namespace StormDiversMod.Basefiles
                         float velocity = 20f;
                         int type = ModContent.ProjectileType<ShroomSetRocketProj>();
                         int damage = (int)Player.GetTotalDamage(DamageClass.Ranged).ApplyTo((int)(Player.HeldItem.damage * 2f));
-                        Projectile.NewProjectile(null, Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(ShroomAccessItem), Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
 
                         SoundEngine.PlaySound(SoundID.Item92, Player.Center);
                     }
@@ -992,43 +1017,49 @@ namespace StormDiversMod.Basefiles
                 {
                     flamecooldown--;
                 }
-                Player.runAcceleration += 0.25f;
+                shotflame = false;
 
-                if ((Player.itemAnimation == 1 && Player.HeldItem.damage >= 1 && Player.HeldItem.ammo == 0) || (Player.HeldItem.channel && Player.channel && flamecooldown <= 0)) //weapon is in use
+                //Player.runAcceleration += 0.25f;
+                for (int i = 0; i < 200; i++)
                 {
+                    NPC target = Main.npc[i];
 
-                    if (Main.rand.Next(3) == 0)
+                    if (Vector2.Distance(Player.Center, target.Center) <= 600 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Player.Center, 0, 0, target.Center, 0, 0))
                     {
-                        for (int i = 0; i < 20; i++)
+                        if ((Player.itemAnimation == 1 && Player.HeldItem.damage >= 1 && Player.HeldItem.ammo == 0) || (Player.HeldItem.channel && Player.channel && flamecooldown <= 0)) //weapon is in use
                         {
+                            if (Main.rand.Next(3) == 0 && !shotflame)
+                            {
+                                for (int j = 0; j < 20; j++)
+                                {
+                                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 244);
 
-                            var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 244);
+                                    dust.noGravity = true;
+                                }
 
-                            dust.noGravity = true;
+                                SoundEngine.PlaySound(SoundID.Item34, Player.Center);
 
+                                float numberProjectiles = 2 + Main.rand.Next(2);
+
+                                for (int k = 0; k < numberProjectiles; k++)
+                                {
+                                    float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
+
+
+                                    float speedX = 0f;
+                                    float speedY = -4f;
+                                    int damage = (int)(Player.HeldItem.damage * 0.7f);
+                                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(90));
+                                    float scale = 1f - (Main.rand.NextFloat() * .5f);
+                                    perturbedSpeed = perturbedSpeed * scale;
+                                    Projectile.NewProjectile(Player.GetSource_Accessory(FlameCoreItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
+                                }
+                                shotflame = true;
+                            }
+                            flamecooldown = Player.HeldItem.useTime; //cooldown for channeling weapons
                         }
-
-                        SoundEngine.PlaySound(SoundID.Item34, Player.Center);
-
-                        float numberProjectiles = 2 + Main.rand.Next(2);
-
-                        for (int i = 0; i < numberProjectiles; i++)
-                        {
-                            float rotation = Player.itemRotation + (Player.direction == -1 ? (float)Math.PI : 0); //the direction the item points in
-
-
-                            float speedX = 0f;
-                            float speedY = -10f;
-                            int damage = (int)(Player.HeldItem.damage * 0.7f);
-                            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(90));
-                            float scale = 1f - (Main.rand.NextFloat() * .5f);
-                            perturbedSpeed = perturbedSpeed * scale;
-                                Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<BetsyFlameProj>(), damage, 1, Player.whoAmI);
-                        }
-
                     }
-                    flamecooldown = Player.HeldItem.useTime; //cooldown for channeling weapons
-                }       
+                }
             }
             //For wooden necklace=======================
             if (woodNecklace)
@@ -1116,10 +1147,10 @@ namespace StormDiversMod.Basefiles
             //For the Celestial Barrier Projectile
             if (lunarBarrier)
             {
+                //Item thepain = ModContent.ItemType<Celestialshield>();
                 if (!celestialspin)
                 {
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<CelestialShieldProj>(), 0, 0, Player.whoAmI);
-
+                    Projectile.NewProjectile(Player.GetSource_Accessory(CelestialbarrierItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<CelestialShieldProj>(), 0, 0, Player.whoAmI);
                     celestialspin = true;
                 }
             }
@@ -1132,7 +1163,7 @@ namespace StormDiversMod.Basefiles
             {
                 if (!stormBossProj)
                 {
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<StormAccessProj>(), 75, 1, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(StormBossAccessItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<StormAccessProj>(), 75, 1, Player.whoAmI);
                     for (int i = 0; i < 30; i++)
                     {
                         float speedY = -3f;
@@ -1157,11 +1188,12 @@ namespace StormDiversMod.Basefiles
             {
                 if (!lunaticsentry)
                 {
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X - 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SentryProjs.LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X + 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SentryProjs.LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
-
+                    if (Player == Main.LocalPlayer)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_Accessory(LunaticHoodItem), new Vector2(Player.Center.X - 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SentryProjs.LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(LunaticHoodItem), new Vector2(Player.Center.X + 80, Player.Center.Y - 40), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SentryProjs.LunaticExpertSentryProj>(), 0, 0, Player.whoAmI);
+                    }
                     lunaticsentry = true;
-
                 }
             }
             if (!lunaticHood)
@@ -1205,9 +1237,54 @@ namespace StormDiversMod.Basefiles
             //Ancient Emblem
             if (aridBossAccess)
             {
+                ariddistance -= 1;
+                if (ariddistance <= 0) //rest when reached edge
+                    ariddistance = 60;
+                for (int i = 0; i < 3; i++)
+                {
+                    ariddegrees += 4;
+                    double rad = ariddegrees * (Math.PI / 180); //Convert degrees to radians
+                    double dist = 60; //Distance away from the cursor
+
+                        float dustpositionX = Main.MouseWorld.X - (int)(Math.Cos(rad) * 60);
+                    float dustpositionY = Main.MouseWorld.Y - (int)(Math.Sin(rad) * 60);
+
+                    float dustpositionX2 = Main.MouseWorld.X - (int)(Math.Cos(rad) * ariddistance);
+                    float dustpositionY2 = Main.MouseWorld.Y - (int)(Math.Sin(rad) * ariddistance);
+
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (Collision.CanHitLine(new Vector2(Player.Center.X, Player.Center.Y), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                        {
+                            if (Collision.CanHitLine(new Vector2(dustpositionX, dustpositionY), 0, 0, Main.MouseWorld, 1, 1))
+                            {
+                                int dust = Dust.NewDust(new Vector2(dustpositionX, dustpositionY), 1, 1, 138, 0, 0, 138, default, 1f);
+                               
+                                Main.dust[dust].noGravity = true;
+                                Main.dust[dust].velocity *= 0.2f;
+                            }
+                        }
+                      
+                    }
+                    for (int j = 0; j < 2; j++)
+                    {  
+                        if (Collision.CanHitLine(new Vector2(Player.Center.X, Player.Center.Y), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
+                        {
+                            if (Collision.CanHitLine(new Vector2(dustpositionX2, dustpositionY2), 0, 0, Main.MouseWorld, 1, 1))
+                            {
+                                int dust = Dust.NewDust(new Vector2(dustpositionX2, dustpositionY2), 1, 1, 138, 0, 0, 138, default, 1f);
+                               
+                                Main.dust[dust].noGravity = true;
+                                Main.dust[dust].velocity *= 0.2f;
+                            }
+                        }
+
+                    }
+                    ariddegrees += 120; //for dust on other side
+                }
                 for (int i = 0; i < 5; i++)
                 {
-                    double deg = Main.rand.Next(0, 360); //The degrees
+                    /*double deg = Main.rand.Next(0, 360); //The degrees
                     double rad = deg * (Math.PI / 180); //Convert degrees to radians
                     double dist = 60; //Distance away from the cursor
                     float dustx = Main.MouseWorld.X - 2 - (int)(Math.Cos(rad) * dist);
@@ -1233,7 +1310,7 @@ namespace StormDiversMod.Basefiles
                                 dust.scale = 0.75f;
                             }
                         }
-                    }
+                    }*/
                 }
                 for (int i = 0; i < 200; i++)
                 {
@@ -1258,11 +1335,11 @@ namespace StormDiversMod.Basefiles
                 if (ultimateBossMask == false)
                 {
                     //Main.NewText("work!!!!!!!!!!!!!!!!!!!!!!!!!", 220, 63, 139);
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X - 30, Player.Center.Y - 5), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 0);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(UltimateBossMaskItem), new Vector2(Player.Center.X - 30, Player.Center.Y - 5), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 0);
 
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X - 20, Player.Center.Y - 30), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 1);
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X + 20, Player.Center.Y - 30), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 2);
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X + 30, Player.Center.Y - 5), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 3);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(UltimateBossMaskItem), new Vector2(Player.Center.X - 20, Player.Center.Y - 30), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 1);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(UltimateBossMaskItem), new Vector2(Player.Center.X + 20, Player.Center.Y - 30), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 2);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(UltimateBossMaskItem), new Vector2(Player.Center.X + 30, Player.Center.Y - 5), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainbringerMaskProj>(), 0, 0, Player.whoAmI, 0, 3);
                 }
                 ultimateBossMask = true;
             }
@@ -1320,40 +1397,6 @@ namespace StormDiversMod.Basefiles
         //=====================For attacking an enemy with anything===========================================
         public override void OnHitAnything(float x, float y, Entity victim)
         {
-           
-            //For the Desert urn
-            /*if (desertJar)
-            {
-                
-                if (desertdusttime < 1 && !Player.dead)
-                {
-
-                    SoundEngine.PlaySound(SoundID.Item20, Player.Center);
-
-
-                    float numberProjectiles = 8 + Main.rand.Next(0);
-                    float rotation = MathHelper.ToRadians(180);
-                    //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-                    for (int i = 0; i < numberProjectiles; i++)
-                    {
-                        float speedX = -1.5f;
-                        float speedY = 0f;
-                        Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles)));
-                        if (!frostJar)
-                        {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSpellProj>(), 30, 0, Player.whoAmI);
-                        }
-                        else
-                        {
-                            Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Frostthrowerproj>(), 30, 0, Player.whoAmI);
-
-                        }
-                        desertdusttime = 240;
-
-                    }
-                }
-            }*/
-           
             base.OnHitAnything(x, y, victim);
         }
 
@@ -1424,7 +1467,7 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(150));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrostAccessProj>(), frostdamage, 3f, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(FrostSpikeItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrostAccessProj>(), frostdamage, 3f, Player.whoAmI);
 
                     }
                     for (int i = 0; i < 30; i++)
@@ -1496,7 +1539,7 @@ namespace StormDiversMod.Basefiles
 
                 Suffertext = "Live to suffer another day!";
                 CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.HotPink, Suffertext, true);
-                int proj = Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainNofaceProj>(), 0, 0, Main.myPlayer);
+                int proj = Projectile.NewProjectile(Player.GetSource_Accessory(DeathCoreItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.ExplosionPainNofaceProj>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 2.5f;
 
                 float numberProjectiles = 20;
@@ -1507,7 +1550,7 @@ namespace StormDiversMod.Basefiles
                     float speedX = 0f;
                     float speedY = 7f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles - 1)));
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainStaffProj>(), 2000, 0, Main.myPlayer, 0, 0, 1);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(DeathCoreItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<PainStaffProj>(), 2000, 0, Main.myPlayer, 0, 0, 1);
                 }
                 SoundEngine.PlaySound(SoundID.Item109 with { Volume = 1f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
 
@@ -1651,7 +1694,7 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 30, 1, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(BeetleFistItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 30, 1, Player.whoAmI);
 
                     }
                     for (int i = 0; i < 25; i++)
@@ -1684,7 +1727,7 @@ namespace StormDiversMod.Basefiles
                 perturbedSpeed = perturbedSpeed * scale;
                 if (Main.rand.Next(2) == 0)
                 {
-                    int ProjID = Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSparkProj>(), item.damage / 2, 1, Player.whoAmI);
+                    int ProjID = Projectile.NewProjectile(Player.GetSource_Accessory(DesertNecklaceItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSparkProj>(), item.damage / 2, 1, Player.whoAmI);
 
                     for (int i = 0; i < 10; i++)
                     {
@@ -1770,7 +1813,7 @@ namespace StormDiversMod.Basefiles
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(135));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 30, 1, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(BeetleFistItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleGloveProj>(), 30, 1, Player.whoAmI);
 
                     }
                     for (int i = 0; i < 25; i++)
@@ -1805,7 +1848,7 @@ namespace StormDiversMod.Basefiles
                 if (Main.rand.Next(2) == 0)
                 {
 
-                    int ProjID = Projectile.NewProjectile(null, new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSparkProj>(), proj.damage / 2, 1, Player.whoAmI);
+                    int ProjID = Projectile.NewProjectile(Player.GetSource_Accessory(DesertNecklaceItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertSparkProj>(), proj.damage / 2, 1, Player.whoAmI);
 
                     for (int i = 0; i < 10; i++)
                     {

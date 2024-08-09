@@ -16,13 +16,12 @@ namespace StormDiversMod.Items.Materials
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Chaos Orb");
-            
-                //Tooltip.SetDefault("'Imbued with pure chaos'");
-           
+
+            //Tooltip.SetDefault("'Imbued with pure chaos'");
+
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 5));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             Item.ResearchUnlockCount = 25;
-
         }
         public override bool GrabStyle(Player player)
         {
@@ -47,10 +46,7 @@ namespace StormDiversMod.Items.Materials
 
         public override void AddRecipes()
         {
-            
-
-                //VanillaRecipes
-            
+            //VanillaRecipes   
         }
         public override void PostUpdate()
         {
@@ -61,13 +57,8 @@ namespace StormDiversMod.Items.Materials
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
-
-
             return Color.White;
-
         }
-       
     }
     //____________________________________________________________________________________
     public class GraniteCore : ModItem
@@ -78,7 +69,6 @@ namespace StormDiversMod.Items.Materials
 
             //Tooltip.SetDefault("Seems to be pulsing with energy");
             Item.ResearchUnlockCount = 15;
-
         }
 
         public override void SetDefaults()
@@ -102,8 +92,6 @@ namespace StormDiversMod.Items.Materials
         {
 
         }
-
-
     }
     //____________________________________________________________________________________
     public class RedSilk : ModItem
@@ -111,11 +99,8 @@ namespace StormDiversMod.Items.Materials
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Warrior Cloth");
-            
-           
-                //Tooltip.SetDefault("Used to create Items of a fallen Gladiator");
+            //Tooltip.SetDefault("Used to create Items of a fallen Gladiator");
             Item.ResearchUnlockCount = 15;
-
         }
 
         public override void SetDefaults()
@@ -125,17 +110,11 @@ namespace StormDiversMod.Items.Materials
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 5, 0);
             Item.rare = ItemRarityID.Blue;
-
         }
-
         public override void AddRecipes()
         {
-            
             //NewRecipes
-
         }
-
-
     }
     //____________________________________________________________________________________
     public class BlueCloth : ModItem
@@ -143,11 +122,8 @@ namespace StormDiversMod.Items.Materials
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Insulated Fabric");
-            
-           
-                //Tooltip.SetDefault("Can be used to keep warm");
+            //Tooltip.SetDefault("Can be used to keep warm");
             Item.ResearchUnlockCount = 25;
-
         }
 
         public override void SetDefaults()
@@ -155,18 +131,14 @@ namespace StormDiversMod.Items.Materials
             Item.width = 26;
             Item.height = 26;
             Item.maxStack = 9999;
-            
+
             Item.value = Item.sellPrice(0, 0, 1, 0);
             Item.rare = ItemRarityID.Blue;
         }
-
         public override void AddRecipes()
         {
             //VanillaRecipes
         }
-
-
-        
     }
     //____________________________________________________________________________________
     public class DerplingShell : ModItem
@@ -176,26 +148,16 @@ namespace StormDiversMod.Items.Materials
             //DisplayName.SetDefault("Derpling Shell");
             //Tooltip.SetDefault("'Tough, but malleable'");
             Item.ResearchUnlockCount = 25;
-
         }
-
         public override void SetDefaults()
         {
             Item.width = 16;
             Item.height = 24;
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 25, 0);
-             Item.rare = ItemRarityID.Lime;
-
+            Item.rare = ItemRarityID.Lime;
         }
-
-
-      
-       
     }
-
-
-
     //____________________________________________________________________________________
 
     public class CrackedHeart : ModItem
@@ -207,7 +169,7 @@ namespace StormDiversMod.Items.Materials
             //Tooltip.SetDefault("'Almost devoid of life'");
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             Item.ResearchUnlockCount = 25;
-            
+
         }
         public override void PostUpdate()
         {
@@ -225,7 +187,7 @@ namespace StormDiversMod.Items.Materials
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.rare = ItemRarityID.Orange;
-       
+
         }
         public override Color? GetAlpha(Color lightColor)
         {
@@ -241,9 +203,7 @@ namespace StormDiversMod.Items.Materials
 
             //Tooltip.SetDefault("A drop of blood that's somehow able to hold its shape");
             Item.ResearchUnlockCount = 25;
-
         }
-
         public override void SetDefaults()
         {
             Item.width = 14;
@@ -253,19 +213,12 @@ namespace StormDiversMod.Items.Materials
             Item.value = Item.sellPrice(0, 0, 0, 50);
             Item.rare = ItemRarityID.Green;
         }
-
         public override void AddRecipes()
         {
-           
-   
 
-            
         }
-
     }
     //____________________________________________________________________________________
-   
-    //_____________________________________
     public class SpaceRock : ModItem
     {
         public override void SetStaticDefaults()
@@ -277,7 +230,6 @@ namespace StormDiversMod.Items.Materials
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             Item.ResearchUnlockCount = 25;
-
         }
 
         public override void SetDefaults()
@@ -293,7 +245,6 @@ namespace StormDiversMod.Items.Materials
 
         public override void AddRecipes()
         {
-            
 
         }
         public override void PostUpdate()
@@ -346,14 +297,10 @@ namespace StormDiversMod.Items.Materials
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 150;
             return color;
-
         }
-
-
     }
     //____________________________________________________________________________________
     public class IceOre : ModItem
@@ -364,7 +311,6 @@ namespace StormDiversMod.Items.Materials
 
             //Tooltip.SetDefault("Retrieved from the depths of the frozen caves");
             Item.ResearchUnlockCount = 99;
-
         }
 
         public override void SetDefaults()
@@ -383,9 +329,6 @@ namespace StormDiversMod.Items.Materials
                 Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.5f * Main.essScale);
             }
         }
-       
-
-
     }
     //_________________________________________________________________________________________________
     public class DesertOre : ModItem
@@ -395,7 +338,6 @@ namespace StormDiversMod.Items.Materials
             //DisplayName.SetDefault("Forbidden Shard");
             //Tooltip.SetDefault("Retrieved from the depths of the deserted caves");
             Item.ResearchUnlockCount = 99;
-
         }
 
         public override void SetDefaults()
@@ -405,7 +347,6 @@ namespace StormDiversMod.Items.Materials
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.rare = ItemRarityID.Pink;
-      
         }
         public override void PostUpdate()
         {
@@ -413,9 +354,8 @@ namespace StormDiversMod.Items.Materials
             {
                 Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.5f * Main.essScale);
             }
-        }
-        
 
+        }
     }
     //_________________________________________________________________________________________________
     public class SantankScrap : ModItem
@@ -427,7 +367,6 @@ namespace StormDiversMod.Items.Materials
             Item.ResearchUnlockCount = 25;
 
         }
-
         public override void SetDefaults()
         {
             Item.width = 16;
@@ -444,7 +383,5 @@ namespace StormDiversMod.Items.Materials
                 Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.5f * Main.essScale);
             }
         }
-      
-       
     }
 }

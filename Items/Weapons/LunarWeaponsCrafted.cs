@@ -341,7 +341,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;
-            Item.damage = 100;
+            Item.damage = 75;
             Item.knockBack = 3f;
             Item.mana = 10;
             Item.useTurn = false;

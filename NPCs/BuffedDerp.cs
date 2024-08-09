@@ -93,7 +93,7 @@ namespace StormDiversMod.NPCs
                                                                                                                                             // If you want to randomize the speed to stagger the projectiles
                                     float scale = 1f - (Main.rand.NextFloat() * .3f);
                                     perturbedSpeed = perturbedSpeed * scale;
-                                   Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Top.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                                   Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X, npc.Top.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
 
                                 }
                             }

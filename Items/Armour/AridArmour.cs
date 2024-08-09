@@ -18,7 +18,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Arid Mask");
-            //Tooltip.SetDefault("5% increased critical strike chance");
+            //Tooltip.SetDefault("6% increased critical strike chance");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AridChestplate>();
 
@@ -35,7 +35,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetCritChance(DamageClass.Generic) += 5;
+            player.GetCritChance(DamageClass.Generic) += 6;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -65,7 +65,7 @@ namespace StormDiversMod.Items.Armour
             //player.setBonus = "Critical hits create an explosion from the struck enemy which damages nearby enemies";
             player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().aridCritSet = true;
-   
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_Arid = "true";
         }
     }
 
@@ -108,7 +108,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Arid Greaves");
-            //Tooltip.SetDefault("5% increased critical strike chance\n12% increased movement speed");
+            //Tooltip.SetDefault("6% increased critical strike chance\n12% increased movement speed");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AridBMask>();
 
@@ -125,7 +125,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetCritChance(DamageClass.Generic) += 5;
+            player.GetCritChance(DamageClass.Generic) += 6;
             player.moveSpeed += 0.12f;
            
         }

@@ -11,6 +11,7 @@ using StormDiversMod.Basefiles;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 
 namespace StormDiversMod.Projectiles.Petprojs
 { 
@@ -44,13 +45,15 @@ namespace StormDiversMod.Projectiles.Petprojs
             //DisplayName.SetDefault("Baby Overloaded Scandrone");
             Main.projFrames[Projectile.type] = 4;
             Main.projPet[Projectile.type] = true;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
 
         public override void SetDefaults()
         {
             Projectile.aiStyle = -1;
             Projectile.width = 32;
-           Projectile.height = 32;
+            Projectile.height = 32;
             Projectile.scale = 1;
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
@@ -93,11 +96,11 @@ namespace StormDiversMod.Projectiles.Petprojs
             Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
             float distanceToIdlePosition = vectorToIdlePosition.Length();
             if (Main.myPlayer == player.whoAmI && distanceToIdlePosition > 2000f)
-            {           
+            {
                 Projectile.position = idlePosition;
                 Projectile.velocity *= 0.1f;
                 Projectile.netUpdate = true;
-            }           
+            }
             {
                 if (distanceToIdlePosition > 300f)
                 {
@@ -132,22 +135,22 @@ namespace StormDiversMod.Projectiles.Petprojs
                 if (Main.rand.Next(6) == 0)
                 {
                     Dust dust;
-           
+
                     dust = Terraria.Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229, -Projectile.velocity.X, -Projectile.velocity.Y, 0, new Color(255, 255, 255), 0.5f);
                     dust.noGravity = true;
                 }
             }
             // animate          
-                Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 6)
-                {
-                    Projectile.frame++;
-                    Projectile.frameCounter = 0;
-                }
-                if (Projectile.frame >= 4)
-                {
-                    Projectile.frame = 0;
-                }           
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 6)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+            }
+            if (Projectile.frame >= 4)
+            {
+                Projectile.frame = 0;
+            }
         }
         public override void OnKill(int timeLeft)
         {
@@ -162,7 +165,32 @@ namespace StormDiversMod.Projectiles.Petprojs
 
                 }
             }
-        }        
+        }
+        public override void PostDraw(Color lightColor) //glowmask for animated
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/Petprojs/StormBossPetProj_Glow");
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
+        public override bool PreDraw(ref Color lightColor) //trail
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, 0);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                    color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+
+            return true;
+        }
     }
 }
 

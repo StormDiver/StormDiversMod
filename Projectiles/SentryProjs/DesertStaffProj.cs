@@ -83,7 +83,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
-                        if (Projectile.ai[1] > 50)
+                        if (Projectile.ai[1] > 40)
                         {
                             AnimateProjectile();
 
@@ -292,7 +292,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.timeLeft = 60;
             Projectile.extraUpdates = 2;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 15;
+            Projectile.localNPCHitCooldown = 20;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
         }

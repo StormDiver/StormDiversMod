@@ -246,15 +246,15 @@ namespace StormDiversMod.Projectiles.Petprojs
                 }
             }
         }
-        /*public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)//Doesn't work >:(
+        public override void PostDraw(Color lightColor) //glowmask for animated
         {
-            Texture2D texture = mod.GetTexture("Pets/StormLightProj_Glowmask");
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/Petprojs/TwilightPetProj_Glow");
 
-            spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (Main.ProjectileTexture[Projectile.type].Height / Main.projFrames[Projectile.type]), Main.ProjectileTexture[Projectile.type].Width, Main.ProjectileTexture[Projectile.type].Height)
-           , Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 100);
-           
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
 
-        }*/
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
 
     }
 }

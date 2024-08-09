@@ -332,6 +332,8 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
         }
         public override void SetDefaults()
         {
@@ -454,17 +456,12 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
-
                 for (int i = 0; i < 7; i++)
                 {
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width = 10, Projectile.height = 10, 186);
 
                     dust.noGravity = true;
-
                 }
-
             }
         }
 
@@ -478,7 +475,22 @@ namespace StormDiversMod.Projectiles
                 Projectile.frameCounter = 0;
             }
         }
+        public override bool PreDraw(ref Color lightColor) //trail
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            //Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/BetsyFlameProj_Trail");
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                    color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return true;
+        }
 
     }
     //________________________________________________________________________________________________________________
@@ -491,6 +503,8 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
             Main.projFrames[Projectile.type] = 4;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
         public override void SetDefaults()
         {
@@ -634,6 +648,22 @@ namespace StormDiversMod.Projectiles
                 Projectile.frame %= 4; // Will reset to the first frame if you've gone through them all.
                 Projectile.frameCounter = 0;
             }
+        }
+        public override bool PreDraw(ref Color lightColor) //trail
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            //Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/BetsyFlameProj_Trail");
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                    color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return true;
         }
     }
 }

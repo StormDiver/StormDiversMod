@@ -62,6 +62,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = this.GetLocalization("SetBonus").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().skyKnightSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_SkyKnight = "true";
         }
 
         public override void AddRecipes()

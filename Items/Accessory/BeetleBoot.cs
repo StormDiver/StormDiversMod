@@ -40,6 +40,7 @@ namespace StormDiversMod.Items.Accessory
         {
 
             player.GetModPlayer<EquipmentEffects>().beetleFist = true;
+            player.GetModPlayer<EquipmentEffects>().BeetleFistItem = Item;
             player.autoReuseGlove = true;
             player.kbGlove = true;
             player.meleeScaleGlove = true;

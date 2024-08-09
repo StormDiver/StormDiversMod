@@ -27,7 +27,6 @@ namespace StormDiversMod.Items.Accessory
             //DisplayName.SetDefault("Shroomite Launcher Attachment");
             //Tooltip.SetDefault("Makes all guns fire out mini shroomite rockets\nCreates a laser sight line when firing or when holding right click while holding a gun");
             Item.ResearchUnlockCount = 1;
-
         }
 
         public override void SetDefaults()
@@ -39,18 +38,12 @@ namespace StormDiversMod.Items.Accessory
             Item.rare = ItemRarityID.Yellow;
 
             Item.accessory = true;
-            
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-
-
+            player.GetModPlayer<EquipmentEffects>().ShroomAccessItem = Item;
             player.GetModPlayer<EquipmentEffects>().shroomaccess = true;
-
-
-
         }
 
         public override void AddRecipes()
@@ -61,8 +54,6 @@ namespace StormDiversMod.Items.Accessory
             .AddIngredient(ItemID.SoulofSight, 10)
             .AddTile(TileID.MythrilAnvil)
             .Register();
-
-
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
@@ -101,6 +92,8 @@ namespace StormDiversMod.Items.Accessory
             {
                 player.scope = true;
             }
+            player.GetModPlayer<EquipmentEffects>().ShroomAccessItem = Item;
+
             player.GetModPlayer<EquipmentEffects>().shroomaccess = true;
 
             player.GetDamage(DamageClass.Ranged) += 0.1f;

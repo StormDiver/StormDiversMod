@@ -122,6 +122,7 @@ namespace StormDiversMod.Items.Weapons
             aura = ModContent.ProjectileType<Projectiles.AsteroidAura>();
             Item.noMelee = true;
             Item.shootSpeed = 16f;
+
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -134,6 +135,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void UseAnimation(Player player)
         {
+            player.itemAnimationMax = Item.useAnimation;//seems to fix aura issue on first swing
 
             if (aura != 0 && !player.ItemAnimationActive)
             {

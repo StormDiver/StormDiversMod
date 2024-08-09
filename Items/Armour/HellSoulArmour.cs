@@ -89,6 +89,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_HellSoul = "true";
         }
         public override void AddRecipes()
         {
@@ -176,6 +177,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_HellSoul = "true";
         }
         public override void AddRecipes()
         {
@@ -263,6 +265,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_HellSoul = "true";
         }
         public override void AddRecipes()
         {
@@ -347,6 +350,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_HellSoul = "true";
             player.maxMinions += 1;
         }
         public override void AddRecipes()

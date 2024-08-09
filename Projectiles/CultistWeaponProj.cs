@@ -83,12 +83,12 @@ namespace StormDiversMod.Projectiles
             if (Projectile.spriteDirection == -1)
             {
                 // If sprite is facing left, rotate 45 degrees
-                Projectile.rotation += MathHelper.ToRadians(45f);
+                //Projectile.rotation += MathHelper.ToRadians(45f);
             }
             else
             {
                 // If sprite is facing right, rotate 135 degrees
-                Projectile.rotation += MathHelper.ToRadians(135f);
+                //Projectile.rotation += MathHelper.ToRadians(135f);
             }
 
             if (Main.rand.NextBool(3))
@@ -138,13 +138,15 @@ namespace StormDiversMod.Projectiles
         {
           
         }
-        public override void PostDraw(Color drawColor)
+        public override void PostDraw(Color lightColor) //glowmask for single frame
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/CultistSpearProj_Glow");
 
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-        }
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f - (70 * Projectile.spriteDirection), Projectile.height * 0.5f - 10); //mess with values until correct, painful
 
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
     }
     //______________________________________________
     public class CultistSpearProj2 : ModProjectile
@@ -436,10 +438,8 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("Cultist Star");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
         }
 
         public override void SetDefaults()

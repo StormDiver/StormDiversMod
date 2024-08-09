@@ -111,11 +111,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     if (currenttarget != null)
                     {
                         Projectile.rotation = ((currenttarget.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
-                    }
-                   
+                    }  
                 }
-               
-
             }
                     
             Projectile.frameCounter++;
@@ -151,7 +148,15 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Main.dust[dustIndex].noGravity = true;
             }
         }
-     
+        public override void PostDraw(Color lightColor) //glowmask for animated
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/SentryProjs/BloodySentryProj_Glow");
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
     }
     //_____________________________________________ Proj
     public class BloodySentryProj2 : ModProjectile
@@ -178,7 +183,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = true;
-            Projectile.ArmorPenetration = 8;
+            Projectile.ArmorPenetration = 12;
         }
 
         public override void AI()

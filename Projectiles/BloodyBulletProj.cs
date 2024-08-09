@@ -77,7 +77,7 @@ namespace StormDiversMod.Projectiles
                 float scale = 1f - (Main.rand.NextFloat() * .2f);
                 perturbedSpeed = perturbedSpeed * scale;
 
-                int projID = Projectile.NewProjectile(null, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodyBulletProj2>(), Projectile.damage / 3, 1, Projectile.owner);
+                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BloodyBulletProj2>(), Projectile.damage / 3, 1, Projectile.owner);
                 Main.projectile[projID].DamageType = DamageClass.Ranged;
 
             }

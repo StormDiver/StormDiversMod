@@ -37,7 +37,7 @@ namespace StormDiversMod.Buffs
                     Dust.NewDustDirect(new Vector2(player.position.X + 5f, player.position.Y + 20f), 5, 5, 110);
                     Dust.NewDustDirect(new Vector2(player.position.X + 5f, player.position.Y + 20f), 5, 5, 111);
                     Dust.NewDustDirect(new Vector2(player.position.X + 5f, player.position.Y + 20f), 5, 5, 112);
-                    Dust.NewDustDirect(new Vector2(player.position.X + 5f, player.position.Y + 20f), 5, 5, 244);
+                    Dust.NewDustDirect(new Vector2(player.position.X + 5f, player.position.Y + 20f), 5, 5, 174);
 
                 }
             }
@@ -529,7 +529,7 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Blood Burst");
-            //Description.SetDefault("Blood is oozing to burst out of you");
+            //Description.SetDefault("Blood is oozing to burst out of the next struck enemy");
             Main.buffNoTimeDisplay[Type] = true;
         }
 

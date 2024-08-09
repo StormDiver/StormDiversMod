@@ -495,8 +495,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (NPC.ai[0] >= 300)
                 {
-                    //Projectile.NewProjectile(null, NPC.Center.X, NPC.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, player.statLifeMax2 - player.statLife); //Restore All health
-
+                    //Projectile.NewProjectile(npc.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, player.statLifeMax2 - player.statLife); //Restore All health
                     NPC.life = 0;
                     NPC.HitEffect(0, 0);
                     NPC.checkDead();
@@ -1917,16 +1916,16 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            if (NPC.ai[3] == 10) //66% DR on final attack
+            if (NPC.ai[3] == 10) //50% DR on final attack
             {
-                modifiers.FinalDamage *= 0.33f;
+                modifiers.FinalDamage *= 0.5f;
             }
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (NPC.ai[3] == 10) //66% DR on final attack
+            if (NPC.ai[3] == 10) //50% DR on final attack
             {
-                modifiers.FinalDamage *= 0.33f;
+                modifiers.FinalDamage *= 0.5f;
             }
             if (!StormWorld.ultimateBossDown)
             {

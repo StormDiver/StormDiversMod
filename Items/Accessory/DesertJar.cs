@@ -26,20 +26,12 @@ namespace StormDiversMod.Items.Accessory
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.Pink;
 
-
             Item.accessory = true;
-            
-
         }
-
-
-        
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.GetModPlayer<EquipmentEffects>().DesertJarItem = Item;
             player.GetModPlayer<EquipmentEffects>().desertJar = true;
-
-            
-            
         }
        
         public override void AddRecipes()

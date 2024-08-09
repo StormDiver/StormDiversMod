@@ -205,7 +205,7 @@ namespace StormDiversMod.Basefiles
             //Fledging Wings
             Recipe recipe6 = Recipe.Create(ItemID.CreativeWings, 1);
             recipe6.AddIngredient(ItemID.Feather, 6);
-            recipe6.AddTile(TileID.WorkBenches);
+            recipe6.AddTile(TileID.Anvils);
             recipe6.Register();
 
             //Frost armour

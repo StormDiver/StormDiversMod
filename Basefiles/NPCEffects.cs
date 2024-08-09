@@ -233,20 +233,19 @@ namespace StormDiversMod.Basefiles
 
                 if (npc.type == NPCID.LunarTowerVortex)
                 {
-                    Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
+                    Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
                 }
-
                 if (npc.type == NPCID.LunarTowerSolar)
                 {
-                    Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(517));
+                    Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(517));
                 }
                 if (npc.type == NPCID.LunarTowerNebula)
                 {
-                    Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
+                    Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
                 }
                 if (npc.type == NPCID.LunarTowerStardust)
                 {
-                    Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
+                    Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
                 }
 
             }
@@ -330,7 +329,7 @@ namespace StormDiversMod.Basefiles
                                     //Main.LocalPlayer.HealEffect(20, true);                               
 
                                     //Main.player[Main.myPlayer].lifeSteal -= 20;
-                                    Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 20); //Damage
+                                    Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 20); //Damage
 
                                     //Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("TESTER."), new Color(224, 141, 255));
 
@@ -353,7 +352,7 @@ namespace StormDiversMod.Basefiles
                         else //for bosses
                         {
                             //Main.player[Main.myPlayer].lifeSteal -= 75;
-                            Projectile.NewProjectile(null, npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 75); //Damage
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 75); //Damage
 
                             SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
                             for (int i = 0; i < 15; i++)
@@ -899,8 +898,6 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
-
-
             if (player.GetModPlayer<EquipmentEffects>().aridBossAccess == true && aridCoreDebuff) //Ancient Emblem extra damage
             {
                 float extradmg;
@@ -946,7 +943,7 @@ namespace StormDiversMod.Basefiles
                         if (bloodwhipcooldown >= 60)
                         {
 
-                            Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y - (40 - (npc.width / 2))), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.WhipProjs.BloodWhipProj2>(), 15, 0, Main.myPlayer, 0, Main.rand.Next(0, 359));
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X, npc.Center.Y - (40 - (npc.width / 2))), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.WhipProjs.BloodWhipProj2>(), 15, 0, Main.myPlayer, 0, Main.rand.Next(0, 359));
                             bloodwhipcooldown = 0;
                         }
 
@@ -977,7 +974,7 @@ namespace StormDiversMod.Basefiles
                                     float projspeed = 5;
                                     Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(npc.Center.X, npc.Center.Y)) * projspeed;
 
-                                    int ProjID = Projectile.NewProjectile(null, new Vector2(npc.Center.X, npc.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.WhipProjs.DesertWhipProj2>(), 10, 0, Main.myPlayer);
+                                    int ProjID = Projectile.NewProjectile(target.GetSource_FromAI(), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.WhipProjs.DesertWhipProj2>(), 10, 0, Main.myPlayer);
 
                                     forbiddenwhipcooldown = 0;
                                 }
@@ -999,11 +996,11 @@ namespace StormDiversMod.Basefiles
                         {
                             if (Main.rand.Next(2) == 0)
                             {
-                                Projectile.NewProjectile(null, new Vector2(npc.Center.X + 200, npc.Center.Y - 300), new Vector2(-15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X + 200, npc.Center.Y - 300), new Vector2(-15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
                             }
                             else
                             {
-                                Projectile.NewProjectile(null, new Vector2(npc.Center.X - 200, npc.Center.Y - 300), new Vector2(15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X - 200, npc.Center.Y - 300), new Vector2(15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
                             }
                             spacerockwhipcooldown = 0;
                         }
@@ -1066,6 +1063,16 @@ namespace StormDiversMod.Basefiles
             {
                 //damage = (int)(damage * 1.15f);
                 modifiers.CritDamage *= 1.15f;
+            }
+            if (player.GetModPlayer<EquipmentEffects>().aridBossAccess == true && aridCoreDebuff) //Ancient Emblem extra damage
+            {
+                float extradmg;
+                int buffindex = npc.FindBuffIndex(ModContent.BuffType<AridCoreDebuff>());
+                if (buffindex > -1)
+                {
+                    extradmg = npc.buffTime[buffindex] + 1;
+                    modifiers.FinalDamage *= 1 + (extradmg / 1000); //1% for every 10 frames, starts at 20%, 200 frames / 1000 = 0.02, plus 1 is 1.02
+                }
             }
         }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)

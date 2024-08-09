@@ -33,8 +33,10 @@ namespace StormDiversMod.Items.Accessory
 
         }
         int skulltime = 0;
+        //Item DungeonEye;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            //DungeonEye = Item;
             skulltime++;
             for (int i = 0; i < 200; i++)
             {
@@ -50,7 +52,7 @@ namespace StormDiversMod.Items.Accessory
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.BoneAcProj>(), damage, 1.5f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_Accessory(Item), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.BoneAcProj>(), damage, 1.5f, player.whoAmI);
 
                         skulltime = 0;
                     }

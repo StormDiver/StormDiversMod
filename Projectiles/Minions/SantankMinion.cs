@@ -6,6 +6,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent.Creative;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
 
 namespace StormDiversMod.Projectiles.Minions
@@ -45,7 +47,9 @@ namespace StormDiversMod.Projectiles.Minions
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 			Main.projPet[Projectile.type] = true;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
-		}
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+        }
 
 		public sealed override void SetDefaults()
 		{
@@ -387,8 +391,16 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 		}
+        public override void PostDraw(Color lightColor) //glowmask for animated
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/Minions/SantankMinionProj_Glow");
 
-	}
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f - 2, Projectile.height * 0.5f);
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
+    }
 	//__________________________________________________________________________________________________________
 	public class SantankMinionProj2 : ModProjectile
 	{

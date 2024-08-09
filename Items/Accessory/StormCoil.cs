@@ -42,9 +42,9 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            
-                player.GetModPlayer<EquipmentEffects>().stormBossAccess = true;
-   
+            player.GetModPlayer<EquipmentEffects>().StormBossAccessItem =Item;
+
+            player.GetModPlayer<EquipmentEffects>().stormBossAccess = true;
         }
 
         public override Color? GetAlpha(Color lightColor)

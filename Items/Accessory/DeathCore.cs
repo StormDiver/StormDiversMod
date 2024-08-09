@@ -37,6 +37,8 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.GetModPlayer<EquipmentEffects>().DeathCoreItem = Item;
+
             player.GetModPlayer<EquipmentEffects>().DeathCore = true;
         }
 

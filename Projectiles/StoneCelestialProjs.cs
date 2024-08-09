@@ -662,7 +662,8 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("Celestial Fragment");
             Main.projFrames[Projectile.type] = 4;
-
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
         }
         public override void SetDefaults()
         {
@@ -756,7 +757,32 @@ namespace StormDiversMod.Projectiles
 
             }
         }
+        public override bool PreDraw(ref Color lightColor) //trail
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            //Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/BetsyFlameProj_Trail");
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                    color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+
+            return true;
+        }
+        public override void PostDraw(Color lightColor) //glowmask for animated / more frames)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/StoneFragCelestial_Glow");
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
     }
     //______________________________________________________________________________________
 }

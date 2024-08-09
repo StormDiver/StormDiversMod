@@ -59,7 +59,7 @@ namespace StormDiversMod.Items.Armour
             //player.setBonus = "Has a chance to summon a damaging mushroom onto attacked enemies";
             player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().mushset = true;
-
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_Mushroom = "true";
         }
 
         public override void AddRecipes()

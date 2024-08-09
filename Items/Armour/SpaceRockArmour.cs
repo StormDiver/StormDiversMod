@@ -72,8 +72,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = this.GetLocalization("SetBonus").Value;
             //player.AddBuff(mod.BuffType("SpaceRockOffence"), 1);
             player.GetModPlayer<ArmourSetBonuses>().spaceRockOffence = true;
-         
-
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_SpaceRockOffence = "true";
         }
         public override void AddRecipes()
         {
@@ -81,8 +80,6 @@ namespace StormDiversMod.Items.Armour
            .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 8)        
            .AddTile(TileID.MythrilAnvil)
            .Register();
-
-
         }
         public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
         {
@@ -155,7 +152,7 @@ namespace StormDiversMod.Items.Armour
             player.setBonus = this.GetLocalization("SetBonus").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().spaceRockDefence = true;
-
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_SpaceRockDefence = "true";
         }
 
 

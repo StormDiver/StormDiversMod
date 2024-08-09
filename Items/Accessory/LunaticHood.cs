@@ -28,18 +28,12 @@ namespace StormDiversMod.Items.Accessory
 
             Item.accessory = true;
             Item.expert = true;
-            
-
         }
-
-
         //int skulltime = 0;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            
+            player.GetModPlayer<EquipmentEffects>().LunaticHoodItem = Item;
             player.GetModPlayer<EquipmentEffects>().lunaticHood = true;
-           
-           
         }
         //Drops from treasure bag
         public override Color? GetAlpha(Color lightColor)

@@ -15,7 +15,7 @@ This mod will receive occasional updates, mostly balance changes and any bug fix
 [*]The Cultist drops his treasure bag with some new items
 [*]A new member for the Frost Legion
 [*]Full Wikithis support
-[*][b]27 new Achievements available via the Achievement Mod[/b]
+[*][b]27 new Achievements available via the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2927542027]Achievement Mod[/url][/b]
 [/list]
 
 [h2]Quality of Life features:[/h2]
@@ -38,4 +38,4 @@ Spriter and playtester: [b]Lynxical[/b]
 Some additional sprites by: Charley#0571 
 Chinese Localisation by: by jianjingqiao201314(简境巧)
 
-Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful
+Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful.

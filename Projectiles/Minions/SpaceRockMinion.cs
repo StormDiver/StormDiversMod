@@ -50,7 +50,8 @@ namespace StormDiversMod.Projectiles.Minions
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
         }
 
         public sealed override void SetDefaults()
@@ -189,7 +190,7 @@ namespace StormDiversMod.Projectiles.Minions
             }
             if (foundTarget)
             {
-                
+                Projectile.extraUpdates = 1;
                 // Minion has a target: attack (here, fly towards the enemy)
                 if (Vector2.Distance(Projectile.Center, targetCenter) > 200f || Projectile.ai[0] <= 5)
                 {
@@ -206,6 +207,7 @@ namespace StormDiversMod.Projectiles.Minions
             }
             else
             {
+                Projectile.extraUpdates = 0;
 
                 // Minion doesn't have a target: return to player and idle
                 if (distanceToIdlePosition > 300f)
@@ -325,8 +327,24 @@ namespace StormDiversMod.Projectiles.Minions
         {
             return Color.White;
         }
-       
-       
+        public override bool PreDraw(ref Color lightColor) //trail
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            if (dustspeed == 1) //only when moving fast
+            {
+                for (int k = 0; k < Projectile.oldPos.Length; k++)
+                {
+                    Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                    Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                    Main.EntitySpriteDraw(texture, drawPos, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                        color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                }
+            }
+            return true;
+        }
+
     }
     
 }

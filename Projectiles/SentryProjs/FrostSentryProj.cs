@@ -104,12 +104,12 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     float projspeed = 15;
                     Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y - 16)) * projspeed;
 
-                    if (Projectile.ai[1] == 57)
+                    if (Projectile.ai[1] == 37)
                     {
                         animate = true;
                     }
 
-                    if (Projectile.ai[1] > 75)
+                    if (Projectile.ai[1] > 55)
                     {                
                         for (int j = 0; j < 60; j++)
                         {

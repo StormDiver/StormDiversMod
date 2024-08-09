@@ -83,6 +83,7 @@ namespace StormDiversMod.Items.Armour
             //player.setBonus = "Striking an enemy with a whip summons a Lihzahrd drone which orbits the tagged enemy\nThe Drone closes in on the enemy, and explodes\nThe drone will also explode if the enemy is killed or loses the tag";
             player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().LizardSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_Lizard = "true";
         }
         public override void AddRecipes()
         {

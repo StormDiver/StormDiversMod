@@ -83,10 +83,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             Player player = Main.player[Projectile.owner];
             Projectile.ai[1]++;//shootime
-            firerate++;
             if (Projectile.ai[1] > 90)
             {
                 stopfire++;
+                firerate++;
             }
             for (int i = 0; i < 200; i++)
             {
@@ -102,10 +102,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 if (Vector2.Distance(Projectile.Center, target.Center) <= 750f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
                 {
-
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
-
                         if (Projectile.ai[1] > 90)
                         {
                             float projspeed = 25;
@@ -137,15 +135,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
                
             }
-           
-
-
-
         }
-       
-
-
-      
         public override void OnKill(int timeLeft)
         {
 

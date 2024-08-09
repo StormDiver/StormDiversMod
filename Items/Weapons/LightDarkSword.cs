@@ -10,6 +10,7 @@ using Terraria.DataStructures;
 using StormDiversMod.Basefiles;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Projectiles;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -17,17 +18,20 @@ namespace StormDiversMod.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 44));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             //DisplayName.SetDefault("Equinox"); 
             //Tooltip.SetDefault("Left Click to fire out an essence of light that travels towards enemies at high speed\nRight click to fire out an essence of dark that surrounds enemies in darkness\n'Perfectly balanced, as all things should be
             //\nBoth swings creates a large damaging aura'");
             Item.ResearchUnlockCount = 1;
-            HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
+            /*HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
-                Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),
-                Color = () => new Color(255, 255, 255, 50) * 0.7f
-            });
+                Texture = ModContent.Request<Texture2D>(Texture + "_Light"),
+                Color = () => new Color(255, 255, 255, 50) * 1f
+            });*/
         }
         int aura = 0;
+        
 		public override void SetDefaults() 
 		{
 			Item.damage = 50;
@@ -41,7 +45,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing; 
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.LightPurple;
-			//Item.UseSound = SoundID.Item1;
+			//Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.autoReuse = true;
             Item.useTurn = false;
             Item.knockBack = 6;
@@ -51,22 +55,24 @@ namespace StormDiversMod.Items.Weapons
             Item.scale = 1f;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
             Item.noMelee = true;
+            Item.noUseGraphic = true;
             //Item.shootsEveryUse = true;
         }
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            base.UseStyle(player, heldItemFrame);
+        }
         public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
-            {
                 aura = ModContent.ProjectileType<Projectiles.LightDarkAuraDark>();
-            }
             else
-            {
                 aura = ModContent.ProjectileType<Projectiles.LightDarkAuraLight>();
-            }
             return true;
         }
 
@@ -76,7 +82,6 @@ namespace StormDiversMod.Items.Weapons
             if (player.altFunctionUse == 2)
             {
                 dusttype = 54;
-               
             }
             else
             {
@@ -91,6 +96,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void UseAnimation(Player player)
         {
+            player.itemAnimationMax = Item.useAnimation;//seems to fix aura issue on first swing
 
             if (aura != 0 && !player.ItemAnimationActive)
             {
@@ -102,42 +108,51 @@ namespace StormDiversMod.Items.Weapons
                     Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), player.MountedCenter - velocity * 2, velocity * 5, aura, damage, Item.knockBack, Main.myPlayer,
                             Math.Sign(mousePosition.X - player.Center.X) * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(Item));
                     NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
-
                 }
                 return;
             }
         }
-
-
+        double degrees;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
-
-
             if (player.altFunctionUse == 2) //Right Click
             {
-                //type = ModContent.ProjectileType<Projectiles.SwordDarkProj>();
-                /*for (int i = 0; i < 1; i++)
-                {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6)); 
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), ModContent.ProjectileType<Projectiles.SwordDarkProj>(), damage, knockback, player.whoAmI);
-                }*/
-                SoundEngine.PlaySound(SoundID.Item1, player.Center);
-
+                SoundEngine.PlaySound(SoundID.DD2_SonicBoomBladeSlash with { Volume = 1.5f, Pitch = 0f }, player.Center);
+                //blade sprite
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SwordLightDarkBlade>(), damage, Item.knockBack, Main.myPlayer,
+                                          1 * player.direction, player.itemAnimationMax, 1); //0: direction, 1: animation time, 2: light or dark
             }
             else //left Click
             {
-                //type = ModContent.ProjectileType<Projectiles.SwordLightProj>();
 
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(2)); 
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.75f, perturbedSpeed.Y * 1.75f), ModContent.ProjectileType<Projectiles.SwordLightProj>(), (int)(damage * 1.25f), knockback, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item9 with { Volume = 1f, Pitch = -0.5f }, player.Center);
+                //type = ModContent.ProjectileType<Projectiles.SwordLightProj>();
+                /*if (player.direction == -1)
+                degrees = Main.rand.Next(90, 171); //The degrees
+                else
+                degrees = Main.rand.Next(10, 91); //The degrees
+
+                double rad = degrees * (Math.PI / 180); //Convert degrees to radians
+                double dist = Main.rand.Next(100, 100); //Distance away from the player
+
+                position.X = player.Center.X - (int)(Math.Cos(rad) * dist);
+                position.Y = player.Center.Y - (int)(Math.Sin(rad) * dist);
+                //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0)); 
+                Vector2 velocitynew = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(player.Center.X, player.Center.Y)) * Item.shootSpeed;
+
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocitynew.X, velocitynew.Y), ModContent.ProjectileType<Projectiles.SwordLightProj>(), (int)(damage * 1.25f), knockback, player.whoAmI);*/
+
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.SwordLightProjspin>(), (int)(damage * 1.25f), knockback, player.whoAmI);
+
+                SoundEngine.PlaySound(SoundID.Item9 with { Volume = 1f, Pitch = 0 }, player.Center);
                 SoundEngine.PlaySound(SoundID.Item1, player.Center);
 
+                //blade sprite
+               Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SwordLightDarkBlade>(), damage, Item.knockBack, Main.myPlayer,
+                                            1 * player.direction, player.itemAnimationMax, 0); //0: direction, 1: animation time, 2: light or dark
             }
             return false;
         }
-
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -150,13 +165,20 @@ namespace StormDiversMod.Items.Weapons
            .Register();
            
         }
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        /*public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }*/
+        /*public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/LightDarkSword_Glow");
 
-            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
-                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-        }
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Item.height * 0.5f);
+            Rectangle rectangle = texture.Frame(1, 44);
+
+            Main.EntitySpriteDraw(texture, Item.Center - Main.screenPosition, new Rectangle(0, Main.itemFrame[44] * (texture.Height / 44), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, 0, drawOrigin, Item.scale, Item.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }*/
     }
   
 }

@@ -35,10 +35,11 @@ namespace StormDiversMod.Items.Accessory
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.GetModPlayer<EquipmentEffects>().FrostSpikeItem = Item;
+            player.GetModPlayer<EquipmentEffects>().DesertJarItem = Item;
             player.GetModPlayer<EquipmentEffects>().frostSpike = true;
             player.GetModPlayer<EquipmentEffects>().desertJar = true;
             player.GetModPlayer<EquipmentEffects>().frostJar = true; //makes the desert projs turn into frost projs
-
         }
 
         public override void AddRecipes()

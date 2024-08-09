@@ -177,7 +177,7 @@ Mods: {
 
 			BloodBurstBuff: {
 				DisplayName: Blood Burst
-				Description: Blood is oozing to burst out of you
+				Description: Blood is oozing to burst out of the next struck enemy
 			}
 
 			CelestialBuff: {
@@ -598,7 +598,7 @@ Mods: {
 			}
 
 			Celestialshield: {
-				DisplayName: Celestial Barrier
+				DisplayName: Celestial Guardian
 				Tooltip:
 					'''
 					Taking heavy damage regenerates the lost life over several seconds while granting additonal defense
@@ -702,11 +702,7 @@ Mods: {
 
 			FlameCore: {
 				DisplayName: Betsy's Flame
-				Tooltip:
-					'''
-					Summons homing flames when using any weapon
-					Increases acceleration
-					'''
+				Tooltip: Summons homing flames when using any weapon near enemies
 			}
 
 			FrostAccess: {
@@ -892,7 +888,7 @@ Mods: {
 					'''
 					Hold DOWN to fall faster and create a shockwave upon hitting the ground
 					The shockwave will be larger and deal more damage the further you fall
-					While falling faster you will damage any enemy you fall on and avoid contact damage
+					While falling faster you will damage any enemy you fall on and avoid contact damage, and fall damage is reduced
 					Jumping immediately after stomping grants a large jump boost
 					'''
 			}
@@ -901,7 +897,7 @@ Mods: {
 				DisplayName: Heavy Horseshoe Rocket Boots
 				Tooltip:
 					'''
-					Allows flight and Negates fall damage
+					Allows flight and Negates all fall damage
 					Hold DOWN to fall faster and create a shockwave upon hitting the ground
 					The shockwave will be larger and deal more damage the further you fall
 					While falling faster you will damage any enemy you fall on and avoid contact damage
@@ -910,11 +906,12 @@ Mods: {
 			}
 
 			StormCoil: {
-				DisplayName: Overloaded Storm Core
+				DisplayName: Overloaded Storm Coil
 				Tooltip:
 					'''
-					Right click while holding UP to send a lightning portal to the cursor that zaps enemies
+					Right click while holding UP to send a lightning portal that follows the cursor and zaps nearby enemies
 					Right click while holding DOWN to return the portal to you
+					The portal will only fire lightning if it has a line of sight to you
 					'''
 			}
 
@@ -1077,7 +1074,7 @@ Mods: {
 
 			AridBMask: {
 				DisplayName: Arid Mask
-				Tooltip: 5% increased critical strike chance
+				Tooltip: 6% increased critical strike chance
 				SetBonus: Critical hits create an explosion from the struck enemy which damages nearby enemies
 			}
 
@@ -1090,7 +1087,7 @@ Mods: {
 				DisplayName: Arid Greaves
 				Tooltip:
 					'''
-					5% increased critical strike chance
+					6% increased critical strike chance
 					12% increased movement speed
 					'''
 			}
@@ -1098,7 +1095,11 @@ Mods: {
 			BloodBHelmet: {
 				DisplayName: Hemoglobin Helmet
 				Tooltip: 4% increased melee damage and critical strike chance
-				SetBonus: Multiple damaging blood orbs burst out of you upon striking an enemy with a melee weapon
+				SetBonus:
+					'''
+					Attacking an enemy with a melee weapon causes multiple blood orbs to burst out of them
+					The blood orbs will seek out and damage nearby enemies
+					'''
 			}
 
 			BloodChainmail: {
@@ -1853,7 +1854,7 @@ Mods: {
 
 			UltimateBossSummoner: {
 				DisplayName: Mysterious Skull
-				Tooltip: Summons the Painbringer boss, make sure you're prepared
+				Tooltip: Summons the Painbringer boss, make sure you're prepared for all the pain
 			}
 
 			Aircan: {
@@ -3713,7 +3714,6 @@ Mods: {
 			FrostSpinProj.DisplayName: Frozen Polestar
 			FrostStarProj.DisplayName: Frost Frizbee
 			Frostthrowerproj.DisplayName: Frost
-			GhostProj.DisplayName: Mini Ghost
 			GladiatorSpearProj.DisplayName: Gladiator Glaive
 			GladiatorSpearProj2.DisplayName: Gladiator Spear Bolt
 			GladiatorStaffProj.DisplayName: Gladiator Staff Beam
@@ -3853,6 +3853,7 @@ Mods: {
 			StormLightningProj.DisplayName: Overloaded Lightning
 			SwordDarkProj.DisplayName: Dark Essence
 			SwordLightProj.DisplayName: Light Essence
+			SwordLightProjspin.DisplayName: Light Essence
 			TheSickleProj.DisplayName: Nine Lives Sickle Spinner
 			TheSickleProj2.DisplayName: Nine Lives Sickle Thrown
 			TheSickleProj3.DisplayName: Nine Lives Soul
@@ -3860,6 +3861,7 @@ Mods: {
 			ThrowingSilverKniveProj.DisplayName: Silver Throwing Knive
 			ThrowingTungstenKniveProj.DisplayName: Tungsten Throwing Knive
 			TombProj.DisplayName: TombStone
+			TombGhostProj.DisplayName: Mini Ghost
 			AircanProj.DisplayName: Air Blast
 			OilCanProj.DisplayName: Oil Blob
 			BobberCoral.DisplayName: Coral Bobber
@@ -3943,6 +3945,10 @@ Mods: {
 			SnowmanSnowball.DisplayName: Snowman Snowball
 			IceStaff2Proj.DisplayName: Ice Scepter Icicle
 			IceStaff2Proj2.DisplayName: Ice Scepter Large Icicle
+			SwordBladeLightProj.DisplayName: Sword Blade Light Proj
+			SwordLightDarkBlade.DisplayName: Sword Light Dark Blade
+			BloodArmourDropProj.DisplayName: Blood Armour Drop Proj
+			BloodAura.DisplayName: Blood Aura
 		}
 
 		Tiles: {

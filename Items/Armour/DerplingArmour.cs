@@ -72,6 +72,7 @@ namespace StormDiversMod.Items.Armour
             //player.setBonus = "Greatly increases jump and ascent speed, and allows auto jumping\nHold DOWN to increase falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
             player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().derpJump = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_Derp = "true";
 
         }
         public override void AddRecipes()
@@ -83,11 +84,7 @@ namespace StormDiversMod.Items.Armour
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }
-
-
     }
-    
-
     //__________________________________________________________________________________________________________________________
 
     [AutoloadEquip(EquipType.Head)]
@@ -151,6 +148,7 @@ namespace StormDiversMod.Items.Armour
             //player.setBonus = "Greatly increases jump and ascent speed, and allows auto jumping\nHold DOWN to increase falling speed\nCreates a large shockwave upon jumping that launches nearby enemies into the air";
             player.setBonus = this.GetLocalization("SetBonus").Value;
             player.GetModPlayer<ArmourSetBonuses>().derpJump = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_Derp = "true";
 
         }
         public override void AddRecipes()

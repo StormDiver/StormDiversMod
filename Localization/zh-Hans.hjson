@@ -3709,7 +3709,6 @@ Mods: {
 			FrostSpinProj.DisplayName: 冰冻星极
 			FrostStarProj.DisplayName: 霜星飞盘
 			Frostthrowerproj.DisplayName: 霜冻
-			GhostProj.DisplayName: 微型幽灵
 			GladiatorSpearProj.DisplayName: 角斗士长矛
 			GladiatorSpearProj2.DisplayName: 角斗士矛射线
 			GladiatorStaffProj.DisplayName: 角斗士法杖光束
@@ -3849,6 +3848,7 @@ Mods: {
 			StormLightningProj.DisplayName: 超载闪电
 			SwordDarkProj.DisplayName: 暗能量精华
 			SwordLightProj.DisplayName: 光能量精华
+			// SwordLightProjspin.DisplayName: Light Essence
 			TheSickleProj.DisplayName: 九魂镰旋转器
 			TheSickleProj2.DisplayName: 九魂镰投掷物
 			TheSickleProj3.DisplayName: 九命灵魂
@@ -3856,6 +3856,7 @@ Mods: {
 			ThrowingSilverKniveProj.DisplayName: 银色飞刀
 			ThrowingTungstenKniveProj.DisplayName: 钨质飞刀
 			TombProj.DisplayName: 墓碑
+			// TombGhostProj.DisplayName: Mini Ghost
 			AircanProj.DisplayName: 空气爆炸
 			OilCanProj.DisplayName: 油滴
 			BobberCoral.DisplayName: 珊瑚浮标
@@ -3939,6 +3940,10 @@ Mods: {
 			SnowmanSnowball.DisplayName: 雪人雪球
 			IceStaff2Proj.DisplayName: 冰霜权杖之冰柱
 			IceStaff2Proj2.DisplayName: 冰霜权杖·巨型冰锥
+			// SwordBladeLightProj.DisplayName: Sword Blade Light Proj
+			// SwordLightDarkBlade.DisplayName: Sword Light Dark Blade
+			// BloodArmourDropProj.DisplayName: Blood Armour Drop Proj
+			// BloodAura.DisplayName: Blood Aura
 		}
 
 		Tiles: {

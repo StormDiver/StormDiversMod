@@ -133,6 +133,11 @@ namespace StormDiversMod.Items.Vanitysets
             Item.vanity = true;
 
         }
+        public override void UpdateInventory(Player player)
+        {
+            player.GetModPlayer<EquipmentEffects>().UltimateBossMaskItem = Item;
+
+        }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Vanitysets/BossMaskUltimateBoss_Glow");

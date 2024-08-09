@@ -6,6 +6,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent.Creative;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
 
 namespace StormDiversMod.Projectiles.Minions
@@ -50,7 +52,10 @@ namespace StormDiversMod.Projectiles.Minions
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
 
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-		}
+
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+        }
 
 		public sealed override void SetDefaults()
 		{
@@ -307,5 +312,22 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 		}
-	}
+        public override bool PreDraw(ref Color lightColor) //trail
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+			if (mouthopen) //only when attacking
+			{
+				for (int k = 0; k < Projectile.oldPos.Length; k++)
+				{
+					Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+					Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+					Main.EntitySpriteDraw(texture, drawPos, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+						color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+				}
+			}
+            return true;
+        }
+    }
 }

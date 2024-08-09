@@ -23,7 +23,6 @@ namespace StormDiversMod.Projectiles
     public abstract class SwordAura : ModProjectile
     {
         public override string Texture => "StormDiversMod/Projectiles/SwordAura";
-
         public virtual void AuraDefaults()
         {
 
@@ -35,7 +34,6 @@ namespace StormDiversMod.Projectiles
             Projectile.aiStyle = 190;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
-            //Projectile.GetGlobalProjectile<ProjectileStats>().maxHits = 3;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.tileCollide = false;
@@ -176,8 +174,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void AuraDefaults()
         {
-            
-            scaleIncrease = 0.1f;
+            scaleIncrease = 0.2f;
             frontColor = Color.LightGray;
             middleColor = Color.Silver;
             backColor = Color.Violet;
@@ -187,13 +184,9 @@ namespace StormDiversMod.Projectiles
         public override bool? CanDamage()
         {
             if (hits < 4)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -223,13 +216,9 @@ namespace StormDiversMod.Projectiles
         public override bool? CanDamage()
         {
             if (hits < 4)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -248,9 +237,7 @@ namespace StormDiversMod.Projectiles
                 SoundEngine.PlaySound(SoundID.Item73, player.Center);
 
             }
-
             hits++;
-
         }
     }
     public class SoulAura : SwordAura
@@ -268,13 +255,9 @@ namespace StormDiversMod.Projectiles
         public override bool? CanDamage()
         {
             if (hits < 4)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
         public override void AI()
         {
@@ -314,13 +297,9 @@ namespace StormDiversMod.Projectiles
         public override bool? CanDamage()
         {
             if (hits < 5)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -346,13 +325,9 @@ namespace StormDiversMod.Projectiles
         public override bool? CanDamage()
         {
             if (hits < 6)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -379,13 +354,9 @@ namespace StormDiversMod.Projectiles
         public override bool? CanDamage()
         {
             if (hits < 6)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -405,5 +376,34 @@ namespace StormDiversMod.Projectiles
             hits++;
         }
     }
-
+    public class BloodAura : SwordAura
+    {
+        public override void AuraDefaults()
+        {
+            scaleIncrease = -0.6f;
+            frontColor = Color.Red;
+            middleColor = Color.Crimson;
+            backColor = Color.DarkRed;
+        }
+        int hits;
+        public override bool? CanDamage()
+        {
+            if (hits < 3)
+                return true;
+            else
+                return false;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            var player = Main.player[Projectile.owner];
+            for (int i = 0; i < 15; i++)
+            {
+                var dust = Dust.NewDustDirect(target.Center, 0, 0, 115);
+                dust.scale = 1.25f;
+                dust.velocity *= 2f;
+                dust.noGravity = true;
+            }
+            hits++;
+        }
+    }
 }

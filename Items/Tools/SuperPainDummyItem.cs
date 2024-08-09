@@ -210,16 +210,16 @@ namespace StormDiversMod.Items.Tools
 
                 for (int i = 0; i < 2; i++)
                 {
-                    int goreIndex = Gore.NewGore(null, new Vector2(Main.MouseWorld.X - 15, Main.MouseWorld.Y - 30), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    int goreIndex = Gore.NewGore(source, new Vector2(Main.MouseWorld.X - 15, Main.MouseWorld.Y - 30), default(Vector2), Main.rand.Next(61, 64), 1f);
                     Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f;
                     Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
-                    goreIndex = Gore.NewGore(null, new Vector2(Main.MouseWorld.X - 15, Main.MouseWorld.Y - 30), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    goreIndex = Gore.NewGore(source, new Vector2(Main.MouseWorld.X - 15, Main.MouseWorld.Y - 30), default(Vector2), Main.rand.Next(61, 64), 1f);
                     Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1f;
                     Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
-                    goreIndex = Gore.NewGore(null, new Vector2(Main.MouseWorld.X - 15, Main.MouseWorld.Y - 30), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    goreIndex = Gore.NewGore(source, new Vector2(Main.MouseWorld.X - 15, Main.MouseWorld.Y - 30), default(Vector2), Main.rand.Next(61, 64), 1f);
                     Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f;
                     Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
-                    goreIndex = Gore.NewGore(null, new Vector2(Main.MouseWorld.X - 15, Main.MouseWorld.Y - 30), default(Vector2), Main.rand.Next(61, 64), 1f);
+                    goreIndex = Gore.NewGore(source, new Vector2(Main.MouseWorld.X - 15, Main.MouseWorld.Y - 30), default(Vector2), Main.rand.Next(61, 64), 1f);
                     Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1f;
                     Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1f;
                 }

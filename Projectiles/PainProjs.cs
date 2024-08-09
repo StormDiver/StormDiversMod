@@ -11,6 +11,7 @@ using StormDiversMod.Buffs;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using System.Reflection.Metadata.Ecma335;
+using StormDiversMod.Items.Accessory;
 
 namespace StormDiversMod.Projectiles
 {
@@ -451,6 +452,8 @@ namespace StormDiversMod.Projectiles
         }
         float xPos;
         float yPos;
+        bool hidden; //hide dust particles if accessoy is hidden
+
         public override bool? CanDamage()
         {
             return false;
@@ -462,9 +465,32 @@ namespace StormDiversMod.Projectiles
             xPos = Projectile.Center.X - player.Center.X;
             yPos = Projectile.Center.Y - player.Center.Y;
         }
+        int accesstype = 3; //start at slot 3 (Accessory 1)
+
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
+
+            for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
+            {
+                if (player.armor[accesstype].type != ModContent.ItemType<DeathCore>()) //is the celestial barrier in the slot?
+                {
+                    accesstype++; //if not, check next slot
+                }
+                else if (player.hideVisibleAccessory[accesstype] && player.armor[accesstype].type == ModContent.ItemType<DeathCore>()) //if so, is the slot set to be hidden?
+                {
+                    hidden = true; //if so, hide sprite and disable dust
+                    Projectile.hide = true;
+                }
+                else if (!player.hideVisibleAccessory[accesstype] && player.armor[accesstype].type == ModContent.ItemType<DeathCore>()) //if not show sprite and dust
+                {
+                    hidden = false;
+                    Projectile.hide = false;
+                }
+            }
+            if (accesstype >= 9) //after slot 7 go back to slot 1
+                accesstype = 3;
+
             if (Projectile.ai[0] == 1)
             {
                 Projectile.timeLeft = 50;

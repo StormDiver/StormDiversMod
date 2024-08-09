@@ -56,49 +56,25 @@ namespace StormDiversMod.Items.Tools
                
                     if (NPC.ShieldStrengthTowerVortex > 0)
                     {
-                        int ProjID1 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
+                        int ProjID1 = Projectile.NewProjectile(source, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
                         Main.projectile[ProjID1].extraUpdates += 5;
                     }
                     if (NPC.ShieldStrengthTowerSolar > 0)
                     {
-                        int ProjID2 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(517));
+                        int ProjID2 = Projectile.NewProjectile(source, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(517));
                         Main.projectile[ProjID2].extraUpdates += 5;
                     }
                     if (NPC.ShieldStrengthTowerNebula > 0)
                     {
-                        int ProjID3 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
+                        int ProjID3 = Projectile.NewProjectile(source, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
                         Main.projectile[ProjID3].extraUpdates += 5;
                     }
                     if (NPC.ShieldStrengthTowerStardust > 0)
                     {
-                        int ProjID4 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
+                        int ProjID4 = Projectile.NewProjectile(source, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
                         Main.projectile[ProjID4].extraUpdates += 5;
                     }
                
-                /*else if (player.gravDir == 0)
-                {
-                    if (NPC.ShieldStrengthTowerVortex > 0)
-                    {
-                        int ProjID1 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(422));
-                        Main.projectile[ProjID1].extraUpdates += 5;
-                    }
-                    if (NPC.ShieldStrengthTowerSolar > 0)
-                    {
-                        int ProjID2 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(517));
-                        Main.projectile[ProjID2].extraUpdates += 5;
-                    }
-                    if (NPC.ShieldStrengthTowerNebula > 0)
-                    {
-                        int ProjID3 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(507));
-                        Main.projectile[ProjID3].extraUpdates += 5;
-                    }
-                    if (NPC.ShieldStrengthTowerStardust > 0)
-                    {
-                        int ProjID4 = Projectile.NewProjectile(null, new Vector2(player.Center.X + (25 * player.direction), player.Bottom.Y + 4), new Vector2(0, 0), ProjectileID.TowerDamageBolt, 0, 0, Main.myPlayer, NPC.FindFirstNPC(493));
-                        Main.projectile[ProjID4].extraUpdates += 5;
-                    }
-                }*/
-
                 //sets to 1, then the shield killer projectiles are spawned ontop of the pillars in NPCeffects
                 NPC.ShieldStrengthTowerVortex = 1;
 

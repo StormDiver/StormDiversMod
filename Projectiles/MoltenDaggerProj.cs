@@ -188,6 +188,7 @@ namespace StormDiversMod.Projectiles
             }
 
             Player player = Main.player[Projectile.owner];
+            player.heldProj = Projectile.whoAmI; //appear in front of player but behind hand
 
             //=============================================================================================Code for movement of weapon projectile====================================================================================================================================================
             Vector2 vector13 = Main.player[Projectile.owner].RotatedRelativePoint(Main.player[Projectile.owner].MountedCenter);
@@ -280,7 +281,7 @@ namespace StormDiversMod.Projectiles
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            overPlayers.Add(index);
+            //overPlayers.Add(index);
 
             base.DrawBehind(index, behindNPCsAndTiles, behindNPCs, behindProjectiles, overPlayers, overWiresUI);
         }

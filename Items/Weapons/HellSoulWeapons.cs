@@ -230,7 +230,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void UseAnimation(Player player)
         {
-
+            player.itemAnimationMax = Item.useAnimation;//seems to fix aura issue on first swing
             if (aura != 0 && !player.ItemAnimationActive)
             {
                 Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);

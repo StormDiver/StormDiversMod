@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Basefiles;
 
 using Terraria.Utilities;
+using StormDiversMod.Items.Accessory;
+using System.Security.Policy;
 
 namespace StormDiversMod.Projectiles
 {
@@ -22,7 +24,9 @@ namespace StormDiversMod.Projectiles
 		{
 			//DisplayName.SetDefault("Storm Portal");
 			Main.projFrames[Projectile.type] = 1;
-		}
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+        }
 		public override void SetDefaults()
 		{
 
@@ -48,21 +52,58 @@ namespace StormDiversMod.Projectiles
 
 
 		int rotate;
-		float movespeed = 26f; //Speed of the proj
-		int posX;
-		int posY;
+		float movespeed = 10; //Speed of the proj
+
+		Vector2 projpos;
 		int cooldown;
 		Vector2 mousepos;
-		public override void AI()
+        Vector2 dustposition;
+        double degrees;
+        int accesstype = 3; //start at slot 3 (Accessory 1)
+        bool hidden;
+
+        public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
-			//LocalAI 0  = orbit postion
-			//LocalAI 1 = one frame used to get mousepos
+            Player player = Main.player[Projectile.owner];
+            bool collision = Collision.CanHit(player.Center, 0, 0, Main.MouseWorld, 0, 0); //Positioning the portal requires this, returning it does not
 
-			//Ai 0 = What mode proj is in
-			//Ai 1 = Shoottime
+			//dust:
+			if (!hidden || Projectile.ai[0] == 1)
+			{
+				degrees += 10; //The degrees
+				for (int i = 0; i < 3; i++)
+				{
+					double rad = degrees * (Math.PI / 180); //Convert degrees to radians
+					double dist = 18; //Distance away from the player
 
-			if (Projectile.ai[0] == 0) //Passive Mode
+					dustposition.X = Projectile.Center.X - (int)(Math.Cos(rad) * dist);
+					dustposition.Y = Projectile.Center.Y - (int)(Math.Sin(rad) * dist);
+
+					for (int j = 0; j < 5; j++)
+					{
+						float X = dustposition.X - Projectile.velocity.X / 5f * (float)j;
+						float Y = dustposition.Y - Projectile.velocity.Y / 5f * (float)j;
+
+						int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 226, 0, 0, 100, default, 0.75f);
+
+						Main.dust[dust].position.X = X;
+						Main.dust[dust].position.Y = Y;
+						Main.dust[dust].noGravity = true;
+						Main.dust[dust].velocity *= 0;
+					}
+					degrees += 120; //for dust on other side
+				}
+			}
+            
+            //LocalAI 0  = orbit postion
+            //LocalAI 1 = one frame used to get mousepos
+
+            //Ai 0 = What mode proj is in
+            //Ai 1 = Shoottime
+
+            Projectile.rotation += 0.1745f;
+
+            if (Projectile.ai[0] == 0) //Passive Mode
 			{
 				Projectile.ai[1] = 0; //reset shoottime
 				Projectile.localAI[1] = 0; //First frame to get postion
@@ -70,12 +111,12 @@ namespace StormDiversMod.Projectiles
 				{				
 					float distance = Vector2.Distance(player.Center, Projectile.Center);
 
-					Projectile.localAI[0] += 3;  //Rotation
+					Projectile.localAI[0] += 2;  //Rotation
 
 					movespeed = distance / 10 + 0.5f;
 
 					Vector2 moveTo = player.Center;
-					Vector2 move = moveTo - Projectile.Center + new Vector2(posX, posY); //Postion around player
+					Vector2 move = moveTo - Projectile.Center + new Vector2(projpos.X, projpos.Y); //Postion around player
 					float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
 					if (magnitude > movespeed)
 					{
@@ -86,22 +127,44 @@ namespace StormDiversMod.Projectiles
 				//Factors for calculations
 				double deg = (Projectile.localAI[0] - 90);
 				double rad = deg * (Math.PI / 180);
-				double dist = 50; //Distance away from the player
+				double dist = 75; //Distance away from the player
 
-				//position
-				posX = (int)(Math.Cos(rad) * dist);
-				posY = (int)(Math.Sin(rad) * dist);
-				//Projectile.velocity.X = 0;
-				//Projectile.velocity.Y = 0;
+                //position
+                projpos.X = (int)(Math.Cos(rad) * dist);
+                projpos.Y = (int)(Math.Sin(rad) * dist);
 
-			}
+                for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8) (only hide in passive mode)
+                {
+                    if (player.armor[accesstype].type != ModContent.ItemType<StormCoil>()) //is the celestial barrier in the slot?
+                    {
+                        accesstype++; //if not, check next slot
+                    }
+                    else if (player.hideVisibleAccessory[accesstype] && player.armor[accesstype].type == ModContent.ItemType<StormCoil>()) //if so, is the slot set to be hidden?
+                    {
+                        hidden = true; //if so, hide sprite and disable dust
+                        Projectile.hide = true;
+                    }
+                    else if (!player.hideVisibleAccessory[accesstype] && player.armor[accesstype].type == ModContent.ItemType<StormCoil>()) //if not show sprite and dust
+                    {
+                        hidden = false;
+                        Projectile.hide = false;
+                    }
+                }
+                //Main.NewText("Slot: " + accesstype, 220, 63, 139);
+
+                if (accesstype >= 9) //after slot 7 go back to slot 1
+                    accesstype = 3;
+            }
+				
 			if (Projectile.ai[0] == 1) //Attack mode
 			{
-				if (Projectile.owner == Main.myPlayer)
+                hidden = false;
+                Projectile.hide = false;
+                if (Projectile.owner == Main.myPlayer)
 				{
-					if (Projectile.localAI[1] == 0)
+					//if (Projectile.localAI[1] == 0)
 					{
-						mousepos = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y); //Set position 
+						mousepos = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y); //Set position always
 					}
 
 					float distance = Vector2.Distance(mousepos, Projectile.Center);
@@ -110,7 +173,7 @@ namespace StormDiversMod.Projectiles
 					Projectile.localAI[0] = -10; //Reset rotation
 					Projectile.localAI[1]++; //First frame to get postion
 
-					movespeed = distance / 8 + 1.5f;
+					movespeed = distance / 10 + 1.5f;
 				}
 
 				Vector2 moveTo = mousepos;
@@ -123,9 +186,7 @@ namespace StormDiversMod.Projectiles
 				}
 
 				Projectile.velocity = move;
-		
-
-			}
+            }
 			//return to player if distance is too great
 			float speeddistance = (float)System.Math.Sqrt((double)((player.Center.X - Projectile.Center.X) * (player.Center.X - Projectile.Center.X) + (player.Center.Y - Projectile.Center.Y) * (player.Center.Y - Projectile.Center.Y)));
 			if (speeddistance > 2000 && Projectile.ai[0] == 1)
@@ -138,7 +199,6 @@ namespace StormDiversMod.Projectiles
 			}
 
 			cooldown++;
-			bool collision = Collision.CanHit(player.Center, 0, 0, Main.MouseWorld, 0, 0); //Positioning the portal requires this, returning it does not
 			if (Projectile.owner == Main.myPlayer)
 			{
 				/*int xcursor = (int)(Main.MouseWorld.X / 16);
@@ -160,7 +220,7 @@ namespace StormDiversMod.Projectiles
 					Projectile.ai[0]++;//Go to next movement postion
 				}
 
-				if (player.controlUseTile && player.noThrow == 0 && player.controlUp && Projectile.ai[0] == 1 && collision && cooldown >= 30) //Change position in attack mode
+				/*if (player.controlUseTile && player.noThrow == 0 && player.controlUp && Projectile.ai[0] == 1 && collision && cooldown >= 30) //Change position in attack mode
 				{
 					Projectile.localAI[1] = 0; //reset mouse pos detecter
 					for (int i = 0; i < 25; i++)
@@ -172,21 +232,16 @@ namespace StormDiversMod.Projectiles
 					}
 					SoundEngine.PlaySound(SoundID.Item93, player.Center);
 					cooldown = 0;
-				}
+				}*/
 
 			}
-
-
 
 			if (Projectile.ai[0] >= 2) //Reset back to first pos
 			{
 				Projectile.ai[0] = 0;
 			}
 
-			rotate++;
-			Projectile.rotation = rotate / 5;
-
-			if (Projectile.ai[1] > 40 && Projectile.velocity.X == 0 && Projectile.velocity.Y == 0) //fire lightning if stationary 
+			if (Projectile.ai[1] > 40 && Vector2.Distance(Main.MouseWorld, Projectile.Center) <= 200 && collision) //fire lightning if line of sight with player and close to cursor 
 			{
 
 				for (int j = 0; j < 30; j++)
@@ -237,15 +292,11 @@ namespace StormDiversMod.Projectiles
 			}
 
 			if (player.GetModPlayer<EquipmentEffects>().stormBossAccess == false || player.dead)
-
 			{
-
 				Projectile.Kill();
 				return;
 			}
-
 		}
-
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
@@ -267,14 +318,25 @@ namespace StormDiversMod.Projectiles
 		}
 		public override Color? GetAlpha(Color lightColor)
 		{
-			
 				Color color = Color.White;
 				color.A = 150;
 				return color;
-			
-			
 		}
-	}
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return true;
+        }
+    }
 	//____________________________________________________Melee weapon
 	public class StormKnifeProj : ModProjectile
 	{

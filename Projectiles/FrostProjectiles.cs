@@ -662,7 +662,7 @@ namespace StormDiversMod.Projectiles
                 float xpos = (Main.rand.NextFloat(-40, 40));
                 //float ypos = (Main.rand.NextFloat(200, 250));
 
-                int projID = Projectile.NewProjectile(null, new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y), new Vector2(xpos * -0.05f, 10), ModContent.ProjectileType<FrostAccessProj>(), Projectile.damage, 0, Projectile.owner, 0, 0, 1);
+                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y), new Vector2(xpos * -0.05f, 10), ModContent.ProjectileType<FrostAccessProj>(), Projectile.damage, 0, Projectile.owner, 0, 0, 1);
 
                 Main.projectile[projID].DamageType = DamageClass.Magic;
                 Main.projectile[projID].aiStyle = 0;

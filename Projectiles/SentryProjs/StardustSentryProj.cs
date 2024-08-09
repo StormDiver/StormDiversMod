@@ -367,14 +367,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
             }
         }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
  
         }
-        
-      
-        
         public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
@@ -411,7 +407,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Projectile.frameCounter = 0;
             }
         }
-        public override bool PreDraw(ref Color lightColor)
+        public override bool PreDraw(ref Color lightColor) //trail
         {
             Main.instance.LoadProjectile(Projectile.type);
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/SentryProjs/StardustSentryProj2_Trail");
@@ -420,11 +416,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(-5, 0);
-                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);                
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
             return true;
-
         }
         public override Color? GetAlpha(Color lightColor)
         {

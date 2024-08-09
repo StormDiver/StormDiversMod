@@ -70,6 +70,7 @@ namespace StormDiversMod.Items.Armour
             player.buffImmune[ModContent.BuffType<Buffs.UltraFrostDebuff>()] = true;
 
             player.GetModPlayer<ArmourSetBonuses>().cryoSet = true;
+            player.GetModPlayer<ArmourSetBonuses>().SetBonus_Cryo = "true";
 
         }
         int particle = 10;

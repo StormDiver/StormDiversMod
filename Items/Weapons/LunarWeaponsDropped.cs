@@ -394,7 +394,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item78;
 
-            Item.damage = 75;
+            Item.damage = 100;
             //Item.crit = 4;
             Item.knockBack = 1f;
 

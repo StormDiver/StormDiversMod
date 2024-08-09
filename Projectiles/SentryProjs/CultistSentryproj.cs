@@ -229,7 +229,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 1;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 40;
+			Projectile.localNPCHitCooldown = 50;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
