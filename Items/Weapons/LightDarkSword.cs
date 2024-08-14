@@ -11,6 +11,7 @@ using StormDiversMod.Basefiles;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Projectiles;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Terraria.GameContent.Prefixes;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -24,6 +25,8 @@ namespace StormDiversMod.Items.Weapons
             //Tooltip.SetDefault("Left Click to fire out an essence of light that travels towards enemies at high speed\nRight click to fire out an essence of dark that surrounds enemies in darkness\n'Perfectly balanced, as all things should be
             //\nBoth swings creates a large damaging aura'");
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
+            PrefixLegacy.ItemSets.SwordsHammersAxesPicks[Item.type] = true;
             /*HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Light"),
@@ -53,7 +56,6 @@ namespace StormDiversMod.Items.Weapons
             aura = ModContent.ProjectileType<Projectiles.LightDarkAuraLight>();
             Item.shootSpeed = 16f;
             Item.scale = 1f;
-            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             //Item.shootsEveryUse = true;
@@ -165,10 +167,10 @@ namespace StormDiversMod.Items.Weapons
            .Register();
            
         }
-        /*public override Color? GetAlpha(Color lightColor)
+        public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
-        }*/
+        }
         /*public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/LightDarkSword_Glow");

@@ -511,6 +511,8 @@ namespace StormDiversMod.Basefiles
 
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SantankMinion>(), 20, 15));
 
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SantaShotgun>(), 20, 15));
+
                 //isExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 12, 15));
                 notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.SantankScrap>(), 1, 9, 12));
 

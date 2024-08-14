@@ -159,7 +159,6 @@ namespace StormDiversMod.Items.Weapons
                     position += muzzleOffset;
                 }
                 
-                //type = ModContent.ProjectileType<Projectiles.SwordDarkProj>();
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));

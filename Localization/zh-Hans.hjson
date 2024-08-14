@@ -543,6 +543,11 @@ Mods: {
 				DisplayName: 心灵耗竭
 				Description: 你的心灵已无力再次经受震撼
 			}
+
+			ReflectedBuff: {
+				DisplayName: 反映
+				Description: 你可以反射投射物
+			}
 		}
 
 		Items: {
@@ -3270,7 +3275,20 @@ Mods: {
 					左键作为旋转武器使用，右键连续投掷两把刀刃
 					杀死敌人收集多达9个灵魂，每个收集的灵魂都会增加武器的伤害和暴击率
 					如果9秒内没有杀死敌人，灵魂将开始逃离
-					“捡起来！捡！起！来！”
+					旋转时右键单击可反射大多数射弹，每次使用之间有 2.5 秒的冷却时间
+					获得死神名单的两倍奖励
+					'''
+			}
+
+			TheScythe: {
+				DisplayName: 一击
+				Tooltip:
+					'''
+					左键单击可用作旋转武器，击倒您面对方向的敌人
+					右键单击可连续投掷两把刀片，可一次投掷两套刀片
+					旋转时右键单击可反射大多数射弹，每次使用之间有 1.5 秒的冷却时间
+					获得死神名单的两倍奖励
+					“您只剩一次机会”
 					'''
 			}
 
@@ -3510,6 +3528,35 @@ Mods: {
 			SnowmanBombBannerItem: {
 				DisplayName: 雪人爆破手旗帜
 				Tooltip: 附近的玩家获得针对以下怪的加成：雪人爆破手
+			}
+
+			SantaShotgun: {
+				DisplayName: 圣诞老人的爆炸棒
+				Tooltip:
+					'''
+					每次射击都会在枪管末端产生爆炸，对枪管内的所有敌人造成伤害
+					左键单击可连续发射每个枪管，每次都会产生爆炸
+					右键单击可同时发射两个枪管，从而产生更大、更具破坏性的爆炸，以及更大的子弹散布范围
+					在空中单击右键也会将你向后推
+					'''
+			}
+
+			SoulDeathPickup: {
+				DisplayName: 可收割的灵魂
+				Tooltip: 拾起收割灵魂
+			}
+
+			DeathsList: {
+				DisplayName: 死神名单
+				Tooltip:
+					'''
+					杀死敌人会掉落他们的灵魂，可以拾取，一次最多可携带 9 个灵魂
+					Boss 被击中时有小概率掉落灵魂
+					每收集一个灵魂，你的伤害增加 2%，暴击几率增加 1%
+					如果 9 秒内没有收集到任何灵魂，灵魂将开始逃逸，
+					当你已经拥有最大数量的灵魂时，收集灵魂将重置逃逸倒计时
+					“捡起来。捡起来。”
+					'''
 			}
 		}
 
@@ -3848,15 +3895,16 @@ Mods: {
 			StormLightningProj.DisplayName: 超载闪电
 			SwordDarkProj.DisplayName: 暗能量精华
 			SwordLightProj.DisplayName: 光能量精华
-			// SwordLightProjspin.DisplayName: Light Essence
+			SwordLightProjspin.DisplayName: 光采精华
 			TheSickleProj.DisplayName: 九魂镰旋转器
 			TheSickleProj2.DisplayName: 九魂镰投掷物
-			TheSickleProj3.DisplayName: 九命灵魂
+			TheScytheProj.DisplayName: 一击镰刀旋转器
+			TheScytheProj2.DisplayName: 一击投掷镰刀
 			ThrowingKnifeBouncyProj.DisplayName: 弹性飞刀
 			ThrowingSilverKniveProj.DisplayName: 银色飞刀
 			ThrowingTungstenKniveProj.DisplayName: 钨质飞刀
 			TombProj.DisplayName: 墓碑
-			// TombGhostProj.DisplayName: Mini Ghost
+			TombGhostProj.DisplayName: 迷你幽灵
 			AircanProj.DisplayName: 空气爆炸
 			OilCanProj.DisplayName: 油滴
 			BobberCoral.DisplayName: 珊瑚浮标
@@ -3940,10 +3988,12 @@ Mods: {
 			SnowmanSnowball.DisplayName: 雪人雪球
 			IceStaff2Proj.DisplayName: 冰霜权杖之冰柱
 			IceStaff2Proj2.DisplayName: 冰霜权杖·巨型冰锥
-			// SwordBladeLightProj.DisplayName: Sword Blade Light Proj
-			// SwordLightDarkBlade.DisplayName: Sword Light Dark Blade
-			// BloodArmourDropProj.DisplayName: Blood Armour Drop Proj
-			// BloodAura.DisplayName: Blood Aura
+			SwordLightDarkBlade.DisplayName: 春分之刃
+			BloodArmourDropProj.DisplayName: 血腥宝珠
+			BloodAura.DisplayName: 血之气息
+			SantaBoomProj.DisplayName: 圣诞老人的火棒爆炸
+			SantaBoomProj2.DisplayName: 圣诞老人的火棒双重爆炸
+			DeathsListProj.DisplayName: 收割灵魂
 		}
 
 		Tiles: {

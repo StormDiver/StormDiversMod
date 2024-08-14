@@ -21,18 +21,18 @@ using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Projectiles
 {
-    public class TheSickleProj : ModProjectile
+    public class TheScytheProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Nine Lives Sickle Spinner");
+            //DisplayName.SetDefault("One Shot Scythe Spinner");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
         }
         public override void SetDefaults()
         {
-            Projectile.width = 86;
-            Projectile.height = 86;
+            Projectile.width = 150;
+            Projectile.height = 150;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -41,7 +41,7 @@ namespace StormDiversMod.Projectiles
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 26;
+            Projectile.localNPCHitCooldown = 20;
             Projectile.timeLeft = 9999999;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -50,12 +50,12 @@ namespace StormDiversMod.Projectiles
 
         }
         bool parry;
-        int parrytime = 150;
-        int parrycooldown = 150;
+        int parrytime = 90;
+        int parrycooldown = 90;
         public override void AI()
         {           
             Player player = Main.player[Projectile.owner];
-            // 15 frame parry, 150 frame cooldown
+            // 25 frame parry, 90 frame cooldown
             if (parrytime > 0 && player.releaseUseTile) //don't count down if player is still holding rmb
                 parrytime--;
 
@@ -70,8 +70,8 @@ namespace StormDiversMod.Projectiles
 
             if (player.controlUseTile && !parry && parrytime <= 0) //add parry buff
             {
-                player.AddBuff(ModContent.BuffType<ReflectedBuff>(), 15);
-                parrytime = parrycooldown + 15;
+                player.AddBuff(ModContent.BuffType<ReflectedBuff>(), 25);
+                parrytime = parrycooldown + 25;
                 parry = true;
             }
             if (!player.HasBuff(ModContent.BuffType<ReflectedBuff>()))
@@ -98,7 +98,6 @@ namespace StormDiversMod.Projectiles
                     player.ClearBuff(ModContent.BuffType<ReflectedBuff>());
                 }
             }
-       
             if (Projectile.owner == Main.myPlayer)
             {
                 if (Main.MouseWorld.X >= player.Center.X)
@@ -140,12 +139,12 @@ namespace StormDiversMod.Projectiles
             {
                 SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2f, Pitch = -0.5f, MaxInstances = 5 }, Projectile.Center);
                 Projectile.soundDelay = 30;
-            } 
+            }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {
-            hitbox.Width = 100;
-            hitbox.Height = 100;
+            hitbox.Width = 180;
+            hitbox.Height = 180;
             hitbox.X -= (hitbox.Width - Projectile.width) / 2;
             hitbox.Y -= (hitbox.Height - Projectile.height) / 2;
             base.ModifyDamageHitbox(ref hitbox);
@@ -154,25 +153,29 @@ namespace StormDiversMod.Projectiles
         {        
             Main.instance.LoadProjectile(Projectile.type);
 
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/TheSickleProj_Trail");
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/TheScytheProj_Trail");
 
             Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
              for (int k = 0; k < Projectile.oldPos.Length; k++)
              {
                  Vector2 drawPos = (Projectile.position - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                 Color color = Projectile.GetAlpha(Color.Violet) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                  Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
              }
 
             return true;
         }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
     }
     //_________________________________________________________________________________________________________________
-    public class TheSickleProj2 : ModProjectile
+    public class TheScytheProj2 : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Nine Lives Sickle Thrown");
+            //DisplayName.SetDefault("One Shot Scythe Thrown");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
         }
@@ -187,13 +190,9 @@ namespace StormDiversMod.Projectiles
             Projectile.CloneDefaults(106);
             AIType = 106;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
-           
+            Projectile.localNPCHitCooldown = 10;
             Projectile.penetrate = -1;
         }
-
-        bool stillspin;
-        int stilltime;
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -210,15 +209,16 @@ namespace StormDiversMod.Projectiles
             }                      
             Projectile.width = 34;
             Projectile.height = 34;
-            DrawOffsetX = -5;
-            DrawOriginOffsetY = -5;
+            DrawOffsetX = -12;
+            DrawOriginOffsetY = -12;
             Projectile.light = 0;
             Projectile.penetrate = -1;
+           
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {
-            hitbox.Width = 40;
-            hitbox.Height = 40;
+            hitbox.Width = 45;
+            hitbox.Height = 45;
             hitbox.X -= (hitbox.Width - Projectile.width) / 2;
             hitbox.Y -= (hitbox.Height - Projectile.height) / 2;
             base.ModifyDamageHitbox(ref hitbox);
@@ -226,27 +226,29 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 31);
-                dust.scale = 1.25f;
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 27);
+                dust.scale = 1.5f;
                 dust.noGravity = true;
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+
             for (int i = 0; i < 10; i++)
             {
-
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 31);
-                dust.scale = 0.75f;
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 27);
+                dust.scale = 1f;
                 dust.noGravity = true;
             }
-            if (Projectile.ai[2] < 2)
-            {
-                return false;
-            }
-            return true;
+            if (Projectile.velocity.X != oldVelocity.X)
+                Projectile.velocity.X = -oldVelocity.X;
+            if (Projectile.velocity.Y != oldVelocity.Y)
+                Projectile.velocity.Y = -oldVelocity.Y;
+
+            return false;
         }
         public override void OnKill(int timeLeft)
         {
@@ -259,16 +261,20 @@ namespace StormDiversMod.Projectiles
         {
             Main.instance.LoadProjectile(Projectile.type);
             //Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/TheSickleProj2_Trail");
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/TheScytheProj2_Trail");
 
             Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
-                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(-5f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(-12f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(Color.Violet) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
             return true;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
         }
     }
 }

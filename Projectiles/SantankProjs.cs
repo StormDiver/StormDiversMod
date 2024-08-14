@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles
 {
-
     public class SantankMissleProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -19,15 +19,12 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("Ho-Ho-Homing missile");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 16;
             Projectile.height = 16;
 
-           
             Projectile.friendly = true;
 
             Projectile.aiStyle = 0;
@@ -54,7 +51,6 @@ namespace StormDiversMod.Projectiles
                     float X = Projectile.Center.X - Projectile.velocity.X / 10f * (float)i;
                     float Y = Projectile.Center.Y - Projectile.velocity.Y / 10f * (float)i;
 
-
                     int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 6, 0, 0, 100, default, 1f);
                     Main.dust[dust].position.X = X;
                     Main.dust[dust].position.Y = Y;
@@ -74,12 +70,9 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 160;
                 Projectile.Center = Projectile.position;
                 
-
                 Projectile.knockBack = 3f;
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
-
-                
             }
             if (timer > 45)
             {
@@ -204,5 +197,185 @@ namespace StormDiversMod.Projectiles
                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
             }
         }
-    }  
+    }
+    //________________________________________________________________________________________
+    public class SantaBoomProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Santa's Boomstick Explosion");
+            Main.projFrames[Projectile.type] = 4;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.Size = new Vector2(100); //12 smaller than width
+            DrawOffsetX = -6; //half of difference
+            DrawOriginOffsetY = -12; //all of difference
+
+            Projectile.light = 0.3f;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.timeLeft = 30;
+            Projectile.aiStyle = -1;
+            Projectile.scale = 1f;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+            Projectile.ownerHitCheck = true;
+        }
+        public override bool? CanDamage()
+        {
+            if (Projectile.timeLeft < 27)
+                return false;
+            else
+                return true;
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            var player = Main.player[Projectile.owner];
+           
+        }
+        float rotationspeed;
+        public override void AI()
+        {
+            var player = Main.player[Projectile.owner];
+
+            Projectile.ai[2]++;
+
+            if (Projectile.ai[2] == 1)
+            {
+                for (int i = 0; i < 30; i++) //Orange particles
+                {
+                    Vector2 perturbedSpeed = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35));
+                    float scale = 1f - (Main.rand.NextFloat() * .7f);
+                    perturbedSpeed = perturbedSpeed * scale;
+
+                    var dust = Dust.NewDustDirect(Projectile.Center + perturbedSpeed * 2, 0, 0, 174, perturbedSpeed.X * .6f + player.velocity.X, perturbedSpeed.Y * .6f + player.velocity.Y);
+                    dust.noGravity = true;
+                    dust.scale = 2f;
+
+                    var dust2 = Dust.NewDustDirect(Projectile.Center + perturbedSpeed * 2, 0, 0, 31, perturbedSpeed.X * .6f + player.velocity.X, perturbedSpeed.Y * .6f + player.velocity.Y);
+                    dust2.noGravity = true;
+                    dust2.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                    dust2.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
+                }
+            }
+
+            player.heldProj = Projectile.whoAmI; //appear in front of player but behind hand
+
+            Vector2 velocity = Projectile.velocity * 6f; //keep at 6
+
+            Projectile.Center = player.RotatedRelativePoint(new Vector2(player.MountedCenter.X + velocity.X, player.MountedCenter.Y - (6 * player.gravDir) + velocity.Y));
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 5)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+            }
+            if (Projectile.frame >= 4)
+                Projectile.Kill();
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+    }
+
+    //________________________________________________________________________________________
+    public class SantaBoomProj2 : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Santa's Boomstick Large Explosion");
+            Main.projFrames[Projectile.type] = 5;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.Size = new Vector2(140); //36 smaller than width
+            DrawOffsetX = -18; //half of difference
+            DrawOriginOffsetY = -36; //all of difference
+
+            Projectile.light = 0.3f;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.timeLeft = 30;
+            Projectile.aiStyle = -1;
+            Projectile.scale = 1f;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+            Projectile.ownerHitCheck = true;
+           
+        }
+        public override bool? CanDamage()
+        {
+            if (Projectile.timeLeft < 25)
+                return false;
+            else
+                return true;
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            var player = Main.player[Projectile.owner];
+            //consume 1 extra ammo
+            int projToShoot = player.HeldItem.shoot; //need all this otherwise it has a fit
+            int usedAmmoItemID = player.HeldItem.useAmmo;
+            float speed = player.HeldItem.shootSpeed;
+            int Damage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
+            float KnockBack = player.inventory[player.selectedItem].knockBack;
+
+            player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, false);
+        }
+            
+        public override void AI()
+        {
+            var player = Main.player[Projectile.owner];
+            Projectile.ai[2]++;
+
+            if (Projectile.ai[2] == 1)
+            {
+                for (int i = 0; i < 50; i++) //Orange particles
+                {
+                    Vector2 perturbedSpeed = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(50));
+                    float scale = 1f - (Main.rand.NextFloat() * .7f);
+                    perturbedSpeed = perturbedSpeed * scale;
+
+                    var dust = Dust.NewDustDirect(Projectile.Center + perturbedSpeed * 2, 0, 0, 174, perturbedSpeed.X * .8f + player.velocity.X, perturbedSpeed.Y * .8f + player.velocity.Y);
+                    dust.noGravity = true;
+                    dust.scale = 2f;
+
+                    var dust2 = Dust.NewDustDirect(Projectile.Center + perturbedSpeed * 2, 0, 0, 31, perturbedSpeed.X * .8f + player.velocity.X, perturbedSpeed.Y * .8f + player.velocity.Y);
+                    dust2.noGravity = true;
+                    dust2.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                    dust2.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
+                }
+            }
+
+            player.heldProj = Projectile.whoAmI; //appear in front of player but behind hand
+
+            Vector2 velocity = Projectile.velocity * 7.2f; //keep at 7.2f
+
+            Projectile.Center = player.RotatedRelativePoint(new Vector2(player.MountedCenter.X + velocity.X, player.MountedCenter.Y - (6 * player.gravDir) + velocity.Y));
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 5)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+            }
+            if (Projectile.frame >= 4)
+                Projectile.Kill();
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+    }
 }

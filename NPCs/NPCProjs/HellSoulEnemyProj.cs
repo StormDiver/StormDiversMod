@@ -67,7 +67,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 for (int i = 0; i < 20; i++)
                 {
 
-                    int dust2 = Dust.NewDust(Projectile.Center - Projectile.velocity, Projectile.width, Projectile.height, 5, 0f, 0f, 50, default, 1f);
+                    int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 5, 0f, 0f, 50, default, 1f);
                     Main.dust[dust2].noGravity = true;
 
                 }

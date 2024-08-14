@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using System.Linq;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Basefiles;
+using Terraria.GameContent.Drawing;
 
 
 
@@ -666,6 +667,29 @@ namespace StormDiversMod.Buffs
 
                     int dust2 = Dust.NewDust(player.Center, 0, 0, 5, dustspeed.X, dustspeed.Y, 100, default, 1f);
                 }
+            }
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+        }
+    }
+    //_________________________________________________________________
+    public class ReflectedBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Reflection");
+            //Description.SetDefault("You can reflect projectiles");
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+            if (Main.rand.Next(5) == 0)
+            {
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
+                {
+                    PositionInWorld =new Vector2(player.position.X + Main.rand.Next (0, player.width), player.position.Y + Main.rand.Next(0, player.height)),
+                }, player.whoAmI);
             }
         }
         public override void Update(NPC npc, ref int buffIndex)

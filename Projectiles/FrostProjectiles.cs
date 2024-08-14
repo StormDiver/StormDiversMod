@@ -17,6 +17,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.CodeAnalysis;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 
 
 namespace StormDiversMod.Projectiles
@@ -154,7 +155,7 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("Frozen Polestar");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
         }
         public override void SetDefaults()
         {
@@ -169,18 +170,15 @@ namespace StormDiversMod.Projectiles
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = 26;
             Projectile.timeLeft = 9999999;
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var player = Main.player[Projectile.owner];
             if (Main.rand.Next(1) == 0) // the chance
             {
-
                 target.AddBuff(BuffID.Frostburn2, 300);
-
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -188,19 +186,42 @@ namespace StormDiversMod.Projectiles
             if (info.PvP)
                 target.AddBuff(BuffID.Frostburn2, 300);
         }
-        // float hitbox = 150;
-        // bool hitboxup;
-        // bool hitboxdown;
+        bool parry;
+        int parrytime = 120; //count down timer
+        int parrycooldown = 120; //the cooldown amount
+
         public override void AI()
         {
-            Projectile.soundDelay--;
-            if (Projectile.soundDelay <= 0)
+            Player player = Main.player[Projectile.owner];
+            // 20 frame parry, 120 frame cooldown
+            if (parrytime > 0 && player.releaseUseTile) //don't count down if player is still holding rmb
+                parrytime--;
+
+            if (parrytime == 1) //sound when can parry again
             {
-                SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
-                Projectile.soundDelay = 60;
+                SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing with { Volume = 1f, Pitch = 0.5f, MaxInstances = 1 }, Projectile.Center);
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
+                {
+                    PositionInWorld = new Vector2(player.Center.X, player.Center.Y),
+                }, player.whoAmI);
             }
 
-            Player player = Main.player[Projectile.owner];
+            if (player.controlUseTile && !parry && parrytime <= 0) //add parry buff
+            {
+                player.AddBuff(ModContent.BuffType<ReflectedBuff>(), 20);
+                parrytime = parrycooldown + 20;
+                parry = true;
+            }
+            if (!player.HasBuff(ModContent.BuffType<ReflectedBuff>()))
+                parry = false;
+
+            if (parry)
+                Projectile.scale = 1.1f;
+            else
+                Projectile.scale = 1;
+
+            //Main.NewText("parrytime: " + parrytime, 220, 63, 139);
+
             Projectile.damage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(Projectile.originalDamage); //update damage
 
             if (Main.myPlayer == Projectile.owner)
@@ -208,6 +229,8 @@ namespace StormDiversMod.Projectiles
                 if (!player.channel || player.noItems || player.dead)
                 {
                     Projectile.Kill();
+                    player.ClearBuff(ModContent.BuffType<ReflectedBuff>());
+
                 }
             }
             if (!Main.dedServ)
@@ -228,24 +251,43 @@ namespace StormDiversMod.Projectiles
 
                 }
             }
-
             Projectile.Center = player.MountedCenter;
             Projectile.position.X += player.width / 2 * player.direction;
             Projectile.position.Y += player.height / 10;
 
             Projectile.spriteDirection = player.direction;
-            
-            Projectile.rotation += 0.15f * player.direction; //this is the projectile rotation/spinning speed
-           
+
+            if (parry)
+                Projectile.rotation += MathHelper.ToRadians(12.5f) * player.direction; //this is the projectile rotation/spinning speed
+            else
+                Projectile.rotation += MathHelper.ToRadians(8.5f) * player.direction; //this is the projectile rotation/spinning speed
+
             player.heldProj = Projectile.whoAmI;
             player.itemTime = 2;
             player.itemAnimation = 2;
             player.itemRotation = Projectile.rotation;
 
 
-            int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 135);  //this is the dust that this projectile will spawn
-            Main.dust[dust].velocity /= 1f;
-           
+            //-------------------------------------------------------------Sound-------------------------------------------------------
+            if (!parry)
+                Projectile.soundDelay--;
+            else
+                Projectile.soundDelay -= 3;
+
+            if (Projectile.soundDelay <= 0)
+            {
+                SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2f, Pitch = -0.5f, MaxInstances = 5 }, Projectile.Center);
+                for (int i = 0; i < 20; i++) //Frost particles
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 180, perturbedSpeed.X + player.velocity.X, perturbedSpeed.Y + player.velocity.Y);
+                    dust.noGravity = true;
+                    dust.scale = 1.5f;
+
+                }
+                Projectile.soundDelay = 30;
+            }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {
@@ -259,12 +301,12 @@ namespace StormDiversMod.Projectiles
         {           
             Main.instance.LoadProjectile(Projectile.type);
 
-            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/FrostSpinProj_Trail");
 
             Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
-                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Vector2 drawPos = (Projectile.position - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }

@@ -130,7 +130,7 @@ Mods: {
 
 			AchievementNineLives: {
 				Name: I am Death!
-				Description: Have 9 souls reaped at once with the Nine Lives.
+				Description: Have 9 souls reaped at once with the Reaper's List equipped.
 			}
 
 			AchievementSantanked: {
@@ -543,6 +543,11 @@ Mods: {
 				DisplayName: Heart Burnout
 				Description: Your heart cannot survive another shock
 			}
+
+			ReflectedBuff: {
+				DisplayName: Reflection
+				Description: You can reflect projectiles
+			}
 		}
 
 		Items: {
@@ -805,7 +810,7 @@ Mods: {
 				DisplayName: Santank Power Core
 				Tooltip:
 					'''
-					Exposed wires will shock you back to life for after taking lethal damage, granting a 10 second grace period
+					You will be shocked back to life after taking lethal damage, granting a 10 second grace period
 					During the period you are immune to damage and deal extra damage
 					After 10 seconds you will die unless you heal to above 33% life
 					Has a 5 minute cooldown if you survive between uses
@@ -2550,6 +2555,7 @@ Mods: {
 					'''
 					Spins around and knocks enemies in the direction you're facing
 					Inflicts Frostbite on enemies
+					Right click while spinning to reflect most projectiles, has a 2 second cooldown between uses
 					'''
 			}
 
@@ -2760,7 +2766,7 @@ Mods: {
 				Tooltip:
 					'''
 					Spins around with the force of a star, knocking enemies in the direction you're facing
-					Reflects basic projectiles when spun
+					Right click while spinning to reflect most projectiles, has a 1 second cooldown between uses
 					'''
 			}
 
@@ -3272,10 +3278,22 @@ Mods: {
 				DisplayName: Nine Lives
 				Tooltip:
 					'''
-					Left Click to use as a spinning weapon, Right Click to throw both blades in succession
-					Kill enemies to collect up to 9 souls, each collected soul increases the damage and crit chance of the weapon
-					Souls will begin to escape if no enemies are killed within 9 seconds
-					'Pick it up. Pick. It. Up'
+					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
+					Right Click to throw both blades in succession
+					Right Click while spinning to reflect most projectiles, has a 2.5 second cooldown between uses
+					Receives twice the bonuses from the Reaper's List
+					'''
+			}
+
+			TheScythe: {
+				DisplayName: One Shot
+				Tooltip:
+					'''
+					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
+					Right Click to throw both blades in succession, 2 sets can be thrown out at once
+					Right click while spinning to reflect most projectiles, has a 1.5 second cooldown between uses
+					Receives twice the bonuses from the Reaper's List
+					'You have one shot left'
 					'''
 			}
 
@@ -3515,6 +3533,35 @@ Mods: {
 			SnowmanBombBannerItem: {
 				DisplayName: Snowman Bomber Banner
 				Tooltip: Nearby players get a bonus against: Snowman Bomber
+			}
+
+			SantaShotgun: {
+				DisplayName: Santa's Explosive Boomstick
+				Tooltip:
+					'''
+					Each shot creates an explosion at the end of the barrel, damaging any enemy within it
+					Left click to fire each barrel in succession, creating a medium sized explosion both times
+					Right click to fire both barrels at once, resulting in a larger, more damaging explosion, and a larger spread of bullets
+					Right clicking while in the air will also propel you backwards
+					'''
+			}
+
+			SoulDeathPickup: {
+				DisplayName: Reapable Soul
+				Tooltip: Pick up to reap the soul
+			}
+
+			DeathsList: {
+				DisplayName: Reaper's List
+				Tooltip:
+					'''
+					Killing enemies drops their soul which can be picked up, up to 9 souls can be carried at once
+					Bosses instead have a small chance to drop a soul when hit
+					Each collected soul increases your damage by 2% and crit chance by 1% 
+					Souls will begin to escape if no souls are collected within 9 seconds, 
+					Collecting a soul when you already have the max amount will reset the escape countdown
+					'Pick it up. Pick. It. Up'
+					'''
 			}
 		}
 
@@ -3856,7 +3903,8 @@ Mods: {
 			SwordLightProjspin.DisplayName: Light Essence
 			TheSickleProj.DisplayName: Nine Lives Sickle Spinner
 			TheSickleProj2.DisplayName: Nine Lives Sickle Thrown
-			TheSickleProj3.DisplayName: Nine Lives Soul
+			TheScytheProj.DisplayName: One Shot Scythe Spinner
+			TheScytheProj2.DisplayName: One Shot Scythe Thrown
 			ThrowingKnifeBouncyProj.DisplayName: Bouncy Knife
 			ThrowingSilverKniveProj.DisplayName: Silver Throwing Knive
 			ThrowingTungstenKniveProj.DisplayName: Tungsten Throwing Knive
@@ -3933,7 +3981,7 @@ Mods: {
 			CursedSkullMinionProj.DisplayName: Cursed Skull Minion
 			CursedSkullMinionProj2.DisplayName: Cursed Skull Bones
 			WoodPointyStickProj2.DisplayName: Wood Pointy Stick Leaf
-			RoseAura.DisplayName: The Scythe Rifle Aura
+			RoseAura.DisplayName: Cresent Rifle Aura
 			ClaymanProj.DisplayName: Judgment Stare
 			CursedSpearGunProj.DisplayName: Cursed Spear Gun
 			CrackedDaggerProj.DisplayName: Shattered Dagger
@@ -3945,10 +3993,12 @@ Mods: {
 			SnowmanSnowball.DisplayName: Snowman Snowball
 			IceStaff2Proj.DisplayName: Ice Scepter Icicle
 			IceStaff2Proj2.DisplayName: Ice Scepter Large Icicle
-			SwordBladeLightProj.DisplayName: Sword Blade Light Proj
-			SwordLightDarkBlade.DisplayName: Sword Light Dark Blade
-			BloodArmourDropProj.DisplayName: Blood Armour Drop Proj
+			SwordLightDarkBlade.DisplayName: Equinox Blade
+			BloodArmourDropProj.DisplayName: Bloody Orb
 			BloodAura.DisplayName: Blood Aura
+			SantaBoomProj.DisplayName: Santa's Boomstick Explosion
+			SantaBoomProj2.DisplayName: Santa's Boomstick Double Explosion
+			DeathsListProj.DisplayName: Reaped Soul
 		}
 
 		Tiles: {

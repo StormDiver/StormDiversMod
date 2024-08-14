@@ -112,6 +112,8 @@ namespace StormDiversMod.Basefiles
 
         public int explosionNPCflame; //How long to have flames under the enemy feet after being launched
 
+        public int bosssoulcooldown; //cooldown for whena boss can drop a soul again
+
 
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
@@ -414,6 +416,9 @@ namespace StormDiversMod.Basefiles
                 }, player.whoAmI);
                 explosionNPCflame--;
             }
+
+            if (bosssoulcooldown > 0)
+                bosssoulcooldown--;
         }
         public override void SetDefaults(NPC npc)
         {
@@ -457,6 +462,26 @@ namespace StormDiversMod.Basefiles
                     for (int i = 0; i < 2; i++)
                     {
                         Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                    }
+                }
+            }
+            if (player.GetModPlayer<EquipmentEffects>().deathList) //enemy drop souls
+            {
+                if (!npc.SpawnedFromStatue && !npc.friendly && npc.lifeMax > 5 && !npc.boss)
+                {
+                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
+                    if (npc.type == ModContent.NPCType<NPCs.HellMiniBoss>())
+                    {
+                        for (int i = 0; i < 8; i++) //Because you get one from normal means
+                            Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X - 150, npc.Center.Y - 150), new Vector2(300, 300), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
+                    }
+                    for (int i = 0; i < 3; i++)
+                    {
+                        ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                        {
+                            PositionInWorld = new Vector2(npc.Center.X, npc.Center.Y),
+
+                        }, player.whoAmI);
                     }
                 }
             }
@@ -813,9 +838,7 @@ namespace StormDiversMod.Basefiles
                 {
                     int dust = Dust.NewDust(npc.Center - new Vector2(10f, 10f), 20, 20, 115, 0, 4, 50, default, 1.2f);
                     Main.dust[dust].noGravity = true;
-
                 }
-
             }
             if (WhiptagForbidden)
             {
@@ -823,9 +846,7 @@ namespace StormDiversMod.Basefiles
                 {
                     int dust = Dust.NewDust(npc.Center - new Vector2(5f, 5f), 10, 10, 10, 0, 0, 100, default, 1.25f);
                     Main.dust[dust].noGravity = true;
-
                 }
-
             }
             if (WhiptagSpaceRock)
             {
@@ -835,13 +856,11 @@ namespace StormDiversMod.Basefiles
                     Main.dust[dust].noGravity = true;
 
                 }
-
             }
-
         }
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
-
+            
             base.ModifyIncomingHit(npc, ref modifiers);
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
@@ -881,7 +900,7 @@ namespace StormDiversMod.Basefiles
                 }
             }
 
-            if (projectile.GetGlobalProjectile<Projectiles.SelenianReflect>().reflected || projectile.type == ModContent.ProjectileType<SnowmanExplosion>()) //update damage to be the same as if it hit the player
+            if (projectile.GetGlobalProjectile<Basefiles.SpinnerReflect>().reflected || projectile.type == ModContent.ProjectileType<SnowmanExplosion>()) //update damage to be the same as if it hit the player
             {
                 if (Main.masterMode)
                 {
@@ -1029,9 +1048,16 @@ namespace StormDiversMod.Basefiles
                 if (projectile.CountsAsClass(DamageClass.Ranged))
                 modifiers.CritDamage *= 1.10f;
             }
-        }
-        //        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
 
+            if (player.GetModPlayer<EquipmentEffects>().deathList) //hitting a boss with the Reaper's List Equipped
+            {
+                if (Main.rand.Next(25) == 0 && npc.boss && bosssoulcooldown == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
+                    bosssoulcooldown = 60;
+                }
+            }
+        }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitByItem(npc, player, item, ref modifiers);

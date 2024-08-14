@@ -127,6 +127,8 @@ namespace StormDiversMod.Basefiles
 
         public bool desertNecklace; //Player has manible necklace equipped
 
+        public bool deathList; //player has Repear's List equipped
+
         //Ints and Bools activated from this file
 
         public bool shotflame; //Indicates whether the Betsy Flame has fired its flames or not
@@ -165,6 +167,9 @@ namespace StormDiversMod.Basefiles
         public int ariddegrees; //degrees for the arid emblem dust
         public int ariddistance; //distance for the arid emblem dust
 
+        public int ninelives; //how many kills with the deathlist, up to 9
+        public int ninelivescooldown; //cooldown to remove a soul
+
         //items here for the stupid GetSource_Accessory thing for projectiles
 
         public Item CelestialbarrierItem;
@@ -182,6 +187,8 @@ namespace StormDiversMod.Basefiles
         public Item FrostSpikeItem;
         public Item BeetleFistItem;
         public Item DesertNecklaceItem;
+        public Item Deathlistitem;
+
 
         public bool ultimateBossMask; //player has Painbringer mask equipped
         public override void ResetEffects() //Resets bools if the item is unequipped
@@ -232,6 +239,7 @@ namespace StormDiversMod.Basefiles
             frozenNecklace = false;
             desertNecklace = false;
             SantaCore = false;
+            deathList = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -256,6 +264,8 @@ namespace StormDiversMod.Basefiles
             SantaRevived = false;
             SantaRevivedCooldown = 0;
             bootsound = false;
+            ninelives = 0;
+            ninelivescooldown = 0;
         }
         public override void PreUpdate()
         {
@@ -507,7 +517,7 @@ namespace StormDiversMod.Basefiles
                         Player.runSlowdown = 0.2f;
                     }
                 }
-               
+
                 /*if (soulBoots)
                 {
                     Player.rocketBoots = 1;
@@ -702,7 +712,7 @@ namespace StormDiversMod.Basefiles
                         dust.noGravity = true;
                         dust.scale = 2;
                     }
-                    Vector2 velocity = Vector2.Normalize(new Vector2(Player.Center.X, Player.Center.Y) - new Vector2(dustx, dusty)) * 10; 
+                    Vector2 velocity = Vector2.Normalize(new Vector2(Player.Center.X, Player.Center.Y) - new Vector2(dustx, dusty)) * 10;
                     if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, Player.Center, 1, 1))//no dust unless line of sight
                     {
                         var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 200, velocity.X, velocity.Y);
@@ -720,7 +730,7 @@ namespace StormDiversMod.Basefiles
                     if (Vector2.Distance(Player.Center, target.Center) <= distancehealth && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Player.Center, 0, 0, target.Center, 0, 0))
                     {
                         if (!target.buffImmune[(BuffType<SpookedDebuff>())])
-                        {                      
+                        {
                             target.AddBuff(ModContent.BuffType<SpookedDebuff>(), 2);
                         }
                     }
@@ -767,7 +777,7 @@ namespace StormDiversMod.Basefiles
             //For the Mechanical Spikes===========================
             if (primeSpin)
             {
-                if (!spikespawned) 
+                if (!spikespawned)
                 {
                     if (Player == Main.LocalPlayer)
                     {
@@ -788,11 +798,11 @@ namespace StormDiversMod.Basefiles
             {
                 spikespawned = false;
             }
-                
+
             //For the Heavy Boots===========================
             if (bootFallLuck)
             {
-                
+
             }
             if (bootFall)
             {
@@ -814,7 +824,7 @@ namespace StormDiversMod.Basefiles
                     //SoundEngine.PlaySound(SoundID.Item, (int)Player.Center.X, (int)Player.Center.Y, 15, 2, -0.5f);
                     Player.gravity += 1.2f;
                     Player.maxFallSpeed *= 1.5f;
-                    
+
                     Player.runAcceleration = 0.25f;
                     if ((Player.velocity.Y > 8 && Player.gravDir == 1) || (Player.velocity.Y < -8 && Player.gravDir == -1))
                     {
@@ -829,7 +839,7 @@ namespace StormDiversMod.Basefiles
                         Player.noKnockback = true;
 
                         if (bootdmg < 110) //(10-120 damage)
-                        bootdmg += 2;
+                            bootdmg += 2;
 
                         //Main.NewText("The damage is: " + bootdmg, 204, 101, 22);
                     }
@@ -985,7 +995,7 @@ namespace StormDiversMod.Basefiles
             {
                 shroomtime++;
                 //Channeling weaposn fire every time half the usetime is met with a counter
-                if (((Player.channel && shroomtime >= Player.HeldItem.useTime / 2) || (!Player.channel &&  Player.itemTime == (Player.HeldItem.useTime - 1) && Player.HeldItem.useTime > 1)) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
+                if (((Player.channel && shroomtime >= Player.HeldItem.useTime / 2) || (!Player.channel && Player.itemTime == (Player.HeldItem.useTime - 1) && Player.HeldItem.useTime > 1)) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
                 {
                     shroomshotCount++;
                     //Main.NewText("Pls work " + shroomtime + " | " + shroomshotCount, 0, 204, 170); //Inital Scale
@@ -1110,7 +1120,7 @@ namespace StormDiversMod.Basefiles
 
                         if (Vector2.Distance(Player.Center, target.Center) <= 150 && !target.friendly && target.lifeMax > 5 && !target.dontTakeDamage && target.active && target.type != NPCID.TargetDummy && Collision.CanHit(Player.Center, 0, 0, target.Center, 0, 0))
                         {
-                        
+
                             target.AddBuff(BuffType<BlizzardDebuff>(), 2);
                         }
 
@@ -1131,8 +1141,8 @@ namespace StormDiversMod.Basefiles
             }
 
             //achievement
-            if ((Player.HasBuff(ModContent.BuffType<WoodenBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenBlizzardBuff>()) || 
-                (Player.HasBuff(ModContent.BuffType<WoodenBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>())) || 
+            if ((Player.HasBuff(ModContent.BuffType<WoodenBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenBlizzardBuff>()) ||
+                (Player.HasBuff(ModContent.BuffType<WoodenBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>())) ||
                 (Player.HasBuff(ModContent.BuffType<WoodenBlizzardBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>()))))
             {
                 if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
@@ -1246,7 +1256,7 @@ namespace StormDiversMod.Basefiles
                     double rad = ariddegrees * (Math.PI / 180); //Convert degrees to radians
                     double dist = 60; //Distance away from the cursor
 
-                        float dustpositionX = Main.MouseWorld.X - (int)(Math.Cos(rad) * 60);
+                    float dustpositionX = Main.MouseWorld.X - (int)(Math.Cos(rad) * 60);
                     float dustpositionY = Main.MouseWorld.Y - (int)(Math.Sin(rad) * 60);
 
                     float dustpositionX2 = Main.MouseWorld.X - (int)(Math.Cos(rad) * ariddistance);
@@ -1259,21 +1269,21 @@ namespace StormDiversMod.Basefiles
                             if (Collision.CanHitLine(new Vector2(dustpositionX, dustpositionY), 0, 0, Main.MouseWorld, 1, 1))
                             {
                                 int dust = Dust.NewDust(new Vector2(dustpositionX, dustpositionY), 1, 1, 138, 0, 0, 138, default, 1f);
-                               
+
                                 Main.dust[dust].noGravity = true;
                                 Main.dust[dust].velocity *= 0.2f;
                             }
                         }
-                      
+
                     }
                     for (int j = 0; j < 2; j++)
-                    {  
+                    {
                         if (Collision.CanHitLine(new Vector2(Player.Center.X, Player.Center.Y), 0, 0, Main.MouseWorld, 1, 1))//no dust unless line of sight
                         {
                             if (Collision.CanHitLine(new Vector2(dustpositionX2, dustpositionY2), 0, 0, Main.MouseWorld, 1, 1))
                             {
                                 int dust = Dust.NewDust(new Vector2(dustpositionX2, dustpositionY2), 1, 1, 138, 0, 0, 138, default, 1f);
-                               
+
                                 Main.dust[dust].noGravity = true;
                                 Main.dust[dust].velocity *= 0.2f;
                             }
@@ -1392,6 +1402,47 @@ namespace StormDiversMod.Basefiles
             if (SantaRevivedCooldown == 0)
             {
                 Player.ClearBuff(ModContent.BuffType<SantaReviveDebuff>());
+            }
+            if (deathList)
+            {
+                if (ninelivescooldown > 0)
+                {
+                    ninelivescooldown--;
+                }
+                if (ninelivescooldown == 0)
+                {
+                    if (ninelives > 0) //once cooldown is met remove 1 soul
+                    {
+                        ninelives--;
+                        ninelivescooldown = 90; //  1.5 seconds per soul
+
+                    }
+                }
+                //Code for dropping in NPCEffects
+                //Code for picking up in the item
+
+                Player.GetDamage(DamageClass.Generic) += 0.02f * ninelives; //increase damage from 2-18%
+                Player.GetCritChance(DamageClass.Generic) += 1 * ninelives; //increase crit from 1-9%
+
+                if (Player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>() || Player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheScythe>())//doubled for sickle/scythe
+                {
+                    Player.GetDamage(DamageClass.Melee) += 0.02f * ninelives; 
+                    Player.GetCritChance(DamageClass.Melee) += 1 * ninelives;
+                }
+                //Main.NewText("" + ninelives + " " + ninelivescooldown, 204, 101, 22);
+
+                if (ninelives == 9)
+                {
+                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+                    {
+                        mod.Call("Event", "NineLives");
+                    }
+                }
+            }
+            else
+            {
+                ninelivescooldown = 0;
+                ninelives = 0;
             }
         }
         //=====================For attacking an enemy with anything===========================================

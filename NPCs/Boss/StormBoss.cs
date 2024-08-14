@@ -74,6 +74,7 @@ namespace StormDiversMod.NPCs.Boss
             if (!Main.dedServ)
             {
                 Music = MusicID.Boss4;
+                //Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/OverloadedScandroneBoss");
             }
             NPC.npcSlots = 10f;         
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);

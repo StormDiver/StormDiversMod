@@ -136,17 +136,13 @@ namespace StormDiversMod.Projectiles
 
         public override void OnKill(int timeLeft)
         {
-            if (Projectile.owner == Main.myPlayer)
+            for (int i = 0; i < 15; i++)
             {
-                for (int i = 0; i < 15; i++)
-                {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 174);
 
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
-
-                    dust.noGravity = true;
-
-                }
+                dust.noGravity = true;
             }
+            SoundEngine.PlaySound(SoundID.Item20 with { Volume = 0.75f, Pitch = 0.5f }, Projectile.Center);
         }
         public void AnimateProjectile() // Call this every frame, for example in the AI method.
         {

@@ -31,7 +31,7 @@ namespace StormDiversMod.Items.Tools
 			Item.useStyle = ItemUseStyleID.Swing;
             Item.value = Item.sellPrice(0, 0, 75, 0);
             Item.rare = ItemRarityID.Green;
-            Item.pick = 65;
+            Item.pick = 70;
             Item.axe = 20;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;

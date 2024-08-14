@@ -17,7 +17,6 @@ namespace StormDiversMod.Items.Weapons
 {
     public class MechanicalRepeater : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Mechanical Repeater");

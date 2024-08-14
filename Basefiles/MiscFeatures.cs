@@ -56,25 +56,25 @@ namespace StormDiversMod.Basefiles
 
         public int playerimmunetime; //makes player immune to damage
 
-        public int ninelives; //how many kills with the sickle, up to 9
-        public int ninelivescooldown; //cooldown to remove a soul
-        public float ninedmg;  //increase in melee damage
+        //public int ninelives; //how many kills with the sickle, up to 9
+        //public int ninelivescooldown; //cooldown to remove a soul
+
         public bool explosionfall; //Player has been launched by a stickybomb
         public int explosionflame; //How long to have flames under the player's feet after being launched
 
         public bool cursedplayer;
-
+        public bool soulpickup;
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             screenshaker = false;
+            //soulpickup = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
             templeWarning = 0;
             shaketimer = 0;
-            ninelives = 0;
-            ninelivescooldown = 0;
-            ninedmg = 0;
+            //ninelives = 0;
+            //ninelivescooldown = 0;
             explosionfall = false;
 
             cursedplayer = false;
@@ -252,35 +252,6 @@ namespace StormDiversMod.Basefiles
                 playerimmunetime = 0;
             }
 
-            if (ninelivescooldown > 0)
-            {
-                ninelivescooldown--;
-            }
-            if (ninelivescooldown == 0)
-            {
-                if (ninelives > 0) //once cooldown is met remove 1 soul
-                {
-                    ninelives--;
-                    ninelivescooldown = 90; //  1.5 seconds per soul
-
-                }
-            }
-            //Main.NewText("ninelivescooldown" + ninelivescooldown, 204, 101, 22);
-            if (Player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>())
-            {
-                Player.GetDamage(DamageClass.Melee) += 0.05f * ninelives; //increase damage from 5-45%
-                Player.GetCritChance(DamageClass.Melee) += 2 * ninelives; //increase crit from 2-18%
-
-            }
-            if (ninelives == 9)
-            {
-                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                {
-                    mod.Call("Event", "NineLives");
-                }
-                //Player.GetDamage(DamageClass.Melee) += 0.1f; //extra 10% damage (55% total)
-                //Player.GetCritChance(DamageClass.Melee) += 5; //extra 5% crit (32% total)
-            }
             if (explosionflame > 0)
             {
                 if (Player.gravDir == 1)
@@ -440,14 +411,12 @@ namespace StormDiversMod.Basefiles
                     }
                 }
             }
-            //public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
-
             if (proj.type == ModContent.ProjectileType<StompBootProj2>() && target.type != NPCID.TargetDummy) //10 frames of immunity
             {
                 playerimmunetime = 10;
             }
             //nine lives
-            if (proj.type == ModContent.ProjectileType<TheSickleProj>() || proj.type == ModContent.ProjectileType<TheSickleProj2>())
+            /*if (proj.type == ModContent.ProjectileType<TheSickleProj>() || proj.type == ModContent.ProjectileType<TheSickleProj2>())
             {
                 //Main.NewText("" + ninelives + " " + ninelivescooldown, 204, 101, 22);
                 //regular enemies 1 soul 
@@ -471,14 +440,6 @@ namespace StormDiversMod.Basefiles
 
                             SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = -1f, MaxInstances = 0 }, target.Center); ;
 
-                            /*for (int i = 0; i < 20; i++)
-                            {
-                                var dust = Dust.NewDustDirect(target.position, target.width, target.height, 31);
-                                dust.noGravity = true;
-                                dust.velocity *= 3;
-                                dust.scale = 1.5f;
-
-                            }*/
                             for (int i = 0; i < 3; i++)
                             {
                                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
@@ -513,7 +474,7 @@ namespace StormDiversMod.Basefiles
                         }
                     }
                 }
-            }
+            }*/
         }
         String Paintext = "";
         //public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
@@ -539,6 +500,7 @@ namespace StormDiversMod.Basefiles
                 //damage = (Player.statLife / 3); //Deals 1/3 the player's
             }
         }
+        
         public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo) //taunt messages when harmed by the final boss
         {
             if (!GetInstance<ConfigurationsIndividual>().NoMessage)
@@ -669,6 +631,10 @@ namespace StormDiversMod.Basefiles
     }
     public class Itemchanges : GlobalItem
     {
+        public override void ArmorSetShadows(Player player, string set)
+        {
+            
+        }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             /*if (item.type == ItemID.MagnetSphere)
@@ -783,5 +749,89 @@ namespace StormDiversMod.Basefiles
 
             }
         }
+    }
+    //_____________________________________________________
+    public class SpinnerReflect : GlobalProjectile
+    {
+        public override bool InstancePerEntity => true;
+
+        public bool reflected;
+        int distance;
+        public override void AI(Projectile projectile)
+        {
+            var player = Main.LocalPlayer;
+            //var projreflect = Main.projectile[mod.ProjectileType("SelenianBladeProj")];
+
+            //if (Main.LocalPlayer.HasBuff(BuffType<SelenianBuff>()))
+            if (projectile.aiStyle != 20)
+            {
+
+                if (player.controlUseItem && player.HasBuff(ModContent.BuffType<ReflectedBuff>()))
+                {
+                    if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>()) //15 frame parry, 2.5 second cooldown
+                        distance = 60;
+                    if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.FrostSpinner>()) //20 frame parry, 2 second cooldown
+                        distance = 80;
+                    if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheScythe>()) //25 frame parry, 1.5 second cooldown
+                        distance = 100;
+                    if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarSolarSpin>()) //30 frame parry, 0.5 second cooldown
+                        distance = 120;
+
+                    if (projectile.hostile)
+                    {
+                        if (projectile.aiStyle is 0 or 1 or 2 or 3 or 4 or 5 or 8 or 10 or 13 or 14 or 18 or 21 or 23 or 25)
+                        {
+                            //Player player = Main.player[npc.target];
+                            for (int i = 0; i < 1; i++)
+                            {
+                                var dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 66, projectile.velocity.X, projectile.velocity.Y);
+                                dust.scale = 0.8f;
+                                dust.noGravity = true;
+                            }
+
+                            if (Vector2.Distance(player.Center, projectile.Center) <= distance && !reflected)
+                            {
+                                int choice = Main.rand.Next(0, 1);
+                                if (choice == 0)
+                                {
+                                    SoundEngine.PlaySound(SoundID.Item56, projectile.Center);
+                                    //Projectile.Kill();
+                                    if (!Main.dedServ)
+                                    {
+                                        projectile.owner = Main.myPlayer;
+                                        projectile.velocity.X *= -1f;
+
+
+                                        projectile.velocity.Y *= -1f;
+                                        for (int i = 0; i < 1; i++)
+                                        {
+                                            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
+                                            {
+                                                PositionInWorld = projectile.Center,
+                                            }, projectile.whoAmI);
+                                        }
+
+                                        projectile.friendly = true;
+                                        projectile.hostile = false;
+                                        //damage is in npceffects
+                                        projectile.netUpdate = true;
+
+                                    }
+                                    reflected = true;
+                                }
+                                else
+                                {
+                                    reflected = true;
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
+        }
+
     }
 }
