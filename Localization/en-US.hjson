@@ -3282,18 +3282,19 @@ Mods: {
 					Right Click to throw both blades in succession
 					Right Click while spinning to reflect most projectiles, has a 2.5 second cooldown between uses
 					Receives twice the bonuses from the Reaper's List
+					'Pick it up. Pick. It. Up'
 					'''
 			}
 
 			TheScythe: {
-				DisplayName: One Shot
+				DisplayName: The Last Chance
 				Tooltip:
 					'''
 					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
 					Right Click to throw both blades in succession, 2 sets can be thrown out at once
 					Right click while spinning to reflect most projectiles, has a 1.5 second cooldown between uses
 					Receives twice the bonuses from the Reaper's List
-					'You have one shot left'
+					'This is your last chance'
 					'''
 			}
 
@@ -3559,8 +3560,7 @@ Mods: {
 					Bosses instead have a small chance to drop a soul when hit
 					Each collected soul increases your damage by 2% and crit chance by 1% 
 					Souls will begin to escape if no souls are collected within 9 seconds, 
-					Collecting a soul when you already have the max amount will reset the escape countdown
-					'Pick it up. Pick. It. Up'
+					Collecting a soul will reset the escape countdown
 					'''
 			}
 		}
@@ -3903,8 +3903,8 @@ Mods: {
 			SwordLightProjspin.DisplayName: Light Essence
 			TheSickleProj.DisplayName: Nine Lives Sickle Spinner
 			TheSickleProj2.DisplayName: Nine Lives Sickle Thrown
-			TheScytheProj.DisplayName: One Shot Scythe Spinner
-			TheScytheProj2.DisplayName: One Shot Scythe Thrown
+			TheScytheProj.DisplayName: The Last Chance Scythe Spinner
+			TheScytheProj2.DisplayName: The Last Chance Scythe Thrown
 			ThrowingKnifeBouncyProj.DisplayName: Bouncy Knife
 			ThrowingSilverKniveProj.DisplayName: Silver Throwing Knive
 			ThrowingTungstenKniveProj.DisplayName: Tungsten Throwing Knive

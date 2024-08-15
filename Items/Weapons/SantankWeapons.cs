@@ -59,7 +59,7 @@ namespace StormDiversMod.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Items.Materials.SantankScrap>(), 15)
+            .AddIngredient(ModContent.ItemType<Items.Materials.SantankScrap>(), 18)
             .AddTile(TileID.MythrilAnvil)
             .Register();
 

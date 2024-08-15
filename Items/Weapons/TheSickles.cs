@@ -116,7 +116,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("One Shot");
+            //DisplayName.SetDefault("The Last Chance");
             //Tooltip.SetDefault("Left Click to use as a spinning weapon, Right Click to throw both scythes in succession\n"You have one shot"");
             Item.ResearchUnlockCount = 1;
         }
@@ -203,6 +203,7 @@ namespace StormDiversMod.Items.Weapons
             .AddIngredient(ItemID.SoulofSight, 3)
             .AddIngredient(ItemID.SoulofFright, 3)
             .AddTile(TileID.MythrilAnvil)
+            .AddCondition(Condition.InGraveyard)
             .Register();
         }
         public override Color? GetAlpha(Color lightColor)
