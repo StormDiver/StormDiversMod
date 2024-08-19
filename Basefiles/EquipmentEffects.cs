@@ -1698,6 +1698,10 @@ namespace StormDiversMod.Basefiles
             return true;
         }
         //===================================Other hooks======================================
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+           
+        }
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             //Insulated Cuffs
@@ -1720,14 +1724,6 @@ namespace StormDiversMod.Basefiles
             if (spookyClaws)
             {
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
-            }
-            if (!GetInstance<ConfigurationsIndividual>().NoPain)
-            {
-                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
-                {
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 5, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
-                    //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", true);
-                }
             }
             //for the Beetle Gauntlet
             if (beetleFist && beetlecooldown <= 0)

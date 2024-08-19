@@ -42,7 +42,6 @@ namespace StormDiversMod.Items.Potions
         }
         /* public override void GetHealLife(Player player, bool quickHeal, ref int healValue)
          {
-
              healValue = 75;
          }*/
         public override void AddRecipes()
@@ -53,9 +52,7 @@ namespace StormDiversMod.Items.Potions
             recipe.AddIngredient(ItemID.UnicornHorn);
             recipe.AddTile(TileID.Bottles);
             recipe.Register();
-
         }
-
     }
     public class DoubleHealingPotion : ModItem
     {
@@ -127,7 +124,8 @@ namespace StormDiversMod.Items.Potions
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Heart Vial");
-            //Tooltip.SetDefault("Enemies will drop a heart on death more often, bosses also drop more hearts");
+            //Tooltip.SetDefault("Enemies will drop a heart on death more often when you're not at max health
+            //\nBosses also always drop more hearts");
             Item.ResearchUnlockCount = 20;
 
         }
@@ -154,11 +152,11 @@ namespace StormDiversMod.Items.Potions
         }
         public override bool CanUseItem(Player player)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            /*if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 return false;
             }
-            else
+            else*/
             {
                 return true;
             }
@@ -167,14 +165,13 @@ namespace StormDiversMod.Items.Potions
         {
             foreach (TooltipLine line in tooltips)
             {
-                if (Main.netMode == NetmodeID.MultiplayerClient)
+                /*if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
-
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
                         line.Text = line.Text + "\n[c/ff2500:Doesn't work on Multiplayer]"; //multiplayer sucks
                     }
-                }
+                }*/
             }
         }
 
@@ -196,9 +193,9 @@ namespace StormDiversMod.Items.Potions
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Super Heart Vial");
-            //Tooltip.SetDefault("Enemies will have a chance to drop a super heart on death that heals for 50, bosses always drop 2");
+            //Tooltip.SetDefault("Enemies will have a chance to drop a super heart on death that heals for 50 life when you're not at max health 
+            //\nBosses will always drop 2 super hearts");
             Item.ResearchUnlockCount = 20;
-
         }
         public override void SetDefaults()
         {
@@ -219,11 +216,11 @@ namespace StormDiversMod.Items.Potions
         }
         public override bool CanUseItem(Player player)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            /*if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 return false;
             }
-            else
+            else*/
             {
                 return true;
             }
@@ -232,14 +229,14 @@ namespace StormDiversMod.Items.Potions
         {
             foreach (TooltipLine line in tooltips)
             {
-                if (Main.netMode == NetmodeID.MultiplayerClient)
+                /*if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
 
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
                         line.Text = line.Text + "\n[c/ff2500:Doesn't work on Multiplayer]"; //multiplayer sucks
                     }
-                }
+                }*/
             }
         }
 

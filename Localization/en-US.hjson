@@ -1810,7 +1810,11 @@ Mods: {
 
 			FruitHeartPotion: {
 				DisplayName: Super Heart Vial
-				Tooltip: Enemies will have a chance to drop a super heart on death that heals for 50, bosses always drop 2
+				Tooltip:
+					'''
+					Enemies will have a chance to drop a super heart on death that heals for 50 life when you're not at max health
+					Bosses will always drop 2 super hearts
+					'''
 			}
 
 			GunPotion: {
@@ -1820,7 +1824,11 @@ Mods: {
 
 			HeartPotion: {
 				DisplayName: Heart Vial
-				Tooltip: Enemies will drop a heart on death more often, bosses also drop more hearts
+				Tooltip:
+					'''
+					Enemies will drop a heart on death more often when you're not at max health
+					Bosses also always drop more hearts
+					'''
 			}
 
 			ShroomitePotion: {

@@ -18,6 +18,7 @@ using StormDiversMod.Items.Vanitysets;
 using Terraria.ObjectData;
 using StormDiversMod.NPCs;
 using StormDiversMod.Items.Pets;
+using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Basefiles
 {

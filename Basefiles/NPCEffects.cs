@@ -112,7 +112,7 @@ namespace StormDiversMod.Basefiles
 
         public int explosionNPCflame; //How long to have flames under the enemy feet after being launched
 
-        public int bosssoulcooldown; //cooldown for whena boss can drop a soul again
+        public int bosssoulcooldown; //cooldown for when a boss can drop a soul again
 
 
         //------------------------------------------------------------------
@@ -308,7 +308,7 @@ namespace StormDiversMod.Basefiles
             else
                 chance = 4;
            
-            if (player.GetModPlayer<EquipmentEffects>().heartSteal && !player.dead) //For the Jar of hearts
+            if (player.GetModPlayer<EquipmentEffects>().heartSteal && !player.dead) //For the Life Emblem
             {
                 if (!npc.SpawnedFromStatue && npc.life <= (npc.lifeMax * 0.50f) && !npc.friendly && npc.lifeMax > 5 && !npc.buffImmune[(BuffType<HeartDebuff>())]) //Rolls to see the outcome when firts hit under 50% life
                 {
@@ -386,26 +386,22 @@ namespace StormDiversMod.Basefiles
                 npc.velocity.Y = -10;
             }*/
             if (webwhipcooldown < 60)
-            {
                 webwhipcooldown++;
-            }
+
             if (bloodwhipcooldown < 60)
-            {
                 bloodwhipcooldown++;
-            }
+
             if (forbiddenwhipcooldown < 60)
-            {
                 forbiddenwhipcooldown++;
-            }
+
             if (spacerockwhipcooldown < 60)
-            {
                 spacerockwhipcooldown++;
-            }
 
             if (arrowcooldown > 0)
-            {
                 arrowcooldown--;
-            }
+
+            if (bosssoulcooldown > 0)
+                bosssoulcooldown--;
 
             //explode
             if (explosionNPCflame > 0)
@@ -416,9 +412,6 @@ namespace StormDiversMod.Basefiles
                 }, player.whoAmI);
                 explosionNPCflame--;
             }
-
-            if (bosssoulcooldown > 0)
-                bosssoulcooldown--;
         }
         public override void SetDefaults(NPC npc)
         {
@@ -429,60 +422,68 @@ namespace StormDiversMod.Basefiles
         }
         public override void OnKill(NPC npc)
         {
-            var player = Main.LocalPlayer;
-            if (player.GetModPlayer<EquipmentEffects>().heartpotion) //For the Heart Potion
+            //var player = Main.LocalPlayer;
+            Player player2 = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
+
+            if (player2.GetModPlayer<EquipmentEffects>().heartpotion) //For the Heart Potion
             {
-                if (!npc.SpawnedFromStatue && !npc.friendly && npc.lifeMax > 5 && !npc.boss && player.statLife < player.statLifeMax2)
+                if (!npc.SpawnedFromStatue && !npc.dontTakeDamage && !npc.friendly && npc.lifeMax > 5 && !npc.boss && player2.statLife < player2.statLifeMax2)
                 {
                     if (Main.rand.Next(5) == 0)
-                    {
                         Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.Heart);
-                    }
                 }
                 if (npc.boss)
                 {
                     for (int i = 0; i < 5; i++)
-                    {
                         Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.Heart);
-                    }
                 }
             }
-            if (player.GetModPlayer<EquipmentEffects>().superHeartpotion) //For the Super Heart Potion
+            if (player2.GetModPlayer<EquipmentEffects>().superHeartpotion) //For the Super Heart Potion
             {
-
-                if (!npc.SpawnedFromStatue && !npc.friendly && npc.lifeMax > 5 && !npc.boss && player.statLife < player.statLifeMax2)
+                if (!npc.SpawnedFromStatue && !npc.dontTakeDamage && !npc.friendly && npc.lifeMax > 5 && !npc.boss && player2.statLife < player2.statLifeMax2)
                 {
-                    if (Main.rand.Next(8) == 0)
-                    {
+                    if (Main.rand.Next(7) == 0)
                         Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
-                    }
                 }
                 if (npc.boss)
                 {
                     for (int i = 0; i < 2; i++)
-                    {
                         Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                }
+            }
+            if (player2.GetModPlayer<EquipmentEffects>().deathList) //enemy drop souls for single player
+            {
+                if (!npc.SpawnedFromStatue && !npc.dontTakeDamage && !npc.friendly && npc.lifeMax > 5 && npc.type != NPCID.TargetDummy) //enemy drop souls
+                {
+                    if (npc.life <= 0 && !npc.boss)
+                    {
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
+                        if (npc.type == ModContent.NPCType<NPCs.HellMiniBoss>())
+                        {
+                            for (int i = 0; i < 8; i++) //Because you get one from normal means
+                                Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X - 150, npc.Center.Y - 150), new Vector2(300, 300), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
+                        }
+                        for (int i = 0; i < 3; i++)
+                        {
+                            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
+                            {
+                                PositionInWorld = new Vector2(npc.Center.X, npc.Center.Y),
+
+                            }, player2.whoAmI);
+                        }
                     }
                 }
             }
-            if (player.GetModPlayer<EquipmentEffects>().deathList) //enemy drop souls
+        }
+        public override void HitEffect(NPC npc, NPC.HitInfo hit)
+        {
+            Player player2 = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
+            if (player2.GetModPlayer<EquipmentEffects>().deathList) //Soul drop for bosses here
             {
-                if (!npc.SpawnedFromStatue && !npc.friendly && npc.lifeMax > 5 && !npc.boss)
+                if (Main.rand.Next(25) == 0 && npc.boss && bosssoulcooldown == 0)
                 {
                     Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
-                    if (npc.type == ModContent.NPCType<NPCs.HellMiniBoss>())
-                    {
-                        for (int i = 0; i < 8; i++) //Because you get one from normal means
-                            Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X - 150, npc.Center.Y - 150), new Vector2(300, 300), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
-                    }
-                    for (int i = 0; i < 3; i++)
-                    {
-                        ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.BlackLightningHit, new ParticleOrchestraSettings
-                        {
-                            PositionInWorld = new Vector2(npc.Center.X, npc.Center.Y),
-
-                        }, player.whoAmI);
-                    }
+                    bosssoulcooldown = 60;
                 }
             }
         }
@@ -1048,15 +1049,6 @@ namespace StormDiversMod.Basefiles
                 if (projectile.CountsAsClass(DamageClass.Ranged))
                 modifiers.CritDamage *= 1.10f;
             }
-
-            if (player.GetModPlayer<EquipmentEffects>().deathList) //hitting a boss with the Reaper's List Equipped
-            {
-                if (Main.rand.Next(25) == 0 && npc.boss && bosssoulcooldown == 0)
-                {
-                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
-                    bosssoulcooldown = 60;
-                }
-            }
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
@@ -1117,11 +1109,6 @@ namespace StormDiversMod.Basefiles
         {
             base.OnHitByProjectile(npc, projectile, hit, damageDone);
         }
-        public override void HitEffect(NPC npc, NPC.HitInfo hit)
-        {
-            
-        }
-
         public override void GetChat(NPC npc, ref string chat)
         {
             //if ()
