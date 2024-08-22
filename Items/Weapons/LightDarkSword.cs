@@ -120,7 +120,7 @@ namespace StormDiversMod.Items.Weapons
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
             if (player.altFunctionUse == 2) //Right Click
             {
-                SoundEngine.PlaySound(SoundID.DD2_SonicBoomBladeSlash with { Volume = 1.5f, Pitch = 0f }, player.Center);
+                SoundEngine.PlaySound(SoundID.DD2_SonicBoomBladeSlash with { Volume = 1.5f, Pitch = 0f, MaxInstances = -1 }, player.Center);
                 //blade sprite
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.SwordLightDarkBlade>(), damage, Item.knockBack, Main.myPlayer,
                                           1 * player.direction, player.itemAnimationMax, 1); //0: direction, 1: animation time, 2: light or dark

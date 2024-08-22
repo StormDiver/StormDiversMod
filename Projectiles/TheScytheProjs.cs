@@ -47,7 +47,12 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
-
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(target.position, target.width, target.height, 27);
+                dust.scale = 1.25f;
+                dust.noGravity = true;
+            }
         }
         bool parry;
         int parrytime = 90;
@@ -228,8 +233,8 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
             for (int i = 0; i < 20; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 27);
-                dust.scale = 1.5f;
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 20, Projectile.Center.Y - 20), 40, 40, 27);
+                dust.scale = 1.25f;
                 dust.noGravity = true;
             }
         }
@@ -239,8 +244,8 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 10; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 27);
-                dust.scale = 1f;
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 20, Projectile.Center.Y - 20), 40, 40, 27);
+                dust.scale = 1.25f;
                 dust.noGravity = true;
             }
             if (Projectile.velocity.X != oldVelocity.X)

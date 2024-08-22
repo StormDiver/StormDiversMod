@@ -70,7 +70,7 @@ namespace StormDiversMod.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return SpawnCondition.Overworld.Chance * 0.015f;
+            return SpawnCondition.Overworld.Chance * 0.01f;
         }
         int shoottime;
         public override void AI()
@@ -212,7 +212,7 @@ namespace StormDiversMod.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return SpawnCondition.Overworld.Chance * 0.015f;
+            return SpawnCondition.Overworld.Chance * 0.01f;
         }
         int shoottime;
 

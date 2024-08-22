@@ -110,7 +110,6 @@ namespace StormDiversMod.Items.Weapons
 
             Item.noMelee = true;
         }
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
