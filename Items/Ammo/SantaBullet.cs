@@ -27,12 +27,12 @@ namespace StormDiversMod.Items.Ammo
 
             Item.DamageType = DamageClass.Ranged;
 
-            Item.damage = 10;
-            Item.knockBack = 2f;
+            Item.damage = 13;
+            Item.knockBack = 6f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.SantaBulletProj>();
-            Item.shootSpeed = 2f;
+            Item.shootSpeed = 5f;
             Item.ammo = AmmoID.Bullet;
         }
 

@@ -120,10 +120,7 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(-8, 0);
         }
-        public override void HoldItem(Player player)
-        {
-            //player.scope = true;
-        }
+        
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.ownedProjectileCounts[Item.shoot] < 1)

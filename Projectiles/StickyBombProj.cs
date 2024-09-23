@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Items.Weapons;
 using SteelSeries.GameSense.DeviceZone;
@@ -177,7 +177,7 @@ namespace StormDiversMod.Projectiles
                 }
                 SoundEngine.PlaySound(SoundID.Item149 with { Volume = 1.5f, Pitch = 0.75f }, player.Center);
 
-                if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                //if (!GetInstance<ConfigurationsIndividual>().NoShake)
                 {
                     player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }

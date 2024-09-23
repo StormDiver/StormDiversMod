@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using StormDiversMod.Buffs;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -18,7 +18,11 @@ namespace StormDiversMod.Items.Potions
             //DisplayName.SetDefault("Endurance Healing Potion");
             //Tooltip.SetDefault("Reduces the damage of the next incoming attack by 25%");
             Item.ResearchUnlockCount = 30;
-
+            ItemID.Sets.DrinkParticleColors[Type] = [
+               new Color(255, 95, 129),
+                new Color(230, 10, 57),
+                new Color(203, 179, 73)
+           ];
         }
         public override void SetDefaults()
         {
@@ -61,6 +65,11 @@ namespace StormDiversMod.Items.Potions
             //DisplayName.SetDefault("Enhanced Healing Potion");
             //Tooltip.SetDefault("Potion sickness lasts longer than normal");
             Item.ResearchUnlockCount = 30;
+            ItemID.Sets.DrinkParticleColors[Type] = [
+              new Color(255, 95, 129),
+                new Color(230, 10, 57),
+                new Color(203, 179, 73)
+          ];
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -127,7 +136,11 @@ namespace StormDiversMod.Items.Potions
             //Tooltip.SetDefault("Enemies will drop a heart on death more often when you're not at max health
             //\nBosses also always drop more hearts");
             Item.ResearchUnlockCount = 20;
-
+            ItemID.Sets.DrinkParticleColors[Type] = [
+              new Color(255, 146, 170),
+                new Color(255, 95, 129),
+                new Color(230, 10, 57)
+          ];
         }
         public override void OnConsumeItem(Player player)
         {
@@ -196,6 +209,11 @@ namespace StormDiversMod.Items.Potions
             //Tooltip.SetDefault("Enemies will have a chance to drop a super heart on death that heals for 50 life when you're not at max health 
             //\nBosses will always drop 2 super hearts");
             Item.ResearchUnlockCount = 20;
+            ItemID.Sets.DrinkParticleColors[Type] = [
+              new Color(222, 218, 61),
+                new Color(149, 232, 87),
+                new Color(205, 115, 61)
+          ];
         }
         public override void SetDefaults()
         {

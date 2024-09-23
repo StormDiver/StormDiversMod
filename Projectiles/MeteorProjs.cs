@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -19,9 +19,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Space Spear");
-
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 10;
@@ -92,12 +90,8 @@ namespace StormDiversMod.Projectiles
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
-
-
         }
-     
         bool meteorrain;
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire, 180);
@@ -129,7 +123,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 10;
             Projectile.height = 10;
             Projectile.friendly = true;
@@ -160,7 +153,6 @@ namespace StormDiversMod.Projectiles
             else
             {
                 Projectile.tileCollide = false;
-
             }
 
             rotate += 2;
@@ -177,14 +169,12 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
                 {
-
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= -0.3f;
                     int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust2].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust2].velocity *= -0.3f;
-
                 }
             }
             else
@@ -205,11 +195,8 @@ namespace StormDiversMod.Projectiles
                 Projectile.width = 80;
                 Projectile.height = 80;
                 Projectile.Center = Projectile.position;
-            }
-
-            
+            }   
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (Projectile.timeLeft > 3)
@@ -220,19 +207,17 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
             }
             target.AddBuff(BuffID.OnFire, 180);
-
         }
 
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
-            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionCompactProj>(), 0, 0, Projectile.owner);
             Main.projectile[proj].scale = 1f;
             for (int i = 0; i < 15; i++)
             {

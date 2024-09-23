@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 namespace StormDiversMod.Projectiles
 {

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Microsoft.Xna.Framework.Graphics;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 using Terraria.Utilities;
 
@@ -22,7 +22,6 @@ namespace StormDiversMod.Projectiles
 			//DisplayName.SetDefault("Desert Spark");
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             Main.projFrames[Projectile.type] = 4;
-
         }
         public override void SetDefaults()
 		{

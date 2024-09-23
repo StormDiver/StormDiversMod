@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.GameContent.Drawing;
 using StormDiversMod.Items.Materials;
 

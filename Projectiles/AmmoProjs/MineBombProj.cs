@@ -7,9 +7,10 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Items.Weapons;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles.AmmoProjs
 {
@@ -133,16 +134,36 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 Projectile.velocity.Y = 0;
                 Projectile.knockBack = 0;
             }
-            if ((player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonate>() && player.controlUseTile && player.noThrow == 0 && boomtime > 30) || player.dead) //will go BOOM
+            if (player.itemTime == (player.HeldItem.useTime - 1) && !player.controlUseItem)
             {
-                if (Projectile.timeLeft > 3)
+                if ((player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonate>() && !player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 30) || player.dead) //will go BOOM
                 {
-                    Projectile.timeLeft = 3;
-                }
+                    if (Projectile.timeLeft > 3)
+                    {
+                        Projectile.timeLeft = 3;
+                    }
 
-                if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                    //if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                    {
+                        player.GetModPlayer<MiscFeatures>().screenshaker = true;
+                    }
+                }
+                if ((player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonate>() && player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 30)) //disarm bomb
                 {
-                    player.GetModPlayer<MiscFeatures>().screenshaker = true;
+                    SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+
+                    for (int i = 0; i < 15; i++) //Grey dust circle
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, -1.5f).RotatedByRandom(MathHelper.ToRadians(360));
+                        var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y);
+
+                        //dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 31, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                        dust.noGravity = true;
+                        dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
+                        dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
+                    }
+                    Projectile.active = false;
+                    Item.NewItem(new EntitySource_Loot(player), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ItemType<Items.Ammo.MineBomb>());
                 }
             }
             if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonate>() && boomtime > 30)
@@ -217,15 +238,21 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
             }
         }
+        Color colorline = Color.Red;
         public override bool PreDraw(ref Color lightColor)
         {
             var player = Main.player[Projectile.owner];
 
             if (helddet)
             {
+                if (player.controlUp)
+                    colorline = Color.Green;
+                else
+                    colorline = Color.Red;
+
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Utils.DrawLine(Main.spriteBatch,  new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(player.Center.X, player.Center.Y), Color.Red, Color.Transparent, 3);
+                    Utils.DrawLine(Main.spriteBatch,  new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(player.Center.X, player.Center.Y), colorline, Color.Transparent, 3);
                 }
             }
             return true;

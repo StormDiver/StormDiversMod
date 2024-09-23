@@ -8,7 +8,7 @@ using Terraria.DataStructures;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 using System.Collections.Generic;
 using StormDiversMod.Items.Vanitysets;
@@ -194,26 +194,26 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 6, 0, 0);
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 22;
-            Item.useAnimation = 22;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
             Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
             {
-                Item.mana = 15;
+                Item.mana = 12;
             }
             else
             {
-                Item.mana = 10;
+                Item.mana = 8;
             }
             //Item.UseSound = SoundID.Item20;
 
-            Item.damage = 40;
+            Item.damage = 80;
             Item.knockBack = 1f;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.StormLightningProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.StormStaffProj>();
 
             Item.shootSpeed = 7f;
 
@@ -227,22 +227,10 @@ namespace StormDiversMod.Items.Weapons
         
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
-            float numberProjectiles = 3;
+            /*float numberProjectiles = 3;
             float rotation = MathHelper.ToRadians(3);
-
-            SoundEngine.PlaySound(SoundID.NPCHit53 with {Volume = 0.5f, Pitch = -0.5f, MaxInstances = 0}, player.Center);
-
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 35f;
-
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-            }
             for (int j = 0; j < numberProjectiles; j++)
             {
-               
-
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles - 1)));
 
                 float ai = Main.rand.Next(100);
@@ -251,8 +239,16 @@ namespace StormDiversMod.Items.Weapons
                 Main.projectile[projID].timeLeft = 190;
 
                 Main.projectile[projID].DamageType = DamageClass.Magic;
+            }*/
+            SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 0.5f, Pitch = -0.5f, MaxInstances = 0 }, player.Center);
+
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 35f;
+
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
             }
-          
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
 
             for (int i = 0; i < 10; i++)
             {
@@ -263,12 +259,8 @@ namespace StormDiversMod.Items.Weapons
                 int dust2 = Dust.NewDust(player.Center + muzzleOffset * 1.6f, 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 1.5f);
                 Main.dust[dust2].noGravity = true;
                 Main.dust[dust2].scale = 1f;
-
             }
-
-
             return false;
-
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

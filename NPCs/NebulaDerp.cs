@@ -11,7 +11,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 
@@ -66,7 +66,6 @@ namespace StormDiversMod.NPCs
 				new FlavorTextBestiaryInfoElement("A Derpling that has been corrupted by Nebula energy, allowing it to possess a fraction of the Nebula Pillar’s power.")
             });
         }
-
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies)
@@ -76,10 +75,8 @@ namespace StormDiversMod.NPCs
             else
             {
                 return SpawnCondition.NebulaTower.Chance * 0f;
-
             }
         }
-
    
         int firerate = 0;
         public override void AI()
@@ -96,15 +93,14 @@ namespace StormDiversMod.NPCs
                     int damage = 30; // The damage your projectile deals.
                     float knockBack = 3;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.NebulaFlame>();
-                    
 
                     firerate++;
 
-                    if (firerate >= 5)
+                    if (firerate >= 3)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y + 10), new Vector2(0, -2.5f), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Top.Y + 10), new Vector2(0, -3f), type, damage, knockBack);
                             if (Main.rand.NextFloat() < 1f)
                             {
                                 Dust dust;
@@ -115,17 +111,11 @@ namespace StormDiversMod.NPCs
                             }
                         }
                         SoundEngine.PlaySound(SoundID.Item34, NPC.Center);
-                        firerate = 0;
-
-                        
-                    }
-
-                   
+                        firerate = 0;   
+                    }      
                 }
             }
-     
         }
-
         public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)

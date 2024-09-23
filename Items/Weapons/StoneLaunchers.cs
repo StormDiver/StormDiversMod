@@ -10,7 +10,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using System.Collections.Generic;
 
 namespace StormDiversMod.Items.Weapons
@@ -288,7 +288,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (!GetInstance<ConfigurationsIndividual>().NoShake)
+            //if (!GetInstance<ConfigurationsIndividual>().NoShake)
             {
                 player.GetModPlayer<MiscFeatures>().screenshaker = true;
             }
@@ -397,7 +397,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (!GetInstance<ConfigurationsIndividual>().NoShake)
+            //if (!GetInstance<ConfigurationsIndividual>().NoShake)
             {
                 player.GetModPlayer<MiscFeatures>().screenshaker = true;
             }

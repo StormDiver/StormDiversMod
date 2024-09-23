@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 
 namespace StormDiversMod.Items.Weapons

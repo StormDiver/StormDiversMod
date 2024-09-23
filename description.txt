@@ -1,4 +1,4 @@
-[c/22DD97:Storm's Additions Mod] (Formerly Storm Diver’s Additions Mod), is a mod that adds a range of new unique content to the game, with a total of over 300 items. It flushes out some vanilla item sets, and has many new unique sets spread across the entire game, along with many individual items obtained in their own way.
+[c/22DD97:Storm's Additions Mod] (Formerly Storm Diver’s Additions Mod), is a mod that adds a range of new unique content to the game, with a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items.
 
 This mod will receive occasional updates, mostly balance changes and any bug fixes, but will receive no large new content updates.
 
@@ -27,6 +27,7 @@ Make sure to check the Steam page for the changelog, and the leave any comments 
 
 Creator, coder, and main spriter: [c/22DD97:TheStorm]
 Spriter and playtester: [c/EE59E3:Lynxical]
+Boss Music by: [c/c577dc:MicelTheGuy]
 Some additional sprites by: Charley#0571 
 Chinese Localisation by: by jianjingqiao201314(简境巧)
 

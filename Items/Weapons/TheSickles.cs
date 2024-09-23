@@ -11,7 +11,7 @@ using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using StormDiversMod.Items.Materials;
 
 
@@ -67,6 +67,7 @@ namespace StormDiversMod.Items.Weapons
                 Item.useStyle = 1;
                 Item.useTime = 15;
                 Item.useAnimation = 30;
+                Item.reuseDelay = 0;
                 Item.channel = false;
             }
             else
@@ -74,6 +75,7 @@ namespace StormDiversMod.Items.Weapons
                 Item.useStyle = 3;
                 Item.useTime = 15;
                 Item.useAnimation = 15;
+                Item.reuseDelay = 10;
                 Item.channel = true;
             }
 
@@ -161,6 +163,7 @@ namespace StormDiversMod.Items.Weapons
                 Item.useStyle = 1;
                 Item.useTime = 13;
                 Item.useAnimation = 26;
+                Item.reuseDelay = 0;
                 Item.channel = false;
                 return player.ownedProjectileCounts[Item.shoot] < 3;
             }
@@ -169,6 +172,7 @@ namespace StormDiversMod.Items.Weapons
                 Item.useStyle = 3;
                 Item.useTime = 13;
                 Item.useAnimation = 13;
+                Item.reuseDelay = 10;
                 Item.channel = true;
                 return player.ownedProjectileCounts[Item.shoot] < 1;
             }

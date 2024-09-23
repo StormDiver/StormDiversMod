@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -31,11 +31,12 @@ namespace StormDiversMod.Items.Weapons
 			Item.height = 40;
 			Item.useTime = 10;
 			Item.useAnimation = 10;
+            Item.reuseDelay = 10;
 			Item.useStyle = 100;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Red;
 			Item.UseSound = SoundID.Item116;
-			Item.autoReuse = false;
+			Item.autoReuse = true;
            Item.useTurn = false;
             Item.channel = true;
             Item.knockBack = 10f;

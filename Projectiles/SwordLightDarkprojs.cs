@@ -10,7 +10,7 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Terraria.GameContent.Drawing;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using ReLogic.Content;
 
 using static Terraria.Main;

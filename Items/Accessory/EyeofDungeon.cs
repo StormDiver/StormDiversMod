@@ -10,7 +10,6 @@ using Terraria.GameContent;
 
 namespace StormDiversMod.Items.Accessory
 {
-
     public class EyeofDungeon : ModItem
     {
         public override void SetStaticDefaults()
@@ -29,8 +28,6 @@ namespace StormDiversMod.Items.Accessory
 
             Item.defense = 2;
             Item.accessory = true;
-            
-
         }
         int skulltime = 0;
         //Item DungeonEye;

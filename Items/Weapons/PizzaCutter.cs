@@ -37,9 +37,9 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.PizzaCutterProj>();
             Item.shootSpeed = 50f;
             //Item.pick = 180;
-            Item.axe = 18;
+            Item.axe = 18; //x5 = 90
 
-            Item.tileBoost = 0;
+            Item.tileBoost = -1;
             Item.UseSound = SoundID.Item23;
             Item.noMelee = true;
             Item.noUseGraphic = true; 

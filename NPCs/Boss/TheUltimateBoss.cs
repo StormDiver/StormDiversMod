@@ -11,7 +11,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.DataStructures;
 using StormDiversMod.Items.BossTrophy;
 using StormDiversMod.Items.Weapons;
@@ -77,28 +77,29 @@ namespace StormDiversMod.NPCs.Boss
             NPC.boss = true;
             if (!Main.dedServ)
             {
-                Music = MusicID.LunarBoss;
-                //Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme");
+                //Music = MusicID.LunarBoss;
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/UltimateBossMusic");
             }
             NPC.npcSlots = 10f;
             NPC.noTileCollide = true;
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
             NPC.dontTakeDamage = true;
-            
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[NPCType<ThePainBoss>()], quickUnlock: true); //for remix worlds, have full bestiary
+
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+
 				new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
 				// Sets the description of this NPC that is listed in the bestiary.
 				new FlavorTextBestiaryInfoElement("An entity bent on inflicting as much pain as possible to whoever it finds, using its skulls of judgement to deliver the pain. " +
                 "Even when near death it won’t stop finding ways to inflict pain, even if it causes pain upon itself.")
             });
         }
-
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             //300K Classic
@@ -108,7 +109,7 @@ namespace StormDiversMod.NPCs.Boss
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.66f * balance + 2000); //594000K 
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.66f * balance + 2000); //600000K 
             }
             //250/350/450
             NPC.damage = (int)(NPC.damage * 0.75f);
@@ -136,7 +137,7 @@ namespace StormDiversMod.NPCs.Boss
         int projcount; //Number of projs if applicable
         float projvelocity; //Velocity of projectiles
 
-        int lifeleft; //0 = full 1 = 3 quater, 2 = half, 1 = quarter
+        int lifeleft; //0 = phase 1 1 = 3 phase 2, 2 = phase 3, 3 = Phase 4 and 5
         int animation;
         bool deathani;
         string Paintext; //The text in chat and over the boss
@@ -162,30 +163,12 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.netUpdate = true;
                 deathani = true;
                 return false;
-
             }
             return true;
         }
 
         public override void AI()
         {
-            /*if (lifeleft == 0 || lifeleft == 1) //music for phases
-            {
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme1");
-            }
-            else if (lifeleft == 2)
-            {
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme2");
-            }
-            else if (lifeleft == 3 && NPC.ai[3] == 9)
-            {
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme3");
-            }
-            else if (lifeleft == 3 && NPC.ai[3] == 10)
-            {
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/TheUltimateBossTheme4");
-            }*/
-
             if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
             {
                 if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
@@ -276,7 +259,6 @@ namespace StormDiversMod.NPCs.Boss
                         NPC.localAI[2] -= 1.8f;//rotation
                         if (NPC.localAI[2] <= 0)
                             NPC.localAI[3] = 0; //Rotate clockwise;
-
                     }
 
                     double deg = (NPC.localAI[2]);
@@ -320,14 +302,14 @@ namespace StormDiversMod.NPCs.Boss
                     float dustx = player.Center.X - (int)(Math.Cos(rad) * dist);
                     float dusty = player.Center.Y - 400 - (int)(Math.Sin(rad) * dist);
                     {
-                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 72, 0, 0);
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 115, 0, 0, 50);
                         dust.noGravity = true;
                         dust.velocity *= 0;
                         dust.scale = 1.25f;
                     }
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - 400) - new Vector2(dustx, dusty)) * 25;
                     {
-                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 72, velocity.X, velocity.Y);
+                        var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 115, velocity.X, velocity.Y, 50);
                         dust.noGravity = true;
                         dust.velocity *= 0.5f;
                         dust.scale = 1.25f;
@@ -346,20 +328,20 @@ namespace StormDiversMod.NPCs.Boss
                 SoundEngine.PlaySound(SoundID.Item165 with { Volume = 1.5f, Pitch = 0.5f, MaxInstances = 1 }, NPC.Center);
                 SoundEngine.PlaySound(SoundID.Item131 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1 }, NPC.Center);
 
-                Dust.QuickDustLine(NPC.Center, new Vector2(NPC.oldPosition.X + NPC.width / 2, NPC.oldPosition.Y + NPC.height / 2), 152, Color.DeepPink); //centre to centre
+                Dust.QuickDustLine(NPC.Center, new Vector2(NPC.oldPosition.X + NPC.width / 2, NPC.oldPosition.Y + NPC.height / 2), 152, Color.IndianRed); //centre to centre
 
                 if (!GetInstance<ConfigurationsIndividual>().NoMessage)
                 {
                     Paintext = "You cannot escape the pain that easily!";
 
-                    CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                    CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.IndianRed, Paintext, true);
                     if (Main.netMode == 2) // Server
                     {
-                        Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                        Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), Color.IndianRed);
                     }
                     else if (Main.netMode == 0) // Single Player
                     {
-                        Main.NewText(Paintext, 175, 17, 96);
+                        Main.NewText(Paintext, Color.IndianRed);
                     }
                 }
                 for (int i = 0; i < 150; i++)
@@ -368,8 +350,8 @@ namespace StormDiversMod.NPCs.Boss
 
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.5f);
-                    //Main.dust[dust2].noGravity = true;
+                    int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.5f);
+                    Main.dust[dust2].noGravity = true;
                 }
 
                 teleporttime = 0;
@@ -395,21 +377,19 @@ namespace StormDiversMod.NPCs.Boss
                     {
                         Paintext = "Guess you couldn't handle the Pain!";
                     }
-                    CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                    CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.IndianRed, Paintext, true);
                     if (Main.netMode == 2) // Server
                     {
-                        Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                        Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), Color.IndianRed);
                     }
                     else if (Main.netMode == 0) // Single Player
                     {
-                        Main.NewText(Paintext, 175, 17, 96);
+                        Main.NewText(Paintext, Color.IndianRed);
                     }
-
                 }
                 NPC.ai[3] = 0;
                 if (NPC.localAI[1] > 120)
                 {
-
                     if (NPC.velocity.Y < 25)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -457,15 +437,15 @@ namespace StormDiversMod.NPCs.Boss
 
                         Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                        int dust2 = Dust.NewDust(new Vector2(NPC.Center.X + xprojpos, NPC.Center.Y + yprojpos), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
-                        //Main.dust[dust2].noGravity = true;
+                        int dust2 = Dust.NewDust(new Vector2(NPC.Center.X + xprojpos, NPC.Center.Y + yprojpos), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.5f);
+                        Main.dust[dust2].noGravity = true;
                     }
                     SoundEngine.PlaySound(SoundID.Item14 with { Volume = 1f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                 }
                 NPC.position.X += Main.rand.Next(-1, 2);
                 NPC.position.Y += Main.rand.Next(-1, 2);
 
-                if (NPC.ai[0] == 1)
+                if (NPC.ai[0] == 120)
                 {
                     SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                     if (!GetInstance<ConfigurationsIndividual>().NoMessage)
@@ -482,14 +462,14 @@ namespace StormDiversMod.NPCs.Boss
                         {
                             Paintext = "Guess.... you could.... handle the Pain...";
                         }
-                        CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                        CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.IndianRed, Paintext, true);
                         if (Main.netMode == 2) // Server
                         {
-                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), Color.IndianRed);
                         }
                         else if (Main.netMode == 0) // Single Player
                         {
-                            Main.NewText(Paintext, 175, 17, 96);
+                            Main.NewText(Paintext, Color.IndianRed);
                         }
                     }
                 }
@@ -541,12 +521,13 @@ namespace StormDiversMod.NPCs.Boss
                     {
                         if (lifeleft == 1)
                         {
+                            //Paintext = "Not bad, but how much pain can you handle?";
                             for (int i = 0; i < 50; i++)
                             {
                                 float speedY = -6f;
                                 Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                                int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 38, NPC.Center.Y + 38), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                                int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 38, NPC.Center.Y + 38), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                                 Main.dust[dust1].noGravity = true;
                             }
                             if (Main.netMode != NetmodeID.Server)
@@ -561,12 +542,13 @@ namespace StormDiversMod.NPCs.Boss
                         }
                         if (lifeleft == 2)
                         {
+                            //Paintext = "You're handling this better than I thought, but not for much longer!";
                             for (int i = 0; i < 50; i++)
                             {
                                 float speedY = -6f;
                                 Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                                int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 48, NPC.Center.Y + 38), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                                int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 48, NPC.Center.Y + 38), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                                 Main.dust[dust1].noGravity = true;
                             }
                             if (Main.netMode != NetmodeID.Server)
@@ -581,7 +563,27 @@ namespace StormDiversMod.NPCs.Boss
                         }
                         if (lifeleft == 3)
                         {
-
+                            if (StormWorld.ultimateBossDown)
+                            {
+                                Paintext = "So we made it to this point again?";
+                            }
+                            else if (Main.getGoodWorld)
+                            {
+                                Paintext = "You still need to prove your worth!";
+                            }
+                            else
+                            {
+                                Paintext = "Alright, no more playing around!";
+                            }
+                            CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.IndianRed, Paintext, true);
+                            if (Main.netMode == 2) // Server
+                            {
+                                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), Color.IndianRed);
+                            }
+                            else if (Main.netMode == 0) // Single Player
+                            {
+                                Main.NewText(Paintext, Color.IndianRed);
+                            }
                             int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                             Main.projectile[proj].scale = 0.75f;
                             int proj2 = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
@@ -596,13 +598,13 @@ namespace StormDiversMod.NPCs.Boss
 
                                 Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                                int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                                int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                                 Main.dust[dust1].noGravity = true;
-                                int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                                int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                                 Main.dust[dust2].noGravity = true;
-                                int dust3 = Dust.NewDust(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                                int dust3 = Dust.NewDust(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                                 Main.dust[dust3].noGravity = true;
-                                int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                                int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                                 Main.dust[dust4].noGravity = true;
                             }
 
@@ -628,7 +630,6 @@ namespace StormDiversMod.NPCs.Boss
                                 int npc4 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 30, (int)NPC.Center.Y + 58, type);
                                 Main.npc[npc4].localAI[1] = 270;
                                 NPC.netUpdate = true;
-
                             }
                             animation = 3; //increase animation
 
@@ -638,12 +639,35 @@ namespace StormDiversMod.NPCs.Boss
 
                         NPC.netUpdate = true;
                     }
-
-                    if (NPC.ai[0] >= 180)
+                    if (NPC.ai[0] == 180 && lifeleft == 0)
+                    {
+                        if (StormWorld.ultimateBossDown)
+                        {
+                            Paintext = "Ready to experience pain again?";
+                        }
+                        else if (Main.getGoodWorld)
+                        {
+                            Paintext = "Ready to prove your worth?";
+                        }
+                        else
+                        {
+                            Paintext = "Ready to experience pain?";
+                        }
+                        CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.IndianRed, Paintext, true);
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), Color.IndianRed);
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText(Paintext, Color.IndianRed);
+                        }
+                    }
+                    if ((NPC.ai[0] >= 180 && lifeleft != 0)|| (NPC.ai[0] >= 300 && lifeleft == 0)) //5 seconds when spawned, 3 seconds for each phase
                     {
                         NPC.dontTakeDamage = false;
                     }
-                    if (NPC.ai[0] >= 180 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if ((NPC.ai[0] >= 180 && lifeleft != 0) || (NPC.ai[0] >= 300 && lifeleft == 0) && Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         NPC.dontTakeDamage = false;
                         NPC.ai[0] = 0;
@@ -676,7 +700,6 @@ namespace StormDiversMod.NPCs.Boss
                     }
                 }
                 Attacks(player); //All attacks are in this hook
-
             }
             //Phases, resets Ai to passive ================================================PHASE Changer
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -708,7 +731,8 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (NPC.life < NPC.lifeMax * 0.1f && lifeleft == 2) //Phase 3 > 4 (10%)
                 {
-                    //Music = MusicID.EmpressOfLight; //Can change music for last phases
+                    Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/UltimateBossMusic2"); //Can change music for last phases
+                    Main.musicFade[Main.curMusic] = 0.9f;
 
                     NPC.ai[3] = 0;
                     NPC.ai[0] = 0;
@@ -716,8 +740,8 @@ namespace StormDiversMod.NPCs.Boss
 
                     lifeleft = 3;
                     NPC.netUpdate = true;
-
                 }
+
             }
         }
 
@@ -763,7 +787,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw                          
+                    projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw                          
                 else if (Main.masterMode)
                     projdamage = (50 * clamteadmg) / 100; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)
@@ -778,10 +802,10 @@ namespace StormDiversMod.NPCs.Boss
                     if ((NPC.localAI[0] > 25 && lifeleft == 0) || (NPC.localAI[0] > 20 && lifeleft == 1) || (NPC.localAI[0] > 15 && lifeleft == 2))
                     {
                         NPC.velocity *= 0.5f;
-                        //Dust.QuickDustLine(new Vector2(player.Center.X + 54, player.Center.Y + 4), new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 35, Color.DeepPink); //centre to centre
-                        //Dust.QuickDustLine(new Vector2(player.Center.X - 54, player.Center.Y + 4), new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 35, Color.DeepPink); //centre to centre
-                        //Dust.QuickDustLine(new Vector2(player.Center.X + 30, player.Center.Y + 58), new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 35, Color.DeepPink); //centre to centre
-                        //Dust.QuickDustLine(new Vector2(player.Center.X - 30, player.Center.Y + 58), new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 35, Color.DeepPink); //centre to centre
+                        //Dust.QuickDustLine(new Vector2(player.Center.X + 54, player.Center.Y + 4), new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 35, Color.IndianRed); //centre to centre
+                        //Dust.QuickDustLine(new Vector2(player.Center.X - 54, player.Center.Y + 4), new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 35, Color.IndianRed); //centre to centre
+                        //Dust.QuickDustLine(new Vector2(player.Center.X + 30, player.Center.Y + 58), new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 35, Color.IndianRed); //centre to centre
+                        //Dust.QuickDustLine(new Vector2(player.Center.X - 30, player.Center.Y + 58), new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 35, Color.IndianRed); //centre to centre
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
                         for (int i = 0; i < 50; i++)
@@ -790,13 +814,13 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust1].noGravity = true;
-                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust2].noGravity = true;
-                            int dust3 = Dust.NewDust(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust3 = Dust.NewDust(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust3].noGravity = true;
-                            int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust4].noGravity = true;
                         }
 
@@ -840,7 +864,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw                          
+                    projdamage = (55 * clamteadmg) / 100; //110/220/330 on ftw                          
                 else if (Main.masterMode)
                     projdamage = (40 * clamteadmg) / 100; // 240 on master               
                 else if (Main.expertMode && !Main.masterMode)
@@ -866,7 +890,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 if (NPC.ai[0] > 90) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 40 && lifeleft == 0) || (NPC.localAI[0] > 35 && lifeleft == 1) || (NPC.localAI[0] > 30 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 45 && lifeleft == 0) || (NPC.localAI[0] > 40 && lifeleft == 1) || (NPC.localAI[0] > 35 && lifeleft == 2))
                     {
 
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -877,8 +901,8 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
-                            //Main.dust[dust2].noGravity = true;
+                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                            Main.dust[dust2].noGravity = true;
                         }
 
                         for (int i = 0; i < projcount; i++)
@@ -934,7 +958,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     NPC.localAI[0]++;
 
-                    if ((NPC.localAI[0] > 40 && lifeleft == 0) || (NPC.localAI[0] > 35 && lifeleft == 1) || (NPC.localAI[0] > 30 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 50 && lifeleft == 0) || (NPC.localAI[0] > 40 && lifeleft == 1) || (NPC.localAI[0] > 30 && lifeleft == 2))
                     {
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
@@ -944,13 +968,13 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust1].noGravity = true;
-                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust2].noGravity = true;
-                            int dust3 = Dust.NewDust(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust3 = Dust.NewDust(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust3].noGravity = true;
-                            int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust4].noGravity = true;
                         }
                      
@@ -1020,9 +1044,8 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     NPC.localAI[0]++;
 
-                    if ((NPC.localAI[0] > 60 && lifeleft == 0) || (NPC.localAI[0] > 55 && lifeleft == 1) || (NPC.localAI[0] > 50 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 70 && lifeleft == 0) || (NPC.localAI[0] > 60 && lifeleft == 1) || (NPC.localAI[0] > 50 && lifeleft == 2))
                     {
-
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
                         for (int i = 0; i < 50; i++)
@@ -1031,8 +1054,8 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
-                            //Main.dust[dust2].noGravity = true;
+                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                            Main.dust[dust2].noGravity = true;
                         }
                         for (int i = 0; i < projcount; i++)
                         {
@@ -1123,11 +1146,11 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
-                            //Main.dust[dust2].noGravity = true;
+                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                            Main.dust[dust2].noGravity = true;
                         }
 
-                        for (int i = 0; i < projcount; i++)
+                        for (int i = 0; i < projcount / 2; i++)
                         {
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
@@ -1136,7 +1159,7 @@ namespace StormDiversMod.NPCs.Boss
                                 //For the radius
                                 double deg = Main.rand.Next(0, 360); //The degrees
                                 double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                                double dist = Main.rand.Next(500, 750); //Distance away from the player
+                                double dist = Main.rand.Next(500, 650); //Distance away from the player
 
                                 float posX = player.Center.X - (int)(Math.Cos(rad) * dist) + player.velocity.X;
                                 float posY = player.Center.Y - (int)(Math.Sin(rad) * dist) + player.velocity.X;
@@ -1197,7 +1220,7 @@ namespace StormDiversMod.NPCs.Boss
                 if (NPC.ai[0] > 120) //Delay before firing
                 {
                     NPC.localAI[0]++;
-                    if ((NPC.localAI[0] > 45 && lifeleft == 1) || (NPC.localAI[0] > 40 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 50 && lifeleft == 1) || (NPC.localAI[0] > 40 && lifeleft == 2))
                     {
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
@@ -1207,8 +1230,8 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
-                            //Main.dust[dust2].noGravity = true;
+                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                            Main.dust[dust2].noGravity = true;
                         }
 
                         for (int i = 0; i < projcount; i++)
@@ -1330,8 +1353,8 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
-                            //Main.dust[dust2].noGravity = true;
+                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                            Main.dust[dust2].noGravity = true;
                         }
                     }
                     if (NPC.localAI[0] > 60)
@@ -1344,13 +1367,13 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust1].noGravity = true;
-                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 54, NPC.Center.Y + 4), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust2].noGravity = true;
-                            int dust3 = Dust.NewDust(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust3 = Dust.NewDust(new Vector2(NPC.Center.X + 30, NPC.Center.Y + 58), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust3].noGravity = true;
-                            int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust4 = Dust.NewDust(new Vector2(NPC.Center.X - 30, NPC.Center.Y + 58), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust4].noGravity = true;
                         }
                         for (int i = 0; i < projcount / 2; i++)
@@ -1423,7 +1446,18 @@ namespace StormDiversMod.NPCs.Boss
                     projdamage = (45 * clamteadmg) / 100; // 180 On expert
                 else
                     projdamage = (60 * clamteadmg) / 100; // 120 on normal
+                if (NPC.ai[0] > 60 && NPC.ai[0] < 120)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        float speedY = -3f;
 
+                        Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                        int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
+                        Main.dust[dust2].noGravity = true;
+                    }
+                }
                 if (NPC.ai[0] > 120) //Delay before firing
                 {
                     if ((NPC.localAI[0] > 10 && lifeleft == 0) || (NPC.localAI[0] > 8 && lifeleft == 1) || (NPC.localAI[0] > 6 && lifeleft == 2))
@@ -1459,16 +1493,16 @@ namespace StormDiversMod.NPCs.Boss
 
                         for (int i = 0; i < 50; i++)
                         {
-                            int dust1 = Dust.NewDust(new Vector2(xpos, ypos), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust1 = Dust.NewDust(new Vector2(xpos, ypos), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust1].noGravity = true;
                         }
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
                             for (int i = 0; i < 1; i++)
                             {
-                                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity;
+                                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity * 1.2f;
                                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(xpos, ypos), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 0, 3);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(xpos, ypos), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 0, 0);
                             }
                         }
 
@@ -1537,6 +1571,28 @@ namespace StormDiversMod.NPCs.Boss
                     if (NPC.localAI[2] > 120)
                     {
                         SoundEngine.PlaySound(SoundID.Roar with { Volume = 1f, Pitch = 0.5f }, NPC.Center);
+                        if (StormWorld.ultimateBossDown)
+                        {
+                            Paintext = "You're... still able to handle all this pain?";
+                        }
+                        else if (Main.getGoodWorld)
+                        {
+                            Paintext = "Could... you really be worthy?";
+                        }
+                        else
+                        {
+                            Paintext = "How... are you handling all this pain?";
+                        }
+                        CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.IndianRed, Paintext, true);
+                        if (Main.netMode == 2) // Server
+                        {
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), Color.IndianRed);
+                        }
+                        else if (Main.netMode == 0) // Single Player
+                        {
+                            Main.NewText(Paintext, Color.IndianRed);
+                        }
+                        
                         NPC.localAI[0] = 0;
                         NPC.ai[0] = 0;
                         NPC.ai[3] = 10;
@@ -1608,7 +1664,7 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             Main.dust[dust1].noGravity = true;
                         }
                        
@@ -1616,7 +1672,7 @@ namespace StormDiversMod.NPCs.Boss
                     if (NPC.localAI[0] == 180)
                     {
                         projspread = 0;
-                        //Dust.QuickDustLine(new Vector2(player.Center.X, player.Center.Y), new Vector2(NPC.Center.X, NPC.Center.Y + 10), 50, Color.DeepPink); //centre to centre
+                        //Dust.QuickDustLine(new Vector2(player.Center.X, player.Center.Y), new Vector2(NPC.Center.X, NPC.Center.Y + 10), 50, Color.IndianRed); //centre to centre
                         SoundEngine.PlaySound(SoundID.Zombie104 with { Volume = 0.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
                         for (int i = 0; i < 150; i++)
@@ -1625,7 +1681,7 @@ namespace StormDiversMod.NPCs.Boss
 
                             Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                            int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                         }
                     }
                     if (NPC.localAI[0] > 180)
@@ -1659,7 +1715,7 @@ namespace StormDiversMod.NPCs.Boss
 
                                 Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                                int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                                int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                             }
                             for (int i = 0; i < projcount * 6; i++)
                             {
@@ -1689,14 +1745,14 @@ namespace StormDiversMod.NPCs.Boss
         {
             if (!GetInstance<ConfigurationsIndividual>().NoMessage)
             {
-                CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, "How's that for Pain?", true);
+                CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.IndianRed, "How's that for Pain?", true);
                 if (Main.netMode == 2) // Server
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("How's that for Pain?"), new Color(175, 17, 96));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("How's that for Pain?"), Color.IndianRed);
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
-                    Main.NewText("How's that for Pain?", 175, 17, 96);
+                    Main.NewText("How's that for Pain?", Color.IndianRed);
                 }
             }
         }
@@ -1825,8 +1881,8 @@ namespace StormDiversMod.NPCs.Boss
 
                         Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                        int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
-                        //Main.dust[dust2].noGravity = true;
+                        int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                        Main.dust[dust2].noGravity = true;
                     }
 
                     npcframe++;
@@ -1836,7 +1892,6 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     npcframe = 28;
                 }
-
             }
         }
         public override void BossLoot(ref string name, ref int potionType)
@@ -1853,8 +1908,7 @@ namespace StormDiversMod.NPCs.Boss
             //pain
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapons.PainStaff>(), 1));
             notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Vanitysets.BossMaskUltimateBoss>(), 7));
-            notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Furniture.PainMusicBoxitem>(), 10));
-
+            //notExpert.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Furniture.PainMusicBoxitem>(), 10));
 
             //expert and master loot
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.BossTrophy.UltimateBossBag>()));
@@ -1870,8 +1924,8 @@ namespace StormDiversMod.NPCs.Boss
 
                 Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
-                //Main.dust[dust2].noGravity = true;
+                int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                Main.dust[dust2].noGravity = true;
             }
             if (NPC.life <= 0 && deathani)          //this make so when the npc has 0 life(dead) he will spawn this
             {  
@@ -1896,7 +1950,7 @@ namespace StormDiversMod.NPCs.Boss
                 for (int i = 0; i < 150; i++)
                 {
 
-                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 72);
+                    var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 115, 0, 0, 50);
                     dust.velocity *= 2;
                 }
                 for (int i = 0; i < 150; i++)
@@ -1905,8 +1959,8 @@ namespace StormDiversMod.NPCs.Boss
 
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.5f);
-                    //Main.dust[dust2].noGravity = true;
+                    int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                    Main.dust[dust2].noGravity = true;
                 }
             }
         }
@@ -1939,15 +1993,15 @@ namespace StormDiversMod.NPCs.Boss
                         Paintext = "Zenith means no Pain >:(";
                         if (!Zenithtext)
                         {
-                            CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
+                            CombatText.NewText(new Rectangle((int)NPC.Center.X, (int)NPC.Center.Y, 12, 4), Color.IndianRed, Paintext, true);
 
                             if (Main.netMode == 2) // Server
                             {
-                                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
+                                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), Color.IndianRed);
                             }
                             else if (Main.netMode == 0) // Single Player
                             {
-                                Main.NewText(Paintext, 175, 17, 96);
+                                Main.NewText(Paintext, Color.IndianRed);
                             }
                             Zenithtext = true;
                         }
@@ -1974,7 +2028,7 @@ namespace StormDiversMod.NPCs.Boss
                 float speen1 = 9f + 3f * (float)Math.Cos((float)Math.PI * 2f * Main.GlobalTimeWrappedHourly);
                 Vector2 spinningpoint5 = Vector2.UnitX * speen1;
 
-                Color color2 = Color.Pink * (speen1 / 12f) * 0.8f;
+                Color color2 = Color.IndianRed * (speen1 / 12f) * 0.8f;
                 color2.A /= 3;
                 if (!deathani && NPC.dontTakeDamage)
                 {
@@ -1994,6 +2048,20 @@ namespace StormDiversMod.NPCs.Boss
 
             spriteBatch.Draw(texture, drawPos, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             base.PostDraw(spriteBatch, screenPos, drawColor);
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            if (lifeleft == 3 && NPC.ai[3] >= 9)
+            {
+                Color color = Color.IndianRed;
+                color.A = 200;
+                return color;
+            }
+            else
+            {
+                return Color.White;
+            }
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {

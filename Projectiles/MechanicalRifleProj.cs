@@ -10,12 +10,13 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Mono.Cecil;
 using static Terraria.ModLoader.PlayerDrawLayer;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 using static System.Formats.Asn1.AsnWriter;
 using static Humanizer.In;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
+using System.Diagnostics.CodeAnalysis;
 
 
 namespace StormDiversMod.Projectiles
@@ -74,7 +75,7 @@ namespace StormDiversMod.Projectiles
             {
                 chargetime++;
             }
-            if (chargetime >= 40 && !maxcharge)//Charge up time is 40 frames
+            if (chargetime >= (player.HeldItem.useTime * 2) && !maxcharge)//Charge up time is 40 frames with no speed modfiers
             {
                 SoundEngine.PlaySound(SoundID.Item149 with { Volume = 2f, Pitch = 0.5f, MaxInstances = 0 }, base.Projectile.position);
                 for (int i = 0; i < 3; i++)
@@ -88,7 +89,7 @@ namespace StormDiversMod.Projectiles
                 maxcharge = true;
             }
             Projectile.ai[1]++; //noise starts after 10 frames
-            if (Projectile.soundDelay <= 0 && !maxcharge && Projectile.ai[1] >= 10) //Charge up sound and effect
+            if (Projectile.soundDelay <= 0 && !maxcharge && Projectile.ai[1] >= (player.HeldItem.useTime / 2)) //Charge up sound and effect
             {
                 sound += 0.2f;
 
@@ -102,7 +103,7 @@ namespace StormDiversMod.Projectiles
                     //Main.dust[dust2].velocity.Y = (float)(-Main.rand.Next(7, 13)) * 0.15f;
                 }
 
-                Projectile.soundDelay = 10;
+                Projectile.soundDelay = (player.HeldItem.useTime / 2);
             }
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(Projectile.velocity.X, Projectile.velocity.Y)) * 15f; // Position of end of barrel
 
@@ -176,7 +177,7 @@ namespace StormDiversMod.Projectiles
             else
                 extralength = 2.5f;
         }
-
+        int extradamage = 1;
         public override void OnKill(int timeLeft)
         {
             var player = Main.player[Projectile.owner];
@@ -197,7 +198,7 @@ namespace StormDiversMod.Projectiles
             float KnockBack = player.inventory[player.selectedItem].knockBack;
             if (canShoot && Collision.CanHit(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, new Vector2(player.Center.X, player.Center.Y), 0, 0))
             {             
-                player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, false);
+                player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, true);
                 if (projToShoot == ProjectileID.Bullet && !maxcharge)
                 {
                     projToShoot = ProjectileID.BulletHighVelocity;
@@ -212,7 +213,12 @@ namespace StormDiversMod.Projectiles
                 for (int i = 0; i < 1; i++)
                 {
                     Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f).RotatedByRandom(MathHelper.ToRadians(0));
-                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 1), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
+                    if (maxcharge)
+                        extradamage = 3; //triple damage at max charge
+                    else
+                        extradamage = 1;
+
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 1), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y)), projToShoot, (int)(Projectile.damage * extradamage), Projectile.knockBack, Projectile.owner);
                    
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = 10;
@@ -221,7 +227,6 @@ namespace StormDiversMod.Projectiles
                     {
                         Main.projectile[projID].extraUpdates += 1;
                         Main.projectile[projID].knockBack *= 2;
-                        Main.projectile[projID].damage = (int)(Projectile.damage * 3); //double damage
 
                         //player.velocity.X += perturbedSpeed.X * -0.25f;
                         //player.velocity.Y += perturbedSpeed.Y * -0.25f;
@@ -229,16 +234,10 @@ namespace StormDiversMod.Projectiles
                 }           
                 if (maxcharge) //extra dust for maxcharge
                 {
-                    /*for (int i = 0; i < 30; i++)
+                    //if (!GetInstance<ConfigurationsIndividual>().NoShake)
                     {
-                        float speedY = -1.5f;
-
-                        Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-
-                        int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y - 2), Projectile.width, Projectile.height, 229, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 229, default, 1.5f);
-                        Main.dust[dust2].noGravity = true;
-                      
-                    }*/
+                        player.GetModPlayer<MiscFeatures>().screenshaker = true;
+                    }
                     ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Excalibur, new ParticleOrchestraSettings
                     {
                         PositionInWorld = new Vector2(Projectile.Center.X + (Projectile.velocity.X * .1f), Projectile.Center.Y - 4 + (Projectile.velocity.Y * .1f)),
@@ -256,8 +255,8 @@ namespace StormDiversMod.Projectiles
 
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
                 if (maxcharge)
-                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 3), new Vector2(Projectile.Center.X - 1 + (perturbedSpeed.X * extralength), Projectile.Center.Y - 3 + (perturbedSpeed.Y * extralength)), Color.Gold, Color.Transparent, 2f);
-            }
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1 - (perturbedSpeed.X * 0.01f), Projectile.Center.Y - 3 - (perturbedSpeed.Y * 0.01f)), new Vector2(Projectile.Center.X - 1 + (perturbedSpeed.X * extralength), Projectile.Center.Y - 3 + (perturbedSpeed.Y * extralength)), Color.Gold, Color.Transparent, 2f);
+            }                                                                               //Make it draw backwards a bit so it doesn't disconnect at higher velocity values
             return true;
         }
         public override void PostDraw(Color lightColor)

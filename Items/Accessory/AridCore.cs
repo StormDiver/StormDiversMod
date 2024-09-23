@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using StormDiversMod.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;

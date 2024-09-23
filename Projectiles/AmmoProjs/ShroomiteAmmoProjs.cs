@@ -19,7 +19,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 2;
@@ -32,21 +31,17 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.timeLeft = 400;
             Projectile.penetrate = 3;
             
-            
             Projectile.tileCollide = true;
-
 
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.extraUpdates = 1;
             AIType = ProjectileID.Bullet;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-
         }
         int reflect = 4;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            
             reflect--;
             if (reflect <= 0)
             {
@@ -69,9 +64,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         int dusttime;
         public override void AI()
         {
-
-             dusttime++;
-           
+             dusttime++;  
             if (dusttime > 3)
             {
                 for (int i = 0; i < 10; i++)
@@ -85,18 +78,13 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                     Main.dust[dust].position.Y = Y;
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 0f;
-
-
                 }
             }
-
-           
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 25; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 206, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 206, default, 1.2f);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -104,19 +92,13 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
         public override void OnKill(int timeLeft)
         {
-
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 10; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 206);
             }
-
         }
-
-       
-
     }
     //______________________________________________________________________________________
     public class ShroomArrowProj : ModProjectile
@@ -127,7 +109,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 14;
@@ -152,18 +133,17 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
         }
-        int spwmushroom = 8;
-        
+        int spwmushroom = 0;
         public override void AI()
         {
-            spwmushroom--;
-            if (Main.rand.Next(12) == 0)
+            spwmushroom++;
+            if (spwmushroom == 8)
             {
-                int speedX = 0;
-                int speedY = 0;
+                Vector2 perturbedSpeed = new Vector2(0, -12).RotatedByRandom(MathHelper.ToRadians(360));
 
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                spwmushroom = 8;
+                int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.66f), 0, Projectile.owner);
+                //Main.projectile[proj].timeLeft = 10;
+                spwmushroom = 0;
             }
            /* trail++;
             if (trail > 2)
@@ -179,25 +159,19 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
             for (int i = 0; i < 10; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 206, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 130, default, 1.2f);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
-
         }
-
         public override void OnKill(int timeLeft)
         {
-
             //int item = Main.rand.NextBool(5) ? Item.NewItem(Projectile.getRect(), ModContent.ItemType<Ammo.ShroomArrow>()) : 0;
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
            
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 206);
             }
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -209,7 +183,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/ShroomArrowProj_Glow");
 
             //Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -225,9 +198,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
 
             return true;
-
         }
     }
-   
-
 }

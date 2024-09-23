@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Projectiles;
 using static System.Runtime.InteropServices.JavaScript.JSType;

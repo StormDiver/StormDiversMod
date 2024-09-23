@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.DataStructures;
@@ -50,7 +50,7 @@ namespace StormDiversMod.Items.Accessory
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EquipmentEffects>().deathList = true;
-            player.GetModPlayer<EquipmentEffects>().Deathlistitem = Item;
+            player.GetModPlayer<EquipmentEffects>().DeathlistItem = Item;
         }
         public override void AddRecipes()
         {

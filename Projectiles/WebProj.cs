@@ -26,6 +26,8 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 16;
             Projectile.friendly = true;
             Projectile.penetrate = 2;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 600;
             Projectile.aiStyle = 14;

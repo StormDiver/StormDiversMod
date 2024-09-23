@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using Terraria.Audio;
 
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 
 

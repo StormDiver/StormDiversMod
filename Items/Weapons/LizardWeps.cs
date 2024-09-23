@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics.PackedVector;

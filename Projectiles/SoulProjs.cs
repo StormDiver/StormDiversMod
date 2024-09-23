@@ -124,8 +124,7 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
 
             }
-            SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.25f, Pitch = 0f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Projectile.Center);
-
+            //SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 0.25f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Projectile.Center);
         }
 
         public void AnimateProjectile() // Call this every frame, for example in the AI method.

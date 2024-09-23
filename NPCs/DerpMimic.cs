@@ -14,7 +14,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.NPCs
@@ -224,7 +224,7 @@ namespace StormDiversMod.NPCs
                         if (!attackmode)
                         {
                             SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center);
-                            if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                            //if (!GetInstance<ConfigurationsIndividual>().NoShake)
                             {
                                 player.GetModPlayer<MiscFeatures>().screenshaker = true;
                             }

@@ -10,7 +10,7 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Mono.Cecil;
 using static Terraria.ModLoader.PlayerDrawLayer;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 using static System.Formats.Asn1.AsnWriter;
 using static Humanizer.In;
@@ -47,7 +47,7 @@ namespace StormDiversMod.Projectiles
         public override bool? CanDamage() => false;
         int firerate; //counter to shoot
         int firespeed; //current fire speed
-        int cannonspeed; //spped to fire cannon
+        int cannonspeed; //speed to fire cannon
         bool maxspeed;
 
         int orginaldamage;
@@ -77,7 +77,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.ai[2] = 0;
 
             }
-            if (firespeed <= 6 && !maxspeed) //charge up, increase speed until 5
+            if (firespeed <= 6 && !maxspeed) //charge up, increase speed until 6
             {
                 //SoundEngine.PlaySound(SoundID.Item28 with { Volume = 0.5f, Pitch = 0f }, player.Center);
 
@@ -103,7 +103,6 @@ namespace StormDiversMod.Projectiles
                 float speed = player.HeldItem.shootSpeed;
                 int Damage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
                 float KnockBack = player.inventory[player.selectedItem].knockBack;
-
 
                 if (canShoot && Collision.CanHit(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, new Vector2(player.Center.X, player.Center.Y), 0, 0))
                 {

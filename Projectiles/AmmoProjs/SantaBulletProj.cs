@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using System.Reflection;
 
 namespace StormDiversMod.Projectiles.AmmoProjs
@@ -88,8 +88,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
 
-                Projectile.width = 75;
-                Projectile.height = 75;
+                Projectile.width = 60;
+                Projectile.height = 60;
                 Projectile.Center = Projectile.position;
 
                 Projectile.knockBack = 3f;
@@ -102,8 +102,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
             SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
 
-            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
-            Main.projectile[proj].scale = 0.75f;
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionCompactProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1f;
 
             for (int i = 0; i < 20; i++) //Orange particles
             {

@@ -31,7 +31,8 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Generic;
             Projectile.timeLeft = 100;
             Projectile.tileCollide = true;
-
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
             //drawOffsetX = 2;
             //drawOriginOffsetY = 2;
 

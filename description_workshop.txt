@@ -1,5 +1,5 @@
 [img]https://i.imgur.com/IZtVc6F.png[/img]
-[b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 300 items. It flushes out some vanilla item sets, and has many new unique sets spread across the entire game, along with many individual items obtained in their own way.
+[b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items.
 
 This mod will receive occasional updates, mostly balance changes and any bug fixes, but will receive no large new content updates.
 
@@ -35,6 +35,7 @@ Check out the Mod wiki [url=https://terrariamods.wiki.gg/wiki/Storm%27s_Addition
 [h2]Credits[/h2]
 Creator, coder, and main spriter: [b]TheStorm[/b]
 Spriter and playtester: [b]Lynxical[/b]
+Boss Music by: [b]MicelTheGuy[/b]
 Some additional sprites by: Charley#0571 
 Chinese Localisation by: by jianjingqiao201314(简境巧)
 

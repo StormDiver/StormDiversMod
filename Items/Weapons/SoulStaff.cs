@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.GameContent.Drawing;
 
 namespace StormDiversMod.Items.Weapons
@@ -43,7 +43,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.channel = true;
             Item.DamageType = DamageClass.Magic;
             Item.autoReuse = true;
-            Item.UseSound = SoundID.Item8 with {Volume = 0.75f, Pitch = -0.2f};
+            Item.UseSound = SoundID.Item13;
 
             Item.damage = 50;
             //Item.crit = 4;
@@ -81,7 +81,6 @@ namespace StormDiversMod.Items.Weapons
         Vector2 projvelocity;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
             float projspeed = 20;
 
             //for (int j = 0; j < 3; j++)

@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Buffs;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 
 namespace StormDiversMod.Items.Accessory

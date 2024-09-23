@@ -11,7 +11,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.DataStructures;
 
 namespace StormDiversMod.NPCs

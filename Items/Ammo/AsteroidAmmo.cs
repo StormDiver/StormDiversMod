@@ -31,8 +31,8 @@ namespace StormDiversMod.Items.Ammo
             //Item.summon = true;
             //Item.thrown = true;
 
-            Item.damage = 12;
-            Item.knockBack = 2f;
+            Item.damage = 15;
+            Item.knockBack = 3.5f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.AsteroidArrowProj>();
@@ -73,16 +73,14 @@ namespace StormDiversMod.Items.Ammo
             Item.value = Item.sellPrice(0, 0, 0, 20);
             Item.rare = ItemRarityID.Cyan;
 
-
             Item.DamageType = DamageClass.Ranged;
 
-
-            Item.damage = 10;
-            Item.knockBack = 1f;
+            Item.damage = 16;
+            Item.knockBack = 2.5f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.AsteroidBulletProj>();
-            Item.shootSpeed = 2f;
+            Item.shootSpeed = 7f;
             Item.ammo = AmmoID.Bullet;
         }
 
@@ -90,7 +88,6 @@ namespace StormDiversMod.Items.Ammo
         {
             if (Main.rand.NextBool(10))
             {
-
 
             }
         }

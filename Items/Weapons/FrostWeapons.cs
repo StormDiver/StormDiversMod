@@ -28,11 +28,12 @@ namespace StormDiversMod.Items.Weapons
 			Item.height = 74;
 			Item.useTime = 10;
 			Item.useAnimation = 10;
-			Item.useStyle = 100;
+            Item.reuseDelay = 10;
+            Item.useStyle = 100;
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.rare = ItemRarityID.Pink;
 			Item.UseSound = SoundID.Item7;
-			Item.autoReuse = false;
+			Item.autoReuse = true;
             Item.useTurn = false;
             Item.channel = true;
             Item.knockBack = 3f;
@@ -188,7 +189,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-
             Item.width = 40;
             Item.height = 24;
             Item.maxStack = 1;

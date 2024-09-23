@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 namespace StormDiversMod.Projectiles
 {
@@ -16,12 +16,11 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("Forbidden Fury Arrow");
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 8;
             Projectile.height = 12;
-
+            Projectile.extraUpdates = 1;
             Projectile.aiStyle = 1;
             Projectile.light = 0.5f;
             Projectile.friendly = true;
@@ -56,8 +55,6 @@ namespace StormDiversMod.Projectiles
             }
         }
         // int reflect = 5;
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
@@ -72,9 +69,7 @@ namespace StormDiversMod.Projectiles
             }
         }
         public override void OnKill(int timeLeft)
-        {
-            
-             
+        {             
              SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 10; i++)
             {
@@ -90,9 +85,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Forbidden Arrow Dust");
-
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 20;

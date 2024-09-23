@@ -64,7 +64,6 @@ namespace StormDiversMod.Items.Weapons
             return true;
         }
         float shootvelo = 1; //Speed multiplers
-
         public override bool? UseItem(Player player)
         {
 

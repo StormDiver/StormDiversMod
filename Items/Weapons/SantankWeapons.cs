@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using StormDiversMod.Items.Materials;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Projectiles;
@@ -159,7 +159,7 @@ namespace StormDiversMod.Items.Weapons
                 int numberofprojs = 8 + Main.rand.Next(3); //8-10
                 for (int i = 0; i < numberofprojs; i++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(20)); // This defines the projectiles random spread . 10 degree spread.
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(16)); // This defines the projectiles random spread . 10 degree spread.
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y - (6 * player.gravDir)), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback * 1.5f, player.whoAmI);
                 }
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y - (6 * player.gravDir)), new Vector2(VelocityExplode.X, VelocityExplode.Y), ModContent.ProjectileType<Projectiles.SantaBoomProj2>(), damage * 4, knockback * 1.5f, player.whoAmI);
@@ -174,13 +174,13 @@ namespace StormDiversMod.Items.Weapons
                 int numberofprojs = 4 + Main.rand.Next(2); //4-5
                 for (int i = 0; i < numberofprojs; i++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10)); // This defines the projectiles random spread . 10 degree spread.
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8)); // This defines the projectiles random spread . 10 degree spread.
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y - (6 * player.gravDir)), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
                 }
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y - (6 * player.gravDir)), new Vector2(VelocityExplode.X, VelocityExplode.Y), ModContent.ProjectileType<Projectiles.SantaBoomProj>(), damage * 2, knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, player.Center);
             }
-            if (!GetInstance<ConfigurationsIndividual>().NoShake)
+            //if (!GetInstance<ConfigurationsIndividual>().NoShake)
             {
                 player.GetModPlayer<MiscFeatures>().screenshaker = true;
             }

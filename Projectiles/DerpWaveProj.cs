@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using StormDiversMod.Buffs;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 namespace StormDiversMod.Projectiles       
 {

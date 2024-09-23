@@ -8,7 +8,7 @@ using Terraria.DataStructures;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using System.Collections.Generic;
 
 

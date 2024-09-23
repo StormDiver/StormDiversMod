@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework.Graphics;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
@@ -277,13 +277,13 @@ namespace StormDiversMod.Projectiles
             if (Projectile.soundDelay <= 0)
             {
                 SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2f, Pitch = -0.5f, MaxInstances = 5 }, Projectile.Center);
-                for (int i = 0; i < 20; i++) //Frost particles
+                for (int i = 0; i < 10; i++) //Frost particles
                 {
                     Vector2 perturbedSpeed = new Vector2(0, -7f).RotatedByRandom(MathHelper.ToRadians(360));
 
                     var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 180, perturbedSpeed.X + player.velocity.X, perturbedSpeed.Y + player.velocity.Y);
                     dust.noGravity = true;
-                    dust.scale = 1.5f;
+                    dust.scale = 1.25f;
 
                 }
                 Projectile.soundDelay = 30;

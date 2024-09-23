@@ -16,7 +16,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Forbidden Bullet");
-          
         }
 
         public override void SetDefaults()
@@ -44,15 +43,13 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             /*Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             Dust.NewDust(Projectile.Center + Projectile.velocity, Projectile.width, Projectile.height, 175);*/
             Projectile.spriteDirection = Projectile.direction;
-
-           
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<DesertArrowDust>(), Projectile.damage / 2, 0, Projectile.owner);
-            Main.projectile[projID].timeLeft = 600;
-            Main.projectile[projID].penetrate = 3;
+            Main.projectile[projID].timeLeft = 1200; //5 seconds due to 3 extra updates, 1200 / (3 + 1) = 300
+            Main.projectile[projID].penetrate = 4;
+            Main.projectile[projID].ArmorPenetration = 10;
 
             for (int i = 0; i < 10; i++)
             {           
@@ -63,20 +60,12 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         }
         public override void OnKill(int timeLeft)
         {
-
-
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
-
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
-
-
             return Color.White;
-
         }
-
     }
    
     //____________________________________________________________________________

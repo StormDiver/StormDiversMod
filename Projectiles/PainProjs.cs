@@ -251,7 +251,7 @@ namespace StormDiversMod.Projectiles
         {
             for (int i = 0; i < 10; i++)
             {
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 72, 0f, 0f, 0, default, 1.5f);
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 115, 0f, 0f, 50, default, 1.5f);
                 Main.dust[dustIndex].noGravity = true;
             }
 
@@ -281,7 +281,7 @@ namespace StormDiversMod.Projectiles
             Projectile.spriteDirection = Projectile.direction;
 
             //Dust.NewDust(Projectile.Center + Projectile.velocity, Projectile.width, Projectile.height, 175);
-            int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 0, default, 0.75f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+            int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 115, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 50, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
             Main.dust[dust].noGravity = true; //this make so the dust has no gravity
 
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
@@ -393,7 +393,7 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y, 50);
                 dust.noGravity = true;
                 dust.scale = 1.5f;
 
@@ -432,8 +432,6 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Pain Skull");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 

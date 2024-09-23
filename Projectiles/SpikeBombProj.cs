@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
@@ -75,8 +75,8 @@ namespace StormDiversMod.Projectiles
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
 
-            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
-            Main.projectile[proj].scale = 0.7f;
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionCompactProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1f;
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
             float numberProjectiles = 5 + Main.rand.Next(2);

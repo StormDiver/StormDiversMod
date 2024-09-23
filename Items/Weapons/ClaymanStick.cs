@@ -12,7 +12,7 @@ using Terraria.DataStructures;
 using static Terraria.Main.CurrentFrameFlags;
 using StormDiversMod.Items.Vanitysets;
 using Terraria.GameContent.Drawing;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Buffs;
 using StormDiversMod.NPCs;

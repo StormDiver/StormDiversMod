@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 namespace StormDiversMod.Items.Vanitysets
 {
@@ -136,7 +136,6 @@ namespace StormDiversMod.Items.Vanitysets
         public override void UpdateInventory(Player player)
         {
             player.GetModPlayer<EquipmentEffects>().UltimateBossMaskItem = Item;
-
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria.DataStructures;
@@ -71,13 +71,13 @@ namespace StormDiversMod.Projectiles.WhipProjs
 		}
 		public override void AI()
 		{
-			//int dust = Dust.NewDust(linepos, Projectile.width, Projectile.height, 10, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.2f);
-			//Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-
-			int dust2 = Dust.NewDust(linepos, Projectile.width, Projectile.height, 115, 0, 0, 0, default, 0.7f);
-
+			//int dust2 = Dust.NewDust(linepos, Projectile.width, Projectile.height, 115, 0, 0, 0, default, 0.7f);
 		}
-		public override bool PreDraw(ref Color lightColor)
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            int dust2 = Dust.NewDust(boxPosition, boxWidth, boxHeight, 115, 0, 0, 0, default, 0.7f);
+        }
+        public override bool PreDraw(ref Color lightColor)
 		{
 
 			

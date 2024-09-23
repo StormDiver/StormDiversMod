@@ -10,7 +10,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Humanizer;
 using System.Net;
 
@@ -100,7 +100,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             type = ProjectileID.BulletHighVelocity;
-            int spread = 5;
+            int spread = 3;
             //if (player.direction == 1)
             if (player.controlUp && !player.controlDown)
             {

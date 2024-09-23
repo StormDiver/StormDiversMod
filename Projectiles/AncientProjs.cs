@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using StormDiversMod.Buffs;
 using Terraria.DataStructures;
 

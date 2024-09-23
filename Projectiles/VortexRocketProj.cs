@@ -10,7 +10,7 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Mono.Cecil;
 using static Terraria.ModLoader.PlayerDrawLayer;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.Projectiles

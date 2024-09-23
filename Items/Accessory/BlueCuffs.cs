@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.GameContent.Creative;
+using StormDiversMod.Items.Potions;
 
 
 namespace StormDiversMod.Items.Accessory
@@ -41,51 +42,39 @@ namespace StormDiversMod.Items.Accessory
         {
             CreateRecipe()
          .AddIngredient(ItemID.Shackle, 1)
-         .AddIngredient(ModContent.ItemType<Items.Materials.BlueCloth>(), 10)
+         .AddIngredient(ModContent.ItemType<Items.Materials.BlueCloth>(), 5)
          .AddTile(TileID.Anvils)
          .Register();
            
         }
     }
-    public class BlueCuffsProjs : GlobalProjectile
+    public class BlueCuffsEffects : ModPlayer
     {
-        public override bool InstancePerEntity => true;
-
-        public override void AI(Projectile projectile) //Dust effects
+        public override void EmitEnchantmentVisualsAt(Projectile projectile, Vector2 boxPosition, int boxWidth, int boxHeight)
         {
-            var player = Main.player[projectile.owner];
-            if (projectile.aiStyle != 20 && ProjectileID.Sets.IsAWhip[projectile.type] == false)
+            if (Player.GetModPlayer<EquipmentEffects>().blueCuffs == true == true && !projectile.noEnchantments)
             {
-                if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
+                if (Main.rand.NextBool(3))
                 {
-                    if (projectile.owner == Main.myPlayer && projectile.friendly && !projectile.minion && !projectile.sentry && projectile.damage >= 1 && !projectile.npcProj && !projectile.hostile)
-                    {
-
-                        if (Main.rand.Next(4) < 2)
-                        {
-                            int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 187, 0f, 0f, 100, default, 1f);
-                            Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
-                            Main.dust[dustIndex].noGravity = true;
-                        }
-                    }
-                }
-            }   
-        }
-    }
-    public class BlueCuffsMelee : GlobalItem
-    {
-        public override void MeleeEffects(Item Item, Player player, Rectangle hitbox) //Dust Effects
-        {
-            if (player.GetModPlayer<EquipmentEffects>().blueCuffs == true)
-            {
-                if (Main.rand.Next(4) < 3)
-                {
-                    int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 187, 0f, 0f, 100, default, 1f);
-                    Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].noGravity = true;
+                    Dust dust = Dust.NewDustDirect(boxPosition, boxWidth, boxHeight, 187);
+                    dust.velocity *= 0.5f;
+                    dust.scale = 1.5f;
+                    dust.noGravity = true;
                 }
             }
-        }          
-        
+        }
+        public override void MeleeEffects(Item item, Rectangle hitbox)
+        {
+            if (Player.GetModPlayer<EquipmentEffects>().blueCuffs == true && item.DamageType.CountsAsClass<MeleeDamageClass>() && !item.noMelee && !item.noUseGraphic)
+            {
+                if (Main.rand.NextBool(3))
+                {
+                    Dust dust = Dust.NewDustDirect(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 187);
+                    dust.velocity *= 0.5f;
+                    dust.scale = 1.5f;
+                    dust.noGravity = true;
+                }
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Ammo
             Item.DamageType = DamageClass.Ranged;
             Item.damage = 4;
 
-            Item.knockBack = 1f;
+            Item.knockBack = 2.5f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.ChaosArrowProj>();

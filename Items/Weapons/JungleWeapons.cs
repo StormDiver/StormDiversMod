@@ -8,6 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using StormDiversMod.Projectiles;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -112,7 +113,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 50;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 0, 50, 0);
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;
@@ -174,8 +175,75 @@ namespace StormDiversMod.Items.Weapons
             .AddIngredient(ItemID.Vine, 5)
             .AddTile(TileID.WorkBenches)
             .Register();
-            
+        }
+    }
+    public class JungleSporeGun : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Jungle Spore Gun");
+            //Tooltip.SetDefault("Fires out damaging spores");
+            Item.ResearchUnlockCount = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 40;
+            Item.height = 18;
+            Item.maxStack = 1;
+            Item.value = Item.sellPrice(0, 2, 0, 0);
+            Item.rare = ItemRarityID.Green;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
+            Item.useTurn = false;
+            Item.autoReuse = true;
+            Item.DamageType = DamageClass.Magic;
+            if (ModLoader.HasMod("TRAEProject"))
+                Item.mana = 12;
+            else
+                Item.mana = 8;
+            Item.UseSound = SoundID.Item8;
+            Item.damage = 25;
+            Item.knockBack = 2f;
+            Item.shoot = ModContent.ProjectileType<JungleSporeProj>();
+            Item.shootSpeed = 10;
+            Item.noMelee = true; //Does the weapon itself inflict damage?
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-5, -0);
+        }
+        float accuracy = 0; //The amount of spread
+        public override void HoldItem(Player player)
+        {
+            //Main.NewText("" + accuracy, Color.Gold);
+            //accuracy = 12 - ((float)player.statMana / (float)player.statManaMax2 * 12); //0 at max mana, 12 at 0 mana
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 50;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
 
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 4), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+
+            return false;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            //velocity = velocity.RotatedByRandom(MathHelper.ToRadians(accuracy));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.RichMahogany, 50)
+            .AddIngredient(ItemID.JungleSpores, 10)
+               .AddRecipeGroup("StormDiversMod:EvilMaterial", 5)
+            .AddTile(TileID.WorkBenches)
+            .Register();
         }
     }
 }

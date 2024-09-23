@@ -13,7 +13,7 @@ namespace StormDiversMod.Items.Ammo
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Shroomite Arrow");
-            //Tooltip.SetDefault("Leaves behind a trail of damaging mushrooms/nCan pierce once");
+            //Tooltip.SetDefault("Emits damaging mushrooms in flight/nCan pierce once");
             Item.ResearchUnlockCount = 99;
 
         }
@@ -31,9 +31,8 @@ namespace StormDiversMod.Items.Ammo
             //Item.summon = true;
             //Item.thrown = true;
 
-            Item.damage = 20;
-            Item.crit = 6;
-            Item.knockBack = 2f;
+            Item.damage = 10;
+            Item.knockBack = 5f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.ShroomArrowProj>();
@@ -74,17 +73,15 @@ namespace StormDiversMod.Items.Ammo
             Item.value = Item.sellPrice(0, 0, 0, 16);
             Item.rare = ItemRarityID.Yellow;
 
-
             Item.DamageType = DamageClass.Ranged;
-
 
             Item.damage = 15;
             Item.crit = 6;
-            Item.knockBack = 2f;
+            Item.knockBack = 3f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.ShroomBulletProj>();
-            Item.shootSpeed = 2f;
+            Item.shootSpeed = 5f;
             Item.ammo = AmmoID.Bullet;
         }
 

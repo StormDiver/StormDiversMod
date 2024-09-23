@@ -8,7 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace StormDiversMod.Items.Weapons

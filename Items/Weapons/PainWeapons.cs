@@ -9,11 +9,12 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using System.Collections.Generic;
 using Terraria.GameContent;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Items.Vanitysets;
+using Humanizer;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -21,18 +22,18 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("The Staff of Judgment");
-            //Tooltip.SetDefault("Summons multiple Judgment skulls in various patterns that skeek out enemies\nRight click while holding to cycle damage types");
+            //DisplayName.SetDefault("The Staff of The Painbringer");
+            //Tooltip.SetDefault("Summons multiple Pain skulls in various patterns that seek out enemies and deliver pain
+            //You can also whack enemies on the head with it by right clicking...
+			//Right click in your inventory to cycle damage types(make sure to disable autopause)");
             Item.staff[Item.type] = true;
-
+            //ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PainSword>();
             Item.ResearchUnlockCount = 1;
-            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<PainSword>();
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
         }
         public override void SetDefaults()
         {
             Item.damage = 200;
-
             Item.DamageType = DamageClass.Generic;
             Item.width = 40;
             Item.height = 50;
@@ -63,7 +64,7 @@ namespace StormDiversMod.Items.Weapons
         {
             if (Main.rand.Next(1) == 0)
             {
-                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 72, 0f, 0f, 100, default, 1.5f);
+                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 115, 0f, 0f, 0, default, 1.5f);
                 Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
@@ -92,7 +93,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                var dust = Dust.NewDustDirect(player.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                var dust = Dust.NewDustDirect(player.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
                 dust.scale = 1.5f;
 
@@ -216,7 +217,7 @@ namespace StormDiversMod.Items.Weapons
             }
             else //left Click
             {
-                if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                //if (!GetInstance<ConfigurationsIndividual>().NoShake)
                 {
                     player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }
@@ -520,7 +521,7 @@ namespace StormDiversMod.Items.Weapons
             }
             else //left Click
             {
-                if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                //if (!GetInstance<ConfigurationsIndividual>().NoShake)
                 {
                     player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }

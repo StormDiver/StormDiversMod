@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Linq;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.GameContent.Drawing;
 
 

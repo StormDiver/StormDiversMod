@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using StormDiversMod.Projectiles;
 using Terraria.GameContent.Drawing;
 using Steamworks;
@@ -67,7 +67,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }, Main.myPlayer);
             /*for (int i = 0; i < 10; i++)
             {
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 72, 0f, 0f, 0, default, 0.5f);
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 115, 0f, 0f, 50, default, 0.5f);
                 //Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                 //Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
@@ -109,7 +109,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             Projectile.spriteDirection = Projectile.direction;
             
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 0, default, 1f);
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 115, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 50, default, 1f);
                 Main.dust[dust].noGravity = true;
             
 
@@ -138,12 +138,12 @@ namespace StormDiversMod.NPCs.NPCProjs
                 {
                     if (Projectile.velocity.X > 0)
                     {
-                        Dust.QuickDustLine(Projectile.Center, new Vector2(Projectile.Center.X + 900, Projectile.Center.Y), 35, Color.DeepPink); //centre to centre
+                        Dust.QuickDustLine(Projectile.Center, new Vector2(Projectile.Center.X + 900, Projectile.Center.Y), 35, Color.Crimson); //centre to centre
 
                     }
                     else
                     {
-                        Dust.QuickDustLine(Projectile.Center, new Vector2(Projectile.Center.X - 900, Projectile.Center.Y), 35, Color.DeepPink); //centre to centre
+                        Dust.QuickDustLine(Projectile.Center, new Vector2(Projectile.Center.X - 900, Projectile.Center.Y), 35, Color.Crimson); //centre to centre
 
                     }
                 }*/
@@ -171,7 +171,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
 
-                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y, 50);
                 dust.noGravity = true;
                 dust.scale = 1.5f;
 
@@ -195,17 +195,17 @@ namespace StormDiversMod.NPCs.NPCProjs
                 if (Main.netMode != NetmodeID.Server)
                 {
                     if (Projectile.ai[0] is 0 or 3 or 5) //regular attack
-                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + projspeed.X, projpos.Y + projspeed.Y), Color.DeepPink, Color.Transparent, linewidth);
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + projspeed.X, projpos.Y + projspeed.Y), Color.Red, Color.Transparent, linewidth);
 
                     else if (Projectile.ai[0] is 2) //circle attack
-                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(playerpos.X, playerpos.Y), Color.DeepPink, Color.Transparent, linewidth);
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(playerpos.X, playerpos.Y), Color.Red, Color.Transparent, linewidth);
 
                     else if (Projectile.ai[0] is 4) //horizonal attack
                     {
                         if (Projectile.velocity.X > 0)
-                            Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + 1100, projpos.Y), Color.DeepPink, Color.Transparent, linewidth);
+                            Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + 1100, projpos.Y), Color.Red, Color.Transparent, linewidth);
                         else
-                            Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X - 1100, projpos.Y), Color.DeepPink, Color.Transparent, linewidth);
+                            Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X - 1100, projpos.Y), Color.Red, Color.Transparent, linewidth);
                     }
                 }
             }
@@ -276,7 +276,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }, Main.myPlayer);
             /*for (int i = 0; i < 10; i++)
             {
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 72, 0f, 0f, 0, default, 0.5f);
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 115, 0f, 0f, 50, default, 0.5f);
                 //Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                 //Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
@@ -288,7 +288,6 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             base.OnSpawn(source);
         }
-        double dist = 0; //Distance away from the projectile
 
         float projspeed = 2f;
 
@@ -338,12 +337,12 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             if (Projectile.ai[0] == 1 || Projectile.ai[0] == 4) //Static then charge
             {
-                if (Projectile.ai[1] < 50) 
+                if (Projectile.ai[1] < 60) 
                 {
                     Projectile.rotation += 0.3f;
                 }
 
-                if (Projectile.ai[1] == 50)
+                if (Projectile.ai[1] == 60)
                 {
 
                     SoundEngine.PlaySound(SoundID.Item42, Projectile.position);
@@ -366,7 +365,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                     for (int i = 0; i < 1; i++)
                     {
                         Player player = Main.player[i];
-                        //Dust.QuickDustLine(Projectile.Center, player.Center, 35, Color.DeepPink); //centre to centre
+                        //Dust.QuickDustLine(Projectile.Center, player.Center, 35, Color.Crimson); //centre to centre
                         Vector2 velocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X + (player.velocity.X / 5), player.Center.Y + (player.velocity.Y / 5))) * -projspeed;
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<TheUltimateBossProj>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, 10);
                         Projectile.Kill();
@@ -381,7 +380,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.rotation += 0.2f;
                 if (Projectile.timeLeft > 240)
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 0, default, 1.5f);
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 115, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 50, default, 1.5f);
                     Main.dust[dust].noGravity = true;
                     Projectile.hide = true;
                 }
@@ -397,17 +396,17 @@ namespace StormDiversMod.NPCs.NPCProjs
                 {
                     if (Main.getGoodWorld)
                     {
-                        speed = 17;
+                        speed = 15.5f;
                         inertia = 80;
                     }
                     else if (Main.masterMode)
                     {
-                        speed = 16;
+                        speed = 15;
                         inertia = 80;
                     }
                     else if (Main.expertMode && !Main.masterMode)
                     {
-                        speed = 15;
+                        speed = 14.5f;
                         inertia = 80;
                     }
                     else
@@ -434,7 +433,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             if (Projectile.ai[0] == 3) //For vertical ones
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 0, default, 1f);
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 115, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 50, default, 1f);
                 Main.dust[dust].noGravity = true;
 
                 if (Projectile.ai[1] == 1)
@@ -467,7 +466,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 for (int i = 0; i < 30; i++) //Pink particles
                 {
                     Vector2 perturbedSpeed = new Vector2(0, -10f).RotatedByRandom(MathHelper.ToRadians(360));
-                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y, 50);
                     dust.noGravity = true;
                     dust.scale = 1.5f;
 
@@ -483,7 +482,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 for (int i = 0; i < 50; i++) //Pink particles
                 {
                     Vector2 perturbedSpeed = new Vector2(0, -1.5f).RotatedByRandom(MathHelper.ToRadians(360));
-                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 72, perturbedSpeed.X, perturbedSpeed.Y);
+                    var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y, 50);
                     dust.noGravity = true;
                     dust.scale = 1.5f;
 
@@ -509,7 +508,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 if (Main.netMode != NetmodeID.Server)
                 {
                     if (Projectile.ai[0] is 3)//vertical attack
-                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X, projpos.Y + 800), Color.DeepPink, Color.Transparent, linewidth);
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X, projpos.Y + 800), Color.Red, Color.Transparent, linewidth);
                 }
             }
             Main.instance.LoadProjectile(Projectile.type);
@@ -522,9 +521,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
-
             return true;
-
         }
     }
 
@@ -572,7 +569,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             for (int i = 0; i < 10; i++)
             {
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 72, 0f, 0f, 0, default, 1f);
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 115, 0f, 0f, 50, default, 1f);
                 //Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                 //Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
@@ -616,7 +613,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             for (int i = 0; i < 10; i++)
             {
-                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 72, 0f, 0f, 0, default, 1f);
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 115, 0f, 0f, 50, default, 1f);
                 //Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                 //Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
@@ -640,7 +637,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + projspeed.X, projpos.Y + projspeed.Y), Color.DeepPink, Color.Transparent, linewidth);
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(projpos.X, projpos.Y), new Vector2(projpos.X + projspeed.X, projpos.Y + projspeed.Y), Color.Red, Color.Transparent, linewidth);
                 }
             }
             Main.instance.LoadProjectile(Projectile.type);
@@ -667,16 +664,16 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void SetDefaults()
         {
-            Projectile.width = 100;
-            Projectile.height = 100;
+            Projectile.width = 1;
+            Projectile.height = 1;
             Projectile.friendly = false;
             Projectile.timeLeft = 20;
             Projectile.tileCollide = false;
-            Projectile.scale = 1.5f;
+            Projectile.scale = 1f;
             Projectile.aiStyle = -1;
             Projectile.alpha = 0;
-            DrawOffsetX = 25;
-            DrawOriginOffsetY = 25;
+            DrawOffsetX = -49;
+            DrawOriginOffsetY = -49;
             Projectile.light = 0.9f;
         }
         public override bool? CanDamage()
@@ -694,7 +691,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override Color? GetAlpha(Color lightColor)
         {
-            Color color = Color.Pink;
+            Color color = Color.IndianRed;
             color.A = 255;
             return color;
         }

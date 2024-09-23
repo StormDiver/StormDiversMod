@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Enums;
 using StormDiversMod.Buffs;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Mono.Cecil;

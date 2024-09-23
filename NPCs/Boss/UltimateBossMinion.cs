@@ -106,7 +106,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
                 Main.dust[dust2].noGravity = true;
             }
         }
@@ -157,12 +157,13 @@ namespace StormDiversMod.NPCs.Boss
             {
                 int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 0.8f;
-                for (int i = 0; i < 4; i++)
+
+                if (Main.netMode != NetmodeID.Server)
                 {
-                    if (Main.netMode != NetmodeID.Server)
-                    {
-                        Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore13").Type, 1f);
-                    }
+                    Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossMinionGore1").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossMinionGore2").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossMinionGore3").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossMinionGore4").Type, 1f);
                 }
                 for (int i = 0; i < 30; i++)
                 {
@@ -170,7 +171,7 @@ namespace StormDiversMod.NPCs.Boss
 
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.5f);
+                    int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                     Main.dust[dust2].noGravity = true;
                 }
                 SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -195,7 +196,7 @@ namespace StormDiversMod.NPCs.Boss
             {
                 NPC.TargetClosest();
             }*/
-            Dust.QuickDust(NPC.Center, Color.DeepPink);
+            Dust.QuickDust(NPC.Center, Color.IndianRed);
             if (target != null)
             {
                 if ((target.localAI[0] > 300 && target.localAI[0] < 360) || target.localAI[0] > 600) //no shooting between phases          
@@ -300,7 +301,7 @@ namespace StormDiversMod.NPCs.Boss
 
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    int dust1 = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1f);
+                    int dust1 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                     Main.dust[dust1].noGravity = true;
                 }
                 if (target.localAI[0] % 20 == 0)
@@ -346,7 +347,7 @@ namespace StormDiversMod.NPCs.Boss
 
                         Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                        int dust1 = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.25f);
+                        int dust1 = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                         Main.dust[dust1].noGravity = true;
 
                     }
@@ -370,14 +371,14 @@ namespace StormDiversMod.NPCs.Boss
                                 Main.projectile[proj].scale = 0.75f;
                             }
                         }
-                        SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.2f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest }, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 0.5f, MaxInstances = 2, SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest }, NPC.Center);
 
                     }
                     else //when fast shooting only fire 1 projectile
                     {
                         int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(velocity.X, velocity.Y), type, projdamage, 2, Main.myPlayer, 0);
                         Main.projectile[proj].scale = 0.75f;
-                        SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1.2f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
                     }
                     NPC.ai[0] = 0;
@@ -387,7 +388,7 @@ namespace StormDiversMod.NPCs.Boss
 
             /*if (Main.rand.Next(4) == 0)
             {
-                var dust3 = Dust.NewDustDirect(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width, NPC.height, 72, 0, 3);
+                var dust3 = Dust.NewDustDirect(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width, NPC.height, 115, 0, 3);
                 dust3.noGravity = false;
             }*/
         }
@@ -425,29 +426,29 @@ namespace StormDiversMod.NPCs.Boss
             }
             for (int i = 0; i < 5; i++)
             {
-                 
-                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 72);
+                var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 5, NPC.Center.Y - 5), 10, 10, 115, 0, 0, 50);
                 dust.noGravity = true;
-
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
                 int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 0.8f;
-                for (int i = 0; i < 4; i++)
+
+                if (Main.netMode != NetmodeID.Server)
                 {
-                    if (Main.netMode != NetmodeID.Server)
-                    {
-                        Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossGore13").Type, 1f);
-                    }
+                    Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossMinionGore1").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossMinionGore2").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossMinionGore3").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y), NPC.velocity, Mod.Find<ModGore>("TheUltimateBossMinionGore4").Type, 1f);
                 }
+                
                 for (int i = 0; i < 30; i++)
                 {
                     float speedY = -4f;
 
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    int dust2 = Dust.NewDust(NPC.Center, 0, 0, 72, dustspeed.X, dustspeed.Y, 100, default, 1.5f);
+                    int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
                     Main.dust[dust2].noGravity = true;
                 }
                 NPC.boss = false;

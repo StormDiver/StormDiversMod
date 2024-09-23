@@ -325,6 +325,21 @@ Mods: {
 				Description: A Star sentry attacks for you
 			}
 
+			SludgedDebuff: {
+				DisplayName: Toxic Sludged
+				Description: The Toxic sludge slows you down and damages you
+			}
+
+			SludgedVenomDebuff: {
+				DisplayName: Acid Venom Sludged
+				Description: The Acidic Venomous sludge slows you down and damages you
+			}
+
+			StungDebuff: {
+				DisplayName: Stung
+				Description: The stingers embedded in you really hurt
+			}
+
 			SpaceRockDefence: {
 				DisplayName: Orbital Defense
 				Description:
@@ -548,6 +563,16 @@ Mods: {
 				DisplayName: Reflection
 				Description: You can reflect projectiles
 			}
+
+			FlaskFrostImbue: {
+				DisplayName: Weapon Imbue: Frostburn
+				Description: Melee and whip attacks inflict enemies with Frostburn
+			}
+
+			FlaskExplosiveImbue: {
+				DisplayName: Weapon Imbue: Explosives
+				Description: Melee and whip attacks create a small explosion
+			}
 		}
 
 		Items: {
@@ -660,8 +685,24 @@ Mods: {
 				Tooltip: Using most weapons summons a water orb from the sky that travels towards the cursor's location
 			}
 
+			CoralStormEmblem: {
+				DisplayName: Eye of the Storm
+				Tooltip: Summons a homing coral riptide when using any weapon
+			}
+
 			DeathCore: {
 				DisplayName: The Painbringer Core
+				Tooltip:
+					'''
+					Saves you from death once every 2 minutes, granting 5 seconds of immunity
+					Also releases a bunch of homing pain skulls that deal heavy damage each time you're revived
+					Doesn't activate if the killing blow deals over 9999 damage
+					'Live to suffer another day'
+					'''
+			}
+
+			DeathCorePain: {
+				DisplayName: Ultimate Pain Core
 				Tooltip:
 					'''
 					Saves you from death once every 2 minutes, granting 5 seconds of immunity
@@ -1013,7 +1054,7 @@ Mods: {
 
 			FrostBullet: {
 				DisplayName: Frost Bullet
-				Tooltip: Can pierce through walls, but scatters when doing so
+				Tooltip: Bullets get embedded in enemies, exploding after a delay further damaging the enemy and inflicting frostbite
 			}
 
 			IronShot: {
@@ -1054,11 +1095,20 @@ Mods: {
 					'''
 			}
 
+			C4Ammo: {
+				DisplayName: Satchel Charge
+				Tooltip:
+					'''
+					For use with the Satchel Charge Detonator
+					'Explosives placed'
+					'''
+			}
+
 			ShroomArrow: {
 				DisplayName: Shroomite Arrow
 				Tooltip:
 					'''
-					Leaves behind a trail of damaging mushrooms
+					Emits damaging mushrooms in flight
 					Can pierce once
 					'''
 			}
@@ -1074,6 +1124,69 @@ Mods: {
 					'''
 					Ricochets twice, exploding on the third impact, or on impact with enemies
 					'You must be on the super naughty list to receive one of these'
+					'''
+			}
+
+			GemAmethystBullet: {
+				DisplayName: Amethyst Bullet
+				Tooltip:
+					'''
+					Mines the struck tile on impact, use with caution
+					Mines with 40% pickaxe power twice per bullet
+					'''
+			}
+
+			GemTopazBullet: {
+				DisplayName: Topaz Bullet
+				Tooltip:
+					'''
+					Mines the struck tile on impact, use with caution
+					Mines with 50% pickaxe power twice per bullet
+					'''
+			}
+
+			GemSapphireBullet: {
+				DisplayName: Sapphire Bullet
+				Tooltip:
+					'''
+					Mines the struck tile on impact, use with caution
+					Mines with 45% pickaxe power thrice per bullet
+					'''
+			}
+
+			GemEmeraldBullet: {
+				DisplayName: Emerald Bullet
+				Tooltip:
+					'''
+					Mines the struck tile on impact, use with caution
+					Mines with 55% pickaxe power thrice per bullet
+					'''
+			}
+
+			GemRubyBullet: {
+				DisplayName: Ruby Bullet
+				Tooltip:
+					'''
+					Mines the struck tile on impact, use with caution
+					Mines with 50% pickaxe power 4 times per bullet
+					'''
+			}
+
+			GemAmberBullet: {
+				DisplayName: Amber Bullet
+				Tooltip:
+					'''
+					Mines the struck tile on impact, use with caution
+					Mines with 55% pickaxe power 4 times per bullet
+					'''
+			}
+
+			GemDiamondBullet: {
+				DisplayName: Diamond Bullet
+				Tooltip:
+					'''
+					Mines the struck tile on impact, use with caution
+					Mines with 55% pickaxe power 4 times per bullet
 					'''
 			}
 
@@ -1645,9 +1758,23 @@ Mods: {
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
+			PainBossBag: {
+				DisplayName: Treasure Bag (Ultimate Pain)
+				Tooltip:
+					'''
+					"{$CommonItemTooltip.RightClickToOpen}"
+					Only for those who have endured Ultimate Pain
+					'''
+			}
+
 			UltimateBossRelic: {
 				DisplayName: The Painbringer Relic
 				Tooltip: ""
+			}
+
+			PainBossRelic: {
+				DisplayName: Ultimate Pain Relic
+				Tooltip: Only for those who have endured Ultimate Pain
 			}
 
 			UltimateBossTrophy: {
@@ -1655,14 +1782,14 @@ Mods: {
 				Tooltip: ""
 			}
 
+			PainBossTrophy: {
+				DisplayName: Ultimate Pain Trophy
+				Tooltip: Only for those who have endured Ultimate Pain
+			}
+
 			DerplingTrophyItem: {
 				DisplayName: Derpling Trophy
 				Tooltip: Obtained in a perfectly normal way
-			}
-
-			PainMusicBoxitem: {
-				DisplayName: Music Box (Pain Remix)
-				Tooltip: Play this to experience true pain
 			}
 
 			TheGoodBoyItem: {
@@ -1844,6 +1971,16 @@ Mods: {
 			SpookyPotion: {
 				DisplayName: Spooky Curse Potion
 				Tooltip: Increases Summon damage and whip speed by 10%
+			}
+
+			AFlaskFrost: {
+				DisplayName: Flask of Frost
+				Tooltip: Melee and Whip attacks inflict enemies with frostburn
+			}
+
+			AFlaskExplosive: {
+				DisplayName: Flask of Explosives
+				Tooltip: Melee and Whip attacks create a small explosion
 			}
 
 			AridBossSummon: {
@@ -2616,6 +2753,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			JungleSporeGun: {
+				DisplayName: Jungle Spore Gun
+				Tooltip: Summons unstable spores that explode after a short delay upon hitting an enemy or tile
+			}
+
 			HarpyBow: {
 				DisplayName: Feathered Bow
 				Tooltip: Converts Wooden Arrows into Feather Arrows that ignore gravity and pierce
@@ -2917,10 +3059,24 @@ Mods: {
 				DisplayName: Sticky Mine Detonator
 				Tooltip:
 					'''
-					Left click to throw out a Sticky Mine that sticks to surfaces, up to 6 can be thrown out at once
+					Left Click to throw out a Sticky Mine that sticks to surfaces, up to 6 can be thrown out at once
 					Right Click to detonate all the mines
+					Right Click while holding UP to disarm the mines
 					Can be used to launch yourself into the air, also works on enemies and Town NPCs
 					Requires Sticky Mines as ammo
+					'''
+			}
+
+			MineDetonateC4: {
+				DisplayName: Satchel Charge Detonator
+				Tooltip:
+					'''
+					Left Click to throw out a Satchel Charge that sticks to surfaces, only 1 can be thrown out at a time
+					Right Click to detonate the charge
+					Right Click while holding UP to disarm the charge
+					Creates a massive explosion that deals very high damage to enemies and allies alike, and destroys tiles in a large radius
+					Take extreme caution when detonating!
+					Requires Satchel Charges as ammo
 					'''
 			}
 
@@ -2956,6 +3112,16 @@ Mods: {
 			MossRepeater: {
 				DisplayName: Mossy Repeater
 				Tooltip: Seems a little old and neglected, but should still work
+			}
+
+			MossStingerGun: {
+				DisplayName: The Hornet's Sting
+				Tooltip:
+					'''
+					Rapidly shoots out deadly stingers
+					Stingers stick to enemies and inflict a stacking debuff, up to 15 stingers at once
+					The projectiles become less accurate the lower the remaining mana you have
+					'''
 			}
 
 			MushroomBow: {
@@ -3109,6 +3275,28 @@ Mods: {
 					'''
 			}
 
+			SludgeLauncher: {
+				DisplayName: Toxic Sludge Cannon
+				Tooltip:
+					'''
+					Fires out a projectile of Toxic Sludge that explodes into smaller sludge blobs on tile or enemy impact
+					The Smaller sludge blobs stick to tiles and hit multiple times after doing so
+					All sludge projectiles inflict the Sludged Debuff, causing damage over time and slowing down enemies
+					Uses gel for ammo
+					'''
+			}
+
+			SludgeVenomLauncher: {
+				DisplayName: Acid Vemon Sludge Launcher
+				Tooltip:
+					'''
+					Fires out a projectile of Acid Venom Sludge that explodes into smaller sludge blobs on tile or enemy impact
+					The Smaller sludge blobs stick to tiles and hit multiple times after doing so
+					All sludge projectiles inflict the Acid Venom Sludged Debuff, causing damage over time and slowing down enemies
+					Uses gel for ammo
+					'''
+			}
+
 			SoulStaff: {
 				DisplayName: Soul Storm
 				Tooltip: Summons 3 damaging souls around the cursor that travel inwards each use
@@ -3214,7 +3402,7 @@ Mods: {
 					'''
 					Fires out up to 16 Spiky Bombs that stick to surfaces, the oldest bomb will automatically explode upon firing a 17th one
 					Bombs near the cursor can be detonated by pressing right click, holding down right click while holding the weapon will detonate all bombs
-					Bombs are shot further depending on your cursor distance
+					Bombs are shot further depending on your cursor distance from you
 					Can be used to launch yourself into the air, also works on enemies and Town NPCs
 					Uses rockets as ammo
 					'''
@@ -3270,7 +3458,11 @@ Mods: {
 
 			StormStaff: {
 				DisplayName: Lightning Scepter
-				Tooltip: Rapidly fires out piercing lightning bolts
+				Tooltip:
+					'''
+					Fires out a lightning orb that on enemy impact can jump to 3 other enemies at once
+					On tile impact it can jump to up to 4 enemies at ocne
+					'''
 			}
 
 			SuperDartLauncher: {
@@ -3571,6 +3763,46 @@ Mods: {
 					Collecting a soul will reset the escape countdown
 					'''
 			}
+
+			MusicBoxAridItem: {
+				DisplayName: Music Box (Ancient Husk)
+				Tooltip: ""
+			}
+
+			MusicBoxStormItem: {
+				DisplayName: Music Box (Overloaded Scandrone)
+				Tooltip: ""
+			}
+
+			MusicBoxUltimateItem: {
+				DisplayName: Music Box (The Painbringer)
+				Tooltip: ""
+			}
+
+			MusicBoxUltimateItem2: {
+				DisplayName: Music Box (The Painbringer - Desperation)
+				Tooltip: ""
+			}
+
+			PainMusicBoxitem: {
+				DisplayName: Music Box (Ultimate Pain)
+				Tooltip: Only for those who have endured Ultimate Pain
+			}
+
+			ShockBand: {
+				DisplayName: Storm Charm
+				Tooltip: Critical hits cause lightning to arc to nearby enemies
+			}
+
+			ShockQuiver: {
+				DisplayName: Shock Quiver
+				Tooltip:
+					'''
+					Increases arrow damage by 10% and greatly increases arrow speed
+					20% chance to not consume arrows
+					Critical hits cause lightning to arc to nearby enemies
+					'''
+			}
 		}
 
 		NPCs: {
@@ -3641,6 +3873,8 @@ Mods: {
 			SuperPainDummy.DisplayName: Super Pain Dummy
 			SnowmanPizza.DisplayName: Pizza Delivery Snowman
 			SnowmanBomb.DisplayName: Snowman Bomber
+			ThePainBoss.DisplayName: Ultimate Pain
+			HellSkull.DisplayName: Hell Skull
 		}
 
 		Projectiles: {
@@ -3701,6 +3935,13 @@ Mods: {
 			ProtoGrenadeProj2.DisplayName: Sharpnel
 			ShroomArrowProj.DisplayName: Shroomite Arrow
 			ShroomBulletProj.DisplayName: Shroomite Bullet
+			GemAmethystBulletProj.DisplayName: Amethyst Bullet
+			GemTopazBulletProj.DisplayName: Topaz Bullet
+			GemSapphireBulletProj.DisplayName: Sapphire Bullet
+			GemEmeraldBulletProj.DisplayName: Emerald Bullet
+			GemRubyBulletProj.DisplayName: Ruby Bullet
+			GemAmberBulletProj.DisplayName: Amber Bullet
+			GemDiamondBulletProj.DisplayName: Diamond Bullet
 			AncientArmourProj.DisplayName: Ancient Sand Explosion
 			AncientFlameProj.DisplayName: Ancient Sand Stream
 			AncientKnivesProj.DisplayName: Ancient Throwing Knife
@@ -4007,6 +4248,22 @@ Mods: {
 			SantaBoomProj.DisplayName: Santa's Boomstick Explosion
 			SantaBoomProj2.DisplayName: Santa's Boomstick Double Explosion
 			DeathsListProj.DisplayName: Reaped Soul
+			C4Proj.DisplayName: Satchel Charge
+			ThePainBossProj.DisplayName: Ultimate Pain
+			ThePainBossProj2.DisplayName: Ultimate Pain Explosion
+			CoralBoneProj.DisplayName: Coral Riptide
+			ExplosionEffect.DisplayName: Explosion Effect
+			ExplosionCompactProj.DisplayName: Explosion Compact
+			FlaskExplosionProj.DisplayName: Flask Explosion
+			JungleSporeProj.DisplayName: Jungle Spore
+			StormStaffProj.DisplayName: Lightning Scepter Bolt
+			ShockBandProj.DisplayName: Storm Charm Lightning
+			SludgeOrbProj.DisplayName: Toxic Sludge Projectile
+			SludgeOrbProj2.DisplayName: Toxic Sludge Blob
+			SludgeVenomProj.DisplayName: Acid Venom Sludge Projectile
+			SludgeVenomProj2.DisplayName: Acid Venom Sludge Blob
+			ExplosionSporeProj.DisplayName: Explosion Spore
+			MossStingerProj.DisplayName: Moss Stinger
 		}
 
 		Tiles: {
@@ -4042,6 +4299,10 @@ Mods: {
 			PainMusicBoxPlaced.MapEntry: Music Box
 			TheGoodBoyPlaced.MapEntry: Painting
 			VortexiaPaintingPlaced.MapEntry: Painting
+			MusicBoxAridPlaced.MapEntry: Music Box
+			MusicBoxStormPlaced.MapEntry: Music Box
+			MusicBoxUltimatePlaced.MapEntry: Music Box
+			MusicBoxUltimatePlaced2.MapEntry: Music Box
 		}
 
 		Configs: {
@@ -4066,6 +4327,11 @@ Mods: {
 				NoShake: {
 					Tooltip: Disables the screen shake that a few items in this mod make
 					Label: Disable screen shake effects
+				}
+
+				ShakeAmount: {
+					Tooltip: Change how intense the screenshake effect is, set to zero to disable it (defaults to 5)
+					Label: Screenshake intensity
 				}
 			}
 

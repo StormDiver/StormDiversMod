@@ -11,7 +11,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.DataStructures;
 using StormDiversMod.Items.BossTrophy;
 using StormDiversMod.Items.Weapons;
@@ -33,8 +33,7 @@ namespace StormDiversMod.NPCs.Boss
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Overloaded Scandrone"); // Automatic from .lang files
-                                                 // make sure to set this for your modnpcs.
+            //DisplayName.SetDefault("Overloaded Scandrone");
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 7;
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
@@ -50,12 +49,9 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void SetDefaults()
         {
-            
             Main.npcFrameCount[NPC.type] = 24;
-            
             NPC.width = 75;
             NPC.height = 75;
-
             NPC.aiStyle = -1;
           
             NPC.noGravity = true;
@@ -72,9 +68,9 @@ namespace StormDiversMod.NPCs.Boss
             NPC.value = Item.buyPrice(0, 15, 0, 0);
             NPC.boss = true;
             if (!Main.dedServ)
-            {
-                Music = MusicID.Boss4;
-                //Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/OverloadedScandroneBoss");
+            { 
+                //Music = MusicID.Boss4; 
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossIntro"); //intro music
             }
             NPC.npcSlots = 10f;         
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
@@ -91,7 +87,6 @@ namespace StormDiversMod.NPCs.Boss
                 "this empowered Scandrone is capable of unleashing a range of powerful attacks onto foes.")
             });
         }
-
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             if (!Main.masterMode)
@@ -116,10 +111,8 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     NPC.lifeMax = (int)(NPC.lifeMax * 1.25f);
                     NPC.damage = (int)(NPC.damage * 1.33f);
-
                 }
             }
-
         }
     
         float movespeed = 5f; //Speed of the npc
@@ -143,7 +136,7 @@ namespace StormDiversMod.NPCs.Boss
         public static int phase3HeadSlot = -1;
 
         bool deathani;
-
+        int musicintro;
         public override void Load()
         {
             string texture = BossHeadTexture + "_Phase2"; // Texture Name
@@ -182,12 +175,24 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.netUpdate = true;
                 deathani = true;
                 return false;
-
             }
             return true;
         }
         public override void AI()
         {
+            musicintro++; 
+            if (musicintro == 650) 
+            {
+                if (!Main.dedServ)
+                {
+                    Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossMusic"); //Rest of music
+                    Main.musicFade[Main.curMusic] = 0.05f;
+                }
+            }
+
+            if (musicintro == 655) //wait X frames before this, otherwise pain
+                Main.musicFade[Main.curMusic] = 1f;
+
             if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
             {
                 if ((bool)calamityMod.Call("GetDifficultyActive", "death"))
@@ -237,7 +242,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     double deg = Main.rand.Next(0, 360); //The degrees
                     double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                    double dist = 500; //distance away from the player
+                    double dist = 400; //distance away from the player
                     float dustx = NPC.Center.X - (int)(Math.Cos(rad) * dist);
                     float dusty = NPC.Center.Y - (int)(Math.Sin(rad) * dist);
                     if (Collision.CanHitLine(new Vector2(dustx, dusty), 0, 0, NPC.position, NPC.width, NPC.height))//no dust unless lien of sight
@@ -248,7 +253,7 @@ namespace StormDiversMod.NPCs.Boss
                         dust.velocity *= 0;
                     }
                 }
-                if (distance < 500)
+                if (distance < 400)
                 {
                     player.AddBuff(ModContent.BuffType<ScanDroneDebuff>(), 2);
                 }

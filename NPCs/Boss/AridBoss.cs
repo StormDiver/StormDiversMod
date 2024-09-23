@@ -11,7 +11,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.DataStructures;
 using StormDiversMod.Items.BossTrophy;
 using StormDiversMod.Items.Weapons;
@@ -75,9 +75,10 @@ namespace StormDiversMod.NPCs.Boss
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.boss = true;
-            if (!Main.dedServ)
+            if (!Main.dedServ) 
             {
-                Music = MusicID.Boss5;
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/AridBossMusic"); //music
+                //Music = MusicID.Boss5;
             }
             NPC.npcSlots = 10f;
             NPC.noTileCollide = true;
@@ -274,7 +275,7 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.active = false;
             }
       
-            if (!halflife && NPC.life <= NPC.lifeMax / 2) //at half life
+            if (!halflife && NPC.life <= NPC.lifeMax * 0.6f) //at 60% life
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {

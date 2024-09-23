@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using System.Linq;
 using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
@@ -22,7 +22,7 @@ namespace StormDiversMod.Projectiles.Petprojs
             //DisplayName.SetDefault("Liberated Husk");
             //Description.SetDefault("Free at last, but it decides to stay with you");
             Main.buffNoTimeDisplay[Type] = true;
-            Main.vanityPet[Type] = true;
+            Main.lightPet[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -37,14 +37,13 @@ namespace StormDiversMod.Projectiles.Petprojs
             }
         }
     }
-
     public class AridBossPetProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Liberated Husk");
             Main.projFrames[Projectile.type] = 4;
-            Main.projPet[Projectile.type] = true;
+            ProjectileID.Sets.LightPet[Projectile.type] = true;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
@@ -74,6 +73,10 @@ namespace StormDiversMod.Projectiles.Petprojs
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.6f / 255f, (255 - Projectile.alpha) * 0.3f / 255f, (255 - Projectile.alpha) * 0f / 255f); //light
+            }
             EquipmentEffects modPlayer = player.GetModPlayer<EquipmentEffects>();
             if (!player.active)
             {

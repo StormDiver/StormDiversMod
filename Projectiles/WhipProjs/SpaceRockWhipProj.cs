@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria.DataStructures;
@@ -70,18 +70,27 @@ namespace StormDiversMod.Projectiles.WhipProjs
 		}
 		public override void AI()
 		{
-			for (int i = 0; i < 2; i++)
+			/*for (int i = 0; i < 2; i++)
 			{
 				var dust2 = Dust.NewDustDirect(linepos, Projectile.width, Projectile.height, 6);
-				//int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
 				dust2.noGravity = true;
 				dust2.scale = 1.5f;
 				dust2.velocity *= 2;
 				int dust3 = Dust.NewDust(linepos, Projectile.width, Projectile.height, 0, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 0, default, 0.5f);
-			}
-
+			}*/
 		}
-		public override bool PreDraw(ref Color lightColor)
+		public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				var dust2 = Dust.NewDustDirect(boxPosition, boxWidth, boxHeight, 6);
+				dust2.noGravity = true;
+				dust2.scale = 1.5f;
+				dust2.velocity *= 2;
+				int dust3 = Dust.NewDust(boxPosition, boxWidth, boxHeight, 0, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 0, default, 0.5f);
+			}
+		}
+        public override bool PreDraw(ref Color lightColor)
 		{
 			List<Vector2> list = new List<Vector2>();
 			Projectile.FillWhipControlPoints(Projectile, list);
@@ -169,7 +178,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 			// Projectile.aiStyle = 1;
 			Projectile.extraUpdates = 1;
 			Projectile.timeLeft = 120;
-			Projectile.penetrate = 1;
+			Projectile.penetrate = 3;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
 			Projectile.ArmorPenetration = 40;
@@ -217,21 +226,44 @@ namespace StormDiversMod.Projectiles.WhipProjs
 				Main.dust[dust2].velocity *= -0.3f;
 
 			}
-		}
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
+            {
+                Projectile.velocity.X = 0f;
+                Projectile.velocity.Y = 0f;
+                Projectile.tileCollide = false;
+                // Set to transparent. This projectile technically lives as  transparent for about 3 frames
+                Projectile.alpha = 255;
+                // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
+                Projectile.position = Projectile.Center;
+                Projectile.width = 60;
+                Projectile.height = 60;
+                Projectile.Center = Projectile.position;
+            }
+        }
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-
-		}
+            if (Projectile.timeLeft > 3)
+            {
+                Projectile.timeLeft = 3;
+            }
+        }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Projectile.Kill();
+            if (Projectile.timeLeft > 3)
+            {
+                Projectile.timeLeft = 3;
+            }
 			return false;
 		}
 
 		public override void OnKill(int timeLeft)
 		{
-			for (int i = 0; i < 10; i++)
+            SoundEngine.PlaySound(SoundID.Item14 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionCompactProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1f;
+
+            for (int i = 0; i < 10; i++)
 			{
 
 				var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 0.5f);

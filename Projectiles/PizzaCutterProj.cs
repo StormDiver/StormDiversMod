@@ -111,7 +111,7 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 30;
             Projectile.height = 30;
             Projectile.friendly = true;
-            Projectile.penetrate = 10;
+            Projectile.penetrate = 8;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 300;
             Projectile.aiStyle = -1;
@@ -192,6 +192,8 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.damage = (Projectile.damage * 9) / 10;
+
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {

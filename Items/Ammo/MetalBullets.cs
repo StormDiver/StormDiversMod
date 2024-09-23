@@ -16,7 +16,6 @@ namespace StormDiversMod.Items.Ammo
             //DisplayName.SetDefault("Iron Shot");
             //Tooltip.SetDefault("Heavy bullet that obeys gravity and has a strong knockback");
             Item.ResearchUnlockCount = 99;
-
         }
         public override void SetDefaults()
         {
@@ -26,33 +25,24 @@ namespace StormDiversMod.Items.Ammo
             Item.value = Item.sellPrice(0, 0, 0, 3);
             Item.rare = ItemRarityID.White;
 
-
             Item.DamageType = DamageClass.Ranged;
-
-
 
             Item.damage = 6;
 
-            Item.knockBack = 5f;
+            Item.knockBack = 5.5f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.IronShotProj>();
             Item.shootSpeed = 2.5f;
             Item.ammo = AmmoID.Bullet;
         }
-
-
-
         public override void AddRecipes()
         {
-
-
             Recipe recipe = Recipe.Create(ModContent.ItemType<IronShot>(), 70);
             recipe.AddIngredient(ItemID.MusketBall, 70);
             recipe.AddIngredient(ItemID.IronBar, 1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
-           
         }
     }
     public class LeadShot : ModItem
@@ -62,7 +52,6 @@ namespace StormDiversMod.Items.Ammo
             //DisplayName.SetDefault("Lead Shot");
             //Tooltip.SetDefault("Heavy bullet that obeys gravity and has a strong knockback");
             Item.ResearchUnlockCount = 99;
-
         }
         public override void SetDefaults()
         {
@@ -72,10 +61,7 @@ namespace StormDiversMod.Items.Ammo
             Item.value = Item.sellPrice(0, 0, 0, 3);
             Item.rare = ItemRarityID.White;
 
-
             Item.DamageType = DamageClass.Ranged;
-
-
 
             Item.damage = 7;
 
@@ -86,9 +72,6 @@ namespace StormDiversMod.Items.Ammo
             Item.shootSpeed = 3f;
             Item.ammo = AmmoID.Bullet;
         }
-
-
-
         public override void AddRecipes()
         {
 

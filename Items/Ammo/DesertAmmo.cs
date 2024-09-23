@@ -31,7 +31,7 @@ namespace StormDiversMod.Items.Ammo
 
             Item.damage = 12;
             Item.crit = 0;
-            Item.knockBack = 0f;
+            Item.knockBack = 2f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.DesertBulletProj>();
@@ -70,11 +70,9 @@ namespace StormDiversMod.Items.Ammo
 
             Item.DamageType = DamageClass.Ranged;
 
-
-
             Item.damage = 15;
 
-            Item.knockBack = 2f;
+            Item.knockBack = 3f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.DesertArrowProj>();

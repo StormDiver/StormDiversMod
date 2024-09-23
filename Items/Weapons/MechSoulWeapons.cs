@@ -11,7 +11,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -95,8 +95,8 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.width = 60;
             Item.height = 26;
-            Item.useTime = 10;
-            Item.useAnimation = 30;
+            Item.useTime = 4;
+            Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 3, 0, 0);
             Item.rare = ItemRarityID.Pink;
@@ -105,7 +105,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useTurn = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.SawBladeChain>();
             Item.shootSpeed = 50f;
-            Item.axe = 30;
+            Item.axe = 22; // X 5 = 110
             Item.tileBoost = 0;
             Item.UseSound = SoundID.Item23;
             Item.noMelee = true;

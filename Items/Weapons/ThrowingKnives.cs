@@ -9,7 +9,7 @@ using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
 using StormDiversMod;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 
 namespace StormDiversMod.Items.Weapons

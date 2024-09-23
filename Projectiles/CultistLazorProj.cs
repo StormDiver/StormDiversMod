@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Enums;
 using StormDiversMod.Buffs;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.Audio;
 using Terraria.GameContent;
 using ReLogic.Content;
@@ -168,7 +168,7 @@ namespace StormDiversMod.Projectiles
                 player.statMana -= (int)(10 * player.manaCost); //remove 10 mana when laser is first fired
                 if (Main.myPlayer == player.whoAmI)
                 {
-                    if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                    //if (!GetInstance<ConfigurationsIndividual>().NoShake)
                     {
                         player.GetModPlayer<MiscFeatures>().screenshaker = true;
                     }

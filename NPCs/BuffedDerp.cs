@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Buffs;
 using Terraria.Audio;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 

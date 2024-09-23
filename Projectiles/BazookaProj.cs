@@ -10,7 +10,7 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Mono.Cecil;
 using static Terraria.ModLoader.PlayerDrawLayer;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 using static System.Formats.Asn1.AsnWriter;
 using static Humanizer.In;
@@ -461,7 +461,7 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
             int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
-            Main.projectile[proj].scale = 1.1f;
+            Main.projectile[proj].scale = 1.25f;
 
             for (int i = 0; i < 30; i++) //Orange particles
             {

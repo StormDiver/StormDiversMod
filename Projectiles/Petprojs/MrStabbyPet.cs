@@ -1,4 +1,4 @@
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

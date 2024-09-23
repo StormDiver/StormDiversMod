@@ -4,7 +4,7 @@ using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 using Terraria;
 

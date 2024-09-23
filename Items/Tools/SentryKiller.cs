@@ -84,7 +84,7 @@ namespace StormDiversMod.Items.Tools
         }
      
     }
-    public class sentrykill : GlobalProjectile
+    public class Sentrykill : GlobalProjectile
     {    
         public override void AI(Projectile projectile)
         {

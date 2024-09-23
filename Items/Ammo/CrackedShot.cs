@@ -25,13 +25,11 @@ namespace StormDiversMod.Items.Ammo
             Item.value = Item.sellPrice(0, 0, 0, 15);
             Item.rare = ItemRarityID.Orange;
 
-
             Item.DamageType = DamageClass.Ranged;
-
 
             Item.damage = 6;
             Item.crit = 0;
-            Item.knockBack = 0f;
+            Item.knockBack = 2f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.CrackedShotProj>();

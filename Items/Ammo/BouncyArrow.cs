@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Ammo
 
             Item.damage = 7;
 
-            Item.knockBack = 0f;
+            Item.knockBack = 3f;
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.BouncyArrowProj>();

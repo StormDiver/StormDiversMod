@@ -10,7 +10,7 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 using Mono.Cecil;
 using static Terraria.ModLoader.PlayerDrawLayer;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 using static System.Formats.Asn1.AsnWriter;
 using static Humanizer.In;
@@ -50,7 +50,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage() => false;
 
-        float angle = 18f;
+        float angle = 9f;
         float extravel = 1f;
         float sound = -0.5f;
         bool maxcharge;
@@ -70,7 +70,7 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
 
             //for the lines
-            if (angle == 0)
+            if (angle == 0) //extra width at max accuracy
                 linewidth = 2.5f;
             else
                 linewidth = 1.5f;
@@ -81,7 +81,7 @@ namespace StormDiversMod.Projectiles
 
             if (!maxcharge) //charge up, lower angle, add velocity to bullets, and increase damage
             {
-                angle -= 0.3f; //takes 60 frames to charge
+                angle -= 0.15f; //takes 60 frames to charge
                 extravel += 0.01f;
                 Projectile.damage += orginaldamage / 20; //extra 5% of orignal damage, so roughly same as 4 damage per second
                 //Projectile.damage += 4; //Extra 240 damage from base, (90 + 240 = 330 + extra 15% at max charge for 380),                                
@@ -93,7 +93,7 @@ namespace StormDiversMod.Projectiles
                                         //~1250dps at 60 frame charge (0.66  shots per second, 380 base damage) (Bonus 15% damage (+1))
                                         //ranged damage buffs are applied afterwards
             }
-            if (angle < 0.2f)//Charge up time is 60 frames as angle starts at 18
+            if (angle < 0.1f)//Charge up time is 60 frames as angle starts at 9
             {
                 angle = 0; //full accuracy
                 maxcharge = true;
@@ -198,13 +198,13 @@ namespace StormDiversMod.Projectiles
             //base.Projectile.velocity.X *= 1f + (float)Main.rand.Next(-3, 4) * 0.01f;        
             //================================================================================================================================================================================================================================================
         }
-        
+        float extradamage;
         public override void OnKill(int timeLeft)
         {
             var player = Main.player[Projectile.owner];
             if (maxcharge) //Different sound at max charge
             {
-                if (!GetInstance<ConfigurationsIndividual>().NoShake)
+                //if (!GetInstance<ConfigurationsIndividual>().NoShake)
                 {
                     player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }
@@ -235,10 +235,13 @@ namespace StormDiversMod.Projectiles
                 //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-                    float speedX = Projectile.velocity.X * 10f;
-                    float speedY = Projectile.velocity.Y * 10f;
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.3f, Projectile.velocity.Y * 0.3f).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
-                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 2), new Vector2((perturbedSpeed.X * extravel), (float)(perturbedSpeed.Y * extravel)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
+                    if (maxcharge)
+                        extradamage = 1.15f; //extra 15% damage at max charge
+                    else
+                        extradamage = 1f;
+
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
+                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y - 2), new Vector2((perturbedSpeed.X * extravel), (float)(perturbedSpeed.Y * extravel)), projToShoot, (int)(Projectile.damage * extradamage), Projectile.knockBack, Projectile.owner);
                    
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = 10;
@@ -247,7 +250,7 @@ namespace StormDiversMod.Projectiles
                     {
                         Main.projectile[projID].extraUpdates += 1;
                         Main.projectile[projID].knockBack *= 2;
-                        Main.projectile[projID].damage = (int)(Projectile.damage * 1.15f) + 1; //15% extra damage
+                        //Main.projectile[projID].damage = (int)(Projectile.damage * 1.15f) + 1; //15% extra damage
 
                         //player.velocity.X += perturbedSpeed.X * -0.25f;
                         //player.velocity.Y += perturbedSpeed.Y * -0.25f;
@@ -279,15 +282,20 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
             if (!Main.dedServ)
             {
-                for (int i = 0; i < numberlines; i++)
-                {
-                    //Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X - 1, player.Center.Y - 2) - new Vector2(Main.MouseWorld.X - 1, Main.MouseWorld.Y - 2)) * -500;
-                    Vector2 velocity = Projectile.velocity * 30;
+                Vector2 velocity = Projectile.velocity * 40;
 
+                for (int i = 0; i < numberlines; i++) // 4 lines
+                {
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-linerotation, linerotation, i / (numberlines - 1)));
-                    //Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X * 2, perturbedSpeed.Y * 2), ModContent.ProjectileType<CrimsonAxeProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 2), new Vector2(Projectile.Center.X - 1 + perturbedSpeed.X, Projectile.Center.Y - 2 + perturbedSpeed.Y), Color.Aquamarine, Color.Transparent, linewidth);
 
+                    Vector2 perturbedSpeed2 = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-linerotation / 2, linerotation / 2, i / (numberlines - 1)));
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 2), new Vector2(Projectile.Center.X - 1 + perturbedSpeed2.X, Projectile.Center.Y - 2 + perturbedSpeed2.Y), Color.Aquamarine, Color.Transparent, linewidth);
+                }
+                if (!maxcharge) //center line
+                {
+                    Vector2 perturbedSpeed3 = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X - 1, Projectile.Center.Y - 2), new Vector2(Projectile.Center.X - 1 + perturbedSpeed3.X, Projectile.Center.Y - 2 + perturbedSpeed3.Y), Color.Aquamarine, Color.Transparent, linewidth);
                 }
             }
             return true;

@@ -46,14 +46,6 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
 
             }
-            Dust dust2;
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            Vector2 position2 = Projectile.Center;
-            dust2 = Terraria.Dust.NewDustPerfect(position2, 45, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
-            dust2.noGravity = true;
-            dust2.noLight = true;
-
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

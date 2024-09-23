@@ -4,7 +4,7 @@ using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria;
 using Terraria.GameContent.Dyes;
 using Terraria.GameContent.UI;
@@ -222,7 +222,8 @@ namespace StormDiversMod
                     mod.Call("Event", "ExampleEvent");
                 }*/
             }
-        } 
+        }
+      
         public static ModKeybind ArmourSpecialHotkey;
 
         public override void Load()
@@ -248,7 +249,23 @@ namespace StormDiversMod
         }
 
     }
- 
+    public class Musicdisplay : ModSystem
+    {
+        public override void PostAddRecipes()
+        {
+            if (ModLoader.TryGetMod("MusicDisplay", out Mod display))
+            {
+                string author = "MicelTheGuy";
+
+                display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/AridBossMusic"), "Desert Fatigue", author, "The Possesed Ancient Armour Set");
+                display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossIntro"), "Dance of the Tempest (Intro)", author, "");
+                display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossMusic"), "Dance of the Tempest", author, "The Failed Experiment");
+                display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/UltimateBossMusic"), "False Fright", author, "The Pain Begins");
+                display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/UltimateBossMusic2"), "Raw Trama", author, "The Real Pain Begins");
+                display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/UltimatePainMusic"), "Brain Malfunction", author, "This is the TRUE Pain");
+            }
+        }
+    }
     public class Miscprojeffects : GlobalProjectile //Unused
     {
         public override void AI(Projectile projectile)

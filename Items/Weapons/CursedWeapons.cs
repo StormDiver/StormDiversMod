@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Projectiles;
 using Terraria.GameContent.Creative;
 using static System.Net.Mime.MediaTypeNames;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria.Audio;
 using Humanizer;
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

@@ -12,7 +12,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 namespace StormDiversMod.NPCs
 
@@ -98,7 +98,8 @@ namespace StormDiversMod.NPCs
         bool shooting;
      
         bool spawn = true;
-
+        float speed = 5;
+        float inertia = 20;
         public override void AI()
         {
             if (!NPC.downedPlantBoss)
@@ -124,12 +125,20 @@ namespace StormDiversMod.NPCs
                 Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.6f * Main.essScale);
             }
             NPC.spriteDirection = NPC.direction;
-
-
+            if (!NPC.downedPlantBoss)
+            {
+                speed = 10;
+                inertia = 30;
+            }
+            else
+            {
+                speed = 8;
+                inertia = 20;
+            }
             Player player = Main.player[NPC.target];
             NPC.TargetClosest();
             //if (player.GetModPlayer<MiscFeatures>().cursedplayer == true || NPC.downedPlantBoss) //if player puts back item then leave them be
-            {
+           /* {
                 Vector2 moveTo = player.Center;
                 Vector2 move = moveTo - NPC.Center + new Vector2(NPC.ai[0], NPC.ai[1]);
                 float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
@@ -141,6 +150,16 @@ namespace StormDiversMod.NPCs
                     move *= movespeed / magnitude;
                 }
                 NPC.velocity = move;
+            }*/
+            if (!player.dead)
+            {
+                Vector2 idlePosition = player.Center + new Vector2(NPC.ai[0], NPC.ai[1]);
+                Vector2 vectorToIdlePosition = idlePosition - NPC.Center;
+
+                vectorToIdlePosition.Normalize();
+                vectorToIdlePosition *= speed;
+
+                NPC.velocity = (NPC.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
             }
             NPC.rotation = NPC.velocity.X / 25;
             NPC.spriteDirection = NPC.direction;

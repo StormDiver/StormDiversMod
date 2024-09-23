@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using StormDiversMod.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Creative;
@@ -17,7 +17,11 @@ namespace StormDiversMod.Items.Potions
             //DisplayName.SetDefault("Marksmanship Potion");
             //Tooltip.SetDefault("15% increased gun damage");
             Item.ResearchUnlockCount = 20;
-
+            ItemID.Sets.DrinkParticleColors[Type] = [
+                new Color(254, 236, 161),
+                new Color(212, 212, 212),
+                new Color(250, 213, 64)
+            ];
         }
 
         public override void SetDefaults()
@@ -58,6 +62,11 @@ namespace StormDiversMod.Items.Potions
             //DisplayName.SetDefault("Shroomite Crit Power Potion");
             //Tooltip.SetDefault("Increases ranged critical strike damage by 10%");
             Item.ResearchUnlockCount = 20;
+            ItemID.Sets.DrinkParticleColors[Type] = [
+               new Color(140, 238, 255),
+                new Color(0, 140, 244),
+                new Color(56, 37, 232)
+           ];
         }
 
         public override void SetDefaults()
@@ -97,7 +106,11 @@ namespace StormDiversMod.Items.Potions
             //DisplayName.SetDefault("Spectre Empowerment Potion");
             //Tooltip.SetDefault("Increases magic damage by 15% when below 50% mana");
             Item.ResearchUnlockCount = 20;
-
+            ItemID.Sets.DrinkParticleColors[Type] = [
+               new Color(196, 247, 255),
+                new Color(140, 238, 255),
+                new Color(35, 200, 254)
+           ];
         }
 
         public override void SetDefaults()
@@ -126,18 +139,12 @@ namespace StormDiversMod.Items.Potions
             recipe.AddIngredient(ItemID.Waterleaf, 2);
             recipe.AddTile(TileID.Bottles);
             recipe.Register();
-
-
-          
-
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 150;
             return color;
-
         }
     }
     //______________________________________________________________________
@@ -148,7 +155,11 @@ namespace StormDiversMod.Items.Potions
             //DisplayName.SetDefault("Beetle Penetration Potion");
             //Tooltip.SetDefault("Increases armor penetration of all melee weapons by 20");
             Item.ResearchUnlockCount = 20;
-
+            ItemID.Sets.DrinkParticleColors[Type] = [
+               new Color(213, 170, 218),
+                new Color(110, 93, 136),
+                new Color(82, 57, 96)
+           ];
         }
 
         public override void SetDefaults()
@@ -170,7 +181,6 @@ namespace StormDiversMod.Items.Potions
 
         public override void AddRecipes()
         {
-
             Recipe recipe = Recipe.Create(ModContent.ItemType<BeetlePotion>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
             recipe.AddIngredient(ItemID.BeetleHusk, 2);
@@ -189,7 +199,11 @@ namespace StormDiversMod.Items.Potions
             //DisplayName.SetDefault("Spooky Curse Potion");
             //Tooltip.SetDefault("Increases Summon damage and whip speed by 10%");
             Item.ResearchUnlockCount = 20;
-
+            ItemID.Sets.DrinkParticleColors[Type] = [
+               new Color(87, 77, 128),
+                new Color(70, 52, 102),
+                new Color(247, 136, 0)
+           ];
         }
 
         public override void SetDefaults()

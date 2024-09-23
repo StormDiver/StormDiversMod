@@ -200,6 +200,5 @@ namespace StormDiversMod.NPCs
         {
             return Color.White;
         }
-
     }
 }

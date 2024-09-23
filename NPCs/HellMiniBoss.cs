@@ -298,10 +298,8 @@ namespace StormDiversMod.NPCs
 
                         SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-
+                        { 
                             NPC.NewNPC(NPC.GetSource_FromAI(), (int)Math.Round(NPC.Center.X), (int)Math.Round(NPC.Center.Y), type);
-
 
                             for (int i = 0; i < 30; i++)
                             {

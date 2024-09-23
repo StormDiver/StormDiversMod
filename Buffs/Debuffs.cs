@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Linq;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 
 //buff effects for npcs are in NPCEffects.cs, effects for player are in NegativeHealthDrain.cs
@@ -367,14 +367,10 @@ namespace StormDiversMod.Buffs
             //player.GetModPlayer<NegativeHealthDrain>().ultraBurn = true;
             player.lifeRegen = -50;
 
-
             int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 6, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default, 2.5f);
             Main.dust[dust].noGravity = true;
             Main.dust[dust].velocity *= 1f;
             Main.dust[dust].velocity.Y -= 2f;
-
-
-
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
@@ -551,7 +547,7 @@ namespace StormDiversMod.Buffs
         }
     }
     //_________________________________________________________________
-    public class YouCantEscapeDebuff : ModBuff //Unused
+    public class YouCantEscapeDebuff : ModBuff 
     {
         public override void SetStaticDefaults()
         {
@@ -567,7 +563,6 @@ namespace StormDiversMod.Buffs
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<NPCEffects>().painDebuff = true;
 
         }
     }
@@ -675,6 +670,75 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
 
+        }
+    }
+    //_____________________________________________
+    public class SludgedDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Sludged");
+            //Description.SetDefault("The Toxic sludge slows you down and damages you");
+            Main.debuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.lifeRegen = -20;
+            player.moveSpeed = 0.3f;
+            if (Main.rand.Next(2) == 0)
+            {
+                int dust = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 39, player.velocity.X, player.velocity.Y, 150, default, 1f);
+                Main.dust[dust].velocity *= 0; //this make so the dust has no gravity
+            }
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().sludgeDebuff = true;
+        }
+    }
+    //_____________________________________________
+    public class SludgedVenomDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Venomous Sludged");
+            //Description.SetDefault("The Venomus sludge slows you down and damages you");
+            Main.debuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.lifeRegen = -30;
+            player.moveSpeed = 0.2f;
+            if (Main.rand.Next(2) == 0)
+            {
+                int dust = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 118, player.velocity.X, player.velocity.Y, 150, default, 1f);
+                Main.dust[dust].velocity *= 0; //this make so the dust has no gravity
+            }
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().sludgeVenomDebuff = true;
+
+        }
+    }
+    //_____________________________________________
+    public class StungDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Stung");
+            //Description.SetDefault("The stingers embedded in you really hurt");
+            Main.debuff[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+           
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().stungdebuff = true;
         }
     }
 }

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Creative;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 using System;
 using Newtonsoft.Json;
 
@@ -203,7 +203,6 @@ namespace StormDiversMod.Items.Armour
     public class CryoSetProjs : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
-
         public override void AI(Projectile projectile) //Dust effects
         {
             /*var player = Main.player[projectile.owner];

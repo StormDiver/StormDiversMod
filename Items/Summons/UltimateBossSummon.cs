@@ -19,7 +19,7 @@ using StormDiversMod.Items.Weapons;
 using StormDiversMod.Items.Pets;
 using StormDiversMod.NPCs.NPCProjs;
 using StormDiversMod.Items.Vanitysets;
-using StormDiversMod.Basefiles;
+using StormDiversMod.Common;
 
 namespace StormDiversMod.Items.Summons
 {
@@ -59,17 +59,17 @@ namespace StormDiversMod.Items.Summons
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            /*foreach (TooltipLine line in tooltips)
-            {              
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (Main.remixWorld)
+                { 
 
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.Text = line.Text + "\n[c/ffa500:Fairy Buggy on multiplayer!]\n[c/ffa500:For the best experience fight the boss on single player!]"; //multiplayer sucks
+                        line.Text = "Summons the.... wait this doesn't seem right, there's too much pain!"; 
                     }
                 }
-            }*/
+            }
         }
         public override Vector2? HoldoutOffset()
         {
@@ -77,7 +77,10 @@ namespace StormDiversMod.Items.Summons
         }
         public override bool CanUseItem(Player player)
         {
-            return NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
+            if (Main.remixWorld)
+                return NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.ThePainBoss>());
+            else
+                return NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
             //return true;
         }
         String Paintext = "";
@@ -89,36 +92,19 @@ namespace StormDiversMod.Items.Summons
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
+                    if (Main.remixWorld)
+                        NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.ThePainBoss>());
+                    else
+                        NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
                 }
                 else
                 {
-                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
-                }
-                if (!GetInstance<ConfigurationsIndividual>().NoMessage)
-                {
-                    if (StormWorld.ultimateBossDown)
-                    {
-                        Paintext = "Ready to experience pain again?";
-                    }
-                    else if (Main.getGoodWorld)
-                    {
-                        Paintext = "Ready to prove your worth?";
-                    }
+                    if (Main.remixWorld)
+                        NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.ThePainBoss>());
                     else
-                    {
-                        Paintext = "Ready to experience pain?";
-                    }
-                    CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.DeepPink, Paintext, true);
-                    if (Main.netMode == 2) // Server
-                    {
-                        Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(Paintext), new Color(175, 17, 96));
-                    }
-                    else if (Main.netMode == 0) // Single Player
-                    {
-                        Main.NewText(Paintext, 175, 17, 96);
-                    }
+                        NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
                 }
+               
             }
             return true;
         }
