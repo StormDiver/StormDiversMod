@@ -3281,13 +3281,13 @@ Mods: {
 					'''
 					Fires out a projectile of Toxic Sludge that explodes into smaller sludge blobs on tile or enemy impact
 					The Smaller sludge blobs stick to tiles and hit multiple times after doing so
-					All sludge projectiles inflict the Sludged Debuff, causing damage over time and slowing down enemies
+					All sludge projectiles inflict the Toxic Sludged Debuff, causing damage over time and slowing down enemies
 					Uses gel for ammo
 					'''
 			}
 
 			SludgeVenomLauncher: {
-				DisplayName: Acid Vemon Sludge Launcher
+				DisplayName: Acid Vemon Sludge Cannon
 				Tooltip:
 					'''
 					Fires out a projectile of Acid Venom Sludge that explodes into smaller sludge blobs on tile or enemy impact

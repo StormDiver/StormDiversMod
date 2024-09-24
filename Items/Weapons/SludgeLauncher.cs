@@ -22,7 +22,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Toxic Sludge Launcher");
+            //DisplayName.SetDefault("Toxic Sludge Cannon");
             //Tooltip.SetDefault("	Fires out a projectile of Toxic Sludge that explodes into smaller sludge blobs on tile or enemy impact
             //The Smaller sludge blobs stick to tiles and hit multiple times after doing so
             //All sludge projectiles inflict the Sludged Debuff, causing damage over time and slowing down enemies
@@ -92,7 +92,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Acid Venom Sludge Launcher");
+            //DisplayName.SetDefault("Acid Venom Sludge Cannon");
             //Tooltip.SetDefault("Fires out a projectile of Acidic Venom Sludge that explodes into smaller sludge blobs on tile or enemy impact
             //The Smaller sludge blobs stick to tiles and hit multiple times after doing so
             //All sludge projectiles inflict the Sludged Debuff, causing damage over time and slowing down enemies

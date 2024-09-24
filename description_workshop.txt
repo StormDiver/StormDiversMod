@@ -1,7 +1,5 @@
 [img]https://i.imgur.com/IZtVc6F.png[/img]
-[b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items.
-
-This mod will receive occasional updates, mostly balance changes and any bug fixes, but will receive no large new content updates.
+[b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items. This mod will receive occasional updates.
 
 [h2]This mod includes:[/h2]
 [list]
@@ -11,6 +9,7 @@ This mod will receive occasional updates, mostly balance changes and any bug fix
 [*]27 new enemies across the game, with banners and bestiary entries
 [*]3 new bosses, one late pre hardmode, one tiered around Plantera, with a config to fight it in its place, and a secret post Moon Lord one
   - The Health and damage of them increases if Calamity's Vengeance or Death Mode is enabled
+  - All have their own music, with [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2985966860]Music Display[/url][/b] Support
 [*]New Ammo, tools, potions, vanity items, and pets
 [*]The Cultist drops his treasure bag with some new items
 [*]A new member for the Frost Legion

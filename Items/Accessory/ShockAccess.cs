@@ -36,16 +36,6 @@ namespace StormDiversMod.Items.Accessory
             player.GetModPlayer<EquipmentEffects>().shockBand = true;
             player.GetModPlayer<EquipmentEffects>().ShockbandItem = Item;
         }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-         .AddIngredient(ModContent.ItemType<ClawsBone>(), 1)
-         .AddIngredient(ModContent.ItemType<BlueCuffs>(), 1)
-         .AddIngredient(ItemID.Bone, 15)
-         .AddTile(TileID.TinkerersWorkbench)
-         .Register();
-        }
     }
     public class ShockQuiver : ModItem
     {
@@ -53,7 +43,8 @@ namespace StormDiversMod.Items.Accessory
         {
             //DisplayName.SetDefault("Shock Quiver");
             //Tooltip.SetDefault("Increases arrow damage by 10% and greatly increases arrow speed
-            //20 % chance to not consume arrowsCrits do lightning arc thingy");
+            //20 % chance to not consume arrows
+            //Critical hits cause lightning to arc to nearby enemies");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()

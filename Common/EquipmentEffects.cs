@@ -1807,10 +1807,6 @@ namespace StormDiversMod.Common
                             Vector2 velocity = Vector2.Normalize(new Vector2(npctarget.Center.X, npctarget.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * 10;
 
                             int ProjID = Projectile.NewProjectile(Player.GetSource_Accessory(ShockbandItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.ShockBandProj>(), (int)(damageDone / 2), 0, Main.myPlayer);
-                            Main.projectile[ProjID].ai[2] = 0;
-                            Main.projectile[ProjID].timeLeft = 120;
-                            Main.projectile[ProjID].ArmorPenetration = 20;
-                            Main.projectile[ProjID].extraUpdates = 10;
                             shockedtarget = true;
                             shockcooldown = 10;
                             for (int j = 0; j < 20; j++)

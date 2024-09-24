@@ -35,10 +35,11 @@ namespace StormDiversMod.Projectiles
             Projectile.aiStyle = 0;
             Projectile.tileCollide = false;
 
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 120;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
-            Projectile.extraUpdates = 3;
+            Projectile.extraUpdates = 10;
+            Projectile.ArmorPenetration = 20;
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -104,10 +105,6 @@ namespace StormDiversMod.Projectiles
 
                         int ProjID = Projectile.NewProjectile(npctarget.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.ShockBandProj>(), Projectile.damage / 2, 0, Main.myPlayer);
                         Main.projectile[ProjID].ai[2] = Projectile.ai[2]; //adds on to this ai for limited amount of hits
-                        Main.projectile[ProjID].timeLeft = 120;
-                        Main.projectile[ProjID].ArmorPenetration = 20;
-                        Main.projectile[ProjID].extraUpdates = 10;
-
                     }
                 }
             }

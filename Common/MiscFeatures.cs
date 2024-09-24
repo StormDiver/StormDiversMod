@@ -552,7 +552,7 @@ namespace StormDiversMod.Common
                                 else if (choice == 3)
                                     Paintext = "I hope that hurt!";
                                 else if (choice == 4)
-                                    Paintext = "You can't handle anymore pain!";
+                                    Paintext = "You can't handle any more pain!";
                             }
                             for (int i = 0; i < 200; i++)//message also appears from boss
                             {

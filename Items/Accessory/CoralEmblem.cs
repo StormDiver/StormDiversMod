@@ -48,7 +48,7 @@ namespace StormDiversMod.Items.Accessory
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Eye of the Storm");
-            //Tooltip.SetDefault("Does...something idk");
+            //Tooltip.SetDefault("Summons a homing coral riptide when using any weapon");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
