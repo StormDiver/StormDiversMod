@@ -7,19 +7,17 @@ using StormDiversMod.Common;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
-using StormDiversMod.Projectiles;
-using UtfUnknown.Core.Probers;
 
 
 
-namespace StormDiversMod.Items.Tools
+namespace StormDiversMod.Items.Misc
 {
-    public class SoulDeathPickup : ModItem
+    public class SuperHeartPickup : ModItem
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Death Soul");
-            //Tooltip.SetDefault("Pick up to capture the soul");
+            //DisplayName.SetDefault("Super Heart");
+            //Tooltip.SetDefault("Heals 50 health when picked up");
         
         }
         public override void SetDefaults()
@@ -38,46 +36,40 @@ namespace StormDiversMod.Items.Tools
         }
         public override bool GrabStyle(Player player)
         {        
+
             return false;
         }
         public override void GrabRange(Player player, ref int grabRange)
         {
+           
+            if (player.HasBuff(BuffID.Heartreach))
+            {
+                grabRange = 300;
+                
+            }
+            else
+            {
+                grabRange = 150;
+
+            }
         }
         public override bool CanPickup(Player player)
         {
-            if (player.GetModPlayer<EquipmentEffects>().deathList)
-                return true;
-            else
-                return false;
+            return true;
         }
         public override bool OnPickup(Player player)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = -0.5f, MaxInstances = 2, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center); ;
-
-            //have code here in case 2 are picked up at the same time
-            player.GetModPlayer<EquipmentEffects>().ninelivescooldown = 540; //Reset cooldown to 9 seconds, even at max amount
-            if (player.GetModPlayer<EquipmentEffects>().ninelives < 9) //Spawn up to 9
+            if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
             {
-                player.GetModPlayer<EquipmentEffects>().ninelives++;//increase counter
-
-                int nineproj = Projectile.NewProjectile(player.GetSource_Accessory(player.GetModPlayer<EquipmentEffects>().DeathCoreItem), new Vector2(player.Center.X, player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<DeathsListProj>(), 0, 0, player.whoAmI, 0, player.GetModPlayer<EquipmentEffects>().ninelives - 1);//changes ai[1] field for different angles
-                //Main.NewText("" + ninelives, 204, 101, 22);
+                mod.Call("Event", "SuperHeart");
             }
+            SoundEngine.PlaySound(SoundID.Grab, player.Center);
 
+            player.statLife += 50;
+            player.HealEffect(50, true);
             return false;
         }
-        int escapetime;
-        public override void Update(ref float gravity, ref float maxFallSpeed)
-        {
-            escapetime++;
-            Player player = Main.LocalPlayer;
-            if (escapetime == 540)//last for 9 seconds in world
-            {
-                int nineproj = Projectile.NewProjectile(player.GetSource_Accessory(player.GetModPlayer<EquipmentEffects>().DeathCoreItem), new Vector2(Item.Center.X, Item.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<DeathsListProj>(), 0, 0, player.whoAmI, 0, 9);//changes ai[1] field for different angles
-                Item.TurnToAir();
-            }
-            
-        }
+       
         public override bool ItemSpace(Player player)
         {
             return true;

@@ -169,7 +169,7 @@ namespace StormDiversMod.Items.Materials
             //Tooltip.SetDefault("'Almost devoid of life'");
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             Item.ResearchUnlockCount = 25;
-
+            ItemID.Sets.ShimmerTransformToItem[Item.type] = ModContent.ItemType<Items.Misc.CleansingHeart>();
         }
         public override void PostUpdate()
         {

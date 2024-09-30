@@ -14,6 +14,8 @@ using StormDiversMod.Items.Accessory;
 using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
 using StormDiversMod.Items.Weapons;
+using StormDiversMod.Items.Misc;
+
 
 using static Terraria.ModLoader.ModContent;
 using Terraria.Localization;
@@ -132,6 +134,14 @@ namespace StormDiversMod.Common
     }
     public class NewRecipes : GlobalItem
     {
+        //shimmer
+        public override void SetDefaults(Item item)
+        {
+            //ZephyrFeather
+            if (item.type == ItemID.BoneFeather || item.type == ItemID.FireFeather || item.type == ItemID.IceFeather || item.type == ItemID.GiantHarpyFeather)
+                ItemID.Sets.ShimmerTransformToItem[item.type] = ModContent.ItemType<ZephyrFeather>();
+        }
+        //recipes
         public override void AddRecipes()
         {
             //Night Vision Helmet

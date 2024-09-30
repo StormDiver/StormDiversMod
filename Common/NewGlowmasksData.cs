@@ -124,9 +124,50 @@ namespace StormDiversMod.Common
 		}
 	}
 
+    //___________________________________________________
 
-	//____________________________________________________
-	public sealed class LegsLayer : PlayerDrawLayer
+    public class HandOnGlowmaskPlayer : ModPlayer
+    {
+        private static Dictionary<int, Func<Color>> HandColor { get; set; }
+        public static void RegisterData(int handsonSolt, Func<Color> color)
+        {
+
+            if (!HandColor.ContainsKey(handsonSolt))
+            {
+                HandColor.Add(handsonSolt, color);
+            }
+        }
+
+        public override void Load()
+        {
+            HandColor = new Dictionary<int, Func<Color>>();
+        }
+
+        public override void Unload()
+        {
+            HandColor = null;
+        }
+
+        public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+        {
+            Player drawPlayer = drawInfo.drawPlayer;
+
+            //Color color = drawPlayer.GetImmuneAlphaPure(data.Color() * drawInfo.stealth * (1f - drawInfo.shadow), drawInfo.shadow); //Wing glowmasks need the additional stealth/shadow multiplier for some reason
+
+            if (!HandColor.TryGetValue(Player.handon, out Func<Color> color))
+            {
+                return;
+            }
+            drawInfo.bodyGlowColor = color();
+            drawInfo.armGlowColor = color();
+
+            //drawInfo.cHandOn = color();
+        }
+    }
+
+
+    //____________________________________________________
+    public sealed class LegsLayer : PlayerDrawLayer
 	{
 		private static Dictionary<int, DrawLayerData> LegsLayerData { get; set; }
 

@@ -11,6 +11,7 @@ using StormDiversMod.Common;
 using Terraria.Utilities;
 using StormDiversMod.Items.Accessory;
 using System.Security.Policy;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles
 {
@@ -73,7 +74,6 @@ namespace StormDiversMod.Projectiles
             dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 226, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
             dust.noGravity = true;
 
-
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 5)
             {
@@ -82,14 +82,33 @@ namespace StormDiversMod.Projectiles
                 Projectile.frameCounter = 0;
             }
         }
-        int targetlimit;
+        int extratargets;
+        float reducefalloff;
+        public override void OnSpawn(IEntitySource source)
+        {
+            var player = Main.player[Projectile.owner];
+            //all 3 equipped 2 extra targets and -30% fall off
+            if (player.GetModPlayer<EquipmentEffects>().shockBand && player.GetModPlayer<EquipmentEffects>().shockBandQuiver && player.GetModPlayer<EquipmentEffects>().shockDerpEye)
+            {
+                extratargets += 2;
+                reducefalloff += 0.3f;
+            }
+            //2 of 3, equipped, 1 extra taget and -15% falloff
+            else if ((player.GetModPlayer<EquipmentEffects>().shockBand && player.GetModPlayer<EquipmentEffects>().shockBandQuiver) ||
+                (player.GetModPlayer<EquipmentEffects>().shockBand && player.GetModPlayer<EquipmentEffects>().shockDerpEye) ||
+                (player.GetModPlayer<EquipmentEffects>().shockDerpEye && player.GetModPlayer<EquipmentEffects>().shockBandQuiver))
+            {
+                extratargets += 1;
+                reducefalloff += 0.15f;
+            }
+        }
         bool targethit;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 0.5f, Pitch = -0.1f, MaxInstances = 0 }, Projectile.Center);
 
             Projectile.ai[2]++;
-            if (Projectile.ai[2] <= 3)// Hit 5 enemies
+            if (Projectile.ai[2] <= 2 + extratargets)// Hit 3 extra enemies
             {
                 target.GetGlobalNPC<NPCEffects>().shockbandtime = 10;// makes sure the enemy that summons the proj can't get hit by it
                 for (int i = 0; i < Main.maxNPCs; i++) //Shoots sand at one enemy
@@ -103,7 +122,7 @@ namespace StormDiversMod.Projectiles
                         targethit = true;
                         Vector2 velocity = Vector2.Normalize(new Vector2(npctarget.Center.X, npctarget.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 10;
 
-                        int ProjID = Projectile.NewProjectile(npctarget.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.ShockBandProj>(), Projectile.damage / 2, 0, Main.myPlayer);
+                        int ProjID = Projectile.NewProjectile(npctarget.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.ShockBandProj>(), (int)(Projectile.damage * (0.4f + reducefalloff)), 0, Main.myPlayer);
                         Main.projectile[ProjID].ai[2] = Projectile.ai[2]; //adds on to this ai for limited amount of hits
                     }
                 }

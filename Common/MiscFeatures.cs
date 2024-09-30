@@ -557,7 +557,7 @@ namespace StormDiversMod.Common
                             for (int i = 0; i < 200; i++)//message also appears from boss
                             {
                                 NPC painTarget = Main.npc[i];
-                                if ((painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>() && !Main.remixWorld))
+                                if ((painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>() && !Main.zenithWorld))
                                 {
                                     CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.IndianRed, Paintext, false);
                                 }
@@ -590,7 +590,7 @@ namespace StormDiversMod.Common
                         for (int i = 0; i < 200; i++)//message also appears from boss
                         {
                             NPC painTarget = Main.npc[i];
-                            if ((painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>() && !Main.remixWorld))
+                            if ((painTarget.type == ModContent.NPCType<NPCs.Boss.TheUltimateBoss>() && !Main.zenithWorld))
                             {
                                 CombatText.NewText(new Rectangle((int)painTarget.Center.X, (int)painTarget.Center.Y, 12, 4), Color.DeepPink, Paintext, false);
                             }

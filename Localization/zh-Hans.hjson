@@ -154,6 +154,8 @@ Mods: {
 			}
 		}
 
+		// MunchiesSupport.ZephyrFeather: Throw either a [i:1516], [i:1517], [i:1518], or [i:1519] into Shimmer
+
 		Buffs: {
 			AridCoreDebuff: {
 				DisplayName: 干旱光环
@@ -686,8 +688,8 @@ Mods: {
 			}
 
 			CoralStormEmblem: {
-				// DisplayName: Eye of the Storm
-				// Tooltip: Summons a homing coral riptide when using any weapon
+				// DisplayName: Cyclone Emblem
+				// Tooltip: Summons a homing coral cyclone when using any weapon
 			}
 
 			DeathCore: {
@@ -3272,7 +3274,7 @@ Mods: {
 			}
 
 			SludgeVenomLauncher: {
-				// DisplayName: Acid Vemon Sludge Cannon
+				// DisplayName: Acid Venom Sludge Cannon
 				/* Tooltip:
 					'''
 					Fires out a projectile of Acid Venom Sludge that explodes into smaller sludge blobs on tile or enemy impact
@@ -3785,6 +3787,30 @@ Mods: {
 					Critical hits cause lightning to arc to nearby enemies
 					''' */
 			}
+
+			ShockEye: {
+				// DisplayName: Eye of the Storm
+				/* Tooltip:
+					'''
+					Greatly increases luck
+					Increases critical strike damage by 12%
+					Critical hits cause lightning to arc to nearby enemies
+					''' */
+			}
+
+			ZephyrFeather: {
+				// DisplayName: Zephyr Feather
+				// Tooltip: Permanently increases movement speed and acceleration by 10%
+			}
+
+			CleansingHeart: {
+				// DisplayName: Cleansing Charm
+				/* Tooltip:
+					'''
+					Removes all permanent shimmer upgrades and Artisan Loaf effects from you and refunds the item
+					Will remove the effects of the currently consumed items:
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -4233,7 +4259,7 @@ Mods: {
 			// C4Proj.DisplayName: Satchel Charge
 			// ThePainBossProj.DisplayName: Ultimate Pain
 			// ThePainBossProj2.DisplayName: Ultimate Pain Explosion
-			// CoralBoneProj.DisplayName: Coral Riptide
+			// CoralBoneProj.DisplayName: Coral Cyclone
 			// ExplosionEffect.DisplayName: Explosion Effect
 			// ExplosionCompactProj.DisplayName: Explosion Compact
 			// FlaskExplosionProj.DisplayName: Flask Explosion
@@ -4373,5 +4399,7 @@ Mods: {
 			StormBossEmote.Command: 超载扫描机
 			UltimateBossEmote.Command: 痛苦使者
 		}
+
+		// Localshiton: Mods.StormDiversMod.Localshiton
 	}
 }

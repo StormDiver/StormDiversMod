@@ -176,7 +176,6 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.ai[1] = (int)(Math.Cos(rad) * dist); //X pos
                 NPC.ai[2] = (int)(Math.Sin(rad) * dist); //Y pos
 
-
                 Vector2 idlePosition = player.Center + new Vector2(NPC.ai[1], NPC.ai[2]);
                 Vector2 vectorToIdlePosition = idlePosition - NPC.Center;
                 //distanceToIdlePosition = vectorToIdlePosition.Length();

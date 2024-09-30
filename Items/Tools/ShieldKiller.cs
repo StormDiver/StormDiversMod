@@ -88,7 +88,6 @@ namespace StormDiversMod.Items.Tools
 
                 for (int i = 0; i < 100; i++)
                 {
-
                     float speedX = 0f;
                     float speedY = -5f;
 

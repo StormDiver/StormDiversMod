@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = Item.sellPrice(0, 10, 0, 0);
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Cyan;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = false;
@@ -107,7 +107,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 46;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 10, 0, 0);
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Cyan;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 22;
             Item.useAnimation = 22;
@@ -189,7 +189,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 18;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 10, 0, 0);
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Cyan;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 30;
             Item.useAnimation = 30;
@@ -276,7 +276,7 @@ namespace StormDiversMod.Items.Weapons
             Item.height = 18;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 10, 0, 0);
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Cyan;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;

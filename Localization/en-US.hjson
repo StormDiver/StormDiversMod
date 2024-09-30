@@ -154,6 +154,8 @@ Mods: {
 			}
 		}
 
+		MunchiesSupport.ZephyrFeather: Throw either a [i:1516], [i:1517], [i:1518], or [i:1519] into Shimmer
+
 		Buffs: {
 			AridCoreDebuff: {
 				DisplayName: Arid Aura
@@ -182,7 +184,7 @@ Mods: {
 
 			CelestialBuff: {
 				DisplayName: Celestial Guardian
-				Description: The powers of the Celestial spirits rapidly regenerate your life and grant additional defense
+				Description: The powers of the Celestial spirits rapidly regenerate your life
 			}
 
 			DarkShardDebuff: {
@@ -631,7 +633,7 @@ Mods: {
 				DisplayName: Celestial Guardian
 				Tooltip:
 					'''
-					Taking heavy damage regenerates the lost life over several seconds while granting additonal defense
+					Taking heavy damage regenerates the lost life over several seconds
 					Grants immunity to debuffs inflicted by Extra-Terrestrial creatures
 					'''
 			}
@@ -686,8 +688,8 @@ Mods: {
 			}
 
 			CoralStormEmblem: {
-				DisplayName: Eye of the Storm
-				Tooltip: Summons a homing coral riptide when using any weapon
+				DisplayName: Cyclone Emblem
+				Tooltip: Summons a homing coral cyclone when using any weapon
 			}
 
 			DeathCore: {
@@ -717,7 +719,7 @@ Mods: {
 				Tooltip:
 					'''
 					Greatly increases luck
-					Increases critical strike damage by 15%
+					Increases critical strike damage by 12%
 					'Lucky you'
 					'''
 			}
@@ -728,7 +730,7 @@ Mods: {
 					'''
 					10% increased critical strike chance
 					Greatly increases luck
-					Increases critical strike damage by 15%
+					Increases critical strike damage by 12%
 					'''
 			}
 
@@ -1879,7 +1881,7 @@ Mods: {
 
 			AridBossPetItem: {
 				DisplayName: Glowing Horns
-				Tooltip: Summons a liberated Husk that follows you
+				Tooltip: Summons a liberated Husk that lights the way
 			}
 
 			DerplingVine: {
@@ -3257,7 +3259,7 @@ Mods: {
 			}
 
 			ShroomiteLauncher: {
-				DisplayName: Shroomite Launcher
+				DisplayName: Shroomite Hybrid Launcher
 				Tooltip:
 					'''
 					Fires Shroomite Rockets which explode into mushrooms
@@ -3287,7 +3289,7 @@ Mods: {
 			}
 
 			SludgeVenomLauncher: {
-				DisplayName: Acid Vemon Sludge Cannon
+				DisplayName: Acid Venom Sludge Cannon
 				Tooltip:
 					'''
 					Fires out a projectile of Acid Venom Sludge that explodes into smaller sludge blobs on tile or enemy impact
@@ -3803,6 +3805,30 @@ Mods: {
 					Critical hits cause lightning to arc to nearby enemies
 					'''
 			}
+
+			ShockEye: {
+				DisplayName: Eye of the Storm
+				Tooltip:
+					'''
+					Greatly increases luck
+					Increases critical strike damage by 12%
+					Critical hits cause lightning to arc to nearby enemies
+					'''
+			}
+
+			ZephyrFeather: {
+				DisplayName: Zephyr Feather
+				Tooltip: Permanently increases movement speed and acceleration by 10%
+			}
+
+			CleansingHeart: {
+				DisplayName: Cleansing Charm
+				Tooltip:
+					'''
+					Removes all permanent shimmer upgrades and Artisan Loaf effects from you and refunds the item
+					Will remove the effects of the currently consumed items:
+					'''
+			}
 		}
 
 		NPCs: {
@@ -4251,7 +4277,7 @@ Mods: {
 			C4Proj.DisplayName: Satchel Charge
 			ThePainBossProj.DisplayName: Ultimate Pain
 			ThePainBossProj2.DisplayName: Ultimate Pain Explosion
-			CoralBoneProj.DisplayName: Coral Riptide
+			CoralBoneProj.DisplayName: Coral Cyclone
 			ExplosionEffect.DisplayName: Explosion Effect
 			ExplosionCompactProj.DisplayName: Explosion Compact
 			FlaskExplosionProj.DisplayName: Flask Explosion
@@ -4391,5 +4417,7 @@ Mods: {
 			StormBossEmote.Command: overloadedscandrone
 			UltimateBossEmote.Command: thepainbringer
 		}
+
+		Localshiton: Mods.StormDiversMod.Localshiton
 	}
 }

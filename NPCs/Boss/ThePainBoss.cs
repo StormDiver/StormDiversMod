@@ -73,7 +73,7 @@ namespace StormDiversMod.NPCs.Boss
             //NPC.DeathSound = SoundID.NPCDeath24; //That was painful
             NPC.knockBackResist = 0f;
             NPC.value = Item.buyPrice(1, 0, 0, 0);
-            if (Main.remixWorld)
+            if (Main.zenithWorld)
             {
                 NPC.boss = true;
                 if (!Main.dedServ)
@@ -214,7 +214,7 @@ namespace StormDiversMod.NPCs.Boss
 
             Player player = Main.player[NPC.target]; //Code to move towards player
 
-            if (!player.dead && !deathani && Main.remixWorld)
+            if (!player.dead && !deathani && Main.zenithWorld)
             {
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -308,11 +308,11 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.active = false;
             }*/
 
-            if ((player.dead && !deathani) || !Main.remixWorld)//When player is dead slow down, mock the player, then fly away
+            if ((player.dead && !deathani) || !Main.zenithWorld)//When player is dead slow down, mock the player, then fly away
             {
                 if (NPC.localAI[1] == 60)
                 {
-                    if (!Main.remixWorld)
+                    if (!Main.zenithWorld)
                     {
                         Paintext = "Wait I shouldn't be here...";
                     }
@@ -431,7 +431,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
             }     
 
-            if (!player.dead && !deathani && Main.remixWorld)//begin AI=====================================================
+            if (!player.dead && !deathani && Main.zenithWorld)//begin AI=====================================================
             {
 
                 if (NPC.ai[3] == 0) //No attacks when first summoned

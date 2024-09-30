@@ -70,12 +70,15 @@ namespace StormDiversMod.Projectiles.Petprojs
 
         float speed = 16f;
         float inertia = 25f;
+
+        Vector2 projPosition;
+        int angle;
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
             if (!Main.dedServ)
             {
-                Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.6f / 255f, (255 - Projectile.alpha) * 0.3f / 255f, (255 - Projectile.alpha) * 0f / 255f); //light
+                Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.8f / 255f, (255 - Projectile.alpha) * 0.7f / 255f, (255 - Projectile.alpha) * .6f / 255f); //light
             }
             EquipmentEffects modPlayer = player.GetModPlayer<EquipmentEffects>();
             if (!player.active)
@@ -91,46 +94,53 @@ namespace StormDiversMod.Projectiles.Petprojs
             {
                 Projectile.timeLeft = 2;
             }
-            if (Projectile.position.X >= player.position.X)
-            {
+            /*if (Projectile.position.X >= player.position.X)
                 Projectile.spriteDirection = -1;
-            }
-            if (Projectile.position.X < player.position.X)
-            {
-                Projectile.spriteDirection = 1;
 
-            }
+            if (Projectile.position.X < player.position.X)
+                Projectile.spriteDirection = 1;*/
+
+            Projectile.spriteDirection = player.direction;
             Projectile.rotation = Projectile.velocity.X / 50;
 
+            angle += 2 * player.direction;
 
-            Vector2 idlePosition = player.Center;
-            idlePosition.Y -= 50f; // Above player
-            idlePosition.X -= 50 * player.direction; // Beside player
+            double deg = (angle);
+            double rad = deg * (Math.PI / 180);
+            double dist = 75; //Distance away from the player
+
+            //position
+            projPosition.X = (int)(Math.Cos(rad) * dist); //X pos
+            projPosition.Y = (int)(Math.Sin(rad) * dist); //Y pos
+
+            Vector2 idlePosition = player.Center + new Vector2(projPosition.X, projPosition.Y);
+
+            //var dust5 = Dust.NewDustDirect(new Vector2(idlePosition.X, idlePosition.Y), 0, 0, 0, 0, 0.5f);
+            //dust5.noGravity = true;
 
             // Teleport to player if distance is too big
             Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
             float distanceToIdlePosition = vectorToIdlePosition.Length();
             if (Main.myPlayer == player.whoAmI && distanceToIdlePosition > 2000f)
             {
-
                 Projectile.position = idlePosition;
                 Projectile.velocity *= 0.1f;
                 Projectile.netUpdate = true;
             }
             {
-                if (distanceToIdlePosition > 300f)
+                if (distanceToIdlePosition > 50)
                 {
                     // Speed up the pet if it's away from the player
-                    speed = 12f;
-                    inertia = 50f;
+                    speed = 15f;
+                    inertia = 20f;
                 }
                 else
                 {
                     // Slow down the pet if closer to the player
-                    speed = 6f;
-                    inertia = 60f;
+                    speed = 4.5f;
+                    inertia = 20f;
                 }
-                if (distanceToIdlePosition > 10f)
+                if (distanceToIdlePosition > 0f)
                 {
                     // The immediate range around the player (when it passively floats about)
 
@@ -142,8 +152,8 @@ namespace StormDiversMod.Projectiles.Petprojs
                 else if (Projectile.velocity == Vector2.Zero)
                 {
                     // If there is a case where it's not moving at all, give it a little "poke"
-                    Projectile.velocity.X = -0.15f;
-                    Projectile.velocity.Y = -0.05f;
+                    //Projectile.velocity.X = -0.15f;
+                    //Projectile.velocity.Y = -0.05f;
                 }
             }
             if (!Main.dedServ)

@@ -17,6 +17,8 @@ using StormDiversMod.Items.Ammo;
 using StormDiversMod.Items.Accessory;
 using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
+using StormDiversMod.Items.Misc;
+
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -441,12 +443,12 @@ namespace StormDiversMod.Common
                 if (!npc.SpawnedFromStatue && !npc.dontTakeDamage && !npc.friendly && npc.lifeMax > 5 && !npc.boss && player2.statLife < player2.statLifeMax2)
                 {
                     if (Main.rand.Next(7) == 0)
-                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Misc.SuperHeartPickup>());
                 }
                 if (npc.boss)
                 {
                     for (int i = 0; i < 2; i++)
-                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Misc.SuperHeartPickup>());
                 }
             }
             if (player2.GetModPlayer<EquipmentEffects>().deathList) //enemy drop souls for single player
@@ -455,11 +457,11 @@ namespace StormDiversMod.Common
                 {
                     if (npc.life <= 0 && !npc.boss)
                     {
-                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Misc.SoulDeathPickup>());
                         if (npc.type == ModContent.NPCType<NPCs.HellMiniBoss>())
                         {
                             for (int i = 0; i < 8; i++) //Because you get one from normal means
-                                Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X - 150, npc.Center.Y - 150), new Vector2(300, 300), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
+                                Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X - 150, npc.Center.Y - 150), new Vector2(300, 300), ModContent.ItemType<Items.Misc.SoulDeathPickup>());
                         }
                         for (int i = 0; i < 3; i++)
                         {
@@ -480,7 +482,7 @@ namespace StormDiversMod.Common
             {
                 if (Main.rand.Next(25) == 0 && npc.boss && bosssoulcooldown == 0)
                 {
-                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SoulDeathPickup>());
+                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Misc.SoulDeathPickup>());
                     bosssoulcooldown = 60;
                 }
             }
@@ -1092,13 +1094,15 @@ namespace StormDiversMod.Common
             }
             if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
             {
-                //damage = (int)(damage * 1.15f);
-                modifiers.CritDamage *= 1.15f;
+                modifiers.CritDamage *= 1.12f;
             }
             if (player.GetModPlayer<EquipmentEffects>().derpEyeGolem == true)
             {
-                //damage = (int)(damage * 1.15f);
-                modifiers.CritDamage *= 1.15f;
+                modifiers.CritDamage *= 1.12f;
+            }
+            if (player.GetModPlayer<EquipmentEffects>().shockDerpEye == true)
+            {
+                modifiers.CritDamage *= 1.12f;
             }
             if (player.HasBuff(BuffType<ShroomiteBuff>()))//If the player has the shroomite potion then 10% increase crit damage
             {
@@ -1125,17 +1129,18 @@ namespace StormDiversMod.Common
 
             if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
             {
-                //damage = (int)(damage * 1.1f);
                 modifiers.CritDamage *= 1.1f;
             }
             if (player.GetModPlayer<EquipmentEffects>().derpEye == true)
             {
-                //damage = (int)(damage * 1.15f);
                 modifiers.CritDamage *= 1.15f;
             }
             if (player.GetModPlayer<EquipmentEffects>().derpEyeGolem == true)
             {
-                //damage = (int)(damage * 1.15f);
+                modifiers.CritDamage *= 1.15f;
+            }
+            if (player.GetModPlayer<EquipmentEffects>().shockDerpEye == true)
+            {
                 modifiers.CritDamage *= 1.15f;
             }
             if (player.GetModPlayer<EquipmentEffects>().aridBossAccess == true && aridCoreDebuff) //Ancient Emblem extra damage

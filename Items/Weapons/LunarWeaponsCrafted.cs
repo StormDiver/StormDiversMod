@@ -138,8 +138,6 @@ namespace StormDiversMod.Items.Weapons
 
             //Item.glowMask = 194;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
-
-
         }
        
         public override Vector2? HoldoutOffset()

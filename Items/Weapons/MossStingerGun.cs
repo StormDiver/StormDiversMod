@@ -40,15 +40,15 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
-                Item.mana = 12;
+                Item.mana = 10;
             else
-                Item.mana = 8;
+                Item.mana = 7;
             Item.UseSound = SoundID.Item17;
             Item.damage = 35;
             Item.crit = 8;
             Item.knockBack = 1f;
             Item.shoot = ModContent.ProjectileType<MossStingerProj>();
-            Item.shootSpeed = 8;
+            Item.shootSpeed = 10;
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override Vector2? HoldoutOffset()

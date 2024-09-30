@@ -233,7 +233,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Shroomite Launcher");
+            //DisplayName.SetDefault("Shroomite Hybrid Launcher");
             //Tooltip.SetDefault("Fires Shroomite Rockets which explode into mushrooms\nRight click to fire Shroomite Grenades");
             Item.ResearchUnlockCount = 1;
 

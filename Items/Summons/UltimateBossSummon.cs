@@ -61,7 +61,7 @@ namespace StormDiversMod.Items.Summons
         {
             foreach (TooltipLine line in tooltips)
             {
-                if (Main.remixWorld)
+                if (Main.zenithWorld)
                 { 
 
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
@@ -77,7 +77,7 @@ namespace StormDiversMod.Items.Summons
         }
         public override bool CanUseItem(Player player)
         {
-            if (Main.remixWorld)
+            if (Main.zenithWorld)
                 return NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.ThePainBoss>());
             else
                 return NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
@@ -92,14 +92,14 @@ namespace StormDiversMod.Items.Summons
 
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (Main.remixWorld)
+                    if (Main.zenithWorld)
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.ThePainBoss>());
                     else
                         NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
                 }
                 else
                 {
-                    if (Main.remixWorld)
+                    if (Main.zenithWorld)
                         NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.ThePainBoss>());
                     else
                         NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());

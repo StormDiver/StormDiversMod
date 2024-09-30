@@ -87,6 +87,7 @@ namespace StormDiversMod.Common
 
         public bool derpEyeGolem; //Player had the Jungle Eye equipped
 
+        public bool shockDerpEye; //Player has the Storm Eye equipped
 
         public bool blueCuffs; //Player has insulated cuffs equipped
 
@@ -130,7 +131,9 @@ namespace StormDiversMod.Common
 
         public bool deathList; //player has Repear's List equipped
 
-        public bool shockBand; //player has the Storm Charm or tinker equipped
+        public bool shockBand; //player has the Storm Charm 
+
+        public bool shockBandQuiver; //player has storm quiver equipped 
 
         //Ints and Bools activated from this file
 
@@ -229,6 +232,7 @@ namespace StormDiversMod.Common
             mushChestplate = false;
             derpEye = false;
             derpEyeGolem = false;
+            shockDerpEye = false;
             blueCuffs = false;
             blueClaws = false;
             spookyClaws = false;
@@ -251,6 +255,7 @@ namespace StormDiversMod.Common
             SantaCore = false;
             deathList = false;
             shockBand = false;
+            shockBandQuiver = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -404,7 +409,7 @@ namespace StormDiversMod.Common
             }
             if (shockcooldown > 0)
                 shockcooldown--;
-            if (!shockBand)
+            if (!shockBand && !shockBandQuiver && !shockDerpEye)
                 shockedtarget = false;
 
             if (bearcool > 0)
@@ -439,6 +444,8 @@ namespace StormDiversMod.Common
             if (derpEye)
                 Player.luck += 0.3f;
             if (derpEyeGolem)
+                Player.luck += 0.3f;
+            if (shockDerpEye)
                 Player.luck += 0.3f;
             if (bootFallLuck)
                 Player.luck += 0.05f;
@@ -1548,7 +1555,6 @@ namespace StormDiversMod.Common
                     {
                         SoundEngine.PlaySound(SoundID.Item122, Player.Center);
                         Player.AddBuff(ModContent.BuffType<CelestialBuff>(), (int)(attackdmg * 4f));
-
                     }
                 }
                 /*if (attackdmg >= 60 && !Main.expertMode && !Player.HasBuff(ModContent.BuffType<CelestialBuff>()))
@@ -1790,7 +1796,7 @@ namespace StormDiversMod.Common
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
             }
             //Storm Charm
-            if (shockBand)
+            if (shockBand || shockBandQuiver || shockDerpEye)
             {
                 if (hit.Crit & !target.friendly && target.lifeMax > 5 && shockcooldown == 0)
                 {
@@ -1806,7 +1812,14 @@ namespace StormDiversMod.Common
                             SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 0.5f, Pitch = -0.1f, MaxInstances = 0 }, target.Center);
                             Vector2 velocity = Vector2.Normalize(new Vector2(npctarget.Center.X, npctarget.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * 10;
 
-                            int ProjID = Projectile.NewProjectile(Player.GetSource_Accessory(ShockbandItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.ShockBandProj>(), (int)(damageDone / 2), 0, Main.myPlayer);
+                            float extradmg = 0;
+                            if (shockBand && shockBandQuiver && shockDerpEye)
+                                extradmg += 0.3f;
+                            //2 of 3, equipped, 1 extra taget and -15% falloff
+                            else if ((shockBand && shockBandQuiver) || (shockBand && shockDerpEye) || (shockDerpEye && shockBandQuiver))
+                                extradmg += 0.15f;
+
+                            int ProjID = Projectile.NewProjectile(Player.GetSource_Accessory(ShockbandItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.ShockBandProj>(), (int)(damageDone * 0.4f), 0, Main.myPlayer);
                             shockedtarget = true;
                             shockcooldown = 10;
                             for (int j = 0; j < 20; j++)
@@ -1945,7 +1958,7 @@ namespace StormDiversMod.Common
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
             }
             //Storm Charm
-            if (shockBand)
+            if (shockBand || shockBandQuiver || shockDerpEye)
             {
                 if (hit.Crit & !target.friendly && target.lifeMax > 5 && shockcooldown == 0)
                 {
@@ -1961,7 +1974,15 @@ namespace StormDiversMod.Common
                             SoundEngine.PlaySound(SoundID.NPCHit53 with { Volume = 0.5f, Pitch = -0.1f, MaxInstances = 0 }, target.Center);
                             Vector2 velocity = Vector2.Normalize(new Vector2(npctarget.Center.X, npctarget.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * 10;
 
-                            int ProjID = Projectile.NewProjectile(Player.GetSource_Accessory(ShockbandItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.ShockBandProj>(), (int)(damageDone / 2), 0, Main.myPlayer);
+                            float extradmg = 0;
+                            if (shockBand && shockBandQuiver && shockDerpEye)
+                                extradmg += 0.3f;
+                            //2 of 3, equipped, 1 extra taget and -15% falloff
+                            else if ((shockBand && shockBandQuiver) || (shockBand && shockDerpEye) || (shockDerpEye && shockBandQuiver))
+                                extradmg += 0.15f;
+
+                            //Main.NewText("" + extradmg, Color.Teal);
+                            int ProjID = Projectile.NewProjectile(Player.GetSource_Accessory(ShockbandItem), new Vector2(target.Center.X, target.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.ShockBandProj>(), (int)(damageDone * (0.4f + extradmg)), 0, Main.myPlayer);
                             Main.projectile[ProjID].ai[2] = 0;
                             Main.projectile[ProjID].timeLeft = 120;
                             Main.projectile[ProjID].ArmorPenetration = 20;

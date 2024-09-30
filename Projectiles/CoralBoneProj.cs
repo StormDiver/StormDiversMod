@@ -18,7 +18,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Coral Riptide");
+            //DisplayName.SetDefault("Coral Cyclone");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;

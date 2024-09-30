@@ -224,13 +224,13 @@ namespace StormDiversMod.Items.Weapons
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(360));
                     if (player.gravDir == 1)
                     {
-                        int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (10 * player.direction), player.Top.Y - 10), 0, 0, 6, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
+                        int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (5 * player.direction), player.Top.Y - 10), 0, 0, 6, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
 
                         Main.dust[dustIndex].noGravity = true;
                     }
                     else
                     {
-                        int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (10 * player.direction), player.Bottom.Y + 6), 0, 0, 6, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
+                        int dustIndex = Dust.NewDust(new Vector2(player.Center.X + (5 * player.direction), player.Bottom.Y + 6), 0, 0, 6, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
 
                         Main.dust[dustIndex].noGravity = true;
                     }

@@ -20,17 +20,13 @@ namespace StormDiversMod.Buffs
         {
           
             //DisplayName.SetDefault("Celestial Guardian");
-            //Description.SetDefault("The powers of the Celestial spirits rapidly regenerate your life and grant additional defense");
+            //Description.SetDefault("The powers of the Celestial spirits rapidly regenerate your life");
         }
         int particle = 10;
         public override void Update(Player player, ref int buffIndex)
         {
-
             particle--;
-           
             {
-                player.statDefense += 25;
-
                 player.lifeRegen += 30;
                 if (particle <= 0)
                 {
