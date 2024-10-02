@@ -28,7 +28,7 @@ namespace StormDiversMod.Projectiles
             Projectile.aiStyle = 14;
             Projectile.ignoreWater = true;
             Projectile.alpha = 100;
-            Projectile.light = 0.3f;
+            //Projectile.light = 0.3f;
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
@@ -36,6 +36,11 @@ namespace StormDiversMod.Projectiles
         }
         public override void AI()
         {
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.3f / 255f, (255 - Projectile.alpha) * 0.4f / 255f, (255 - Projectile.alpha) * 0.1f / 255f); //light
+            }
+
             Projectile.rotation += 0.01f * Projectile.direction;
 
             AnimateProjectile();
@@ -120,7 +125,6 @@ namespace StormDiversMod.Projectiles
             Projectile.idStaticNPCHitCooldown = 10;
             Projectile.ArmorPenetration = 8;
             Projectile.alpha = 100;
-            Projectile.light = 0.2f;
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
@@ -132,6 +136,10 @@ namespace StormDiversMod.Projectiles
         bool stick;
         public override void AI()
         {
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.2f / 255f, (255 - Projectile.alpha) * 0.3f / 255f, (255 - Projectile.alpha) * 0f / 255f); //light
+            }
             if (!stick)
             {
                 Projectile.rotation += 0.01f * Projectile.direction;
@@ -226,7 +234,7 @@ namespace StormDiversMod.Projectiles
             Projectile.aiStyle = 14;
             Projectile.ignoreWater = true;
             Projectile.alpha = 50;
-            Projectile.light = 0.3f;
+            //Projectile.light = 0.3f;
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
@@ -234,6 +242,10 @@ namespace StormDiversMod.Projectiles
         }
         public override void AI()
         {
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.4f / 255f, (255 - Projectile.alpha) * 0.2f / 255f, (255 - Projectile.alpha) * 0.4f / 255f); //light
+            }
             Projectile.rotation += 0.01f * Projectile.direction;
 
             AnimateProjectile();
@@ -318,7 +330,6 @@ namespace StormDiversMod.Projectiles
             Projectile.idStaticNPCHitCooldown = 10;
             Projectile.ArmorPenetration = 8;
             Projectile.alpha = 50;
-            Projectile.light = 0.2f;
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
@@ -330,6 +341,10 @@ namespace StormDiversMod.Projectiles
         bool stick;
         public override void AI()
         {
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, (255 - Projectile.alpha) * 0.2f / 255f, (255 - Projectile.alpha) * 0.1f / 255f, (255 - Projectile.alpha) * 0.2f / 255f); //light
+            }
             if (!stick)
             {
                 Projectile.rotation += 0.01f * Projectile.direction;

@@ -133,7 +133,6 @@ namespace StormDiversMod.Items.Weapons
             Item.ResearchUnlockCount = 1;
 
             ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<AncientMinion>();
-
         }
         public override void SetDefaults()
         {
@@ -181,7 +180,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
+            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), velocity, type, damage, 0, player.whoAmI);
             Main.projectile[index].originalDamage = Item.damage;
 
             return false;

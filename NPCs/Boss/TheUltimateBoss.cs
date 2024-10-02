@@ -311,8 +311,8 @@ namespace StormDiversMod.NPCs.Boss
                     {
                         var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 115, velocity.X, velocity.Y, 50);
                         dust.noGravity = true;
-                        dust.velocity *= 0.5f;
-                        dust.scale = 1.25f;
+                        dust.velocity *= 1f;
+                        dust.scale = 1.5f;
                     }
                 }
             }
@@ -347,11 +347,10 @@ namespace StormDiversMod.NPCs.Boss
                 for (int i = 0; i < 150; i++)
                 {
                     float speedY = -8f;
-
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
                     int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.5f);
-                    Main.dust[dust2].noGravity = true;
+                    //Main.dust[dust2].noGravity = true;
                 }
 
                 teleporttime = 0;
@@ -1952,6 +1951,7 @@ namespace StormDiversMod.NPCs.Boss
 
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 115, 0, 0, 50);
                     dust.velocity *= 2;
+                    dust.scale = 1.5f;
                 }
                 for (int i = 0; i < 150; i++)
                 {
@@ -1959,7 +1959,7 @@ namespace StormDiversMod.NPCs.Boss
 
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                    int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                    int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y + 10), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.5f);
                     Main.dust[dust2].noGravity = true;
                 }
             }

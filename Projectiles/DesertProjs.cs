@@ -97,10 +97,12 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
             // Projectile.aiStyle = 1;
             Projectile.extraUpdates = 3;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 300;
             Projectile.penetrate = 2;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
+            //Projectile.usesIDStaticNPCImmunity = true;
+            //Projectile.idStaticNPCHitCooldown = 10;
         }
 
         public override void AI()

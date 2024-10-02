@@ -292,7 +292,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.width = 1;
             Projectile.height = 1;
             Projectile.friendly = false;
-            Projectile.timeLeft = 20;
+            Projectile.timeLeft = 99;
             Projectile.tileCollide = false;
             Projectile.scale = 1f;
             Projectile.aiStyle = -1;
@@ -308,11 +308,13 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void AI()
         {
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 2) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+            if (Projectile.frameCounter >= 3) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
             }
+            if (Projectile.frame >= 7)
+                Projectile.Kill();
         }
         public override Color? GetAlpha(Color lightColor)
         {

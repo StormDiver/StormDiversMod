@@ -207,7 +207,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
             if (target.knockBackResist != 0 && !target.friendly && target.lifeMax > 5)
             {
-                float launchspeed = 20;
+                float launchspeed = 14;
                 Vector2 launchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * launchspeed;
                 target.GetGlobalNPC<NPCEffects>().explosionNPCflame = 30;
 

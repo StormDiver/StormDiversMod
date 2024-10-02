@@ -30,7 +30,7 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
            
-            Projectile.timeLeft = 50;
+            Projectile.timeLeft = 40;
             Projectile.penetrate = -1;
 
             Projectile.tileCollide = true;
@@ -48,8 +48,8 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         { 
-            Projectile.velocity.X = 0;
-            Projectile.velocity.Y = 0;
+            Projectile.velocity.X *= 0;
+            Projectile.velocity.Y *= 0;
             if (!Main.dedServ)
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
@@ -104,9 +104,8 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.timeLeft <= 20)
             {
-                Projectile.knockBack = 6f;
                 Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 2) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+                if (Projectile.frameCounter >= 3) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;

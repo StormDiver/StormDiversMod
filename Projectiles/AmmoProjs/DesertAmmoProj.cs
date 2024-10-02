@@ -48,7 +48,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
             int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<DesertArrowDust>(), Projectile.damage / 2, 0, Projectile.owner);
             Main.projectile[projID].timeLeft = 1200; //5 seconds due to 3 extra updates, 1200 / (3 + 1) = 300
-            Main.projectile[projID].penetrate = 4;
+            Main.projectile[projID].penetrate = 3;
             Main.projectile[projID].ArmorPenetration = 10;
 
             for (int i = 0; i < 10; i++)
