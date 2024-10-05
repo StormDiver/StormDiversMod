@@ -149,15 +149,13 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
             //DisplayName.SetDefault("Sharpnel");
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
-
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 9;
             Projectile.height = 9;
             Projectile.friendly = true;
-            Projectile.hostile = true;
+            //Projectile.hostile = true;
 
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Ranged;

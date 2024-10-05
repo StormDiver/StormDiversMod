@@ -3107,7 +3107,6 @@ Mods: {
 					'''
 					Rapidly shoots out deadly stingers
 					Stingers stick to enemies and inflict a stacking debuff, up to 15 stingers at once
-					The projectiles become less accurate the lower the remaining mana you have
 					''' */
 			}
 

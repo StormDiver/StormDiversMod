@@ -767,7 +767,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases your max number of minions and sentries by 1
-					Increases whip range by 15%
+					15% Increased whip range
 					'''
 			}
 
@@ -1602,7 +1602,11 @@ Mods: {
 
 			SkyKnightBMask: {
 				DisplayName: Star Warrior Visage
-				Tooltip: 4% increased damage
+				Tooltip:
+					'''
+					5% increased whip range
+					5% increased damage
+					'''
 				SetBonus: Summons a floating star above you that launches mini homing stars at enemies
 			}
 
@@ -1619,7 +1623,7 @@ Mods: {
 				DisplayName: Star Warrior Greaves
 				Tooltip:
 					'''
-					Increases your max number of sentries by 1
+					10% increased whip range
 					2% increased damage
 					'''
 			}
@@ -3122,7 +3126,6 @@ Mods: {
 					'''
 					Rapidly shoots out deadly stingers
 					Stingers stick to enemies and inflict a stacking debuff, up to 15 stingers at once
-					The projectiles become less accurate the lower the remaining mana you have
 					'''
 			}
 
@@ -3195,7 +3198,6 @@ Mods: {
 				Tooltip:
 					'''
 					Fires out impact-exploding grenades that have a small chance to prematurely break into shrapnel
-					The shrapnel can damage you
 					Requires Prototype Grenades, purchase more from the Demolitionist
 					'''
 			}

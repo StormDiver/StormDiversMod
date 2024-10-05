@@ -106,7 +106,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
-                int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1.25f);
+                int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1);
                 Main.dust[dust2].noGravity = true;
             }
         }
@@ -172,7 +172,7 @@ namespace StormDiversMod.NPCs.Boss
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
                     int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
-                    Main.dust[dust2].noGravity = true;
+                    Main.dust[dust2].noGravity = false;
                 }
                 SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0.5f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                 NPC.boss = false; //no death message
@@ -449,7 +449,7 @@ namespace StormDiversMod.NPCs.Boss
                     Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
 
                     int dust2 = Dust.NewDust(new Vector2(NPC.Center.X - 5, NPC.Center.Y), 0, 0, 115, dustspeed.X, dustspeed.Y, 50, default, 1f);
-                    Main.dust[dust2].noGravity = true;
+                    Main.dust[dust2].noGravity = false;
                 }
                 NPC.boss = false;
             }

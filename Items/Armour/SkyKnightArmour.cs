@@ -20,7 +20,8 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Star Warrior Visage");
-            //Tooltip.SetDefault("5% increased damage");
+            //Tooltip.SetDefault("5% increased whip range
+            //\n4% increased damage");
             //ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -40,7 +41,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.06f;
+            player.GetDamage(DamageClass.Generic) += 0.04f;
+            player.whipRangeMultiplier += 0.05f;
         }
 
         public override void ArmorSetShadows(Player player)
@@ -48,7 +50,6 @@ namespace StormDiversMod.Items.Armour
             //player.armorEffectDrawShadow = true;
 
             player.armorEffectDrawOutlines = true;
-
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -142,7 +143,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Star Warrior Greaves");
-            //Tooltip.SetDefault("Increases your max number of sentries by 1\n2% increased damage");
+            //Tooltip.SetDefault("10% increased whip range\n2% increased damage");
             Item.ResearchUnlockCount = 1;
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
             {
@@ -161,9 +162,7 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-
-            player.maxTurrets += 1;
-
+            player.whipRangeMultiplier += 0.10f;
             player.GetDamage(DamageClass.Generic) += 0.02f;
 
         }

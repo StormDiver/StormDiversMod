@@ -89,17 +89,10 @@ namespace StormDiversMod.NPCs.Boss
             NPC.dontTakeDamage = true;
 
         }
-        /*public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-            // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
-
-				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("This is what Ultimate Pain is")
-            });
-        }*/
+            //bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[NPCType<TheUltimateBoss>()], quickUnlock: true); //for gfb worlds, have full bestiary
+        }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
@@ -358,10 +351,8 @@ namespace StormDiversMod.NPCs.Boss
                     NPC.velocity *= 0.95f;
                 }
 
-                NPC.EncourageDespawn(60);
-
                 NPC.localAI[1]++;
-                if (NPC.localAI[1] > 300)
+                if (NPC.localAI[1] > 300 && Main.zenithWorld)
                 {
                     NPC.active = false;
                 }

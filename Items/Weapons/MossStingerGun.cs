@@ -40,9 +40,9 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
-                Item.mana = 10;
+                Item.mana = 9;
             else
-                Item.mana = 7;
+                Item.mana = 6;
             Item.UseSound = SoundID.Item17;
             Item.damage = 35;
             Item.crit = 8;
@@ -55,11 +55,11 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(-5, 4); 
         }
-        float accuracy = 0; //The amount of spread
+        //float accuracy = 0; //The amount of spread
         public override void HoldItem(Player player)
         {
             //Main.NewText("" + accuracy, Color.Gold);
-            accuracy = 20 - ((float)player.statMana / (float)player.statManaMax2 * 20); //0 at max mana, 12 at 0 mana
+            //accuracy = 20 - ((float)player.statMana / (float)player.statManaMax2 * 20); //0 at max mana, 20 at 0 mana
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -68,7 +68,7 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y + 8), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
 
             return false;
