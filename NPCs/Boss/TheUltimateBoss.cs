@@ -185,7 +185,7 @@ namespace StormDiversMod.NPCs.Boss
             if ((NPC.ai[3] == 9 && NPC.ai[0] >= 120) || NPC.ai[3] == 10) //Gain contact damage on last phases, after a small delay at first
             {
                 if (Main.getGoodWorld)
-                    NPC.damage = (500 * clamteadmg) / 100; 
+                    NPC.damage = (450 * clamteadmg) / 100; 
                 else if (Main.masterMode)
                     NPC.damage = (350 * clamteadmg) / 100; 
                 else if (Main.expertMode && !Main.masterMode)
@@ -1638,7 +1638,7 @@ namespace StormDiversMod.NPCs.Boss
                 }
                 //damage
                 if (Main.getGoodWorld)
-                    projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw                          
+                    projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw
                 else if (Main.masterMode)
                     projdamage = (50 * clamteadmg) / 100; // 300 on master               
                 else if (Main.expertMode && !Main.masterMode)

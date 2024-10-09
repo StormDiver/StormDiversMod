@@ -254,7 +254,7 @@ namespace StormDiversMod.NPCs.Boss
             //Damage values and projspeed===============================
             if (Main.getGoodWorld)
             {
-                projdamage = (70 * clamteadmg) / 100; //140/280/420 on ftw
+                projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw
                 projvelocity = 1.4f;
             }
             else if (Main.masterMode)

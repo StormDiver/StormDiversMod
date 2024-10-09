@@ -237,20 +237,19 @@ namespace StormDiversMod
         private void AddSingleModConsumable(Mod munchiesMod)
         {
             object[] consumableArgs = {
-        "AddSingleConsumable",
-        this, // reference to your Mod object
-		"1.4.2", // version
-		ModContent.GetInstance<ZephyrFeather>(), // type is ModItem
-		"player", // category
-		() =>  Main.LocalPlayer.GetModPlayer<PlayerUpgrades>().ZephyrFeatherUpgrade
-, // Func<bool>
-		Color.Lavender, // custom text color (or null)
-		null, // difficulty (or null) - this changes the tooltip text and adds a difficulty icon to show that this item is only available in expert mode. Does not affect availablility, this still needs to be set on its own
-		Language.GetText("Mods.StormDiversMod.MunchiesSupport.ZephyrFeather"), // extra tooltip of type LocalizedText
-		null, // availability, or null if always available
-		"Throw either a [i:1516], [i:1517], [i:1518], or [i:1519] into Shimmer" // acquisition text of type LocalizedText, or null if not necessary
-
-    };
+                "AddSingleConsumable",
+                this, // reference to your Mod object
+		        "1.4.2", // version
+		        ModContent.GetInstance<ZephyrFeather>(), // type is ModItem
+		        "player", // category
+		        () =>  Main.LocalPlayer.GetModPlayer<PlayerUpgrades>().ZephyrFeatherUpgrade,
+                // Func<bool>
+		        Color.Lavender, // custom text color (or null)
+		        null, // difficulty (or null) - this changes the tooltip text and adds a difficulty icon to show that this item is only available in expert mode. Does not affect availablility, this still needs to be set on its own
+		        Language.GetText("Mods.StormDiversMod.MunchiesSupport.ZephyrFeather"), // extra tooltip of type LocalizedText
+		        null, // availability, or null if always available
+		        "Throw either a [i:1516], [i:1517], [i:1518], or [i:1519] into Shimmer" // acquisition text of type LocalizedText, or null if not necessary
+            };
             munchiesMod.Call(consumableArgs);
         }
 

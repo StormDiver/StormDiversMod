@@ -21,7 +21,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
+            //ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()

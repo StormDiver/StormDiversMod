@@ -396,7 +396,6 @@ namespace StormDiversMod.NPCs.Boss
                     {
                         Paintext = "Well... you did it... again...";
                     }
-
                     else
                     {
                         Paintext = "Guess.... you could.... handle the Pain...";
@@ -674,17 +673,22 @@ namespace StormDiversMod.NPCs.Boss
             //=================================
             if (Main.getGoodWorld)
             {
+                //projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw                          
+
                 if (Main.masterMode) //Projectile changes, same for all attacks
                 {
-                    projdamage = (60 * clamteadmg) / 100; //360
+                    projdamage = (60 * clamteadmg) / 100; //240 Expert>Master, 360 Master>Legendary
+                   //Main.NewText("Master " + projdamage, Color.Red);
                 }
-                else if (Main.expertMode && !Main.masterMode)
+                else if (Main.expertMode && !Main.masterMode) //only muliplies by x1 in GFB
                 {
-                    projdamage = (75 * clamteadmg) / 100; //300
+                    projdamage = (90 * clamteadmg) / 100; //180 Classic > Expert
+                    //Main.NewText("Expert " + projdamage, Color.Orange);
                 }
                 else
                 {
-                    projdamage = (120 * clamteadmg) / 100; //240
+                    projdamage = (75 * clamteadmg) / 100; //150 unused
+                   // Main.NewText("Classic " + projdamage, Color.White);
                 }
                 projvelocity = 2f;
                 if (lifeleft != 3)
@@ -692,7 +696,7 @@ namespace StormDiversMod.NPCs.Boss
                 else
                     projcount = (Main.rand.Next(11, 18)); // 11-17
             }
-            else
+            /*else
             {
                 if (Main.masterMode)
                 {
@@ -724,7 +728,7 @@ namespace StormDiversMod.NPCs.Boss
                     else
                         projcount = (Main.rand.Next(7, 12)); // 7-11
                 }
-            }
+            }*/
 
             //Change attack
             if (NPC.ai[3] > 0 && NPC.ai[0] >= Main.rand.Next(300, 500) && lifeleft != 3 && Main.netMode != NetmodeID.MultiplayerClient) //Attack order is randomised after first attack
@@ -1294,8 +1298,8 @@ namespace StormDiversMod.NPCs.Boss
             {
                 if (projectile.type == ProjectileID.FinalFractal) //Zenith is cheating >:(
                 {
-                    modifiers.FinalDamage.Flat = 1;
-                    modifiers.DisableCrit();
+                    //modifiers.FinalDamage.Flat -= 9999; 
+                    //modifiers.DisableCrit();
                     SoundEngine.PlaySound(SoundID.Item16 with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                     Paintext = "Zenith means no Pain >:(";
                     if (!Zenithtext)

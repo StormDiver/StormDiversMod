@@ -47,7 +47,6 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ProjectileID.Seed;
             Item.useAmmo = AmmoID.Dart;
             Item.UseSound = SoundID.Item91;
-
             Item.damage = 65;
             //Item.crit = 4;
             Item.knockBack = 3f;
@@ -71,13 +70,10 @@ namespace StormDiversMod.Items.Weapons
             {
                 damage = (damage * 8 / 10);
             }
-
             for (int i = 0; i < 1; i++)
             {
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
-
             }
-
             return false;
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -93,9 +89,7 @@ namespace StormDiversMod.Items.Weapons
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/SuperDartLauncher_Glow");
 
-
             //spriteBatch.Draw(texture, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-
 
             spriteBatch.Draw
             (

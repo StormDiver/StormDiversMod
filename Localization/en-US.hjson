@@ -1605,7 +1605,7 @@ Mods: {
 				Tooltip:
 					'''
 					5% increased whip range
-					5% increased damage
+					4% increased damage
 					'''
 				SetBonus: Summons a floating star above you that launches mini homing stars at enemies
 			}

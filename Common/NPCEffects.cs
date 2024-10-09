@@ -1239,10 +1239,10 @@ namespace StormDiversMod.Common
                         chat = "Everything's f...fine, HAHAHA!";
                         break;
                     case 2:
-                        chat = "WHAT ARE YOU LOOKING AT!?";
+                        chat = "WHAT ARE YOU LAUGHING AT!?";
                         break;
                     case 3:
-                        chat = "If you're not here to party then GET LOST!";
+                        chat = "If you're not here to party then GET OUT!";
                         break;
 
                 }

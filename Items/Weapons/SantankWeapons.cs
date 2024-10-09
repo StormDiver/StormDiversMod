@@ -105,7 +105,7 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 12f;
             Item.useTime = 15;
             Item.useAnimation = 30;
-            Item.reuseDelay = 60;
+            Item.reuseDelay = 50;
             Item.useAmmo = AmmoID.Bullet;
 
             Item.noMelee = true;
@@ -123,13 +123,11 @@ namespace StormDiversMod.Items.Weapons
             if (player.altFunctionUse == 2) //right click
             {
                 Item.useTime = 30;
-                Item.reuseDelay = 60;
                 return true;
             }
             else //left click
             {
                 Item.useTime = 15;
-                Item.reuseDelay = 60;
                 return true;
             }
         }
