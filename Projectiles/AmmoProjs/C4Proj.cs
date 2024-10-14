@@ -233,6 +233,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
                 var dust = Dust.NewDustDirect(new Vector2(dustx, dusty), 1, 1, 235, 0, 0);
                 int proj2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(dustx, dusty), new Vector2(0, 0), ModContent.ProjectileType<ExplosionGenericProj>(), 0, 0, Projectile.owner);
+                Main.projectile[proj2].scale = 1.25f;
 
                 dust.noGravity = true;
                 dust.scale = 1.5f;

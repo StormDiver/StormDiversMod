@@ -232,7 +232,7 @@ namespace StormDiversMod.NPCs
                         death = false;
                         distancefear = 1000f; //increase detection range once triggered
                         attackmode = true;
-                        dociletime = 600;
+                        dociletime = 1200;
                     }
                     else //if cannot detect player begin docile cooldown, shoot projs too
                     {

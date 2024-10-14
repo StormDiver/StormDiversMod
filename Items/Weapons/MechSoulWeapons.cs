@@ -90,7 +90,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 60;
+            Item.damage = 52;
             Item.crit = 10;
             Item.DamageType = DamageClass.Melee;
             Item.width = 60;

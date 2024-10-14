@@ -23,7 +23,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Twilight Hood");
-            //Tooltip.SetDefault("6% increased damage\n10% increased critical strike chance");
+            //Tooltip.SetDefault("8% increased damage\n8% increased critical strike chance");
             Item.ResearchUnlockCount = 1;
 
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -44,8 +44,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.06f;
-            player.GetCritChance(DamageClass.Generic) += 10;
+            player.GetDamage(DamageClass.Generic) += 0.08f;
+            player.GetCritChance(DamageClass.Generic) += 8;
           
         }
         public override void ArmorSetShadows(Player player)
@@ -117,7 +117,7 @@ namespace StormDiversMod.Items.Armour
             base.SetStaticDefaults();
 
             //DisplayName.SetDefault("Twilight Robe");
-            //Tooltip.SetDefault("6% increased damage\n3% increased critical strike chance\nSlightly increases player acceleration");
+            //Tooltip.SetDefault("10% increased damage\Increases player acceleration");
             Item.ResearchUnlockCount = 1;
             ArmorIDs.Body.Sets.NeedsToDrawArm[Item.bodySlot] = false;
             if (!Main.dedServ)
@@ -142,7 +142,7 @@ namespace StormDiversMod.Items.Armour
             player.GetDamage(DamageClass.Generic) += 0.06f;
             player.GetCritChance(DamageClass.Generic) += 3;
 
-            player.runAcceleration += 0.1f;
+            player.runAcceleration += 0.15f;
             //player.lifeRegen += 1;
         }
         public override void AddRecipes()
@@ -171,13 +171,11 @@ namespace StormDiversMod.Items.Armour
     [AutoloadEquip(EquipType.Legs)]
     public class NightsGreaves : ModItem
     {
-        
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Twilight Leggings");
-            //Tooltip.SetDefault("3% increased damage\n2% increased critical strike chance\nSlightly increases jump speed and height");
+            //Tooltip.SetDefault("10% increased critical strike chance\nIncreases jump speed and height");
             Item.ResearchUnlockCount = 1;
 
             LegsLayer.RegisterData(Item.legSlot, new DrawLayerData()
@@ -197,9 +195,8 @@ namespace StormDiversMod.Items.Armour
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += 0.03f;
-            player.GetCritChance(DamageClass.Generic) += 2;
-            player.jumpSpeedBoost += 0.75f;
+            player.GetCritChance(DamageClass.Generic) += 10;
+            player.jumpSpeedBoost += 1.2f;
            
         }
         public override void AddRecipes()
