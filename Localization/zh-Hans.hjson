@@ -361,6 +361,11 @@ Mods: {
 				Description: 在魔力值低于一半时，魔法伤害提高15%
 			}
 
+			SpectreStarBuff: {
+				// DisplayName: Spectral Strength
+				// Description: Magic damage increased by
+			}
+
 			SpookedDebuff: {
 				DisplayName: 恐慌
 				Description: 你被恐惧压倒了
@@ -1531,7 +1536,6 @@ Mods: {
 				DisplayName: 雨靴
 				Tooltip: ""
 				SetBonus1: 下雨时移动速度增加50%
-				SetBonus2: 下雨时移动速度增加15%
 			}
 
 			SantankBMask: {
@@ -3810,6 +3814,11 @@ Mods: {
 					Will remove the effects of the currently consumed items:
 					''' */
 			}
+
+			SpectreStarPickup: {
+				// DisplayName: Spectre Star
+				// Tooltip: Restores 200 mana and grants the Spectral Strength Buff for 5 seconds
+			}
 		}
 
 		NPCs: {
@@ -3916,9 +3925,12 @@ Mods: {
 			StormBossMineLarge.DisplayName: 超载扫描机大雷管
 			StormDerpProj.DisplayName: 星旋尖刺
 			TheUltimateBossProj.DisplayName: 审判之颅
-			TheUltimateBossProj2.DisplayName: 审判之颅
-			TheUltimateBossProj3.DisplayName: 碎裂碎片
-			TheUltimateBossProj4.DisplayName: 痛苦爆炸
+			// TheUltimateBossProjExplode.DisplayName: Explosion of Pain
+			// TheUltimateBossProjCharge.DisplayName: Charging Skull of Pain
+			// TheUltimateBossProjGravity.DisplayName: Heavy Skull of Pain
+			// TheUltimateBossProjHome.DisplayName: Homing Skull of Pain
+			// TheUltimateBossProjShard.DisplayName: Shard of Pain
+			// TheUltimateBossProjLarge.DisplayName: Giant Skull of Pain
 			VortCannonProj.DisplayName: 星旋火箭
 			TheClaySlimeProj.DisplayName: 粘土史莱姆斑点
 			ThePainSlimeProj.DisplayName: 痛苦史莱姆斑点

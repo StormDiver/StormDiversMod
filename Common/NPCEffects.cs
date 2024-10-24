@@ -34,6 +34,7 @@ using Terraria.WorldBuilding;
 using System.Collections.Generic;
 using Terraria.GameContent.Bestiary;
 using StormDiversMod.NPCs.NPCProjs;
+using Terraria.ModLoader.IO;
 
 namespace StormDiversMod.Common
 {
@@ -329,7 +330,7 @@ namespace StormDiversMod.Common
                                     //Main.LocalPlayer.HealEffect(20, true);                               
 
                                     //Main.player[Main.myPlayer].lifeSteal -= 20;
-                                    Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 20); //Damage
+                                    Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 20); //Heals player
 
                                     //Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("TESTER."), new Color(224, 141, 255));
 
@@ -352,7 +353,7 @@ namespace StormDiversMod.Common
                         else //for bosses
                         {
                             //Main.player[Main.myPlayer].lifeSteal -= 75;
-                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 75); //Damage
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center.X, npc.Center.Y, 0f, 0f, 305, 0, 0f, player.whoAmI, Main.myPlayer, 75); //Heals player
 
                             SoundEngine.PlaySound(SoundID.NPCDeath7, npc.Center);
                             for (int i = 0; i < 15; i++)
@@ -474,6 +475,14 @@ namespace StormDiversMod.Common
                     }
                 }
             }
+            if (player2.GetModPlayer<EquipmentEffects>().SpectreSkull) //For the Spectre Skull Stars
+            {
+                if (!npc.SpawnedFromStatue && !npc.dontTakeDamage && !npc.friendly && npc.lifeMax > 5 && !npc.boss)
+                {
+                    if (Main.rand.Next(6) == 0)
+                        Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Misc.SpectreStarPickup>());
+                }
+            }
         }
         public override void HitEffect(NPC npc, NPC.HitInfo hit)
         {
@@ -484,6 +493,14 @@ namespace StormDiversMod.Common
                 {
                     Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Misc.SoulDeathPickup>());
                     bosssoulcooldown = 60;
+                }
+            }
+            if (player2.GetModPlayer<EquipmentEffects>().SpectreSkull) //Spectre Star drop for bosses here
+            {
+                if (Main.rand.Next(50) == 0 && npc.boss && bosssoulcooldown == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Misc.SpectreStarPickup>());
+                    bosssoulcooldown = 60; //shares cooldown, why not?
                 }
             }
         }
@@ -983,8 +1000,8 @@ namespace StormDiversMod.Common
                 if (buffindex > -1)
                 {
                     extradmg = npc.buffTime[buffindex] + 1;
-                    //Main.NewText("The test = " + (extradmg / 1000), 204, 101, 22);
-                    modifiers.FinalDamage *= 1 + (extradmg / 1000); //1% for every 10 frames, starts at 20%, 200 frames / 1000 = 0.02, plus 1 is 1.02
+                    Main.NewText("The test = " + (extradmg / 500), 204, 101, 22);
+                    modifiers.FinalDamage *= 1 + (extradmg /500); //1% for every 10 frames, starts at 20%, 100 frames / 500 = 0.02, plus 1 is 1.02
                 }
                 //damage = damage + ((damage * 20) / 17);
                 //modifiers.FinalDamage *= 1.15f; //15% extra damage

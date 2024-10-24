@@ -123,14 +123,7 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(100) <= 20)
                 {
-                    if (ModLoader.HasMod("TRAEProject"))//bool if TRAE
-                    {
-                        player.statMana -= 2;
-                    }
-                    else
-                    {
-                        player.statMana -= 1;
-                    }
+                    player.statMana -= 1;
                 }
             }
             if (player.statMana <= 0)

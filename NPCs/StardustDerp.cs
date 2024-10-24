@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Star Hopper"); // Automatic from .lang files
+            //DisplayName.SetDefault("Starling"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 3; // make sure to set this for your modnpcs.
         }
         public override void SetDefaults()

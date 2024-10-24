@@ -144,7 +144,7 @@ namespace StormDiversMod.NPCs.Banners
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
-            //name.SetDefault("Storm Hopper Banner");
+            //name.SetDefault("Stormling Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
         public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
@@ -222,7 +222,7 @@ namespace StormDiversMod.NPCs.Banners
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
-            //name.SetDefault("Brain Hopper Banner");
+            //name.SetDefault("Brainling Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
         public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
@@ -261,7 +261,7 @@ namespace StormDiversMod.NPCs.Banners
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
-            //name.SetDefault("Star Hopper Banner");
+            //name.SetDefault("Starling Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
         /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
@@ -301,7 +301,7 @@ namespace StormDiversMod.NPCs.Banners
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
-            //name.SetDefault("Blazing Hopper Banner");
+            //name.SetDefault("Blazling Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
         public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)

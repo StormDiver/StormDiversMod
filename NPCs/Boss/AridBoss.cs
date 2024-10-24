@@ -66,7 +66,7 @@ namespace StormDiversMod.NPCs.Boss
             NPC.damage = 40; //40/60/90
 
             NPC.defense = 15;
-            NPC.lifeMax = 10000;
+            NPC.lifeMax = 8000;
 
             NPC.gfxOffY = 0;
             
@@ -102,11 +102,11 @@ namespace StormDiversMod.NPCs.Boss
             //10K Classic
             if (!Main.masterMode)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance); //14K
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance); //12K
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.6f * balance); //18K
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance); //16800
             }
             //30/45/66
             NPC.damage = (int)(NPC.damage * 0.75f);
@@ -468,11 +468,11 @@ namespace StormDiversMod.NPCs.Boss
         private void Attacks(Player player)//___________________________________________________________________________________________________________________________________________________
         {
             float distance = Vector2.Distance(player.Center, NPC.Center);
-            if (distance >= 500) //extra projectil velcoity if too far away
+            if (distance >= 500) //extra projectile velcoity if too far away
             {
                 extravel = (distance - 500) / 50; // add 1 velocity for ever 50 pixels away over 500
-                if (extravel > 1000)
-                    extravel = 1000;
+                if (extravel > 10)
+                    extravel = 10;
             }
             else
             {
@@ -1191,7 +1191,7 @@ namespace StormDiversMod.NPCs.Boss
                         int dust2 = Dust.NewDust(NPC.Center, 0, 0, 55, 0 + NPC.velocity.X, projvelocity + NPC.velocity.Y, 100, default, 1f);
                         Main.dust[dust2].noGravity = true;
                     }
-                    if (NPC.localAI[0] > 40)
+                    if (NPC.localAI[0] > 50)
                     {
                         animateattack = true;
                         SoundEngine.PlaySound(SoundID.Item20 with { Volume = 1.5f, Pitch = 00f }, NPC.Center);

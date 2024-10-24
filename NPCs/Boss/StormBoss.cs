@@ -95,7 +95,7 @@ namespace StormDiversMod.NPCs.Boss
             }
             else
             {
-                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance); //84K 
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.7f * balance); //84K
 
             }
             NPC.damage = (int)(NPC.damage * 0.75f);
@@ -1174,7 +1174,7 @@ namespace StormDiversMod.NPCs.Boss
                     }
                     if (Main.masterMode) //Portal amounts
                     {
-                        portalamount = 1;
+                        portalamount = Main.rand.Next(0, 2);
                     }
                     else
                     {

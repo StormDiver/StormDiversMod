@@ -396,7 +396,7 @@ namespace StormDiversMod.Common
                 frosttime = 0;
             }
 
-            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>())) //don't increase tiemr if buff is active
+            if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>())) //don't increase timer if buff is active
             {
                 if (granitebufftime < 600)
                 {
@@ -465,25 +465,17 @@ namespace StormDiversMod.Common
             //For Spectre Skull/Flower
             if (SpectreSkull)
             {
-                if (Main.LocalPlayer.HasBuff(BuffID.ManaSickness))
-                {
-                    if (ModLoader.HasMod("TRAEProject"))
-                    {
-                        Player.manaCost -= 0.25f;
-
-                    }
-                    else
-                    {
+                //code in npceffects
+                /*if (Main.LocalPlayer.HasBuff(BuffID.ManaSickness))
+                {                   
                         Player.manaCost *= 0f;
-
-                    }
 
                     Dust dust;
                     // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                     Vector2 position = Main.LocalPlayer.position;
                     dust = Main.dust[Terraria.Dust.NewDust(position, Player.width, Player.height, 15, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
                     dust.noGravity = true;
-                }
+                }*/
             }
             //For Soul/Blood Striders============================================================
             var tilePos = Player.Bottom.ToTileCoordinates16();
@@ -1404,7 +1396,7 @@ namespace StormDiversMod.Common
                             {
                                 if (!target.buffImmune[(BuffType<AridCoreDebuff>())])
                                 {
-                                    target.AddBuff(ModContent.BuffType<AridCoreDebuff>(), 200);
+                                    target.AddBuff(ModContent.BuffType<AridCoreDebuff>(), 90); //1.5 seconds
                                 }
                             }
                         }
@@ -1534,7 +1526,7 @@ namespace StormDiversMod.Common
             //triggers the granite accessory buff for 5 seconds, and it cannot be refreshed until the 10 second timer hjas ran out
             if (graniteBuff && !Player.HasBuff(ModContent.BuffType<GraniteAccessBuff>()) && granitebufftime == 600 && attackdmg > 1)
             {
-                Player.AddBuff(ModContent.BuffType<GraniteAccessBuff>(), 240);
+                Player.AddBuff(ModContent.BuffType<GraniteAccessBuff>(), 180);
                 SoundEngine.PlaySound(SoundID.NPCHit41 with { Volume = 1f, Pitch = -0.3f }, Player.Center);
                 for (int i = 0; i < 25; i++)
                 {

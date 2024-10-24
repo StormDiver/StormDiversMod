@@ -209,14 +209,16 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 dust.noGravity = true;
             }
 
-            int numberProjectiles = 2 + Main.rand.Next(2); //This defines how many projectiles to shot.
+            int numberProjectiles = 2; //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)
             {
+                float speedX = -Projectile.velocity.X;
+                float speedY = -Projectile.velocity.Y;
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20)) * 1f;
+                float scale = 1f - (Main.rand.NextFloat() * .5f);
+                perturbedSpeed = perturbedSpeed * scale;
 
-                float speedX = Main.rand.NextFloat(-5f, 5f);
-                float speedY = Main.rand.NextFloat(-5f, 5f);
-
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.25f), 0, Projectile.owner);
             }
         }  
     }

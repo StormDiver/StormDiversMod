@@ -22,20 +22,6 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.Spears[Item.type] = true;
 
         }
-        /*public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            foreach (TooltipLine line in tooltips)
-            {
-                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
-                {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                    {
-                        line.Text = line.Text + "\nHold right click to charge and release to throw the spear";
-                    }
-                }
-
-            }
-        }*/
         public override void SetDefaults() 
 		{
 			Item.damage = 30;
@@ -65,21 +51,9 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-          
-
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-            if (ModLoader.HasMod("TRAEProject"))
-            {
-                if (player.altFunctionUse != 2)
-                {
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.35f, perturbedSpeed.Y * 0.35f), ModContent.ProjectileType<Projectiles.DesertSpearTipProj>(), damage, knockback, player.whoAmI);
-                }
-            }
-            else
-            {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), ModContent.ProjectileType<Projectiles.DesertSpearTipProj>(), damage, knockback, player.whoAmI);
 
-            }
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.5f, perturbedSpeed.Y * 0.5f), ModContent.ProjectileType<Projectiles.DesertSpearTipProj>(), damage, knockback, player.whoAmI);
             return true;
         }
         
@@ -89,8 +63,6 @@ namespace StormDiversMod.Items.Weapons
         .AddIngredient(ModContent.ItemType<Items.OresandBars.DesertBar>(), 14)
         .AddTile(TileID.MythrilAnvil)
         .Register();
-
-          
         }
     }
     //_______________________________________________________________________________________________

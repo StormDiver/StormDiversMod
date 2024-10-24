@@ -8,8 +8,8 @@ using System.Linq;
 using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Common;
 using Terraria.GameContent.Drawing;
-
-
+using Terraria.WorldBuilding;
+using StormDiversMod.Items.Accessory;
 
 //buff effects for npcs are in NPCEffects.cs, effects for player are in EquipmentEffects.cs
 namespace StormDiversMod.Buffs
@@ -87,8 +87,34 @@ namespace StormDiversMod.Buffs
         {
             if (player.statMana < player.statManaMax2 * 0.5f)
             {
-                player.GetDamage(DamageClass.Magic) += 0.15f;
+                player.GetDamage(DamageClass.Magic) += 0.2f;
             }
+        }
+    }
+    //_______________________________________________________________________________
+    public class SpectreStarBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Spectre Star");
+            //Description.SetDefault("Magic critical strike chance increased by X");
+        }
+        int extracrit;
+        float extradamage;
+        public override void Update(Player player, ref int buffIndex)
+        {
+            int buffindex = player.FindBuffIndex(ModContent.BuffType<SpectreStarBuff>());
+            if (buffindex > -1)
+            {
+                extradamage = player.buffTime[buffindex] + 1;
+                //Main.NewText("The test = " + (extradamage / 12), 204, 101, 22);
+                player.GetDamage(DamageClass.Magic) += (extradamage / 24) / 100; // 300 frames total, 25% damage at 600 frames, divide by 12 and by 200 again to get 1% damage every 24 frames (0.01)
+            }
+        }
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        {
+                tip = tip + " " + Math.Ceiling(extradamage / 24)  + "%"; //rounds up 
+            base.ModifyBuffText(ref buffName, ref tip, ref rare);
         }
     }
     //_______________________________________________________________________________
@@ -134,14 +160,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (ModLoader.HasMod("TRAEProject"))
-            {
-                player.moveSpeed += 0.15f;
-            }
-            else
-            {
-                player.moveSpeed += 0.5f;
-            }
+            player.moveSpeed += 0.20f;
         }
     }
     //_______________________________________________________________________________
@@ -269,20 +288,41 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Granite Surge");
-            //Description.SetDefault("50% increased damage");
+            //Description.SetDefault("30% increased damage");
         }
-
+        bool nodust;
+        int accesstype = 3; //start at slot 3 (Accessory 1)
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetDamage(DamageClass.Generic) += 0.3f;
-           
 
-            if (Main.rand.Next(4) == 0)
+            for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 229, player.velocity.X, player.velocity.Y, 100, default, 1.2f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y = 1f;
+                if (player.armor[accesstype].type != ModContent.ItemType<GraniteCoreAccess>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
+                {
+                    accesstype++; //if not, check next slot
+                }
+                else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<GraniteCoreAccess>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
+                {
+                    nodust = true; //if so, hide dust
+                }
+                else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<GraniteCoreAccess>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
+                {
+                    nodust = false;
+                }
+            }
+            if (accesstype >= 9) //after slot 7 go back to slot 1
+                accesstype = 3;
+
+            if (!nodust)
+            {
+                if (Main.rand.Next(4) == 0)
+                {
+                    int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 229, player.velocity.X, player.velocity.Y, 100, default, 1.2f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1f;
+                    Main.dust[dust].velocity.Y = 1f;
+                }
             }
         }
     }
@@ -292,22 +332,41 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Warrior's Gift");
-            //Description.SetDefault("20% increased critical strike chance");
+            //Description.SetDefault("15% increased critical strike chance");
             Main.buffNoTimeDisplay[Type] = true;
         }
-
+        bool nodust;
+        int accesstype = 3; //start at slot 3 (Accessory 1)
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetCritChance(DamageClass.Generic) += 20;
-
-           
-
-            if (Main.rand.Next(5) == 0)
+            player.GetCritChance(DamageClass.Generic) += 15;
+            for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 57, player.velocity.X, player.velocity.Y, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
+                if (player.armor[accesstype].type != ModContent.ItemType<GladiatorAccess>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
+                {
+                    accesstype++; //if not, check next slot
+                }
+                else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<GladiatorAccess>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
+                {
+                    nodust = true; //if so, hide dust
+                }
+                else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<GladiatorAccess>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
+                {
+                    nodust = false;
+                }
+            }
+            if (accesstype >= 9) //after slot 7 go back to slot 1
+                accesstype = 3;
+
+            if (!nodust)
+            {
+                if (Main.rand.Next(5) == 0)
+                {
+                    int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 57, player.velocity.X, player.velocity.Y, 100, default, 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1f;
+                    Main.dust[dust].velocity.Y -= 0.5f;
+                }
             }
         }
     }
@@ -386,18 +445,38 @@ namespace StormDiversMod.Buffs
             //Description.SetDefault("Increases damage dealt and reduces damage taken by 1");
             Main.buffNoTimeDisplay[Type] = true;
         }
-
+        bool nodust;
+        int accesstype = 3; //start at slot 3 (Accessory 1)
+       
         public override void Update(Player player, ref int buffIndex)
         {
-
-            if (Main.rand.Next(10) == 0)
+            for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
+                if (player.armor[accesstype].type != ModContent.ItemType<SuperMushroom>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
+                {
+                    accesstype++; //if not, check next slot
+                }
+                else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
+                {
+                    nodust = true; //if so, hide dust
+                }
+                else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
+                {
+                    nodust = false;
+                }
             }
-
+            if (accesstype >= 9) //after slot 7 go back to slot 1
+                accesstype = 3;
+            if (!nodust)
+            {
+                if (Main.rand.Next(10) == 0)
+                {
+                    int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1f;
+                    Main.dust[dust].velocity.Y -= 0.5f;
+                }
+            }
         }
     }
     public class MushBuff2 : ModBuff
@@ -408,18 +487,38 @@ namespace StormDiversMod.Buffs
             //Description.SetDefault("Increases damage dealt and reduces damage taken by 2");
             Main.buffNoTimeDisplay[Type] = true;
         }
+        bool nodust;
+        int accesstype = 3; //start at slot 3 (Accessory 1)
 
         public override void Update(Player player, ref int buffIndex)
         {
-
-            if (Main.rand.Next(6) == 0)
+            for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
+                if (player.armor[accesstype].type != ModContent.ItemType<SuperMushroom>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
+                {
+                    accesstype++; //if not, check next slot
+                }
+                else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
+                {
+                    nodust = true; //if so, hide dust
+                }
+                else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
+                {
+                    nodust = false;
+                }
             }
-
+            if (accesstype >= 9) //after slot 7 go back to slot 1
+                accesstype = 3;
+            if (!nodust)
+            {
+                if (Main.rand.Next(6) == 0)
+                {
+                    int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1f;
+                    Main.dust[dust].velocity.Y -= 0.5f;
+                }
+            }
         }
     }
     public class MushBuff3 : ModBuff
@@ -430,18 +529,38 @@ namespace StormDiversMod.Buffs
             //Description.SetDefault("Increases damage dealt and reduces damage taken by 4");
             Main.buffNoTimeDisplay[Type] = true;
         }
+        bool nodust;
+        int accesstype = 3; //start at slot 3 (Accessory 1)
 
         public override void Update(Player player, ref int buffIndex)
         {
-
-            if (Main.rand.Next(2) == 0)
+            for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
-                int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1f;
-                Main.dust[dust].velocity.Y -= 0.5f;
+                if (player.armor[accesstype].type != ModContent.ItemType<SuperMushroom>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
+                {
+                    accesstype++; //if not, check next slot
+                }
+                else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
+                {
+                    nodust = true; //if so, hide dust
+                }
+                else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
+                {
+                    nodust = false;
+                }
             }
-
+            if (accesstype >= 9) //after slot 7 go back to slot 1
+                accesstype = 3;
+            if (!nodust)
+            {
+                if (Main.rand.Next(2) == 0)
+                {
+                    int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 113, player.velocity.X, player.velocity.Y, 100, default, 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1f;
+                    Main.dust[dust].velocity.Y -= 0.5f;
+                }
+            }
         }
     }
     /*public class MushBuff4 : ModBuff

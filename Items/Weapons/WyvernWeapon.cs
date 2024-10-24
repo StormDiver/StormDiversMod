@@ -42,7 +42,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.UseSound = SoundID.Item5;
 
-            Item.damage = 32;
+            Item.damage = 28;
             Item.knockBack = 2f;
 
             Item.shoot = ProjectileID.WoodenArrowFriendly;

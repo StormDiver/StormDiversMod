@@ -74,7 +74,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             if (Projectile.ai[0] == homerandom)
             {
-                for (int i = 0; i < 200; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     Player target = Main.player[i];
 

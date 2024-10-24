@@ -61,11 +61,11 @@ namespace StormDiversMod.Items.Misc
                         line.Text = line.Text + "\n[c/b225e6: Artisan Loaf]";
                     if (player.GetModPlayer<PlayerUpgrades>().ZephyrFeatherUpgrade)
                         line.Text = line.Text + "\n[c/b225e6: Zephyr Feather]";
+
                     if (!player.usedAegisCrystal && !player.usedAegisFruit && !player.usedArcaneCrystal && !player.usedAmbrosia
                             && !player.usedGummyWorm && !player.usedGalaxyPearl && !player.ateArtisanBread && !player.GetModPlayer<PlayerUpgrades>().ZephyrFeatherUpgrade)
                         line.Text = line.Text + "\n[c/888888: No permanent effects active]";
                 }
-
             }
         }
         public override bool CanUseItem(Player player)
@@ -77,32 +77,47 @@ namespace StormDiversMod.Items.Misc
         }
         public override bool? UseItem(Player player)
         {
+            //I know there's a way to simplify this but idk :thepain:
             if (player.usedAegisCrystal)
+            {
                 Item.NewItem(new EntitySource_Loot(player), new Vector2(player.position.X, player.position.Y), new Vector2(player.width, player.height), ItemID.AegisCrystal);
-
+                player.usedAegisCrystal = false;
+            }
             if (player.usedAegisFruit)
+            {
                 Item.NewItem(new EntitySource_Loot(player), new Vector2(player.position.X, player.position.Y), new Vector2(player.width, player.height), ItemID.AegisFruit);
+                player.usedAegisFruit = false;
+            }
             if (player.usedArcaneCrystal)
+            { 
                 Item.NewItem(new EntitySource_Loot(player), new Vector2(player.position.X, player.position.Y), new Vector2(player.width, player.height), ItemID.ArcaneCrystal);
+                player.usedArcaneCrystal = false;
+            }
             if (player.usedAmbrosia)
+            {
                 Item.NewItem(new EntitySource_Loot(player), new Vector2(player.position.X, player.position.Y), new Vector2(player.width, player.height), ItemID.Ambrosia);
+                player.usedAmbrosia = false;
+            }
             if (player.usedGummyWorm)
+            {
                 Item.NewItem(new EntitySource_Loot(player), new Vector2(player.position.X, player.position.Y), new Vector2(player.width, player.height), ItemID.GummyWorm);
+                player.usedGummyWorm = false;
+            }
             if (player.usedGalaxyPearl)
+            {
                 Item.NewItem(new EntitySource_Loot(player), new Vector2(player.position.X, player.position.Y), new Vector2(player.width, player.height), ItemID.GalaxyPearl);
+                player.usedGalaxyPearl = false;
+            }
             if (player.ateArtisanBread)
+            {
                 Item.NewItem(new EntitySource_Loot(player), new Vector2(player.position.X, player.position.Y), new Vector2(player.width, player.height), ItemID.ArtisanLoaf);
+                player.ateArtisanBread = false;
+            }
             if (player.GetModPlayer<PlayerUpgrades>().ZephyrFeatherUpgrade)
+            {
                 Item.NewItem(new EntitySource_Loot(player), new Vector2(player.position.X, player.position.Y), new Vector2(player.width, player.height), ModContent.ItemType<ZephyrFeather>());
-
-            player.usedAegisCrystal = false;
-            player.usedAegisFruit = false;
-            player.usedArcaneCrystal = false;
-            player.usedAmbrosia = false;
-            player.usedGummyWorm = false;
-            player.usedGalaxyPearl = false;
-            player.ateArtisanBread = false;
-            player.GetModPlayer<PlayerUpgrades>().ZephyrFeatherUpgrade = false;
+                player.GetModPlayer<PlayerUpgrades>().ZephyrFeatherUpgrade = false;
+            }
 
             for (int i = 0; i < 30; i++)
             {

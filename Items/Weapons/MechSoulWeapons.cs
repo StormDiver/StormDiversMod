@@ -38,7 +38,7 @@ namespace StormDiversMod.Items.Weapons
             Item.rare = ItemRarityID.Pink;
            
             Item.knockBack = 6f;
-            Item.damage = 70;
+            Item.damage = 90;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item1;
             Item.DamageType = DamageClass.MeleeNoSpeed;

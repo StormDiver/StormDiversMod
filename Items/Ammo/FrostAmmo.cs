@@ -51,7 +51,7 @@ namespace StormDiversMod.Items.Ammo
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Frost Arrow");
-            //Tooltip.SetDefault("Explodes into tiny shards on impact");
+            //Tooltip.SetDefault("Explodes into 2 tiny shards on impact");
             Item.ResearchUnlockCount = 99;
         }
         public override void SetDefaults()
@@ -64,7 +64,7 @@ namespace StormDiversMod.Items.Ammo
 
             Item.DamageType = DamageClass.Ranged;
 
-            Item.damage = 15;
+            Item.damage = 10;
      
             Item.knockBack = 2f;
             Item.consumable = true;

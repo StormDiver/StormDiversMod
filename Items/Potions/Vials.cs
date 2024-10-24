@@ -101,10 +101,11 @@ namespace StormDiversMod.Items.Potions
         }
         public override void OnConsumeItem(Player player)
         {
+            if (!player.pStone)
                 player.AddBuff(BuffID.PotionSickness, 5700); //95 seconds, 1:35
-               // player.AddBuff(BuffID.PotionSickness, 4200); //70 seconds, 1:10
+           else
+               player.AddBuff(BuffID.PotionSickness, 4200); //70 seconds, 1:10
 
-            //Time left is now dynamically changed 
         }
         public override void GetHealLife(Player player, bool quickHeal, ref int healValue)
         {

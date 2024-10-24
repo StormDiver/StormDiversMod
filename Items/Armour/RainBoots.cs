@@ -57,16 +57,9 @@ namespace StormDiversMod.Items.Armour
 
                 player.AddBuff(ModContent.BuffType<RainBuff>(), 2);
             }
-            if (ModLoader.HasMod("TRAEProject"))
-            {
-                //player.setBonus = "15% increased Movement Speed while raining";
-                player.setBonus = this.GetLocalization("SetBonus2").Value;
-            }
-            else
-            {
-               //player.setBonus = "50% increased Movement Speed while raining";
-                player.setBonus = this.GetLocalization("SetBonus1").Value;
-            }
+
+            //player.setBonus = "50% increased Movement Speed while raining";
+            player.setBonus = this.GetLocalization("SetBonus1").Value;
         }
     }
 }

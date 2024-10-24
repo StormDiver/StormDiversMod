@@ -407,10 +407,11 @@ namespace StormDiversMod.Projectiles.Minions
 			Projectile.aiStyle = 0;
 
 			Projectile.timeLeft = 90;
-
 			DrawOffsetX = -2;
 			DrawOriginOffsetY = -2;
 			Projectile.extraUpdates = 1;
+
+			Projectile.ArmorPenetration = 5;
 		}
 
 		public override void AI()

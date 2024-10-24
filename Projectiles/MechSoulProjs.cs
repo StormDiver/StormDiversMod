@@ -310,7 +310,7 @@ namespace StormDiversMod.Projectiles
         }
         int shoottime = 0;
         bool stopspikes = false;//For stopped spinning
-
+        int extendtime;
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
@@ -321,8 +321,9 @@ namespace StormDiversMod.Projectiles
             if (!player.controlUseItem)//When stopped spinning, can no longer fire spikes
             {
                 stopspikes = true;
+                extendtime++;
             }
-            if ((shoottime >= 25 && !stopspikes) || (shoottime >= 45 && stopspikes && Projectile.tileCollide))//Fire spikes while spinning
+            if ((shoottime >= 25 && !stopspikes) || (shoottime >= 45 && stopspikes && Projectile.tileCollide) || extendtime == 14)//Fire spikes while spinning
             {
                 float numberProjectiles = 8;
                 float rotation = MathHelper.ToRadians(180);
@@ -338,8 +339,6 @@ namespace StormDiversMod.Projectiles
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 1f), 0.5f, Projectile.owner);
 
                 }
-
-
                 SoundEngine.PlaySound(SoundID.Item17 with{Volume = 1.5f}, Projectile.Center);
 
                 shoottime = 0;

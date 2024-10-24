@@ -194,8 +194,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 6, 0, 0);
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 12;
-            Item.useAnimation = 12;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useTurn = false;
             Item.autoReuse = true;
 

@@ -45,14 +45,9 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<MagicArrowProj>();
             Item.channel = true;
             Item.shootSpeed = 16f;
-            /*if (ModLoader.HasMod("TRAEProject"))
-            {
-                Item.mana = 12;
-            }
-            else
-            {
-                Item.mana = 8;
-            }*/
+          
+            //Item.mana = 8;
+            
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override void HoldItem(Player player)

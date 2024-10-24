@@ -14,7 +14,6 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            
             //DisplayName.SetDefault("Biome Core");
             //Tooltip.SetDefault("Taking more than 1 damage increases damage by 50% for 4 seconds with a 10 second cooldown afterwards" +
                 //"\nWhile above 75% HP your critical strike chance is increased by 20%\nIncreases damage dealt and reduces damage taken when losing health");
@@ -35,19 +34,17 @@ namespace StormDiversMod.Items.Accessory
             Item.width = 30;
             Item.height = 30;
             Item.value = Item.sellPrice(0, 5, 0, 0);
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.LightRed;
             
             Item.accessory = true;
-            
-
-
         }
 
+      
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<EquipmentEffects>().graniteBuff = true;
             player.GetModPlayer<EquipmentEffects>().mushroomSuper = true;
-            if (player.statLife >= player.statLifeMax2 * 0.75f)
+            if (player.statLife >= player.statLifeMax2 * 0.66f)
             {
                 player.AddBuff(ModContent.BuffType<Buffs.GladiatorAccessBuff>(), 2);
             }
@@ -58,8 +55,8 @@ namespace StormDiversMod.Items.Accessory
             .AddIngredient(ModContent.ItemType<GraniteCoreAccess>(), 1)
             .AddIngredient(ModContent.ItemType<GladiatorAccess>(), 1)
             .AddIngredient(ModContent.ItemType<SuperMushroom>(), 1)
-            //.AddIngredient(ModContent.ItemType<Items.Materials.CrackedHeart>(), 3)
-            .AddIngredient(ItemID.Bone, 20)
+            .AddIngredient(ItemID.SoulofNight, 3)
+            .AddIngredient(ItemID.SoulofLight, 3)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }

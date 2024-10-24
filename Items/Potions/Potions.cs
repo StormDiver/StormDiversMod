@@ -104,7 +104,7 @@ namespace StormDiversMod.Items.Potions
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Spectre Empowerment Potion");
-            //Tooltip.SetDefault("Increases magic damage by 15% when below 50% mana");
+            //Tooltip.SetDefault("Increases magic damage by 20% when below 50% mana");
             Item.ResearchUnlockCount = 20;
             ItemID.Sets.DrinkParticleColors[Type] = [
                new Color(196, 247, 255),

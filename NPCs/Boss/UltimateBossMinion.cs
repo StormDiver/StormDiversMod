@@ -16,8 +16,8 @@ using Terraria.DataStructures;
 using Terraria.GameContent.UI.BigProgressBar;
 
 namespace StormDiversMod.NPCs.Boss
-
 {
+    //[AutoloadBossHead] //If enabled boss bars are visible
     public class TheUltimateBossMinion : ModNPC
     {
         public override void SetStaticDefaults()
@@ -33,12 +33,10 @@ namespace StormDiversMod.NPCs.Boss
         public override void SetDefaults()
         {
             Main.npcFrameCount[NPC.type] = 7;
-            
             NPC.width = 50;
             NPC.height = 50;
 
             NPC.aiStyle = -1;
-
             NPC.damage = 10;//Contact damage removed in AI
 
             NPC.defense = 75;
@@ -155,7 +153,7 @@ namespace StormDiversMod.NPCs.Boss
 
             if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBoss>()) == 0)
             {
-                int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
+                int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjExplode>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 0.8f;
 
                 if (Main.netMode != NetmodeID.Server)
@@ -252,26 +250,32 @@ namespace StormDiversMod.NPCs.Boss
 
             }
             //Damage values and projspeed===============================
-            if (Main.getGoodWorld)
+            //damage
+            if (!fastshoot)
             {
-                projdamage = (60 * clamteadmg) / 100; //120/240/360 on ftw
-                projvelocity = 1.4f;
-            }
-            else if (Main.masterMode)
-            {
-                projdamage = (50 * clamteadmg) / 100; // 300 on master               
-                projvelocity = 1.3f;
-            }
-            else if (Main.expertMode && !Main.masterMode)
-            {
-                projdamage = (55 * clamteadmg) / 100; // 220 On expert
-                projvelocity = 1.2f;
+                if (Main.getGoodWorld && Main.masterMode)
+                    projdamage = (50 * clamteadmg) / 100; //300 on ftw                          
+                else if (Main.masterMode)
+                    projdamage = (40 * clamteadmg) / 100; // 240 on master               
+                else if (Main.expertMode && !Main.masterMode)
+                    projdamage = (45 * clamteadmg) / 100; // 180 On expert
+                else
+                    projdamage = (60 * clamteadmg) / 100; // 120 on normal
+                projvelocity = 0.9f;
             }
             else
             {
-                projdamage = (70 * clamteadmg) / 100; // 140 on normal
-                projvelocity = 1.1f;
+                if (Main.getGoodWorld && Main.masterMode)
+                    projdamage = (45 * clamteadmg) / 100; //270 on ftw                          
+                else if (Main.masterMode)
+                    projdamage = (35 * clamteadmg) / 100; // 210 on master               
+                else if (Main.expertMode && !Main.masterMode)
+                    projdamage = (40 * clamteadmg) / 100; // 160 On expert
+                else
+                    projdamage = (55 * clamteadmg) / 110; // 110 on normal
+                projvelocity = 1.0f;
             }
+
             //projectile count and spread
             if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBossMinion>()) == 1) 
             {
@@ -324,11 +328,11 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (fastshoot) //fast shooting
                 {
-                    shootspeed = 4;
+                    shootspeed = 6;
                 }
                 else //normal shooting 
                 {
-                    shootspeed = 21 - (projcount * 2);
+                    shootspeed = 25 - (projcount * 2);
                 }
                 if (canshoot)
                 {
@@ -431,7 +435,7 @@ namespace StormDiversMod.NPCs.Boss
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
-                int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
+                int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjExplode>(), 0, 0, Main.myPlayer);
                 Main.projectile[proj].scale = 0.8f;
 
                 if (Main.netMode != NetmodeID.Server)

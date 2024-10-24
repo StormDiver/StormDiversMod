@@ -54,7 +54,7 @@ namespace StormDiversMod
                        ("LogBoss",
                         this,
                         nameof(AridBoss),
-                        6.5f,
+                        6.6f,
                         () => StormWorld.aridBossDown,
                         ModContent.NPCType<NPCs.Boss.AridBoss>(),
                          new Dictionary<string, object>()
@@ -96,7 +96,7 @@ namespace StormDiversMod
                        ("LogBoss",
                         this,
                         nameof(TheUltimateBoss),
-                        19f,
+                        18.7f, //Post Dragonfolly but pre-Providence
                         () => StormWorld.ultimateBossDown,
                         ModContent.NPCType<NPCs.Boss.TheUltimateBoss>(),
                          new Dictionary<string, object>()

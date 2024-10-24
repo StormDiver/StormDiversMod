@@ -104,8 +104,18 @@ namespace StormDiversMod.Common
             }
 
         }
+        int bufftimer;
         public override void PostUpdateEquips() //Updates every frame
         {
+            if (Player.HasBuff(BuffID.PotionSickness))
+            {
+                /*int buffindex = Player.FindBuffIndex(BuffID.PotionSickness);
+                if (buffindex > -1)
+                {
+                    bufftimer = Player.buffTime[buffindex] + 1;
+                }
+                Main.NewText("Potion time: " + (bufftimer / 60 + 1), Color.Crimson);*/
+            }
             //If player holds forbidden item summon up to 6 Guardians after 5 seconds
             if (!NPC.downedPlantBoss)
             {
@@ -521,14 +531,16 @@ namespace StormDiversMod.Common
         {
             if (!GetInstance<ConfigurationsIndividual>().NoMessage)
             {
-                if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj2>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj3>())
+                if (proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjCharge>() ||
+                    proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjGravity>() || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjHome>()
+                    || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjShard>())
                 {
                     if (Player.statLife < Player.statLifeMax2 && Player.statLife > 0) //No message if dead or revived
                     {
-                        if (Main.rand.Next(3) == 0 || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj3>())
+                        if (Main.rand.Next(3) == 0 || proj.type == ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjShard>())
                         {                           //Final phase always says second phase each hit                               
                             int choice = Main.rand.Next(0, 5);
-                            if (proj.type != ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj3>())
+                            if (proj.type != ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjShard>())
                             {
                                 if (choice == 0)
                                     Paintext = "That looked very Painful!";
@@ -574,7 +586,7 @@ namespace StormDiversMod.Common
                 {
 
                     int choice = Main.rand.Next(0, 5);
-                    if (proj.type != ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj3>())
+                    if (proj.type != ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProjShard>())
                     {
                         if (choice == 0)
                             Paintext = "That looked very Painful!";

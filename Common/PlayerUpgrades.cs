@@ -34,12 +34,12 @@ namespace ExampleMod.Common.Players
         //idc about multiplayer
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
-            //???
+           
             base.SendClientChanges(clientPlayer);
         }
         public override void CopyClientState(ModPlayer targetCopy)
         {
-            //???
+          
             base.CopyClientState(targetCopy);
         }
     }

@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Storm Hopper"); // Automatic from .lang files
+            //DisplayName.SetDefault("Stormling"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 3; // make sure to set this for your modnpcs.
             NPCID.Sets.TrailingMode[NPC.type] = 3;
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;

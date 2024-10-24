@@ -23,7 +23,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Blazing Hopper"); // Automatic from .lang files
+            //DisplayName.SetDefault("Blazling"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 3; // make sure to set this for your modnpcs.
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;

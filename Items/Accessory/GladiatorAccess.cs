@@ -14,34 +14,25 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            
             //DisplayName.SetDefault("Warrior's Trophy");
-            //Tooltip.SetDefault("While above 75% HP your critical strike chance is increased by 20%");
+            //Tooltip.SetDefault("While above 66% HP your critical strike chance is increased by 15%");
             Item.ResearchUnlockCount = 1;
-
         }
-
         public override void SetDefaults()
         {
-
             Item.width = 30;
             Item.height = 30;
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Blue;
             Item.accessory = true;
-
-            
-
         }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (player.statLife >= player.statLifeMax2 * 0.75f)
+           
+            if (player.statLife >= player.statLifeMax2 * 0.66f)
             {
-                player.AddBuff(ModContent.BuffType<Buffs.GladiatorAccessBuff>(), 2);          
+                player.AddBuff(ModContent.BuffType<Buffs.GladiatorAccessBuff>(), 2);
             }
         }
-       
-
     }
 }

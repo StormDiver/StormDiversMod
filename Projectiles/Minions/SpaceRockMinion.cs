@@ -70,7 +70,7 @@ namespace StormDiversMod.Projectiles.Minions
             Projectile.tileCollide = false;
 
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 15;
+            Projectile.localNPCHitCooldown = 10;
         }
         public override bool MinionContactDamage()
         {
@@ -183,16 +183,16 @@ namespace StormDiversMod.Projectiles.Minions
 
             // Default movement parameters (here for attacking)
             float speed = 30f;
-            float inertia = 5f;
+            float inertia = 4f;
             if (Projectile.ai[0] <= 6)
             {
                 Projectile.ai[0] += 1; //Fix issue where minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
             }
             if (foundTarget)
             {
-                Projectile.extraUpdates = 1;
+                //Projectile.extraUpdates = 1;
                 // Minion has a target: attack (here, fly towards the enemy)
-                if (Vector2.Distance(Projectile.Center, targetCenter) > 200f || Projectile.ai[0] <= 5)
+                if (Vector2.Distance(Projectile.Center, targetCenter) > 150f || Projectile.ai[0] <= 5)
                 {
                     // The immediate range around the target (so it doesn't latch onto it when close)
                     Vector2 direction = targetCenter - Projectile.Center;
@@ -202,13 +202,12 @@ namespace StormDiversMod.Projectiles.Minions
                 }
                 else
                 {                 
-                        Projectile.velocity *= 1.03f; //Small little boost so that it doesn't slow down                  
+                     Projectile.velocity *= 1.03f; //Small little boost so that it doesn't slow down                  
                 }
             }
             else
             {
-                Projectile.extraUpdates = 0;
-
+                //Projectile.extraUpdates = 0;
                 // Minion doesn't have a target: return to player and idle
                 if (distanceToIdlePosition > 300f)
                 {

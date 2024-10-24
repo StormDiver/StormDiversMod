@@ -110,7 +110,7 @@ namespace StormDiversMod.Items.Summons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int proj = Projectile.NewProjectile(source, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 16 * player.gravDir), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProj4>(), 0, 0, Main.myPlayer);
+            int proj = Projectile.NewProjectile(source, new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 16 * player.gravDir), new Vector2(0, 0), ModContent.ProjectileType<TheUltimateBossProjExplode>(), 0, 0, Main.myPlayer);
 
             SoundEngine.PlaySound(SoundID.Item14, player.Center);
             return false;

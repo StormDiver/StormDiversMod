@@ -33,7 +33,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 200;
+            Item.damage = 175;
             Item.DamageType = DamageClass.Generic;
             Item.width = 40;
             Item.height = 50;
@@ -378,7 +378,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 200;
+            Item.damage = 175;
 
             Item.DamageType = DamageClass.Generic;
             Item.width = 40;

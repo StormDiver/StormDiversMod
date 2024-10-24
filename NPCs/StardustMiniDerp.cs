@@ -20,7 +20,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Star Hopper Minion"); // Automatic from .lang files
+            //DisplayName.SetDefault("Starling Minion"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 2; // make sure to set this for your modnpcs.
             NPCID.Sets.DontDoHardmodeScaling[Type] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;

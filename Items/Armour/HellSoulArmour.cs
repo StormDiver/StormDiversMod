@@ -290,7 +290,7 @@ namespace StormDiversMod.Items.Armour
         {
             base.SetStaticDefaults();
             //DisplayName.SetDefault("Infernal Soul Crown");
-            //Tooltip.SetDefault("15% increased summoner damage\nIncreases maximum number of minions by 2");
+            //Tooltip.SetDefault("Increases maximum number of minions by 2");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
             Item.ResearchUnlockCount = 1;
             HeadLayer.RegisterData(Item.headSlot, new DrawLayerData()
@@ -309,8 +309,7 @@ namespace StormDiversMod.Items.Armour
    
         public override void UpdateEquip(Player player)
         {
-
-            player.GetDamage(DamageClass.Summon) += 0.15f;
+            //player.GetDamage(DamageClass.Summon) += 0.15f;
             player.maxMinions += 2;
             if (!Main.dedServ)
             {
@@ -346,7 +345,7 @@ namespace StormDiversMod.Items.Armour
                 keyName = list[0];
             }
 
-            //player.setBonus = "Increases maximum number of minions by 1\nCharges up a powerful Infernal Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
+            //player.setBonus = "Increases maximum number of minions by 2\nCharges up a powerful Infernal Storm over 10 seconds, press '" + keyName + "' once charged to unleash the storm upon up to 15 nearby enemies";
             player.setBonus = this.GetLocalization("SetBonus1").Value + " '" + keyName + "' " + this.GetLocalization("SetBonus2").Value;
 
             player.GetModPlayer<ArmourSetBonuses>().hellSoulSet = true;
@@ -436,20 +435,7 @@ namespace StormDiversMod.Items.Armour
                 Texture = ModContent.Request<Texture2D>(Texture + "_Legs_Glow")
             });
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            foreach (TooltipLine line in tooltips)
-            {
-                if (ModLoader.HasMod("TRAEProject"))//DON'T FORGET THIS!!!!!!!
-                {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                    {
-                        line.Text = "15% increased movement speed"; 
-                    }
-                }
-
-            }
-        }
+       
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -462,14 +448,9 @@ namespace StormDiversMod.Items.Armour
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Generic) += 0.1f;
-            if (ModLoader.HasMod("TRAEProject"))
-            {
-                player.moveSpeed += 0.15f;
-            }
-            else
-            {
-                player.moveSpeed += 0.25f;
-            }
+
+            player.moveSpeed += 0.15f;
+
             if (!Main.dedServ)
             {
                 Lighting.AddLight(player.Center, Color.White.ToVector3() * 0.4f);

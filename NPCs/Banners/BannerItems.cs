@@ -93,8 +93,8 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Storm Hopper Banner");
-            //Tooltip.SetDefault("Nearby players get a bonus against: Storm Hopper");
+            //DisplayName.SetDefault("Stormling Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Stormling");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -147,8 +147,8 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Brain Hopper Banner");
-            //Tooltip.SetDefault("Nearby players get a bonus against: Brain Hopper");
+            //DisplayName.SetDefault("Brainling Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Brainling");
             Item.ResearchUnlockCount = 1;
 
         }
@@ -174,8 +174,8 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Star Hopper Banner");
-            //Tooltip.SetDefault("Nearby players get a bonus against: Star Hopper");
+            //DisplayName.SetDefault("Starling Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Starling");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
@@ -199,8 +199,8 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Blazing Hopper Banner");
-            //Tooltip.SetDefault("Nearby players get a bonus against: Blazing Hopper");
+            //DisplayName.SetDefault("Blazling Banner");
+            //Tooltip.SetDefault("Nearby players get a bonus against: Blazling");
             Item.ResearchUnlockCount = 1;
 
         }

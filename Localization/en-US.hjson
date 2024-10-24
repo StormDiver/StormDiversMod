@@ -214,7 +214,7 @@ Mods: {
 
 			GladiatorAccessBuff: {
 				DisplayName: Warrior's Gift
-				Description: 20% increased critical strike chance
+				Description: 15% increased critical strike chance
 			}
 
 			GraniteAccessBuff: {
@@ -358,7 +358,12 @@ Mods: {
 
 			SpectreBuff: {
 				DisplayName: Spectre Enhancement
-				Description: Magic damage increased by 15% when below half mana
+				Description: Magic damage increased by 20% when below half mana
+			}
+
+			SpectreStarBuff: {
+				DisplayName: Spectral Strength
+				Description: Magic damage increased by
 			}
 
 			SpookedDebuff: {
@@ -582,8 +587,8 @@ Mods: {
 				DisplayName: Ancient Scarab
 				Tooltip:
 					'''
-					Creates an Arid aura around the cursor, enemies within the aura receive 20% extra damage
-					Enemies continue to receive extra damage outside the aura for 3.2 seconds, but the amount falls off during this time
+					Creates an Arid aura around the cursor, enemies within the aura receive 18% extra damage
+					Enemies continue to receive extra damage outside the aura for 1.5 seconds, but the amount falls off during this time
 					Aura requires a line of sight
 					'''
 			}
@@ -604,8 +609,8 @@ Mods: {
 				DisplayName: Biome Core
 				Tooltip:
 					'''
-					Taking more than 1 damage increases damage by 30% for 4 seconds with a 10 second cooldown afterwards
-					While above 75% HP your critical strike chance is increased by 20%
+					Taking more than 1 damage increases damage by 30% for 3 seconds with a 10 second cooldown afterwards
+					While above 66% HP your critical strike chance is increased by 15%
 					Increases damage dealt and reduces damage taken by a flat amount when losing health
 					'''
 			}
@@ -784,14 +789,14 @@ Mods: {
 
 			GladiatorAccess: {
 				DisplayName: Warrior's Trophy
-				Tooltip: While above 75% HP your critical strike chance is increased by 20%
+				Tooltip: While above 66% HP your critical strike chance is increased by 15%
 			}
 
 			GraniteCoreAccess: {
 				DisplayName: Granite Core
 				Tooltip:
 					'''
-					Taking more than 1 damage increases damage by 30% for 4 seconds
+					Taking more than 1 damage increases damage by 30% for 3 seconds
 					Has a 10 second cooldown afterwards
 					'''
 			}
@@ -904,8 +909,10 @@ Mods: {
 				DisplayName: Spectre Skull
 				Tooltip:
 					'''
-					Mana usage is negated when under the effects of mana sickness
-					Increases maximum mana by 40
+					Enemies have a chance to drop a Spectre Star on death, which restores 200 mana
+					Bosses have a small chance when hit to drop a star
+					The star also grants the Spectral Strength Buff which increases magic damage by up to 25% depending on the remaining duration
+					Duration is increased by 5 seconds per collected star, and caps at 10 seconds
 					'''
 			}
 
@@ -916,8 +923,10 @@ Mods: {
 					8% reduced mana usage
 					Automatically use mana potions when needed
 					Increases pickup range for mana stars
-					Mana usage is negated when under the effects of mana sickness
-					Increases maximum mana by 40
+					Enemies have a chance to drop a Spectre Star on death, which restores 200 mana
+					Bosses have a small chance when hit to drop a star
+					The star also grants the Spectral Strength Buff which increases magic damage by up to 25% depending on the remaining duration
+					Duration is increased by 5 seconds per collected star, and caps at 10 seconds
 					'''
 			}
 
@@ -1051,7 +1060,7 @@ Mods: {
 
 			FrostArrow: {
 				DisplayName: Frost Arrow
-				Tooltip: Explodes into tiny shards on impact
+				Tooltip: Creates frost shards on impact
 			}
 
 			FrostBullet: {
@@ -1362,11 +1371,7 @@ Mods: {
 
 			HellSoulBCrown: {
 				DisplayName: Infernal Soul Crown
-				Tooltip:
-					'''
-					15% increased summon damage
-					Increases maximum number of minions by 2
-					'''
+				Tooltip: Increases maximum number of minions by 2
 				SetBonus1:
 					'''
 					Increases maximum number of minions by 1
@@ -1432,7 +1437,7 @@ Mods: {
 				Tooltip:
 					'''
 					10% increased damage
-					25% increased movement speed
+					15% increased movement speed
 					'''
 			}
 
@@ -1527,8 +1532,7 @@ Mods: {
 			RainBoots: {
 				DisplayName: Rain Boots
 				Tooltip: ""
-				SetBonus1: 50% increased Movement Speed while raining
-				SetBonus2: 15% increased Movement Speed while raining
+				SetBonus1: 20% increased Movement Speed while raining
 			}
 
 			SantankBMask: {
@@ -1557,7 +1561,7 @@ Mods: {
 					'''
 					8% increased ranged damage
 					6% increased ranged critical strike chance
-					25% increased movement speed
+					20% increased movement speed
 					'''
 			}
 
@@ -1684,7 +1688,7 @@ Mods: {
 					'''
 					6% increased damage
 					5% increased critical strike chance
-					50% increased movement speed
+					25% increased movement speed
 					'''
 			}
 
@@ -1967,7 +1971,7 @@ Mods: {
 
 			SpectrePotion: {
 				DisplayName: Spectre Empowerment Potion
-				Tooltip: Increases magic damage by 15% when below 50% mana
+				Tooltip: Increases magic damage by 20% when below 50% mana
 			}
 
 			SpookyPotion: {
@@ -3667,8 +3671,8 @@ Mods: {
 			}
 
 			NebulaDerpBannerItem: {
-				DisplayName: Brain Hopper Banner
-				Tooltip: Nearby players get a bonus against: Brain Hopper
+				DisplayName: Brainling Banner
+				Tooltip: Nearby players get a bonus against: Brainling
 			}
 
 			SandCoreBannerItem: {
@@ -3682,8 +3686,8 @@ Mods: {
 			}
 
 			SolarDerpBannerItem: {
-				DisplayName: Blazing Hopper Banner
-				Tooltip: Nearby players get a bonus against: Blazing Hopper
+				DisplayName: Blazling Banner
+				Tooltip: Nearby players get a bonus against: Blazling
 			}
 
 			SpaceRockHeadBannerItem: {
@@ -3697,13 +3701,13 @@ Mods: {
 			}
 
 			StardustDerpBannerItem: {
-				DisplayName: Star Hopper Banner
-				Tooltip: Nearby players get a bonus against: Star Hopper and Star Hopper Minion
+				DisplayName: Starling Banner
+				Tooltip: Nearby players get a bonus against: Starling and Starling Minion
 			}
 
 			StormDerpBannerItem: {
-				DisplayName: Storm Hopper Banner
-				Tooltip: Nearby players get a bonus against: Storm Hopper
+				DisplayName: Stormling Banner
+				Tooltip: Nearby players get a bonus against: Stormling
 			}
 
 			VineDerpBannerItem: {
@@ -3827,6 +3831,11 @@ Mods: {
 					Will remove the effects of the currently consumed items:
 					'''
 			}
+
+			SpectreStarPickup: {
+				DisplayName: Spectre Star
+				Tooltip: Restores 200 mana and grants the Spectral Strength Buff for 5 seconds
+			}
 		}
 
 		NPCs: {
@@ -3880,15 +3889,15 @@ Mods: {
 			MeteorDropper.DisplayName: Meteor Bomber
 			MoonDerp.DisplayName: Moonling
 			MushroomMiniBoss.DisplayName: Angry Mushroom
-			NebulaDerp.DisplayName: Brain Hopper
+			NebulaDerp.DisplayName: Brainling
 			SandCore.DisplayName: Dune Blaster
 			ScanDrone.DisplayName: Scandrone
-			SolarDerp.DisplayName: Blazing Hopper
+			SolarDerp.DisplayName: Blazling
 			SpaceRockHead.DisplayName: Asteroid Orbiter
 			SpaceRockHeadLarge.DisplayName: Asteroid Charger
-			StardustDerp.DisplayName: Star Hopper
-			StardustMiniDerp.DisplayName: Star Hopper Minion
-			StormDerp.DisplayName: Storm Hopper
+			StardustDerp.DisplayName: Starling
+			StardustMiniDerp.DisplayName: Starling Minion
+			StormDerp.DisplayName: Stormling
 			VineDerp.DisplayName: Camouflaged Derpling
 			VortexCannon.DisplayName: Vortexian Cannon
 			ThePainSlime.DisplayName: Pain Slime
@@ -3933,9 +3942,12 @@ Mods: {
 			StormBossMineLarge.DisplayName: Overloaded Scandrone Large Mine
 			StormDerpProj.DisplayName: Vortex Spike
 			TheUltimateBossProj.DisplayName: Skull of Pain
-			TheUltimateBossProj2.DisplayName: Skull of Pain
-			TheUltimateBossProj3.DisplayName: Shard of Pain
-			TheUltimateBossProj4.DisplayName: Explosion of Pain
+			TheUltimateBossProjExplode.DisplayName: Explosion of Pain
+			TheUltimateBossProjCharge.DisplayName: Charging Skull of Pain
+			TheUltimateBossProjGravity.DisplayName: Heavy Skull of Pain
+			TheUltimateBossProjHome.DisplayName: Homing Skull of Pain
+			TheUltimateBossProjShard.DisplayName: Shard of Pain
+			TheUltimateBossProjLarge.DisplayName: Giant Skull of Pain
 			VortCannonProj.DisplayName: Vortexian Rocket
 			TheClaySlimeProj.DisplayName: Clay Slime Blob
 			ThePainSlimeProj.DisplayName: Pain Slime Blob
