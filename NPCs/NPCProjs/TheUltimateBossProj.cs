@@ -523,7 +523,6 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Generic;
-            Projectile.timeLeft = 300;
 
             Projectile.scale = 1f;
             Projectile.tileCollide = false;
@@ -826,10 +825,12 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             else target = null;
         }
-        float dashvelocity;
         int dashtime;
         int dashcount;
         int dashlimit;
+
+        Vector2 predictivedash; //for attack 5 predictive dash
+
         public override void AI()
         {
             if (Main.getGoodWorld && Main.masterMode)
@@ -858,6 +859,27 @@ namespace StormDiversMod.NPCs.NPCProjs
                 linewidth -= 0.2f;
             }
             Projectile.ai[2]++;
+
+            Player player = Main.LocalPlayer;
+
+            if (Vector2.Distance(player.Center, Projectile.Center) > 150) //predictive dash if player is far away
+            {
+                predictivedash = Vector2.Normalize(new Vector2(player.Center.X + (player.velocity.X * 12), player.Center.Y + (player.velocity.Y * 12)) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 4f;
+
+                //dust effect for debugging
+                var dust2 = Dust.NewDustDirect(new Vector2(player.Center.X + (player.velocity.X * 10), player.Center.Y + (player.velocity.Y * 10)), 0, 0, 115);
+                dust2.scale = 1.25f;
+                dust2.noGravity = true;
+            }
+            else //if close to player, just target player directly
+            {
+                predictivedash = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 4f;
+
+                //dust effect for debugging
+                var dust2 = Dust.NewDustDirect(new Vector2(player.Center.X, player.Center.Y), 0, 0, 115);
+                dust2.scale = 1.25f;
+                dust2.noGravity = true;
+            }
             if (Projectile.ai[2] >= (90 + dashtime) && (dashcount < dashlimit))
             {
                 Projectile.ai[1]++;
@@ -866,15 +888,14 @@ namespace StormDiversMod.NPCs.NPCProjs
                     linewidth = 10;
                     for (int i = 0; i < 1; i++)
                     {
-                        Player target = Main.player[i];
                         SoundEngine.PlaySound(SoundID.DD2_BetsyWindAttack with { Volume = 2f, MaxInstances = -1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Projectile.Center);
 
-                        if (Vector2.Distance(target.Center, Projectile.Center) < 2000f && target.active)
+                        //if (Vector2.Distance(target.Center, Projectile.Center) < 2000f && target.active)
                         {
-                            Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 4;
+                            //Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 4;
 
-                            Projectile.velocity.X = velocity.X;
-                            Projectile.velocity.Y = velocity.Y;
+                            Projectile.velocity.X = predictivedash.X;
+                            Projectile.velocity.Y = predictivedash.Y;
                         }
                     }
                 }
@@ -909,6 +930,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             Main.dust[dust].noGravity = true;
 
             //if boss moves to next phase kill projectile :)
+             //if (player.dead)
+             //   Projectile.Kill();
+
             if (target == null)
                 return;
             if (target != null)

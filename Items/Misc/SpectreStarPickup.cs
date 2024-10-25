@@ -81,11 +81,11 @@ namespace StormDiversMod.Items.Misc
             {
                 extratime = player.buffTime[buffindex] + 1;
             }
-                player.AddBuff(ModContent.BuffType<SpectreStarBuff>(), Math.Min(600, Math.Max(0, 300 + extratime))); //extar 5 seconds per star, caps at 10
+                player.AddBuff(ModContent.BuffType<SpectreStarBuff>(), Math.Min(600, Math.Max(0, 300 + extratime))); //extra 5 seconds per star, caps at 10
             SoundEngine.PlaySound(SoundID.Grab, player.Center);
 
-            player.statMana += 200;
-            player.ManaEffect(200);
+            player.statMana += 100;
+            player.ManaEffect(100);
             return false;
         }
        

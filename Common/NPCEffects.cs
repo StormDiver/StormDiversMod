@@ -1000,7 +1000,7 @@ namespace StormDiversMod.Common
                 if (buffindex > -1)
                 {
                     extradmg = npc.buffTime[buffindex] + 1;
-                    Main.NewText("The test = " + (extradmg / 500), 204, 101, 22);
+                    //Main.NewText("The test = " + (extradmg / 500), 204, 101, 22);
                     modifiers.FinalDamage *= 1 + (extradmg /500); //1% for every 10 frames, starts at 20%, 100 frames / 500 = 0.02, plus 1 is 1.02
                 }
                 //damage = damage + ((damage * 20) / 17);

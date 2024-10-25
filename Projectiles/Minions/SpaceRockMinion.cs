@@ -83,7 +83,8 @@ namespace StormDiversMod.Projectiles.Minions
             return false;
         }
 
-     
+        Vector2 predictivedash;
+
         public override void AI()
         {
 
@@ -139,14 +140,20 @@ namespace StormDiversMod.Projectiles.Minions
             Vector2 targetCenter = Projectile.position;
             bool foundTarget = false;
 
+
             // This code is required if your minion weapon has the targeting feature
             if (player.HasMinionAttackTargetNPC)
             {
                 NPC npc = Main.npc[player.MinionAttackTargetNPC];
                 float between = Vector2.Distance(npc.Center, Projectile.Center);
+
                 // Reasonable distance away so it doesn't target across multiple screens
                 if (between < 2000f)
                 {
+                    predictivedash = new Vector2(npc.Center.X + (npc.velocity.X * 4), npc.Center.Y + (npc.velocity.Y * 4));
+                    //Dust dust = Terraria.Dust.NewDustPerfect(new Vector2(npc.Center.X + (npc.velocity.X * 4), npc.Center.Y + (npc.velocity.Y * 4)), 55, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+                    //dust.noGravity = true;
+                   
                     targetCenter = npc.Center + new Vector2(0, -0);
                     foundTarget = true;
                 }
@@ -161,7 +168,7 @@ namespace StormDiversMod.Projectiles.Minions
                     {
                         float npcDistance = Vector2.Distance(npc.Center, Projectile.Center);
                         bool closest = Vector2.Distance(Projectile.Center, targetCenter) > npcDistance;
-
+                       
                         if (closest || !foundTarget)
                         {
                             // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
@@ -171,6 +178,9 @@ namespace StormDiversMod.Projectiles.Minions
 
                             if ((lineOfSight || closeThroughWall) && npcDistance < 1000)
                             {
+                                predictivedash = new Vector2 (npc.Center.X + (npc.velocity.X * 4), npc.Center.Y + (npc.velocity.Y * 4));
+                                //Dust dust = Terraria.Dust.NewDustPerfect(new Vector2(npc.Center.X + (npc.velocity.X * 4), npc.Center.Y + (npc.velocity.Y * 4)), 55, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+                                //dust.noGravity = true;
                                 targetCenter = npc.Center + new Vector2(0, 0);
                                 foundTarget = true;
                             }
@@ -186,23 +196,24 @@ namespace StormDiversMod.Projectiles.Minions
             float inertia = 4f;
             if (Projectile.ai[0] <= 6)
             {
-                Projectile.ai[0] += 1; //Fix issue where minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
+                Projectile.ai[0] += 1; //Fix issue where the minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
             }
             if (foundTarget)
             {
                 //Projectile.extraUpdates = 1;
                 // Minion has a target: attack (here, fly towards the enemy)
+
+
                 if (Vector2.Distance(Projectile.Center, targetCenter) > 150f || Projectile.ai[0] <= 5)
                 {
-                    // The immediate range around the target (so it doesn't latch onto it when close)
-                    Vector2 direction = targetCenter - Projectile.Center;
+                    Vector2 direction = predictivedash - Projectile.Center; //aims ahead of target
                     direction.Normalize();
                     direction *= speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
                 }
-                else
+                else if (Vector2.Distance(Projectile.Center, targetCenter) < 170f)
                 {                 
-                     Projectile.velocity *= 1.03f; //Small little boost so that it doesn't slow down                  
+                     Projectile.velocity *= 1.04f; //Small little boost so that it doesn't slow down                  
                 }
             }
             else
@@ -237,8 +248,6 @@ namespace StormDiversMod.Projectiles.Minions
                     Projectile.velocity.Y = -0.05f;
                 }
             }
-
-
 
             Projectile.ai[1]++;
             Projectile.localAI[0]++;

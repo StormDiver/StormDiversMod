@@ -3816,8 +3816,8 @@ Mods: {
 			}
 
 			SpectreStarPickup: {
-				// DisplayName: Spectre Star
-				// Tooltip: Restores 200 mana and grants the Spectral Strength Buff for 5 seconds
+				// DisplayName: Spectral Star
+				// Tooltip: Restores 100 mana and grants the Spectral Strength Buff for 5 seconds
 			}
 		}
 

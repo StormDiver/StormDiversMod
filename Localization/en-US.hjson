@@ -909,7 +909,7 @@ Mods: {
 				DisplayName: Spectre Skull
 				Tooltip:
 					'''
-					Enemies have a chance to drop a Spectre Star on death, which restores 200 mana
+					Enemies have a chance to drop a Spectral Star on death, which restores 100 mana
 					Bosses have a small chance when hit to drop a star
 					The star also grants the Spectral Strength Buff which increases magic damage by up to 25% depending on the remaining duration
 					Duration is increased by 5 seconds per collected star, and caps at 10 seconds
@@ -923,7 +923,7 @@ Mods: {
 					8% reduced mana usage
 					Automatically use mana potions when needed
 					Increases pickup range for mana stars
-					Enemies have a chance to drop a Spectre Star on death, which restores 200 mana
+					Enemies have a chance to drop a Spectral Star on death, which restores 100 mana
 					Bosses have a small chance when hit to drop a star
 					The star also grants the Spectral Strength Buff which increases magic damage by up to 25% depending on the remaining duration
 					Duration is increased by 5 seconds per collected star, and caps at 10 seconds
@@ -3833,8 +3833,8 @@ Mods: {
 			}
 
 			SpectreStarPickup: {
-				DisplayName: Spectre Star
-				Tooltip: Restores 200 mana and grants the Spectral Strength Buff for 5 seconds
+				DisplayName: Spectral Star
+				Tooltip: Restores 100 mana and grants the Spectral Strength Buff for 5 seconds
 			}
 		}
 
