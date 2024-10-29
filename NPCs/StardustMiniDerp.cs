@@ -65,7 +65,7 @@ namespace StormDiversMod.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.StardustPillar,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("Mini Star Hoppers summoned using Stardust energy, very unstable and disappear upon contact.")
+				new FlavorTextBestiaryInfoElement("Mini Starlings summoned using Stardust energy, very unstable and disappear upon contact.")
             });
         }
        

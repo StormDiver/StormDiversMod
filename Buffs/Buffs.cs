@@ -311,8 +311,7 @@ namespace StormDiversMod.Buffs
                     nodust = false;
                 }
             }
-            if (accesstype >= 9) //after slot 7 go back to slot 1
-                accesstype = 3;
+            accesstype = 3; //reset to slot 3
 
             if (!nodust)
             {
@@ -354,9 +353,8 @@ namespace StormDiversMod.Buffs
                 {
                     nodust = false;
                 }
-            }
-            if (accesstype >= 9) //after slot 7 go back to slot 1
-                accesstype = 3;
+            }          
+            accesstype = 3; //reset to access 3
 
             if (!nodust)
             {
@@ -465,8 +463,8 @@ namespace StormDiversMod.Buffs
                     nodust = false;
                 }
             }
-            if (accesstype >= 9) //after slot 7 go back to slot 1
-                accesstype = 3;
+            accesstype = 3; //reset to slot 3
+
             if (!nodust)
             {
                 if (Main.rand.Next(10) == 0)
@@ -507,8 +505,8 @@ namespace StormDiversMod.Buffs
                     nodust = false;
                 }
             }
-            if (accesstype >= 9) //after slot 7 go back to slot 1
-                accesstype = 3;
+            accesstype = 3; //reset to slot 3
+
             if (!nodust)
             {
                 if (Main.rand.Next(6) == 0)
@@ -549,8 +547,8 @@ namespace StormDiversMod.Buffs
                     nodust = false;
                 }
             }
-            if (accesstype >= 9) //after slot 7 go back to slot 1
-                accesstype = 3;
+            accesstype = 3; //reset to slot 3
+
             if (!nodust)
             {
                 if (Main.rand.Next(2) == 0)

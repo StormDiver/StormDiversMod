@@ -642,14 +642,13 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 30;
             Projectile.penetrate = 3;
 
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
+            //Projectile.usesLocalNPCImmunity = true;
+            //Projectile.localNPCHitCooldown = -1;
 
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;
 
             Projectile.DamageType = DamageClass.Melee;
-
-
-
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

@@ -358,14 +358,12 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override bool? CanDamage()
         {
-            if (Projectile.ai[1] < 90)
-                return false;
-            else
-                return true;
+            return true;
         }
-        Vector2 projspeed;
-        Vector2 playerpos; //set pos on spawn
-        Vector2 projpos;
+        Vector2 playerpos; //set pos when charging
+
+        Vector2 velocity;
+        Vector2 Spawnpos;
         public override void OnSpawn(IEntitySource source)
         {
             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
@@ -373,11 +371,45 @@ namespace StormDiversMod.NPCs.NPCProjs
                 PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
 
             }, Main.myPlayer);
+            for (int i = 0; i < 1; i++)
+            {
+                Player player = Main.player[i];
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (Main.getGoodWorld && Main.masterMode)
+                    {
+                        projshootspeed = 1.35f;
+                        Projectile.timeLeft = 175;
+                    }
+                    else if (Main.masterMode)
+                    {
+                        projshootspeed = 1.3f;
+                        Projectile.timeLeft = 180;
+                    }
+                    else if (Main.expertMode && !Main.masterMode)
+                    {
+                        projshootspeed = 1.2f;
+                        Projectile.timeLeft = 190;
+                    }
+                    else
+                    {
+                        projshootspeed = 1.1f;
+                        Projectile.timeLeft = 195;
+                    }
+
+                    velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projshootspeed;
+                    Spawnpos.X = Projectile.Center.X - player.Center.X;
+                    Spawnpos.Y = Projectile.Center.Y - player.Center.Y;
+                    Projectile.netUpdate = true;
+                }
+            }
             base.OnSpawn(source);
         }
         float projshootspeed;
         float linewidth = 6;
         int chargetime = 90;
+        int movespeed = 20;
+
         public override void AI()
         {
             Projectile.ai[1]++;
@@ -386,17 +418,47 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             if (Projectile.ai[1] < chargetime)
             {
-                if (Main.LocalPlayer.Center.X < Projectile.Center.X)
+                for (int i = 0; i < 1; i++)
                 {
-                    Projectile.spriteDirection = -1;
-                    Projectile.rotation = ((Main.LocalPlayer.Center - Projectile.Center) / 360).ToRotation() + MathHelper.ToRadians(180);//Look at the player
+                    Player player = Main.player[i];
+                    if (player.Center.X < Projectile.Center.X)
+                    {
+                        Projectile.spriteDirection = -1;
+                        Projectile.rotation = ((player.Center - Projectile.Center) / 360).ToRotation() + MathHelper.ToRadians(180);//Look at the player
+                    }
+                    else
+                    {
+                        Projectile.spriteDirection = 1;
+                        Projectile.rotation = ((player.Center - Projectile.Center) / 360).ToRotation() + MathHelper.ToRadians(0);//Look at the player
+                    }
                 }
-                else
+            }
+            if (Projectile.ai[1] < chargetime - 30)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.spriteDirection = 1;
-                    Projectile.rotation = ((Main.LocalPlayer.Center - Projectile.Center) / 360).ToRotation() + MathHelper.ToRadians(0);//Look at the player
-
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Player player = Main.player[i];
+                        Vector2 moveTo = player.Center;
+                        Vector2 move = moveTo - Projectile.Center + new Vector2(Spawnpos.X, Spawnpos.Y); //Postion around player
+                        float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+                        if (magnitude > movespeed)
+                        {
+                            move *= movespeed / magnitude;
+                        }
+                        Projectile.velocity = move;
+                        Projectile.netUpdate = true;
+                    }
                 }
+                for (int i = 0; i < 1; i++)
+                {
+                    playerpos = Main.player[i].Center; //for telegraph line
+                }
+            }
+            else if (Projectile.ai[1] < chargetime && Projectile.ai[1] > chargetime - 30)
+            {
+                Projectile.velocity *= 0.2f;
             }
             for (int i = 0; i < 1; i++)
             {
@@ -411,39 +473,25 @@ namespace StormDiversMod.NPCs.NPCProjs
                     dust.noGravity = true;
                 }
             }
-            if (Main.getGoodWorld && Main.masterMode)
-                projshootspeed = 1.4f;
-            else if (Main.masterMode)
-                projshootspeed = 1.3f;
-            else if (Main.expertMode && !Main.masterMode)
-                projshootspeed = 1.2f;
-            else
-                projshootspeed = 1.1f;
-            if (Projectile.ai[1] == chargetime)
+          
+            if (Projectile.ai[1] == chargetime) //charge at player
             {
                 SoundEngine.PlaySound(SoundID.Item42, Projectile.position);
 
                 for (int i = 0; i < 1; i++)
                 {
                     Player player = Main.player[i];
-                    Vector2 velocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X + (player.velocity.X / 5), player.Center.Y + (player.velocity.Y / 5))) * -projshootspeed;
+                    //Vector2 velocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(player.Center.X + (player.velocity.X / 2), player.Center.Y + (player.velocity.Y / 2))) * -projshootspeed;
                     //Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<TheUltimateBossProj>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 2, 0);
                     //Projectile.Kill();
                     //Set the velocities to the shoot values
                     Projectile.velocity.X = velocity.X;
                     Projectile.velocity.Y = velocity.Y;
                 }
-
-                projspeed = Projectile.velocity * 950;
-                for (int i = 0; i < 1; i++)
-                {
-                    playerpos = Main.player[i].Center;
-                }
-                projpos = Projectile.Center;
             }
-            if (Projectile.ai[1] > chargetime && Projectile.ai[1] <= chargetime + 60)
+            if (Projectile.ai[1] > chargetime && Projectile.ai[1] <= chargetime + 30)
             {
-                Projectile.velocity *= 1.04f;
+                Projectile.velocity *= 1.07f;
             }
             if (Projectile.ai[1] > chargetime)
             {
@@ -484,7 +532,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (linewidth > 0.1f && Projectile.ai[1] > chargetime)
+            if (linewidth > 0.1f && Projectile.ai[1] > chargetime - 30) //Always show lines
             {
                 Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(playerpos.X, playerpos.Y), Color.Red, Color.Transparent, linewidth);
             }
@@ -498,7 +546,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
-
             return true;
         }
     }
@@ -573,7 +620,8 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             if (Projectile.timeLeft >= 180 && Projectile.timeLeft <= 360) //home in for 2 seconds, then move straight for 3
             {
-                speed = 14f;
+
+                speed = 15f;
                 inertia = 90;
 
                 //Player target = Main.player;
@@ -867,18 +915,18 @@ namespace StormDiversMod.NPCs.NPCProjs
                 predictivedash = Vector2.Normalize(new Vector2(player.Center.X + (player.velocity.X * 12), player.Center.Y + (player.velocity.Y * 12)) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 4f;
 
                 //dust effect for debugging
-                var dust2 = Dust.NewDustDirect(new Vector2(player.Center.X + (player.velocity.X * 10), player.Center.Y + (player.velocity.Y * 10)), 0, 0, 115);
-                dust2.scale = 1.25f;
-                dust2.noGravity = true;
+                //var dust2 = Dust.NewDustDirect(new Vector2(player.Center.X + (player.velocity.X * 10), player.Center.Y + (player.velocity.Y * 10)), 0, 0, 115);
+                //dust2.scale = 1.25f;
+                //dust2.noGravity = true;
             }
             else //if close to player, just target player directly
             {
                 predictivedash = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 4f;
 
                 //dust effect for debugging
-                var dust2 = Dust.NewDustDirect(new Vector2(player.Center.X, player.Center.Y), 0, 0, 115);
-                dust2.scale = 1.25f;
-                dust2.noGravity = true;
+                //var dust2 = Dust.NewDustDirect(new Vector2(player.Center.X, player.Center.Y), 0, 0, 115);
+                //dust2.scale = 1.25f;
+                //dust2.noGravity = true;
             }
             if (Projectile.ai[2] >= (90 + dashtime) && (dashcount < dashlimit))
             {

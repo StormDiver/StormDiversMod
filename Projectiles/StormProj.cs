@@ -152,11 +152,10 @@ namespace StormDiversMod.Projectiles
                 }
                 //Main.NewText("Slot: " + accesstype, 220, 63, 139);
 
-                if (accesstype >= 9) //after slot 7 go back to slot 1
-                    accesstype = 3;
+                accesstype = 3; //reset to slot 3
             }
-				
-			if (Projectile.ai[0] == 1) //Attack mode
+
+            if (Projectile.ai[0] == 1) //Attack mode
 			{
                 hidden = false;
                 Projectile.hide = false;

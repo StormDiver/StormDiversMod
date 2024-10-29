@@ -1,4 +1,4 @@
-[img]https://i.imgur.com/IZtVc6F.png[/img]
+[img]https://i.imgur.com/3MEBuou.png[/img]
 [b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items. This mod will receive occasional updates.
 
 [h2]This mod includes:[/h2]
@@ -8,7 +8,7 @@
 [*]15 new armour sets with unique set bonuses, some use a dedicated hotkey, make sure to set it in the controls (defaults to V)
 [*]27 new enemies across the game, with banners and bestiary entries
 [*]3 new bosses, one late pre hardmode, one tiered around Plantera, with a config to fight it in its place, and a post Moon Lord one
-  - The Health and damage of them increases if Calamity's Vengeance or Death Mode is enabled
+  - The Health and damage of them increases if Calamity's Revengeance or Death Mode is enabled
   - All have their own music, with [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2985966860]Music Display[/url][/b] Support
 [*]New Ammo, tools, potions, vanity items, and pets
 [*]The Cultist drops his treasure bag with some new items

@@ -229,7 +229,7 @@ namespace StormDiversMod.NPCs.Boss
             }
 
             distance = Vector2.Distance(player.Center, NPC.Center);
-            if (distance > 2000 && NPC.ai[3] != 0)// teleport if far away
+            if (distance > 1500 && NPC.ai[3] != 0)// teleport if far away
             {
                 teleporttime++;
 

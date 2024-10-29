@@ -90,6 +90,7 @@ namespace StormDiversMod.Items.Potions
             recipe.Register();
         }
     }
+    //_______________________________________________________________________________________________________________
     public class FlaskEffects : ModPlayer
     {
         public bool flaskFrost;
