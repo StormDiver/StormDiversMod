@@ -967,7 +967,7 @@ namespace StormDiversMod.Common
                 {
                     coraldrop++;
 
-                    if ((Player.itemAnimation == (Player.itemAnimationMax - 1) && Player.HeldItem.useTime > 1 || Player.HeldItem.channel && Player.channel) && coraldrop >= 60)
+                    if ((!Player.channel && (Player.itemAnimation == Player.itemAnimationMax)  || (Player.HeldItem.channel && Player.channel)) && coraldrop >= 60 && Player.itemAnimation != 0)
                     {
                         for (int index = 0; index < 1; ++index)
                         {
@@ -1007,42 +1007,38 @@ namespace StormDiversMod.Common
             {
                 coraldrop = 0;
             }
-            //For Coral Emblem
+            //For Riptide Emblem
             if (coralStorm)
             {
+                //Main.NewText("WTF " + Player.itemAnimation, Color.Orange);
                 if (Player.HeldItem.damage >= 1 && Player.HeldItem.pick <= 1 && Player.HeldItem.axe <= 1 && Player.HeldItem.hammer <= 1) //If the player is holding a weapon and usetime cooldown is above 1
                 {
                     coralstormdrop++;
 
-                    if (((Player.channel && coralstormdrop >= Player.HeldItem.useTime) || (!Player.channel && Player.itemAnimation == (Player.itemAnimationMax - 1) && Player.HeldItem.useTime > 1))) //If the player is holding a ranged weapon and usetime cooldown is above 1
+                    if ((Player.channel && coralstormdrop >= Player.HeldItem.useTime) || (!Player.channel && Player.itemAnimation == (Player.itemAnimationMax) && Player.itemAnimation != 0)) //If the player is holding a weapon and has just swung, item animation coutns down
                     {
                         coralstormcount++;
-                        //}
-                        //if ((Player.itemAnimation == (Player.itemAnimationMax - 1) && Player.HeldItem.useTime > 1 || Player.HeldItem.channel && Player.channel) && coralstormdrop >= 45)
-                        //{
-                        if (coralstormcount >= 2)
+                        if (coralstormcount == 2)
                         {
-                            for (int index = 0; index < 1; ++index)
+                            Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y)) * 8;
+                            int type = ModContent.ProjectileType<CoralBoneProj>();
+                            //int damage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(20);
+                            int damage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo((int)(Player.HeldItem.damage * 0.33f));
+
+                            int projID = Projectile.NewProjectile(Player.GetSource_Accessory(CoralStormItem), Player.Center, velocity, type, damage, 2f, Player.whoAmI);
+
+                            Main.projectile[projID].aiStyle = 0;
+                            Main.projectile[projID].DamageType = DamageClass.Generic;
+
+                            SoundEngine.PlaySound(SoundID.Item21, Player.Center);
+                            for (int i = 0; i < 35; i++)
                             {
-                                Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y)) * 8;
-                                int type = ModContent.ProjectileType<CoralBoneProj>();
-                                //int damage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(20);
-                                int damage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo((int)(Player.HeldItem.damage * 0.33f));
-
-                                int projID = Projectile.NewProjectile(Player.GetSource_Accessory(CoralStormItem), Player.Center, velocity, type, damage, 2f, Player.whoAmI);
-
-                                Main.projectile[projID].aiStyle = 0;
-                                Main.projectile[projID].DamageType = DamageClass.Generic;
-
-                                SoundEngine.PlaySound(SoundID.Item21, Player.Center);
-                                for (int i = 0; i < 35; i++)
-                                {
-                                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 33, 0, -3);
-                                    dust.velocity *= 2;
-                                    //dust.noGravity = true;
-                                    dust.scale = 1.5f;
-                                }
+                                var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 33, 0, -3);
+                                dust.velocity *= 2;
+                                //dust.noGravity = true;
+                                dust.scale = 1.5f;
                             }
+
                             coralstormcount = 0;
                         }
                         coralstormdrop = 0;
@@ -1059,7 +1055,8 @@ namespace StormDiversMod.Common
             {
                 shroomtime++;
                 //Channeling weaposn fire every time half the usetime is met with a counter
-                if (((Player.channel && shroomtime >= Player.HeldItem.useTime / 2) || (!Player.channel && Player.itemAnimation == (Player.itemAnimationMax - 1) && Player.HeldItem.useTime > 1)) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet) //If the player is holding a ranged weapon and usetime cooldown is above 1
+                if (((Player.channel && shroomtime >= Player.HeldItem.useTime / 2) || (!Player.channel && Player.itemAnimation == Player.itemAnimationMax)) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) 
+                    && Player.HeldItem.useAmmo == AmmoID.Bullet && Player.itemAnimation != 0) //If the player is holding a ranged weapon and weapon just fired (useaniamtion counts down0
                 {
                     shroomshotCount++;
                     //Main.NewText("Pls work " + shroomtime + " | " + shroomshotCount, 0, 204, 170); //Inital Scale

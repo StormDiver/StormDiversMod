@@ -343,6 +343,8 @@ namespace StormDiversMod.Projectiles
             Projectile.tileCollide = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.extraUpdates = 1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
             //aiType = ProjectileID.Bullet;
         }
         // int dusttime = 10;
