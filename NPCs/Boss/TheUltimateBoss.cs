@@ -234,16 +234,21 @@ namespace StormDiversMod.NPCs.Boss
             if ((NPC.ai[3] == 9 && NPC.ai[0] >= 120) || NPC.ai[3] == 10) //Gain contact damage on last phases, after a small delay at first to prevent it touching the player
             {
                 if (Main.getGoodWorld)
-                    NPC.damage = (450 * clamteadmg) / 100; 
+                    NPC.damage = (450 * clamteadmg) / 100;
                 else if (Main.masterMode)
-                    NPC.damage = (350 * clamteadmg) / 100; 
+                    NPC.damage = (350 * clamteadmg) / 100;
                 else if (Main.expertMode && !Main.masterMode)
-                    NPC.damage = (250 * clamteadmg) / 100; 
+                    NPC.damage = (250 * clamteadmg) / 100;
                 else
-                    NPC.damage = (150 * clamteadmg) / 100; 
+                    NPC.damage = (150 * clamteadmg) / 100;
+
+                //Main.NewText("Can damage", Color.Green);
             }
             else
+            {
                 NPC.damage = 0;
+                //Main.NewText("Cannot damage", Color.Red);
+            }
 
             if (Main.netMode != NetmodeID.Server)
             {
@@ -1709,10 +1714,10 @@ namespace StormDiversMod.NPCs.Boss
                 if (NPC.CountNPCS(ModContent.NPCType<TheUltimateBossMinion>()) == 0) // 2 seconds after last minion killed next attack
                 {
                     shooting = false;
+                    NPC.ai[0] = 0;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = -200;
                     NPC.localAI[0] = 0;
-
                     speed = 15f;
                     inertia = 15f;
                     NPC.localAI[2]++;
