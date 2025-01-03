@@ -287,7 +287,6 @@ namespace StormDiversMod
                 string author = "MicelTheGuy";
 
                 display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/AridBossMusic"), "Desert Fatigue", author, "The Possesed Ancient Armour Set");
-                display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossIntro"), "Dance of the Tempest (Intro)", author, "");
                 display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossMusic"), "Dance of the Tempest", author, "The Failed Experiment");
                 display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/UltimateBossMusic"), "False Fright", author, "The Pain Begins");
                 display.Call("AddMusic", (short)MusicLoader.GetMusicSlot(Mod, "Assets/Music/UltimateBossMusic2"), "Raw Trama", author, "The Real Pain Begins");

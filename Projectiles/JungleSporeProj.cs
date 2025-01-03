@@ -39,13 +39,6 @@ namespace StormDiversMod.Projectiles
 			Projectile.localNPCHitCooldown = 30;
 			Projectile.extraUpdates = 0;
         }
-        public override bool? CanHitNPC(NPC target)
-        {
-            if (!explodetime || Projectile.timeLeft <3)
-                return true;
-            else
-                return false;
-        }
         public override void OnSpawn(IEntitySource source)
         {
             for (int i = 0; i < 15; i++)
@@ -54,7 +47,6 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
             }
         }
-        bool explodetime;
         public override void AI()
 		{
 			Projectile.rotation += 0.2f * Projectile.direction;
@@ -62,45 +54,26 @@ namespace StormDiversMod.Projectiles
             var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 44, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 100, default, 0.8f);
 			dust.noGravity = true;
       
-            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft == 3 && explodetime)
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
-                Projectile.scale = 1;
+                Projectile.tileCollide = false;
 
+                Projectile.velocity *= 0;
                 Projectile.alpha = 255;
 
                 Projectile.velocity.X = 0f;
                 Projectile.velocity.Y = 0f;
-                Projectile.tileCollide = false;
 
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
 
                 Projectile.width = 60;
                 Projectile.height = 60;
-                Projectile.Center = new Vector2(Projectile.position.X + 5, Projectile.position.Y + 5);
+                Projectile.Center = new Vector2(Projectile.position.X, Projectile.position.Y);
 
                 Projectile.knockBack = 0f;
-
-
-                SoundEngine.PlaySound(SoundID.Item74 with { Volume = 0.5f, Pitch = 1f }, Projectile.Center);
-
-                int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionSporeProj>(), 0, 0, Projectile.owner);
-                Main.projectile[proj].scale = 1f;
-
-                for (int i = 0; i < 50; i++)
-                {
-                    Vector2 perturbedSpeed = new Vector2(0, -20f).RotatedByRandom(MathHelper.ToRadians(360));
-
-                    var dust2 = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y - 5), 0, 0, 44, perturbedSpeed.X, perturbedSpeed.Y);
-                    dust2.noGravity = true;
-                    dust2.scale = 1.5f;
-                }
             }
-            if (explodetime && Projectile.timeLeft > 3)
-            {
-                Projectile.velocity *= 0.8f;
-                Projectile.scale += 0.01f;
-            }
+           
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 6) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
             {
@@ -111,18 +84,19 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (Main.rand.Next(2) == 0)
+                target.AddBuff(BuffID.Poisoned, 300);
+
             for (int i = 0; i < 15; i++)
             {
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 44, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 100, default, 1.2f);
                 dust.noGravity = true;
             }
-            if (!explodetime)
-            {
-                Projectile.damage = (Projectile.damage * 6) / 10;
-                Projectile.ArmorPenetration = 4;
-                Projectile.timeLeft = 60;
-                explodetime = true;
-            }
+
+            if (Projectile.timeLeft > 3)
+                Projectile.timeLeft = 3;
+
+            Projectile.damage = (Projectile.damage * 8) / 10;
             /*Vector2 perturbedSpeed = new Vector2(Main.rand.NextFloat(-1, 1), 7).RotatedByRandom(MathHelper.ToRadians(12));
             Projectile.velocity = -perturbedSpeed * 0.75f;
             Projectile.damage = (Projectile.damage * 5) / 10;
@@ -131,25 +105,27 @@ namespace StormDiversMod.Projectiles
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-            if (!explodetime)
-            {
-                Projectile.timeLeft = 60;
-                explodetime = true;
-                Projectile.velocity *= 0f;
-            }
+        {
+            if (Projectile.timeLeft > 3)
+                Projectile.timeLeft = 3;
+            Projectile.velocity *= 0f;
+
             return false;
-		}
-		public override void OnKill(int timeLeft)
-		{
-            if (!explodetime)
+        }
+        public override void OnKill(int timeLeft)
+        {
+            SoundEngine.PlaySound(SoundID.Item74 with { Volume = 0.5f, Pitch = 1f }, Projectile.Center);
+
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionSporeProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1f;
+
+            for (int i = 0; i < 50; i++)
             {
-                for (int i = 0; i < 15; i++)
-                {
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 204, 0, 0, 100, default, 1.2f);
-                    dust.noGravity = true;
-                }
-                SoundEngine.PlaySound(SoundID.NPCDeath7 with { Volume = 0.5f, Pitch = -0.1f, MaxInstances = -1 }, Projectile.Center);
+                Vector2 perturbedSpeed = new Vector2(0, -20f).RotatedByRandom(MathHelper.ToRadians(360));
+
+                var dust2 = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y - 5), 0, 0, 44, perturbedSpeed.X, perturbedSpeed.Y);
+                dust2.noGravity = true;
+                dust2.scale = 1.5f;
             }
         }
         public override bool PreDraw(ref Color lightColor) //trial
@@ -159,7 +135,7 @@ namespace StormDiversMod.Projectiles
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
             Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
-            if (Projectile.timeLeft > 4)
+            if (Projectile.timeLeft > 3)
             {
                 for (int k = 0; k < Projectile.oldPos.Length; k++)
                 {
@@ -173,7 +149,7 @@ namespace StormDiversMod.Projectiles
         }
         public override Color? GetAlpha(Color lightColor)
 		{
-            if (Projectile.timeLeft > 4)
+            if (Projectile.timeLeft > 3)
             {
                 Color color = Color.White;
                 color.A = 150;

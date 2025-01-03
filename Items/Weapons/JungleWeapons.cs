@@ -182,7 +182,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Jungle Spore Gun");
-            //Tooltip.SetDefault("Fires out damaging spores");
+            //Tooltip.SetDefault("Shoots poisonous spores that explode upon hitting an enemy or tile");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
@@ -193,20 +193,20 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 1, 0, 0);
             Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 22;
-            Item.useAnimation = 22;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
             Item.useTurn = false;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
-                Item.mana = 12;
+                Item.mana = 11;
             else
-                Item.mana = 8;
+                Item.mana = 7;
             Item.UseSound = SoundID.Item8;
             Item.damage = 25;
             Item.knockBack = 2f;
             Item.shoot = ModContent.ProjectileType<JungleSporeProj>();
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 12;
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override Vector2? HoldoutOffset()
@@ -216,18 +216,17 @@ namespace StormDiversMod.Items.Weapons
         float accuracy = 0; //The amount of spread
         public override void HoldItem(Player player)
         {
-            //Main.NewText("" + accuracy, Color.Gold);
-            //accuracy = 12 - ((float)player.statMana / (float)player.statManaMax2 * 12); //0 at max mana, 12 at 0 mana
+           
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 50;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
 
-            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 4), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
 
             return false;

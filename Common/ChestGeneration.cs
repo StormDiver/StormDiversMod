@@ -834,12 +834,12 @@ namespace StormDiversMod.Common
                     {
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
-                            if (WorldGen.genRand.NextBool(5))
+                            /*if (WorldGen.genRand.NextBool(5))
                             {
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestMiniDrill));
                                 ChestMiniDrillCount = (ChestMiniDrillCount + 1) % ChestMiniDrill.Length;
                                 inventoryIndex++;
-                            }
+                            }*/
                             if (WorldGen.genRand.NextBool(5))
                             {
                                 chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestStompBoot));

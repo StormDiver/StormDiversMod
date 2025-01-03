@@ -70,7 +70,7 @@ namespace StormDiversMod.NPCs.Boss
             if (!Main.dedServ)
             { 
                 //Music = MusicID.Boss4; 
-                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossIntro"); //intro music
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossMusic");
             }
             NPC.npcSlots = 10f;         
             //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
@@ -136,7 +136,6 @@ namespace StormDiversMod.NPCs.Boss
         public static int phase3HeadSlot = -1;
 
         bool deathani;
-        int musicintro;
         public override void Load()
         {
             string texture = BossHeadTexture + "_Phase2"; // Texture Name
@@ -180,19 +179,6 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void AI()
         {
-            musicintro++; 
-            if (musicintro == 650) 
-            {
-                if (!Main.dedServ)
-                {
-                    Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/StormBossMusic"); //Rest of music
-                    Main.musicFade[Main.curMusic] = 0.05f;
-                }
-            }
-
-            if (musicintro == 655) //wait X frames before this, otherwise pain
-                Main.musicFade[Main.curMusic] = 1f;
-
             if (ModLoader.TryGetMod("CalamityMod", out Mod calamityMod))
             {
                 if ((bool)calamityMod.Call("GetDifficultyActive", "death"))

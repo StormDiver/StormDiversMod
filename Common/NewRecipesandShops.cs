@@ -443,9 +443,10 @@ namespace StormDiversMod.Common
 
             if (shop.NpcType == NPCID.Demolitionist)
             {
-                
                 shop.Add(ItemID.MiningShirt, Condition.PlayerCarriesItem(ItemID.MiningHelmet));
                 shop.Add(ItemID.MiningPants, Condition.PlayerCarriesItem(ItemID.MiningHelmet));
+                shop.Add(ModContent.ItemType<FastDrill>(), Condition.DownedEarlygameBoss);
+
                 shop.Add(ModContent.ItemType<MineDetonate>(), Condition.DownedEyeOfCthulhu);
                 shop.Add(ModContent.ItemType<MineBomb>(), Condition.DownedEyeOfCthulhu);
 

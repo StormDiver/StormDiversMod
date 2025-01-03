@@ -317,7 +317,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (Collision.CanHitLine(Projectile.Center, 0, 0, target.position, target.width, target.height))
+            if (Collision.CanHitLine(Projectile.Center, 0, 0, target.position, target.width, target.height) && !target.friendly)
             {
                 return true;
             }

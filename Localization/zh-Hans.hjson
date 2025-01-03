@@ -2747,7 +2747,7 @@ Mods: {
 
 			JungleSporeGun: {
 				// DisplayName: Jungle Spore Gun
-				// Tooltip: Summons unstable spores that explode after a short delay upon hitting an enemy or tile
+				// Tooltip: Shoots poisonous spores that explode upon hitting an enemy or tile
 			}
 
 			HarpyBow: {
