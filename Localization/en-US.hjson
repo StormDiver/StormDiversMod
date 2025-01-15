@@ -580,6 +580,11 @@ Mods: {
 				DisplayName: Weapon Imbue: Explosives
 				Description: Melee and whip attacks create a small explosion
 			}
+
+			BatBrokenDebuff: {
+				DisplayName: Broken
+				Description: You will take 15% extra damage
+			}
 		}
 
 		Items: {
@@ -951,7 +956,7 @@ Mods: {
 			}
 
 			StompBootHorse: {
-				DisplayName: Heavy Horseshoe Rocket Boots
+				DisplayName: Longfall Boots
 				Tooltip:
 					'''
 					Allows flight and Negates all fall damage
@@ -3836,6 +3841,18 @@ Mods: {
 				DisplayName: Spectral Star
 				Tooltip: Restores 100 mana and grants the Spectral Strength Buff for 5 seconds
 			}
+
+			GalacticBat: {
+				DisplayName: The Galactic Baseballer
+				Tooltip:
+					'''
+					Hitting enemies charges the bat up to 10 times, only one charge can be obtained per swing
+					Once the bat is fully charged, right click to unleash a powerful swing that always crits and ignores 15 defense
+					The power swing also inflicts broken which makes enemies take 15% extra damage for 5 seconds
+					The power swing will not need to be recharged if no enemies are hit when it is swung
+					"RULES... ARE MADE TO BE BROKEN!"
+					'''
+			}
 		}
 
 		NPCs: {
@@ -4300,6 +4317,8 @@ Mods: {
 			SludgeVenomProj2.DisplayName: Acid Venom Sludge Blob
 			ExplosionSporeProj.DisplayName: Explosion Spore
 			MossStingerProj.DisplayName: Moss Stinger
+			GalaticBatAura.DisplayName: Galatic Bat Aura
+			GalaticBatAuraLarge.DisplayName: Galatic Bat Aura Large
 		}
 
 		Tiles: {

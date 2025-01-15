@@ -741,4 +741,23 @@ namespace StormDiversMod.Buffs
             npc.GetGlobalNPC<NPCEffects>().stungdebuff = true;
         }
     }
+
+    //_____________________________________________
+    public class BatBrokenDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Broken");
+            //Description.SetDefault("You will take 15% extra damage");
+            Main.debuff[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().brokenDebuff = true;
+        }
+    }
 }

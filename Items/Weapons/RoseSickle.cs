@@ -134,8 +134,10 @@ namespace StormDiversMod.Items.Weapons
                 }
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust2 = Dust.NewDust(position + muzzleOffset * 1f, 0, 0, 218, velocity.X * 0.12f, velocity.Y * 0.12f);
+                    int dust2 = Dust.NewDust(position + muzzleOffset * 1f, 0, 0, 5, velocity.X * 0.12f, velocity.Y * 0.12f);
                     Main.dust[dust2].noGravity = true;
+                    Main.dust[dust2].scale = 1.25f;
+
                 }
                 SoundEngine.PlaySound(SoundID.Item41 with { Volume = 1f, Pitch = -0.25f }, player.Center);
             }

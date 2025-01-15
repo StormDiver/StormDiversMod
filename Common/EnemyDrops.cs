@@ -400,13 +400,12 @@ namespace StormDiversMod.Common
                 npc.type == NPCID.HellArmoredBones || npc.type == NPCID.HellArmoredBonesMace || npc.type == NPCID.HellArmoredBonesSpikeShield || npc.type == NPCID.HellArmoredBonesSword)
             {
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<RoseSickle>(), 150, 100));
-
             }
 
             //Accessories--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.Demon || npc.type == NPCID.VoodooDemon)
             {
-                PostSkeletronDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HeartJar>(), 50));
+                PostSkeletronDrop.OnSuccess(ItemDropRule.OneFromOptionsWithNumerator(33, 1, ModContent.ItemType<HeartJar>(), ModContent.ItemType<GalacticBat>()));
                 /*if (Main.rand.Next(50) == 0)
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<HeartJar>());

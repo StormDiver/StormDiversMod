@@ -79,6 +79,8 @@ namespace StormDiversMod.Common
 
         public bool stungdebuff; //For stingers
 
+        public bool brokenDebuff; //for the Bat broken Debuff
+
         //All this for a speen----------------------------------------------
 
         public bool derplaunched; //If the npc has been launched by the Derpling armour
@@ -128,6 +130,7 @@ namespace StormDiversMod.Common
         public int bosssoulcooldown; //cooldown for when a boss can drop a soul again
 
 
+
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
         {
@@ -149,6 +152,7 @@ namespace StormDiversMod.Common
             sludgeDebuff = false;
             sludgeVenomDebuff = false;
             stungdebuff = false;
+            brokenDebuff = false;
             WhiptagWeb = false;
             WhiptagBlood = false;
             WhiptagForbidden = false;
@@ -170,9 +174,18 @@ namespace StormDiversMod.Common
             ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<SnowmanPizza>()] = 2;
             ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<VineDerp>()] = 3;
 
+
         }
         public override void AI(NPC npc)
         {
+            /*if (brokenDebuff) //works to reduce, but defense does not return to normal afterwards
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    if (npc.defense > 0)
+                        npc.defense -= 1;
+                }
+            }*/
             /*if (npc.type == NPCID.SnowmanGangsta && Main.invasionType == 0)
             {
                 if (!Main.dedServ)
@@ -894,6 +907,16 @@ namespace StormDiversMod.Common
                 }*/
 
             }
+            if (brokenDebuff)
+            {
+                if (Main.rand.Next(4) < 1)
+                {
+                    int dust = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 226, npc.velocity.X, npc.velocity.Y, 0, default, 0.3f);
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                }
+                drawColor = Color.SkyBlue;
+
+            }
             if (WhiptagWeb)
             {
                 if (Main.rand.Next(4) < 1)
@@ -926,13 +949,15 @@ namespace StormDiversMod.Common
                 {
                     int dust = Dust.NewDust(npc.Center - new Vector2(10f, 10f), 20, 20, 0, 0, -4, 100, default, 1f);
                     Main.dust[dust].noGravity = true;
-
                 }
             }
         }
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
-            
+            if (brokenDebuff)
+            {
+                modifiers.FinalDamage *= 1.15f;
+            }
             base.ModifyIncomingHit(npc, ref modifiers);
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)

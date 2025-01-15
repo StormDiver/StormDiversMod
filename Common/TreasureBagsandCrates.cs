@@ -78,7 +78,8 @@ namespace StormDiversMod.Common
             }
             if (item.type == ItemID.ObsidianLockbox)
             {              
-                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.HeartJar>(), 3));
+                //itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.HeartJar>(), 3));
+                itemLoot.Add(ItemDropRule.OneFromOptionsWithNumerator(2, 1, ModContent.ItemType<Items.Accessory.HeartJar>(), ModContent.ItemType<Items.Weapons.GalacticBat>()));
             }
             if (item.type == ItemID.WoodenCrate || item.type == ItemID.WoodenCrateHard)
             {

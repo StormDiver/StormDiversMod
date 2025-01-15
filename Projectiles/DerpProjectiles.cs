@@ -41,16 +41,12 @@ namespace StormDiversMod.Projectiles
         }
         public override void AI()
         {
-
             /*
             int dust = Dust.NewDustPerfect(Projectile.position - Projectile.velocity, Projectile.width, Projectile.height, 48, 0f, 0f, 200, default, 1.5f);
                 Main.dust[dust].velocity *= -1f;
                 Main.dust[dust].noGravity = true;
                */
-
             Projectile.rotation += (float)Projectile.direction * -0.6f;
-
-
             Projectile.DamageType = DamageClass.Melee;
         }
         int reflect = 3;
@@ -63,18 +59,15 @@ namespace StormDiversMod.Projectiles
                 Projectile.Kill();
 
             }
+            Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
+            if (Projectile.velocity.X != oldVelocity.X)
             {
-                Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-
-                if (Projectile.velocity.X != oldVelocity.X)
-                {
-                    Projectile.velocity.X = -oldVelocity.X * 0.8f;
-                }
-                if (Projectile.velocity.Y != oldVelocity.Y)
-                {
-                    Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
-                }
+                Projectile.velocity.X = -oldVelocity.X * 0.8f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
             }
             SoundEngine.PlaySound(SoundID.NPCHit3, Projectile.Center);
 

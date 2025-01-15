@@ -921,9 +921,12 @@ namespace StormDiversMod.Common
 
                 }
 
-                //For the Jar of Hearts in shadow chests
+                //For items in shadow chests
                 int[] ChestHeart = { ItemType<Items.Accessory.HeartJar>() };
                 int ChestHeartCount = 0;
+
+                int[] ChestBat = { ItemType<GalacticBat>() };
+                int ChestBatCount = 0;
 
                 if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 4 * 36)//Look in Tiles_21 for the tile, start from 0
                 {
@@ -931,18 +934,25 @@ namespace StormDiversMod.Common
                     {
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
-                            if (WorldGen.genRand.NextBool(3))
+                            if (WorldGen.genRand.NextBool(2)) //50% for one of two
                             {
-
-                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestHeart));
-                                ChestHeartCount = (ChestHeartCount + 1) % ChestHeart.Length;
-                                inventoryIndex++;
+                                switch (Main.rand.Next(2))
+                                {
+                                    case 0:
+                                        chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestHeart));
+                                        ChestHeartCount = (ChestHeartCount + 1) % ChestHeart.Length;
+                                        inventoryIndex++;
+                                        break;
+                                    case 1:
+                                        chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestBat));
+                                        ChestBatCount = (ChestBatCount + 1) % ChestBat.Length;
+                                        inventoryIndex++;
+                                        break;
+                                }
                             }
-                           
                             break;
                         }
                     }
-
                 }
 
                 //For the Web items in Web chests

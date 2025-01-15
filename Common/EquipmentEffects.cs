@@ -302,7 +302,6 @@ namespace StormDiversMod.Common
                 }
             }
 
-
            //Doesn't work, displayed ammo damage increases like normal, but actual damage doesn't
             /*if (Player.HasBuff(BuffType<ShroomiteBuff>()))//If the player has the shroomite potion then 10% increase ammo damage
             {

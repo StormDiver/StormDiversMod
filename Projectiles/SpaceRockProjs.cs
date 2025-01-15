@@ -36,7 +36,6 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
         int rotate;
@@ -56,7 +55,6 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
                 {
-
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
                     //int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
                     dust2.noGravity = true;
@@ -78,14 +76,11 @@ namespace StormDiversMod.Projectiles
                 Projectile.ai[0] += 1f;
             }
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            
             return false;
         }
         public override void OnKill(int timeLeft)
@@ -112,8 +107,6 @@ namespace StormDiversMod.Projectiles
 
                 int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 174, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1.5f);
                 Main.dust[dustIndex].noGravity = true;
-
-
             }
             for (int i = 0; i < 30; i++)
             {
@@ -121,9 +114,6 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1.5f);
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 1f);
             }
-
-
-
         }
         public override Color? GetAlpha(Color lightColor)
         {

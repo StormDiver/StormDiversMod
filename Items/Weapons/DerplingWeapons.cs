@@ -214,7 +214,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-           
+
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 30f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -223,22 +223,14 @@ namespace StormDiversMod.Items.Weapons
             int choice = Main.rand.Next(10);
             if (choice == 0)
             {
-                {
-
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(18));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.6f, perturbedSpeed.Y * 0.6f), ModContent.ProjectileType<Projectiles.DerpMagicProj>(), damage, knockback, player.whoAmI);
-                    SoundEngine.PlaySound(SoundID.Item20, player.Center);
-
-                }
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(18));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 0.6f, perturbedSpeed.Y * 0.6f), ModContent.ProjectileType<Projectiles.DerpMagicProj>(), damage, knockback, player.whoAmI);
+                SoundEngine.PlaySound(SoundID.Item20, player.Center);
             }
             else
             {
-                {
-
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(7));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.DerpMagicProj2>(), damage, knockback, player.whoAmI);
-
-                }
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(7));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.DerpMagicProj2>(), damage, knockback, player.whoAmI);
             }
             return false;
 

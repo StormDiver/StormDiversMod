@@ -247,7 +247,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-
             Item.width = 50;
             Item.height = 22;
             Item.maxStack = 1;
@@ -275,17 +274,13 @@ namespace StormDiversMod.Items.Weapons
             Item.noMelee = true;
         }
 
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
         }
 
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-          
-
             for (int i = 0; i < 2; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
@@ -293,11 +288,8 @@ namespace StormDiversMod.Items.Weapons
 
                 //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
             }
-
             return false;
-
         }
-
 
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
@@ -362,15 +354,11 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
             player.AddBuff(Item.buffType, 2);
 
             player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
 
             return false;
-
-
-
         }
 
         public override void AddRecipes()
@@ -379,8 +367,6 @@ namespace StormDiversMod.Items.Weapons
            .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 7)
            .AddTile(TileID.MythrilAnvil)
            .Register();
-
-
         }
         public override Color? GetAlpha(Color lightColor)
         {

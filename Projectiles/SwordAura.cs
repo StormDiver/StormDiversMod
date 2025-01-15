@@ -69,7 +69,7 @@ namespace StormDiversMod.Projectiles
             }
             return spinningpoint.Length() < coneLength;
         }
-
+        protected int armourPen;
         protected float scaleIncrease = 0f;
         protected Color frontColor = Color.White;
         protected Color middleColor = Color.White;
@@ -85,6 +85,7 @@ namespace StormDiversMod.Projectiles
 
         public void SwingAI()
         {
+            Projectile.ArmorPenetration = armourPen;
             //if (Projectile.localAI[0] == 0f)
             //{
             //    SoundEngine.PlaySound(SoundID.Item60 with { Volume = 0.65f }, Projectile.position);
@@ -97,7 +98,6 @@ namespace StormDiversMod.Projectiles
             float realRotation = MathF.PI * whichSide * progress + velToRot + whichSide * MathF.PI + player.fullRotation;
             Projectile.rotation = realRotation;
             float baseScale = 1f;
-
             Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) - Projectile.velocity;
             Projectile.scale = (baseScale + progress * scaleIncrease) * Projectile.ai[2];
             float rotationWithDeviation = Projectile.rotation + Main.rand.NextFloatDirection() * (MathF.PI / 2f) * 0.7f;
@@ -201,6 +201,24 @@ namespace StormDiversMod.Projectiles
             }
             hits++;
         }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 66, dustVelocity * 2f, 100, Color.White, 0.8f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 66, dustVelocity * 2, 100, Color.White, 0.8f * Projectile.Opacity);
+                dust2.noGravity = true;
+            }
+        }
     }
     public class LightDarkAuraDark : SwordAura
     {
@@ -238,6 +256,24 @@ namespace StormDiversMod.Projectiles
 
             }
             hits++;
+        }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 54, dustVelocity * 2f, 100, Color.White, 1.2f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 54, dustVelocity * 2, 100, Color.White, 1f * Projectile.Opacity);
+                dust2.noGravity = true;
+            }
         }
     }
     public class SoulAura : SwordAura
@@ -282,6 +318,24 @@ namespace StormDiversMod.Projectiles
             hits++;
 
         }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 173, dustVelocity * 2f, 100, Color.White, 1f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 173, dustVelocity * 2, 100, Color.White, 1f * Projectile.Opacity);
+                dust2.noGravity = true;
+            }
+        }
     }
     public class DerpAura : SwordAura
     {
@@ -309,6 +363,24 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
             }
             hits++;
+        }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 68, dustVelocity * 1f, 100, Color.White, 0.8f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 68, dustVelocity * 1, 100, Color.White, 0.8f * Projectile.Opacity);
+                dust2.noGravity = true;
+            }
         }
     }
     public class AsteroidAura : SwordAura
@@ -339,6 +411,24 @@ namespace StormDiversMod.Projectiles
             }, player.whoAmI);
             hits++;
         }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 6, dustVelocity * 2f, 100, Color.White, 1.5f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 6, dustVelocity * 2, 100, Color.White, 1.2f * Projectile.Opacity);
+                dust2.noGravity = false;
+            }
+        }
     }
     public class RoseAura : SwordAura
     {
@@ -368,12 +458,30 @@ namespace StormDiversMod.Projectiles
             }, player.whoAmI);*/
             for (int i = 0; i < 15; i++)
             {
-                var dust = Dust.NewDustDirect(target.Center, 0, 0, 218);
+                var dust = Dust.NewDustDirect(target.Center, 0, 0, 5);
                 dust.scale = 1.25f;
                 dust.velocity *= 2f;
                 dust.noGravity = true;
             }
             hits++;
+        }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 5, dustVelocity * 2f, 100, Color.White, 1.2f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 5, dustVelocity * 2, 100, Color.White, 1.2f * Projectile.Opacity);
+                dust2.noGravity = true;
+            }
         }
     }
     public class BloodAura : SwordAura
@@ -404,6 +512,144 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
             }
             hits++;
+        }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 115, dustVelocity * 2f, 100, Color.White, 0.8f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 115, dustVelocity * 2, 100, Color.White, 1f * Projectile.Opacity);
+                dust2.noGravity = true;
+            }
+        }
+    }
+    public class GalaticBatAura : SwordAura
+    {
+        public override void AuraDefaults()
+        {
+            scaleIncrease = 0.0f;
+            frontColor = Color.LightCyan;
+            middleColor = Color.Silver;
+            backColor = Color.LightSteelBlue;
+        }
+        int hits;
+        public override bool? CanDamage()
+        {
+            if (hits < 3)
+                return true;
+            else
+                return false;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            var player = Main.player[Projectile.owner];
+            if (target.lifeMax > 5 && !target.friendly)
+            {
+                for (int i = 0; i < 15; i++)
+                {
+                    var dust = Dust.NewDustDirect(target.Center, 0, 0, 264);
+                    dust.scale = 1f;
+                    dust.velocity *= 1.5f;
+                    dust.noGravity = true;
+                }
+            }
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
+            {
+                PositionInWorld = new Vector2(target.Center.X + Main.rand.Next(-target.width / 3, target.width / 3), target.Center.Y + Main.rand.Next(-target.height / 3, target.height / 3)),
+            }, player.whoAmI);
+
+            Projectile.damage = (Projectile.damage * 9) / 10;
+
+            hits++;
+        }
+        public override void AI()
+        {
+           
+        }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight) //dust effects
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 264, dustVelocity * 2f, 100, Color.White, 0.8f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 264, dustVelocity * 2, 100, Color.White, 0.8f * Projectile.Opacity);
+                dust2.noGravity = true;
+            }
+        }
+    }
+    public class GalaticBatAuraLarge : SwordAura
+    {
+        public override void AuraDefaults()
+        {
+            scaleIncrease = 0.8f;
+            frontColor = Color.Yellow;
+            middleColor = Color.Gold;
+            backColor = Color.LightGoldenrodYellow;
+            armourPen = 15;
+        }
+      
+        int hits;
+        public override bool? CanDamage()
+        {
+            if (hits < 5)
+                return true;
+            else
+                return false;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            var player = Main.player[Projectile.owner];
+            if (target.lifeMax > 5 && !target.friendly)
+            {
+                for (int i = 0; i < 50; i++) //Alt attack charged
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
+                    var dust = Dust.NewDustDirect(target.Center, 0, 0, 226, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+                    dust.scale = 0.8f;
+                }
+                target.AddBuff(ModContent.BuffType<BatBrokenDebuff>(), 300);
+            }
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Excalibur, new ParticleOrchestraSettings
+            {
+                PositionInWorld = new Vector2(target.Center.X, target.Center.Y),
+            }, player.whoAmI);
+            hits++;
+        }
+        public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
+        {
+            float dustRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
+            Vector2 dustPosition = Projectile.Center + dustRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 226, dustVelocity * 2f, 100, Color.White, 0.8f);
+                dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
+                dust1.noGravity = true;
+            }
+
+            if (Main.rand.Next(1) == 0)
+            {
+                Dust dust2 = Dust.NewDustPerfect(dustPosition, 226, dustVelocity * 2, 100, Color.White, 1f * Projectile.Opacity);
+                dust2.noGravity = true;
+            }
         }
     }
 }
