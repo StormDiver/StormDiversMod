@@ -315,7 +315,7 @@ namespace StormDiversMod.Common
             }
             if (npc.type == NPCID.Hornet || npc.type == NPCID.HornetFatty || npc.type == NPCID.HornetHoney || npc.type == NPCID.HornetLeafy || npc.type == NPCID.HornetSpikey || npc.type == NPCID.HornetStingy)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MossRepeater>(), 50));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<JungleRepeater>(), 50));
             }
 
             if (npc.type == NPCID.IceBat || npc.type == NPCID.SnowFlinx || npc.type == NPCID.SpikedIceSlime || npc.type == NPCID.UndeadViking)
@@ -374,7 +374,7 @@ namespace StormDiversMod.Common
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SludgeLauncher>(), 40, 30));
 
             if (npc.type == NPCID.MossHornet)
-                mechsdead.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<MossStingerGun>(), 66, 50));
+                mechsdead.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<MossStingerGun>(), 33, 25));
 
             if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
             {

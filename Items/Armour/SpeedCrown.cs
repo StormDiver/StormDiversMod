@@ -10,11 +10,10 @@ using Terraria.GameContent.Creative;
 
 namespace StormDiversMod.Items.Armour
 {
-   
     [AutoloadEquip(EquipType.Head)]
-    public class DerplingBCrown : ModItem
+    [LegacyName("DerplingBCrown")]
+    public class SpeedCrown : ModItem
     {
-       
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -22,7 +21,6 @@ namespace StormDiversMod.Items.Armour
             //Tooltip.SetDefault("Increases movement speed and acceleration");
             ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
             Item.ResearchUnlockCount = 1;
-
         }
 
         public override void SetDefaults()

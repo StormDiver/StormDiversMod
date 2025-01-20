@@ -97,7 +97,7 @@ namespace StormDiversMod.Common
             }
             if (item.type == ItemID.JungleFishingCrate || item.type == ItemID.JungleFishingCrateHard)
             {
-                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<MossRepeater>(), 10));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<JungleRepeater>(), 10));
 
             }
             if (item.type == ItemID.OasisCrate || item.type == ItemID.OasisCrateHard)

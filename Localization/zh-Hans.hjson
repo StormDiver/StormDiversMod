@@ -1288,13 +1288,6 @@ Mods: {
 					'''
 			}
 
-			DerplingBCrown: {
-				DisplayName: 使者的冠冕
-				Tooltip: 增加移速和加速度
-				SetBonus1: 3点防御
-				SetBonus2: 5点防御
-			}
-
 			DerplingBHeadgear: {
 				DisplayName: 古代跳跳兽头盔
 				Tooltip:
@@ -1694,6 +1687,13 @@ Mods: {
 					暴击率增加5%
 					移动速度增加50%
 					'''
+			}
+
+			SpeedCrown: {
+				// DisplayName: Messenger's Crown
+				// Tooltip: Increases movement speed and acceleration
+				// SetBonus1: 3 defense
+				// SetBonus2: 5 defense
 			}
 
 			TempleBMask: {
@@ -2404,9 +2404,9 @@ Mods: {
 				Tooltip: 持续时召唤攻击并围攻敌人的甲虫
 			}
 
-			BloodPotion: {
-				DisplayName: 血之手榴弹
-				Tooltip: 破坏时爆出多个血滴
+			BloodGrenade: {
+				// DisplayName: Blood Grenade
+				// Tooltip: Bursts into multiple blood drops on destruction
 			}
 
 			BloodSpear: {
@@ -2841,6 +2841,11 @@ Mods: {
 					'''
 			}
 
+			JungleRepeater: {
+				// DisplayName: Mossy Repeater
+				// Tooltip: Seems a little old and neglected, but should still work
+			}
+
 			JungleSentry: {
 				DisplayName: 丛林之树法杖
 				Tooltip: 召唤一个丛林之树，发射一堆荆棘球
@@ -3014,16 +3019,6 @@ Mods: {
 					'''
 			}
 
-			MetalSilverKnive: {
-				DisplayName: 银色飞刀
-				Tooltip: 可在物块上弹射
-			}
-
-			MetalTungstenKnive: {
-				DisplayName: 钨金飞刀
-				Tooltip: 可在物块上弹射
-			}
-
 			MeteorBow: {
 				DisplayName: 太空之弓
 				Tooltip:
@@ -3103,11 +3098,6 @@ Mods: {
 			MoltenSpell: {
 				DisplayName: 岩浆爆破
 				Tooltip: 召唤一个岩浆球，在撞击时溅开
-			}
-
-			MossRepeater: {
-				DisplayName: 青苔连弩
-				Tooltip: 似乎有点旧和疏忽，但应该还能使用
 			}
 
 			MossStingerGun: {
@@ -3489,6 +3479,16 @@ Mods: {
 					'''
 			}
 
+			ThrowingKnifeSilver: {
+				// DisplayName: Silver Throwing Knife
+				// Tooltip: Ricochets off tiles
+			}
+
+			ThrowingKnifeTungsten: {
+				// DisplayName: Tungsten Throwing Knife
+				// Tooltip: Ricochets off tiles
+			}
+
 			ThrowingKnifeBouncy: {
 				DisplayName: 弹跳飞刀
 				Tooltip: 弹性十足
@@ -3834,6 +3834,16 @@ Mods: {
 					The power swing also inflicts broken which makes enemies take 15% extra damage for 5 seconds
 					The power swing will not need to be recharged if no enemies are hit when it is swung
 					"RULES... ARE MADE TO BE BROKEN!"
+					''' */
+			}
+
+			IOUBannerItem: {
+				// DisplayName: IOU Banner
+				/* Tooltip:
+					'''
+					Can be converted into any modded banner with a certain material
+					Due to a change in the internal banner system all old banners were removed and replaced with a new system that makes all banners share the same tile ID,
+					And as such old banners could not be directly converted one to one
 					''' */
 			}
 		}

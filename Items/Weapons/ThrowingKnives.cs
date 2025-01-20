@@ -14,7 +14,8 @@ using StormDiversMod.Common;
 
 namespace StormDiversMod.Items.Weapons
 {
-    public class MetalSilverKnive : ModItem 
+    [LegacyName("MetalSilverKnive")]
+    public class ThrowingKnifeSilver : ModItem 
     {
         public override void SetStaticDefaults()
         {
@@ -44,28 +45,25 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = false;
             Item.UseSound = SoundID.Item1;
             Item.noMelee = true;
-
         }
-
         
         public override void AddRecipes()
         {
-            
-            Recipe recipe = Recipe.Create(ModContent.ItemType<MetalSilverKnive>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<ThrowingKnifeSilver>(), 100);
             recipe.AddIngredient(ItemID.ThrowingKnife, 100);
             recipe.AddIngredient(ItemID.SilverBar, 1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
     }
-    public class MetalTungstenKnive : ModItem //Actually Throwing knives
+    [LegacyName("MetalTungstenKnive")]
+    public class ThrowingKnifeTungsten : ModItem //Actually Throwing knives
     {
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Tungsten Throwing Knife");
             //Tooltip.SetDefault("Ricochets off tiles");
             Item.ResearchUnlockCount = 99;
-
         }
         public override void SetDefaults()
         {
@@ -88,15 +86,10 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = false;
             Item.UseSound = SoundID.Item1;
             Item.noMelee = true;
-
         }
-
-
-
         public override void AddRecipes()
         {
-
-            Recipe recipe = Recipe.Create(ModContent.ItemType<MetalTungstenKnive>(), 100);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<ThrowingKnifeTungsten>(), 100);
             recipe.AddIngredient(ItemID.ThrowingKnife, 100);
             recipe.AddIngredient(ItemID.TungstenBar, 1);
             recipe.AddTile(TileID.Anvils);
@@ -110,7 +103,6 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Bouncy Throwing Knife");
             //Tooltip.SetDefault("Very bouncy");
             Item.ResearchUnlockCount = 99;
-
         }
         public override void SetDefaults()
         {

@@ -1293,13 +1293,6 @@ Mods: {
 					'''
 			}
 
-			DerplingBCrown: {
-				DisplayName: Messenger's Crown
-				Tooltip: Increases movement speed and acceleration
-				SetBonus1: 3 defense
-				SetBonus2: 5 defense
-			}
-
 			DerplingBHeadgear: {
 				DisplayName: Ancient Derpling Helmet
 				Tooltip:
@@ -1695,6 +1688,13 @@ Mods: {
 					5% increased critical strike chance
 					25% increased movement speed
 					'''
+			}
+
+			SpeedCrown: {
+				DisplayName: Messenger's Crown
+				Tooltip: Increases movement speed and acceleration
+				SetBonus1: 3 defense
+				SetBonus2: 5 defense
 			}
 
 			TempleBMask: {
@@ -2417,7 +2417,7 @@ Mods: {
 				Tooltip: Summons beetles that attack and swarm your foes while held out
 			}
 
-			BloodPotion: {
+			BloodGrenade: {
 				DisplayName: Blood Grenade
 				Tooltip: Bursts into multiple blood drops on destruction
 			}
@@ -2855,6 +2855,11 @@ Mods: {
 					'''
 			}
 
+			JungleRepeater: {
+				DisplayName: Mossy Repeater
+				Tooltip: Seems a little old and neglected, but should still work
+			}
+
 			JungleSentry: {
 				DisplayName: Jungle Tree Staff
 				Tooltip: Summons a jungle tree that launches out a bunch of thorn balls
@@ -3028,16 +3033,6 @@ Mods: {
 					'''
 			}
 
-			MetalSilverKnive: {
-				DisplayName: Silver Throwing Knife
-				Tooltip: Ricochets off tiles
-			}
-
-			MetalTungstenKnive: {
-				DisplayName: Tungsten Throwing Knife
-				Tooltip: Ricochets off tiles
-			}
-
 			MeteorBow: {
 				DisplayName: Space Bow
 				Tooltip:
@@ -3118,11 +3113,6 @@ Mods: {
 			MoltenSpell: {
 				DisplayName: Magma Blast
 				Tooltip: Summons an orb of lava that splashes on impact
-			}
-
-			MossRepeater: {
-				DisplayName: Mossy Repeater
-				Tooltip: Seems a little old and neglected, but should still work
 			}
 
 			MossStingerGun: {
@@ -3507,6 +3497,16 @@ Mods: {
 					'''
 			}
 
+			ThrowingKnifeSilver: {
+				DisplayName: Silver Throwing Knife
+				Tooltip: Ricochets off tiles
+			}
+
+			ThrowingKnifeTungsten: {
+				DisplayName: Tungsten Throwing Knife
+				Tooltip: Ricochets off tiles
+			}
+
 			ThrowingKnifeBouncy: {
 				DisplayName: Bouncy Throwing Knife
 				Tooltip: Very bouncy
@@ -3851,6 +3851,16 @@ Mods: {
 					The power swing also inflicts broken which makes enemies take 15% extra damage for 5 seconds
 					The power swing will not need to be recharged if no enemies are hit when it is swung
 					"RULES... ARE MADE TO BE BROKEN!"
+					'''
+			}
+
+			IOUBannerItem: {
+				DisplayName: IOU Banner
+				Tooltip:
+					'''
+					Can be converted into any modded banner with a certain material
+					Due to a change in the internal banner system all old banners were removed and replaced with a new system that makes all banners share the same tile ID,
+					And as such old banners could not be directly converted one to one
 					'''
 			}
 		}
@@ -4324,33 +4334,33 @@ Mods: {
 		Tiles: {
 			DesertOrePlaced.MapEntry: Forbidden Ore
 			IceOrePlaced.MapEntry: Frost Ore
-			BabyDerpBannerPlace.MapEntry: Banner
-			FrozenEyeBannerPlace.MapEntry: Banner
-			FrozenSoulBannerPlace.MapEntry: Banner
-			GladiatorMiniBossBannerPlace.MapEntry: Banner
-			GolemMinionBannerPlace.MapEntry: Banner
-			GolemSentryBannerPlace.MapEntry: Banner
-			GraniteMiniBossBannerPlace.MapEntry: Banner
-			HellMiniBossBannerPlace.MapEntry: Banner
-			HellSoulBannerPlace.MapEntry: Banner
-			IceCoreBannerPlace.MapEntry: Banner
-			MeteorDropperBannerPlace.MapEntry: Banner
-			MoonDerpBannerPlace.MapEntry: Banner
-			MushroomMiniBossBannerPlace.MapEntry: Banner
-			NebulaDerpBannerPlace.MapEntry: Banner
-			SandCoreBannerPlace.MapEntry: Banner
-			ScanDroneBannerPlace.MapEntry: Banner
-			SolarDerpBannerPlace.MapEntry: Banner
-			SpaceRockHeadBannerPlace.MapEntry: Banner
-			SpaceRockHeadLargeBannerPlace.MapEntry: Banner
-			StardustDerpBannerPlace.MapEntry: Banner
-			StormDerpBannerPlace.MapEntry: Banner
-			VineDerpBannerPlace.MapEntry: Banner
-			VortCannonBannerPlace.MapEntry: Banner
-			TheClaySlimeBannerPlaced.MapEntry: Banner
-			ThePainSlimeBannerPlaced.MapEntry: Banner
-			SnowmanPizzaBannerPlaced.MapEntry: Banner
-			SnowmanBombBannerPlaced.MapEntry: Banner
+			BabyDerpBannerPlace.MapEntry: OLDBanner!
+			FrozenEyeBannerPlace.MapEntry: OLDBanner!
+			FrozenSoulBannerPlace.MapEntry: OLDBanner!
+			GladiatorMiniBossBannerPlace.MapEntry: OLDBanner!
+			GolemMinionBannerPlace.MapEntry: OLDBanner!
+			GolemSentryBannerPlace.MapEntry: OLDBanner!
+			GraniteMiniBossBannerPlace.MapEntry: OLDBanner!
+			HellMiniBossBannerPlace.MapEntry: OLDBanner!
+			HellSoulBannerPlace.MapEntry: OLDBanner!
+			IceCoreBannerPlace.MapEntry: OLDBanner!
+			MeteorDropperBannerPlace.MapEntry: OLDBanner!
+			MoonDerpBannerPlace.MapEntry: OLDBanner!
+			MushroomMiniBossBannerPlace.MapEntry: OLDBanner!
+			NebulaDerpBannerPlace.MapEntry: OLDBanner!
+			SandCoreBannerPlace.MapEntry: OLDBanner!
+			ScanDroneBannerPlace.MapEntry: OLDBanner!
+			SolarDerpBannerPlace.MapEntry: OLDBanner!
+			SpaceRockHeadBannerPlace.MapEntry: OLDBanner!
+			SpaceRockHeadLargeBannerPlace.MapEntry: OLDBanner!
+			StardustDerpBannerPlace.MapEntry: OLDBanner!
+			StormDerpBannerPlace.MapEntry: OLDBanner!
+			VineDerpBannerPlace.MapEntry: OLDBanner!
+			VortCannonBannerPlace.MapEntry: OLDBanner!
+			TheClaySlimeBannerPlaced.MapEntry: OLDBanner!
+			ThePainSlimeBannerPlaced.MapEntry: OLDBanner!
+			SnowmanPizzaBannerPlaced.MapEntry: OLDBanner!
+			SnowmanBombBannerPlaced.MapEntry: OLDBanner!
 			PainMusicBoxPlaced.MapEntry: Music Box
 			TheGoodBoyPlaced.MapEntry: Painting
 			VortexiaPaintingPlaced.MapEntry: Painting

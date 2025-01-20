@@ -215,14 +215,14 @@ namespace StormDiversMod.Items.Weapons
     }
     //_______________________
     //____________________________________________________
-    public class BloodPotion : ModItem
+    [LegacyName("BloodPotion")]
+    public class BloodGrenade : ModItem
     {
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Blood Grenade");
             //Tooltip.SetDefault("Bursts into multiple blood drops on destruction");
             Item.ResearchUnlockCount = 99;
-
         }
 
         public override void SetDefaults()
@@ -250,7 +250,7 @@ namespace StormDiversMod.Items.Weapons
 
         public override void AddRecipes()
         {
-            Recipe recipe = Recipe.Create(ModContent.ItemType<BloodPotion>(), 10);
+            Recipe recipe = Recipe.Create(ModContent.ItemType<BloodGrenade>(), 10);
             recipe.AddIngredient(ItemID.Grenade, 10);
             recipe.AddIngredient(ModContent.ItemType<Items.Materials.BloodDrop>(), 1);
             recipe.AddTile(TileID.Anvils);

@@ -5,9 +5,29 @@ using StormDiversMod.NPCs.Banners;
 using Terraria.GameContent.Creative;
 using System;
 using Microsoft.Xna.Framework;
+using Terraria.Enums;
+using StormDiversMod.Items.Accessory;
+using StormDiversMod.Items.Materials;
+using StormDiversMod.Items.OresandBars;
 
-namespace StormDiversMod.NPCs.Banners          //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+namespace StormDiversMod.NPCs.Banners
 {
+    public class IOUBannerItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("IOU banner");
+            //Tooltip.SetDefault("Can be converted into any modded banner");
+            Item.ResearchUnlockCount = 0;
+        }
+        public override void SetDefaults()
+        {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.IOU);
+            Item.width = 10;
+            Item.height = 24;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+    }
     public class BabyDerpBannerItem : ModItem
     {
         public override void SetStaticDefaults()
@@ -18,20 +38,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-           
-            Item.width = 10;    
-            Item.height = 24;  
-            Item.maxStack = 9999;  
-            Item.useTurn = true;
-            Item.autoReuse = true;  
-            Item.useAnimation = 15;  
-            Item.useTime = 10;  
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);  
-            Item.createTile = ModContent.TileType<BabyDerpBannerPlace>(); //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.BabyDerp);
+            Item.width = 10;
+            Item.height = 24;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<DerplingShell>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class VineDerpBannerItem : ModItem
@@ -46,20 +64,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.VineDerp);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<VineDerpBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.ChlorophyteOre, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class ScanDroneBannerItem : ModItem
@@ -73,20 +89,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.ScanDrone);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0); 
-            Item.createTile = ModContent.TileType<ScanDroneBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.FragmentVortex, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class StormDerpBannerItem : ModItem
@@ -100,20 +114,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.StormDerp);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0); 
-            Item.createTile = ModContent.TileType<StormDerpBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.FragmentVortex, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class VortCannonBannerItem : ModItem
@@ -127,20 +139,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.VortCannon);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0); 
-            Item.createTile = ModContent.TileType<VortCannonBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.FragmentVortex, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class NebulaDerpBannerItem : ModItem
@@ -154,20 +164,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.NebulaDerp);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0); 
-            Item.createTile = ModContent.TileType<NebulaDerpBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.FragmentNebula, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class StardustDerpBannerItem : ModItem
@@ -180,19 +188,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.StardustDerp);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0); 
-            Item.createTile = ModContent.TileType<StardustDerpBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.FragmentStardust, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class SolarDerpBannerItem : ModItem
@@ -206,20 +213,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.SolarDerp);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0); 
-            Item.createTile = ModContent.TileType<SolarDerpBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.FragmentSolar, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class MoonDerpBannerItem : ModItem
@@ -233,20 +238,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.MoonDerp);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0); 
-            Item.createTile = ModContent.TileType<MoonDerpBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.LunarOre, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class SpaceRockHeadBannerItem : ModItem
@@ -259,24 +262,22 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.SpaceRockHead);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<SpaceRockHeadBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
         }
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<SpaceRock>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class SpaceRockHeadLargeBannerItem : ModItem
@@ -289,24 +290,23 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
 
         }
         public override void SetDefaults()
-        {  
+        {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.SpaceRockHeadLarge);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<SpaceRockHeadLargeBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
         }
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<SpaceRock>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class GladiatorMiniBossBannerItem : ModItem
@@ -321,20 +321,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
-
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.GladiatorMiniBoss);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<GladiatorMiniBossBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<RedSilk>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class GraniteMiniBossBannerItem : ModItem
@@ -349,19 +347,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.GraniteMiniBoss);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<GraniteMiniBossBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<GraniteCore>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class HellSoulBannerItem : ModItem
@@ -375,19 +372,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.HellSoul);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;  
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<HellSoulBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.Hellstone, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class MushroomMiniBossBannerItem : ModItem
@@ -402,19 +398,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.MushroomMiniBoss);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<MushroomMiniBossBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.GlowingMushroom, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class GolemMinionBannerItem : ModItem
@@ -429,19 +424,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.GolemMinion);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<GolemMinionBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.LunarTabletFragment, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class HellMiniBossBannerItem : ModItem
@@ -456,19 +450,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.HellMiniBoss);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<HellMiniBossBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<SoulFire>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class IceCoreBannerItem : ModItem
@@ -483,19 +476,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.IceCore);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<IceCoreBannerPlace>();  //This defines what type of tile this Item will place	
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<IceOre>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class SandCoreBannerItem : ModItem
@@ -510,19 +502,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.SandCore);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<SandCoreBannerPlace>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<DesertOre>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class MeteorDropperBannerItem : ModItem
@@ -535,19 +526,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.MeteorDropper);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<MeteorDropperBannerPlace>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.Meteorite, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class GolemSentryBannerItem : ModItem
@@ -560,19 +550,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.GolemSentry);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<GolemSentryBannerPlace>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.LunarTabletFragment, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class FrozenEyeBannerItem : ModItem
@@ -585,19 +574,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.FrozenEye);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<FrozenEyeBannerPlace>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.FrostDaggerfish, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class FrozenSoulBannerItem : ModItem
@@ -612,19 +600,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.FrozenSoul);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<FrozenSoulBannerPlace>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<IceOre>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class ThePainSlimeBannerItem : ModItem
@@ -638,19 +625,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.ThePainSlime);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<ThePainSlimeBannerPlaced>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.PinkGel, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class TheClaySlimeBannerItem : ModItem
@@ -664,19 +650,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.TheClaySlime);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<TheClaySlimeBannerPlaced>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ItemID.ClayBlock, 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
 
@@ -691,19 +676,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.SnowmanPizza);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<SnowmanPizzaBannerPlaced>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<IceOre>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
     public class SnowmanBombBannerItem : ModItem
@@ -717,19 +701,18 @@ namespace StormDiversMod.NPCs.Banners          //We need this to basically indic
         }
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BannersPlaced>(), (int)BannersPlaced.StyleID.SnowmanBomb);
             Item.width = 10;
             Item.height = 24;
-            Item.maxStack = 9999;
-            Item.useTurn = true;
-            Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 0, 2, 0);
-            Item.createTile = ModContent.TileType<SnowmanBombBannerPlaced>();  //This defines what type of tile this Item will place
-            Item.placeStyle = 0;
+            Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(silver: 10));
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
+           .AddIngredient(ModContent.ItemType<IceOre>(), 1)
+           .AddTile(TileID.Loom)
+           .Register();
         }
     }
 }

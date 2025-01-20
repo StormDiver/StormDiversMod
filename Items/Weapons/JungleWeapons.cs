@@ -12,9 +12,9 @@ using StormDiversMod.Projectiles;
 
 namespace StormDiversMod.Items.Weapons
 {
-    public class MossRepeater : ModItem
+    [LegacyName("MossRepeater")]
+    public class JungleRepeater : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Mossy Repeater");

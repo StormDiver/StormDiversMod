@@ -567,8 +567,7 @@ namespace StormDiversMod.Projectiles
                 PositionInWorld = new Vector2(target.Center.X + Main.rand.Next(-target.width / 3, target.width / 3), target.Center.Y + Main.rand.Next(-target.height / 3, target.height / 3)),
             }, player.whoAmI);
 
-            Projectile.damage = (Projectile.damage * 9) / 10;
-
+            //Projectile.damage = (Projectile.damage * 9) / 10;
             hits++;
         }
         public override void AI()

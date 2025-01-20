@@ -798,7 +798,7 @@ namespace StormDiversMod.Common
                 }
 
                 //For the Mossy Repeater in Jungle Chest
-                int[] ChestMossyRep = { ItemType<MossRepeater>() };
+                int[] ChestMossyRep = { ItemType<JungleRepeater>() };
                 int ChestMossyRepCount = 0;
 
 
