@@ -147,9 +147,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 }
                 if (Projectile.ai[1] >= 45 && Projectile.ai[1] <= 75)
                 {
-
                     Projectile.velocity *= 1.04f;
-
                 }
             }
             if (Projectile.ai[0] == 2 && Projectile.timeLeft > 3) //Dust warning for stationary ones

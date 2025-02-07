@@ -551,7 +551,10 @@ namespace StormDiversMod.NPCs.Boss
 
             if (!player.dead && !deathani)//begin AI===================================================== + start each phase
             {
-
+                if (NPC.ai[3] > 0 && NPC.ai[3] != 9) //No attacks when first summoned
+                {
+                    NPC.dontTakeDamage = false;
+                }
                 if (NPC.ai[3] == 0) //No attacks when first summoned
                 {
                     NPC.dontTakeDamage = true;
@@ -977,7 +980,7 @@ namespace StormDiversMod.NPCs.Boss
                             Main.dust[dust2].noGravity = true;
                         }
                     }
-                    if ((NPC.localAI[0] > 80 && lifeleft == 0) || (NPC.localAI[0] > 70 && lifeleft == 1) || (NPC.localAI[0] > 60 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 75 && lifeleft == 0) || (NPC.localAI[0] > 65 && lifeleft == 1) || (NPC.localAI[0] > 55 && lifeleft == 2))
                     {
                         SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
 
@@ -1758,7 +1761,6 @@ namespace StormDiversMod.NPCs.Boss
             if (NPC.ai[3] == 10) //Attack 10, tries to escape, last ditch attack
             {
                 NPC.dontTakeDamage = false;
-
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
 

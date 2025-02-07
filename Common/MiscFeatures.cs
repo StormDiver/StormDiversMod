@@ -35,7 +35,6 @@ using StormDiversMod.Items.Armour;
 using StormDiversMod.Projectiles.Petprojs;
 using StormDiversMod.NPCs.Boss;
 using Terraria.GameContent.Creative;
-using Microsoft.Extensions.Configuration;
 using Terraria.ModLoader.Config;
 using System.Drawing.Drawing2D;
 using StormDiversMod.Items.Accessory;

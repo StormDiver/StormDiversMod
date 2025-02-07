@@ -423,10 +423,11 @@ namespace StormDiversMod.NPCs.Boss
 
             if (!player.dead && !deathani && Main.zenithWorld)//begin AI=====================================================
             {
+                if (NPC.ai[3] > 0)
+                    NPC.dontTakeDamage = false;
 
                 if (NPC.ai[3] == 0) //No attacks when first summoned
                 {
-
                     NPC.ai[1] = 0;
                     NPC.ai[2] = -350;
                     if (distanceToIdlePosition > 400f) //consistent speed
@@ -752,7 +753,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (NPC.ai[0] > 30 || (lifeleft == 3 && NPC.ai[0] > 15)) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 30 && (lifeleft == 0 || lifeleft == 3)) || (NPC.localAI[0] > 25 && lifeleft == 1) || (NPC.localAI[0] > 20 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 30 && (lifeleft == 0)) || (NPC.localAI[0] > 25 && (lifeleft == 1 || lifeleft == 3)) || (NPC.localAI[0] > 20 && lifeleft == 2))
                     {
                         //Dust.QuickDustLine(player.Center, NPC.Center, 50, Color.DeepPink); //centre to centre
 
@@ -814,7 +815,7 @@ namespace StormDiversMod.NPCs.Boss
                 }*/
                 if (NPC.ai[0] > 30 || (lifeleft == 3 && NPC.ai[0] > 15)) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 35 && (lifeleft == 0 || lifeleft == 3)) || (NPC.localAI[0] > 30 && lifeleft == 1) || (NPC.localAI[0] > 25 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 35 && (lifeleft == 0)) || (NPC.localAI[0] > 30 && (lifeleft == 1 || lifeleft == 3)) || (NPC.localAI[0] > 25 && lifeleft == 2))
                     {
                         SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ShootSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                         SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -872,7 +873,7 @@ namespace StormDiversMod.NPCs.Boss
                 }*/
                 if (NPC.ai[0] > 30 || (lifeleft == 3 && NPC.ai[0] > 15)) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 50 && (lifeleft == 0 || lifeleft == 3)) || (NPC.localAI[0] > 45 && lifeleft == 1) || (NPC.localAI[0] > 40 && lifeleft == 2 ))
+                    if ((NPC.localAI[0] > 50 && (lifeleft == 0)) || (NPC.localAI[0] > 45 && (lifeleft == 1 || lifeleft == 3)) || (NPC.localAI[0] > 40 && lifeleft == 2 ))
                     {
                         SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ShootSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                         SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -921,7 +922,7 @@ namespace StormDiversMod.NPCs.Boss
                 NPC.localAI[0]++;
                 if (NPC.ai[0] > 30 || (lifeleft == 3 && NPC.ai[0] > 15)) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 30 && (lifeleft == 0 || lifeleft == 3))  || (NPC.localAI[0] > 25 && lifeleft == 1) || (NPC.localAI[0] > 20 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 30 && (lifeleft == 0))  || (NPC.localAI[0] > 25 && (lifeleft == 1 || lifeleft == 3)) || (NPC.localAI[0] > 20 && lifeleft == 2))
                     {
                         SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ShootSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                         SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -963,7 +964,7 @@ namespace StormDiversMod.NPCs.Boss
                   
                 if (NPC.ai[0] > 30 || (lifeleft == 3 && NPC.ai[0] > 15)) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 30 && (lifeleft == 0 || lifeleft == 3)) || (NPC.localAI[0] > 25 && lifeleft == 1) || (NPC.localAI[0] > 20 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 30 && (lifeleft == 0)) || (NPC.localAI[0] > 25 && (lifeleft == 1 || lifeleft == 3)) || (NPC.localAI[0] > 20 && lifeleft == 2))
                     {
                         for (int i = 0; i < 200; i++)
                         {                         
@@ -1018,7 +1019,7 @@ namespace StormDiversMod.NPCs.Boss
                 }*/
                 if (NPC.ai[0] > 30 || (lifeleft == 3 && NPC.ai[0] > 15)) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 30 && (lifeleft == 0 || lifeleft == 3)) || (NPC.localAI[0] > 25 && lifeleft == 1) || (NPC.localAI[0] > 20 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 30 && (lifeleft == 0)) || (NPC.localAI[0] > 25 && (lifeleft == 1 || lifeleft == 3)) || (NPC.localAI[0] > 20 && lifeleft == 2))
                     {
                         SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ShootSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                         SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -1074,7 +1075,7 @@ namespace StormDiversMod.NPCs.Boss
                 }*/
                 if (NPC.ai[0] > 30 || (lifeleft == 3 && NPC.ai[0] > 15)) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 40 && (lifeleft == 0 || lifeleft == 3)) || (NPC.localAI[0] > 35 && lifeleft == 1) || (NPC.localAI[0] > 30 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 40 && (lifeleft == 0)) || (NPC.localAI[0] > 35 && (lifeleft == 1 || lifeleft == 3)) || (NPC.localAI[0] > 30 && lifeleft == 2))
                     {
                         SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ShootSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                         SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
@@ -1129,7 +1130,7 @@ namespace StormDiversMod.NPCs.Boss
 
                 if (NPC.ai[0] > 30 || (lifeleft == 3 && NPC.ai[0] > 15)) //Delay before firing
                 {
-                    if ((NPC.localAI[0] > 14 && (lifeleft == 0 || lifeleft == 3)) || (NPC.localAI[0] > 12 && lifeleft == 1) || (NPC.localAI[0] > 10 && lifeleft == 2))
+                    if ((NPC.localAI[0] > 14 && (lifeleft == 0)) || (NPC.localAI[0] > 12 && (lifeleft == 1 || lifeleft == 3)) || (NPC.localAI[0] > 10 && lifeleft == 2))
                     {
                         //SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ShootSound") with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
                         SoundEngine.PlaySound(SoundID.Item42 with { Volume = 1.5f, MaxInstances = 12, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, NPC.Center);
