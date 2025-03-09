@@ -56,7 +56,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 32;
+            Item.damage = 25;
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
             Item.height = 50;
@@ -64,8 +64,8 @@ namespace StormDiversMod.Items.Weapons
             Item.useAnimation = 20;
 
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.value = Item.sellPrice(0, 2, 50, 0);
-            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.sellPrice(0, 1, 0, 0);
+            Item.rare = ItemRarityID.Green;
             //Item.UseSound = SoundID.DD2_MonkStaffSwing;
             Item.autoReuse = true;
             Item.useTurn = false;
@@ -148,6 +148,12 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void AddRecipes()
         {
+            CreateRecipe()
+           .AddIngredient(ItemID.MeteoriteBar, 15)
+           .AddIngredient(ItemID.FallenStar, 10)
+           .AddRecipeGroup("StormDiversMod:EvilMaterial", 10)
+           .AddTile(TileID.Anvils)
+           .Register();
         }
         public override Color? GetAlpha(Color lightColor)
         {

@@ -94,7 +94,7 @@ namespace StormDiversMod.Items.Tools
         {
             if (player.altFunctionUse == 2) //Right Click
             {
-                if (player.CountItem(ModContent.ItemType<Oilcan>(), 9999) >= 3)
+                if (player.CountItem(ModContent.ItemType<Oilcan>(), 9999) >= 2)
                 {
                     SoundEngine.PlaySound(SoundID.Item100 with { Volume = 1f, Pitch = -2 }, player.Center);
 
@@ -137,7 +137,7 @@ namespace StormDiversMod.Items.Tools
                             }
                         }
                     }
-                    for (int j = 0; j < 3; j++)
+                    for (int j = 0; j < 2; j++)
                     {
                         player.ConsumeItem(ModContent.ItemType<Oilcan>(), false, false);
                     }

@@ -583,7 +583,7 @@ Mods: {
 
 			BatBrokenDebuff: {
 				// DisplayName: Broken
-				// Description: You will take 15% extra damage
+				// Description: You will take 10% extra damage and damage over time
 			}
 		}
 
@@ -916,24 +916,28 @@ Mods: {
 			}
 
 			SpectreAccessory: {
-				DisplayName: 幽魂头骨
-				Tooltip:
+				// DisplayName: Spectre Skull
+				/* Tooltip:
 					'''
-					在魔力病效果下魔力消耗为零
-					增加40点魔力上限
-					'''
+					Enemies have a chance to drop a Spectral Star on death, which restores 100 mana
+					Bosses have a small chance when hit to drop a star
+					The star also grants the Spectral Strength Buff which increases magic damage by up to 25% depending on the remaining duration
+					Duration is increased by 5 seconds per collected star, and caps at 10 seconds
+					''' */
 			}
 
 			SpectreAccessoryMagnet: {
-				DisplayName: 磁铁头骨花
-				Tooltip:
+				// DisplayName: Magnet Skull Flower
+				/* Tooltip:
 					'''
-					减少8%的魔力消耗
-					需要时自动使用魔力药水
-					增加魔力星的拾取范围
-					在魔力病效果下魔力消耗为零
-					增加40点魔力上限
-					'''
+					8% reduced mana usage
+					Automatically use mana potions when needed
+					Increases pickup range for mana stars
+					Enemies have a chance to drop a Spectral Star on death, which restores 100 mana
+					Bosses have a small chance when hit to drop a star
+					The star also grants the Spectral Strength Buff which increases magic damage by up to 25% depending on the remaining duration
+					Duration is increased by 5 seconds per collected star, and caps at 10 seconds
+					''' */
 			}
 
 			SpookyCore: {
@@ -3831,7 +3835,7 @@ Mods: {
 					'''
 					Hitting enemies charges the bat up to 10 times, only one charge can be obtained per swing
 					Once the bat is fully charged, right click to unleash a powerful swing that always crits and ignores 15 defense
-					The power swing also inflicts broken which makes enemies take 15% extra damage for 5 seconds
+					The power swing also inflicts broken which makes enemies take 10% extra damage and 10 damage per second for 5 seconds
 					The power swing will not need to be recharged if no enemies are hit when it is swung
 					"RULES... ARE MADE TO BE BROKEN!"
 					''' */

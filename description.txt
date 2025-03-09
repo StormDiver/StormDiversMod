@@ -24,6 +24,8 @@ Quality of Life features:
 
 Make sure to check the Steam page for the changelog, and the leave any comments you have about the mod
 
+Please note that the Chinese localisation is out of date, with some things either not translated or updated
+
 Creator, coder, and main spriter: [c/22DD97:TheStorm]
 Spriter and playtester: [c/EE59E3:Lynxical]
 Boss Music by: [c/c577dc:MicelTheGuy]

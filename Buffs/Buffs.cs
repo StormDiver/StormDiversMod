@@ -108,7 +108,7 @@ namespace StormDiversMod.Buffs
             {
                 extradamage = player.buffTime[buffindex] + 1;
                 //Main.NewText("The test = " + (extradamage / 12), 204, 101, 22);
-                player.GetDamage(DamageClass.Magic) += (extradamage / 24) / 100; // 300 frames total, 25% damage at 600 frames, divide by 12 and by 200 again to get 1% damage every 24 frames (0.01)
+                player.GetDamage(DamageClass.Magic) += (extradamage / 24) / 100; // 300 frames total, 25% damage at 600 frames, divide by 24 and by 100 again to get 1% damage every 24 frames (0.01)
             }
         }
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)

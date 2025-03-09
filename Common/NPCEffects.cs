@@ -520,7 +520,11 @@ namespace StormDiversMod.Common
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-           
+            if (brokenDebuff)
+            {
+                npc.lifeRegen -= 20;
+                damage = 4;
+            }
             if (heartDebuff)
             {
                 npc.lifeRegen -= 50;
@@ -956,7 +960,7 @@ namespace StormDiversMod.Common
         {
             if (brokenDebuff)
             {
-                modifiers.FinalDamage *= 1.15f;
+                modifiers.FinalDamage *= 1.1f;
             }
             base.ModifyIncomingHit(npc, ref modifiers);
         }

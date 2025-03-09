@@ -1022,7 +1022,7 @@ namespace StormDiversMod.Common
                             Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Player.Center.X, Player.Center.Y)) * 8;
                             int type = ModContent.ProjectileType<CoralBoneProj>();
                             //int damage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(20);
-                            int damage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo((int)(Player.HeldItem.damage * 0.33f));
+                            int damage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo((int)(Player.HeldItem.damage * 0.5f));
 
                             int projID = Projectile.NewProjectile(Player.GetSource_Accessory(CoralStormItem), Player.Center, velocity, type, damage, 2f, Player.whoAmI);
 

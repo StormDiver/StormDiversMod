@@ -29,7 +29,7 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 30;
             Projectile.height = 30;
             Projectile.friendly = true;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 2;
             //Projectile.melee = true;
             Projectile.timeLeft = 480;
             Projectile.light = 0.2f;
@@ -167,12 +167,12 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 30; i++)
             {
-                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 25, Projectile.Center.Y - 25), 50, 50, 33, Projectile.velocity.X, Projectile.velocity.Y);
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 25, Projectile.Center.Y - 25), 50, 50, 33, Projectile.velocity.X * 0.8f, Projectile.velocity.Y * 0.8f);
                 dust.scale = 1.5f;
             }
             for (int i = 0; i < 30; i++)
             {
-                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 25, Projectile.Center.Y - 25), 50, 50, 176, Projectile.velocity.X, Projectile.velocity.Y);
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 25, Projectile.Center.Y - 25), 50, 50, 176, Projectile.velocity.X * 0.8f, Projectile.velocity.Y * 0.8f);
                 dust.scale = 1f;
             }
         }

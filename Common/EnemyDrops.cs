@@ -405,7 +405,7 @@ namespace StormDiversMod.Common
             //Accessories--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.Demon || npc.type == NPCID.VoodooDemon)
             {
-                PostSkeletronDrop.OnSuccess(ItemDropRule.OneFromOptionsWithNumerator(33, 1, ModContent.ItemType<HeartJar>(), ModContent.ItemType<GalacticBat>()));
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<HeartJar>(), 40, 30));
                 /*if (Main.rand.Next(50) == 0)
                 {
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<HeartJar>());

@@ -583,7 +583,7 @@ Mods: {
 
 			BatBrokenDebuff: {
 				DisplayName: Broken
-				Description: You will take 15% extra damage
+				Description: You will take 10% extra damage and damage over time
 			}
 		}
 
@@ -3848,7 +3848,7 @@ Mods: {
 					'''
 					Hitting enemies charges the bat up to 10 times, only one charge can be obtained per swing
 					Once the bat is fully charged, right click to unleash a powerful swing that always crits and ignores 15 defense
-					The power swing also inflicts broken which makes enemies take 15% extra damage for 5 seconds
+					The power swing also inflicts broken which makes enemies take 10% extra damage and 10 damage per second for 5 seconds
 					The power swing will not need to be recharged if no enemies are hit when it is swung
 					"RULES... ARE MADE TO BE BROKEN!"
 					'''

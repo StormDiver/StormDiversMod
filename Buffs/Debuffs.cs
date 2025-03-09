@@ -748,7 +748,7 @@ namespace StormDiversMod.Buffs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Broken");
-            //Description.SetDefault("You will take 15% extra damage");
+            //Description.SetDefault("You will take 10% extra damage");
             Main.debuff[Type] = true;
         }
         public override void Update(Player player, ref int buffIndex)

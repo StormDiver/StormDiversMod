@@ -63,7 +63,7 @@ namespace StormDiversMod.Items.Tools
                     {
                         mod.Call("Event", "HugBear");
                     }
-                    player.AddBuff(ModContent.BuffType<Buffs.TeddyBuff>(), 300);
+                    player.AddBuff(ModContent.BuffType<Buffs.TeddyBuff>(), 600);
                     player.GetModPlayer<EquipmentEffects>().bearcool = 600;
                 }
             }
