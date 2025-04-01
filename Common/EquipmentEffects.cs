@@ -481,7 +481,6 @@ namespace StormDiversMod.Common
             var tileposgrav = Player.Top.ToTileCoordinates16();
             if (soulBoots || bloodBoots)
             {
-
                 //int xboottilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
                 //int yboottilepos = (int)(Player.Bottom.Y / 16);
 

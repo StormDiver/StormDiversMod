@@ -760,4 +760,22 @@ namespace StormDiversMod.Buffs
             npc.GetGlobalNPC<NPCEffects>().brokenDebuff = true;
         }
     }
+    //________________________________________________
+    public class TouchGrassDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Touch Grass!");
+            //Description.SetDefault("This is a threat");
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+        }
+    }
 }

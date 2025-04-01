@@ -809,4 +809,45 @@ namespace StormDiversMod.Buffs
         {
         }
     }
+
+    //_________________________________________________________________
+    public class TouchGrassBuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Touching Grass");
+            //Description.SetDefault("See, it's not that bad, damage and defense increased");
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.GetDamage(DamageClass.Generic) += 0.5f;
+            player.GetCritChance(DamageClass.Generic) += 25;
+            player.endurance += 0.33f;
+            player.dashType = 1;
+
+            player.maxRunSpeed += 1.5f;
+            player.runAcceleration *= 1.3f;
+            player.runSlowdown = 0.2f;
+
+            if (Main.rand.Next(5) == 0)
+            {
+                if (player.gravDir == 1)
+                {
+                    int dust = Dust.NewDust(new Vector2(player.position.X, player.Bottom.Y - 4), player.width, 2, 3, 0, -5, 100, default, 1.5f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 0.75f;
+                }
+                else
+                {
+                    int dust = Dust.NewDust(new Vector2(player.position.X, player.Top.Y - 2), player.width, 2, 3, 0, 5, 100, default, 1.5f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 0.75f;
+                }
+            }
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+        }
+    }
 }

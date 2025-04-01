@@ -36,7 +36,7 @@ namespace StormDiversMod.Common
         public static bool MarbleChestSpawn;
         public static bool MushroomChestSpawn;
 
-
+        public static bool TouchGrassMode;
         public override void OnWorldLoad()
         {
 
@@ -54,6 +54,7 @@ namespace StormDiversMod.Common
             MarbleChestSpawn = false;
             MushroomChestSpawn = false;
 
+            TouchGrassMode = false;
         }
         public override void OnWorldUnload()
         {
@@ -70,6 +71,7 @@ namespace StormDiversMod.Common
             MarbleChestSpawn = false;
             MushroomChestSpawn = false;
 
+            TouchGrassMode = false;
         }
         public override void SaveWorldData(TagCompound tag)
         {
@@ -119,6 +121,10 @@ namespace StormDiversMod.Common
             {
                 tag["MushroomChestSpawn"] = true;
             }
+            if (TouchGrassMode)
+            {
+                tag["TouchGrassMode"] = true;
+            }
         }
         public override void LoadWorldData(TagCompound tag)
         {
@@ -136,6 +142,7 @@ namespace StormDiversMod.Common
             MarbleChestSpawn = tag.ContainsKey("MarbleChestSpawn");
             MushroomChestSpawn = tag.ContainsKey("MushroomChestSpawn");
 
+            TouchGrassMode = tag.ContainsKey("TouchGrassMode");
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -158,11 +165,17 @@ namespace StormDiversMod.Common
 
             writer.Write(flags2);
 
-            BitsByte flags3 = new BitsByte(); //Boss flags (8 max)
+            BitsByte flags3 = new BitsByte(); //Chest flags (8 max)
 
             flags3[0] = GraniteChestSpawn;
             flags3[1] = MarbleChestSpawn;
             flags3[2] = MushroomChestSpawn;
+
+            writer.Write(flags3);
+
+            BitsByte flags4 = new BitsByte(); //Misc (8 max)
+
+            flags4[0] = TouchGrassMode;
 
             writer.Write(flags3);
 
@@ -189,6 +202,9 @@ namespace StormDiversMod.Common
             MarbleChestSpawn = flags3[1];
             MushroomChestSpawn = flags3[2];
 
+            BitsByte flags4 = reader.ReadByte();
+
+            TouchGrassMode = flags4[0];
         }
         public override void PostWorldGen()
         {
