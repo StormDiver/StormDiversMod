@@ -72,6 +72,10 @@ namespace StormDiversMod.Items.Summons
                         line.Text = "[c/005000:Touch Grass Mode has already been enabled!]";
                     }
                 }
+                if (line.Mod == "Terraria" && line.Name == "Tooltip5")
+                {
+                    line.Text = "[c/ff8c00:" + line.Text + "]";
+                }
             }
         }
         public override Vector2? HoldoutOffset()
