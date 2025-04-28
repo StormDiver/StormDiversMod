@@ -87,9 +87,7 @@ namespace StormDiversMod.Projectiles
             reflect = true;
 
             return false;
-
         }
-
 
         public override void OnKill(int timeLeft)
         {
@@ -97,13 +95,9 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 30; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 5);
-
             }
-
         }
-
     }
     //_______________________________________________________________________
     public class EyeStaffProj : ModProjectile
@@ -139,8 +133,6 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation += (float)Projectile.direction * -0.4f;
             Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 5);
             Projectile.spriteDirection = Projectile.direction;
-
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -149,10 +141,9 @@ namespace StormDiversMod.Projectiles
         bool reflect = false;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             Player player = Main.player[Projectile.owner];
 
-            if (Projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer && Collision.CanHitLine(Projectile.Center, 0, 0, player.Center, 0, 0))
             {         
                 float projspeed = 10;
                 Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
@@ -160,17 +151,16 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.velocity.X = perturbedSpeed.X;
                 Projectile.velocity.Y = perturbedSpeed.Y;
-
             }
-            
+            else
+                Projectile.Kill();
+
             if (!reflect)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit1, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCHit1 with {MaxInstances = 1 }, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 5);
-
                 }
             }
             else
@@ -180,23 +170,15 @@ namespace StormDiversMod.Projectiles
             reflect = true;
 
             return false;
-
-
         }
-
-
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 1 }, Projectile.Center);
 
             for (int i = 0; i < 30; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 5);
-
             }
-
         }
-
     }
 }
