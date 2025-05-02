@@ -25,7 +25,7 @@ using Terraria.UI;
 
 namespace StormDiversMod.Items.Summons
 {
-    public class TouchGrassSeed : ModItem
+    /*public class TouchGrassSeed : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -144,5 +144,5 @@ namespace StormDiversMod.Items.Summons
             .AddTile(TileID.Grass)
             .Register();
         }
-    }
+    }*/
 }

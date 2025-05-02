@@ -11,7 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace StormDiversMod.Items.Weapons
 {
-	public class ABladeofGrass : ModItem
+    [LegacyName("TouchGrassSeed")]
+
+    public class ABladeofGrass : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -47,11 +49,11 @@ namespace StormDiversMod.Items.Weapons
         {
             return false;
         }
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             CreateRecipe()
             .AddTile(TileID.Grass)
             .Register();
-        }
+        }*/
     }
 }

@@ -64,7 +64,7 @@ namespace StormDiversMod.Common
         }
         public override void PostUpdateEquips() //Updates every frame
         {
-            if (StormWorld.TouchGrassMode)
+            /*if (StormWorld.TouchGrassMode)
             {
                 var tilePos = Player.Bottom.ToTileCoordinates16();
                 var tileposgrav = Player.Top.ToTileCoordinates16();
@@ -128,7 +128,7 @@ namespace StormDiversMod.Common
             {
                 grasstimer = 60 * 300;
                 Player.ClearBuff(ModContent.BuffType<TouchGrassDebuff>());
-            }
+            }*/
         }
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
@@ -150,7 +150,7 @@ namespace StormDiversMod.Common
     }
     public class Regrowth : GlobalItem
     {
-        public override bool CanUseItem(Item item, Player player)
+        /*public override bool CanUseItem(Item item, Player player)
         {
             int xtilepos = (int)(Main.MouseWorld.X) / 16;
             int ytilepos = (int)(Main.MouseWorld.Y) / 16;
@@ -190,11 +190,11 @@ namespace StormDiversMod.Common
                 }
             }
             base.ModifyTooltips(item, tooltips);
-        }
+        }*/
     }
     public class NPCGrass : GlobalNPC
     {
-        public override void GetChat(NPC npc, ref string chat)
+        /*public override void GetChat(NPC npc, ref string chat)
         {
             if (StormWorld.TouchGrassMode)
             {
@@ -217,6 +217,6 @@ namespace StormDiversMod.Common
                         break;
                 }
             }
-        }
+        }*/
     }
 }
