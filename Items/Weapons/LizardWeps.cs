@@ -12,6 +12,7 @@ using StormDiversMod.Common;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
+using ExampleMod.Common.Players;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -53,16 +54,15 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            var player = Main.LocalPlayer;
+
             foreach (TooltipLine line in tooltips)
             {
-                if (!NPC.downedPlantBoss)
+                if (!NPC.downedPlantBoss && player.GetModPlayer<PlayerUpgrades>().NoTempleCurse == false && !GetInstance<ConfigurationsGlobal>().NoScaryCurse)
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                    {
-                        if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)                        
+                    {                      
                             line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]"; 
-                        else
-                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, use at your own risk!]";
                     }
                 }
             }
@@ -132,16 +132,15 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            var player = Main.LocalPlayer;
+
             foreach (TooltipLine line in tooltips)
             {
-                if (!NPC.downedPlantBoss)
+                if (!NPC.downedPlantBoss && player.GetModPlayer<PlayerUpgrades>().NoTempleCurse == false && !GetInstance<ConfigurationsGlobal>().NoScaryCurse)
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
-                        if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)
-                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
-                        else
-                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, use at your own risk!]";
+                         line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
                     }
                 }
             }
@@ -263,16 +262,15 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            var player = Main.LocalPlayer;
+
             foreach (TooltipLine line in tooltips)
             {
-                if (!NPC.downedPlantBoss)
+                if (!NPC.downedPlantBoss && player.GetModPlayer<PlayerUpgrades>().NoTempleCurse == false && !GetInstance<ConfigurationsGlobal>().NoScaryCurse)
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)
-                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
-                        else
-                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, use at your own risk!]";
+                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
                     }
                 }
             }
@@ -398,16 +396,15 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            var player = Main.LocalPlayer;
+
             foreach (TooltipLine line in tooltips)
             {
-                if (!NPC.downedPlantBoss)
+                if (!NPC.downedPlantBoss && player.GetModPlayer<PlayerUpgrades>().NoTempleCurse == false && !GetInstance<ConfigurationsGlobal>().NoScaryCurse)
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)
-                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
-                        else
-                            line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, use at your own risk!]";
+                        line.Text = line.Text + "\n[c/A14F12:Inflicted with a strange curse, pick up at your own risk!]";
                     }
                 }
             }

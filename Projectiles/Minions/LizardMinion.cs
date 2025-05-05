@@ -8,7 +8,9 @@ using Terraria.Audio;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
-
+using ExampleMod.Common.Players;
+using StormDiversMod.Common;
+using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.Projectiles.Minions
 {
@@ -23,7 +25,9 @@ namespace StormDiversMod.Projectiles.Minions
 		}
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
-			if (!NPC.downedPlantBoss)
+            var player = Main.LocalPlayer;
+
+            if (!NPC.downedPlantBoss && player.GetModPlayer<PlayerUpgrades>().NoTempleCurse == false && !GetInstance<ConfigurationsGlobal>().NoScaryCurse)
 			tip = tip + "\n[c/A14F12:Is inflicting a strange curse, dismiss to remove it!]";
 
             base.ModifyBuffText(ref buffName, ref tip, ref rare);

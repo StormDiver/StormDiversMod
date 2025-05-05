@@ -15,6 +15,9 @@ using StormDiversMod.Items.Pets;
 using Terraria.WorldBuilding;
 using StormDiversMod.Items.Materials;
 using MonoMod.Cil;
+using ExampleMod.Common.Players;
+using StormDiversMod.NPCs;
+using StormDiversMod.NPCs.Boss;
 
 namespace StormDiversMod.Common
 {
@@ -215,6 +218,8 @@ namespace StormDiversMod.Common
         //int mushplaced = 0;
         public override void PreUpdateWorld()
         {
+            if (TouchGrassMode)
+                TouchGrassMode = false;
 
             //For the messages when a boss is defeated
             if (NPC.downedBoss1 && !eocMessage) //EoC
@@ -348,8 +353,21 @@ namespace StormDiversMod.Common
             // If you wish to add your OWN tips, then you have to put them in the stupid Localization file which is stupid and stupid.
         }
     }
-    public class WorldOre : GlobalNPC
+    public class KillPlant : GlobalNPC
     {
+        public override void OnKill(NPC npc) //when plant is killed add a bool to the player
+        {
+            if (npc.type == NPCID.Plantera || (npc.type == ModContent.NPCType<StormBoss>() && GetInstance<ConfigurationsGlobal>().StormBossSkipsPlant)) //add bool to player
+            {
+                var player = Main.LocalPlayer;
+                if (player.GetModPlayer<PlayerUpgrades>().NoTempleCurse == false)
+                {
+                    player.GetModPlayer<PlayerUpgrades>().NoTempleCurse = true;
+                    //Main.NewText("Your curse has been lifted", Color.Orange);
+                }
+            }
+            base.OnKill(npc);
+        }
         /*public override void NPCLoot(NPC npc)
         {
             //set bools when the enemy is killed for the first time, these are saved at the top

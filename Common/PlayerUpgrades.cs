@@ -9,6 +9,7 @@ namespace ExampleMod.Common.Players
     public class PlayerUpgrades : ModPlayer
     {
         public bool ZephyrFeatherUpgrade;
+        public bool NoTempleCurse;
 
         /*public override void ModifyMaxStats(out StatModifier health, out StatModifier mana)
         {
@@ -25,10 +26,13 @@ namespace ExampleMod.Common.Players
         public override void SaveData(TagCompound tag)
         {
             tag["ZephyrFeatherUpgrade"] = ZephyrFeatherUpgrade;
+            tag["NoTempleCurse"] = NoTempleCurse;
+
         }
         public override void LoadData(TagCompound tag)
         {
             ZephyrFeatherUpgrade = tag.GetBool("ZephyrFeatherUpgrade");
+            NoTempleCurse = tag.GetBool("NoTempleCurse");
         }
 
         //idc about multiplayer

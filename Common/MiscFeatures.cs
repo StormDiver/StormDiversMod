@@ -38,6 +38,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader.Config;
 using System.Drawing.Drawing2D;
 using StormDiversMod.Items.Accessory;
+using ExampleMod.Common.Players;
 
 namespace StormDiversMod.Common
 {
@@ -116,7 +117,7 @@ namespace StormDiversMod.Common
                 Main.NewText("Potion time: " + (bufftimer / 60 + 1), Color.Crimson);*/
             }
             //If player holds forbidden item summon up to 6 Guardians after 5 seconds
-            if (!NPC.downedPlantBoss)
+            if (!NPC.downedPlantBoss && Player.GetModPlayer<PlayerUpgrades>().NoTempleCurse == false && !GetInstance<ConfigurationsGlobal>().NoScaryCurse)
             {
                 if ((Player.HeldItem.type == ModContent.ItemType<LizardSpinner>() || Player.HeldItem.type == ModContent.ItemType<LizardFlame>() || Player.HeldItem.type == ModContent.ItemType<LizardSpell>() || Player.HeldItem.type == ModContent.ItemType<LizardMinion>())
                     && Player.controlUseItem)
@@ -127,77 +128,73 @@ namespace StormDiversMod.Common
                 {
                     Player.AddBuff(ModContent.BuffType<TempleDebuff>(), 2);
                 }
-                if (!GetInstance<ConfigurationsGlobal>().NoScaryCurse)
+
+                if (Player.HasItemInAnyInventory(ModContent.ItemType<TempleBMask>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleChest>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleLegs>())
+                || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpinner>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardFlame>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpell>())
+                || Player.HasItemInAnyInventory(ModContent.ItemType<LizardMinion>()) || Player.HasBuff(ModContent.BuffType<LizardMinionBuff>()))
                 {
-                    if (Player.HasItemInAnyInventory(ModContent.ItemType<TempleBMask>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleChest>()) || Player.HasItemInAnyInventory(ModContent.ItemType<TempleLegs>())
-                    || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpinner>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardFlame>()) || Player.HasItemInAnyInventory(ModContent.ItemType<LizardSpell>())
-                    || Player.HasItemInAnyInventory(ModContent.ItemType<LizardMinion>()) || Player.HasBuff(ModContent.BuffType<LizardMinionBuff>()))
+                    templeWarning++;
+                    string templecursetext = "The curse of the temple item in your possession activates!!!";
+                    if (templeWarning == 1)
                     {
-                        templeWarning++;
-                        string templecursetext = "The curse of the temple item in your possession activates!!!";
-                        if (templeWarning == 1)
+                        if (Main.netMode == 2) // Server
                         {
-                            if (Main.netMode == 2) // Server
-                            {
-                                Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(templecursetext), new Color(204, 101, 22));
-                            }
-                            else if (Main.netMode == 0) // Single Player
-                            {
-                                Main.NewText(templecursetext, 204, 101, 22);
-                            }
-                            CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.SaddleBrown, templecursetext, false);
-
+                            Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey(templecursetext), new Color(204, 101, 22));
                         }
-
-                        if (templeWarning >= 480 && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 6) //spawn up to 6
+                        else if (Main.netMode == 0) // Single Player
                         {
-                            if (Main.rand.Next(30) == 0)
-                            {
-                                NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
-                            }
+                            Main.NewText(templecursetext, 204, 101, 22);
                         }
-
-                        Player.buffImmune[BuffID.Darkness] = false;
-                        Player.buffImmune[BuffID.Blackout] = false;
-                        Player.buffImmune[BuffID.Obstructed] = false;
-                        Player.buffImmune[BuffID.Slow] = false;
-                        Player.buffImmune[BuffID.Bleeding] = false;
-                        Player.buffImmune[ModContent.BuffType<TempleDebuff>()] = false;
-
-                        //don't give debuffs, but give effects of them
-                        Player.bleed = true;
-                        Player.blind = true;
-
-                        if (templeWarning > 0 && templeWarning < 240)
-                        {
-                            //Player.AddBuff(BuffID.Darkness, 2);
-                            //Player.AddBuff(BuffID.Bleeding, 2);
-                        }
-
-                        else if (templeWarning >= 240 && templeWarning < 480)
-                        {
-                            Player.blackout = true;
-                            Player.slow = true;
-                            //Player.AddBuff(BuffID.Blackout, 2);
-                            //Player.AddBuff(BuffID.Slow, 2);
-                        }
-                        else if (templeWarning >= 480)
-                        {
-                            Player.slow = true;
-                            Player.AddBuff(BuffID.Obstructed, 2);
-                            //Player.AddBuff(BuffID.Bleeding, 2);
-                            //Player.AddBuff(BuffID.Slow, 2);
-                        }
-                        cursedplayer = true;
+                        CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.SaddleBrown, templecursetext, false);
 
                     }
 
-                    else
+                    if (templeWarning >= 480 && NPC.CountNPCS(ModContent.NPCType<GolemMinion>()) < 6) //spawn up to 6
                     {
-                        cursedplayer = false;
-
-                        templeWarning = 0;
+                        if (Main.rand.Next(30) == 0)
+                        {
+                            NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
+                        }
                     }
+
+                    Player.buffImmune[BuffID.Darkness] = false;
+                    Player.buffImmune[BuffID.Blackout] = false;
+                    Player.buffImmune[BuffID.Obstructed] = false;
+                    Player.buffImmune[BuffID.Slow] = false;
+                    Player.buffImmune[BuffID.Bleeding] = false;
+                    Player.buffImmune[ModContent.BuffType<TempleDebuff>()] = false;
+
+                    //don't give debuffs, but give effects of them
+                    Player.bleed = true;
+                    Player.blind = true;
+
+                    if (templeWarning > 0 && templeWarning < 240)
+                    {
+                        //Player.AddBuff(BuffID.Darkness, 2);
+                        //Player.AddBuff(BuffID.Bleeding, 2);
+                    }
+
+                    else if (templeWarning >= 240 && templeWarning < 480)
+                    {
+                        Player.blackout = true;
+                        Player.slow = true;
+                        //Player.AddBuff(BuffID.Blackout, 2);
+                        //Player.AddBuff(BuffID.Slow, 2);
+                    }
+                    else if (templeWarning >= 480)
+                    {
+                        Player.slow = true;
+                        Player.AddBuff(BuffID.Obstructed, 2);
+                        //Player.AddBuff(BuffID.Bleeding, 2);
+                        //Player.AddBuff(BuffID.Slow, 2);
+                    }
+                    cursedplayer = true;
+                }
+                else
+                {
+                    cursedplayer = false;
+
+                    templeWarning = 0;
                 }
             }
             else

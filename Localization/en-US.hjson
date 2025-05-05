@@ -4472,8 +4472,8 @@ Mods: {
 				}
 
 				NoScaryCurse: {
-					Tooltip: This will prevent the Temple Curse from activating if a modded temple item is in your inventory, but doesn't prevent the damage debuff when trying to use them
-					Label: Prevent the Temple Curse for occuring
+					Tooltip: This will prevent the Temple Curse from activating if a modded temple item is in your inventory
+					Label: Prevent the Temple Curse for occuring (Not recommended)
 				}
 			}
 		}
