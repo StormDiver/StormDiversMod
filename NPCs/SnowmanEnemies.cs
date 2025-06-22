@@ -23,8 +23,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Pizza Delivery Snowman"); // Automatic from .lang files
-                                                      // make sure to set this for your modnpcs.
+            //DisplayName.SetDefault("Pizza Delivery Snowman");
             Main.npcFrameCount[NPC.type] = 7;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn2] = true;
@@ -32,7 +31,7 @@ namespace StormDiversMod.NPCs
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<SuperFrostBurn>()] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffType<UltraFrostDebuff>()] = true;
 
-            //NPCID.Sets.BelongsToInvasionFrostLegion[Type] = true;
+            NPCID.Sets.BelongsToInvasionFrostLegion[Type] = true;
         }
         public override void SetDefaults()
         {
@@ -67,15 +66,16 @@ namespace StormDiversMod.NPCs
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
-                            BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
+				//BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
+                //BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Invasions.FrostLegion,
 
 				// Sets the description of this NPC that is listed in the bestiary.
 				new FlavorTextBestiaryInfoElement("This poor snowman has had to deliver pizza in the worst of conditions all its life, now all it wants to deliver is pain.")
         });
         }
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        /*public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (Main.player[Player.FindClosest(NPC.position, NPC.width, NPC.height)].ZoneSnow && Main.raining && Main.hardMode)
             {
@@ -85,8 +85,7 @@ namespace StormDiversMod.NPCs
             {
                 return SpawnCondition.Overworld.Chance * 0f;
             }
-
-        }
+        }*/
         int shoottime = 0;
 
         bool summoning;
@@ -118,7 +117,7 @@ namespace StormDiversMod.NPCs
                     NPC.aiStyle = -1;
                     if (NPC.velocity.Y == 0) //wait until on the ground before attacking
                     {
-                        NPC.knockBackResist = 0; //prevent innteruption
+                        NPC.knockBackResist = 0; //prevent interruption
                         NPC.velocity.X *= 0.95f;
                         NPC.velocity.Y = 0;
                         summoning = true; //begins summon animation
@@ -229,12 +228,11 @@ namespace StormDiversMod.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<PizzaCutter>(), 12, 8));
-            npcLoot.Add(ItemDropRule.NormalvsExpert(ItemID.SnowGlobe, 12, 8));
+            //npcLoot.Add(ItemDropRule.NormalvsExpert(ItemID.SnowGlobe, 12, 8));
             npcLoot.Add(ItemDropRule.Common(ItemID.SnowBlock, 1, 5, 10));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Pizza, 5, 1, 1));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PizzaCap>(), 25, 1, 1));
-
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PizzaCap>(), 50, 1, 1));
+            npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<PizzaCutter>(), 25, 20));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Pizza, 50, 1, 1));
         }
     }
     //________________________________________
@@ -242,8 +240,7 @@ namespace StormDiversMod.NPCs
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Pizza Delivery Snowman"); // Automatic from .lang files
-            // make sure to set this for your modnpcs.
+            //DisplayName.SetDefault("Snowman Bomber");
             Main.npcFrameCount[NPC.type] = 5;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn2] = true;
@@ -448,8 +445,8 @@ namespace StormDiversMod.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.SnowBlock, 1, 5, 10));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Bomb, 1, 5, 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FlatCap>(), 50, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Bomb, 1, 5, 10));
         }
     }
 }

@@ -231,6 +231,14 @@ namespace StormDiversMod.Common
             //For santank set ======================================================================
             if (santankSet)
             {
+                /*if (santankSet && Player.HeldItem.type is ItemID.ChainGun or ItemID.ElfMelter) //Signature Weapons?
+                {
+                    Player.GetDamage(DamageClass.Ranged) += 0.1f;
+                }*/
+                //Main.NewText("santankcharge " + santankcharge, Color.Orange);
+                //Main.NewText("santankmissleup " + santankmissleup, Color.Yellow);
+                //Main.NewText("santanktrigger " + santanktrigger, Color.Green);
+
                 if (santankcharge <= 100 && !santanktrigger) //Charges up the rockets
                 {
                     santankmissleup++;
@@ -260,7 +268,7 @@ namespace StormDiversMod.Common
                     Player.ClearBuff(ModContent.BuffType<SantankBuff3>());
                 }
                 if (!santanktrigger && santankmissleup == 0 && santankcharge % 10 == 0 && santankcharge != 0) //every 10 (30 frames)
-                //Creates a particle and sound effect at these times, times by 3 to get excat frame
+                //Creates a particle and sound effect at these times, times by 3 to get exact frame
                 {
                     for (int i = 0; i < 30; i++)
                     {

@@ -217,6 +217,15 @@ namespace StormDiversMod.Common
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
 
             }
+
+            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneSnow && !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight &&
+                !Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneNormalUnderground && Main.raining && !npc.friendly && npc.lifeMax > 5 && Main.hardMode) //Snow Globe
+            {
+                if (Main.rand.Next(50) == 0)
+                {
+                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ItemID.SnowGlobe);
+                }
+            }
             //No bestiary--------------------------------------------------------------------------------------------------------------------
             if (Main.rand.Next(5000) < 1 & npc.lifeMax > 5)
             {

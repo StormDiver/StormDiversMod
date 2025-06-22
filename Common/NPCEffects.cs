@@ -1300,6 +1300,7 @@ namespace StormDiversMod.Common
             if (Main.invasionType == 2 && Main.invasionProgress > 0) //don't spawn until even has progressed
             {
                 pool.Add(ModContent.NPCType<SnowmanBomb>(), .2f);
+                pool.Add(ModContent.NPCType<SnowmanPizza>(), .1f);
             }
             /*if (!GetInstance<ConfigurationsGlobal>().PreventSnowmenEnemies)
             {

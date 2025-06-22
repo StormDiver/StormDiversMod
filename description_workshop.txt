@@ -1,5 +1,5 @@
 [img]https://i.imgur.com/3MEBuou.png[/img]
-[b]Storm's Additions Mod[/b] (Formerly Storm Diver’s Additions Mod) is a mod that adds a range of new unique content to the game, with a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items. This mod will receive occasional updates.
+[b]Storm's Additions Mod[/b] [b]Storm's Additions Mod[/b] started off as a very small personal project that over time had more content added, to the point where it adds a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items. This mod will receive occasional updates.
 
 [h2]This mod includes:[/h2]
 [list]
@@ -12,7 +12,7 @@
   - All have their own music, with [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2985966860]Music Display[/url][/b] Support
 [*]New Ammo, tools, potions, vanity items, and pets
 [*]The Cultist drops his treasure bag with some new items
-[*]A new member for the Frost Legion
+[*]2 new members for the Frost Legion
 [*]Full Wikithis support
 [*][b]27 new Achievements available via the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2927542027]Achievement Mod[/url][/b]
 [/list]

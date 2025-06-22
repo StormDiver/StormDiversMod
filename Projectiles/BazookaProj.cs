@@ -92,20 +92,18 @@ namespace StormDiversMod.Projectiles
                     player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, false);
                     //Projectile.damage = (Projectile.damage * 20) / 19; //extra 5% per additional rocket
                 }
-                //for overloading mechanisim, remove dust effects as max charge to activate
                 if (rocketcharge <= 5)
                     rocketcharge++;
                 else
                 {
+                    //for scrapped overloading mechanisim, remove dust effects at max charge section to re-activate
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(0, -8), Projectile.velocity * 0, ModContent.ProjectileType<BazookaProj2>(), (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
-
                     Main.projectile[projID].timeLeft = 1;
                 }
                 if (rocketcharge >= 6)
                 {
                     CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.Red, "MAX", false);
                     SoundEngine.PlaySound(SoundID.Item14 with { Volume = 0.5f, Pitch = 0f}, Projectile.Center);
-
                 }
                 else
                     CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 12, 4), Color.White, rocketcharge, false);
@@ -134,18 +132,18 @@ namespace StormDiversMod.Projectiles
             }
             Projectile.ai[1]++; 
 
-            if (rocketcharge > 5 || !canShoot) //dust effects when at full charge
+            if (rocketcharge > 5 || !canShoot) //dust effects when at full charge (disable to re-enable overloading mechanic)
             {
                 Vector2 perturbedSpeed = new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(360));
-
+                //dust out front
                 int dustIndex = Dust.NewDust(Projectile.Center + new Vector2(-4, -11), 0, 0, 31, perturbedSpeed.X, perturbedSpeed.Y, 100, default, 1f);
                 Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
 
                 Vector2 dustspeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
-
-                int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-4, -11), 0, 0, 31, dustspeed.X * 0.125f, dustspeed.Y * 0.125f, 100, default, 1.5f);
+                //dust out back
+                int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-4 + dustspeed.X * -1.9f, -11 + dustspeed.Y * -1.9f), 0, 0, 31, dustspeed.X * -0.125f, dustspeed.Y * -0.125f, 100, default, 1.5f);
                 Main.dust[dust2].noGravity = true;
                 Main.dust[dust2].scale = 1f;
 
@@ -154,7 +152,7 @@ namespace StormDiversMod.Projectiles
                     SoundEngine.PlaySound(SoundID.Item13 with { Volume = 2f, Pitch = -0.5f }, Projectile.Center);
                     Projectile.ai[1] = 0;
                 }
-                chargetime = 0;
+                chargetime = 0; //this is what stops the overloading mechanic
             }
             if (!player.channel && !released) //player releases left click
             {
@@ -225,10 +223,12 @@ namespace StormDiversMod.Projectiles
                         Main.dust[dustIndex].noGravity = true;
 
                         Vector2 dustspeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
-
-                        int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-4, -11), 0, 0, 31, dustspeed.X * 0.125f, dustspeed.Y * 0.125f, 100, default, 1.5f);
+                        //forwards dust
+                        int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-4, -11), 0, 0, 31, dustspeed.X * 0.125f, dustspeed.Y * 0.125f, 100, default, 1f);
                         Main.dust[dust2].noGravity = true;
-                        Main.dust[dust2].scale = 1f;
+                        //backwards dust
+                        int dust3 = Dust.NewDust(Projectile.Center + new Vector2(-4 + dustspeed.X * -1.9f, -11 + dustspeed.Y * -1.9f), 0, 0, 174, dustspeed.X * -0.3f, dustspeed.Y * -0.3f, 100, default, 1f);
+                        Main.dust[dust3].noGravity = true;
                     }
                     rocketcharge -= 1;
 

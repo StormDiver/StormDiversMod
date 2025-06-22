@@ -226,12 +226,12 @@ namespace StormDiversMod.Common
             {
                 if (Main.netMode == 2) // Server
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("A stronger life force radiates from the minor underground biomes!"), new Color(96, 211, 255));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("A stronger life force radiates from the Granite, Marble, and Mushroom caves!"), new Color(96, 211, 255));
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
 
-                    Main.NewText("A stronger life force radiates from the minor underground biomes!", 96, 211, 255);
+                    Main.NewText("A stronger life force radiates from the Granite, Marble, and Mushroom caves!", 96, 211, 255);
                 }
                 eocMessage = true;
             }

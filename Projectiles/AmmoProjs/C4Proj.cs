@@ -133,7 +133,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
             if (player.itemTime == (player.HeldItem.useTime - 1))
             {
-                if ((player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && !player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 50)) //will go BOOM
+                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && !player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 40) //will go BOOM
                 {
                     if (Projectile.timeLeft > 3)
                     {
@@ -145,7 +145,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                         player.GetModPlayer<MiscFeatures>().screenshaker = true;
                     }
                 }
-                if ((player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 50)) //disarm bomb
+                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 40) //disarm bomb
                 {
                     SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
@@ -164,7 +164,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 }
             }
 
-            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && boomtime > 50)
+            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && boomtime > 40)
                 helddet = true;
             else
                 helddet = false;
@@ -173,7 +173,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         }
         public void AnimateProjectile() // Call this every frame, for example in the AI method.
         {
-            if (boomtime < 60) //start off with light off
+            if (boomtime < 50) //start off with light off
                 Projectile.frame = 1;
             else
             {

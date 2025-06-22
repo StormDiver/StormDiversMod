@@ -482,6 +482,7 @@ namespace StormDiversMod.Common
             if (shop.NpcType == NPCID.Clothier)
             {
                 shop.Add(ModContent.ItemType<FlatCap>(), Condition.DownedFrostLegion);
+                shop.Add(ModContent.ItemType<PizzaCap>(), Condition.DownedFrostLegion);
             }
             if (shop.NpcType == NPCID.Mechanic)
             {

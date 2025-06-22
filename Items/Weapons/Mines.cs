@@ -159,13 +159,13 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 6, 0, 0);
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.useTime = 50;
-            Item.useAnimation = 50;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
             Item.useTurn = false;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.C4Proj>();
             Item.useAmmo = ItemType<Ammo.C4Ammo>();
-            Item.shootSpeed = 6f;
+            Item.shootSpeed = 12f;
             Item.noMelee = true;
         }
         public override bool CanUseItem(Player player)

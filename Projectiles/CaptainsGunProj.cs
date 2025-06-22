@@ -116,7 +116,7 @@ namespace StormDiversMod.Projectiles
                     //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
                     for (int i = 0; i < 1; i++)
                     {
-                        Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.75f, Projectile.velocity.Y * 0.75f).RotatedByRandom(MathHelper.ToRadians(10));
+                        Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.75f, Projectile.velocity.Y * 0.75f).RotatedByRandom(MathHelper.ToRadians(7));
                         int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + (-Projectile.velocity.X), Projectile.Center.Y + 3 + (-Projectile.velocity.Y)), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y)), projToShoot, (int)(Projectile.damage), Projectile.knockBack, Projectile.owner);
 
                         Main.projectile[projID].usesLocalNPCImmunity = true;
@@ -126,7 +126,7 @@ namespace StormDiversMod.Projectiles
                     Vector2 dustspeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
                     for (int i = 0; i < 10; i++)
                     {
-                        int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-4, -1), 0, 0, 259, dustspeed.X * 0.12f, dustspeed.Y * 0.12f, 100, default, 0.75f);
+                        int dust2 = Dust.NewDust(Projectile.Center + new Vector2(-4, -1), 0, 0, 170, dustspeed.X * 0.12f, dustspeed.Y * 0.12f, 100, default, 0.75f);
                         Main.dust[dust2].noGravity = true;
                     }
                    
@@ -162,7 +162,7 @@ namespace StormDiversMod.Projectiles
                     SoundEngine.PlaySound(SoundID.Item38 with { Volume = 1f, Pitch = 0f }, player.Center);
                     //Main.NewText("EXCUSE ME! = ", 0, 204, 170); //Inital Scale
 
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.6f, Projectile.velocity.Y * 0.6f).RotatedByRandom(MathHelper.ToRadians(10));
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.6f, Projectile.velocity.Y * 0.6f).RotatedByRandom(MathHelper.ToRadians(15));
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + (-Projectile.velocity.X), Projectile.Center.Y + 13 - (Projectile.velocity.Y)), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y - 1.5f)), ProjectileID.CannonballFriendly, (int)(Projectile.damage) * 4, Projectile.knockBack, Projectile.owner);
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = -1;

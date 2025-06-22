@@ -1550,7 +1550,11 @@ Mods: {
 					12% increased ranged damage
 					8% increased ranged critical strike chance
 					'''
-				SetBonus1: Charge up to 10 homing missiles over time, pressing
+				SetBonus1:
+					'''
+					Automatically loads up to 10 homing missiles over time 
+					Pressing
+					'''
 				SetBonus2: will fire however many are loaded
 			}
 
