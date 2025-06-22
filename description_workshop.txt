@@ -1,5 +1,5 @@
 [img]https://i.imgur.com/3MEBuou.png[/img]
-[b]Storm's Additions Mod[/b] [b]Storm's Additions Mod[/b] started off as a very small personal project that over time had more content added, to the point where it adds a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items. This mod will receive occasional updates.
+[b]Storm's Additions Mod[/b] started off as a very small personal project that over time had more content added, to the point where it adds a total of over 400 items. It has content for every stage of the game, from early game to a small amount of Post-Moon Lord content, and it also fills out some vanilla item sets with new items. This mod will receive occasional updates.
 
 [h2]This mod includes:[/h2]
 [list]
