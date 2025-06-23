@@ -162,7 +162,7 @@ namespace StormDiversMod.Projectiles
                     SoundEngine.PlaySound(SoundID.Item38 with { Volume = 1f, Pitch = 0f }, player.Center);
                     //Main.NewText("EXCUSE ME! = ", 0, 204, 170); //Inital Scale
 
-                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.6f, Projectile.velocity.Y * 0.6f).RotatedByRandom(MathHelper.ToRadians(15));
+                    Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.6f, Projectile.velocity.Y * 0.6f).RotatedByRandom(MathHelper.ToRadians(7));
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + (-Projectile.velocity.X), Projectile.Center.Y + 13 - (Projectile.velocity.Y)), new Vector2((perturbedSpeed.X), (float)(perturbedSpeed.Y - 1.5f)), ProjectileID.CannonballFriendly, (int)(Projectile.damage) * 4, Projectile.knockBack, Projectile.owner);
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = -1;

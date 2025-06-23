@@ -2488,7 +2488,7 @@ Mods: {
 				DisplayName: The Captain's Cannon
 				Tooltip:
 					'''
-					Rapidly fires out bullets with a slow start up speed, builds up to full speed after firing for several seconds
+					Fires bullets at a rate that speeds up over several seconds
 					Right click while firing to launch a cannonball, requires cannonballs as ammo
 					'Do what you want 'cause a pirate is free'
 					'''
@@ -3012,9 +3012,9 @@ Mods: {
 				Tooltip:
 					'''
 					Can be charged up by holding down left click
-					Fully charged fires a more powerful bullet that deals double knockback and triple damage
+					When fully charged, fires a more powerful bullet that deals double knockback and triple damage
 					Converts musket balls to high velocity bullets
-					When fully charged it coverts them to a special variant that inflicts confused and has no damage fall off
+					When fully charged they are converted to a special variant that inflicts confused and has no damage fall off
 					Right Click to zoom out
 					'''
 			}

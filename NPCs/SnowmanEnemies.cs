@@ -126,7 +126,7 @@ namespace StormDiversMod.NPCs
                 }
                 if (shoottime == 210 + 24) //3 animation frames into attack
                 {
-                    float projectileSpeed = 7f; // The speed of your projectile (in pixels per second).
+                    float projectileSpeed = 11f; // The speed of your projectile (in pixels per second).
                     int damage = 25; // The damage your projectile deals. normal x2, expert x4 (50, 100, 150)
                     float knockBack = 1;
                     int type = ModContent.ProjectileType<NPCs.NPCProjs.SnowmanPizzaProj>();
@@ -142,7 +142,7 @@ namespace StormDiversMod.NPCs
                         {
                             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
 
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + (5 * NPC.spriteDirection), NPC.Center.Y - 8), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + (5 * NPC.spriteDirection), NPC.Center.Y - 8), new Vector2(perturbedSpeed.X, perturbedSpeed.Y - 2f), type, damage, knockBack);
 
                         }
                     }

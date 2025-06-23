@@ -10,7 +10,6 @@ using Terraria.GameContent;
 
 namespace StormDiversMod.NPCs.NPCProjs
 {
-   
     public class SnowmanPizzaProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -37,9 +36,9 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             Projectile.ignoreWater = true;
 
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 360;
             //aiType = ProjectileID.LostSoulHostile;
-            Projectile.aiStyle = -1;
+            Projectile.aiStyle = 14;
             // Projectile.CloneDefaults(452);
             //aiType = 452;
             DrawOffsetX = 0;
@@ -47,7 +46,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
 
         float speed = 8f;
-        float inertia = 15;
+        float inertia = 5;
         Vector2 idlePosition;
         public override void AI()
         {
@@ -59,12 +58,12 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             Projectile.ai[0]++;
 
-            Projectile.rotation += 0.15f;
+            Projectile.rotation += 0.15f * Projectile.direction;
 
-            idlePosition = Main.LocalPlayer.Center;
+            /*idlePosition = Main.LocalPlayer.Center;
             Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
             float distanceToIdlePosition = vectorToIdlePosition.Length();
-            if (Projectile.ai[0] >= 45 && Projectile.ai[0] <= 60)
+            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 60)
             //if (Collision.CanHit(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0))
             {
                 if (distanceToIdlePosition > 10f)
@@ -74,15 +73,13 @@ namespace StormDiversMod.NPCs.NPCProjs
                 }
                 if (Vector2.Distance(idlePosition, Projectile.Center) > 30)
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-            }
+            }*/
 
             /*if (Projectile.ai[0] >= 30 && Projectile.ai[0] < 60)
             {
                 Projectile.velocity.X *= 0.98f;
                 Projectile.velocity.Y *= 0.98f;
             }
-
-           
             if (Projectile.ai[0] == 60)
             {
                 for (int i = 0; i < 200; i++)
@@ -105,7 +102,30 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.velocity.Y *= 1.04f;
             }*/
         }
-     
+
+        int reflect = 4;
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            reflect--;
+            if (reflect <= 0)
+                Projectile.Kill();
+            else
+            {
+                SoundEngine.PlaySound(SoundID.NPCHit1, Projectile.Center);
+                for (int i = 0; i < 20; i++)
+                {
+                    int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 5, 0f, 0f, 50, default, 1f);
+                    int dust3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 124, 0f, 0f, 50, default, 0.5f);
+                }
+            }
+            if (Projectile.velocity.X != oldVelocity.X)
+                Projectile.velocity.X = -oldVelocity.X;
+            if (Projectile.velocity.Y != oldVelocity.Y)
+                Projectile.velocity.Y = -oldVelocity.Y;
+            Projectile.velocity *= 0.9f;
+            return false;
+        }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             Projectile.Kill();
@@ -113,15 +133,12 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void OnKill(int timeLeft)
         {
-
             SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.Center);
             for (int i = 0; i < 20; i++)
             {
                 int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 5, 0f, 0f, 50, default, 1f);
                 int dust3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 124, 0f, 0f, 50, default, 0.5f);
-
             }
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
