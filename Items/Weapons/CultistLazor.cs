@@ -40,7 +40,6 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType <Projectiles.CultistLazorProj>();
             Item.shootSpeed = 0f;
 
-
             Item.noMelee = true;
         }
         public override bool CanUseItem(Player player) //cannot be used if the player has less than 10 mana

@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
 using StormDiversMod.Projectiles;
+using System.Reflection.Metadata;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -18,19 +19,20 @@ namespace StormDiversMod.Items.Weapons
         {
             //DisplayName.SetDefault("Asteroid Globe");
             //Tooltip.SetDefault("Summons a floating asteroid boulder at the cursor's location that explodes into many fragments");
-            
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
         {
+            Item.channel = true;
+
             Item.width = 25;
             Item.height = 30;
             Item.maxStack = 1;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Cyan;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.useTime = 24;
-            Item.useAnimation = 24;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
             Item.useTurn = false;
             //Item.channel = true;
             Item.DamageType = DamageClass.Magic;
@@ -42,25 +44,23 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 1f;
 
             Item.shoot = ModContent.ProjectileType<SpaceGlobeProj>();
-            
             Item.shootSpeed = 0f;
             if (ModLoader.HasMod("TRAEProject"))
             {
-                Item.mana = 23;
+                Item.mana = 38;
             }
             else
             {
-                Item.mana = 15;
+                Item.mana = 25;
             }
-
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
+       
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
-            Main.projectile[index].originalDamage = Item.damage;
-            return false;
-
+            //int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(0, 0), type, damage, knockback, player.whoAmI);
+            //Main.projectile[index].originalDamage = Item.damage;
+            return true;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -82,7 +82,6 @@ namespace StormDiversMod.Items.Weapons
           .AddIngredient(ModContent.ItemType<Items.OresandBars.SpaceRockBar>(), 7)
           .AddTile(TileID.MythrilAnvil)
           .Register();
-
         }
         public override Color? GetAlpha(Color lightColor)
         {
@@ -253,16 +252,13 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.rare = ItemRarityID.Cyan;
             Item.useStyle = ItemUseStyleID.Shoot;
-
             Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Ranged;
-
             Item.UseSound = SoundID.Item40;
 
-            Item.damage = 40;
-            
+            Item.damage = 42;
             Item.knockBack = 2f;
 
             Item.shoot = ProjectileID.Bullet;
@@ -270,7 +266,6 @@ namespace StormDiversMod.Items.Weapons
             Item.useTime = 8;
             Item.useAnimation = 8;
             Item.useAmmo = AmmoID.Bullet;
-
             Item.noMelee = true;
         }
 
@@ -278,25 +273,42 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(0, 0);
         }
-
+        float accuracy = 10; //The amount of spread
+        public override void HoldItem(Player player)
+        {
+            if (!player.controlUseItem)
+            {
+                if (accuracy < 10)//reduce accuracy when not shooting
+                    accuracy += 0.1f; //1.6 seconds to reset accuracy to max
+            }
+            //Main.NewText("" + accuracy, 175, 17, 96);
+            accuracy = (Math.Min(10, Math.Max(0.2f, accuracy))); //clamp between 0.3 and 10
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < 2; i++)
+            if (accuracy > 0.2f)//Increases accuracy every shot
+                accuracy -= 0.2f; //6.66 seconds to full accuracy?
+            else
+                accuracy = 0.2f;
+            float numberProjectiles = 2;
+            float rotation = MathHelper.ToRadians(accuracy);
+            for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
-
-                //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
             }
+            /*for (int i = 0; i < 2; i++)
+          {
+              Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
+              Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
+              //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
+          }*/
             return false;
         }
-
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextFloat() >= .5f;
         }
-
-
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -319,7 +331,6 @@ namespace StormDiversMod.Items.Weapons
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             Item.ResearchUnlockCount = 1;
-
         }
         public override void SetDefaults()
         {

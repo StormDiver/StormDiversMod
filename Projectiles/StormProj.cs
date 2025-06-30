@@ -14,9 +14,6 @@ using System.Security.Policy;
 
 namespace StormDiversMod.Projectiles
 {
-
-
-
 	//______________________________________________________________________________________________________
 	public class StormAccessProj : ModProjectile
 	{
@@ -46,10 +43,8 @@ namespace StormDiversMod.Projectiles
 		}
 		public override bool? CanDamage()
 		{
-
 			return false;
 		}
-
 
 		int rotate;
 		float movespeed = 10; //Speed of the proj

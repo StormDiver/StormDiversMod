@@ -11,7 +11,6 @@ using Humanizer;
 
 namespace StormDiversMod.Items.Weapons
 {
-	
     public class CaptainsGun : ModItem
     {
         public override void SetStaticDefaults()
@@ -24,7 +23,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-
             Item.width = 50;
             Item.height = 26;
             Item.maxStack = 1;
@@ -47,11 +45,8 @@ namespace StormDiversMod.Items.Weapons
 
             Item.useAmmo = AmmoID.Bullet;
             Item.channel = true;
-
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-5, 5);
@@ -66,7 +61,6 @@ namespace StormDiversMod.Items.Weapons
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.CaptainsGunProj>(), damage, knockback, player.whoAmI);
 
             return false;
-
         }
         /*public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
@@ -75,13 +69,10 @@ namespace StormDiversMod.Items.Weapons
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return true;
-
-        }
-       
+        }      
         public override void AddRecipes()
         {
            
         }
     }
-   
 }

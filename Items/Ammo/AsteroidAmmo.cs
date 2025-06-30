@@ -74,8 +74,7 @@ namespace StormDiversMod.Items.Ammo
             Item.rare = ItemRarityID.Cyan;
 
             Item.DamageType = DamageClass.Ranged;
-
-            Item.damage = 16;
+            Item.damage = 15;
             Item.knockBack = 2.5f;
             Item.consumable = true;
 

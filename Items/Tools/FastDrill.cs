@@ -17,7 +17,6 @@ namespace StormDiversMod.Items.Tools
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsDrill[Item.type] = true;
         }
-
         public override void SetDefaults()
         {
             Item.damage = 10;
@@ -53,10 +52,8 @@ namespace StormDiversMod.Items.Tools
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsDrill[Item.type] = true;
         }
-
         public override void SetDefaults()
         {
-
             Item.damage = 15;
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 40;
@@ -79,7 +76,6 @@ namespace StormDiversMod.Items.Tools
             Item.channel = true;
             Item.autoReuse = true;
             Item.tileBoost = -1;
-
         }
         public override void AddRecipes()
         {
@@ -90,8 +86,6 @@ namespace StormDiversMod.Items.Tools
             .AddIngredient(ItemID.MeteoriteBar, 10)
             .AddTile(TileID.Anvils)
             .Register();
-
-
         }
     }
 }

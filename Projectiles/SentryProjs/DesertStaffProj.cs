@@ -23,7 +23,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-      
             Projectile.width = 50;
             Projectile.height = 50;
             Projectile.friendly = true;
@@ -34,12 +33,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
-            
+            Projectile.localNPCHitCooldown = 10;   
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
         int opacity = 255;
@@ -69,18 +66,13 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
                 }
             }
-
-         
             Projectile.ai[1]++; //shoottime
             //Getting the npc to fire at
             for (int i = 0; i < 200; i++)
             {
-
                 NPC target = Main.npc[i];
-
                 if (Vector2.Distance(Projectile.Center, target.Center) <= 260f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
                 {
-
                     if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
                         if (Projectile.ai[1] > 40)
@@ -107,17 +99,12 @@ namespace StormDiversMod.Projectiles.SentryProjs
                             Projectile.ai[1] = 0;
                         }
                     }
-
                 }
             }
-
-
             if (animate)
             {
                 AnimateProjectile();
             }
-
-
             if (floatup) //Floating upwards
             {
                 Projectile.localAI[0]++; //Floattime
@@ -159,25 +146,20 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public void AnimateProjectile() // Call this every frame, for example in the AI method.
         {
-            
                 Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 5) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
-                {
-                    Projectile.frame++;
-                    //Projectile.frame %= 6; // Will reset to the first frame if you've gone through them all.
-                    Projectile.frameCounter = 0;
-                    
-                }
-                if (Projectile.frame == 8)
-                {
-                    
-                    Projectile.frame = 0;
-                    animate = false;
-                }
-            
+            if (Projectile.frameCounter >= 5) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
+            {
+                Projectile.frame++;
+                //Projectile.frame %= 6; // Will reset to the first frame if you've gone through them all.
+                Projectile.frameCounter = 0;
+            }
+            if (Projectile.frame == 8)
+            {
+
+                Projectile.frame = 0;
+                animate = false;
+            }   
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
@@ -212,7 +194,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 25;
             Projectile.height = 25;
             Projectile.friendly = true;
@@ -226,7 +207,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
         public override void AI()
@@ -239,13 +219,12 @@ namespace StormDiversMod.Projectiles.SentryProjs
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 10, Projectile.Center.Y - 10), 20, 20, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
+                    int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 10, Projectile.Center.Y - 10), 20, 20, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.25f);
 
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= 0.5f;
                     int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X - 5, Projectile.Center.Y - 5), 10, 10, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
                 }
-
             }
             else
             {
@@ -265,7 +244,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             if (info.PvP)
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.Kill();
@@ -312,8 +290,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Projectile.Kill();
             }
             var player = Main.player[Projectile.owner];
-
-
         }
         public override bool? CanHitNPC(NPC target)
         {
@@ -333,14 +309,11 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             return false;
         }
         public override void OnKill(int timeLeft)
         {
 
-
         }
-
     }
 }

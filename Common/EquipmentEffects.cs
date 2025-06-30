@@ -1473,7 +1473,6 @@ namespace StormDiversMod.Common
                     {
                         ninelives--;
                         ninelivescooldown = 90; //  1.5 seconds per soul
-
                     }
                 }
                 //Code for dropping in NPCEffects
@@ -1482,9 +1481,9 @@ namespace StormDiversMod.Common
                 Player.GetDamage(DamageClass.Generic) += 0.02f * ninelives; //increase damage from 2-18%
                 Player.GetCritChance(DamageClass.Generic) += 1 * ninelives; //increase crit from 1-9%
 
-                if (Player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>() || Player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheScythe>())//doubled for sickle/scythe
+                if (Player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>() || Player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheScythe>())//extra for sickle/scythe
                 {
-                    Player.GetDamage(DamageClass.Melee) += 0.02f * ninelives; 
+                    Player.GetDamage(DamageClass.Melee) += 0.01f * ninelives; 
                     Player.GetCritChance(DamageClass.Melee) += 1 * ninelives;
                 }
                 //Main.NewText("" + ninelives + " " + ninelivescooldown, 204, 101, 22);

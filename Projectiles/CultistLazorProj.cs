@@ -22,9 +22,6 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("Cultist Laser");
           
         }
-
-
-
         // The maximum charge value
         private const float MAX_CHARGE = 60f;
         //The distance charge particle from the player center
@@ -67,9 +64,7 @@ namespace StormDiversMod.Projectiles
             // We start drawing the laser if we have charged up
             if (IsAtMaxCharge)
             {
-
                 DrawLaser(Main.spriteBatch, (Texture2D)TextureAssets.Projectile[Projectile.type], Main.player[Projectile.owner].Center, Projectile.velocity, 10, Projectile.damage, -1.57f, 1f, 1000f, Color.White, (int)MOVE_DISTANCE);
-            
             }
             return false;
         }

@@ -34,7 +34,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            
             Item.width = 50;
             Item.height = 22;
             Item.maxStack = 1;
@@ -50,7 +49,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.UseSound = SoundID.Item40;
 
             Item.damage = 65;
-            Item.crit = 16;
+            Item.crit = 6;
             Item.knockBack = 2f;
        
             Item.shoot = ProjectileID.Bullet;
@@ -66,57 +65,75 @@ namespace StormDiversMod.Items.Weapons
             return new Vector2(-8, 0);
         }
 
-        float accuracy = 15; //The amount of spread
-        int resetaccuracy = 15; //How long to not fire for the accuracy to reset
+        int chargetime = 50; //How many shots to charge 
+        int resetcharge = 15; //How long to not fire for the charge
+        float soundpitch;
 
         public override void HoldItem(Player player)
         {
             //player.scope = true;
-            if (resetaccuracy == 0) //Resets accuracy when not firing
-            {
-                accuracy = 15;
-               
-            }
-            if (resetaccuracy > 0)
-                resetaccuracy--;
-            //Main.NewText("" + accuracy, 175, 17, 96);
-            accuracy = (Math.Min(15, Math.Max(0, accuracy))); //clamp between 0 and 15
+            if (resetcharge > 0)
+                resetcharge--;
+            if (resetcharge == 0) //Resets charge when not firing
+                chargetime = 50;
+            //Main.NewText("" + chargetime, 175, 17, 96);
+            chargetime = (Math.Min(50, Math.Max(0, chargetime))); //clamp between 0 and 15
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
-            if (accuracy > 0)//Increases accuracy every shot
+            if (chargetime > 0)//Increases accuracy every shot
             {
-                accuracy -= 0.33f;
+                chargetime -= 1;
             }
-            resetaccuracy = 15; //Prevents the accuracy from reseting while firing
+            resetcharge = 15; //Prevents the charge from reseting while firing
             {
+                //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
+                if (chargetime <= 0)//When at full accuracy damage and knockback of the projectile is increased by 10%
                 {
-                    //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
-                    if (accuracy <= 0)//When at full accuracy damage and knockback of the projectile is increased by 10%
+                    if (type == ProjectileID.Bullet)
                     {
-                        if (type == ProjectileID.Bullet)
-                            {
-                                type = ProjectileID.BulletHighVelocity;
-                            }
-                        Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.15f), knockback * 2, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item40 with {Pitch = 0.3f }, position);
+                        type = ProjectileID.BulletHighVelocity;
                     }
-                    else
+                    int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, (int)(damage * 1.15f), knockback * 2, player.whoAmI);
+                    Main.projectile[projID].extraUpdates += 1;
+                    SoundEngine.PlaySound(SoundID.Item41 with { Pitch = -0.3f }, position);
+                    SoundEngine.PlaySound(SoundID.Item114 with { Volume = 0.7f, Pitch = -0.8f }, position);
+
+                    //dust effect
+                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 55;
+                    if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                        position += muzzleOffset;
+                    for (int i = 0; i < 15; i++)
                     {
-                        Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item40, position);
-
+                        int dust2 = Dust.NewDust(new Vector2(position.X - 4, position.Y - 6) * 1f, 0, 0, 180, velocity.X / 5, velocity.Y / 5, 100, default, 1f);
+                        Main.dust[dust2].noGravity = true;
                     }
-
-                    //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
                 }
+                else
+                {
+                    soundpitch = chargetime;
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 2), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
+                    SoundEngine.PlaySound(SoundID.Item40, position);
+                    SoundEngine.PlaySound(SoundID.Item15 with { Volume = 0.75f, Pitch = (50 - soundpitch) / 75, MaxInstances = 0 }, position); //charging sound
+                    //Main.NewText("" + (50 - soundpitch) / 75, 175, 17, 96);
+                    //dust effect
+                    Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 20;
+                    if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                        position += muzzleOffset;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        int dust2 = Dust.NewDust(new Vector2(position.X - 4, position.Y - 3) * 1f, 0, 0, 180, 0, 0, 100, default, 1f);
+                        Main.dust[dust2].noGravity = true;
+                        Main.dust[dust2].velocity *= 0.5f;
+                    }
+                }
+                //Main.PlaySound(SoundID.Item, (int)position.X, (int)position.Y, 40);
             }
             return false;
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(accuracy));
+            //velocity = velocity.RotatedByRandom(MathHelper.ToRadians(accuracy));
         }
 
         public override bool CanConsumeAmmo(Item ammo, Player player)
@@ -130,7 +147,6 @@ namespace StormDiversMod.Items.Weapons
             .AddIngredient(ItemID.ShroomiteBar, 14)
             .AddTile(TileID.MythrilAnvil)
             .Register();
-           
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
@@ -142,8 +158,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
-
-            
             return true;
         }
        
@@ -189,8 +203,6 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 16f;
 
             Item.useAmmo = AmmoID.Arrow;
-
-
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override Vector2? HoldoutOffset()
@@ -199,8 +211,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
-
             for (int i = 0; i < 2; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
@@ -208,7 +218,6 @@ namespace StormDiversMod.Items.Weapons
                 perturbedSpeed = perturbedSpeed * scale;
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<ShroomBowArrowProj>(), damage, knockback, player.whoAmI);
             }
- 
             return true;
         }
 
@@ -221,7 +230,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/ShroomiteFury_Glow");
 
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),

@@ -8,6 +8,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using Terraria.DataStructures;
+using Steamworks;
 
 namespace StormDiversMod.Projectiles      
 {
@@ -16,10 +18,11 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Asteroid Boulder");
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.friendly = true;
@@ -27,8 +30,8 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 60;
-            Projectile.extraUpdates = 2;
+            Projectile.timeLeft = 300;
+            Projectile.extraUpdates = 0;
             Projectile.scale = 1f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
@@ -39,68 +42,108 @@ namespace StormDiversMod.Projectiles
             return false;
         }
         int rotate;
-        int opacity = 255;
+        int shootlimit = 5;
+        Vector2 mousepos;
+        NPC target;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            mousepos = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y); //Set position at spawn
+        }
         public override void AI()
         {
-            rotate += 1;
-            Projectile.rotation = rotate * 0.1f;
-            opacity -= 10;
-            Projectile.alpha = opacity;
+            Player player = Main.player[Projectile.owner];
 
+            rotate += 1;
+            Projectile.rotation = rotate * 0.25f;
+           
             if (!Main.dedServ)
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
-            if (Projectile.ai[0] > 12f)  //this defines where the flames starts
+
+            if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
-                if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
-                {
-                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
-                    //int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
-                    dust2.noGravity = true;
-                    dust2.scale = 1.5f;
-                    dust2.velocity *= 2;
+                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
+                //int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
+                dust2.noGravity = true;
+                dust2.scale = 1.5f;
+                dust2.velocity *= 2;
+            }
+            if (Main.rand.Next(2) == 0)
+            {
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, 0, 10, 150, default, 0.75f);
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                Main.dust[dust].velocity *= 0.5f;
+                int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, 0, 0, 0, default, 0.5f);
+            }
+           
+            //move to cursor
+            Vector2 moveTo = mousepos;
+            Vector2 move = moveTo - Projectile.Center + new Vector2(0, 0); //Postion around player
+            float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+            float distance = Vector2.Distance(mousepos, Projectile.Center);
+            float movespeed = distance / 12 + 1.5f;
+            if (movespeed > 25)
+                movespeed = 25;
 
+            if (magnitude > movespeed)
+            {
+                move *= movespeed / magnitude;
+            }
+            Projectile.velocity = move;
+
+            //Summon projs
+            Projectile.ai[2]++;
+
+            float numberProjectiles = 2;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                if (player.HasMinionAttackTargetNPC)
+                {
+                    target = Main.npc[player.MinionAttackTargetNPC];
                 }
-                if (Main.rand.Next(2) == 0)
+                else
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, 0, 10, 150, default, 0.5f);
+                    target = Main.npc[i];
+                }
 
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 0.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 0, default, 0.5f);
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 500f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                {
+                    target.TargetClosest(true);
+                    float projspeed = 15;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y - 16)) * projspeed;
+                    
+                    if (Projectile.ai[2] >= 24 && Projectile.velocity.X == 0 && Projectile.velocity.Y == 0)
+                    {
+                        for (int j = 0; j < numberProjectiles; j++)
+                        {
+                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
+                            float scale = 1f - (Main.rand.NextFloat() * .33f);
+                            perturbedSpeed = perturbedSpeed * scale;
+                            int projid = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X + target.velocity.X * 0.33f, perturbedSpeed.Y + target.velocity.Y * 0.33f), ModContent.ProjectileType<SpaceGlobeFragment>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                            SoundEngine.PlaySound(SoundID.Tink with { Volume = 0.5f }, Projectile.Center);
+                        }
+                        shootlimit--;
+                        Projectile.ai[2] = 0;
+                    }
                 }
             }
-            else
-            {
-                Projectile.ai[0] += 1f;
-            }
+            if (shootlimit <= 0)
+                Projectile.Kill();
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            mousepos = Projectile.Center; //Set position at spawn
+
             return false;
         }
         public override void OnKill(int timeLeft)
         {
-            float numberProjectiles = 6 + Main.rand.Next(3);
-            float rotation = MathHelper.ToRadians(180);
-            //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-            for (int i = 0; i < numberProjectiles; i++)
-            {
-                float speedX = 0f;
-                float speedY = -8f;
-                
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(180));
-                float scale = 1f - (Main.rand.NextFloat() * .5f);
-                perturbedSpeed = perturbedSpeed * scale;
-                int projid = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SpaceFragment>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                Main.projectile[projid].DamageType = DamageClass.Magic;
-
-            }
-            SoundEngine.PlaySound(SoundID.Item62 with {Volume = 0.5f}, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, Projectile.Center);
             for (int i = 0; i < 30; i++) //Flame particles
             {
                 Vector2 perturbedSpeed = new Vector2(0, -5f).RotatedByRandom(MathHelper.ToRadians(360));
@@ -115,20 +158,127 @@ namespace StormDiversMod.Projectiles
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 1f);
             }
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return true;
+        }
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
         }
     }
     //__________________________________________________________________________________________________________________________________________________
-  
+    public class SpaceGlobeFragment : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Asteroid Fragment");
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+        }
+        public override void SetDefaults()
+        {
+            Projectile.width = 12;
+            Projectile.height = 12;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.ignoreWater = true;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.aiStyle = 0;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 45;
+            Projectile.light = 0.4f;
+            Projectile.scale = 1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+            Projectile.tileCollide = true;
+            DrawOffsetX = 0;
+            DrawOriginOffsetY = -0;
+            Projectile.extraUpdates = 1;
+        }
+        int rotate;
+        public override void AI()
+        {
+            rotate += 2;
+            Projectile.rotation = rotate * 0.1f;
+            if (!Main.dedServ)
+            {
+                Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
+            }
+            var player = Main.player[Projectile.owner];
+
+            if (Main.rand.Next(2) == 0)
+            {
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= -0.3f;
+                int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust2].noGravity = true;
+                Main.dust[dust2].velocity *= -0.3f;
+            }
+        }
+        private void AdjustMagnitude(ref Vector2 vector)
+        {
+          
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
+                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);
+            }
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.Kill();
+            return false;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 0, 0, 0, 130, default, 0.5f);
+                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1f);
+            }
+            SoundEngine.PlaySound(SoundID.Tink with { Volume = 0.5f }, Projectile.Center);
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0, 0);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+            return true;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+    }
+    //______________________________________________
     public class SpaceArmourProj : ModProjectile
     { //For the armour set bonus
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Asteroid Homing Boulder");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
         }
         public override void SetDefaults()
         {
@@ -147,7 +297,6 @@ namespace StormDiversMod.Projectiles
             Projectile.light = 0.4f;
             Projectile.aiStyle = 1;
             Projectile.DamageType = DamageClass.Generic;
-
         }
 
         int rotate;
@@ -168,7 +317,6 @@ namespace StormDiversMod.Projectiles
             else
             {
                 Projectile.tileCollide = false;
-
             }
             if (!Main.dedServ)
             {
@@ -178,17 +326,14 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
                 {
-
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
                     //int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
                     dust2.noGravity = true;
                     dust2.scale = 1.5f;
                     dust2.velocity *= 2;
-
                 }
                 if (Main.rand.Next(2) == 0)
-                {
-                   
+                {  
                     int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 0, default, 0.5f);
                 }
             }
@@ -238,7 +383,6 @@ namespace StormDiversMod.Projectiles
                 vector *= 5f / magnitude;
             }
         }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
@@ -248,7 +392,6 @@ namespace StormDiversMod.Projectiles
             Projectile.Kill();
             return true;
         }
-     
         public override void OnKill(int timeLeft)
         {
 
@@ -296,12 +439,11 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Asteroid Fragment");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 12;
             Projectile.height = 12;
             Projectile.friendly = true;
@@ -317,7 +459,7 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = true;
             DrawOffsetX = 0;
-            DrawOriginOffsetY = -6;
+            DrawOriginOffsetY = -0;
         }
         int rotate;
         public override void AI()
@@ -329,31 +471,21 @@ namespace StormDiversMod.Projectiles
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
             var player = Main.player[Projectile.owner];
-           
-            if (Projectile.ai[0] > 0f) 
-            {
-                if (Main.rand.Next(2) == 0) 
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true; 
-                    Main.dust[dust].velocity *= -0.3f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust2].noGravity = true; 
-                    Main.dust[dust2].velocity *= -0.3f;
-                }
-            }
-            else
-            {
-                Projectile.ai[0] += 1f;
-            }
 
+            if (Main.rand.Next(2) == 0)
+            {
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= -0.3f;
+                int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 0, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                Main.dust[dust2].noGravity = true;
+                Main.dust[dust2].velocity *= -0.3f;
+            }
         }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.Kill();
@@ -376,13 +508,11 @@ namespace StormDiversMod.Projectiles
             Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
-                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0, 0);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
-
             return true;
-
         }
         public override Color? GetAlpha(Color lightColor)
         {
@@ -396,7 +526,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Asteroid Fragment");
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
         }
         public override void SetDefaults()
@@ -416,7 +546,7 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = true;
             DrawOffsetX = 0;
-            DrawOriginOffsetY = -6;
+            DrawOriginOffsetY = 0;
             Projectile.extraUpdates = 1;
 
         }
@@ -545,7 +675,7 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
 
             return true;

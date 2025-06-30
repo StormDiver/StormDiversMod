@@ -462,18 +462,13 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override void AI()
         {
-            
-                Dust dust2;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position2 = Projectile.Center;
-                dust2 = Terraria.Dust.NewDustPerfect(position2, 229, new Vector2(0f, 0f), 0, new Color(255, 100, 0), 1f);
-                dust2.noGravity = true;
-            
-            
+            Dust dust2;
+            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+            Vector2 position2 = Projectile.Center;
+            dust2 = Terraria.Dust.NewDustPerfect(position2, 229, new Vector2(0f, 0f), 0, new Color(255, 100, 0), 1f);
+            dust2.noGravity = true;
 
             Projectile.ai[0]++;
-
-            
             if (Projectile.timeLeft <= 3)
             {
                 Projectile.velocity.X = 0f;
@@ -483,17 +478,12 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.alpha = 255;
                 // change the hitbox size, centered about the original Projectile center. This makes the Projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
-
                 Projectile.width = 150;
                 Projectile.height = 150;
                 Projectile.Center = Projectile.position;
-
-
                 Projectile.knockBack = 6f;
-
             }
         }
-
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Projectile.timeLeft > 3)
@@ -502,9 +492,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
-
             return false;
         }
         public override bool PreDraw(ref Color lightColor)
@@ -518,7 +506,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                 return false;
             }
         }
-
         public override void OnKill(int timeLeft)
         {
 

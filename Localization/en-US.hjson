@@ -1034,8 +1034,8 @@ Mods: {
 				DisplayName: Asteroid Bullet
 				Tooltip:
 					'''
-					Summons 2 small asteroid fragments above struck enemies
-					The fragments deals low damage but ignore 50 defense
+					Can pierce through all tiles with no accuracy loss, and ignores all liquids
+					Bullets lose 25% damage, and 33% knockback and speed after piercing tiles
 					'''
 			}
 
@@ -2190,6 +2190,17 @@ Mods: {
 					'''
 			}
 
+			OilcanInfinite: {
+				DisplayName: Endless Oil Can
+				Tooltip:
+					'''
+					Left click to fire out a blob of oil that inflicts the oiled debuff onto enemies and town NPCs
+					Right click to set nearby oiled enemies ablaze
+					Can be used indefinitely
+					'Cover your enemies in oil'
+					'''
+			}
+
 			Quack: {
 				DisplayName: Rubber Duck
 				Tooltip: "'QUACK!'"
@@ -2617,22 +2628,26 @@ Mods: {
 
 			DesertBow: {
 				DisplayName: Forbidden Fury
-				Tooltip: Converts all arrows to Ancient Forbidden arrows that rain down the heat of the Desert
+				Tooltip:
+					'''
+					Converts all arrows to Ancient Forbidden arrows that rain down forbidden sand onto enemies below
+					The arrow will disappear after raining down 3 times
+					'''
 			}
 
 			DesertSpear: {
 				DisplayName: Forbidden Pike
-				Tooltip: Unleash the power of the forbidden sands
+				Tooltip: Unleash the power of the forbidden sands each stab
 			}
 
 			DesertSpell: {
 				DisplayName: Forbidden Storm
-				Tooltip: Summons the Forbidden sands
+				Tooltip: Summons a blast of Forbidden sand
 			}
 
 			DesertStaff: {
 				DisplayName: Forbidden Staff
-				Tooltip: Summons a floating Forbidden Sentry that blasts sand in all directions
+				Tooltip: Summons a floating Forbidden Sentry that blasts forbidden sand in all directions
 			}
 
 			DesertWhip: {
@@ -2725,7 +2740,7 @@ Mods: {
 					'''
 					Spins around and knocks enemies in the direction you're facing
 					Inflicts Frostbite on enemies
-					Right click while spinning to reflect most projectiles, has a 2 second cooldown between uses
+					Right Click while spinning to reflect most projectiles, has a 2 second cooldown between uses
 					'''
 			}
 
@@ -2946,7 +2961,7 @@ Mods: {
 				Tooltip:
 					'''
 					Spins around with the force of a star, knocking enemies in the direction you're facing
-					Right click while spinning to reflect most projectiles, has a 1 second cooldown between uses
+					Right Click while spinning to reflect most projectiles, has a 1 second cooldown between uses
 					'''
 			}
 
@@ -3282,9 +3297,9 @@ Mods: {
 				DisplayName: Shroomite Sharpshooter
 				Tooltip:
 					'''
-					33% Chance not to consume Ammo
-					Builds up accuracy over several seconds, dealing extra damage at full accuracy
+					Damage, velocity, and knockback increases after 50 successive shots
 					Right Click to zoom out
+					33% Chance not to consume Ammo
 					'''
 			}
 
@@ -3317,15 +3332,15 @@ Mods: {
 
 			SpaceRockGlobe: {
 				DisplayName: Asteroid Globe
-				Tooltip: Summons a floating asteroid boulder at the cursor's location that explodes into many fragments
+				Tooltip: Summons floating asteroid boulders which fire out fragments at nearby enemies
 			}
 
 			SpaceRockGun: {
 				DisplayName: Asteroid Blaster
 				Tooltip:
 					'''
+					Fires out 2 bullets with a large spread that build up accuracy over several seconds
 					50% Chance not to consume Ammo
-					Fires out 2 bullets per shot
 					'''
 			}
 
@@ -3494,7 +3509,7 @@ Mods: {
 					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
 					Right Click to throw both blades in succession
 					Right Click while spinning to reflect most projectiles, has a 2.5 second cooldown between uses
-					Receives twice the bonuses from the Reaper's List
+					Receives extra bonuses from the Reaper's List
 					'Pick it up. Pick. It. Up'
 					'''
 			}
@@ -3505,8 +3520,8 @@ Mods: {
 					'''
 					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
 					Right Click to throw both blades in succession, 2 sets can be thrown out at once
-					Right click while spinning to reflect most projectiles, has a 1.5 second cooldown between uses
-					Receives twice the bonuses from the Reaper's List
+					Right Click while spinning to reflect most projectiles, has a 1.5 second cooldown between uses
+					Receives extra bonuses from the Reaper's List
 					'This is your last chance'
 					'''
 			}
@@ -4220,6 +4235,7 @@ Mods: {
 			SpaceArmourProj.DisplayName: Asteroid Homing Boulder
 			SpaceFragment.DisplayName: Asteroid Fragment
 			SpaceGlobeProj.DisplayName: Asteroid Boulder
+			SpaceGlobeFragment.DisplayName: Asteroid Fragment
 			SpectreDaggerProj.DisplayName: Spectre Dagger
 			SpectreDaggerProj2.DisplayName: Spectre Dagger
 			SpectreHoseProj.DisplayName: Spectre Bolt

@@ -2177,6 +2177,17 @@ Mods: {
 					'''
 			}
 
+			OilcanInfinite: {
+				// DisplayName: Endless Oil Can
+				/* Tooltip:
+					'''
+					Left click to fire out a blob of oil that inflicts the oiled debuff onto enemies and town NPCs
+					Right click to set nearby oiled enemies ablaze
+					Can be used indefinitely
+					'Cover your enemies in oil'
+					''' */
+			}
+
 			Quack: {
 				DisplayName: 橡皮鸭
 				Tooltip: “嘎嘎！”
@@ -4203,6 +4214,7 @@ Mods: {
 			SpaceArmourProj.DisplayName: 小行星追踪巨石
 			SpaceFragment.DisplayName: 小行星碎片
 			SpaceGlobeProj.DisplayName: 小行星巨石
+			// SpaceGlobeFragment.DisplayName: Asteroid Fragment
 			SpectreDaggerProj.DisplayName: 鬼魂匕首
 			SpectreDaggerProj2.DisplayName: 鬼魂匕首
 			SpectreHoseProj.DisplayName: 鬼魂光束

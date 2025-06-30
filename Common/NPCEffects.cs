@@ -103,6 +103,8 @@ namespace StormDiversMod.Common
 
         public int shockbandtime; //Prevent Storm band proj hitting same enemy
 
+        public int forbiddenfurytime; //Limit Forbidden fury to 1 dust per enemy
+
 
         //For Heart Emblem
 
@@ -310,6 +312,8 @@ namespace StormDiversMod.Common
                     shockbandtime--;
                 if (stormimmunetime > 0)
                     stormimmunetime--;
+                if (forbiddenfurytime > 0)
+                    forbiddenfurytime--;
             }
             //______________
             int chance;
@@ -721,7 +725,7 @@ namespace StormDiversMod.Common
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 10, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 10, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1.25f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1f;
                     Main.dust[dust].velocity.Y -= 0.5f;

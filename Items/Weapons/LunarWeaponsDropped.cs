@@ -224,11 +224,7 @@ namespace StormDiversMod.Items.Weapons
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/LunarVortexShotgun_Glow");
-
-
             //spriteBatch.Draw(texture, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-
-
             spriteBatch.Draw
             (
                 texture,
@@ -246,10 +242,7 @@ namespace StormDiversMod.Items.Weapons
                 0f
             );
         }
-
     }
-   
-
     //__________________________________________________________________________________________
     public class LunarPredictorBrain : ModItem
     {
@@ -302,7 +295,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
             //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
 
             /* for (int i = 0; i < 5; i++)
@@ -332,11 +324,7 @@ namespace StormDiversMod.Items.Weapons
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/LunarPredictorBrain_Glow");
-
-
             //spriteBatch.Draw(texture, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-
-
             spriteBatch.Draw
             (
                 texture,

@@ -11,7 +11,6 @@ using Terraria.Utilities;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
- 
     public class FrostSentryProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -128,9 +127,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                             dust = Terraria.Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y - 17), 180, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);
                             dust.noGravity = true;
-
                         }
-
                         SoundEngine.PlaySound(SoundID.Item48, Projectile.Center);
 
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - 6, Projectile.Center.Y - 16), new Vector2(velocity.X, velocity.Y),
@@ -138,11 +135,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         Projectile.ai[1] = 0;
                     }
-
                 }
-               
             }        
-
             Projectile.frameCounter++;
          
             if (animate) //frames 4-7 when firing

@@ -27,32 +27,44 @@ namespace StormDiversMod.Projectiles
             Projectile.timeLeft = 600;
            
             Projectile.tileCollide = true;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Ranged;           
             Projectile.arrow = true;
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
-
         }
         public override void AI()
         {
             if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
-
                 Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                 
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
             }
-            if ((Projectile.velocity.X >= 1 || Projectile.velocity.X <= -1))
+            //Laucnhes dust downwards when above enemy
+            for (int i = 0; i < 200; i++)
             {
-                if (Main.rand.Next(12) == 0)
+                NPC target = Main.npc[i];
+                if (Projectile.ai[2] <= 2) //up to 3 enemies can be rained down on
                 {
-
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 2.5f), ModContent.ProjectileType<DesertArrowDust>(), (int)(Projectile.damage * 0.7), Projectile.knockBack, Projectile.owner);
+                    if (((Projectile.Center.X - target.Center.X >= -8) && (Projectile.Center.X - target.Center.X <= 8)) && ((Projectile.Center.Y < target.Top.Y) && (Projectile.Center.Y - target.Center.Y >= -400))
+                        && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy
+                        && target.GetGlobalNPC<NPCEffects>().forbiddenfurytime == 0)
+                    {
+                        if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                        {
+                            target.GetGlobalNPC<NPCEffects>().forbiddenfurytime = 15;//makes it so 1 dust spawns per enemy
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(target.velocity.X * 0.4f, 5f), ModContent.ProjectileType<DesertArrowDust>(), (int)(Projectile.damage * 0.66), 0, Projectile.owner);
+                            Projectile.scale -= 0.15f;//projectile gets smaller for each dust it spawns
+                            Projectile.ai[2]++;
+                        }
+                    }
                 }
             }
+            if (Projectile.ai[2] >= 3)//kill after expended all dust
+                Projectile.Kill();
         }
         // int reflect = 5;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -73,8 +85,7 @@ namespace StormDiversMod.Projectiles
              SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 10; i++)
             {
-
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 10);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 10, Projectile.velocity.X * 0.33f, Projectile.velocity.Y * 0.33f, 100, default, Projectile.scale);
             }
 
         }
@@ -97,12 +108,12 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
             // Projectile.aiStyle = 1;
             Projectile.extraUpdates = 3;
-            Projectile.timeLeft = 300;
-            Projectile.penetrate = 2;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
-            //Projectile.usesIDStaticNPCImmunity = true;
-            //Projectile.idStaticNPCHitCooldown = 10;
+            Projectile.timeLeft = 75;
+            //Projectile.usesLocalNPCImmunity = true;
+            //Projectile.localNPCHitCooldown = 30;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;
+            Projectile.ArmorPenetration = 6;
         }
 
         public override void AI()
@@ -111,20 +122,12 @@ namespace StormDiversMod.Projectiles
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
-            if (Projectile.ai[0] > 0f)  //this defines where the flames starts
+            if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
-                if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
-
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 0.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
-                }
-            }
-            else
-            {
-                Projectile.ai[0] += 1f;
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.25f);
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                Main.dust[dust].velocity *= 0.5f;
+                int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
             }
             return;
         }
@@ -176,7 +179,6 @@ namespace StormDiversMod.Projectiles
 
         protected virtual float HoldoutRangeMin => 25f;
         protected virtual float HoldoutRangeMax => 100f;
-
         public override void AI()
         {
             Player player = Main.player[Projectile.owner]; // Since we access the owner player instance so much, it's useful to create a helper local variable for this
@@ -227,11 +229,7 @@ namespace StormDiversMod.Projectiles
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
-
-
         }
-      
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
@@ -248,9 +246,7 @@ namespace StormDiversMod.Projectiles
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Forbidden Spear Dust");
-
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 20;
@@ -287,7 +283,7 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.25f);
 
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= 0.5f;
@@ -316,8 +312,6 @@ namespace StormDiversMod.Projectiles
             Projectile.Kill();
             return false;
         }
-
-
     }
     //________________________________________________________________________________________
    
@@ -329,7 +323,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 12;
             Projectile.height = 12;
             Projectile.friendly = true;
@@ -341,7 +334,6 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
-
         public override void AI()
         {
             if (!Main.dedServ)
@@ -352,7 +344,7 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.25f);
 
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= 0.5f;
@@ -376,7 +368,6 @@ namespace StormDiversMod.Projectiles
             if (info.PvP)
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.Kill();
@@ -391,7 +382,6 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("Forbidden Dust Trail");
                      
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 24;
@@ -439,10 +429,9 @@ namespace StormDiversMod.Projectiles
             }
             else
             {
-
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= 1.5f;
                     int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
@@ -462,7 +451,6 @@ namespace StormDiversMod.Projectiles
             else
             {
                 target.AddBuff(BuffID.Frostburn2, 180);
-
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -478,21 +466,18 @@ namespace StormDiversMod.Projectiles
                 else
                 {
                     target.AddBuff(BuffID.Frostburn2, 180);
-
                 }
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            
             return false;
         }
         public override void OnKill(int timeLeft)
         {
 
         }
-
     }
     //______________________________________________________________________________________________________
     public class DesertJarProj2 : ModProjectile //orbit
@@ -518,8 +503,6 @@ namespace StormDiversMod.Projectiles
             //Projectile.usesIDStaticNPCImmunity = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
-
-
         }
         bool lineOfSight;
         public override void AI()
@@ -535,7 +518,6 @@ namespace StormDiversMod.Projectiles
 
             if (player.GetModPlayer<EquipmentEffects>().frostJar == false) //Will change to frost if the player has the Frozen jar
             {
-
                 if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 10, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 130, default, 1.5f);
@@ -547,7 +529,6 @@ namespace StormDiversMod.Projectiles
             }
             else
             {
-
                 if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 135, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 130, default, 3f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
@@ -582,7 +563,6 @@ namespace StormDiversMod.Projectiles
             }
 
             lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, player.position, player.width, player.height);
-
         }
         public override bool? CanDamage()
         {
@@ -606,7 +586,6 @@ namespace StormDiversMod.Projectiles
             else
             {
                 target.AddBuff(BuffID.Frostburn2, 180);
-
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -622,20 +601,17 @@ namespace StormDiversMod.Projectiles
                 else
                 {
                     target.AddBuff(BuffID.Frostburn2, 180);
-
                 }
                 target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             return false;
         }
         public override void OnKill(int timeLeft)
         {
 
         }
-
     }
 }

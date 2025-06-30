@@ -232,7 +232,7 @@ namespace StormDiversMod.NPCs
             npcLoot.Add(ItemDropRule.Common(ItemID.SnowBlock, 1, 5, 10));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PizzaCap>(), 50, 1, 1));
             npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<PizzaCutter>(), 25, 20));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Pizza, 50, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Pizza, 25, 1, 1));
         }
     }
     //________________________________________

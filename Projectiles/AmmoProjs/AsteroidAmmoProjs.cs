@@ -18,6 +18,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //DisplayName.SetDefault("Asteroid Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.CanHitPastShimmer[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -33,26 +34,37 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.penetrate = 1;
             
             Projectile.tileCollide = true;
-
+            Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.extraUpdates = 1;
             AIType = ProjectileID.Bullet;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-           
+            Projectile.velocity = Projectile.oldVelocity; //prevents accuracy from getting messed up
+            Projectile.alpha = 255;
+            //75% damage, 66% speed and knockback
+            int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, Projectile.velocity * 0.66f, ModContent.ProjectileType<Projectiles.AmmoProjs.AsteroidBulletProj>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack * 0.66f, Projectile.owner);
+            Main.projectile[projID].tileCollide = false; //only spawn one proj
+            Main.projectile[projID].timeLeft = 90;
+            Main.projectile[projID].ai[2] = 1; //new dust particles
+            Main.projectile[projID].extraUpdates = Projectile.extraUpdates; //new dust particles
+
             return true;
         }
         public override void AI()
         {
-        
+            if (Projectile.ai[2] == 1)//create dust when in wall piercing mode
+            {
+                if (Main.rand.Next(2) == 0)
+                Dust.NewDustDirect(new Vector2(Projectile.position.X - 2, Projectile.position.Y - 2), Projectile.width, Projectile.height, 6, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 75, target.Center.Y - 300), new Vector2(-4 + target.velocity.X * 0.5f, 15), ModContent.ProjectileType<Projectiles.SpaceFragment>(), (int)(Projectile.damage * 0.2f), 0, Projectile.owner);
+            /*int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X + 75, target.Center.Y - 300), new Vector2(-4 + target.velocity.X * 0.5f, 15), ModContent.ProjectileType<Projectiles.SpaceFragment>(), (int)(Projectile.damage * 0.2f), 0, Projectile.owner);
             Main.projectile[projID].DamageType = DamageClass.Ranged;
             Main.projectile[projID].penetrate = 1;
             Main.projectile[projID].ArmorPenetration = 50;
@@ -60,9 +72,9 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(target.Center.X - 75, target.Center.Y - 300), new Vector2(4 + target.velocity.X * 0.5f, 15), ModContent.ProjectileType<Projectiles.SpaceFragment>(), (int)(Projectile.damage * 0.2f), 0, Projectile.owner);
             Main.projectile[projID2].DamageType = DamageClass.Ranged;
             Main.projectile[projID2].penetrate = 1;
-            Main.projectile[projID2].ArmorPenetration = 50;
+            Main.projectile[projID2].ArmorPenetration = 50;*/
 
-            for (int i = 0; i < 25; i++)
+            /*for (int i = 0; i < 25; i++)
             {
                 var dust = Dust.NewDustDirect(new Vector2(target.Center.X + 75, target.Center.Y - 300), 0, 0, 6);
                 dust.scale = 1.2f;
@@ -72,26 +84,22 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 dust2.scale = 1.2f;
                 dust2.noGravity = true;
                 dust2.velocity *= 3;
-            }
+            }*/
         }
-
         public override void OnKill(int timeLeft)
         {
-
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            if (Projectile.ai[2] == 0)
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
+           
             for (int i = 0; i < 10; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.position.X - 2, Projectile.position.Y - 2), Projectile.width, Projectile.height, 6, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
             }
-
         }
-
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
         }
-
     }
     //______________________________________________________________________________________
     public class AsteroidArrowProj : ModProjectile
