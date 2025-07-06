@@ -43,13 +43,13 @@ namespace StormDiversMod.Projectiles
                 
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
             }
-            //Laucnhes dust downwards when above enemy
+            //Launches dust downwards when above enemy
             for (int i = 0; i < 200; i++)
             {
                 NPC target = Main.npc[i];
-                if (Projectile.ai[2] <= 2) //up to 3 enemies can be rained down on
+                if (Projectile.ai[2] <= 2 || Projectile.ai[1] == 1 && Projectile.ai[2] <= 3) //up to 3 enemies can be rained down on or 4 with forbidden arrows
                 {
-                    if (((Projectile.Center.X - target.Center.X >= -8) && (Projectile.Center.X - target.Center.X <= 8)) && ((Projectile.Center.Y < target.Top.Y) && (Projectile.Center.Y - target.Center.Y >= -400))
+                    if (((Projectile.Center.X - target.Center.X >= -8) && (Projectile.Center.X - target.Center.X <= 8)) && ((Projectile.Center.Y < target.Top.Y) && (Projectile.Center.Y - target.Center.Y >= -250))
                         && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy
                         && target.GetGlobalNPC<NPCEffects>().forbiddenfurytime == 0)
                     {
@@ -63,7 +63,7 @@ namespace StormDiversMod.Projectiles
                     }
                 }
             }
-            if (Projectile.ai[2] >= 3)//kill after expended all dust
+            if ((Projectile.ai[2] >= 3 && Projectile.ai[1] == 0) || Projectile.ai[2] >= 4)//kill after expended all dust
                 Projectile.Kill();
         }
         // int reflect = 5;
@@ -133,14 +133,14 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
+            target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 120);
             Projectile.damage = (Projectile.damage * 8) / 10;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (info.PvP)
             {
-                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
+                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 120);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)

@@ -38,7 +38,6 @@ namespace StormDiversMod.Items.Weapons
                 }
             }*/
         }
-      
     }
     public class StoneThrower : ModItem
     {
@@ -76,7 +75,6 @@ namespace StormDiversMod.Items.Weapons
                 Item.useAmmo = ItemID.StoneBlock;
             }
             Item.UseSound = SoundID.Item61;
-
 
             //Item.crit = 0;
             Item.knockBack = 5f;
@@ -185,9 +183,7 @@ namespace StormDiversMod.Items.Weapons
                     {
                         line.Text = line.Text + "\nRequires Compact Boulders, craft more with stone";
                     }
-
                 }
-
             }
         }
         public override Vector2? HoldoutOffset()
@@ -218,9 +214,7 @@ namespace StormDiversMod.Items.Weapons
            .AddIngredient(ItemID.HallowedBar, 15)
            .AddTile(TileID.MythrilAnvil)
            .Register();
-
         }
-
     }
     //_______________________________________________________________________________
     public class StoneThrowerSuper : ModItem
@@ -231,7 +225,6 @@ namespace StormDiversMod.Items.Weapons
             //Tooltip.SetDefault("Superheats your stone into flaming stone boulders");
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
-
         }
         public override void SetDefaults()
         {
@@ -263,7 +256,7 @@ namespace StormDiversMod.Items.Weapons
             //Item.crit = 0;
             Item.knockBack = 8f;
 
-            Item.shootSpeed = 14f;
+            Item.shootSpeed = 16f;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
@@ -277,9 +270,7 @@ namespace StormDiversMod.Items.Weapons
                     {
                         line.Text = line.Text + "\nRequires Compact Boulders, craft more with stone";
                     }
-
                 }
-
             }
         }
         public override Vector2? HoldoutOffset()
@@ -319,11 +310,8 @@ namespace StormDiversMod.Items.Weapons
           .AddIngredient(ItemID.BeetleHusk, 10)
           .AddTile(TileID.MythrilAnvil)
           .Register();
-
         }
-
     }
-
     //_______________________________________________________________________________
     public class StoneThrowerSuperLunar : ModItem
     {
@@ -339,7 +327,6 @@ namespace StormDiversMod.Items.Weapons
             });
 
             ItemID.Sets.IsRangedSpecialistWeapon[Item.type] = true;
-
         }
         public override void SetDefaults()
         {
@@ -385,9 +372,7 @@ namespace StormDiversMod.Items.Weapons
                     {
                         line.Text = line.Text + "\nRequires Compact Boulders, craft more with stone";
                     }
-
                 }
-
             }
         }
         public override Vector2? HoldoutOffset()
@@ -406,48 +391,32 @@ namespace StormDiversMod.Items.Weapons
             {
                 position += muzzleOffset;
             }
-
             int choice = Main.rand.Next(4);
             if (choice == 0)
             {
-                {
-
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneSolar>(), damage, knockback, player.whoAmI);
-                }
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneSolar>(), damage, knockback, player.whoAmI);
             }
             else if (choice == 1)
             {
-                {
-
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X * 1f, perturbedSpeed.Y * 1f), ModContent.ProjectileType<StoneVortex>(), damage, knockback, player.whoAmI);
-
-                }
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X * 1f, perturbedSpeed.Y * 1f), ModContent.ProjectileType<StoneVortex>(), damage, knockback, player.whoAmI);
             }
             else if (choice == 2)
             {
                 for (int i = 0; i < 3; i++)
                 {
-
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(20));
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneNebula>(), damage, knockback, player.whoAmI);
-
                 }
             }
             else if (choice == 3)
             {
-
-                {
-
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
-                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneStardust>(), damage, knockback, player.whoAmI);
-
-                }
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 6), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StoneStardust>(), damage, knockback, player.whoAmI);
             }
             /*for (int i = 0; i < 3; i++)
             {
-
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
                 Projectile.NewProjectile(position.X, position.Y, (float)(perturbedSpeed.X), (float)(perturbedSpeed.Y), mod.ProjectileType("StoneSuperProj"), damage, knockBack, player.whoAmI);
             }*/
@@ -465,15 +434,11 @@ namespace StormDiversMod.Items.Weapons
          .AddIngredient(ItemID.LunarBar, 15)
          .AddTile(TileID.LunarCraftingStation)
          .Register();
-
-           
         }
        
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/StoneThrowerSuperLunar_Glow");
-
-
             //spriteBatch.Draw(texture, Item.Center - Main.screenPosition, new Rectangle(0, 0, Item.width, Item.height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
             spriteBatch.Draw
            (

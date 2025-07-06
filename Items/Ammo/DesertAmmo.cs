@@ -58,7 +58,6 @@ namespace StormDiversMod.Items.Ammo
             //DisplayName.SetDefault("Forbidden Arrow");
             //Tooltip.SetDefault("Speeds up after a short delay, ignoring gravity and dealing extra damage.");
             Item.ResearchUnlockCount = 99;
-
         }
         public override void SetDefaults()
         {
@@ -76,7 +75,7 @@ namespace StormDiversMod.Items.Ammo
             Item.consumable = true;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.DesertArrowProj>();
-            Item.shootSpeed = 0f;
+            Item.shootSpeed = 5f;
             Item.ammo = AmmoID.Arrow;
         }
 

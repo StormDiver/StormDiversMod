@@ -383,20 +383,14 @@ namespace StormDiversMod.Projectiles
             Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
             Main.dust[dustIndex].noGravity = true;
 
-
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
             var player = Main.player[Projectile.owner];
 
-            if (Projectile.position.Y < (player.position.Y - 50))
-            {
+            if (Projectile.position.Y < (player.position.Y))
                 Projectile.tileCollide = false;
-            }
             else
-            {
                 Projectile.tileCollide = true;
-
-            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

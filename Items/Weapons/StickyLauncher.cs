@@ -66,7 +66,6 @@ namespace StormDiversMod.Items.Weapons
         float shootvelo = 1; //Speed multiplers
         public override bool? UseItem(Player player)
         {
-
             return true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -80,12 +79,10 @@ namespace StormDiversMod.Items.Weapons
             {
                 shootvelo = 0.5f;
             }
-
             for (int i = 0; i < 1; i++)
             {
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X * shootvelo, velocity.Y * shootvelo), ModContent.ProjectileType<StickyBombProj>(), damage, knockback, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item61, position);
-
             }
             //Kills oldest projectile when 17th is summoned
             int spikyprojs = 0;
@@ -114,7 +111,6 @@ namespace StormDiversMod.Items.Weapons
 
             return false;
         }
-
     }
 }
  

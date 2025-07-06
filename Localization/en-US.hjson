@@ -1055,17 +1055,25 @@ Mods: {
 
 			CrackedShot: {
 				DisplayName: Cracked Bullet
-				Tooltip: Has a chance to shatter into 4 shards in flight
+				Tooltip: Has a chance to shatter into 4 shards when fired each dealing 50% damage
 			}
 
 			DesertArrow: {
 				DisplayName: Forbidden Arrow
-				Tooltip: Speeds up after a short delay, ignoring gravity and dealing extra damage.
+				Tooltip:
+					'''
+					When above an enemy charges downwards towards them
+					Deals slightly less damage if it hits an enemy this way
+					'''
 			}
 
 			DesertBullet: {
 				DisplayName: Forbidden Bullet
-				Tooltip: Creates a small cloud of forbidden dust on tile impact
+				Tooltip:
+					'''
+					Creates a small cloud of forbidden dust on tile impact
+					Inflicts Forbidden Burn on enemies
+					'''
 			}
 
 			DualArrow: {
@@ -2538,8 +2546,9 @@ Mods: {
 				DisplayName: Lunatic Bow of Ice
 				Tooltip:
 					'''
-					Fires out 2 to 3 regular arrows along side a special ice arrow which rains down icicles on impact
+					Fires a special ice arrow each shot which rains down icicles on impact
 					The ice arrow inflicts Ultrafreeze that deals high damage over time and slows enemies
+					Also fires out 2-3 regular arrows with some inaccuracy each shot
 					'''
 			}
 
@@ -2630,8 +2639,9 @@ Mods: {
 				DisplayName: Forbidden Fury
 				Tooltip:
 					'''
-					Converts all arrows to Ancient Forbidden arrows that rain down forbidden sand onto enemies below
+					Converts all arrows to Special Forbidden arrows that rain down forbidden sand onto enemies below
 					The arrow will disappear after raining down 3 times
+					Using Regular Forbidden Arrows increases the limit to 4
 					'''
 			}
 
@@ -3297,7 +3307,8 @@ Mods: {
 				DisplayName: Shroomite Sharpshooter
 				Tooltip:
 					'''
-					Damage, velocity, and knockback increases after 50 successive shots
+					Damage, velocity, and knockback increases after 50 successive autofire shots
+					Releasing the fire key resets the count
 					Right Click to zoom out
 					33% Chance not to consume Ammo
 					'''
@@ -3438,7 +3449,7 @@ Mods: {
 
 			StoneShot: {
 				DisplayName: Compact Boulder
-				Tooltip: You might have trouble throwing these far
+				Tooltip: Throw the stone at your foes
 			}
 
 			StoneThrower: {

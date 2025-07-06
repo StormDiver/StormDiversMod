@@ -1036,11 +1036,11 @@ Mods: {
 
 			AsteroidBullet: {
 				DisplayName: 小行星子弹
-				Tooltip:
+				/* Tooltip:
 					'''
-					在被攻击的敌人上方召唤一个小型小行星碎片
-					碎片造成的伤害低，但忽略50点防御
-					'''
+					Can pierce through all tiles with no accuracy loss, and ignores all liquids
+					Bullets lose 25% damage, and 33% knockback and speed after piercing tiles
+					''' */
 			}
 
 			BouncyArrow: {
@@ -1448,7 +1448,7 @@ Mods: {
 				Tooltip:
 					'''
 					伤害增加10%
-					移动速度增加25%
+					移动速度增加15%
 					'''
 			}
 
@@ -1476,8 +1476,8 @@ Mods: {
 				DisplayName: 暮色兜帽
 				Tooltip:
 					'''
-					伤害增加6%
-					暴击率增加10%
+					伤害增加8%
+					暴击率增加8%
 					'''
 				SetBonus1: 按
 				SetBonus2:
@@ -1492,8 +1492,7 @@ Mods: {
 				DisplayName: 暮色长袍
 				Tooltip:
 					'''
-					伤害增加6%
-					暴击率增加3%
+					伤害增加10%
 					轻微增加玩家加速度
 					'''
 			}
@@ -1502,8 +1501,7 @@ Mods: {
 				DisplayName: 暮色护腿
 				Tooltip:
 					'''
-					伤害增加3%
-					暴击率增加2%
+					暴击率增加10%
 					轻微增加跳跃速度和高度
 					'''
 			}
@@ -1576,7 +1574,7 @@ Mods: {
 					'''
 					远程伤害增加8%
 					远程暴击率增加6%
-					移动速度增加25%
+					移动速度增加20%
 					'''
 			}
 
@@ -1699,7 +1697,7 @@ Mods: {
 					'''
 					伤害增加6%
 					暴击率增加5%
-					移动速度增加50%
+					移动速度增加25%
 					'''
 			}
 
@@ -2615,7 +2613,12 @@ Mods: {
 
 			DesertBow: {
 				DisplayName: 禁忌之怒
-				Tooltip: 将所有箭矢转化为古代禁忌箭矢，降下沙漠之热
+				/* Tooltip:
+					'''
+					Converts all arrows to Special Forbidden arrows that rain down forbidden sand onto enemies below
+					The arrow will disappear after raining down 3 times
+					Using Regular Forbidden Arrows increases the limit to 4
+					''' */
 			}
 
 			DesertSpear: {
@@ -3277,12 +3280,13 @@ Mods: {
 
 			ShroomiteSharpshooter: {
 				DisplayName: 蘑菇石神枪手
-				Tooltip:
+				/* Tooltip:
 					'''
-					有33%的几率不消耗弹药
-					几秒钟内建立精准度，全精准时造成额外伤害
-					右键缩放视野
-					'''
+					Damage, velocity, and knockback increases after 50 successive autofire shots
+					Releasing the fire key resets the count
+					Right Click to zoom out
+					33% Chance not to consume Ammo
+					''' */
 			}
 
 			SludgeLauncher: {
@@ -3314,16 +3318,16 @@ Mods: {
 
 			SpaceRockGlobe: {
 				DisplayName: 小行星球体
-				Tooltip: 在光标位置召唤一个漂浮的小行星巨石，并爆炸成许多碎片
+				// Tooltip: Summons floating asteroid boulders which fire out fragments at nearby enemies
 			}
 
 			SpaceRockGun: {
 				DisplayName: 小行星爆破枪
-				Tooltip:
+				/* Tooltip:
 					'''
-					有50%的几率不消耗弹药
-					每次射击发射2颗子弹
-					'''
+					Fires out 2 bullets with a large spread that build up accuracy over several seconds
+					50% Chance not to consume Ammo
+					''' */
 			}
 
 			SpaceRockMinion: {
@@ -3468,7 +3472,11 @@ Mods: {
 
 			StormStaff: {
 				DisplayName: 闪电权杖
-				Tooltip: 快速射出刺目的闪电
+				/* Tooltip:
+					'''
+					Fires out a lightning orb that on enemy impact can jump to 3 other enemies at once
+					On tile impact it can jump to up to 4 enemies at ocne
+					''' */
 			}
 
 			SuperDartLauncher: {
@@ -3488,6 +3496,7 @@ Mods: {
 					杀死敌人收集多达9个灵魂，每个收集的灵魂都会增加武器的伤害和暴击率
 					如果9秒内没有杀死敌人，灵魂将开始逃离
 					旋转时右键单击可反射大多数射弹，每次使用之间有 2.5 秒的冷却时间
+					//Receives extra bonuses from the Reaper's List
 					获得死神名单的两倍奖励
 					'''
 			}
@@ -3500,6 +3509,7 @@ Mods: {
 					右键单击可连续投掷两把刀片，可一次投掷两套刀片
 					旋转时右键单击可反射大多数射弹，每次使用之间有 1.5 秒的冷却时间
 					获得死神名单的两倍奖励
+					//Receives extra bonuses from the Reaper's List
 					“您只剩一次机会”
 					'''
 			}

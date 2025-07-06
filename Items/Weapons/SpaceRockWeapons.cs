@@ -258,7 +258,7 @@ namespace StormDiversMod.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.UseSound = SoundID.Item40;
 
-            Item.damage = 42;
+            Item.damage = 40;
             Item.knockBack = 2f;
 
             Item.shoot = ProjectileID.Bullet;

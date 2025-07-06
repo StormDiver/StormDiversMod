@@ -125,23 +125,18 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-         
-
             SoundEngine.PlaySound(SoundID.Item30, player.Center);
-
-
             int numberProjectiles = 2 + Main.rand.Next(2); ; //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed2 = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15)); // 
+                Vector2 perturbedSpeed2 = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8)); // 
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed2.X, perturbedSpeed2.Y), type, damage, knockback, player.whoAmI);
             }
-            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(2));
 
             Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X * 1.2f, perturbedSpeed.Y * 1.2f), ModContent.ProjectileType<Projectiles.CultistBowProj>(), damage, knockback, player.whoAmI);
 
             return false;
-
         }
         //Drop rate in NPCEffects/ Luantic Cultist treasure bag
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -151,7 +146,6 @@ namespace StormDiversMod.Items.Weapons
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
-
     }
     //__________________________________________________________________________________________________________
     //__________________________________________________

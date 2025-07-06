@@ -32,10 +32,9 @@ namespace StormDiversMod.Projectiles
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-         
+            Projectile.extraUpdates = 1;
             //DrawOffsetX = -5;
             //DrawOriginOffsetY = -5;
-
         }
        
         public override void AI()
@@ -50,18 +49,13 @@ namespace StormDiversMod.Projectiles
             Projectile.rotation += (float)Projectile.direction * -0.2f;
             Projectile.width = 28;
             Projectile.height = 28;
-
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 1000);
            
             for (int i = 0; i < 10; i++)
             {
-
-                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 244);
             }
         }
@@ -84,63 +78,49 @@ namespace StormDiversMod.Projectiles
             if (reflect <= 0)
             {
                 Projectile.Kill();
-
             }
+            Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
+            if (Projectile.velocity.X != oldVelocity.X)
             {
-                Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-
-                if (Projectile.velocity.X != oldVelocity.X)
-                {
-                    Projectile.velocity.X = -oldVelocity.X * 1f;
-                }
-                if (Projectile.velocity.Y != oldVelocity.Y)
-                {
-                    Projectile.velocity.Y = -oldVelocity.Y * 1f;
-                }
+                Projectile.velocity.X = -oldVelocity.X * 1f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 1f;
             }
             if (reflect >= 1)
             {
-
                 int numberProjectiles = 20 + Main.rand.Next(5); //This defines how many projectiles to shot.
                 for (int i = 0; i < numberProjectiles; i++)
-                {
-
-                    float speedX =  Main.rand.NextFloat(-12f, 12f);
-                    float speedY =  Main.rand.NextFloat(-12f, 12f);
+                { 
+                    float speedX = Main.rand.NextFloat(-12f, 12f);
+                    float speedY = Main.rand.NextFloat(-12f, 12f);
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 0);
-
                 }
             }
-                SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
-             
-                return false;
-            
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
+
+            return false;
         }
 
         public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
-
-                     
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 244);
                 }
-
             }
-
-          int numberProjectiles = 20 + Main.rand.Next(5); //This defines how many projectiles to shot.
+            int numberProjectiles = 20 + Main.rand.Next(5); //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)
             {
+                float speedX = Main.rand.NextFloat(-13f, 13f);
+                float speedY = Main.rand.NextFloat(-13f, 13f);
 
-                float speedX =  Main.rand.NextFloat(-13f, 13f);
-                float speedY =  Main.rand.NextFloat(-13f, 13f);
-
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner,0 , 0);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 0);
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -155,15 +135,12 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
     }
     //______________________________________________________________________________________
     public class StoneVortex : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Vortex Stone Boulder");
@@ -184,12 +161,10 @@ namespace StormDiversMod.Projectiles
             AIType = ProjectileID.Bullet;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-        
             //DrawOffsetX = -5;
             //DrawOriginOffsetY = -5;
-
+            Projectile.extraUpdates = 1;
         }
-
         public override void AI()
         {
             Dust dust;
@@ -203,25 +178,20 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 26;
         }
 
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 1000);
             for (int i = 0; i < 10; i++)
             {
-
-                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 110);
             }
             int numberProjectiles = 5 + Main.rand.Next(3); //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)
             {
-
                 float speedX = Main.rand.NextFloat(-6f, 6f);
                 float speedY = Main.rand.NextFloat(-6f, 6f);
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 1);
-
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -231,42 +201,35 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
                 for (int i = 0; i < 10; i++)
                 {
-
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 110);
                 }
             }
         }
-
          int reflect = 5;
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
             reflect--;
-             if (reflect <= 0)
-             {
-                 Projectile.Kill();
-
-             }
-            
+            if (reflect <= 0)
             {
-                Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+                Projectile.Kill();
+            }
+            Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
-                if (Projectile.velocity.X != oldVelocity.X)
-                {
-                    Projectile.velocity.X = -oldVelocity.X * 1f;
-                }
-                if (Projectile.velocity.Y != oldVelocity.Y)
-                {
-                    Projectile.velocity.Y = -oldVelocity.Y * 1f;
-                }
+            if (Projectile.velocity.X != oldVelocity.X)
+            {
+                Projectile.velocity.X = -oldVelocity.X * 1f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 1f;
             }
             if (reflect >= 1)
             {
-            int numberProjectiles = 7 + Main.rand.Next(3); //This defines how many projectiles to shot.
-            for (int i = 0; i < numberProjectiles; i++)
-            {
+                int numberProjectiles = 7 + Main.rand.Next(3); //This defines how many projectiles to shot.
+                for (int i = 0; i < numberProjectiles; i++)
+                {
 
                     float speedX = Main.rand.NextFloat(-8f, 8f);
                     float speedY = Main.rand.NextFloat(-8f, 8f);
@@ -276,7 +239,6 @@ namespace StormDiversMod.Projectiles
                 }
             }
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
-
             return false;
         }
 
@@ -284,28 +246,19 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 10; i++)
-                {
-
-                     
+                {        
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 110);
                 }
-
             }
-
              int numberProjectiles = 10 + Main.rand.Next(3); //This defines how many projectiles to shot.
-             for (int i = 0; i < numberProjectiles; i++)
-             {
-
+            for (int i = 0; i < numberProjectiles; i++)
+            {
                 float speedX = Main.rand.NextFloat(-10f, 10f);
                 float speedY = Main.rand.NextFloat(-10f, 10f);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 1);
-
             }
-
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -319,9 +272,7 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
     }
     
@@ -349,12 +300,10 @@ namespace StormDiversMod.Projectiles
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-        
             //DrawOffsetX = -5;
             //DrawOriginOffsetY = -5;
-
+            Projectile.extraUpdates = 1;
         }
-       
         public override void AI()
         {
             Dust dust;
@@ -367,18 +316,12 @@ namespace StormDiversMod.Projectiles
 
             Projectile.width = 26;
             Projectile.height = 26;
-
-
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 1000);
             for (int i = 0; i < 10; i++)
-            {
-
-                 
+            { 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 112);
             }
         }
@@ -397,7 +340,6 @@ namespace StormDiversMod.Projectiles
         }
 
         int reflect = 3;
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -405,12 +347,9 @@ namespace StormDiversMod.Projectiles
             if (reflect <= 0)
             {
                 Projectile.Kill();
-
             }
-
             {
                 Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-
                 if (Projectile.velocity.X != oldVelocity.X)
                 {
                     Projectile.velocity.X = -oldVelocity.X * 0.8f;
@@ -425,46 +364,31 @@ namespace StormDiversMod.Projectiles
                 int numberProjectiles = 3 + Main.rand.Next(2); //This defines how many projectiles to shot.
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-
                     float speedX = Main.rand.NextFloat(-7f, 7f);
                     float speedY = Main.rand.NextFloat(-7f, 7f);
-
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 2);
-
                 }
             }
-
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
-
             return false;
         }
-
         public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 10; i++)
-                {
-
-                     
+                {        
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 112);
                 }
-
             }
-
             int numberProjectiles = 5 + Main.rand.Next(2); //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)
             {
-
                 float speedX = Main.rand.NextFloat(-9f, 9f);
                 float speedY = Main.rand.NextFloat(-9f, 9f);
-
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 2);
             }
-
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -478,16 +402,13 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
     }
  
     //__________________________________________________________________________________________________
     public class StoneStardust : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Stardust Stone Boulder");
@@ -508,12 +429,11 @@ namespace StormDiversMod.Projectiles
             AIType = ProjectileID.WoodenArrowFriendly;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-           
+
             //DrawOffsetX = -5;
             //DrawOriginOffsetY = -5;
-
+            Projectile.extraUpdates = 1;
         }
-       
         public override void AI()
         {
             Dust dust;
@@ -529,29 +449,20 @@ namespace StormDiversMod.Projectiles
                 int numberProjectiles = 1 + Main.rand.Next(2); //This defines how many projectiles to shot.
                 for (int j = 0; j < numberProjectiles; j++)
                 {
-
                     float speedX = Main.rand.NextFloat(-3f, 3f);
                     float speedY = Main.rand.NextFloat(-3f, 3f);
 
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 3);
-
-
                 }
             }
-
             Projectile.width = 28;
             Projectile.height = 28;
-
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 1000);
             for (int i = 0; i < 10; i++)
             {
-
-                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 111);
             }
         }
@@ -562,15 +473,11 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
                 for (int i = 0; i < 10; i++)
                 {
-
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 111);
                 }
             }
         }
-
         int reflect = 3;
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -578,34 +485,27 @@ namespace StormDiversMod.Projectiles
             if (reflect <= 0)
             {
                 Projectile.Kill();
-
             }
-
+            Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+            if (Projectile.velocity.X != oldVelocity.X)
             {
-                Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-
-                if (Projectile.velocity.X != oldVelocity.X)
-                {
-                    Projectile.velocity.X = -oldVelocity.X * 0.8f;
-                }
-                if (Projectile.velocity.Y != oldVelocity.Y)
-                {
-                    Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
-                }
+                Projectile.velocity.X = -oldVelocity.X * 0.8f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
             }
             if (reflect >= 1)
             {
                 int numberProjectiles = 3 + Main.rand.Next(2); //This defines how many projectiles to shot.
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-
                     float speedX = Main.rand.NextFloat(-7f, 7f);
                     float speedY = Main.rand.NextFloat(-7f, 7f);
 
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 3);
                 }
             }
-
             SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
 
             return false;
@@ -615,28 +515,21 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 SoundEngine.PlaySound(SoundID.Item62, Projectile.Center);
                 for (int i = 0; i < 10; i++)
                 {
-
-                     
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 111);
                 }
-
             }
 
             int numberProjectiles = 4 + Main.rand.Next(2); //This defines how many projectiles to shot.
             for (int i = 0; i < numberProjectiles; i++)
             {
-
                 float speedX = Main.rand.NextFloat(-9f, 9f);
                 float speedY = Main.rand.NextFloat(-9f, 9f);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 3);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ModContent.ProjectileType<StoneFragCelestial>(), (int)(Projectile.damage * 0.33), 0, Projectile.owner, 0, 3);
             }
-
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -650,9 +543,7 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
     }
  //_________________________________________________________________________________
@@ -682,7 +573,6 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = -2;
             DrawOriginOffsetY = -2;
             Projectile.ArmorPenetration = 50;
-
         }
         int dusttype;
         public override void AI()
@@ -720,8 +610,6 @@ namespace StormDiversMod.Projectiles
             target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 500);
             for (int i = 0; i < 3; i++)
             {
-
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -733,8 +621,6 @@ namespace StormDiversMod.Projectiles
                 target.AddBuff(ModContent.BuffType<LunarBoulderDebuff>(), 240);
                 for (int i = 0; i < 3; i++)
                 {
-
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype);
                 }
             }
@@ -754,7 +640,6 @@ namespace StormDiversMod.Projectiles
                 {
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dusttype);
                 }
-
             }
         }
         public override bool PreDraw(ref Color lightColor) //trail
@@ -771,7 +656,6 @@ namespace StormDiversMod.Projectiles
                 Main.EntitySpriteDraw(texture, drawPos, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
                     color, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
-
             return true;
         }
         public override void PostDraw(Color lightColor) //glowmask for animated / more frames)

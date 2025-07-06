@@ -8,6 +8,7 @@ using Terraria.Audio;
 
 using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
+using System.Collections.Generic;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -19,7 +20,6 @@ namespace StormDiversMod.Items.Weapons
             //DisplayName.SetDefault("Compact Boulder");
             //Tooltip.SetDefault("You might have trouble throwing these far");
             Item.ResearchUnlockCount = 99;
-
         }
         public override void SetDefaults()
         {
@@ -28,7 +28,6 @@ namespace StormDiversMod.Items.Weapons
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 1);
             Item.rare = ItemRarityID.White;
-
             Item.DamageType = DamageClass.Ranged;
 
             Item.useTime = 30;
@@ -41,26 +40,31 @@ namespace StormDiversMod.Items.Weapons
             Item.UseSound = SoundID.Item1;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.StoneProj>();
-            Item.shootSpeed = 5f;
+            Item.shootSpeed = 7f;
             if (ModLoader.HasMod("ThoriumMod"))
             {
                 Item.ammo = Item.type;
             }
         }
-
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (ModLoader.HasMod("ThoriumMod"))
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "For use with the Stone Cannons";
+                    }
+                }
+            }
+        }
         public override void AddRecipes()
         {
-
             Recipe recipe = Recipe.Create(ModContent.ItemType<StoneShot>(), 1);
             recipe.AddIngredient(ItemID.StoneBlock, 3);    
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
-
-            recipe = Recipe.Create(ItemID.StoneBlock, 3);
-            recipe.AddIngredient(ModContent.ItemType<StoneShot>(), 1);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.Register();
         }
-
     }
 }

@@ -97,34 +97,31 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.DesertBowProj>();
             Item.shootSpeed = 8f;
             Item.useAmmo = AmmoID.Arrow;
-
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-5, 0);
         }
+        int forbiddenarrow;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
+            if (type == ModContent.ProjectileType<Projectiles.AmmoProjs.DesertArrowProj>())
+                forbiddenarrow = 1;
+            else
+                forbiddenarrow = 0;
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.DesertBowProj>(), damage, knockback, player.whoAmI);
-            /* if (type == ProjectileID.WoodenArrowFriendly || type == ProjectileID.FlamingArrow) 
-             {
-                 type = mod.ProjectileType("DesertArrowProj");
-             }*/
-
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.DesertBowProj>(), damage, knockback, player.whoAmI, 0, forbiddenarrow);
+            //Main.NewText("Forbidden Arrow? " + forbiddenarrow, Color.Orange);
             return false;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-        .AddIngredient(ModContent.ItemType<Items.OresandBars.DesertBar>(), 14)
-        .AddTile(TileID.MythrilAnvil)
-        .Register();
-
-
+            .AddIngredient(ModContent.ItemType<Items.OresandBars.DesertBar>(), 14)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
     //_______________________________________________________________________________________________
