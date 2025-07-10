@@ -10,7 +10,6 @@ using StormDiversMod.Common;
 
 namespace StormDiversMod.Projectiles
 {
-
     public class BeetleSpearProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -106,14 +105,13 @@ namespace StormDiversMod.Projectiles
                     for (int i = 0; i < 1; i++)
                     {
                         if (Collision.CanHitLine(player.Center, 0, 0, Projectile.Center, 0, 0))
-                        { 
+                        {
                             Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 7, Projectile.velocity.Y * 7).RotatedByRandom(MathHelper.ToRadians(15));
                             int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.4f), 0, Projectile.owner);
                             SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 0.6f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
-
                         }
                     }
-                        beetled = true;
+                    beetled = true;
                 }
             }
         }
@@ -163,15 +161,11 @@ namespace StormDiversMod.Projectiles
             shoottime++;
             if (shoottime >= 25)
             {
-
                 SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
 
                 Vector2 perturbedSpeed = new Vector2(0, -4).RotatedByRandom(MathHelper.ToRadians(360));
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-
-
-
                 shoottime = 0;
             }
         }
@@ -183,7 +177,6 @@ namespace StormDiversMod.Projectiles
     //________________________________________________________________________________________________________________
     public class BeetleShellProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Beetle Shell");
@@ -192,7 +185,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 26;
             Projectile.height = 26;
             Projectile.friendly = true;
@@ -210,24 +202,17 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
-            
-
             Projectile.rotation += (float)Projectile.direction * -0.6f;
-
             DrawOffsetX = 0;
             DrawOriginOffsetY = 2;
             Projectile.width = 26;
             Projectile.height = 26;
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
 
             SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
-
-
             for (int i = 0; i < 10; i++)
             {
 
@@ -240,44 +225,35 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
                 SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
-
             }
         }
         int reflect = 4;
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             reflect--;
             if (reflect <= 0)
             {
                 Projectile.Kill();
-
             }
             SoundEngine.PlaySound(SoundID.NPCHit3, Projectile.Center);
-
-
             if (Main.rand.Next(4) == 0)
             {
                 Vector2 perturbedSpeed = new Vector2(0, -7).RotatedByRandom(MathHelper.ToRadians(360));
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<BeetleProj>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-                SoundEngine.PlaySound(SoundID.Zombie50 with{Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
-
+                SoundEngine.PlaySound(SoundID.Zombie50 with { Volume = 1f, Pitch = 1.3f, MaxInstances = 0 }, Projectile.Center);
             }
+
+            Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+
+            if (Projectile.velocity.X != oldVelocity.X)
             {
-                Collision.HitTiles(Projectile.Center + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-
-                if (Projectile.velocity.X != oldVelocity.X)
-                {
-                    Projectile.velocity.X = -oldVelocity.X * 0.8f;
-                }
-                if (Projectile.velocity.Y != oldVelocity.Y)
-                {
-                    Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
-                }
-
-
+                Projectile.velocity.X = -oldVelocity.X * 0.8f;
+            }
+            if (Projectile.velocity.Y != oldVelocity.Y)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 0.8f;
             }
             for (int i = 0; i < 10; i++)
             {
@@ -287,20 +263,15 @@ namespace StormDiversMod.Projectiles
             }
             return false;
         }
-
         public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.Item89, Projectile.Center);
-
-
                 for (int i = 0; i < 25; i++)
                 {
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 186);
                 }
-
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -315,13 +286,9 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
-
     }
-
     //________________________________________________________________________________________________________________
     public class BeetleProj : ModProjectile //For beetle Weapons
     {

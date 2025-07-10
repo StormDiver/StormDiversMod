@@ -17,11 +17,10 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Coral Bullet");
-
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 2;
             Projectile.height = 2;
             Projectile.friendly = true;

@@ -391,7 +391,6 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("Explosion Painless");
             Main.projFrames[Projectile.type] = 7;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 1;
@@ -435,7 +434,6 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("Explosion Arid");
             Main.projFrames[Projectile.type] = 7;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 1;
@@ -479,9 +477,7 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("Explosion Chlorophyte");
             Main.projFrames[Projectile.type] = 7;
-
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 1;

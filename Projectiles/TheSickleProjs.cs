@@ -191,9 +191,6 @@ namespace StormDiversMod.Projectiles
            
             Projectile.penetrate = -1;
         }
-
-        bool stillspin;
-        int stilltime;
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

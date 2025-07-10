@@ -128,8 +128,6 @@ namespace StormDiversMod.NPCs.Boss
         float distanceToIdlePosition; //distance to movement positon
         float distance; //Distance to player
 
-        bool animateattack; //Wheter the claws move
-
         int projdamage; //Damage of all projectiles
         int projcount; //Number of projs if applicable
         float projvelocity; //Velocity of projectiles
@@ -1214,7 +1212,7 @@ namespace StormDiversMod.NPCs.Boss
                 npcframe = 4;
             }
         }
-        public override void BossLoot(ref string name, ref int potionType)
+        public override void BossLoot(ref int potionType)
         {
             potionType = ItemID.SuperHealingPotion;
         }

@@ -12,6 +12,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Bouncy Arrow");
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()

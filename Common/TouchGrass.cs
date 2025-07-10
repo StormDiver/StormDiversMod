@@ -44,14 +44,14 @@ namespace StormDiversMod.Common
 {
     public class TouchGrass : ModPlayer
     {
-        int grasstimer = 60 * 300; // 5 minutes
+        //int grasstimer = 60 * 300; // 5 minutes
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
            
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
-            grasstimer = 60 * 300;
+            //grasstimer = 60 * 300;
         }
         //===============================================================================================================
         public override bool PreItemCheck()

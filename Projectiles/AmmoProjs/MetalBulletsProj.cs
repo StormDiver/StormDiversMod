@@ -20,6 +20,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //DisplayName.SetDefault("Iron Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -45,35 +46,23 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             DrawOriginOffsetY = -0;
             Projectile.light = 0.2f;
         }
-
-
-
         public override void AI()
         {
-
 
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }
-
         public override void OnKill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
-
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
-
-
             return Color.White;
-
         }
-
-
     }
     public class LeadShotProj : ModProjectile
     {
@@ -82,8 +71,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //DisplayName.SetDefault("Lead Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 8;

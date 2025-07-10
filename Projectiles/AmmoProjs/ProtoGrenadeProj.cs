@@ -36,7 +36,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             Projectile.DamageType = DamageClass.Ranged;
 
             Projectile.timeLeft = 200;
-
         }
 
         int shrapnel = 0;
@@ -72,12 +71,9 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 Projectile.height = 60;
                 Projectile.Center = Projectile.position;
                 
-
                 Projectile.knockBack = 3f;
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
-                
-                
             }
             else
             {
@@ -137,10 +133,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 dust.noGravity = true;
                 dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-            }
-            
+            }   
         }
-
     }
     //_____________________________________________________________________________________________________________________________________________
     public class ProtoGrenadeProj2 : ModProjectile

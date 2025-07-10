@@ -18,6 +18,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //DisplayName.SetDefault("Shroomite Bullet");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
         public override void SetDefaults()
         {
@@ -108,6 +109,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //DisplayName.SetDefault("Shroomite Arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
         public override void SetDefaults()
         {
@@ -196,7 +198,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
         }
     }

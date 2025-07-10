@@ -114,7 +114,7 @@ namespace StormDiversMod.Items.Weapons
                 return;
             }
         }
-        double degrees;
+        //double degrees;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
@@ -127,7 +127,6 @@ namespace StormDiversMod.Items.Weapons
             }
             else //left Click
             {
-
                 //type = ModContent.ProjectileType<Projectiles.SwordLightProj>();
                 /*if (player.direction == -1)
                 degrees = Main.rand.Next(90, 171); //The degrees

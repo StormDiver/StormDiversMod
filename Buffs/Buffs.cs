@@ -99,7 +99,7 @@ namespace StormDiversMod.Buffs
             //DisplayName.SetDefault("Spectre Star");
             //Description.SetDefault("Magic critical strike chance increased by X");
         }
-        int extracrit;
+        //int extracrit;
         float extradamage;
         public override void Update(Player player, ref int buffIndex)
         {

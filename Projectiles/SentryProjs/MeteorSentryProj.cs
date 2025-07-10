@@ -252,9 +252,8 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.extraUpdates = 1;
         }
         int dusttime;
-        int hometime;
-        Vector2 newMove;
-
+        //int hometime;
+        //Vector2 newMove;
         public override void AI()
         {
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
@@ -317,13 +316,11 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         private void AdjustMagnitude(ref Vector2 vector)
         {
-
             /*float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
             if (magnitude > 9f)
             {
                 vector *= 9f / magnitude;
             }*/
-
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

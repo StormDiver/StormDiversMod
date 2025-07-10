@@ -19,6 +19,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;    //The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.CanHitPastShimmer[Projectile.type] = true;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -109,6 +110,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //DisplayName.SetDefault("Asteroid Arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()

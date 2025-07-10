@@ -83,7 +83,7 @@ namespace StormDiversMod.Items.Summons
                 return NPC.downedMoonlord && !NPC.AnyNPCs(ModContent.NPCType<NPCs.Boss.TheUltimateBoss>());
             //return true;
         }
-        String Paintext = "";
+        //String Paintext = "";
         public override bool? UseItem(Player player)
         {
             if (player.whoAmI == Main.myPlayer)

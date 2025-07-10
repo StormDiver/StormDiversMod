@@ -17,8 +17,8 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
             //DisplayName.SetDefault("Meteor Arrow");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 14;
@@ -97,15 +97,12 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
         private void AdjustMagnitude(ref Vector2 vector)
         {
-            
-                float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 9f)
-                {
-                    vector *= 9f / magnitude;
-                }
-            
+            float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+            if (magnitude > 9f)
+            {
+                vector *= 9f / magnitude;
+            }
         }
-
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

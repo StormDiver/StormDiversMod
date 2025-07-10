@@ -45,8 +45,6 @@ namespace StormDiversMod.Projectiles
 		{
 			return false;
 		}
-
-		int rotate;
 		float movespeed = 10; //Speed of the proj
 
 		Vector2 projpos;
@@ -89,7 +87,6 @@ namespace StormDiversMod.Projectiles
 					degrees += 120; //for dust on other side
 				}
 			}
-            
             //LocalAI 0  = orbit postion
             //LocalAI 1 = one frame used to get mousepos
 

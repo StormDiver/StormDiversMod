@@ -450,8 +450,7 @@ namespace StormDiversMod.Projectiles
         }
         float xPos;
         float yPos;
-        bool hidden; //hide dust particles if accessoy is hidden
-
+        //bool hidden; //hide dust particles if accessoy is hidden
         public override bool? CanDamage()
         {
             return false;
@@ -477,12 +476,12 @@ namespace StormDiversMod.Projectiles
                 }
                 else if (player.hideVisibleAccessory[accesstype] && player.armor[accesstype].type == ModContent.ItemType<DeathCore>()) //if so, is the slot set to be hidden?
                 {
-                    hidden = true; //if so, hide sprite and disable dust
+                    //hidden = true; //if so, hide sprite and disable dust
                     Projectile.hide = true;
                 }
                 else if (!player.hideVisibleAccessory[accesstype] && player.armor[accesstype].type == ModContent.ItemType<DeathCore>()) //if not show sprite and dust
                 {
-                    hidden = false;
+                    //hidden = false;
                     Projectile.hide = false;
                 }
             }

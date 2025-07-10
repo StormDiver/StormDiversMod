@@ -822,8 +822,8 @@ namespace StormDiversMod.Common
 
                 }
                 //For the Mini Drill in Golden chests
-                int[] ChestMiniDrill = { ItemType<Items.Tools.FastDrill>() };
-                int ChestMiniDrillCount = 0;
+                //int[] ChestMiniDrill = { ItemType<Items.Tools.FastDrill>() };
+                //int ChestMiniDrillCount = 0;
 
                 int[] ChestStompBoot = { ItemType<Items.Accessory.StompBoot>() };
                 int ChestStompBootCount = 0;

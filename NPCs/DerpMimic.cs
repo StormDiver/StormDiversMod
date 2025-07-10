@@ -117,10 +117,6 @@ namespace StormDiversMod.NPCs
 
         float jumpheight; //Jumpy
         float moveatspeed; //How fast it runs
-
-        float oldmovespeed;
-
-        int groundtime;
         int projdamage;
         bool onasphalt;
         Player player;
@@ -289,14 +285,6 @@ namespace StormDiversMod.NPCs
                                 NPC.ai[3] = 0;
                             }
                         }
-                        if (NPC.velocity.Y != 0)
-                        {
-                            groundtime++;
-                        }
-                        else
-                        {
-                            groundtime = 0;
-                        }
                         if (NPC.velocity.Y == 0 || onasphalt)//on ground or shortly after jumping have full movement control
                         {
 
@@ -312,8 +300,6 @@ namespace StormDiversMod.NPCs
                             {
                                 NPC.velocity.X *= 0.5f;
                             }
-                            oldmovespeed = NPC.velocity.X;
-
                         }
                         else //in air lower its speed control
                         {
@@ -329,7 +315,6 @@ namespace StormDiversMod.NPCs
                             {
                                 NPC.velocity.X *= 0.5f;
                             }
-
                         }
 
                         if ((distanceX >= -50 && distanceX <= 50) && !jump && NPC.velocity.Y == 0 && player.position.Y + 40 < NPC.position.Y) //jump to attack player

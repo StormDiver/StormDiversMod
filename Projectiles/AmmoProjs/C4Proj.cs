@@ -48,7 +48,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         bool boomed; //when it is exploding
         int boomtime = 0; //How long until you can actually detonate
         bool helddet = false; //is the detnator being held?
-        bool righthold; //if right click is being held before detonation don't allow explode
         int dist = 240; //Distance of dust warning radius
         public override bool? CanDamage()
         {

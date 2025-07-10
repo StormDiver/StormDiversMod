@@ -23,6 +23,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //ProjectileID.Sets.Explosive[Type] = true;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -161,6 +162,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //ProjectileID.Sets.Explosive[Type] = true;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -256,6 +258,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //ProjectileID.Sets.Explosive[Type] = true;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -347,6 +350,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //ProjectileID.Sets.Explosive[Type] = true;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -438,6 +442,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //ProjectileID.Sets.Explosive[Type] = true;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -531,6 +536,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //ProjectileID.Sets.Explosive[Type] = true;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -622,6 +628,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //ProjectileID.Sets.Explosive[Type] = true;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
         public override void SetDefaults()
         {

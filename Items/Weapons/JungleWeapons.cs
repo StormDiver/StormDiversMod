@@ -213,7 +213,6 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(-5, -0);
         }
-        float accuracy = 0; //The amount of spread
         public override void HoldItem(Player player)
         {
            

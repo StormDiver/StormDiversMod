@@ -104,7 +104,7 @@ namespace StormDiversMod.Common
             }
 
         }
-        int bufftimer;
+        //int bufftimer;
         public override void PostUpdateEquips() //Updates every frame
         {
             if (Player.HasBuff(BuffID.PotionSickness))

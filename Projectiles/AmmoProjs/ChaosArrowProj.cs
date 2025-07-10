@@ -18,6 +18,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             //DisplayName.SetDefault("Chaos Arrow");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()

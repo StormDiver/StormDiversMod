@@ -219,7 +219,6 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(0, 0);
         }
-        int alpha = 200;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 50;
@@ -246,9 +245,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
-
             return !(player.itemAnimation < Item.useAnimation - 2);
-
         }
     }
     public class FrostSentry : ModItem

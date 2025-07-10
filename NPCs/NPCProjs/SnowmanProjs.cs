@@ -45,9 +45,9 @@ namespace StormDiversMod.NPCs.NPCProjs
             DrawOriginOffsetY = 0;
         }
 
-        float speed = 8f;
-        float inertia = 5;
-        Vector2 idlePosition;
+        //float speed = 8f;
+        //float inertia = 5;
+        //Vector2 idlePosition;
         public override void AI()
         {
             if (Main.rand.Next(5) == 0)

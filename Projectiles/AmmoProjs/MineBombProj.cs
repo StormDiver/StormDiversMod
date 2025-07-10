@@ -20,6 +20,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Mine");
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
         public override void SetDefaults()
         {
@@ -55,7 +56,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             fallThrough = false;
             return true;
         }
-
         public override void AI()
         {
             var player = Main.player[Projectile.owner];

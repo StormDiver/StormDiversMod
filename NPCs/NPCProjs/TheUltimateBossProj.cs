@@ -76,8 +76,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 playerpos = Main.player[i].Center;
             }
-            if (Projectile.ai[0] == 2)
-                Projectile.timeLeft = 120;
 
             projpos = Projectile.Center;
             projspeed = Projectile.velocity * 650;
@@ -105,7 +103,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 115, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 50, default, 1f);
                 Main.dust[dust].noGravity = true;
-            
 
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
@@ -145,7 +142,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y, 50);
                 dust.noGravity = true;
                 dust.scale = 1.5f;
-
             }
         }
         public override Color? GetAlpha(Color lightColor)
@@ -175,6 +171,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                         else
                             Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(projpos.X - 1500, projpos.Y), Color.Red, Color.Transparent, linewidth);
                     }
+                    //set to 2 for no line
                 }
             }
             Main.instance.LoadProjectile(Projectile.type);
@@ -201,7 +198,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 30;
@@ -238,11 +234,11 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             base.OnSpawn(source);
         }
+        float linewidth = 6;
+
         public override void AI()
         {
             Projectile.ai[1]++;
-
-
             Projectile.spriteDirection = Projectile.direction;
 
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
@@ -259,9 +255,16 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.width = 110;
                 Projectile.height = 110;
                 Projectile.Center = Projectile.position;
-
                 Projectile.knockBack = 6;
             }
+            if (Projectile.ai[1] >= 45 && Projectile.ai[1] <= 60)
+            {
+                Projectile.velocity.Y *= 0.7f;
+            }
+            if (Projectile.ai[1] == 60)
+                Projectile.velocity.Y = 8;
+            if (Projectile.ai[1] >= 60) //make telegraph line thinner
+                linewidth -= 0.3f;
 
             int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 115, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 50, default, 1f);
             Main.dust[dust].noGravity = true;
@@ -286,32 +289,28 @@ namespace StormDiversMod.NPCs.NPCProjs
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 115, perturbedSpeed.X, perturbedSpeed.Y, 50);
                 dust.noGravity = true;
                 dust.scale = 1.5f;
-
             }
         }
         public override Color? GetAlpha(Color lightColor)
         {
             if (Projectile.timeLeft > 3)
-            {
                 return Color.White;
-            }
             else
-            {
                 return null;
-            }
         }
         public override bool PreDraw(ref Color lightColor)
-        {
-            if (Projectile.velocity.Y > 0)
+        { 
+            if (Projectile.ai[1] >= 60)
             {
-                if (Main.netMode != NetmodeID.Server)
+                if (linewidth > 0.1f)
                 {
-                    Vector2 velocity = Projectile.velocity * 35;
-
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
-                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Projectile.Center.X - 1 + (perturbedSpeed.X), Projectile.Center.Y - 3 + (perturbedSpeed.Y)), Color.Red, Color.Transparent, 5);
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                        Vector2 velocity = Projectile.velocity * 35;
+                        Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
+                        Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Projectile.Center.X - 1 + (perturbedSpeed.X), Projectile.Center.Y - 3 + (perturbedSpeed.Y)), Color.Red, Color.Transparent, linewidth);
+                    }
                 }
-
             }
             Main.instance.LoadProjectile(Projectile.type);
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
@@ -404,10 +403,8 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         float projshootspeed;
         float linewidth = 6;
-        int chargetime = 90;
+        int chargetime = 75;
         int movespeed = 20;
-
-        Vector2 charger; //for attack 5 predictive dash
 
         public override void AI()
         {
@@ -568,7 +565,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Projectile.extraUpdates = 1;
 
             Projectile.timeLeft = 450;
-            DrawOffsetX = -2;
+            DrawOffsetX = 0;
             //DrawOriginOffsetY = -2;
         }
         public override bool? CanDamage()
@@ -596,7 +593,6 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void AI()
         {
             Projectile.ai[1]++;
-
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f + MathHelper.ToRadians(180);
 
             if (Projectile.timeLeft > 360)// appear for 1.5 seconds without moving
@@ -610,10 +606,8 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             if (Projectile.timeLeft >= 180 && Projectile.timeLeft <= 360) //home in for 2 seconds, then move straight for 3
             {
-
                 speed = 15f;
                 inertia = 90;
-
                 //Player target = Main.player;
                 Vector2 idlePosition = Main.LocalPlayer.Center;
                 Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
@@ -628,6 +622,12 @@ namespace StormDiversMod.NPCs.NPCProjs
                     }
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
                 }
+            }
+            if (Projectile.timeLeft <= 360) //dust effect after moving
+            {
+                var dust = Dust.NewDustDirect(new Vector2(Projectile.Center.X - 10, Projectile.Center.Y - 10), 20, 20, 115, -Projectile.velocity.X, -Projectile.velocity.Y, 50);
+                dust.noGravity = true;
+                dust.scale = 0.9f;
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -782,7 +782,7 @@ namespace StormDiversMod.NPCs.NPCProjs
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (linewidth > 0.1f)
+            if (linewidth > 0.1f && Projectile.ai[0] == 0)
             {
                 if (Main.netMode == NetmodeID.SinglePlayer)
                 {
@@ -871,15 +871,15 @@ namespace StormDiversMod.NPCs.NPCProjs
 
         public override void AI()
         {
-            if (Main.getGoodWorld && Main.masterMode)
+            if (Main.getGoodWorld && Main.masterMode) //add 90 to dash time
             {
-                dashtime = 0; // 90 total = 900 > 450 frames (7.5 seconds)
-                dashlimit = 10;
+                dashtime = 10; // 90 total = 900 > 450 frames (7.5 seconds)
+                dashlimit = 9;
             }
             else if (Main.masterMode)
             {
-                dashtime = 10; //100 total = 900 > 450 frames (7.5 seconds)
-                dashlimit = 9;
+                dashtime = 15; //106 total = 848 > 419.99 frames (7 seconds)
+                dashlimit = 8;
             }
             else if (Main.expertMode && !Main.masterMode)
             {
@@ -902,7 +902,7 @@ namespace StormDiversMod.NPCs.NPCProjs
 
             if (Vector2.Distance(player.Center, Projectile.Center) > 150) //predictive dash if player is far away
             {
-                predictivedash = Vector2.Normalize(new Vector2(player.Center.X + (player.velocity.X * 12), player.Center.Y + (player.velocity.Y * 12)) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 4f;
+                predictivedash = Vector2.Normalize(new Vector2(player.Center.X + (player.velocity.X * 10), player.Center.Y + (player.velocity.Y * 10)) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 4f;
 
                 //dust effect for debugging
                 //var dust2 = Dust.NewDustDirect(new Vector2(player.Center.X + (player.velocity.X * 10), player.Center.Y + (player.velocity.Y * 10)), 0, 0, 115);
@@ -1014,13 +1014,13 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             if (Main.netMode != NetmodeID.Server)
             {
-                if (linewidth > 0.1f)
+                /*if (linewidth > 0.1f)
                 {
                     Vector2 velocity = Projectile.velocity * 35;
 
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(0);
                     Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Projectile.Center.X - 1 + (perturbedSpeed.X), Projectile.Center.Y - 3 + (perturbedSpeed.Y)), Color.Red, Color.Transparent, 5);
-                }
+                }*/
             }
 
             Main.instance.LoadProjectile(Projectile.type);

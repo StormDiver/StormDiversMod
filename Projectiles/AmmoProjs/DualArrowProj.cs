@@ -16,7 +16,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Dual Arrow");
-           
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
         }
 
         public override void SetDefaults()
@@ -80,27 +80,16 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
-            
         }
-
-       
-
         public override void OnKill(int timeLeft)
         {
-
-
-
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int i = 0; i < 10; i++)
-            {
-
-                 
+            {        
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 129);
                 dust2.noGravity = true;
             }
         }
-       
     }
-   
 }

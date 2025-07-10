@@ -237,7 +237,6 @@ namespace StormDiversMod.Projectiles
             var player = Main.player[Projectile.owner];
            
         }
-        float rotationspeed;
         public override void AI()
         {
             var player = Main.player[Projectile.owner];

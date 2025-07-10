@@ -21,7 +21,6 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("Spiky Bomb");
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 9;
@@ -40,7 +39,6 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = -7;
             DrawOriginOffsetY = -7;
             //Projectile.ContinuouslyUpdateDamage = true;
-
         }
         bool stick; //wheter bomb has hit a tile
         bool boomed; //when it is exploding
