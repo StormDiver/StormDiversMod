@@ -18,19 +18,18 @@ namespace StormDiversMod.NPCs.NPCProjs
             //DisplayName.SetDefault("Fallen Warrior Sword");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 18;
             Projectile.height = 18;
             Projectile.friendly = false;
             Projectile.penetrate = 2;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 240;
             Projectile.aiStyle = 0;
             Projectile.tileCollide = false;
             Projectile.hostile = true;
+            //Projectile.light = 0.4f;
         }
 
         public override void AI()
@@ -40,9 +39,10 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 57);
+                    var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 228);
                     dust2.noGravity = true;
                     dust2.velocity *= 3;
+                    //dust2.noLight = true;
                 }
             }
 
@@ -51,10 +51,11 @@ namespace StormDiversMod.NPCs.NPCProjs
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = Projectile.position;
-            dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.height, Projectile.width, 57, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+            dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.height, Projectile.width, 228, 0f, 0f, 0, default, 1f)];
             dust.noGravity = true;
+            //dust.noLight = true;
 
-            if (Projectile.ai[0] <= 100 && Projectile.ai[0] >= 20)
+            if (Projectile.ai[0] <= 100 && Projectile.ai[0] >= 40)
             {
                 Projectile.velocity.X *= 1.04f;
                 Projectile.velocity.Y *= 1.04f;

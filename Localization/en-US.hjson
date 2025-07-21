@@ -3997,6 +3997,7 @@ Mods: {
 			SnowmanBomb.DisplayName: Snowman Bomber
 			ThePainBoss.DisplayName: Ultimate Pain
 			HellSkull.DisplayName: Hell Skull
+			Dasher.DisplayName: Dasher
 		}
 
 		Projectiles: {
@@ -4011,7 +4012,7 @@ Mods: {
 			GraniteMiniBossProj.DisplayName: Granite Bolt
 			HellMiniBossProj1.DisplayName: HellSoul Bolt
 			HellMiniBossProj2.DisplayName: HellSoul Giant Flame
-			HellSoulEnemyProj.DisplayName: Red Soul
+			HellSoulEnemyProj.DisplayName: Red Skull Soul
 			IceCoreProj.DisplayName: Frost Spike
 			MeteorDropperProj.DisplayName: Meteor Fragment
 			MoonDerpBoltProj.DisplayName: Moonling Bolt
@@ -4391,7 +4392,8 @@ Mods: {
 			ExplosionSporeProj.DisplayName: Explosion Spore
 			MossStingerProj.DisplayName: Moss Stinger
 			GalaticBatAura.DisplayName: Galatic Bat Aura
-			GalaticBatAuraLarge.DisplayName: Galatic Bat Aura Large
+			GalaticBatAuraLarge.DisplayName: Galatic Bat Aura
+			GemAmmoBulletProj.DisplayName: Gem Bullet
 		}
 
 		Tiles: {

@@ -262,7 +262,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                 Projectile.velocity.Y *= 0.7f;
             }
             if (Projectile.ai[1] == 60)
-                Projectile.velocity.Y = 8;
+                Projectile.velocity.Y = 7.5f;
             if (Projectile.ai[1] >= 60) //make telegraph line thinner
                 linewidth -= 0.3f;
 

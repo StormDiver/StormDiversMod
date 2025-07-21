@@ -15,9 +15,7 @@ namespace StormDiversMod.Items.Tools
 			//DisplayName.SetDefault("Gladiator's Pickaxe"); 
 			//Tooltip.SetDefault("Can mine Meteorite");
             Item.ResearchUnlockCount = 1;
-
         }
-
         public override void SetDefaults() 
 		{
 			Item.damage = 8;
@@ -42,7 +40,7 @@ namespace StormDiversMod.Items.Tools
         {
             if (Main.rand.Next(4) == 0)
             {
-                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 57, 0f, 0f, 100, default, 1f);
+                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 228, 0f, 0f, 100, default, 1f);
                 Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
@@ -55,9 +53,7 @@ namespace StormDiversMod.Items.Tools
             .AddIngredient(ModContent.ItemType<Items.Materials.RedSilk>(), 1)
             .AddTile(TileID.Anvils)
             .Register();
-
         }
-    
     }
     public class GladiatorAxe : ModItem
     {
@@ -93,7 +89,7 @@ namespace StormDiversMod.Items.Tools
         {
             if (Main.rand.Next(4) == 0)
             {
-                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 57, 0f, 0f, 100, default, 1f);
+                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 228, 0f, 0f, 100, default, 1f);
                 Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
@@ -143,7 +139,7 @@ namespace StormDiversMod.Items.Tools
         {
             if (Main.rand.Next(4) < 2)
             {
-                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 57, 0f, 0f, 100, default, 1f);
+                int dustIndex = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 228, 0f, 0f, 100, default, 1f);
                 Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }

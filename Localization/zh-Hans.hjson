@@ -3975,6 +3975,7 @@ Mods: {
 			SnowmanBomb.DisplayName: 雪人爆破手
 			// ThePainBoss.DisplayName: Ultimate Pain
 			// HellSkull.DisplayName: Hell Skull
+			// Dasher.DisplayName: Dasher
 		}
 
 		Projectiles: {
@@ -4369,7 +4370,8 @@ Mods: {
 			// ExplosionSporeProj.DisplayName: Explosion Spore
 			// MossStingerProj.DisplayName: Moss Stinger
 			// GalaticBatAura.DisplayName: Galatic Bat Aura
-			// GalaticBatAuraLarge.DisplayName: Galatic Bat Aura Large
+			// GalaticBatAuraLarge.DisplayName: Galatic Bat Aura
+			// GemAmmoBulletProj.DisplayName: Gem Bullet
 		}
 
 		Tiles: {

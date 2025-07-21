@@ -1412,7 +1412,7 @@ namespace StormDiversMod.NPCs.Boss
                         //For the radius
                         double deg = Main.rand.Next(0, 360); //The degrees
                         double rad = deg * (Math.PI / 180); //Convert degrees to radians
-                        double dist = Main.rand.Next(550, 600); //Distance away from the player
+                        double dist = Main.rand.Next(600, 600); //Distance away from the player
 
                         NPC.ai[1] = (int)(Math.Cos(rad) * dist);
                         NPC.ai[2] = (int)(Math.Sin(rad) * dist);
@@ -1454,8 +1454,8 @@ namespace StormDiversMod.NPCs.Boss
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
                                 Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(NPC.Center.X, NPC.Center.Y)) * projvelocity * 0.85f;
-                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(23));
-                                int choice = Main.rand.Next(3);
+                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(20));
+                                int choice = Main.rand.Next(4);
                                 if (choice == 0)
                                 Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X + 54, NPC.Center.Y + 4), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.TheUltimateBossProj>(), projdamage, 1, Main.myPlayer, 0, 0);
                                 else if (choice == 1)

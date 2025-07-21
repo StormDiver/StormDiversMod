@@ -44,7 +44,6 @@ namespace StormDiversMod.NPCs
             NPC.knockBackResist = 0.6f;
             NPC.value = Item.buyPrice(0, 0, 50, 0);
             NPC.rarity = 2;
-
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<Banners.GladiatorMiniBossBannerItem>();
 
@@ -93,11 +92,11 @@ namespace StormDiversMod.NPCs
 
         public override void AI()
         {
-            shoottime++;
             if (!Main.dedServ)
             {
-                Lighting.AddLight(NPC.Center, Color.WhiteSmoke.ToVector3() * 0.3f * Main.essScale);
+                Lighting.AddLight(NPC.Center, Color.White.ToVector3() * 0.4f * Main.essScale);
             }
+            shoottime++;
             Player player = Main.player[NPC.target];
             NPC.spriteDirection = NPC.direction;
             NPC.rotation = NPC.velocity.X / 10;
@@ -121,24 +120,18 @@ namespace StormDiversMod.NPCs
                         float posY = NPC.position.Y + Main.rand.NextFloat(60f, -60f);
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-
                             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(posX, posY), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockBack);
-
                         }
                     }
                     for (int i = 0; i < 20; i++)
                     {
-
-                        var dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 57);
+                        var dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 228);
                         dust.noGravity = true;
                         dust.velocity *= 3;
                         dust.scale = 2;
-
                     }
                     casting = true;
-
                     shoottime = 0;
                 }
             }
@@ -152,14 +145,14 @@ namespace StormDiversMod.NPCs
 
             if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
-                var dust2 = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 57);
+                var dust2 = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 228);
                 //int dust2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 72, projectile.velocity.X, projectile.velocity.Y, 130, default, 1.5f);
                 dust2.noGravity = true;
                 dust2.scale = 1f;
+                //dust2.noLight = true;
             }
             if (Main.rand.Next(2) == 0)
             {
-
                 int dust2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y + NPC.height / 2), NPC.width, NPC.height / 2, 5, 0, 2, 150, default, 1f);
             }
 
@@ -243,14 +236,11 @@ namespace StormDiversMod.NPCs
                 }
                 for (int i = 0; i < 10; i++)
                 {
-                    
-
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 5);
                     dust.alpha = 150;
                 }
                 for (int i = 0; i < 30; i++)
                 {
-
                     int dustIndex = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 31, 0f, 0f, 100, default, 1f);
                     Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;

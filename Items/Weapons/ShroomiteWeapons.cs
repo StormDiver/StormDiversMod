@@ -79,7 +79,7 @@ namespace StormDiversMod.Items.Weapons
             if (chargetime > 0)//Increases charge every shot
                 chargetime -= 1;
             //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(accuracy));
-            if (chargetime <= 0)//When at full accuracy damage and knockback of the projectile is increased by 10%
+            if (chargetime <= 0)//When fully charged damage and knockback of the projectile is increased by 15%
             {
                 if (type == ProjectileID.Bullet)
                 {

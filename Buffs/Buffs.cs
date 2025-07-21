@@ -321,6 +321,7 @@ namespace StormDiversMod.Buffs
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1f;
                     Main.dust[dust].velocity.Y = 1f;
+                    Main.dust[dust].noLight = true;
                 }
             }
         }
@@ -360,10 +361,11 @@ namespace StormDiversMod.Buffs
             {
                 if (Main.rand.Next(5) == 0)
                 {
-                    int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 57, player.velocity.X, player.velocity.Y, 100, default, 1f);
+                    int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 228, player.velocity.X, player.velocity.Y, 100, default, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1f;
                     Main.dust[dust].velocity.Y -= 0.5f;
+                    Main.dust[dust].noLight = true;
                 }
             }
         }

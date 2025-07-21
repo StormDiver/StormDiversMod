@@ -61,15 +61,13 @@ namespace StormDiversMod.Items.Weapons
             return new Vector2(-5, 0);
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-           
+        {  
                 SoundEngine.PlaySound(SoundID.Item8, player.Center);
 
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(20));
                     float scale = 1f - (Main.rand.NextFloat() * .5f);
                     perturbedSpeed = perturbedSpeed * scale;
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.HellSoulBowProj>(), damage, knockback, player.whoAmI);
-             
             
             return true;
         }
@@ -178,7 +176,6 @@ namespace StormDiversMod.Items.Weapons
        
     }
     //__________________________________________________________________________________________________________
-
     public class HellSoulSword : ModItem
     {
         public override void SetStaticDefaults()

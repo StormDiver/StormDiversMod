@@ -159,7 +159,7 @@ namespace StormDiversMod.Common
 
                 if (!npc.friendly && npc.lifeMax > 5)
                 {
-                    if (Main.rand.Next(200) == 0)
+                    if (Main.rand.Next(400) == 0)
                     {
                         int dropchoice = Main.rand.Next(5);
 

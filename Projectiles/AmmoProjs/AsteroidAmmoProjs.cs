@@ -177,13 +177,10 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         {
             for (int i = 0; i < 10; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f, 130, default, 1.2f);
             }
             Projectile.damage = (Projectile.damage * 9) / 10;
-
         }
-
         public override void OnKill(int timeLeft)
         {
 

@@ -1,12 +1,14 @@
-using System;
 using Microsoft.Xna.Framework;
+using rail;
+using StormDiversMod.Projectiles;
+using StormDiversMod.Projectiles.AmmoProjs;
+using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
-using System.Collections.Generic;
-using StormDiversMod.Projectiles;
-using Terraria.DataStructures;
 
 
 namespace StormDiversMod.Items.Ammo
@@ -38,6 +40,19 @@ namespace StormDiversMod.Items.Ammo
             Item.shootSpeed = 2.5f;
             Item.ammo = AmmoID.Bullet;
         }
+        //It literally just ignores this >:(
+        /*public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            int projid = Projectile.NewProjectile(source, velocity, position, ModContent.ProjectileType<GemAmmoBulletProj>(), damage, knockback, Main.myPlayer, 0, 0, 0);
+            Main.projectile[projid].ai[2] = 0;
+            return false;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            int projtype = ModContent.ProjectileType<GemAmmoBulletProj>();
+            Main.projectile[projtype].ai[2] = 0;
+            type = projtype;
+        }*/
         public override void AddRecipes()
         {
             Recipe recipe = Recipe.Create(ModContent.ItemType<GemAmethystBullet>(), 250);
@@ -73,6 +88,12 @@ namespace StormDiversMod.Items.Ammo
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.GemTopazBulletProj>();
             Item.shootSpeed = 2.5f;
             Item.ammo = AmmoID.Bullet;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            int projtype = ModContent.ProjectileType<GemAmmoBulletProj>();
+            Main.projectile[projtype].ai[2] = 1;
+            type = projtype;
         }
         public override void AddRecipes()
         {
@@ -111,6 +132,12 @@ namespace StormDiversMod.Items.Ammo
             Item.shootSpeed = 2.5f;
             Item.ammo = AmmoID.Bullet;
         }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            int projtype = ModContent.ProjectileType<GemAmmoBulletProj>();
+            Main.projectile[projtype].ai[2] = 2;
+            type = projtype;
+        }
         public override void AddRecipes()
         {
             Recipe recipe = Recipe.Create(ModContent.ItemType<GemSapphireBullet>(), 250);
@@ -146,6 +173,12 @@ namespace StormDiversMod.Items.Ammo
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.GemEmeraldBulletProj>();
             Item.shootSpeed = 2.5f;
             Item.ammo = AmmoID.Bullet;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            int projtype = ModContent.ProjectileType<GemAmmoBulletProj>();
+            Main.projectile[projtype].ai[2] = 3;
+            type = projtype;
         }
         public override void AddRecipes()
         {
@@ -183,6 +216,12 @@ namespace StormDiversMod.Items.Ammo
             Item.shootSpeed = 2.5f;
             Item.ammo = AmmoID.Bullet;
         }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            int projtype = ModContent.ProjectileType<GemAmmoBulletProj>();
+            Main.projectile[projtype].ai[2] = 4;
+            type = projtype;
+        }
         public override void AddRecipes()
         {
             Recipe recipe = Recipe.Create(ModContent.ItemType<GemRubyBullet>(), 250);
@@ -219,6 +258,12 @@ namespace StormDiversMod.Items.Ammo
             Item.shootSpeed = 2.5f;
             Item.ammo = AmmoID.Bullet;
         }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            int projtype = ModContent.ProjectileType<GemAmmoBulletProj>();
+            Main.projectile[projtype].ai[2] = 5;
+            type = projtype;
+        }
         public override void AddRecipes()
         {
             Recipe recipe = Recipe.Create(ModContent.ItemType<GemAmberBullet>(), 250);
@@ -245,7 +290,6 @@ namespace StormDiversMod.Items.Ammo
                 int pickpower = bestPickaxe.pick;
             }*/
         }
-     
         public override void SetDefaults()
         {
             Item.width = 10;
@@ -264,6 +308,12 @@ namespace StormDiversMod.Items.Ammo
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.GemDiamondBulletProj>();
             Item.shootSpeed = 2.5f;
             Item.ammo = AmmoID.Bullet;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            int projtype = ModContent.ProjectileType<GemAmmoBulletProj>();
+            Main.projectile[projtype].ai[2] = 6;
+            type = projtype;
         }
         public override void AddRecipes()
         {

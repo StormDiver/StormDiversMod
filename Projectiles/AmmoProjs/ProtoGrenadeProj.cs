@@ -70,28 +70,28 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 Projectile.width = 60;
                 Projectile.height = 60;
                 Projectile.Center = Projectile.position;
-                
+
                 Projectile.knockBack = 3f;
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
             }
             else
             {
-                
+
                 if (Main.rand.NextBool())
                 {
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1f);
                     Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
-                    
+
                     dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1f);
                     Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
-                   
+
                 }
             }
-            }
+        }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (Projectile.timeLeft > 3)

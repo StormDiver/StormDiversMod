@@ -131,6 +131,15 @@ namespace StormDiversMod.Items.Weapons
             SoundEngine.PlaySound(SoundID.Item5, position);
             int projID = Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 4), new Vector2(velocity.X, velocity.Y), type, damage, knockback, player.whoAmI);
             //Main.projectile[projID].extraUpdates += 1;
+
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 15;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+                position += muzzleOffset;
+            for (int i = 0; i < 15; i++)
+            {
+                int dust2 = Dust.NewDust(new Vector2(position.X - 4, position.Y - 2), 0, 0, 228, 0, 0, 100, default, 1.2f);
+                Main.dust[dust2].noGravity = true;
+            }
             return false;
         }
 

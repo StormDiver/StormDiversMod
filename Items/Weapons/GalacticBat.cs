@@ -224,7 +224,7 @@ namespace StormDiversMod.Items.Weapons
                 }
                 batHit = true; //only show this effect once
             }
-            if (proj.type == ModContent.ProjectileType<GalaticBatAuraLarge>() && BatCount == 10 && target.lifeMax > 5 && !target.friendly) //hittign with alt attack
+            if (proj.type == ModContent.ProjectileType<GalaticBatAuraLarge>() && BatCount == 10 && target.lifeMax > 5 && !target.friendly) //hitting with alt attack
             {
                 Player.GetModPlayer<MiscFeatures>().screenshaker = true; //very powerful >:)
 
