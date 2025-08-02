@@ -14,23 +14,17 @@ using Terraria.GameContent;
 
 namespace StormDiversMod.Projectiles
 {
-
-
     public class SeekerKnifeProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Seeker Knife");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
         }
         public override void SetDefaults()
         {
-
-
             Projectile.width = 34;
             Projectile.height = 34;
             Projectile.friendly = true;
@@ -47,13 +41,10 @@ namespace StormDiversMod.Projectiles
 
             Projectile.light = 0.5f;
         }
-
         int hometime;
         bool homed;
         public override void AI()
         {
-
-
             if (Projectile.localAI[0] == 0f)
             {
                 AdjustMagnitude(ref Projectile.velocity);
@@ -62,6 +53,9 @@ namespace StormDiversMod.Projectiles
             Vector2 move = Vector2.Zero;
             float distance = 250f;
             bool target = false;
+
+            if (Projectile.ai[2] < 5)
+                Projectile.ai[2]++;
 
             if (hometime <= 60)
             {
@@ -96,7 +90,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.aiStyle = 0;
                 Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 0.78f;
 
-               if (Main.rand.Next(5) == 0)
+                if (Main.rand.Next(5) == 0)
                 {
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 294);
                     dust.noGravity = true;
@@ -110,23 +104,19 @@ namespace StormDiversMod.Projectiles
             else
             {
                 Projectile.aiStyle = 14;
-
             }
         }
-
         private void AdjustMagnitude(ref Vector2 vector)
         {
-
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
             if (magnitude > 9f)
             {
                 vector *= 9f / magnitude;
             }
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (hometime > 5)
+            if (Projectile.ai[2] >= 5)
             {
                 Projectile.Kill();
             }
@@ -147,9 +137,7 @@ namespace StormDiversMod.Projectiles
                     dust2.noGravity = true;
                     dust2.scale = 1.5f;
                 }
-
             }
-
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -163,11 +151,7 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
-    
     }
-    
 }

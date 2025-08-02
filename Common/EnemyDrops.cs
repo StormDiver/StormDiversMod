@@ -349,7 +349,7 @@ namespace StormDiversMod.Common
             }
             if (npc.netID == NPCID.GreenSlime)
             {
-                npcLoot.Add(ItemDropRule.OneFromOptions(40, ModContent.ItemType<WoodPointyStick>(), ModContent.ItemType<WoodCrossbow>(), ModContent.ItemType<WoodNecklace>()));
+                npcLoot.Add(ItemDropRule.OneFromOptions(50, ModContent.ItemType<WoodPointyStick>(), ModContent.ItemType<WoodCrossbow>(), ModContent.ItemType<WoodNecklace>()));
             }
             
             if (npc.type == NPCID.WyvernHead)

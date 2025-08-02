@@ -113,7 +113,7 @@ namespace StormDiversMod.Projectiles
                         player.velocity.X = -launchvelocity.X * 2.5f;
                         player.velocity.Y = -launchvelocity.Y * 2.5f;
                     }
-                    SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, player.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion with {MaxInstances = 2, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
 
                 }
                 for (int i = 0; i < 200; i++)//for town npcs
@@ -133,14 +133,12 @@ namespace StormDiversMod.Projectiles
                             target.velocity.X = -npclaunchvelocity.X * 1.5f;
                             target.velocity.Y = -npclaunchvelocity.Y * 2f;
                         }
-                        SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, target.Center);
+                        SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion with {MaxInstances = 2, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew}, target.Center);
                     }
-
                 }
             }
             else
             {
-
                 if (!stick)
                 {
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1f);
@@ -173,7 +171,7 @@ namespace StormDiversMod.Projectiles
                 {
                     Projectile.timeLeft = 3;
                 }
-                SoundEngine.PlaySound(SoundID.Item149 with { Volume = 1.5f, Pitch = 0.75f }, player.Center);
+                SoundEngine.PlaySound(SoundID.Item149 with { Volume = 1.5f, Pitch = 0.75f, MaxInstances = 3, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew}, player.Center);
 
                 //if (!GetInstance<ConfigurationsIndividual>().NoShake)
                 {

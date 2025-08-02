@@ -17,7 +17,6 @@ namespace StormDiversMod.NPCs.NPCProjs
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Mini Snowflake");
-
         }
         public override void SetDefaults()
         {
@@ -48,7 +47,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             {
                 for (int i = 0; i < 15; i++)
                 {
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 135);
                     dust.velocity *= 2;
                 }
@@ -58,32 +56,25 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             target.AddBuff(BuffID.Frostburn, 180);
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
             Projectile.Kill();
             return true;
         }
         public override void OnKill(int timeLeft)
         {
-           
-                SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 
-                for (int i = 0; i < 10; i++)
-                {
-
-                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 135);
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 135);
                 dust.velocity *= 2;
-                }
-
-            
+            }
         }
     }
     //___________________________________________________________________________________________________________________________________
     public class FrozenSoulProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Giant Snowflake");
@@ -105,8 +96,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             //drawOffsetX = -2;
             //drawOriginOffsetY = -2;
         }
-
-
         public override void AI()
         {
             int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0f, 0f, 100, default, 0.7f);
@@ -114,7 +103,7 @@ namespace StormDiversMod.NPCs.NPCProjs
             Main.dust[dustIndex].noGravity = true;
 
             Projectile.ai[0]++;
-            Projectile.rotation = Projectile.ai[0] / 10;
+            Projectile.rotation = Projectile.ai[0] / 3 * Projectile.direction;
 
             if (Projectile.ai[0] == 1)
             {
@@ -141,12 +130,9 @@ namespace StormDiversMod.NPCs.NPCProjs
                     float rotation = MathHelper.ToRadians(180);
                     for (int j = 0; j < numberProjectiles; j++)
                     {
-
                         Vector2 perturbedSpeed = new Vector2(0, 2.5f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
                         int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<FrozenEyeProj>(), Projectile.damage, Projectile.knockBack);
                         Main.projectile[projID].timeLeft = 30;
-
-
                     }
                 }
                 SoundEngine.PlaySound(SoundID.Item28 with{Volume = 1f, Pitch = 0.5f}, Projectile.Center);
@@ -158,7 +144,6 @@ namespace StormDiversMod.NPCs.NPCProjs
         {
             target.AddBuff(ModContent.BuffType<Buffs.SuperFrostBurn>(), 180);
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             return true;
@@ -170,8 +155,6 @@ namespace StormDiversMod.NPCs.NPCProjs
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 //SoundEngine.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 56, 0.5f);
-
-
                 float numberProjectiles = 8;
                 float rotation = MathHelper.ToRadians(180);
                 for (int j = 0; j < numberProjectiles; j++)
@@ -187,11 +170,6 @@ namespace StormDiversMod.NPCs.NPCProjs
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 135);
                 dust.velocity *= 2;
             }
-
-
         }
     }
-    //___________________________________________________________________________________________________________________________________
-    //___________________________________________________________________________________________________________________________________
-
 }

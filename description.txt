@@ -12,6 +12,7 @@ This mod includes:
 -The Cultist drops his treasure bag with some new items
 -2 new members for the Frost Legion
 -Full Wikithis support
+-Extra generated Granite, Marble, and Mushroom chests in their respective biomes
 -27 new Achievements available via the Achievement Mod
 
 Quality of Life features:
@@ -19,7 +20,7 @@ Quality of Life features:
  -Most NPCs sell their dropped weapon
  -A special Post Moon Lord miniboss that drops Lunar fragments and Luminite
  -An item that can remove the shields from the pillars
- -Generates additional Granite, Marble, and Mushroom chests in their respective biomes
+
  -A Super Pain Dummy with multiple variants - [c/AF1160:This is now available as its own mod]
 
 Make sure to check the Steam page for the changelog, and the leave any comments you have about the mod

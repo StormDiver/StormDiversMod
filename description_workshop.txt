@@ -13,6 +13,7 @@
 [*]New Ammo, tools, potions, vanity items, and pets
 [*]The Cultist drops his treasure bag with some new items
 [*]2 new members for the Frost Legion
+[*]Extra generated Granite, Marble, and Mushroom chests in their respective biomes
 [*]Full Wikithis support
 [*][b]27 new Achievements available via the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2927542027]Achievement Mod[/url][/b]
 [/list]
@@ -23,7 +24,6 @@
 [*] Most NPCs sell their dropped weapon
 [*] A special Post Moon Lord miniboss that drops Lunar fragments and Luminite
 [*] An item that can remove the shields from the pillars
-[*] Generates additional Granite, Marble, and Mushroom chests in their respective biomes
 [*] A Super Pain Dummy with multiple variants - [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3299885526][b]this is now available as its own mod[/b][/url]
 [/list]
 
