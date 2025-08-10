@@ -89,9 +89,16 @@ namespace StormDiversMod.Common
 
         //[Label("Prevent the Temple Curse for occuring")]
         //[Tooltip("This will prevent the Temple curse from activating if a Temple weapon is in your inventory, but doesn't prevent the damage when trying to use them")]
-        [ReloadRequired] //No reload required 
+        [ReloadRequired] 
         [DefaultValue(false)]
         [BackgroundColor(27, 130, 114)]
         public bool NoScaryCurse { get; set; }
+
+        //[Label("Glass Weapons and Tools break in one hit")]
+        //[Tooltip("This will make the Glass Weapons and Tools in this mod break in one single hit for comedic effect")]
+        //[ReloadRequired] //No reload required 
+        [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
+        public bool GlassSoWeak { get; set; }
     }
 }

@@ -1,44 +1,45 @@
+using ExampleMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using rail;
 using ReLogic.Graphics;
+using ReLogic.Peripherals.RGB;
+using StormDiversMod.Buffs;
+using StormDiversMod.Items.Accessory;
+using StormDiversMod.Items.Armour;
+using StormDiversMod.Items.Furniture;
+using StormDiversMod.Items.Tools;
+using StormDiversMod.Items.Vanitysets;
+using StormDiversMod.Items.Weapons;
+using StormDiversMod.NPCs;
+using StormDiversMod.NPCs.Boss;
+using StormDiversMod.Projectiles;
+using StormDiversMod.Projectiles.Minions;
+using StormDiversMod.Projectiles.Petprojs;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Drawing.Drawing2D;
 using System.IO;
-
+using System.Security.Policy;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
+using Terraria.GameContent.Drawing;
 using Terraria.GameContent.Dyes;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.UI;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Buffs;
-using StormDiversMod.NPCs;
-using StormDiversMod.Projectiles;
-
-using Terraria.DataStructures;
-using Terraria.Audio;
-using System.Configuration;
-using Terraria.GameContent.Drawing;
-using StormDiversMod.Items.Vanitysets;
-using Terraria.GameContent.ItemDropRules;
-using rail;
-using Terraria.WorldBuilding;
-using ReLogic.Peripherals.RGB;
-using StormDiversMod.Items.Furniture;
-using StormDiversMod.Items.Weapons;
-using StormDiversMod.Projectiles.Minions;
-using StormDiversMod.Items.Armour;
-using StormDiversMod.Projectiles.Petprojs;
-using StormDiversMod.NPCs.Boss;
-using Terraria.GameContent.Creative;
 using Terraria.ModLoader.Config;
-using System.Drawing.Drawing2D;
-using StormDiversMod.Items.Accessory;
-using ExampleMod.Common.Players;
+using Terraria.UI;
+using Terraria.WorldBuilding;
+using static System.Net.WebRequestMethods;
+using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.Common
 {
@@ -105,6 +106,7 @@ namespace StormDiversMod.Common
 
         }
         //int bufftimer;
+        
         public override void PostUpdateEquips() //Updates every frame
         {
             if (Player.HasBuff(BuffID.PotionSickness))
@@ -204,7 +206,7 @@ namespace StormDiversMod.Common
                 templeWarning = 0;
             }
 
-
+            
             /*if (Player.ZoneJungle && !NPC.downedPlantBoss) //This code is only active when certain criteia is met, sadly the zonelizardtemple doesn't work
             {
                 int xtilepos = (int)(Player.position.X + (float)(Player.width / 2)) / 16;
@@ -612,6 +614,10 @@ namespace StormDiversMod.Common
                 }
             }
         }
+        public override void PostHurt(Player.HurtInfo info)
+        {
+           
+        }
         String Suffertext;
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource) //revived with Ultimate pain
         {
@@ -687,7 +693,59 @@ namespace StormDiversMod.Common
         }
         public override void OnHurt(Player.HurtInfo info)
         {
-            base.OnHurt(info);
+            //glass armour breaking
+            if (Player.armor[0].type == ModContent.ItemType<GlassBHelmet>()) //first helmet
+            {
+                //remove armour and armour sprite
+                Player.armor[0].TurnToAir();
+                Player.armor[0].UpdateItem(0);
+                Player.armor[0].headSlot = 0;
+                Player.QuickSpawnItem(null, ItemType<Items.Materials.GlassArmourShard>(), 1); //add armour shard to inventory
+                SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0f }, Player.Center); //sound
+                int shardcount = Main.rand.Next(7, 9); //7-8 shards
+                for (int i = 0; i < shardcount; i++) //summon dust and projectile
+                {
+                    var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.position.Y), Player.width, 15, 149, 0, 0);
+                    Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(150));
+                    float scale = 1f - (Main.rand.NextFloat() * .5f);
+                    perturbedSpeed = perturbedSpeed * scale;
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y-15), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
+                }
+            }
+            else if (Player.armor[2].type == ModContent.ItemType<GlassGreaves>() && Player.armor[0].type != ModContent.ItemType<GlassBHelmet>()) //second leggings
+            {
+                Player.armor[2].TurnToAir();
+                Player.armor[2].UpdateItem(0);
+                Player.armor[2].legSlot = 0;
+                Player.QuickSpawnItem(null, ItemType<Items.Materials.GlassArmourShard>(), 1);
+                SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0f }, Player.Center);
+                int shardcount = Main.rand.Next(10, 12); //10-11 shards
+                for (int i = 0; i < shardcount; i++) //summon dust and projectile
+                {
+                    var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.Center.Y + 20), Player.width, 15, 149, 0, 0);
+                    Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(150));
+                    float scale = 1f - (Main.rand.NextFloat() * .5f);
+                    perturbedSpeed = perturbedSpeed * scale;
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y+15), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
+                }
+            }
+            else if (Player.armor[1].type == ModContent.ItemType<GlassChestplate>() && Player.armor[1].type != ModContent.ItemType<GlassGreaves>() && Player.armor[0].type != ModContent.ItemType<GlassBHelmet>()) //finally chesplate
+            {
+                Player.armor[1].TurnToAir();
+                Player.armor[1].UpdateItem(0);
+                Player.armor[1].bodySlot = 0;
+                Player.QuickSpawnItem(null, ItemType<Items.Materials.GlassArmourShard>(), 1);
+                SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0f }, Player.Center);
+                int shardcount = Main.rand.Next(13, 15); //13-14 shards
+                for (int i = 0; i < shardcount; i++) //summon dust and projectile
+                {
+                    var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.Center.Y + 10), Player.width, 15, 149, 0, 0);
+                    Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(150));
+                    float scale = 1f - (Main.rand.NextFloat() * .5f);
+                    perturbedSpeed = perturbedSpeed * scale;
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
+                }
+            }
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
@@ -800,9 +858,10 @@ namespace StormDiversMod.Common
             }
         }
     }
-
-    public class Seeddrops : GlobalTile
+    public class Tiles : GlobalTile
     {
+        //Vector2 tilepos;
+        int breakchance;
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             //seed drops for flaming seed launcher
@@ -811,6 +870,76 @@ namespace StormDiversMod.Common
             {
                 if (player.HasItem(ModContent.ItemType<MoltenSeedLauncher>()))
                     Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ItemID.Seed, Main.rand.Next(2, 5));
+            }
+
+            /*if (!Main.SmartCursorIsUsed)
+                tilepos = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y);
+            else
+                tilepos = new Vector2(Main.SmartCursorX / 16, Main.SmartCursorY / 16);*/
+
+            //break glass tools
+
+            if (!GetInstance<ConfigurationsGlobal>().GlassSoWeak)
+                breakchance = 64;
+            else
+                breakchance = 1;
+
+            if ((player.HeldItem.type == ModContent.ItemType<GlassPick>() && Main.tileSolid[type]) || //only break on solid tiles
+                (player.HeldItem.type == ModContent.ItemType<GlassHammer>() && Main.tileSolid[type]) || //only break on sloped blocks
+                (player.HeldItem.type == ModContent.ItemType<GlassAxe>() && Main.tileAxe[type])) //only break on trees
+            {
+                if (Main.rand.Next(breakchance) == 0)//1 in 64 for each hit
+                {
+                    SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0f }, player.Center);
+
+                    player.HeldItem.TurnToAir(); //remove item
+                    player.QuickSpawnItem(null, ItemType<Items.Tools.GlassHandle>(), 1); //spawn broken handle
+                    int shardcount = Main.rand.Next(5, 7); //5-6 shards
+                    for (int k = 0; k < shardcount; k++) //summon dust and projectile
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(player.position.X, player.position.Y), player.width, player.height, 149, 0, 0);
+
+                        Vector2 perturbedSpeed = new Vector2(0, -3).RotatedByRandom(MathHelper.ToRadians(150));
+                        float scale = 1f - (Main.rand.NextFloat() * .5f);
+                        perturbedSpeed = perturbedSpeed * scale;
+                        Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), player.HeldItem.damage / 3, 0, player.whoAmI);
+                    }
+                }
+            }
+        }
+    }
+    public class Walls : GlobalWall
+    {
+        //break glass hammer on walls
+        int breakchance;
+        public override void KillWall(int i, int j, int type, ref bool fail)
+        {
+            var player = Main.LocalPlayer;
+
+            if (!GetInstance<ConfigurationsGlobal>().GlassSoWeak)
+                breakchance = 64;
+            else
+                breakchance = 1;
+
+            if (player.HeldItem.type == ModContent.ItemType<GlassHammer>())
+            {
+                if (Main.rand.Next(breakchance) == 0)
+                {
+                    SoundEngine.PlaySound(SoundID.Item107 with { Volume = 2f, Pitch = -0f }, player.Center);
+
+                    player.HeldItem.TurnToAir();
+                    player.QuickSpawnItem(null, ItemType<Items.Tools.GlassHandle>(), 1);
+                    int shardcount = Main.rand.Next(5, 7); //5-6 shards
+                    for (int k = 0; k < shardcount; k++) //summon dust and projectile
+                    {
+                        var dust = Dust.NewDustDirect(new Vector2(player.position.X, player.position.Y), player.width, player.height, 149, 0, 0);
+
+                        Vector2 perturbedSpeed = new Vector2(0, -3).RotatedByRandom(MathHelper.ToRadians(150));
+                        float scale = 1f - (Main.rand.NextFloat() * .5f);
+                        perturbedSpeed = perturbedSpeed * scale;
+                        Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), player.HeldItem.damage / 3, 0, player.whoAmI);
+                    }
+                }
             }
         }
     }

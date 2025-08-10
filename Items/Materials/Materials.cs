@@ -384,4 +384,27 @@ namespace StormDiversMod.Items.Materials
             }
         }
     }
+    //_________________________________________________________________________________________________
+    public class GlassArmourShard : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Broken Armour Shard");
+            //Tooltip.SetDefault("Well it worked until you got hit");
+            Item.ResearchUnlockCount = 1;
+            ItemID.Sets.IgnoresEncumberingStone[Item.type] = true;
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 16;
+            Item.height = 16;
+            Item.maxStack = 9999;
+            Item.value = Item.sellPrice(0, 0, 0, 0);
+            Item.rare = ItemRarityID.Gray;
+        }
+        public override void PostUpdate()
+        {
+           
+        }
+    }
 }

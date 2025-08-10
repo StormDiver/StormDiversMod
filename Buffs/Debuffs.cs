@@ -778,4 +778,23 @@ namespace StormDiversMod.Buffs
         {
         }
     }
+
+    //_____________________________________________
+    public class GlassShardDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Embedded");
+            //Description.SetDefault("Glass shards are embedded in you");
+            Main.debuff[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().glasssharddebuff = true;
+        }
+    }
 }

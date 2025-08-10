@@ -58,6 +58,8 @@ namespace StormDiversMod.Common
 
         public bool graniteSet; //Granite Armour
 
+        public bool glassSet; //Glass Armour
+
         //Ints and Bools activated from this file
 
         public int bloodtime; //Cooldown for the orbs from the Hemo Armour set bonus     
@@ -75,7 +77,7 @@ namespace StormDiversMod.Common
         public int cryosetcooldown; //Cooldown for Cryo set bonus
         public int lizardsetcooldown; //Cooldown for the lizard bombs
         public int granitesetcooldown; //cooldown for granite Set
-        public int snowfalllimit;
+        public int snowfalllimit; //Limit for how long the slow fall can befor snowfall set
         //public bool granite
 
         //items here for the stupid GetSource_Fromthis thing for projectiles
@@ -108,6 +110,7 @@ namespace StormDiversMod.Common
             snowfallSet = false;
             LizardSet = false;
             graniteSet = false;
+            glassSet = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {

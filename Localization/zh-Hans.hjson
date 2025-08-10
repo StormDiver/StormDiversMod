@@ -595,6 +595,11 @@ Mods: {
 				// DisplayName: Touch Grass!
 				// Description: This is a threat!
 			}
+
+			GlassShardDebuff: {
+				// DisplayName: Embedded
+				// Description: You are embedded with sharp glass shards
+			}
 		}
 
 		Items: {
@@ -3903,6 +3908,121 @@ Mods: {
 					Does not count as touching real grass
 					''' */
 			}
+
+			GlassSword: {
+				// DisplayName: Glass Sword
+				/* Tooltip:
+					'''
+					Has a chance to shatter into damaging shards on impact with enemies
+					Can be repaired after shattering
+					'This doesn't seem like a good idea...'
+					''' */
+			}
+
+			GlassSwordBroken: {
+				// DisplayName: Broken Glass Sword
+				// Tooltip: What did you expect from a sword made of glass?
+			}
+
+			GlassBow: {
+				// DisplayName: Glass Bow
+				/* Tooltip:
+					'''
+					Has a chance to shatter into damaging shards on use
+					Can be repaired after shattering
+					'Why would you do this?'
+					''' */
+			}
+
+			GlassBowBroken: {
+				// DisplayName: Broken Glass Bow
+				// Tooltip: What did you expect from a bow made of glass?
+			}
+
+			GlassStaff: {
+				// DisplayName: Glass Staff
+				/* Tooltip:
+					'''
+					Has a chance to shatter into damaging shards on use
+					Can be repaired after shattering
+					'What could go wrong?'
+					''' */
+			}
+
+			GlassStaffBroken: {
+				// DisplayName: Broken Glass Staff
+				// Tooltip: What did you expect from a staff made of glass?
+			}
+
+			GlassBHelmet: {
+				// DisplayName: Glass Helmet
+				/* Tooltip:
+					'''
+					6% increased damage
+					Prone to shattering into damaging shards upon receiving damage
+					Can be repaired after shattering
+					''' */
+			}
+
+			GlassChestplate: {
+				// DisplayName: Glass Chestplate
+				/* Tooltip:
+					'''
+					8% increased damage
+					Prone to shattering into damaging shards upon receiving damage
+					Can be repaired after shattering
+					''' */
+			}
+
+			GlassGreaves: {
+				// DisplayName: Glass Greaves
+				/* Tooltip:
+					'''
+					6% increased damage
+					Prone to shattering into damaging shards upon receiving damage
+					Can be repaired after shattering
+					''' */
+			}
+
+			GlassAxe: {
+				// DisplayName: Glass Axe
+				/* Tooltip:
+					'''
+					Has a chance to shatter on impact with trees
+					Immediately shatters upon hitting an enemy
+					Can be repaired after shattering
+					''' */
+			}
+
+			GlassHammer: {
+				// DisplayName: Glass Hammer
+				/* Tooltip:
+					'''
+					Has a chance to shatter on impact with walls
+					Immediately shatters upon hitting an enemy
+					Can be repaired after shattering
+					''' */
+			}
+
+			GlassPick: {
+				// DisplayName: Glass Pickaxe
+				/* Tooltip:
+					'''
+					Has a chance to shatter on impact with tiles
+					Immediately shatters upon hitting an enemy
+					Can be repaired after shattering
+					''' */
+			}
+
+			GlassHandle: {
+				// DisplayName: Broken Glass Handle
+				// Tooltip: What did you expect from a tool made of glass?
+			}
+
+			GlassArmourShard: {
+				// DisplayName: Broken Armor Shard
+				// Tooltip: What did you expect from armor made of glass?
+			}
 		}
 
 		NPCs: {
@@ -4372,6 +4492,9 @@ Mods: {
 			// GalaticBatAura.DisplayName: Galatic Bat Aura
 			// GalaticBatAuraLarge.DisplayName: Galatic Bat Aura
 			// GemAmmoBulletProj.DisplayName: Gem Bullet
+			// GlassShardProj.DisplayName: Glass Shard
+			// GlassShardFlyingProj.DisplayName: Glass Shard
+			// GlassStaffProj.DisplayName: Glass Staff Orb
 		}
 
 		Tiles: {
@@ -4485,6 +4608,11 @@ Mods: {
 				NoScaryCurse: {
 					Tooltip: 如果你的物品栏中有改动过的丛林神庙物品，这将阻止丛林神庙诅咒激活
 					Label: 禁用丛林神庙诅咒
+				}
+
+				GlassSoWeak: {
+					// Tooltip: This will make the Glass Weapons and Tools in this mod break in one single hit, for comedic effect
+					// Label: Glass Weapons and Tools break in one hit
 				}
 			}
 		}

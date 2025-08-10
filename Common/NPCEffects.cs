@@ -81,6 +81,8 @@ namespace StormDiversMod.Common
 
         public bool brokenDebuff; //for the Bat broken Debuff
 
+        public bool glasssharddebuff; //for the Embedded Debuff
+
         //All this for a speen----------------------------------------------
 
         public bool derplaunched; //If the npc has been launched by the Derpling armour
@@ -155,6 +157,7 @@ namespace StormDiversMod.Common
             sludgeVenomDebuff = false;
             stungdebuff = false;
             brokenDebuff = false;
+            glasssharddebuff = false;
             WhiptagWeb = false;
             WhiptagBlood = false;
             WhiptagForbidden = false;
@@ -524,6 +527,28 @@ namespace StormDiversMod.Common
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
+            if (glasssharddebuff)
+            {
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
+                // Count how many ExampleJavelinProjectile are attached to this npc.
+                int shardCount = 0;
+                foreach (var p in Main.ActiveProjectiles)
+                {
+                    if (p.type == ModContent.ProjectileType<GlassShardProj>() && p.ai[2] == 1f && p.ai[1] == npc.whoAmI) //ai 0 is the bool for it being stuck, ai 1 is for the target
+                    {
+                        shardCount++;
+                    }
+                }
+                npc.lifeRegen -= shardCount * 4; // 2 dps per shard, 10 max, up to 20dps
+                damage = shardCount * 2;
+                if (damage < shardCount * 2)
+                {
+                    damage = shardCount * 2;
+                }
+            }
             if (brokenDebuff)
             {
                 npc.lifeRegen -= 20;
@@ -720,7 +745,7 @@ namespace StormDiversMod.Common
                 {
                     Lighting.AddLight(npc.position, 1f, 0.5f, 0f);
                 }
-            }           
+            }    
             if (sandBurn)
             {
                 if (Main.rand.Next(4) < 3)
@@ -924,6 +949,15 @@ namespace StormDiversMod.Common
                 }
                 drawColor = Color.SkyBlue;
 
+            }
+            if (glasssharddebuff)
+            {
+                if (Main.rand.Next(4) < 1)
+                {
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 5, 0, 1, 100, default, 1f);
+                    Main.dust[dust].velocity *= 1f;
+                    Main.dust[dust].velocity.Y -= 0.5f;
+                }
             }
             if (WhiptagWeb)
             {
