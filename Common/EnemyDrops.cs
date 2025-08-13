@@ -271,14 +271,11 @@ namespace StormDiversMod.Common
             }
             if (npc.type == NPCID.UndeadMiner)
             {
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Tools.FastDrill>(), 20, 16));
-
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Tools.FastDrill>(), 50, 33));
             }
             if (npc.type == NPCID.SolarSolenian)
             {
-
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LunarSelenianBlade>(), 50));
-
             }
             if (npc.type == NPCID.VortexRifleman)
             {
@@ -585,7 +582,6 @@ namespace StormDiversMod.Common
             npcLoot.Add(PostSkeletronDrop);
             npcLoot.Add(PostEvilDrop);
             npcLoot.Add(PostMechDrop);
-
         }
     }
 }

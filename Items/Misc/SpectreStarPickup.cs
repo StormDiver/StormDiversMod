@@ -35,21 +35,25 @@ namespace StormDiversMod.Items.Misc
             Item.ResearchUnlockCount = 0;
         }
         public override bool GrabStyle(Player player)
-        {        
-
-            return false;
+        {
+            if (player.manaMagnet)
+            {
+                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 15;
+                Item.velocity = velocity;
+            }
+            else
+            {
+                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 8;
+                Item.velocity = velocity;
+            }
+            return true;
         }
         public override void GrabRange(Player player, ref int grabRange)
         {
             if (player.manaMagnet)
-            {
-                grabRange = 300;
-            }
+                grabRange = 342;
             else
-            {
-                grabRange = 150;
-
-            }
+                grabRange = 100;
         }
         int timeleft;
         public override void Update(ref float gravity, ref float maxFallSpeed)

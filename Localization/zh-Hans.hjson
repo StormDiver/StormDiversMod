@@ -333,8 +333,8 @@ Mods: {
 			}
 
 			SludgedVenomDebuff: {
-				// DisplayName: Acid Venom Sludged
-				// Description: The Acidic Venomous sludge slows you down and damages you
+				// DisplayName: Acidic Sludged
+				// Description: The Acidic sludge slows you down and damages you
 			}
 
 			StungDebuff: {
@@ -3306,12 +3306,12 @@ Mods: {
 			}
 
 			SludgeVenomLauncher: {
-				// DisplayName: Acid Venom Sludge Cannon
+				// DisplayName: Acidic Sludge Cannon
 				/* Tooltip:
 					'''
-					Fires out a projectile of Acid Venom Sludge that explodes into smaller sludge blobs on tile or enemy impact
+					Fires out a projectile of Acidic Sludge that explodes into smaller sludge blobs on tile or enemy impact
 					The Smaller sludge blobs stick to tiles and hit multiple times after doing so
-					All sludge projectiles inflict the Acid Venom Sludged Debuff, causing damage over time and slowing down enemies
+					All sludge projectiles inflict the Acidic Sludged Debuff, causing damage over time and slowing down enemies
 					Uses gel for ammo
 					''' */
 			}
@@ -4095,7 +4095,6 @@ Mods: {
 			SnowmanBomb.DisplayName: 雪人爆破手
 			// ThePainBoss.DisplayName: Ultimate Pain
 			// HellSkull.DisplayName: Hell Skull
-			// Dasher.DisplayName: Dasher
 		}
 
 		Projectiles: {
@@ -4485,8 +4484,8 @@ Mods: {
 			// ShockBandProj.DisplayName: Storm Charm Lightning
 			// SludgeOrbProj.DisplayName: Toxic Sludge Projectile
 			// SludgeOrbProj2.DisplayName: Toxic Sludge Blob
-			// SludgeVenomProj.DisplayName: Acid Venom Sludge Projectile
-			// SludgeVenomProj2.DisplayName: Acid Venom Sludge Blob
+			// SludgeVenomProj.DisplayName: Acidic Sludge Projectile
+			// SludgeVenomProj2.DisplayName: Acidic Sludge Blob
 			// ExplosionSporeProj.DisplayName: Explosion Spore
 			// MossStingerProj.DisplayName: Moss Stinger
 			// GalaticBatAura.DisplayName: Galatic Bat Aura

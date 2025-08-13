@@ -87,7 +87,7 @@ namespace StormDiversMod.Items.Tools
             }
             //Main.NewText("pls: " + dummytype, 175, 17, 96);
         }
-        public override void UpdateInventory(Player player) //cycle damage types
+        public override void UpdateInventory(Player player) //Extra attributes
         {
             switch (dummyextra)
             {
@@ -237,7 +237,6 @@ namespace StormDiversMod.Items.Tools
         {
             CreateRecipe()
              .AddIngredient(ItemID.TargetDummy, 1)
-
             .AddIngredient(ItemID.PinkGel, 15)
             .AddTile(TileID.Sawmill)
             .Register();

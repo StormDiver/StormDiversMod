@@ -15,7 +15,6 @@ using Terraria.ModLoader;
 using static System.Net.Mime.MediaTypeNames;
 using static Terraria.ModLoader.ModContent;
 
-
 namespace StormDiversMod.Items.Weapons
 {
 	public class GlassSword : ModItem
@@ -61,9 +60,10 @@ namespace StormDiversMod.Items.Weapons
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!GetInstance<ConfigurationsGlobal>().GlassSoWeak)
-                breakchance = 32;
+                breakchance = (int)(32 * (1 + player.luck));
             else
                 breakchance = 1;
+            //Main.NewText("Test " + breakchance, Color.Orange);
             if (Main.rand.Next(breakchance) == 0)
             {
                 int shardcount = Main.rand.Next(5, 7); //5-6 shards
@@ -126,6 +126,18 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.GlassShardProj>();
 
             Item.shootSpeed = 1f;
+            Item.noGrabDelay = 0;
+        }
+        public override void GrabRange(Player player, ref int grabRange)
+        {
+            grabRange *= 3;
+        }
+        public override bool GrabStyle(Player player)
+        {
+            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 15;
+            Item.velocity = velocity;
+            return true;
+            //Item.velocity = Collision.TileCollision(Item.position, Item.velocity, Item.width, Item.height);
         }
         public override bool AllowPrefix(int pre)
         {
@@ -170,6 +182,7 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 6f;
             Item.useAmmo = AmmoID.Arrow;
             Item.noMelee = true; //Does the weapon itself inflict damage?
+            Item.noGrabDelay = 0;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -190,7 +203,7 @@ namespace StormDiversMod.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (!GetInstance<ConfigurationsGlobal>().GlassSoWeak)
-                breakchance = 32;
+                breakchance = (int)(32 * (1 + player.luck));
             else
                 breakchance = 1;
             if (Main.rand.Next(breakchance) == 0)
@@ -251,6 +264,16 @@ namespace StormDiversMod.Items.Weapons
             Item.scale = 1f;
             Item.noMelee = true;
         }
+        public override void GrabRange(Player player, ref int grabRange)
+        {
+            grabRange *= 3;
+        }
+        public override bool GrabStyle(Player player)
+        {
+            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 15;
+            Item.velocity = velocity;
+            return true;
+        }
         public override bool AllowPrefix(int pre)
         {
             return false;
@@ -294,6 +317,7 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.GlassStaffProj>();
             Item.shootSpeed = 9.5f;
             Item.noMelee = true; //Does the weapon itself inflict damage?
+            Item.noGrabDelay = 0;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -319,7 +343,7 @@ namespace StormDiversMod.Items.Weapons
                 position += muzzleOffset;
             }
             if (!GetInstance<ConfigurationsGlobal>().GlassSoWeak)
-                breakchance = 32;
+                breakchance = (int)(32 * (1 + player.luck));
             else
                 breakchance = 1;
             if (Main.rand.Next(breakchance) == 0)
@@ -381,6 +405,16 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 0;
             Item.scale = 1f;
             Item.noMelee = true;
+        }
+        public override void GrabRange(Player player, ref int grabRange)
+        {
+            grabRange *= 3;
+        }
+        public override bool GrabStyle(Player player)
+        {
+            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 15;
+            Item.velocity = velocity;
+            return true;
         }
         public override bool AllowPrefix(int pre)
         {

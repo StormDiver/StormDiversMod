@@ -83,8 +83,8 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Gladiator's Waraxe");
-            //Tooltip.SetDefault("Used to be a mighty weapon, now merely used to chop down trees");
+            //DisplayName.SetDefault("Glass Axe");
+            //Tooltip.SetDefault("Weak");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
@@ -148,8 +148,8 @@ namespace StormDiversMod.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Gladiator's Warhammer");
-            //Tooltip.SetDefault("Used to be a mighty weapon, now merely used to smash down walls");
+            //DisplayName.SetDefault("Glass Hammer");
+            //Tooltip.SetDefault("Smashed");
             Item.ResearchUnlockCount = 1;
         }
         public override void SetDefaults()
@@ -238,6 +238,17 @@ namespace StormDiversMod.Items.Tools
             Item.knockBack = 1;
             Item.scale = 1f;
             Item.noMelee = true;
+            Item.noGrabDelay = 0;
+        }
+        public override void GrabRange(Player player, ref int grabRange)
+        {
+            grabRange *= 3;
+        }
+        public override bool GrabStyle(Player player)
+        {
+            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 15;
+            Item.velocity = velocity;
+            return true;
         }
         public override bool AllowPrefix(int pre)
         {

@@ -401,6 +401,17 @@ namespace StormDiversMod.Items.Materials
             Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 0, 0, 0);
             Item.rare = ItemRarityID.Gray;
+            Item.noGrabDelay = 0;
+        }
+        public override void GrabRange(Player player, ref int grabRange)
+        {
+            grabRange *= 3;
+        }
+        public override bool GrabStyle(Player player)
+        {
+            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 15;
+            Item.velocity = velocity;
+            return true;
         }
         public override void PostUpdate()
         {

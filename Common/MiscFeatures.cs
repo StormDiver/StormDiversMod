@@ -880,10 +880,10 @@ namespace StormDiversMod.Common
             //break glass tools
 
             if (!GetInstance<ConfigurationsGlobal>().GlassSoWeak)
-                breakchance = 64;
+                breakchance = (int)(64 * (1 + player.luck));
             else
                 breakchance = 1;
-
+            //Main.NewText("Test " + breakchance, Color.Orange);
             if ((player.HeldItem.type == ModContent.ItemType<GlassPick>() && Main.tileSolid[type]) || //only break on solid tiles
                 (player.HeldItem.type == ModContent.ItemType<GlassHammer>() && Main.tileSolid[type]) || //only break on sloped blocks
                 (player.HeldItem.type == ModContent.ItemType<GlassAxe>() && Main.tileAxe[type])) //only break on trees
@@ -917,7 +917,7 @@ namespace StormDiversMod.Common
             var player = Main.LocalPlayer;
 
             if (!GetInstance<ConfigurationsGlobal>().GlassSoWeak)
-                breakchance = 64;
+                breakchance = (int)(64 * (1 + player.luck));
             else
                 breakchance = 1;
 

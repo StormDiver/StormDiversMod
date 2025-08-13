@@ -32,26 +32,28 @@ namespace StormDiversMod.Items.Misc
             ItemID.Sets.IsAPickup[Item.type] = true;
             Item.noGrabDelay = 0;
             Item.ResearchUnlockCount = 0;
-
         }
+       
         public override bool GrabStyle(Player player)
-        {        
-
-            return false;
-        }
-        public override void GrabRange(Player player, ref int grabRange)
         {
-           
             if (player.HasBuff(BuffID.Heartreach))
             {
-                grabRange = 300;
-                
+                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 15;
+                Item.velocity = velocity;
             }
             else
             {
-                grabRange = 150;
-
+                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y) - new Vector2(Item.Center.X, Item.Center.Y)) * 8;
+                Item.velocity = velocity;
             }
+            return true;
+        }
+        public override void GrabRange(Player player, ref int grabRange)
+        {
+            if (player.HasBuff(BuffID.Heartreach))
+                grabRange = 300;
+            else
+                grabRange = 100;
         }
         public override bool CanPickup(Player player)
         {
