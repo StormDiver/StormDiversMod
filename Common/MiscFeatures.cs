@@ -705,11 +705,11 @@ namespace StormDiversMod.Common
                 int shardcount = Main.rand.Next(7, 9); //7-8 shards
                 for (int i = 0; i < shardcount; i++) //summon dust and projectile
                 {
-                    var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.position.Y), Player.width, 15, 149, 0, 0);
-                    Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(150));
+                    var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.Center.Y - 30 * Player.gravDir), Player.width, 15, 149, 0, 0);
+                    Vector2 perturbedSpeed = new Vector2(0, -5 * Player.gravDir).RotatedByRandom(MathHelper.ToRadians(150));
                     float scale = 1f - (Main.rand.NextFloat() * .5f);
                     perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y-15), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y -15 * Player.gravDir), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
                 }
             }
             else if (Player.armor[2].type == ModContent.ItemType<GlassGreaves>() && Player.armor[0].type != ModContent.ItemType<GlassBHelmet>()) //second leggings
@@ -722,11 +722,11 @@ namespace StormDiversMod.Common
                 int shardcount = Main.rand.Next(10, 12); //10-11 shards
                 for (int i = 0; i < shardcount; i++) //summon dust and projectile
                 {
-                    var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.Center.Y + 20), Player.width, 15, 149, 0, 0);
-                    Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(150));
+                    var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.Center.Y + 20 * Player.gravDir), Player.width, 15, 149, 0, 0);
+                    Vector2 perturbedSpeed = new Vector2(0, -5 * Player.gravDir).RotatedByRandom(MathHelper.ToRadians(150));
                     float scale = 1f - (Main.rand.NextFloat() * .5f);
                     perturbedSpeed = perturbedSpeed * scale;
-                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y+15), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
+                    Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y + 15 * Player.gravDir), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
                 }
             }
             else if (Player.armor[1].type == ModContent.ItemType<GlassChestplate>() && Player.armor[1].type != ModContent.ItemType<GlassGreaves>() && Player.armor[0].type != ModContent.ItemType<GlassBHelmet>()) //finally chesplate
@@ -740,7 +740,7 @@ namespace StormDiversMod.Common
                 for (int i = 0; i < shardcount; i++) //summon dust and projectile
                 {
                     var dust = Dust.NewDustDirect(new Vector2(Player.position.X, Player.Center.Y + 10), Player.width, 15, 149, 0, 0);
-                    Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(150));
+                    Vector2 perturbedSpeed = new Vector2(0, -5 * Player.gravDir).RotatedByRandom(MathHelper.ToRadians(150));
                     float scale = 1f - (Main.rand.NextFloat() * .5f);
                     perturbedSpeed = perturbedSpeed * scale;
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
@@ -899,7 +899,7 @@ namespace StormDiversMod.Common
                     {
                         var dust = Dust.NewDustDirect(new Vector2(player.position.X, player.position.Y), player.width, player.height, 149, 0, 0);
 
-                        Vector2 perturbedSpeed = new Vector2(0, -3).RotatedByRandom(MathHelper.ToRadians(150));
+                        Vector2 perturbedSpeed = new Vector2(0, -3 * player.gravDir).RotatedByRandom(MathHelper.ToRadians(150));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
                         Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), player.HeldItem.damage / 3, 0, player.whoAmI);
@@ -934,7 +934,7 @@ namespace StormDiversMod.Common
                     {
                         var dust = Dust.NewDustDirect(new Vector2(player.position.X, player.position.Y), player.width, player.height, 149, 0, 0);
 
-                        Vector2 perturbedSpeed = new Vector2(0, -3).RotatedByRandom(MathHelper.ToRadians(150));
+                        Vector2 perturbedSpeed = new Vector2(0, -3 * player.gravDir).RotatedByRandom(MathHelper.ToRadians(150));
                         float scale = 1f - (Main.rand.NextFloat() * .5f);
                         perturbedSpeed = perturbedSpeed * scale;
                         Projectile.NewProjectile(null, new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), player.HeldItem.damage / 3, 0, player.whoAmI);

@@ -49,6 +49,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<DerplingShell>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -75,6 +76,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.ChlorophyteOre, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -100,6 +102,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.FragmentVortex, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -125,6 +128,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.FragmentVortex, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -150,6 +154,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.FragmentVortex, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -175,6 +180,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.FragmentNebula, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -199,6 +205,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.FragmentStardust, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -224,6 +231,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.FragmentSolar, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -249,6 +257,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.LunarOre, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -277,6 +286,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<SpaceRock>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -306,6 +316,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<SpaceRock>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -332,6 +343,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<RedSilk>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -358,6 +370,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<GraniteCore>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -383,6 +396,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.Hellstone, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -409,6 +423,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.GlowingMushroom, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -435,6 +450,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.LunarTabletFragment, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -461,6 +477,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<SoulFire>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -487,6 +504,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<IceOre>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -513,6 +531,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<DesertOre>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -537,6 +556,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.Meteorite, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -561,6 +581,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.LunarTabletFragment, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -585,6 +606,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.FrostDaggerfish, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -611,6 +633,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<IceOre>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -636,6 +659,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.PinkGel, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -661,6 +685,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ItemID.ClayBlock, 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -687,6 +712,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<IceOre>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
@@ -712,6 +738,7 @@ namespace StormDiversMod.NPCs.Banners
            .AddIngredient(ModContent.ItemType<IOUBannerItem>(), 1)
            .AddIngredient(ModContent.ItemType<IceOre>(), 1)
            .AddTile(TileID.Loom)
+           .DisableDecraft()
            .Register();
         }
     }
