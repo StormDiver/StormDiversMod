@@ -15,7 +15,7 @@
 [*]2 new members for the Frost Legion
 [*]Extra generated Granite, Marble, and Mushroom chests in their respective biomes
 [*]Full Wikithis support
-[*][b]27 new Achievements available via the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2927542027]Achievement Mod[/url][/b]
+[*][b]28 new Achievements[/b]
 [/list]
 
 [h2]Quality of Life features:[/h2]
@@ -27,18 +27,20 @@
 [*] A Super Pain Dummy with multiple variants - [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3299885526][b]this is now available as its own mod[/b][/url]
 [/list]
 
-
-Please note that the Chinese localisation is out of date, with some things either not translated or updated
+[h2]Fan translation mods[/h2]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3528500062][b]Up to date Chinese translation by "一条鱼"[/b][/url]
+ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3570843032][b]Russian translation by Arick[/b][/url]
 
 [h2]Links[/h2]
-Join the Discord server [url=https://discord.gg/VJvf2HkxtA]here[/url]
-Check out the Mod wiki [url=https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod]here[/url]
+[url=https://discord.gg/VJvf2HkxtA][b]Join the Discord server[/b][/url]
+[url=https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod][b]Check out the Mod wiki[/b][/url]
 
 [h2]Credits[/h2]
 Creator, coder, and main spriter: [b]TheStorm[/b]
 Spriter and playtester: [b]Lynxical[/b]
 Boss Music by: [b]MicelTheGuy[/b]
 Some additional sprites by: Charley#0571 
-Chinese Localisation by: by jianjingqiao201314(简境巧)
+(Outdated) Chinese Localisation by: by jianjingqiao201314(简境巧)
 
-Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful.
+Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful.[quote=tModLoader StormDiversMod]
+Developed By TheStorm[/quote]

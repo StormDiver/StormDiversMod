@@ -1,11 +1,12 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using StormDiversMod.Assets.Achievements;
 using StormDiversMod.Common;
+using System;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace StormDiversMod.Items.Tools
@@ -59,10 +60,8 @@ namespace StormDiversMod.Items.Tools
             {
                 if (player.GetModPlayer<EquipmentEffects>().bearcool >= 0)
                 {
-                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                    {
-                        mod.Call("Event", "HugBear");
-                    }
+                    //achievement get
+                    ModContent.GetInstance<AchievementHugBear>().AchBearCondition.Complete();
                     player.AddBuff(ModContent.BuffType<Buffs.TeddyBuff>(), 600);
                     player.GetModPlayer<EquipmentEffects>().bearcool = 600;
                 }

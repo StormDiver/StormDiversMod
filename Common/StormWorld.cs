@@ -15,7 +15,6 @@ using StormDiversMod.Items.Pets;
 using Terraria.WorldBuilding;
 using StormDiversMod.Items.Materials;
 using MonoMod.Cil;
-using ExampleMod.Common.Players;
 using StormDiversMod.NPCs;
 using StormDiversMod.NPCs.Boss;
 

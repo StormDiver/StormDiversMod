@@ -1,40 +1,37 @@
 using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
+using StormDiversMod.Assets.Achievements;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using StormDiversMod.Items.Accessory;
+using StormDiversMod.Items.Ammo;
+using StormDiversMod.Items.Misc;
+using StormDiversMod.Items.Tools;
+using StormDiversMod.Items.Vanitysets;
+using StormDiversMod.Items.Weapons;
+using StormDiversMod.NPCs;
+using StormDiversMod.NPCs.Boss;
+using StormDiversMod.NPCs.NPCProjs;
+using StormDiversMod.Projectiles;
+using System;
+using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using Terraria;
-
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Drawing;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Buffs;
-using StormDiversMod.Common;
-using StormDiversMod.Items.Weapons;
-
-using Terraria.GameContent.ItemDropRules;
-using Terraria.DataStructures;
-using StormDiversMod.Items.Ammo;
-using StormDiversMod.Items.Accessory;
-using StormDiversMod.Items.Tools;
-using StormDiversMod.Items.Vanitysets;
-using StormDiversMod.Items.Misc;
-
-using Terraria.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using System;
-using StormDiversMod.Projectiles;
-using static Humanizer.In;
-using static Terraria.ModLoader.PlayerDrawLayer;
-using StormDiversMod.NPCs;
-using Terraria.GameContent.Drawing;
-using StormDiversMod.NPCs.Boss;
-using System.Reflection.Metadata.Ecma335;
-using Terraria.WorldBuilding;
-using System.Collections.Generic;
-using Terraria.GameContent.Bestiary;
-using StormDiversMod.NPCs.NPCProjs;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
+using Terraria.WorldBuilding;
+using static Humanizer.In;
+using static Terraria.ModLoader.ModContent;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace StormDiversMod.Common
 {
@@ -341,10 +338,8 @@ namespace StormDiversMod.Common
 
                                 if (Main.rand.Next(chance) == 0) //1 in 4 chance to have the debuff applied and to heal player, 1 in 7 for invasions
                                 {
-                                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                                    {
-                                        mod.Call("Event", "HeartSteal");
-                                    }
+                                    //achievement get
+                                    ModContent.GetInstance<AchievementHeartSteal>().AchHeartStealCondition.Complete();
                                     //Item.NewItem(new EntitySource_Loot(npc), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Tools.SuperHeartPickup>());                            
                                     //Main.LocalPlayer.statLife += 20;
                                     //Main.LocalPlayer.HealEffect(20, true);                               

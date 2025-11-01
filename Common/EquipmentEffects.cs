@@ -27,6 +27,7 @@ using Microsoft.CodeAnalysis;
 using StormDiversMod.Items.Weapons;
 using StormDiversMod.Items.Accessory;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using StormDiversMod.Assets.Achievements;
 
 namespace StormDiversMod.Common
 {
@@ -916,10 +917,8 @@ namespace StormDiversMod.Common
                     {
                         SoundEngine.PlaySound(SoundID.Item150 with { Pitch = -0.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, Player.Center);
                     }
-                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                    {
-                        mod.Call("Event", "StompBounce");
-                    }
+                    //achievement get
+                    ModContent.GetInstance<AchievementStompBounce>().AchStompCondition.Complete();
                     Player.frogLegJumpBoost = true;
                     Player.jumpHeight += 8;
                     Player.jumpSpeedBoost += 1.3f;
@@ -1203,10 +1202,8 @@ namespace StormDiversMod.Common
                 (Player.HasBuff(ModContent.BuffType<WoodenBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>())) ||
                 (Player.HasBuff(ModContent.BuffType<WoodenBlizzardBuff>()) && Player.HasBuff(ModContent.BuffType<WoodenDesertBuff>()))))
             {
-                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                {
-                    mod.Call("Event", "Pendants");
-                }
+                //achievement get
+                ModContent.GetInstance<AchievementPendants>().AchPendantsCondition.Complete();
             }
             if (!graniteBuff)//If the player removes the accessory the buff is gone
             {
@@ -1490,10 +1487,8 @@ namespace StormDiversMod.Common
 
                 if (ninelives == 9)
                 {
-                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                    {
-                        mod.Call("Event", "NineLives");
-                    }
+                    //achievement get
+                    ModContent.GetInstance<AchievementNineLives>().AchNineLivesCondition.Complete();
                 }
             }
             else
@@ -1620,10 +1615,8 @@ namespace StormDiversMod.Common
             if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>())
             {
                 SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/Gnomed") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
-                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                {
-                    mod.Call("Event", "Gnomed");
-                }
+                //achievement get
+                ModContent.GetInstance<AchievementGnomed>().AchGnomeCondition.Complete();
                 //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.Red, "Gnomed!", false);
             }
         }

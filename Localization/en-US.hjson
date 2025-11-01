@@ -1,3 +1,4 @@
+//Note for mod translators, I will not be adding anything else to this list that is missing, I did not want to create localisation file in the first place but sadly I was forced too, So there is a lot of text in this mod not present in this file but rather hardcoded into the mod.
 Mods: {
 	StormDiversMod: {
 		"Keybinds.Armor Special Ability.DisplayName": Armor Special Ability
@@ -19,138 +20,148 @@ Mods: {
 		//Achievements Mod
 		Achievements: {
 			AchievementAridBoss: {
-				Name: Freed Spirits
+				FriendlyName: Freed Spirits
 				Description: Defeat the Ancient Husk, the possessed set of heavily withered armour.
 			}
 
 			AchievementStormBoss: {
-				Name: Overloaded
+				FriendlyName: Overloaded
 				Description: Defeat the Overloaded Scandrone, the dangerous and unstable experiment.
 			}
 
 			AchievementUltimateBoss: {
-				Name: The Pain is Finally Over
+				FriendlyName: The Pain is Finally Over
 				Description: Defeat The Painbringer, the ultimate bringer of pain.
 			}
 
 			AchievementNoPizza: {
-				Name: I'd like to make a complaint
+				FriendlyName: I'd like to make a complaint
 				Description: Defeat a Pizza Delivery Snowman, the order was wrong anyway.
 			}
 
 			AchievementMoonling: {
-				Name: The Final Derpling
+				FriendlyName: The Final Derpling
 				Description: Defeat a Moonling, a Derpling infested with Lunar energy.
 			}
 
 			AchievementScaryDerp: {
-				Name: It's Perfectly Normal
+				FriendlyName: It's Perfectly Normal
 				Description: Kill a perfectly Normal Derpling, nothing strange about it at all...
 			}
 
 			AchievementBiomeCore: {
-				Name: Biome Power
+				FriendlyName: Biome Power
 				Description: Craft the Biome Core, the power of the 3 mini biomes combined.
 			}
 
 			AchievementFastDrill: {
-				Name: Drilling at Speed
+				FriendlyName: Drilling at Speed
 				Description: Craft the Mega Drill, really speeding up your mining experience
 			}
 
 			AchievementEquinox: {
-				Name: Balance of Light and Dark
+				FriendlyName: Balance of Light and Dark
 				Description: Craft the Equinox, a sword that is perfectly balanced, as all things should be.
 			}
 
 			AchievementStoneCannon4: {
-				Name: The Most Dangerous Stone
+				FriendlyName: The Most Dangerous Stone
 				Description: Craft the Celestial Stone Cannon, turns stone into devastating lunar boulders.
 			}
 
 			AchievementThePain: {
-				Name: ThePain!
+				FriendlyName: ThePain!
 				Description: Obtain ThePain, to show everyone how much pain you're in.
 			}
 
 			AchievementClayman: {
-				Name: Clayman!
+				FriendlyName: Clayman!
 				Description: Obtain Clayman, to silently judge everybody around you.
 			}
 
 			AchievementDerpKing: {
-				Name: The Derpling Master
-				Description: Obtain a full set of Derpling Armor, and all the Derpling Weapons, Tools and Equipment.
+				FriendlyName: The Derpling Master
+				Description: Obtain a full set of Derpling Armor, plus all the Derpling Weapons, Tools, and Equipment.
 			}
 
 			AchievementLunarCosplay: {
-				Name: Lunar Cosplayer
+				FriendlyName: Lunar Cosplayer
 				Description: Collect all 4 of the Lunar event vanity sets.
 			}
 
 			AchievementGnomed: {
-				Name: You've been G'nomed!
+				FriendlyName: You've been G'nomed!
 				Description: Wear the Gnome Hat, and get Gnomed.
 			}
 
 			AchievementPendants: {
-				Name: Pendant Synergy
+				FriendlyName: Pendant Synergy
 				Description: Have the effects of at least 2 biome pendants active at once.
 			}
 
 			AchievementStompBounce: {
-				Name: Reach for the Slightly Higher Elevation
+				FriendlyName: Reach for the Slightly Higher Elevation
 				Description: Perform a successful Stomp Bounce with the Heavy Boots.
 			}
 
 			AchievementQuack: {
-				Name: QUACK!!!
+				FriendlyName: QUACK!!!
 				Description: Quack 5 times, quack, quack, quack, quack, quack...
 			}
 
 			AchievementHugBear: {
-				Name: Awww!
+				FriendlyName: Awww!
 				Description: Hug a Teddy Bear for the most unconditional love, enough to heal (almost) any wound.
 			}
 
 			AchievementHeartSteal: {
-				Name: You Stole my Heart
+				FriendlyName: You Stole my Heart
 				Description: Steal life from a regular enemy with the Life Emblem
 			}
 
 			AchievementTwilight: {
-				Name: Twilight Warped
+				FriendlyName: Twilight Warped
 				Description: Warp using a full set of Twilight Armor, no time for walking.
 			}
 
 			AchievementSuperHeart: {
-				Name: That's Super!
+				FriendlyName: That's Super!
 				Description: Collect a super heart dropped by an enemy after taking the Super Heart Vial.
 			}
 
 			AchievementNineLives: {
-				Name: I am Death!
+				FriendlyName: I am Death!
 				Description: Have 9 souls reaped at once with the Reaper's List equipped.
 			}
 
 			AchievementSantanked: {
-				Name: Checking off the Naughty List
+				FriendlyName: Checking off the Naughty List
 				Description: Fire a fully loaded set of missiles from the Santank armour.
 			}
 
 			AchievementNoShield: {
-				Name: No Shield for You
+				FriendlyName: No Shield for You
 				Description: Use a Celestial Globe to break through the shields of the Celestial Pillars.
 			}
 
 			AchievementThePets: {
-				Name: The Twins???
+				FriendlyName: The Twins???
 				Description: Have both the Twilight Figure light pet and the Baby Storm Diver pet active at the same time.
 			}
 
 			AchievementWhack: {
-				Name: No... that's not how you're meant to use it!!!!
+				FriendlyName: No... that's not how you're meant to use it!!!!
 				Description: Whack enemies a toal of 100 times with The Staff of The Painbringer.
+			}
+
+			AchievementTemple: {
+				FriendlyName: GET OUT!!!!
+				Description: Enter the Jungle Temple prematurely and attempt to loot its contents
+			}
+
+			AchievementGlassShatter: {
+				FriendlyName: What did you think would happen?
+				Description: Attempt to protect yourself with a piece of glass armor, only for it to shatter immediately
 			}
 		}
 

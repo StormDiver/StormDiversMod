@@ -1,4 +1,3 @@
-using ExampleMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Common;

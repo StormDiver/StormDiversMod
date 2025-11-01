@@ -1,9 +1,9 @@
-using ExampleMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using rail;
 using ReLogic.Graphics;
 using ReLogic.Peripherals.RGB;
+using StormDiversMod.Assets.Achievements;
 using StormDiversMod.Buffs;
 using StormDiversMod.Items.Accessory;
 using StormDiversMod.Items.Armour;
@@ -157,6 +157,7 @@ namespace StormDiversMod.Common
                         {
                             NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<NPCs.GolemMinion>());
                         }
+                        //ModContent.GetInstance<AchievementTemple>().AchTempleCondition.Complete();
                     }
 
                     Player.buffImmune[BuffID.Darkness] = false;
@@ -304,10 +305,8 @@ namespace StormDiversMod.Common
             //Achievements
             if (Player.HasBuff(ModContent.BuffType<TwilightPetBuff>()) && Player.HasBuff(ModContent.BuffType<StormLightBuff>()))
             {
-                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                {
-                    mod.Call("Event", "ThePets");
-                }
+                //achievement get
+                ModContent.GetInstance<AchievementThePets>().AchPetCondition.Complete();
             }
         }
         int whackcount;
@@ -317,10 +316,8 @@ namespace StormDiversMod.Common
             {
                 if (item.type == ModContent.ItemType<PainStaff>() || item.type == ModContent.ItemType<PainSword>())
                 {
-                    if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                    {
-                        mod.Call("ValueEvent", "Whack", 1f);
-                    }
+                    //achievement get
+                    ModContent.GetInstance<AchievementWhack>().AchWhackCondition.Value++;
                     for (int i = 0; i < 20; i++) //Pain dust
                     {
                         Vector2 perturbedSpeed = new Vector2(0, -3f).RotatedByRandom(MathHelper.ToRadians(360));
@@ -711,6 +708,9 @@ namespace StormDiversMod.Common
                     perturbedSpeed = perturbedSpeed * scale;
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y -15 * Player.gravDir), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
                 }
+                Player.AddBuff(BuffID.Bleeding, 60 * 5);
+                //achievement get (1)
+                ModContent.GetInstance<AchievementGlassShatter>().AchGlassCondition.Complete();
             }
             else if (Player.armor[2].type == ModContent.ItemType<GlassGreaves>() && Player.armor[0].type != ModContent.ItemType<GlassBHelmet>()) //second leggings
             {
@@ -728,6 +728,9 @@ namespace StormDiversMod.Common
                     perturbedSpeed = perturbedSpeed * scale;
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y + 15 * Player.gravDir), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
                 }
+                Player.AddBuff(BuffID.Bleeding, 60 * 5);
+                //achievement get (2)
+                ModContent.GetInstance<AchievementGlassShatter>().AchGlassCondition.Complete();
             }
             else if (Player.armor[1].type == ModContent.ItemType<GlassChestplate>() && Player.armor[1].type != ModContent.ItemType<GlassGreaves>() && Player.armor[0].type != ModContent.ItemType<GlassBHelmet>()) //finally chesplate
             {
@@ -745,6 +748,9 @@ namespace StormDiversMod.Common
                     perturbedSpeed = perturbedSpeed * scale;
                     Projectile.NewProjectile(null, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GlassShardProj>(), 10, 0, Player.whoAmI);
                 }
+                Player.AddBuff(BuffID.Bleeding, 60 * 5);
+                //achievement get (3)
+                ModContent.GetInstance<AchievementGlassShatter>().AchGlassCondition.Complete();
             }
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -792,7 +798,7 @@ namespace StormDiversMod.Common
             }
         }
 
-        /*public override bool CanUseItem(Item item, Player player) //use this to disable the RoD if you want 
+        /* public override bool CanUseItem(Item item, Player player)  //use this to disable the RoD if you want 
         {
             if (item.type == ItemID.RodofDiscord)
             {

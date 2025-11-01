@@ -380,7 +380,7 @@ namespace StormDiversMod.Common
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<SludgeLauncher>(), 40, 30));
 
             if (npc.type == NPCID.MossHornet)
-                mechsdead.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<MossStingerGun>(), 33, 25));
+                PostMechDrop.OnSuccess(ItemDropRule.NormalvsExpert(ModContent.ItemType<MossStingerGun>(), 33, 25));
 
             if (npc.type == NPCID.SkeletonCommando || npc.type == NPCID.SkeletonSniper || npc.type == NPCID.TacticalSkeleton) //drop with ammo
             {

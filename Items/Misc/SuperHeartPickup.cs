@@ -1,12 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Assets.Achievements;
+using StormDiversMod.Common;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using StormDiversMod.Common;
-using Terraria.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
 
 
 
@@ -61,10 +62,8 @@ namespace StormDiversMod.Items.Misc
         }
         public override bool OnPickup(Player player)
         {
-            if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-            {
-                mod.Call("Event", "SuperHeart");
-            }
+            //achievement get
+            ModContent.GetInstance<AchievementSuperHeart>().AchSuperHeartCondition.Complete();
             SoundEngine.PlaySound(SoundID.Grab, player.Center);
 
             player.statLife += 50;

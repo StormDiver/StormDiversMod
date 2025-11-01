@@ -7,7 +7,6 @@ using StormDiversMod.Common;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
-using ExampleMod.Common.Players;
 using StormDiversMod.Items.Ammo;
 
 namespace StormDiversMod.Items.Misc

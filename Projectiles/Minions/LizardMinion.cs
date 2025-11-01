@@ -8,7 +8,6 @@ using Terraria.Audio;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
-using ExampleMod.Common.Players;
 using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
 

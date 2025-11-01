@@ -1,28 +1,27 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
+using StormDiversMod.Assets.Achievements;
+using StormDiversMod.Buffs;
+using StormDiversMod.NPCs;
+using StormDiversMod.Projectiles;
 using System;
 using System.Collections.Generic;
 using System.IO;
-
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Terraria.GameContent.Dyes;
 using Terraria.GameContent.UI;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Buffs;
-using StormDiversMod.NPCs;
-using StormDiversMod.Projectiles;
-
-using Terraria.DataStructures;
-using Terraria.Audio;
-using Terraria.GameContent.Drawing;
-using Terraria.Map;
 
 namespace StormDiversMod.Common
 {
@@ -255,10 +254,8 @@ namespace StormDiversMod.Common
                 {
                     if (santankcharge >= 100)
                     {
-                        if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                        {
-                            mod.Call("Event", "Santanked");
-                        }
+                        //achievement get
+                        ModContent.GetInstance<AchievementSantanked>().AchSantankCondition.Complete();
                     }
                     santanktrigger = true;
 
@@ -394,10 +391,8 @@ namespace StormDiversMod.Common
 
                         if (StormDiversMod.ArmourSpecialHotkey.JustPressed) //Activates when player presses button
                         {
-                            if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                            {
-                                mod.Call("Event", "TwilightWarp");
-                            }
+                            //achievement get
+                            ModContent.GetInstance<AchievementTwilight>().AchTwilightCondition.Complete();
 
                             Player.AddBuff(ModContent.BuffType<TwilightDebuff>(), 480);
                             //Player.AddBuff(BuffID.Obstructed, 10);

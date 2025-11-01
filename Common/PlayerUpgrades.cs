@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ExampleMod.Common.Players
+namespace StormDiversMod.Common
 {
     public class PlayerUpgrades : ModPlayer
     {

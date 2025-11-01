@@ -10,8 +10,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod;
 using Terraria.GameContent.Creative;
 using System.Collections.Generic;
-using ExampleMod.Common.Players;
-
 
 namespace StormDiversMod.Items.Armour
 {

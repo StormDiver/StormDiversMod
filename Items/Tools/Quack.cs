@@ -1,13 +1,14 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using StormDiversMod.Assets.Achievements;
 using StormDiversMod.Common;
+using System;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Creative;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace StormDiversMod.Items.Tools
@@ -47,10 +48,8 @@ namespace StormDiversMod.Items.Tools
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                {
-                    mod.Call("ValueEvent", "Quack", 1f);
-                }
+                //achievement get (add 1)
+                ModContent.GetInstance<AchievementQuack>().AchQuackCondition.Value++;
                 pitch = Vector2.Distance(Main.MouseWorld, player.Center) / 500 - 0.6f; //Lowest possible pitch is -0.6f;
                 if (pitch > 0.8f) //Caps the pitch at 0.8f;
                 {
@@ -65,8 +64,5 @@ namespace StormDiversMod.Items.Tools
         {
             return true;
         }
-        
-        
-       
     }
 }

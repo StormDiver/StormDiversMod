@@ -205,49 +205,4 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.Dig with { Volume = 0.75f }, Projectile.Center);
         }
     }
-    /*public class GlassShardFlyingProj : ModProjectile //for some reason setting the above projectile to another AI style causes it to not even spawn :/
-    {
-        public override void SetStaticDefaults()
-        {
-            //DisplayName.SetDefault("Glass Shard");
-            ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
-        }
-
-        public override void SetDefaults()
-        {
-            Projectile.width = 8;
-            Projectile.height = 8;
-            Projectile.aiStyle = 2;
-            Projectile.friendly = true;
-            Projectile.timeLeft = 300;
-            Projectile.penetrate = 1;
-            Projectile.tileCollide = true;
-            Projectile.knockBack = 0f;
-            Projectile.DamageType = DamageClass.Generic;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
-            Projectile.ArmorPenetration = 5;
-        }
-      
-        public override void AI()
-        {
-        }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            Projectile.NewProjectile(null, new Vector2(target.position.X + Main.rand.Next(0, target.width), target.position.Y + Main.rand.Next(0, target.height)), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.GlassShardProj>(), 1, 0);
-        }
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            SoundEngine.PlaySound(SoundID.Item107 with { Volume = 0.5f, Pitch = 0.25f }, Projectile.Center);
-            return true;
-        }
-        public override void OnKill(int timeLeft)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 149);
-                dust.scale = 0.75f;
-            }
-        }
-    }*/
 }

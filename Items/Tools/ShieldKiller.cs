@@ -1,11 +1,12 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using StormDiversMod.Assets.Achievements;
+using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent.Creative;
 
 
 namespace StormDiversMod.Items.Tools
@@ -96,10 +97,8 @@ namespace StormDiversMod.Items.Tools
                     int dust2 = Dust.NewDust(new Vector2(player.Center.X + (25 * player.direction), player.Center.Y - 20 * player.gravDir), 0, 0, 229, perturbedSpeed.X, perturbedSpeed.Y, 200, default, 1.5f);
                     Main.dust[dust2].noGravity = true;
                 }
-                if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
-                {
-                    mod.Call("Event", "NoShield");
-                }
+                //achievement get
+                ModContent.GetInstance<AchievementNoShield>().AchShieldCondition.Complete();
             }
             else if (NPC.ShieldStrengthTowerVortex == 0 && NPC.ShieldStrengthTowerSolar == 0 && NPC.ShieldStrengthTowerNebula == 0 && NPC.ShieldStrengthTowerStardust == 0)
             {

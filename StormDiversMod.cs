@@ -34,7 +34,6 @@ using Terraria.Achievements;
 using StormDiversMod.Items.Vanitysets;
 using StormDiversMod.NPCs;
 using StormDiversMod.Items.Accessory;
-using ExampleMod.Common.Players;
 
 namespace StormDiversMod
 {
@@ -129,7 +128,7 @@ namespace StormDiversMod
             }
 
             //for achievements
-            if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
+            /*if (ModLoader.TryGetMod("TMLAchievements", out Mod mod))
             {
                 //mod.Call("AddAchievement", this, "TestAchievement", AchievementCategory.Collector, "StormDiversMod/Assets/Achievements/TestAchievement", null, false, false, 2.5f, new string[] { "Kill_" + ModContent.NPCType<AridBoss>() });
                 //Boss kills
@@ -218,12 +217,7 @@ namespace StormDiversMod
 
                 mod.Call("AddAchievement", this, "AchievementWhack", AchievementCategory.Challenger, "StormDiversMod/Assets/Achievements/AchievementWhack",
              "StormDiversMod/Assets/Achievements/AchievementBorder", false, false, 2.5f, new string[] { "ValueEvent_Whack_100" });
-                //place where activated
-                /*if (ModLoader.TryGetMod("TMLAchievements", out Mod mod)) 
-                {
-                    mod.Call("Event", "ExampleEvent");
-                }*/
-            }
+            }*/
 
             if (ModLoader.TryGetMod("Munchies", out Mod munchiesMod))
             {

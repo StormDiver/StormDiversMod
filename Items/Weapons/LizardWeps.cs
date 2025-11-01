@@ -12,8 +12,6 @@ using StormDiversMod.Common;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
-using ExampleMod.Common.Players;
-
 
 namespace StormDiversMod.Items.Weapons
 {
