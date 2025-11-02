@@ -134,7 +134,6 @@ namespace StormDiversMod.Assets.Achievements
             Achievement.SetCategory(AchievementCategory.Collector);
             var PickupCondition = AddItemPickupCondition([ModContent.ItemType<ThePainMask>()]);
         }
-        
     }
     public class AchievementClayman : ModAchievement
     {

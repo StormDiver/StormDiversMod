@@ -44,9 +44,10 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             rotate++;
-            Projectile.rotation = rotate * 0.1f;
-           
-                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229, 0, 0, 130, default, 1f);
+            Projectile.rotation = rotate * -0.15f * Projectile.direction;
+            Projectile.spriteDirection = Projectile.direction;
+
+            int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229, 0, 0, 130, default, 1f);
 
                 Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                 Main.dust[dust].velocity *= 0.5f;
@@ -71,9 +72,7 @@ namespace StormDiversMod.Projectiles
       
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             return true;
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -94,10 +93,8 @@ namespace StormDiversMod.Projectiles
                 float rotation = MathHelper.ToRadians(180);
                 for (int j = 0; j < numberProjectiles; j++)
                 {
-
                     Vector2 perturbedSpeed = new Vector2(0, 4f).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<VortexiaProj2>(), (int)(Projectile.damage * 0.7f), Projectile.knockBack, Projectile.owner);
-
                 }
 
                 for (int i = 0; i < 50; i++)
@@ -118,11 +115,9 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.9f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.9f, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
-
             return true;
-
         }
        
         public override Color? GetAlpha(Color lightColor)
@@ -141,10 +136,8 @@ namespace StormDiversMod.Projectiles
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
-
         public override void SetDefaults()
-        {
-            
+        {   
             Projectile.width = 26;
             Projectile.height = 26;
             Projectile.friendly = true;
@@ -163,7 +156,8 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             rotate++;
-            Projectile.rotation = rotate * 0.1f;
+            Projectile.rotation = rotate * -0.15f * Projectile.direction;
+            Projectile.spriteDirection = Projectile.direction;
             if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229, 0, 0, 130, default, 1f);
@@ -171,7 +165,6 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                 Main.dust[dust].velocity *= 0.5f;
             }
-
             if (rotate >= 30)
             {
                 if (Projectile.localAI[0] == 0f)
@@ -208,7 +201,6 @@ namespace StormDiversMod.Projectiles
                 }
             }
         }
-
         private void AdjustMagnitude(ref Vector2 vector)
         {
             if (rotate >= 25)
@@ -233,10 +225,8 @@ namespace StormDiversMod.Projectiles
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             if (rotate <= 40)
             {
-
                 if (Projectile.velocity.X != oldVelocity.X)
                 {
                     Projectile.velocity.X = -oldVelocity.X * 1;
@@ -245,7 +235,6 @@ namespace StormDiversMod.Projectiles
                 {
                     Projectile.velocity.Y = -oldVelocity.Y * 1f;
                 }
-
                 return false;
             }
             else
@@ -255,7 +244,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             for (int i = 0; i < 10; i++)
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0, 0, 120, default, 1f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
@@ -276,7 +264,6 @@ namespace StormDiversMod.Projectiles
                     int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 229, perturbeddustSpeed.X, perturbeddustSpeed.Y, 200, default, 1.5f);
                     Main.dust[dust2].noGravity = true;
                 }
-
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -289,13 +276,10 @@ namespace StormDiversMod.Projectiles
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.9f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.9f, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
-
             return true;
-
         }
-
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;

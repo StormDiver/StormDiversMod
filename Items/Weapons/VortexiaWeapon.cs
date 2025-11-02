@@ -45,7 +45,7 @@ namespace StormDiversMod.Items.Weapons
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item117;
 
-            Item.damage = 52;
+            Item.damage = 55;
             //Item.crit = 4;
             Item.knockBack = 1f;
 
@@ -54,11 +54,11 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 13f;
             if (ModLoader.HasMod("TRAEProject"))
             {
-                Item.mana = 23;
+                Item.mana = 22;
             }
             else
             {
-                Item.mana = 15;
+                Item.mana = 14;
             }
             Item.noMelee = true; //Does the weapon itself inflict damage?
             
@@ -84,12 +84,10 @@ namespace StormDiversMod.Items.Weapons
             return false;
 
         }
-    
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
         }
-
 
         /*public override Color? GetAlpha(Color lightColor)
         {

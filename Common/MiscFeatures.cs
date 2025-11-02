@@ -316,7 +316,7 @@ namespace StormDiversMod.Common
             {
                 if (item.type == ModContent.ItemType<PainStaff>() || item.type == ModContent.ItemType<PainSword>())
                 {
-                    //achievement get
+                    //achievement get (add 1)
                     ModContent.GetInstance<AchievementWhack>().AchWhackCondition.Value++;
                     for (int i = 0; i < 20; i++) //Pain dust
                     {

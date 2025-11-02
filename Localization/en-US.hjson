@@ -1,4 +1,4 @@
-//Note for mod translators, I will not be adding anything else to this list that is missing, I did not want to create localisation file in the first place but sadly I was forced too, So there is a lot of text in this mod not present in this file but rather hardcoded into the mod.
+//Note for mod translators, I will not be adding anything else to this list that is missing, I did not want to create a localisation file in the first place but sadly I was forced to, so there is a lot of text in this mod not present in this file but rather hardcoded into the mod.
 Mods: {
 	StormDiversMod: {
 		"Keybinds.Armor Special Ability.DisplayName": Armor Special Ability
