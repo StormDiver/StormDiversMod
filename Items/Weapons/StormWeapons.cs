@@ -194,8 +194,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 6, 0, 0);
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
+            Item.useTime = 16;
+            Item.useAnimation = 16;
             Item.useTurn = false;
             Item.autoReuse = true;
 
@@ -210,7 +210,7 @@ namespace StormDiversMod.Items.Weapons
             }
             //Item.UseSound = SoundID.Item20;
 
-            Item.damage = 80;
+            Item.damage = 70;
             Item.knockBack = 1f;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.StormStaffProj>();

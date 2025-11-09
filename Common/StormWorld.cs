@@ -250,11 +250,11 @@ namespace StormDiversMod.Common
             {
                 if (Main.netMode == 2) // Server
                 {
-                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Fiery souls infect those trapped in the underworld."), new Color(224, 141, 255));
+                    Terraria.Chat.ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Infernal souls infect those that dwell in the underworld."), new Color(224, 141, 255));
                 }
                 else if (Main.netMode == 0) // Single Player
                 {
-                    Main.NewText("Fiery souls infect those trapped in the underworld.", 224, 141, 255);
+                    Main.NewText("Infernal souls infect those that dwell in the underworld.", 224, 141, 255);
                 }
                 mechMessage = true;
             }

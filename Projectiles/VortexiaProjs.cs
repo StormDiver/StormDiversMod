@@ -11,6 +11,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Common;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles
 {
@@ -39,7 +40,10 @@ namespace StormDiversMod.Projectiles
             DrawOriginOffsetY = 0;
             Projectile.light = 0.5f;
         }
-
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.ai[1] = 15;
+        }
         int rotate;
         public override void AI()
         {
@@ -89,7 +93,7 @@ namespace StormDiversMod.Projectiles
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath6 with { Volume = 1f, Pitch = -0.5f }, Projectile.Center);
 
-                float numberProjectiles = Main.rand.Next(4, 6); //4 to 5
+                float numberProjectiles = Main.rand.Next(5, 6); //4 to 5
                 float rotation = MathHelper.ToRadians(180);
                 for (int j = 0; j < numberProjectiles; j++)
                 {
@@ -173,7 +177,7 @@ namespace StormDiversMod.Projectiles
                     Projectile.localAI[0] = 1f;
                 }
                 Vector2 move = Vector2.Zero;
-                float distance = 400f;
+                float distance = 600f;
                 bool target = false;
                 for (int k = 0; k < 200; k++)
                 {

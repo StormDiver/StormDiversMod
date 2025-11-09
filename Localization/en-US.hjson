@@ -3515,8 +3515,8 @@ Mods: {
 				DisplayName: Lightning Scepter
 				Tooltip:
 					'''
-					Fires out a lightning orb that on enemy impact can jump to 3 other enemies at once
-					On tile impact it can jump to up to 4 enemies at ocne
+					Fires out a lightning bolt that on enemy impact can jump to 3 other enemies at once
+					The bolt can jump to an enemy on tile impact once, but loses the ability to jump to other enemies
 					'''
 			}
 

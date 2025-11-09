@@ -690,10 +690,8 @@ namespace StormDiversMod.Projectiles
 			}
 			return false;
 		}
-
 		public override void AI()
 		{
-
 			if (Projectile.scale > 0.05f)
 			{
 				Projectile.scale -= 0.005f;
@@ -837,9 +835,7 @@ namespace StormDiversMod.Projectiles
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Overloaded Lightning Explosion");
-
 		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 20;
@@ -880,17 +876,12 @@ namespace StormDiversMod.Projectiles
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-
 			return false;
 		}
 		public override void OnKill(int timeLeft)
 		{
 
-			
-
-
 		}
-
 	}
 	//_________________________________________________________________
     public class StormStaffProj : ModProjectile
@@ -973,7 +964,7 @@ namespace StormDiversMod.Projectiles
                     NPC npctarget = Main.npc[i];
 
                     npctarget.TargetClosest(true);
-                    if (Vector2.Distance(Projectile.Center, npctarget.Center) <= 700f && !npctarget.friendly && npctarget.active && !npctarget.dontTakeDamage && npctarget.lifeMax > 5 && npctarget.type != NPCID.TargetDummy
+                    if (Vector2.Distance(Projectile.Center, npctarget.Center) <= 250 && !npctarget.friendly && npctarget.active && !npctarget.dontTakeDamage && npctarget.lifeMax > 5 && npctarget.type != NPCID.TargetDummy
                         && Collision.CanHit(Projectile.Center, 0, 0, npctarget.Center, 0, 0) && npctarget.GetGlobalNPC<NPCEffects>().stormimmunetime == 0 && targetlimit <= 2) //3 limit
                     {
                         targetlimit++;
@@ -1003,14 +994,14 @@ namespace StormDiversMod.Projectiles
                     NPC npctarget = Main.npc[i];
 
                     npctarget.TargetClosest(true);
-                    if (Vector2.Distance(Projectile.Center, npctarget.Center) <= 700f && !npctarget.friendly && npctarget.active && !npctarget.dontTakeDamage && npctarget.lifeMax > 5 && npctarget.type != NPCID.TargetDummy
-                        && Collision.CanHit(Projectile.Center, 0, 0, npctarget.Center, 0, 0) && npctarget.GetGlobalNPC<NPCEffects>().stormimmunetime == 0 && targetlimit <= 3) //4 limit
+                    if (Vector2.Distance(Projectile.Center, npctarget.Center) <= 250 && !npctarget.friendly && npctarget.active && !npctarget.dontTakeDamage && npctarget.lifeMax > 5 && npctarget.type != NPCID.TargetDummy
+                        && Collision.CanHit(Projectile.Center, 0, 0, npctarget.Center, 0, 0) && npctarget.GetGlobalNPC<NPCEffects>().stormimmunetime == 0 && targetlimit <= 0) //4 limit
                     {
                         targetlimit++;
 
                         Vector2 velocity = Vector2.Normalize(new Vector2(npctarget.Center.X, npctarget.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * 10;
 
-                        int ProjID = Projectile.NewProjectile(npctarget.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.StormStaffProj>(), Projectile.damage / 2, 0, Main.myPlayer);
+                        int ProjID = Projectile.NewProjectile(npctarget.GetSource_FromAI(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y), ModContent.ProjectileType<Projectiles.StormStaffProj>(), Projectile.damage, 0, Main.myPlayer);
                         Main.projectile[ProjID].ai[2] = Projectile.ai[2];
                         Main.projectile[ProjID].timeLeft = 120;
                         Main.projectile[ProjID].ArmorPenetration = 20;

@@ -51,7 +51,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<VortexiaProj>();
             
-            Item.shootSpeed = 13f;
+            Item.shootSpeed = 14f;
             if (ModLoader.HasMod("TRAEProject"))
             {
                 Item.mana = 22;

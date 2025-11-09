@@ -227,10 +227,6 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dust2].velocity *= -0.3f;
             }
         }
-        private void AdjustMagnitude(ref Vector2 vector)
-        {
-          
-        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 10; i++)
