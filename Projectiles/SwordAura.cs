@@ -434,6 +434,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void AuraDefaults()
         {
+            armourPen = 15;
             scaleIncrease = 0.9f;
             frontColor = Color.Crimson;
             middleColor = Color.DarkRed;
@@ -458,11 +459,15 @@ namespace StormDiversMod.Projectiles
             }, player.whoAmI);*/
             for (int i = 0; i < 15; i++)
             {
-                var dust = Dust.NewDustDirect(target.Center, 0, 0, 5);
+                var dust = Dust.NewDustDirect(target.Center, 0, 0, 12);
                 dust.scale = 1.25f;
                 dust.velocity *= 2f;
                 dust.noGravity = true;
             }
+           /* if (Main.rand.Next(5) == 0) // the chance
+            {
+                target.AddBuff(ModContent.BuffType<RoseDebuff>(), 120);
+            }*/
             hits++;
         }
         public override void EmitEnchantmentVisualsAt(Vector2 boxPosition, int boxWidth, int boxHeight)
@@ -472,7 +477,7 @@ namespace StormDiversMod.Projectiles
             Vector2 dustVelocity = (dustRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
             if (Main.rand.Next(2) == 0)
             {
-                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 5, dustVelocity * 2f, 100, Color.White, 1.2f);
+                Dust dust1 = Dust.NewDustPerfect(Projectile.Center + dustRotation.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), 12, dustVelocity * 2f, 100, Color.White, 1.2f);
                 dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
                 dust1.noGravity = true;
             }

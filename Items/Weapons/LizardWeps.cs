@@ -32,7 +32,7 @@ namespace StormDiversMod.Items.Weapons
         public override void SetDefaults()
         {
 
-            Item.damage = 50;
+            Item.damage = 60;
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 38;
@@ -297,7 +297,7 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item20;
 
-            Item.damage = 55;
+            Item.damage = 65;
 
             Item.knockBack = 4f;
 

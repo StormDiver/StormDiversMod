@@ -797,4 +797,23 @@ namespace StormDiversMod.Buffs
             npc.GetGlobalNPC<NPCEffects>().glasssharddebuff = true;
         }
     }
+
+    //_____________________________________________
+    public class RoseDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Rosed");
+            //Description.SetDefault("The rose petals drain your life");
+            Main.debuff[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().roseDOTdebuff = true;
+        }
+    }
 }

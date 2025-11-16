@@ -98,7 +98,7 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire3, 60);
+            //target.AddBuff(BuffID.OnFire3, 60);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -124,6 +124,68 @@ namespace StormDiversMod.Projectiles
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height),
                 Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
+    }
+    //_________________________________________________________________________________________________
+    public class CursedSpearBulletProj : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Rose Sickle Bullet");      
+        }
+        public override void SetDefaults()
+        {
+            Projectile.width = 2;
+            Projectile.height = 2;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.timeLeft = 120;
+            AIType = ProjectileID.Bullet;
+            Projectile.aiStyle = 0;
+            Projectile.scale = 1f;
+            Projectile.tileCollide = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
+            DrawOffsetX = 0;
+            DrawOriginOffsetY = 0;
+            Projectile.extraUpdates = 1;
+            Projectile.light = 0.2f;
+        }
+        public override void AI()
+        {
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+            Projectile.ai[0] += 1f;
+            if (Projectile.ai[0] > 3 & Main.rand.Next(3) == 0)
+            {
+                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+                dust2.noGravity = true;
+            }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68);
+                dust.noGravity = true;
+            }
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 68);
+                dust2.noGravity = true;
+            }
+            return true;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            //SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
         }
     }
 }

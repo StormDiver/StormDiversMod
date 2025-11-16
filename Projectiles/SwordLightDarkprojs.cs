@@ -567,7 +567,7 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             Projectile.localAI[0]++; //delay trail effect
-            Projectile.frame = (int)Projectile.ai[2]; //frame 0 for light, 2 for dark
+            Projectile.frame = (int)Projectile.ai[2]; //frame 0 for light, 1 for dark
 
             Player player = Main.player[Projectile.owner];
             player.heldProj = Projectile.whoAmI; //appear in front of player but behind hand
@@ -618,7 +618,6 @@ namespace StormDiversMod.Projectiles
         }
         public override Color? GetAlpha(Color lightColor)
         {
-           
             return null;
         }
     }

@@ -44,9 +44,10 @@ namespace StormDiversMod.Items.Weapons
             Item.knockBack = 6;
             Item.shoot = ProjectileID.Bullet;
             aura = ModContent.ProjectileType<Projectiles.RoseAura>();
-            Item.shootSpeed = 30;
+            Item.shootSpeed = 15;
             Item.scale = 1f;
             Item.noMelee = true;
+            Item.ArmorPenetration = 15;
             //Item.shootsEveryUse = true;
         }
         
@@ -54,7 +55,7 @@ namespace StormDiversMod.Items.Weapons
         {
             return true;
         }
-         public override bool CanUseItem(Player player)
+        public override bool CanUseItem(Player player)
         {
 
             if (player.altFunctionUse == 2) //gun
@@ -120,24 +121,23 @@ namespace StormDiversMod.Items.Weapons
                 }
                 if (type == ProjectileID.Bullet)
                 {
-                    type = ProjectileID.BulletHighVelocity;
+                    type = ModContent.ProjectileType<Projectiles.RoseSickleBulletProj>();
                 }
                 for (int i = 0; i < 1; i++)
                 {
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0)); 
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage * 2, knockback * 1.5f, player.whoAmI);
-                    if (player.velocity.Y != 0)
+                    if (player.velocity.Y != 0 && !player.controlUp && !player.controlDown)
                     {
-                        player.velocity.X = velocity.X * -0.4f;
-                        player.velocity.Y = velocity.Y * -0.4f;
+                        player.velocity.X = velocity.X * -0.5f;
+                        player.velocity.Y = velocity.Y * -0.5f;
                     }
                 }
                 for (int i = 0; i < 10; i++)
                 {
-                    int dust2 = Dust.NewDust(position + muzzleOffset * 1f, 0, 0, 5, velocity.X * 0.12f, velocity.Y * 0.12f);
+                    int dust2 = Dust.NewDust(position + muzzleOffset * 1f, 0, 0, 12, velocity.X * 0.12f, velocity.Y * 0.12f, 0);
                     Main.dust[dust2].noGravity = true;
                     Main.dust[dust2].scale = 1.25f;
-
                 }
                 SoundEngine.PlaySound(SoundID.Item41 with { Volume = 1f, Pitch = -0.25f }, player.Center);
             }

@@ -428,7 +428,6 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 206, perturbedSpeed.X, perturbedSpeed.Y);
                 dust.noGravity = true;
                 dust.scale = 3f;
-
             }
             for (int i = 0; i < 30; i++) //Grey dust circle
             {

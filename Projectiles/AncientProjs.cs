@@ -10,7 +10,6 @@ using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles
 {
-  
     //______________________________________________________________________________________________________
     public class AncientStaffProj : ModProjectile
     {
@@ -515,7 +514,6 @@ namespace StormDiversMod.Projectiles
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             return false;
         }
         public override void OnKill(int timeLeft)

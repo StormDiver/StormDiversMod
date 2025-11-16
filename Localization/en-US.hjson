@@ -611,6 +611,11 @@ Mods: {
 				DisplayName: Embedded
 				Description: You are embedded with sharp glass shards
 			}
+
+			RoseDebuff: {
+				DisplayName: Rose Petals
+				Description: The rose petals drain your life
+			}
 		}
 
 		Items: {
@@ -2609,8 +2614,10 @@ Mods: {
 				DisplayName: Cursed Spear Shotgun
 				Tooltip:
 					'''
-					Left click to use as a fast spear that burns enemies and ignores 10 defense
-					Right click to fire as a shotgun with low spread, requires bullets as ammo
+					Left click to use as a fast spear that ignores 10 defense
+					Right click to fire as a shotgun that fires 4 bullets with low spread
+					Requires bullets as ammo, regular bullets get converted to Cursed Shotgun bullets
+					Every 12 hits on an enemy with a Cursed Shotgun bullet makes the next spear stab deal 2.5x damage to them
 					'Whose idea was it to strap a shotgun to a spear?'
 					'''
 			}
@@ -2958,7 +2965,7 @@ Mods: {
 				DisplayName: Lihzahrd Sawblade
 				Tooltip:
 					'''
-					Throw out spinning sawblades that linger in place
+					Throw out spinning sawblades that linger in place and damage enemies
 					Limit of 6 sawblades at a time, right click to remove all thrown sawblades
 					'''
 			}
@@ -3275,8 +3282,10 @@ Mods: {
 				DisplayName: The Crescent Rifle
 				Tooltip:
 					'''
-					Left click to swing the scythe creating a large damaging aura that ignores 30 defense
-					Right click to fire the rifle, has a strong recoil when not grounded and requires bullets as ammo
+					Left click to swing the scythe creating a large damaging aura that ignores 15 defense
+					Right click to fire the rifle, has a strong recoil when not grounded unless UP or DOWN is held
+					Requires bullets as ammo, regular bullets get converted to Rose Bullets
+					Every 5 hits on an enemy with a Rose Bullet makes the next melee attack deal triple damage to them
 					'A High Caliber Sniper Scythe, turn your enemies into dust'
 					'''
 			}
@@ -4527,6 +4536,9 @@ Mods: {
 			GlassShardProj.DisplayName: Glass Shard
 			GlassShardFlyingProj.DisplayName: Glass Shard
 			GlassStaffProj.DisplayName: Glass Staff Orb
+			RoseSickleExplosionProj.DisplayName: Rose Explosion
+			RoseSickleBulletProj.DisplayName: Rose Bullet
+			CursedSpearBulletProj.DisplayName: Cursed Spear Bullet Proj
 		}
 
 		Tiles: {

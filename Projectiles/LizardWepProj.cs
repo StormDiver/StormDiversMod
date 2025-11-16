@@ -43,6 +43,7 @@ namespace StormDiversMod.Projectiles
         float movespeed = 25f; //Speed of the proj
 
         Vector2 mousepos;
+        bool stopmove;
         public override void AI()
         {
             Projectile.ai[1]++;
@@ -54,10 +55,7 @@ namespace StormDiversMod.Projectiles
                 int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 170, perturbedSpeed.X, perturbedSpeed.Y, 255, default, 1f);
                 Main.dust[dustIndex].noGravity = true;
             }
-
             Projectile.rotation = Projectile.ai[1] * 0.08f;
-
-
             //movement
             if (Projectile.ai[1] == 1)
             {
@@ -68,30 +66,29 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
-
             }
-
             float distance = Vector2.Distance(mousepos, Projectile.Center);
 
             movespeed = distance / 30;
-            
-            Vector2 moveTo = mousepos;
-            Vector2 move = moveTo - Projectile.Center + new Vector2(0, 0); //Postion around cursor
-            float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
-
-            if (magnitude > movespeed)
+            if (movespeed > 12)//cap speed
+                movespeed = 12;
+            if (!stopmove)
             {
-                move *= movespeed / magnitude;
+                Vector2 moveTo = mousepos;
+                Vector2 move = moveTo - Projectile.Center + new Vector2(0, 0); //Postion around cursor
+                float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+
+                if (magnitude > movespeed)
+                {
+                    move *= movespeed / magnitude;
+                }
+
+                Projectile.velocity = move;
             }
-
-            Projectile.velocity = move;
-
             var player = Main.player[Projectile.owner];
 
             if (Projectile.timeLeft < 60) //Destroy aniamtion
             {
-               
-
                 Projectile.position = Projectile.Center;
                 Projectile.Center = Projectile.position;
                 if (Projectile.scale > 0)
@@ -101,14 +98,10 @@ namespace StormDiversMod.Projectiles
                 //Projectile.velocity.X = 0;
                 //Projectile.velocity.Y = 0;
             }
-
             /*if (player.ownedProjectileCounts[proj] >= 10 && player.controlUseItem && Projectile.ai[1] > 60)
             {
-
                 Projectile.Kill();
-
             }*/
-
             if (player.controlUseTile && Projectile.ai[1] > 60 && player.noThrow == 0 && player.HeldItem.type == ModContent.ItemType<Items.Weapons.LizardSpinner>() || player.dead) 
             {
                 if (Projectile.timeLeft > 60)
@@ -116,15 +109,13 @@ namespace StormDiversMod.Projectiles
                     Projectile.timeLeft = 60;
                 }
             }
-         
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.velocity.X *= 0.1f;
-            Projectile.velocity.Y *= 0.1f;
-
+            stopmove = true;
+            Projectile.velocity.X *= 0f;
+            Projectile.velocity.Y *= 0f;
+            //mousepos = new Vector2(target.Center.X, target.Center.Y); //Move to enemy
             Projectile.damage = (Projectile.damage * 9) / 10;
 
             for (int i = 0; i < 5; i++)
@@ -132,11 +123,11 @@ namespace StormDiversMod.Projectiles
                 var dust = Dust.NewDustDirect(target.position, target.width, target.height, 170);
                 dust.scale = 1f;
                 dust.noGravity = true;
-
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            stopmove = true;
             Projectile.velocity.X = 0;
             Projectile.velocity.Y = 0;
             return false;
@@ -343,7 +334,6 @@ namespace StormDiversMod.Projectiles
     //_____________________________________________
     public class LizardSpellProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Lihzahrd Fire Orb");
@@ -368,20 +358,16 @@ namespace StormDiversMod.Projectiles
         {
             if (Main.rand.Next(1) == 0)
             {
-
                 Dust dust;
                 Vector2 position = Projectile.position;
                 dust = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, 6, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f, 0, new Color(255, 255, 255), .8f);
                 dust.noGravity = true;
                 dust.scale = 1.5f;
-
             }
             Projectile.ai[1]++;
 
             Projectile.rotation = Projectile.ai[1] * 0.2f;
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
@@ -394,15 +380,13 @@ namespace StormDiversMod.Projectiles
             if (info.PvP)
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
         }
-        int reflect = 4;
+        int reflect = 5;
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
             reflect--;
             if (reflect <= 0)
             {
                 Projectile.Kill();
-
             }
             if (Projectile.velocity.X != oldVelocity.X)
             {
@@ -414,26 +398,18 @@ namespace StormDiversMod.Projectiles
             }
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item10 with { Volume = 1f, Pitch = -0.5f }, Projectile.Center);
-
-
             return false;
         }
         public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
-
                 for (int i = 0; i < 25; i++)
                 {
-
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 0, default, 2f);
-
                     Main.dust[dustIndex].noGravity = false;
                     Main.dust[dustIndex].velocity *= 2;
-
                 }
-
             }
         }
         public override Color? GetAlpha(Color lightColor)
@@ -441,7 +417,6 @@ namespace StormDiversMod.Projectiles
             return Color.White;
         }
     }
-
     //_________________
     public class LizardArmourProj : ModProjectile
     {
@@ -449,7 +424,6 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("Lihzarhd Bomb");
             Main.projFrames[Projectile.type] = 6;
-
         }
         public override void SetDefaults()
         {

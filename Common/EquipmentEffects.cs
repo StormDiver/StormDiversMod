@@ -889,11 +889,10 @@ namespace StormDiversMod.Common
                     bootdmg = 0;
                     falling = false;
                 }
-                if ((!Player.controlDown) || Player.controlJump || Player.mount.Active) //cancels stomp
+                if ((!Player.controlDown) || Player.controlJump || Player.mount.Active || Player.controlUp) //cancels stomp
                 {
                     falling = false;
                     bootdmg = 0;
-
                 }
 
                 //Main.NewText("Stomp Time: " + bootstompjumptime, 204, 101, 22);
@@ -919,6 +918,7 @@ namespace StormDiversMod.Common
                     }
                     //achievement get
                     ModContent.GetInstance<AchievementStompBounce>().AchStompCondition.Complete();
+
                     Player.frogLegJumpBoost = true;
                     Player.jumpHeight += 8;
                     Player.jumpSpeedBoost += 1.3f;
@@ -1051,9 +1051,9 @@ namespace StormDiversMod.Common
             if (shroomaccess)
             {
                 shroomtime++;
-                //Channeling weaposn fire every time half the usetime is met with a counter
+                //Channeling weapons fire every time half the usetime is met with a counter
                 if (((Player.channel && shroomtime >= Player.HeldItem.useTime / 2) || (!Player.channel && Player.itemAnimation == Player.itemAnimationMax)) && Player.HeldItem.CountsAsClass(DamageClass.Ranged) 
-                    && Player.HeldItem.useAmmo == AmmoID.Bullet && Player.itemAnimation != 0) //If the player is holding a ranged weapon and weapon just fired (useaniamtion counts down0
+                    && Player.HeldItem.useAmmo == AmmoID.Bullet && Player.itemAnimation != 0) //If the player is holding a ranged weapon and weapon just fired (useaniamtion counts down)
                 {
                     shroomshotCount++;
                     //Main.NewText("Pls work " + shroomtime + " | " + shroomshotCount, 0, 204, 170); //Inital Scale

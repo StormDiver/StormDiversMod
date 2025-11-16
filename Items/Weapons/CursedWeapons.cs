@@ -158,10 +158,13 @@ namespace StormDiversMod.Items.Weapons
                 {
                     position += muzzleOffset;
                 }
-                
+                if (type == ProjectileID.Bullet)
+                {
+                    type = ModContent.ProjectileType<Projectiles.CursedSpearBulletProj>();
+                }
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(4));
                     float scale = 1f - (Main.rand.NextFloat() * .3f);
                     perturbedSpeed = perturbedSpeed * scale;
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y - (2 * player.gravDir)), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage / 2, knockback * 1.5f, player.whoAmI);
