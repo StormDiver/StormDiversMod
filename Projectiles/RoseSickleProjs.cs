@@ -1,12 +1,14 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using StormDiversMod.Items.Weapons;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using StormDiversMod.Common;
-using StormDiversMod.Buffs;
-using Terraria.DataStructures;
+
 
 namespace StormDiversMod.Projectiles
 {
@@ -147,24 +149,65 @@ namespace StormDiversMod.Projectiles
             Projectile.extraUpdates = 3;
             Projectile.light = 0.2f;
         }
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Projectile.ai[2] == 1) //enhanced bullet
+            {
+                SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
+                //Main.NewText("STRONK");
+                Projectile.damage *= 3;
+            }
+        }
         public override void AI()
         {
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] > 3)
+            if (Projectile.ai[0] > 3 && Projectile.ai[2] == 1)
             {
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 12, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
                 dust2.noGravity = true;
             }
+            if (Projectile.ai[0] == 3 && Projectile.ai[2] == 1)
+            {
+                int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionPainNofaceProj>(), 0, 0);
+                Main.projectile[proj].scale = 1f;
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for (int i = 0; i < 30; i++)
+            if (Projectile.ai[2] == 1)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 12);
-                dust.noGravity = true;
+                for (int i = 0; i < 20; i++)
+                {
+                    var dust = Dust.NewDustDirect(target.Center, 0, 0, 12);
+                    dust.scale = 1f;
+                    dust.velocity *= 2f;
+                    dust.fadeIn = 1f;
+                }
+                for (int i = 0; i < 20; i++)
+                {
+                    float speedY = -1.5f;
+                    Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                    var dust = Dust.NewDustDirect(target.Center, 0, 0, 12, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.scale = 1f;
+                    dust.velocity *= 2f;
+                    dust.fadeIn = 1f;
+                }
+                SoundEngine.PlaySound(SoundID.Item74, target.Center);
+                int proj = Projectile.NewProjectile(target.GetSource_FromThis(), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionPainNofaceProj>(), 0, 0);
+                Main.projectile[proj].scale = 1f;
+                //npc.AddBuff(ModContent.BuffType<RoseDebuff>(), Math.Min(600, Math.Max(0, rosehitcount * 30)));
+                target.AddBuff(ModContent.BuffType<RoseDebuff>(), 600);
             }
-            Projectile.damage = (Projectile.damage * 9) / 10;
+            else
+            {
+                for (int i = 0; i < 30; i++)
+                {
+                    var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 12);
+                    dust.noGravity = true;
+                }
+                Projectile.damage = (Projectile.damage * 9) / 10;
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

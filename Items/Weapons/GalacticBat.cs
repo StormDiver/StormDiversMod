@@ -77,10 +77,20 @@ namespace StormDiversMod.Items.Weapons
             Item.noMelee = true;
             Item.noUseGraphic = false;
         }
+
+        public override void UpdateInventory(Player player)
+        {
+            if (!player.GetModPlayer<BatEffects>().batLimit && player.GetModPlayer<BatEffects>().BatCount == 1)
+                Item.SetNameOverride("The Galactic Baseballer - " + player.GetModPlayer<BatEffects>().BatCount + " hit");
+            else if (!player.GetModPlayer<BatEffects>().batLimit && player.GetModPlayer<BatEffects>().BatCount != 1)
+                Item.SetNameOverride("The Galactic Baseballer - " + player.GetModPlayer<BatEffects>().BatCount + " hits");
+            else
+                Item.SetNameOverride("The Galactic Baseballer - " + "READY!");
+        }
         public override void HoldItem(Player player)
         {
             //batCount = player.GetModPlayer<BatEffects>().BatCount;
-            if (player.GetModPlayer<BatEffects>().BatCount >= 10)
+            if (player.GetModPlayer<BatEffects>().batLimit)
             {
                 if (Main.rand.Next(4) == 0)
                 {
@@ -92,7 +102,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool AltFunctionUse(Player player)
         {
-            if (player.GetModPlayer<BatEffects>().BatCount >= 10)
+            if (player.GetModPlayer<BatEffects>().batLimit)
                 return true;
             else
                 return false;
@@ -164,7 +174,7 @@ namespace StormDiversMod.Items.Weapons
     public class BatEffects : ModPlayer
     {
         public int BatCount; //charge count
-        bool batLimit;//for one time indication that limit is reached
+        public bool batLimit;//for one time indication that limit is reached
         bool batHit; //has the bat already hit, makes only one charge added per swing
         public override void ResetEffects()
         {

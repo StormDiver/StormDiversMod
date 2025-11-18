@@ -2617,7 +2617,7 @@ Mods: {
 					Left click to use as a fast spear that ignores 10 defense
 					Right click to fire as a shotgun that fires 4 bullets with low spread
 					Requires bullets as ammo, regular bullets get converted to Cursed Shotgun bullets
-					Every 12 hits on an enemy with a Cursed Shotgun bullet makes the next spear stab deal 2.5x damage to them
+					Every 12 hits on an enemy with a Cursed Shotgun bullet makes the next spear stab deal 2.5x damage
 					'Whose idea was it to strap a shotgun to a spear?'
 					'''
 			}
@@ -3285,7 +3285,7 @@ Mods: {
 					Left click to swing the scythe creating a large damaging aura that ignores 15 defense
 					Right click to fire the rifle, has a strong recoil when not grounded unless UP or DOWN is held
 					Requires bullets as ammo, regular bullets get converted to Rose Bullets
-					Every 5 hits on an enemy with a Rose Bullet makes the next melee attack deal triple damage to them
+					Every 10 melee hits on enemies will convert the next bullet to a Rose Bullet that deals triple damage and inflicts Rose Petals
 					'A High Caliber Sniper Scythe, turn your enemies into dust'
 					'''
 			}

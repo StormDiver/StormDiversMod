@@ -11,6 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 using StormDiversMod.Common;
 using Terraria.Audio;
 using Humanizer;
+using Steamworks;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -107,7 +108,15 @@ namespace StormDiversMod.Items.Weapons
             Item.noMelee = true;
             //Item.shootsEveryUse = true;
         }
-
+        public override void UpdateInventory(Player player)
+        {
+            if (!player.GetModPlayer<CursedShotgunEffects>().bulletlimit && player.GetModPlayer<CursedShotgunEffects>().Bulletcount == 1)
+                Item.SetNameOverride("Cursed Spear Shotgun - " + player.GetModPlayer<CursedShotgunEffects>().Bulletcount + " hit");
+            else if (!player.GetModPlayer<CursedShotgunEffects>().bulletlimit && player.GetModPlayer<CursedShotgunEffects>().Bulletcount != 1)
+                Item.SetNameOverride("Cursed Spear Shotgun - " + player.GetModPlayer<CursedShotgunEffects>().Bulletcount + " hits");
+            else
+                Item.SetNameOverride("Cursed Spear Shotgun - " + "READY!");
+        }
         public override bool AltFunctionUse(Player player)
         {
             return true;
@@ -136,11 +145,19 @@ namespace StormDiversMod.Items.Weapons
                 return player.ownedProjectileCounts[Item.shoot] < 1;
             }
         }
-
-        public override void MeleeEffects(Player player, Rectangle hitbox)
+        public override void HoldItem(Player player)
         {
+            if (player.GetModPlayer<CursedShotgunEffects>().bulletlimit == true)
+            {
+                if (Main.rand.Next(5) < 1)
+                {
+                    int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 68, 0, 1, 50, default, 1.25f);
+                    Main.dust[dust].velocity *= 0f;
+                    Main.dust[dust].noGravity = true;
+                }
+                player.armorEffectDrawOutlines = true;
+            }
         }
-        
         Vector2 muzzleOffset = new Vector2(0, 0);
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
@@ -164,7 +181,7 @@ namespace StormDiversMod.Items.Weapons
                 }
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(4));
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
                     float scale = 1f - (Main.rand.NextFloat() * .3f);
                     perturbedSpeed = perturbedSpeed * scale;
                     Projectile.NewProjectile(source, new Vector2(position.X, position.Y - (2 * player.gravDir)), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage / 2, knockback * 1.5f, player.whoAmI);
@@ -187,6 +204,94 @@ namespace StormDiversMod.Items.Weapons
 
             spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
                 new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+        }
+    }
+    //_______________________________________________________________________________________________________________
+    public class CursedShotgunEffects : ModPlayer
+    {
+        public int Bulletcount; //charge count
+        public bool bulletlimit;//for one time indication that limit is reached
+        public override void ResetEffects()
+        {
+        }
+        public override void UpdateDead()//Reset all ints and bools if dead======================
+        {
+            Bulletcount = 0;
+            bulletlimit = false;
+        }
+        public override void PreUpdate()
+        {
+        }
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (proj.type == ModContent.ProjectileType<CursedSpearBulletProj>() && target.lifeMax > 5 && !target.friendly && target.active == true && target.type != NPCID.TargetDummy) //bullet
+            {
+                if (Bulletcount < 12) //Count up each hit 
+                    Bulletcount++;
+
+                if (Bulletcount < 12) //count up, play sound and display count text
+                {
+                    //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.LightBlue, Bulletcount, false);
+                    SoundEngine.PlaySound(SoundID.Item8 with { Volume = 1f, Pitch = 0 }, Player.Center);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        var dust = Dust.NewDustDirect(Player.Center, 0, 0, 68);
+                        dust.noGravity = true;
+                        dust.velocity *= 2f;
+                        dust.fadeIn = 1f;
+                    }
+                }
+                else if (Bulletcount == 12 && !bulletlimit) //at max charge, sound, particle, and text only once
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        var dust = Dust.NewDustDirect(Player.Center, 0, 0, 68);
+                        dust.noGravity = true;
+                        dust.velocity *= 3f;
+                        dust.fadeIn = 1f;
+                    }
+                    SoundEngine.PlaySound(SoundID.Item8 with { Volume = 3f, Pitch = 0.4f }, Player.Center);
+
+                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.Aqua, "Spear Enhanced!", false);
+                    bulletlimit = true;
+                }
+                //batHit = true; //only show this effect once
+            }
+            if (proj.type == ModContent.ProjectileType<CursedSpearGunProj>() && bulletlimit && target.lifeMax > 5 && !target.friendly) //gets reset when it hits an enemy
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    var dust = Dust.NewDustDirect(target.Center, 0, 0, 68);
+                    dust.noGravity = true;
+                    dust.velocity *= 2f;
+                    dust.fadeIn = 1f;
+                }
+                for (int i = 0; i < 20; i++)
+                {
+                    float speedY = -3f;
+                    Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+                    var dust = Dust.NewDustDirect(target.Center, 0, 0, 68, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+                    dust.velocity *= 2f;
+                    dust.fadeIn = 1f;
+                }
+                SoundEngine.PlaySound(SoundID.Item74, target.Center);
+                target.AddBuff(BuffID.OnFire3, 300);
+                bulletlimit = false;
+                Bulletcount = 0;
+            }
+            //Main.NewText(BatCount + " Whacks");
+        }
+    }
+    public class CursedShotgunEffectsHit : GlobalNPC
+    {
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
+            var player = Main.player[projectile.owner];
+            if (player.GetModPlayer<CursedShotgunEffects>().bulletlimit == true && projectile.type == ModContent.ProjectileType<CursedSpearGunProj>()) //only increase damage for first hit
+            {
+                modifiers.FinalDamage *= 2.5f; //deal x2.5 damage with visual-only explosion effect
+            }
         }
     }
 }

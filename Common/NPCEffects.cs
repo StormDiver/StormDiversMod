@@ -132,14 +132,6 @@ namespace StormDiversMod.Common
 
         public int bosssoulcooldown; //cooldown for when a boss can drop a soul again
 
-        public bool cursedshotguneffect; //for the Cursed Shotgun effect
-
-        public int cursedhitcount; //count for how many cursed shotgun bullets have hit
-
-        public int rosehitcount; //count for how many rose bullets have hit
-
-        public bool roseeffect; //for the Cresent Rifle effect
-
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
         {
@@ -954,26 +946,6 @@ namespace StormDiversMod.Common
                     Main.dust[dust].velocity.Y -= 0.5f;
                 }
             }
-            if (cursedshotguneffect)
-            {
-                if (Main.rand.Next(10) < 1)
-                {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 68, 0, 1, 50, default, 1.25f);
-                    Main.dust[dust].velocity *= 0f;
-                    Main.dust[dust].noGravity = true;
-                }
-                //drawColor = new Color(50, 68, 100);
-            }
-            if (roseeffect)
-            {
-                if (Main.rand.Next(10) < 1)
-                {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 12, 0, 1, 50, default, 1.25f);
-                    Main.dust[dust].velocity *= 0f;
-                    Main.dust[dust].noGravity = true;
-                }
-                drawColor = new Color(255, 68, 0);
-            }
             if (roseDOTdebuff)
             {
                 if (Main.rand.Next(4) < 1)
@@ -982,6 +954,7 @@ namespace StormDiversMod.Common
                     Main.dust[dust].velocity.Y = -1.5f;
                     Main.dust[dust].noGravity = true;
                 }
+                drawColor = new Color(255, 68, 0);
             }
             if (WhiptagWeb)
             {
@@ -989,9 +962,7 @@ namespace StormDiversMod.Common
                 {
                     int dust = Dust.NewDust(npc.Center - new Vector2(10f, 10f), 20, 20, 31, 0, 0, 50, default, 0.8f);
                     Main.dust[dust].noGravity = true;
-
                 }
-
             }
             if (WhiptagBlood)
             {
@@ -1215,89 +1186,6 @@ namespace StormDiversMod.Common
             {
                 if (projectile.CountsAsClass(DamageClass.Ranged))
                 modifiers.CritDamage *= 1.10f;
-            }
-            //Cursed Shotgun spear effect
-            if (projectile.type == ModContent.ProjectileType<CursedSpearBulletProj>())
-            {
-                if (cursedhitcount == 11) //sound effect
-                    SoundEngine.PlaySound(SoundID.Item9 with { Volume = 2f, Pitch = 0 }, npc.Center);
-
-                if (cursedhitcount < 12)
-                {
-                    cursedhitcount++;
-                }
-
-                if (cursedhitcount > 11)
-                    cursedshotguneffect = true;
-                //Main.NewText("Hits = " + cursedhitcount);
-            }
-            if (projectile.type == ModContent.ProjectileType<Projectiles.CursedSpearGunProj>() && cursedshotguneffect)
-            {
-                modifiers.FinalDamage *= 2.5f; //deal x2.5 damage with visual-only explosion effect
-                for (int i = 0; i < 20; i++)
-                {
-                    var dust = Dust.NewDustDirect(npc.Center, 0, 0, 68);
-                    dust.noGravity = true;
-                    dust.velocity *= 2f;
-                    dust.fadeIn = 1f;
-                }
-                for (int i = 0; i < 20; i++)
-                {
-                    float speedY = -3f;
-                    Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                    var dust = Dust.NewDustDirect(npc.Center, 0, 0, 68, perturbedSpeed.X, perturbedSpeed.Y);
-                    dust.noGravity = true;
-                    dust.velocity *= 2f;
-                    dust.fadeIn = 1f;
-                }
-                SoundEngine.PlaySound(SoundID.Item74, npc.Center);
-                npc.AddBuff(BuffID.OnFire3, 300);
-                cursedhitcount = 0;
-                cursedshotguneffect = false;
-            }
-            //rose sickle effect
-            if (projectile.type == ModContent.ProjectileType<RoseSickleBulletProj>())
-            {
-                if (rosehitcount == 4) //sound effect
-                    SoundEngine.PlaySound(SoundID.Grass with { Volume = 3f, Pitch = -1 }, npc.Center);
-
-                if (rosehitcount < 5)
-                {
-                    rosehitcount++;
-                    CombatText.NewText(new Rectangle((int)npc.Center.X, (int)npc.Center.Y, 12, 4), Color.IndianRed, rosehitcount, false);
-                }
-
-                if (rosehitcount > 4)
-                    roseeffect = true;
-
-                //Main.NewText("Hits = " + rosehitcount);
-            }
-            if (projectile.type == ModContent.ProjectileType<Projectiles.RoseAura>() && roseeffect)
-            {
-                modifiers.FinalDamage *= 3; //deal triple damage with visual-only explosion effect
-                for (int i = 0; i < 20; i++)
-                {
-                    var dust = Dust.NewDustDirect(npc.Center, 0, 0, 12);
-                    dust.scale = 1f;
-                    dust.velocity *= 2f;
-                    dust.fadeIn = 1f;
-                }
-                for (int i = 0; i < 20; i++)
-                {
-                    float speedY = -1.5f;
-                    Vector2 perturbedSpeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-                    var dust = Dust.NewDustDirect(npc.Center, 0, 0, 12, perturbedSpeed.X, perturbedSpeed.Y);
-                    dust.scale = 1f;
-                    dust.velocity *= 2f;
-                    dust.fadeIn = 1f;
-                }
-                SoundEngine.PlaySound(SoundID.Item74, npc.Center);
-                int proj = Projectile.NewProjectile(npc.GetSource_FromThis(), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionPainNofaceProj>(), 0, 0);
-                Main.projectile[proj].scale = 1f;
-                //npc.AddBuff(ModContent.BuffType<RoseDebuff>(), Math.Min(600, Math.Max(0, rosehitcount * 30)));
-                npc.AddBuff(ModContent.BuffType<RoseDebuff>(), 600);
-                rosehitcount = 0;
-                roseeffect = false;
             }
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)

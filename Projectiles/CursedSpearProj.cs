@@ -1,15 +1,16 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using StormDiversMod.Items.Weapons;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using StormDiversMod.Common;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Buffs;
+using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using Microsoft.Xna.Framework.Graphics;
 
 
 namespace StormDiversMod.Projectiles
@@ -88,7 +89,7 @@ namespace StormDiversMod.Projectiles
                 //Projectile.rotation += MathHelper.ToRadians(135f);
             }
 
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(3) && player.GetModPlayer<CursedShotgunEffects>().bulletlimit == true)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 68, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 1, Scale: 1.2f);
                 dust.noGravity = true;
@@ -102,19 +103,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            /*Main.instance.LoadProjectile(Projectile.type);
-            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-
-            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
-            for (int k = 0; k < Projectile.oldPos.Length; k++)
-            {
-                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
-            }*/
-
             return true;
-
         }
         public override void PostDraw(Color lightColor) //glowmask for single frame
         {
