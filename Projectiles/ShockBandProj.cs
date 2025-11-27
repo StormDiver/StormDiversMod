@@ -111,7 +111,7 @@ namespace StormDiversMod.Projectiles
             if (Projectile.ai[2] <= 2 + extratargets)// Hit 3 extra enemies
             {
                 target.GetGlobalNPC<NPCEffects>().shockbandtime = 10;// makes sure the enemy that summons the proj can't get hit by it
-                for (int i = 0; i < Main.maxNPCs; i++) //Shoots sand at one enemy
+                for (int i = 0; i < Main.maxNPCs; i++) //Shoots at one enemy
                 {
                     NPC npctarget = Main.npc[i];
 

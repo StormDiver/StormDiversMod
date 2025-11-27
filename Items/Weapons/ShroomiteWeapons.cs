@@ -66,6 +66,13 @@ namespace StormDiversMod.Items.Weapons
         }
         int chargetime = 50; //How many shots to charge 
         float soundpitch;
+        public override void UpdateInventory(Player player)
+        {
+            if (chargetime > 0)
+                Item.SetNameOverride("Shroomite Sharpshooter - " + (100 - (chargetime * 2)) + "% Charged");
+            else
+                Item.SetNameOverride("Shroomite Sharpshooter - " + "Fully Charged!");
+        }
 
         public override void HoldItem(Player player)
         {

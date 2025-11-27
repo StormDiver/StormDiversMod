@@ -18,7 +18,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 12;
             Projectile.height = 120;
             Projectile.friendly = true;
@@ -52,16 +51,14 @@ namespace StormDiversMod.Projectiles
                 Projectile.height += 4;
                 //Projectile.position.Y += 4; grows from top, no need to move it down
             }
-
-            Vector2 position = Projectile.position;
-            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 68, 0f, 0f, 100, default, 1.5f);
-
-            Main.dust[dustIndex].noGravity = true;
-            var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 203);
-
-            dust2.noGravity = true;
-
-
+            for (int i = 0; i < 3; i++)
+            {
+                Vector2 position = Projectile.position;
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 68, Projectile.velocity.X * 0.5f, 0f, 100, default, 1.5f);
+                Main.dust[dustIndex].noGravity = true;
+                var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 203);
+                dust2.noGravity = true;
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -81,16 +78,12 @@ namespace StormDiversMod.Projectiles
                 }
                 //target.AddBuff(ModContent.BuffType<DerpDebuff>(), 60);
                 target.GetGlobalNPC<NPCEffects>().derplaunched = true;
-
-
                 /*if (airknock > 0)
                 {
                     airknock--;
                 }*/
             }
         }
-
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             //Projectile.Kill();

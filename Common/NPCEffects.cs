@@ -1121,8 +1121,6 @@ namespace StormDiversMod.Common
                         {
                             NPC target = Main.npc[i];
 
-                            target.TargetClosest(true);
-
                             if (Vector2.Distance(npc.Center, target.Center) <= 400f && Vector2.Distance(npc.Center, target.Center) > 15f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(npc.Center, 0, 0, target.Center, 0, 0))
                             {
                                 if (forbiddenwhipcooldown >= 10)

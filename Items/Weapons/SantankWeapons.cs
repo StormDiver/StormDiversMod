@@ -105,7 +105,7 @@ namespace StormDiversMod.Items.Weapons
             Item.shootSpeed = 12f;
             Item.useTime = 15;
             Item.useAnimation = 30;
-            Item.reuseDelay = 45;
+            Item.reuseDelay = 30;
             Item.useAmmo = AmmoID.Bullet;
 
             Item.noMelee = true;

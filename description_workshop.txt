@@ -28,7 +28,6 @@
 [/list]
 
 [h2]Fan translation mods[/h2]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3528500062][b]Up to date Chinese translation by "一条鱼"[/b][/url]
  [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3570843032][b]Russian translation by Arick[/b][/url]
 
 [h2]Links[/h2]
@@ -37,10 +36,9 @@
 
 [h2]Credits[/h2]
 Creator, coder, and main spriter: [b]TheStorm[/b]
-Spriter and playtester: [b]Lynxical[/b]
+Some sprites and playtesting: [b]Lynxical[/b]
 Boss Music by: [b]MicelTheGuy[/b]
-Some additional sprites by: Charley#0571 
-(Outdated) Chinese Localisation by: by jianjingqiao201314(简境巧)
+(Outdated) Chinese Localisation by: by jianjingqiao201314(简境巧) and "一条鱼"
 
 Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful.[quote=tModLoader StormDiversMod]
 Developed By TheStorm[/quote]

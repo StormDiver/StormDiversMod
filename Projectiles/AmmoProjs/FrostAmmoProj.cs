@@ -81,7 +81,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 if (StickTimer >= 180 || npcTarget < 0 || npcTarget >= 200) //after 3 seconds "explode"
                 {
                     Projectile.timeLeft = 1;
-                    Projectile.damage = (int)(basedamage * 0.3f); //second hit 30% damage
+                    Projectile.damage = (int)(basedamage * 0.4f); //second hit 40% damage (75 + 40 = 115%)
                     Projectile.ArmorPenetration = 10; //10 AP
                     for (int i = 0; i < 15; i++)
                     {
@@ -107,13 +107,12 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
             else
             {
-                Projectile.damage = (int)(basedamage * 0.85f); //first hit deals 85% damage
+                Projectile.damage = (int)(basedamage * 0.75f); //first hit deals 75% damage
             }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (!sticktarget)//attach to enemy
             {
                 Projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
@@ -162,7 +161,6 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         }
     }
     //_____________________________________________________________________________________________________________________________________________________
-
     public class FrostArrowProj : ModProjectile
     {
         public override void SetStaticDefaults()

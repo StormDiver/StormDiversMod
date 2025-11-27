@@ -274,6 +274,14 @@ namespace StormDiversMod.Items.Weapons
             return new Vector2(0, 0);
         }
         float accuracy = 10; //The amount of spread
+
+        public override void UpdateInventory(Player player)
+        {
+           /* if (accuracy > 0.2f)
+                Item.SetNameOverride("Asteroid Blaster - " + accuracy + "");
+            else
+                Item.SetNameOverride("Asteroid Blaster - " + "Fully accuracate!");*/
+        }
         public override void HoldItem(Player player)
         {
             if (!player.controlUseItem)

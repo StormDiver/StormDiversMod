@@ -878,7 +878,22 @@ namespace StormDiversMod.Common
                         Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                         Main.dust[dustIndex].noGravity = true;
                     }
-
+                    for (int i = 0; i < (int) (bootdmg / 10); i++)
+                    {
+                        int goreIndex = Gore.NewGore(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                        Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 2f;
+                        Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 2f;
+                        goreIndex = Gore.NewGore(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                        Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 2f;
+                        Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 2f;
+                        goreIndex = Gore.NewGore(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                        Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 2f;
+                        Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 2f;
+                        goreIndex = Gore.NewGore(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                        Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 2f;
+                        Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 2f;
+                    }
+                    //Main.NewText(" " + (int) (bootdmg / 10), Color.Red);
                     Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Right.Y + 2 * Player.gravDir), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
                     Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Left.Y + 2 * Player.gravDir), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
 
@@ -1784,7 +1799,6 @@ namespace StormDiversMod.Common
                     {
                         NPC npctarget = Main.npc[i];
 
-                        npctarget.TargetClosest(true);
                         if (Vector2.Distance(target.Center, npctarget.Center) <= 500f && !npctarget.friendly && npctarget.active && !npctarget.dontTakeDamage && npctarget.lifeMax > 5 && npctarget.type != NPCID.TargetDummy
                             && Collision.CanHit(target.Center, 0, 0, npctarget.Center, 0, 0) && npctarget.GetGlobalNPC<NPCEffects>().shockbandtime == 0 && !shockedtarget)
                         {
@@ -1946,7 +1960,6 @@ namespace StormDiversMod.Common
                     {
                         NPC npctarget = Main.npc[i];
 
-                        npctarget.TargetClosest(true);
                         if (Vector2.Distance(target.Center, npctarget.Center) <= 500f && !npctarget.friendly && npctarget.active && !npctarget.dontTakeDamage && npctarget.lifeMax > 5 && npctarget.type != NPCID.TargetDummy
                             && Collision.CanHit(target.Center, 0, 0, npctarget.Center, 0, 0) && npctarget.GetGlobalNPC<NPCEffects>().shockbandtime == 0 && !shockedtarget)
                         {

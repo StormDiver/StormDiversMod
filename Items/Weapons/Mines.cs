@@ -159,8 +159,8 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 6, 0, 0);
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.useTime = 40;
-            Item.useAnimation = 40;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useTurn = false;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.AmmoProjs.C4Proj>();

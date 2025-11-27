@@ -509,6 +509,7 @@ namespace StormDiversMod.Common
 
             if (derpJump)
             {
+                int derpdamage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(120);
                 if (derplinglaunchcooldown < 45)
                 {
                     derplinglaunchcooldown++;
@@ -534,7 +535,6 @@ namespace StormDiversMod.Common
 
                     if (Player.controlJump)
                     {
-
                         Player.ClearBuff(ModContent.BuffType<DerpBuff>());
 
                         SoundEngine.PlaySound(SoundID.NPCHit22 with { Volume = 1.5f, Pitch = -0.5f }, Player.Center);
@@ -556,8 +556,23 @@ namespace StormDiversMod.Common
                             dust2.noGravity = true;
                             dust2.velocity *= 2;
                         }
-                        Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.Center.X, Player.Right.Y - 20 * Player.gravDir), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), 120, 0, Player.whoAmI);
-                        Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.Center.X, Player.Left.Y - 20 * Player.gravDir), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), 120, 0, Player.whoAmI);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            int goreIndex = Gore.NewGore(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                            Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 2f;
+                            Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 2f;
+                            goreIndex = Gore.NewGore(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                            Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 2f;
+                            Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 2f;
+                            goreIndex = Gore.NewGore(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                            Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 2f;
+                            Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 2f;
+                            goreIndex = Gore.NewGore(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                            Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 2f;
+                            Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 2f;
+                        }
+                        Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.Center.X, Player.Right.Y - 20 * Player.gravDir), new Vector2(7, 0), ModContent.ProjectileType<DerpWaveProj>(), derpdamage, 0, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.Center.X, Player.Left.Y - 20 * Player.gravDir), new Vector2(-7, 0), ModContent.ProjectileType<DerpWaveProj>(), derpdamage, 0, Player.whoAmI);
                         derplinglaunchcooldown = 0;
                     }
                 }
@@ -566,9 +581,6 @@ namespace StormDiversMod.Common
             {
                 derplinglaunchcooldown = 0;
             }
-
-
-
             //For the Sky Knight set
             if (skyKnightSet)
             {

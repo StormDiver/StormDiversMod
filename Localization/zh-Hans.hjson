@@ -1,3 +1,4 @@
+//Note for mod translators, I will not be adding anything else to this list that is missing, I did not want to create a localisation file in the first place but sadly I was forced to, so there is a lot of text in this mod not present in this file but rather hardcoded into the mod.
 Mods: {
 	StormDiversMod: {
 		"Keybinds.Armor Special Ability.DisplayName": 护甲特殊能力
@@ -19,142 +20,152 @@ Mods: {
 		//Achievements Mod
 		Achievements: {
 			AchievementAridBoss: {
-				Name: 解放灵魂
+				FriendlyName: 解放灵魂
 				Description: 击败“远古躯壳”，这是一套严重枯萎的盔甲。
 			}
 
 			AchievementStormBoss: {
-				Name: 超载
+				FriendlyName: 超载
 				Description: 击败“超载扫描无人机”，这是一项危险且不稳定的实验。
 			}
 
 			AchievementUltimateBoss: {
-				Name: 痛苦终于结束了
-				Description: 击败“痛苦使者”，终极痛苦使者。
+				FriendlyName: 痛苦终于结束了
+				Description: 击败“痛苦使者”，极致痛苦使者。
 			}
 
 			AchievementNoPizza: {
-				Name: 我要投诉
+				FriendlyName: 我要投诉
 				Description: 击败“雪人披萨快递员”，反正订单是错的。
 			}
 
 			AchievementMoonling: {
-				Name: 最后的跳跳兽
+				FriendlyName: 最后的跳跳兽
 				Description: 击败“月灵”，这是一种被月能侵染的跳跳兽。
 			}
 
 			AchievementScaryDerp: {
-				Name: 这再正常不过了
+				FriendlyName: 这再正常不过了
 				Description: 杀死一个完全正常的跳跳兽，没有任何奇怪的地方……
 			}
 
 			AchievementBiomeCore: {
-				Name: 生物群落的力量
+				FriendlyName: 生物群落的力量
 				Description: 制作生物群落核心，这是3个小型生物群落的力量总和。
 			}
 
 			AchievementFastDrill: {
-				Name: 快速钻探
+				FriendlyName: 快速钻探
 				Description: 制作巨型钻头，加快采矿速度
 			}
 
 			AchievementEquinox: {
-				Name: 光明与黑暗的平衡
+				FriendlyName: 光明与黑暗的平衡
 				Description: 制作均衡之剑，一把完美平衡的宝剑，万物皆应如此。
 			}
 
 			AchievementStoneCannon4: {
-				Name: 最危险的石头
+				FriendlyName: 最危险的石头
 				Description: 制作月石炮，将石头变成毁灭性的月球巨石。
 			}
 
 			AchievementThePain: {
-				Name: 痛苦！
+				FriendlyName: 痛苦！
 				Description: 获得“痛苦”，向所有人展示你有多痛苦。
 			}
 
 			AchievementClayman: {
-				Name: 粘土人！
+				FriendlyName: 粘土人！
 				Description: 获得“粘土”，默默地评判你身边的每一个人。
 			}
 
 			AchievementDerpKing: {
-				Name: 跳跳兽大师
+				FriendlyName: 跳跳兽大师
 				Description: 获得全套跳跳兽盔甲以及所有跳跳兽武器、工具和装备。
 			}
 
 			AchievementLunarCosplay: {
-				Name: 月亮扮演者
+				FriendlyName: 月亮扮演者
 				Description: 收集全部4套月亮事件时装套装。
 			}
 
 			AchievementGnomed: {
-				Name: 你被侏儒了！
+				FriendlyName: 你被侏儒了！
 				Description: 戴上侏儒帽，成为侏儒。
 			}
 
 			AchievementPendants: {
-				Name: 配饰协作
+				FriendlyName: 配饰协作
 				Description: 同时激活至少2个配饰的效果。
 			}
 
 			AchievementStompBounce: {
-				Name: 向高处进发
+				FriendlyName: 向高处进发
 				Description: 使用重靴成功进行一次蹬地弹跳。
 			}
 
 			AchievementQuack: {
-				Name: 嘎嘎！！！
+				FriendlyName: 嘎嘎！！！
 				Description: 嘎嘎5次，嘎嘎，嘎嘎，嘎嘎，嘎嘎，嘎嘎……
 			}
 
 			AchievementHugBear: {
-				Name: 啊呜!
+				FriendlyName: 啊呜!
 				Description: 抱抱泰迪熊，你会得到最无条件的爱，足以治愈（几乎）任何伤口。
 			}
 
 			AchievementHeartSteal: {
-				Name: 你偷走了我的心
+				// FriendlyName: You Stole my Heart
 				Description: 用生命徽章夺取普通敌人的生命
 			}
 
 			AchievementTwilight: {
-				Name: 暮光之城
+				FriendlyName: 暮光之城
 				Description: 使用全套暮光盔甲进行扭曲，没有时间行走。
 			}
 
 			AchievementSuperHeart: {
-				Name: 那太棒了！
+				FriendlyName: 那太棒了！
 				Description: 取得超级心脏瓶后，收集敌人掉落的超级心脏。
 			}
 
 			AchievementNineLives: {
-				Name: 我是死神！
+				FriendlyName: 我是死神！
 				Description: 用九魂镰一次收割9个灵魂。
 			}
 
 			AchievementSantanked: {
-				Name: 核对“淘气鬼”名单
+				FriendlyName: 核对“淘气鬼”名单
 				Description: 从圣坦克装甲发射一组满载的导弹。
 			}
 
 			AchievementNoShield: {
-				Name: 不再有你的保护罩
+				FriendlyName: 不再有你的保护罩
 				Description: 使用天球仪突破天界柱的防护罩。
 			}
 
 			AchievementThePets: {
-				Name: 双胞胎？
+				FriendlyName: 双胞胎？
 				Description: 同时激活暮光人物轻型宠物和婴儿风暴潜水员宠物。
 			}
 
 			AchievementWhack: {
-				Name: 不。。。这不是你应该使用它的方式!!!
+				FriendlyName: 不。。。这不是你应该使用它的方式!!!
 				Description: 用 The Painbringer 的法杖殴打敌人 100 次
+			}
+
+			AchievementTemple: {
+				FriendlyName: 出去！！！！
+				Description: 提前进入丛林神庙并试图掠夺其中的物品。
+			}
+
+			AchievementGlassShatter: {
+				FriendlyName: 你觉得会发生什么？
+				Description: 试图用一块玻璃盔甲保护自己，结果它立刻就碎了。
 			}
 		}
 
-		// MunchiesSupport.ZephyrFeather: Throw either a [i:1516], [i:1517], [i:1518], or [i:1519] into Shimmer
+		MunchiesSupport.ZephyrFeather: 将[i:1516]、[i:1517]、[i:1518]或[i:1519]投入微光
 
 		Buffs: {
 			AridCoreDebuff: {
@@ -328,18 +339,18 @@ Mods: {
 			}
 
 			SludgedDebuff: {
-				// DisplayName: Toxic Sludged
-				// Description: The Toxic sludge slows you down and damages you
+				DisplayName: 毒性污泥
+				Description: 毒性污泥使你减速并造成伤害
 			}
 
 			SludgedVenomDebuff: {
-				// DisplayName: Acidic Sludged
-				// Description: The Acidic sludge slows you down and damages you
+				DisplayName: 酸蚀毒泥
+				Description: 酸性剧毒污泥使你减速并造成伤害
 			}
 
 			StungDebuff: {
-				// DisplayName: Stung
-				// Description: The stingers embedded in you really hurt
+				DisplayName: 刺伤
+				Description: 嵌入体内的尖刺造成持续剧痛
 			}
 
 			SpaceRockDefence: {
@@ -362,8 +373,8 @@ Mods: {
 			}
 
 			SpectreStarBuff: {
-				// DisplayName: Spectral Strength
-				// Description: Magic damage increased by
+				DisplayName: 幽魂之力
+				Description: 魔法伤害增加
 			}
 
 			SpookedDebuff: {
@@ -572,33 +583,38 @@ Mods: {
 			}
 
 			FlaskFrostImbue: {
-				// DisplayName: Weapon Imbue: Frostburn
-				// Description: Melee and whip attacks inflict enemies with Frostburn
+				DisplayName: 武器附魔：霜焰
+				Description: 近战和鞭类攻击使敌人受到霜焰效果
 			}
 
 			FlaskExplosiveImbue: {
-				// DisplayName: Weapon Imbue: Explosives
-				// Description: Melee and whip attacks create a small explosion
+				DisplayName: 武器附魔：爆破
+				Description: 近战和鞭类攻击会引发小范围爆炸
 			}
 
 			BatBrokenDebuff: {
-				// DisplayName: Broken
-				// Description: You will take 10% extra damage and damage over time
+				DisplayName: 骨折
+				Description: 你将承受额外10%伤害并持续受到伤害
 			}
 
 			TouchGrassBuff: {
-				// DisplayName: Touching Grass
-				// Description: See, it's not that bad, your stats have been increased and you can dash
+				DisplayName: 接触草地
+				Description: 看吧，没那么糟，你的属性提升了并获得冲刺能力
 			}
 
 			TouchGrassDebuff: {
-				// DisplayName: Touch Grass!
-				// Description: This is a threat!
+				DisplayName: 快去接触草地！
+				Description: 这是个威胁！
 			}
 
 			GlassShardDebuff: {
-				// DisplayName: Embedded
-				// Description: You are embedded with sharp glass shards
+				DisplayName: 嵌入
+				Description: 你被锋利的玻璃碎片刺入了体内
+			}
+
+			RoseDebuff: {
+				DisplayName: 玫瑰花瓣
+				Description: 玫瑰花瓣会吸干你的生命
 			}
 		}
 
@@ -713,8 +729,8 @@ Mods: {
 			}
 
 			CoralStormEmblem: {
-				// DisplayName: Cyclone Emblem
-				// Tooltip: Summons a homing coral cyclone when using any weapon
+				DisplayName: 珊瑚风暴徽章
+				Tooltip: 使用大多数武器时召唤追踪型珊瑚旋风
 			}
 
 			DeathCore: {
@@ -729,14 +745,14 @@ Mods: {
 			}
 
 			DeathCorePain: {
-				// DisplayName: Ultimate Pain Core
-				/* Tooltip:
+				DisplayName: 痛苦使者核心
+				Tooltip:
 					'''
-					Saves you from death once every 2 minutes, granting 5 seconds of immunity
-					Also releases a bunch of homing pain skulls that deal heavy damage each time you're revived
-					Doesn't activate if the killing blow deals over 9999 damage
-					'Live to suffer another day'
-					''' */
+					每2分钟免死一次，并获得5秒无敌时间
+					每次复活时会释放大量追踪痛苦骷髅造成巨额伤害
+					若致命伤害超过9999点则不会触发
+					'苟活一时，痛苦一世'
+					'''
 			}
 
 			DerpEye: {
@@ -852,7 +868,12 @@ Mods: {
 				Tooltip:
 					'''
 					允许飞行和缓慢下落
+					落地或触发钩爪后刷新飞行时间
 					按住上键可以更快地上升
+					飞行时间:2.67
+					水平移速:33
+					垂直加速:150%
+					按住上键将进一步提高垂直飞行速度
 					'''
 			}
 
@@ -861,7 +882,11 @@ Mods: {
 				Tooltip:
 					'''
 					允许飞行和缓慢下落
+					落地或触发钩爪后刷新飞行时间
 					以较低的飞行时间换取高加速度
+					飞行时间:1.76
+					水平速度:38
+					垂直加速:200%
 					'''
 			}
 
@@ -926,33 +951,37 @@ Mods: {
 				Tooltip:
 					'''
 					允许飞行和缓慢下落
+					落地或触发钩爪后刷新飞行时间
 					具有快速的水平运动和加速度
+					飞行时间:3.17
+					水平速度:43
+					垂直加速:220%
 					'''
 			}
 
 			SpectreAccessory: {
-				// DisplayName: Spectre Skull
-				/* Tooltip:
+				DisplayName: 幽魂颅骨
+				Tooltip:
 					'''
-					Enemies have a chance to drop a Spectral Star on death, which restores 100 mana
-					Bosses have a small chance when hit to drop a star
-					The star also grants the Spectral Strength Buff which increases magic damage by up to 25% depending on the remaining duration
-					Duration is increased by 5 seconds per collected star, and caps at 10 seconds
-					''' */
+					敌人死亡时有概率掉落幽魂之星，回复100点法力值
+					攻击首领时有小概率掉落星魂
+					拾取星魂可获得幽魂之力增益，根据剩余持续时间最高提升25%魔法伤害
+					每收集一个星魂增加5秒持续时间，上限10秒
+					'''
 			}
 
 			SpectreAccessoryMagnet: {
-				// DisplayName: Magnet Skull Flower
-				/* Tooltip:
+				DisplayName: 磁力颅骨花
+				Tooltip:
 					'''
-					8% reduced mana usage
-					Automatically use mana potions when needed
-					Increases pickup range for mana stars
-					Enemies have a chance to drop a Spectral Star on death, which restores 100 mana
-					Bosses have a small chance when hit to drop a star
-					The star also grants the Spectral Strength Buff which increases magic damage by up to 25% depending on the remaining duration
-					Duration is increased by 5 seconds per collected star, and caps at 10 seconds
-					''' */
+					降低8%法力消耗
+					需要时自动使用法力药水
+					扩大法力之星的拾取范围
+					敌人死亡时有概率掉落幽魂之星，回复100点法力值
+					攻击首领时有小概率掉落星魂
+					拾取星魂可获得幽魂之力增益，根据剩余持续时间最高提升25%魔法伤害
+					每收集一个星魂增加5秒持续时间，上限10秒
+					'''
 			}
 
 			SpookyCore: {
@@ -1001,7 +1030,11 @@ Mods: {
 				Tooltip:
 					'''
 					允许飞行和缓慢下落
+					落地或触发钩爪后刷新飞行时间
 					按住下键加跳跃键可以悬停
+					飞行时间:2.80
+					水平速度:33
+					垂直加速:166%
 					'''
 			}
 
@@ -1041,11 +1074,11 @@ Mods: {
 
 			AsteroidBullet: {
 				DisplayName: 小行星子弹
-				/* Tooltip:
+				Tooltip:
 					'''
-					Can pierce through all tiles with no accuracy loss, and ignores all liquids
-					Bullets lose 25% damage, and 33% knockback and speed after piercing tiles
-					''' */
+					可穿透所有物块且无精度损失，并忽略所有液体
+					子弹穿透物块后伤害降低25%，击退效果和速度降低33%
+					'''
 			}
 
 			BouncyArrow: {
@@ -1131,12 +1164,12 @@ Mods: {
 			}
 
 			C4Ammo: {
-				// DisplayName: Satchel Charge
-				/* Tooltip:
+				DisplayName: 炸药包
+				Tooltip:
 					'''
-					For use with the Satchel Charge Detonator
-					'Explosives placed'
-					''' */
+					需要炸药包引爆器
+					'爆炸物已部署'
+					'''
 			}
 
 			ShroomArrow: {
@@ -1163,66 +1196,66 @@ Mods: {
 			}
 
 			GemAmethystBullet: {
-				// DisplayName: Amethyst Bullet
-				/* Tooltip:
+				DisplayName: 紫晶子弹
+				Tooltip:
 					'''
-					Mines the struck tile on impact, use with caution
-					Mines with 40% pickaxe power twice per bullet
-					''' */
+					撞击时开采命中物块，请谨慎使用
+					每次子弹以40%镐力开采两次
+					'''
 			}
 
 			GemTopazBullet: {
-				// DisplayName: Topaz Bullet
-				/* Tooltip:
+				DisplayName: 黄玉子弹
+				Tooltip:
 					'''
-					Mines the struck tile on impact, use with caution
-					Mines with 50% pickaxe power twice per bullet
-					''' */
+					撞击时开采命中物块，请谨慎使用
+					每次子弹以50%镐力开采两次
+					'''
 			}
 
 			GemSapphireBullet: {
-				// DisplayName: Sapphire Bullet
-				/* Tooltip:
+				DisplayName: 蓝宝石子弹
+				Tooltip:
 					'''
-					Mines the struck tile on impact, use with caution
-					Mines with 45% pickaxe power thrice per bullet
-					''' */
+					撞击时开采命中物块，请谨慎使用
+					每次子弹以45%镐力开采三次
+					'''
 			}
 
 			GemEmeraldBullet: {
-				// DisplayName: Emerald Bullet
-				/* Tooltip:
+				DisplayName: 翡翠子弹
+				Tooltip:
 					'''
-					Mines the struck tile on impact, use with caution
-					Mines with 55% pickaxe power thrice per bullet
-					''' */
+					撞击时开采命中物块，请谨慎使用
+					每次子弹以55%镐力开采三次
+					'''
 			}
 
 			GemRubyBullet: {
-				// DisplayName: Ruby Bullet
-				/* Tooltip:
+				DisplayName: 红宝石子弹
+				Tooltip:
 					'''
-					Mines the struck tile on impact, use with caution
-					Mines with 50% pickaxe power 4 times per bullet
-					''' */
+					撞击时开采命中物块，请谨慎使用
+					每次子弹以50%镐力开采四次
+					'''
 			}
 
 			GemAmberBullet: {
-				// DisplayName: Amber Bullet
-				/* Tooltip:
+				DisplayName: 琥珀子弹
+				Tooltip:
 					'''
-					Mines the struck tile on impact, use with caution
-					Mines with 55% pickaxe power 4 times per bullet
-					''' */
+					撞击时开采命中物块，请谨慎使用
+					每次子弹以55%镐力开采四次
+					'''
 			}
 
 			GemDiamondBullet: {
-				// DisplayName: Diamond Bullet
-				/* Tooltip:
+				DisplayName: 钻石子弹
+				Tooltip:
 					'''
-					Mines the struck tile on impact, use with caution
-					Mines with 55% pickaxe power 4 times per bullet
-					''' */
+					撞击时开采命中物块，请谨慎使用
+					每次子弹以55%镐力开采四次
+					'''
 			}
 
 			AridBMask: {
@@ -1707,10 +1740,10 @@ Mods: {
 			}
 
 			SpeedCrown: {
-				// DisplayName: Messenger's Crown
-				// Tooltip: Increases movement speed and acceleration
-				// SetBonus1: 3 defense
-				// SetBonus2: 5 defense
+				DisplayName: 信使之冠
+				Tooltip: 提升移动速度与加速度
+				SetBonus1: +3防御
+				SetBonus2: +5防御
 			}
 
 			TempleBMask: {
@@ -1786,12 +1819,12 @@ Mods: {
 			}
 
 			PainBossBag: {
-				// DisplayName: Treasure Bag (Ultimate Pain)
-				/* Tooltip:
+				DisplayName: 宝藏袋（痛苦使者）
+				Tooltip:
 					'''
 					"{$CommonItemTooltip.RightClickToOpen}"
-					Only for those who have endured Ultimate Pain
-					''' */
+					唯有历经极致痛苦者方可开启
+					'''
 			}
 
 			UltimateBossRelic: {
@@ -1800,8 +1833,8 @@ Mods: {
 			}
 
 			PainBossRelic: {
-				// DisplayName: Ultimate Pain Relic
-				// Tooltip: Only for those who have endured Ultimate Pain
+				DisplayName: 痛苦使者圣物
+				Tooltip: 唯有历经极致痛苦者方可持有
 			}
 
 			UltimateBossTrophy: {
@@ -1810,8 +1843,8 @@ Mods: {
 			}
 
 			PainBossTrophy: {
-				// DisplayName: Ultimate Pain Trophy
-				// Tooltip: Only for those who have endured Ultimate Pain
+				DisplayName: 痛苦使者纪念章
+				Tooltip: 唯有战胜极致痛苦者方可得此殊荣
 			}
 
 			DerplingTrophyItem: {
@@ -1989,13 +2022,13 @@ Mods: {
 			}
 
 			AFlaskFrost: {
-				// DisplayName: Flask of Frost
-				// Tooltip: Melee and Whip attacks inflict enemies with frostburn
+				DisplayName: 霜焰药水
+				Tooltip: 近战与鞭类攻击使敌人受到霜焰效果
 			}
 
 			AFlaskExplosive: {
-				// DisplayName: Flask of Explosives
-				// Tooltip: Melee and Whip attacks create a small explosion
+				DisplayName: 爆破药水
+				Tooltip: 近战与鞭类攻击会引发小范围爆炸
 			}
 
 			AridBossSummon: {
@@ -2181,14 +2214,14 @@ Mods: {
 			}
 
 			OilcanInfinite: {
-				// DisplayName: Endless Oil Can
-				/* Tooltip:
+				DisplayName: 无尽油罐
+				Tooltip:
 					'''
-					Left click to fire out a blob of oil that inflicts the oiled debuff onto enemies and town NPCs
-					Right click to set nearby oiled enemies ablaze
-					Can be used indefinitely
-					'Cover your enemies in oil'
-					''' */
+					左键点击喷射油渍，使敌人和城镇NPC获得浸油减益
+					右键点击点燃附近浸油的敌人
+					可无限次使用
+					'给你的敌人洗个油浴吧'
+					'''
 			}
 
 			Quack: {
@@ -2228,8 +2261,8 @@ Mods: {
 					左键在任何地方放置一个超级痛苦假人，一次最多放置50个
 					右键移除所有放置的假人，如果世界存在Boss，假人也会被移除
 					假人可以被召唤物/追踪弹药瞄准，并且可以激活任何物品的特殊效果
-					右键点击库存可更改假人类型（标准/坚固/破碎/轻便）
-					按住 Shift 键并右键点击可在飞行或接地之间切换
+					右键点击库存可更改假人类型（[c/e272e1:标准]/[c/7d28df:坚固]/[c/3ecd0d:破碎]/[c/0db9cd:轻便]/[c/e8e006:大块头]）
+					按住 Shift 键并右键点击可在 飞行 或 接地 之间切换
 					Ctrl-右键单击可更改某些类型的额外属性
 					'''
 			}
@@ -2433,8 +2466,8 @@ Mods: {
 			}
 
 			BloodGrenade: {
-				// DisplayName: Blood Grenade
-				// Tooltip: Bursts into multiple blood drops on destruction
+				DisplayName: 血爆手雷
+				Tooltip: 爆炸时分裂为多滴血珠
 			}
 
 			BloodSpear: {
@@ -2618,12 +2651,12 @@ Mods: {
 
 			DesertBow: {
 				DisplayName: 禁忌之怒
-				/* Tooltip:
+				Tooltip:
 					'''
-					Converts all arrows to Special Forbidden arrows that rain down forbidden sand onto enemies below
-					The arrow will disappear after raining down 3 times
-					Using Regular Forbidden Arrows increases the limit to 4
-					''' */
+					将所有箭矢转化为特殊禁忌箭，向下方敌人降下禁忌之沙
+					每支箭最多降沙3次后消失
+					使用禁忌箭可提升至4次
+					'''
 			}
 
 			DesertSpear: {
@@ -2784,8 +2817,8 @@ Mods: {
 			}
 
 			JungleSporeGun: {
-				// DisplayName: Jungle Spore Gun
-				// Tooltip: Shoots poisonous spores that explode upon hitting an enemy or tile
+				DisplayName: 丛林孢子枪
+				Tooltip: 发射剧毒孢子，命中敌人或物块时爆炸
 			}
 
 			HarpyBow: {
@@ -2875,8 +2908,8 @@ Mods: {
 			}
 
 			JungleRepeater: {
-				// DisplayName: Mossy Repeater
-				// Tooltip: Seems a little old and neglected, but should still work
+				DisplayName: 苔藓连发弩
+				Tooltip: 看似陈旧失修，但应该还能用
 			}
 
 			JungleSentry: {
@@ -2899,18 +2932,14 @@ Mods: {
 				Tooltip:
 					'''
 					发射一股超热的火焰，能在物块上弹射且不受水影响
-					使用凝胶作为弹药
+					使用[i:23]作为弹药
 					忽视20点敌人防御
 					'''
 			}
 
 			LizardMinion: {
 				DisplayName: 蜥蜴守卫法杖
-				Tooltip:
-					'''
-					召唤一个迷你神庙守卫为你而战
-					仆从会围绕敌人飞行，并向他们射击穿透的激光
-					'''
+				Tooltip: 召唤一个迷你神庙守卫围绕敌人飞行，并向他们射击穿透的激光
 			}
 
 			LizardSpell: {
@@ -3092,16 +3121,16 @@ Mods: {
 			}
 
 			MineDetonateC4: {
-				// DisplayName: Satchel Charge Detonator
-				/* Tooltip:
+				DisplayName: 炸药包引爆器
+				Tooltip:
 					'''
-					Left Click to throw out a Satchel Charge that sticks to surfaces, only 1 can be thrown out at a time
-					Right Click to detonate the charge
-					Right Click while holding UP to disarm the charge
-					Creates a massive explosion that deals very high damage to enemies and allies alike, and destroys tiles in a large radius
-					Take extreme caution when detonating!
-					Requires Satchel Charges as ammo
-					''' */
+					左键投掷可附着于表面的炸药包（同时仅能存在1个）
+					右键引爆炸药包
+					按住↑键时右键可拆除炸药包
+					造成大范围爆炸，对敌我双方均造成极高伤害，并破坏大范围内的物块
+					引爆时务必格外谨慎！
+					需要炸药包作为弹药
+					'''
 			}
 
 			MoltenDagger: {
@@ -3134,12 +3163,12 @@ Mods: {
 			}
 
 			MossStingerGun: {
-				// DisplayName: The Hornet's Sting
-				/* Tooltip:
+				DisplayName: 毒蜂之刺
+				Tooltip:
 					'''
-					Rapidly shoots out deadly stingers
-					Stingers stick to enemies and inflict a stacking debuff, up to 15 stingers at once
-					''' */
+					快速发射致命毒刺
+					毒刺会附着敌人并叠加减益，最多同时存在15根
+					'''
 			}
 
 			MushroomBow: {
@@ -3284,36 +3313,36 @@ Mods: {
 			}
 
 			ShroomiteSharpshooter: {
-				DisplayName: 蘑菇石神枪手
-				/* Tooltip:
+				DisplayName: 蘑菇石神射手
+				Tooltip:
 					'''
-					Damage, velocity, and knockback increases after 50 successive autofire shots
-					Releasing the fire key resets the count
-					Right Click to zoom out
-					33% Chance not to consume Ammo
-					''' */
+					连续自动射击50次后提升伤害、射速和击退效果
+					松开射击键将重置计数
+					右键放大视野
+					33%概率不消耗弹药
+					'''
 			}
 
 			SludgeLauncher: {
-				// DisplayName: Toxic Sludge Cannon
-				/* Tooltip:
+				DisplayName: 剧毒污泥炮
+				Tooltip:
 					'''
-					Fires out a projectile of Toxic Sludge that explodes into smaller sludge blobs on tile or enemy impact
-					The Smaller sludge blobs stick to tiles and hit multiple times after doing so
-					All sludge projectiles inflict the Toxic Sludged Debuff, causing damage over time and slowing down enemies
-					Uses gel for ammo
-					''' */
+					发射剧毒污泥弹，命中物块或敌人时分裂成小型污泥团
+					小型污泥团会附着物块并造成多次伤害
+					所有污泥弹都会施加剧毒污泥减益，造成持续伤害并减速敌人
+					使用凝胶作为弹药
+					'''
 			}
 
 			SludgeVenomLauncher: {
-				// DisplayName: Acidic Sludge Cannon
-				/* Tooltip:
+				DisplayName: 酸蚀毒泥炮
+				Tooltip:
 					'''
-					Fires out a projectile of Acidic Sludge that explodes into smaller sludge blobs on tile or enemy impact
-					The Smaller sludge blobs stick to tiles and hit multiple times after doing so
-					All sludge projectiles inflict the Acidic Sludged Debuff, causing damage over time and slowing down enemies
-					Uses gel for ammo
-					''' */
+					发射酸蚀毒泥弹，命中物块或敌人时分裂成小型毒泥团
+					小型毒泥团会附着物块并造成多次伤害
+					所有毒泥弹都会施加酸蚀毒泥减益，造成持续伤害并减速敌人
+					使用凝胶作为弹药
+					'''
 			}
 
 			SoulStaff: {
@@ -3323,16 +3352,16 @@ Mods: {
 
 			SpaceRockGlobe: {
 				DisplayName: 小行星球体
-				// Tooltip: Summons floating asteroid boulders which fire out fragments at nearby enemies
+				Tooltip: 召唤漂浮的陨石巨岩，向附近敌人发射碎片
 			}
 
 			SpaceRockGun: {
 				DisplayName: 小行星爆破枪
-				/* Tooltip:
+				Tooltip:
 					'''
-					Fires out 2 bullets with a large spread that build up accuracy over several seconds
-					50% Chance not to consume Ammo
-					''' */
+					发射2发散布较广的子弹，数秒内逐步提升精准度
+					50%概率不消耗弹药
+					'''
 			}
 
 			SpaceRockMinion: {
@@ -3477,11 +3506,11 @@ Mods: {
 
 			StormStaff: {
 				DisplayName: 闪电权杖
-				/* Tooltip:
+				Tooltip:
 					'''
-					Fires out a lightning orb that on enemy impact can jump to 3 other enemies at once
-					On tile impact it can jump to up to 4 enemies at ocne
-					''' */
+					发射闪电法球，命中敌人后可同时弹射3个其他目标
+					命中物块时最多可弹射4个敌人
+					'''
 			}
 
 			SuperDartLauncher: {
@@ -3501,7 +3530,7 @@ Mods: {
 					杀死敌人收集多达9个灵魂，每个收集的灵魂都会增加武器的伤害和暴击率
 					如果9秒内没有杀死敌人，灵魂将开始逃离
 					旋转时右键单击可反射大多数射弹，每次使用之间有 2.5 秒的冷却时间
-					//Receives extra bonuses from the Reaper's List
+					从死神名单中获得额外奖励
 					获得死神名单的两倍奖励
 					'''
 			}
@@ -3514,19 +3543,19 @@ Mods: {
 					右键单击可连续投掷两把刀片，可一次投掷两套刀片
 					旋转时右键单击可反射大多数射弹，每次使用之间有 1.5 秒的冷却时间
 					获得死神名单的两倍奖励
-					//Receives extra bonuses from the Reaper's List
-					“您只剩一次机会”
+					从死神名单中获得额外奖励
+					“您只剩一次机会”  
 					'''
 			}
 
 			ThrowingKnifeSilver: {
-				// DisplayName: Silver Throwing Knife
-				// Tooltip: Ricochets off tiles
+				DisplayName: 银制飞刀
+				Tooltip: 可在物块间反弹
 			}
 
 			ThrowingKnifeTungsten: {
-				// DisplayName: Tungsten Throwing Knife
-				// Tooltip: Ricochets off tiles
+				DisplayName: 钨制飞刀
+				Tooltip: 可在物块间反弹
 			}
 
 			ThrowingKnifeBouncy: {
@@ -3802,7 +3831,7 @@ Mods: {
 			}
 
 			MusicBoxStormItem: {
-				DisplayName: 音乐盒（重载 Scandrone）
+				DisplayName: 音乐盒（超载扫描机）
 				Tooltip: ""
 			}
 
@@ -3812,216 +3841,231 @@ Mods: {
 			}
 
 			MusicBoxUltimateItem2: {
-				// DisplayName: Music Box (The Painbringer - Desperation)
-				// Tooltip: ""
+				DisplayName: 音乐盒（痛苦使者·绝望终章）
+				Tooltip: ""
 			}
 
 			PainMusicBoxitem: {
 				DisplayName: 音乐盒（痛苦混音）
-				Tooltip: 播放这个以体验真正的痛苦
+				Tooltip: 播放以体验真正的痛苦
 			}
 
 			ShockBand: {
-				// DisplayName: Storm Charm
-				// Tooltip: Critical hits cause lightning to arc to nearby enemies
+				DisplayName: 风暴护符
+				Tooltip: 暴击时引发闪电链攻击附近敌人
 			}
 
 			ShockQuiver: {
-				// DisplayName: Shock Quiver
-				/* Tooltip:
+				DisplayName: 雷电箭袋
+				Tooltip:
 					'''
-					Increases arrow damage by 10% and greatly increases arrow speed
-					20% chance to not consume arrows
-					Critical hits cause lightning to arc to nearby enemies
-					''' */
+					箭矢伤害提升10%并大幅提高箭速
+					20%几率不消耗箭矢
+					暴击时引发闪电链攻击附近敌人
+					'''
 			}
 
 			ShockEye: {
-				// DisplayName: Eye of the Storm
-				/* Tooltip:
+				DisplayName: 风暴之眼
+				Tooltip:
 					'''
-					Greatly increases luck
-					Increases critical strike damage by 12%
-					Critical hits cause lightning to arc to nearby enemies
-					''' */
+					大幅提升运气值
+					暴击伤害提升12%
+					暴击时引发闪电链攻击附近敌人
+					'''
 			}
 
 			ZephyrFeather: {
-				// DisplayName: Zephyr Feather
-				// Tooltip: Permanently increases movement speed and acceleration by 10%
+				DisplayName: 和风之羽
+				Tooltip: 永久提升10%移动速度与加速度
 			}
 
 			CleansingHeart: {
-				// DisplayName: Cleansing Charm
-				/* Tooltip:
+				DisplayName: 净化护符
+				Tooltip:
 					'''
-					Removes all permanent shimmer upgrades and Artisan Loaf effects from you and refunds the item
-					Will remove the effects of the currently consumed items:
-					''' */
+					移除所有永久微光强化效果与工匠面包增益，并返还物品
+					将解除当前使用的以下物品效果：
+					'''
 			}
 
 			SpectreStarPickup: {
-				// DisplayName: Spectral Star
-				// Tooltip: Restores 100 mana and grants the Spectral Strength Buff for 5 seconds
+				DisplayName: 幽魂之星
+				Tooltip: 回复100法力值并获得5秒幽魂之力增益
 			}
 
 			GalacticBat: {
-				// DisplayName: The Galactic Baseballer
-				/* Tooltip:
+				DisplayName: 银河球棒
+				Tooltip:
 					'''
-					Hitting enemies charges the bat up to 10 times, only one charge can be obtained per swing
-					Once the bat is fully charged, right click to unleash a powerful swing that always crits and ignores 15 defense
-					The power swing also inflicts broken which makes enemies take 10% extra damage and 10 damage per second for 5 seconds
-					The power swing will not need to be recharged if no enemies are hit when it is swung
-					"RULES... ARE MADE TO BE BROKEN!"
-					''' */
+					击中敌人可积蓄能量(最多10层)，每次挥击仅能积累1层
+					能量满时右键发动强力挥击：必定暴击且无视15点防御
+					强力挥击还将造成骨折效果，使敌人额外承受10%伤害并每秒受到10点伤害，持续5秒
+					若挥空则无需重新积蓄能量
+					"规则...就是用来打破的！"
+					'''
 			}
 
 			IOUBannerItem: {
-				// DisplayName: IOU Banner
-				/* Tooltip:
+				DisplayName: 欠条旗帜
+				Tooltip:
 					'''
-					Can be converted into any modded banner with a certain material
-					Due to a change in the internal banner system all old banners were removed and replaced with a new system that makes all banners share the same tile ID,
-					And as such old banners could not be directly converted one to one
-					''' */
+					可配合特定材料转换为任意模组旗帜
+					由于旗帜系统内部改动，所有旧旗帜已被移除并替换为新系统
+					新系统下所有旗帜共享相同图格ID
+					因此旧旗帜无法直接一对一转换
+					'''
 			}
 
 			TouchGrassSeed: {
-				// DisplayName: Special Grass Seed
-				/* Tooltip:
+				DisplayName: 特殊草籽
+				Tooltip:
 					'''
-					Use to activate Touch Grass mode for this world
-					In this mode you must stand on any grass block every 5 minutes or face the consequences 
-					Standing on grass will also grant many buffs
-					Hold shift to view buffs
-					This cannot be undone, use at your own risk!
-					(Currently removed from the mod)
-					''' */
+					用于为该世界激活接触草地模式
+					此模式下需每5分钟站立于草地方块上否则将面临惩罚
+					站立草地时还将获得多项增益
+					按住Shift键查看增益详情
+					该操作不可逆，使用需谨慎！
+					(当前已从模组中移除)
+					'''
 			}
 
 			ABladeofGrass: {
-				// DisplayName: A Blade of Grass
-				/* Tooltip:
+				DisplayName: 一叶青草
+				Tooltip:
 					'''
-					Literally just that, what did you expect?
-					Does not count as touching real grass
-					''' */
+					真的就只是一片草叶，你还期待什么？
+					不算作接触真实草地
+					'''
 			}
 
 			GlassSword: {
-				// DisplayName: Glass Sword
-				/* Tooltip:
+				DisplayName: 玻璃剑
+				Tooltip:
 					'''
-					Has a chance to shatter into damaging shards on impact with enemies
-					Can be repaired after shattering
-					'This doesn't seem like a good idea...'
-					''' */
+					击中敌人时有几率碎裂成造成伤害的碎片
+					碎裂后可以修复
+					'这主意可不太妙...'
+					'''
 			}
 
 			GlassSwordBroken: {
-				// DisplayName: Broken Glass Sword
-				// Tooltip: What did you expect from a sword made of glass?
+				DisplayName: 碎裂的玻璃剑
+				Tooltip: 一把玻璃做的剑，你还能指望什么？
 			}
 
 			GlassBow: {
-				// DisplayName: Glass Bow
-				/* Tooltip:
+				DisplayName: 玻璃弓
+				Tooltip:
 					'''
-					Has a chance to shatter into damaging shards on use
-					Can be repaired after shattering
-					'Why would you do this?'
-					''' */
+					使用时有几率碎裂成造成伤害的碎片
+					碎裂后可以修复
+					'你为什么要这么做？'
+					'''
 			}
 
 			GlassBowBroken: {
-				// DisplayName: Broken Glass Bow
-				// Tooltip: What did you expect from a bow made of glass?
+				DisplayName: 碎裂的玻璃弓
+				Tooltip: 一把玻璃做的弓，你还能指望什么？
 			}
 
 			GlassStaff: {
-				// DisplayName: Glass Staff
-				/* Tooltip:
+				DisplayName: 玻璃法杖
+				Tooltip:
 					'''
-					Has a chance to shatter into damaging shards on use
-					Can be repaired after shattering
-					'What could go wrong?'
-					''' */
+					使用时有几率碎裂成造成伤害的碎片
+					碎裂后可以修复
+					'能出什么问题呢？'
+					'''
 			}
 
 			GlassStaffBroken: {
-				// DisplayName: Broken Glass Staff
-				// Tooltip: What did you expect from a staff made of glass?
+				DisplayName: 碎裂的玻璃法杖
+				Tooltip: 一根玻璃做的法杖，你还能指望什么？
 			}
 
 			GlassBHelmet: {
-				// DisplayName: Glass Helmet
-				/* Tooltip:
+				DisplayName: 玻璃头盔
+				Tooltip:
 					'''
-					6% increased damage
-					Prone to shattering into damaging shards upon receiving damage
-					Can be repaired after shattering
-					''' */
+					增加6%伤害
+					受到伤害时容易碎裂成造成伤害的碎片
+					碎裂后可以修复
+					'''
 			}
 
 			GlassChestplate: {
-				// DisplayName: Glass Chestplate
-				/* Tooltip:
+				DisplayName: 玻璃胸甲
+				Tooltip:
 					'''
-					8% increased damage
-					Prone to shattering into damaging shards upon receiving damage
-					Can be repaired after shattering
-					''' */
+					增加8%伤害
+					受到伤害时容易碎裂成造成伤害的碎片
+					碎裂后可以修复
+					'''
 			}
 
 			GlassGreaves: {
-				// DisplayName: Glass Greaves
-				/* Tooltip:
+				DisplayName: 玻璃护腿
+				Tooltip:
 					'''
-					6% increased damage
-					Prone to shattering into damaging shards upon receiving damage
-					Can be repaired after shattering
-					''' */
+					增加6%伤害
+					受到伤害时容易碎裂成造成伤害的碎片
+					碎裂后可以修复
+					'''
 			}
 
 			GlassAxe: {
-				// DisplayName: Glass Axe
-				/* Tooltip:
+				DisplayName: 玻璃斧
+				Tooltip:
 					'''
-					Has a chance to shatter on impact with trees
-					Immediately shatters upon hitting an enemy
-					Can be repaired after shattering
-					''' */
+					砍树时有几率碎裂
+					击中敌人时会立即碎裂
+					碎裂后可以修复
+					'''
 			}
 
 			GlassHammer: {
-				// DisplayName: Glass Hammer
-				/* Tooltip:
+				DisplayName: 玻璃锤
+				Tooltip:
 					'''
-					Has a chance to shatter on impact with walls
-					Immediately shatters upon hitting an enemy
-					Can be repaired after shattering
-					''' */
+					撞墙时有几率碎裂
+					击中敌人时会立即碎裂
+					碎裂后可以修复
+					'''
 			}
 
 			GlassPick: {
-				// DisplayName: Glass Pickaxe
-				/* Tooltip:
+				DisplayName: 玻璃镐
+				Tooltip:
 					'''
-					Has a chance to shatter on impact with tiles
-					Immediately shatters upon hitting an enemy
-					Can be repaired after shattering
-					''' */
+					挖掘方块时有几率碎裂
+					击中敌人时会立即碎裂
+					碎裂后可以修复
+					'''
 			}
 
 			GlassHandle: {
-				// DisplayName: Broken Glass Handle
-				// Tooltip: What did you expect from a tool made of glass?
+				DisplayName: 碎裂的玻璃把手
+				Tooltip: 一把玻璃做的工具，你还能指望什么？
 			}
 
 			GlassArmourShard: {
-				// DisplayName: Broken Armor Shard
-				// Tooltip: What did you expect from armor made of glass?
+				DisplayName: 碎裂的护甲碎片
+				Tooltip: 一套玻璃做的护甲，你还能指望什么？
+			}
+
+			ShotgunBlaster: {
+				// DisplayName: Jury-Rigged Shotgun
+				/* Tooltip:
+					'''
+					Becomes more unstable with rapid fire
+					'This doesn't seem safe'
+					''' */
+			}
+
+			BulletSuitcase: {
+				// DisplayName: Bullet Suitcase
+				// Tooltip: ""
 			}
 		}
 
@@ -4055,8 +4099,8 @@ Mods: {
 					SpawnInfo:
 						'''
 						击败月亮领主之后，使用 [i:StormDiversMod/UltimateBossSummoner] 召唤
-						击败月亮领主之后，且装备痛苦或粘土面具的情况下，击杀任何敌人都会掉落
-						粘土和痛苦史莱姆也会掉落
+						击败月亮领主之后，且装备痛苦或粘土人面具的情况下，击杀任何敌人都会掉落
+						粘土人和痛苦史莱姆也会掉落
 						'''
 					DespawnMessage: 你无法承受痛苦，是吗？
 				}
@@ -4093,8 +4137,8 @@ Mods: {
 			SuperPainDummy.DisplayName: 超级痛苦假人
 			SnowmanPizza.DisplayName: 雪人披萨快递员
 			SnowmanBomb.DisplayName: 雪人爆破手
-			// ThePainBoss.DisplayName: Ultimate Pain
-			// HellSkull.DisplayName: Hell Skull
+			ThePainBoss.DisplayName: 痛苦使者
+			HellSkull.DisplayName: 地狱颅骨
 		}
 
 		Projectiles: {
@@ -4129,12 +4173,12 @@ Mods: {
 			StormBossMineLarge.DisplayName: 超载扫描机大雷管
 			StormDerpProj.DisplayName: 星旋尖刺
 			TheUltimateBossProj.DisplayName: 审判之颅
-			// TheUltimateBossProjExplode.DisplayName: Explosion of Pain
-			// TheUltimateBossProjCharge.DisplayName: Charging Skull of Pain
-			// TheUltimateBossProjGravity.DisplayName: Heavy Skull of Pain
-			// TheUltimateBossProjHome.DisplayName: Homing Skull of Pain
-			// TheUltimateBossProjShard.DisplayName: Shard of Pain
-			// TheUltimateBossProjLarge.DisplayName: Giant Skull of Pain
+			TheUltimateBossProjExplode.DisplayName: 痛苦爆发
+			TheUltimateBossProjCharge.DisplayName: 痛苦冲锋颅骨
+			TheUltimateBossProjGravity.DisplayName: 痛苦重压颅骨
+			TheUltimateBossProjHome.DisplayName: 痛苦追踪颅骨
+			TheUltimateBossProjShard.DisplayName: 痛苦碎片
+			TheUltimateBossProjLarge.DisplayName: 痛苦巨颅
 			VortCannonProj.DisplayName: 星旋火箭
 			TheClaySlimeProj.DisplayName: 粘土史莱姆斑点
 			ThePainSlimeProj.DisplayName: 痛苦史莱姆斑点
@@ -4158,13 +4202,13 @@ Mods: {
 			ProtoGrenadeProj2.DisplayName: 破片
 			ShroomArrowProj.DisplayName: 蘑菇箭矢
 			ShroomBulletProj.DisplayName: 蘑菇子弹
-			// GemAmethystBulletProj.DisplayName: Amethyst Bullet
-			// GemTopazBulletProj.DisplayName: Topaz Bullet
-			// GemSapphireBulletProj.DisplayName: Sapphire Bullet
-			// GemEmeraldBulletProj.DisplayName: Emerald Bullet
-			// GemRubyBulletProj.DisplayName: Ruby Bullet
-			// GemAmberBulletProj.DisplayName: Amber Bullet
-			// GemDiamondBulletProj.DisplayName: Diamond Bullet
+			GemAmethystBulletProj.DisplayName: 紫晶子弹
+			GemTopazBulletProj.DisplayName: 黄玉子弹
+			GemSapphireBulletProj.DisplayName: 蓝宝石子弹
+			GemEmeraldBulletProj.DisplayName: 翡翠子弹
+			GemRubyBulletProj.DisplayName: 红宝石子弹
+			GemAmberBulletProj.DisplayName: 琥珀子弹
+			GemDiamondBulletProj.DisplayName: 钻石子弹
 			AncientArmourProj.DisplayName: 远古沙爆
 			AncientFlameProj.DisplayName: 远古沙流
 			AncientKnivesProj.DisplayName: 远古飞刀
@@ -4344,7 +4388,7 @@ Mods: {
 			SpaceArmourProj.DisplayName: 小行星追踪巨石
 			SpaceFragment.DisplayName: 小行星碎片
 			SpaceGlobeProj.DisplayName: 小行星巨石
-			// SpaceGlobeFragment.DisplayName: Asteroid Fragment
+			SpaceGlobeFragment.DisplayName: 小行星碎片
 			SpectreDaggerProj.DisplayName: 鬼魂匕首
 			SpectreDaggerProj2.DisplayName: 鬼魂匕首
 			SpectreHoseProj.DisplayName: 鬼魂光束
@@ -4472,28 +4516,31 @@ Mods: {
 			SantaBoomProj.DisplayName: 圣诞老人的火棒爆炸
 			SantaBoomProj2.DisplayName: 圣诞老人的火棒双重爆炸
 			DeathsListProj.DisplayName: 收割灵魂
-			// C4Proj.DisplayName: Satchel Charge
-			// ThePainBossProj.DisplayName: Ultimate Pain
-			// ThePainBossProj2.DisplayName: Ultimate Pain Explosion
-			// CoralBoneProj.DisplayName: Coral Cyclone
-			// ExplosionEffect.DisplayName: Explosion Effect
-			// ExplosionCompactProj.DisplayName: Explosion Compact
-			// FlaskExplosionProj.DisplayName: Flask Explosion
-			// JungleSporeProj.DisplayName: Jungle Spore
-			// StormStaffProj.DisplayName: Lightning Scepter Bolt
-			// ShockBandProj.DisplayName: Storm Charm Lightning
-			// SludgeOrbProj.DisplayName: Toxic Sludge Projectile
-			// SludgeOrbProj2.DisplayName: Toxic Sludge Blob
-			// SludgeVenomProj.DisplayName: Acidic Sludge Projectile
-			// SludgeVenomProj2.DisplayName: Acidic Sludge Blob
-			// ExplosionSporeProj.DisplayName: Explosion Spore
-			// MossStingerProj.DisplayName: Moss Stinger
-			// GalaticBatAura.DisplayName: Galatic Bat Aura
-			// GalaticBatAuraLarge.DisplayName: Galatic Bat Aura
-			// GemAmmoBulletProj.DisplayName: Gem Bullet
-			// GlassShardProj.DisplayName: Glass Shard
-			// GlassShardFlyingProj.DisplayName: Glass Shard
-			// GlassStaffProj.DisplayName: Glass Staff Orb
+			C4Proj.DisplayName: 炸药包
+			ThePainBossProj.DisplayName: 痛苦使者
+			ThePainBossProj2.DisplayName: 痛苦使者爆炸
+			CoralBoneProj.DisplayName: 珊瑚旋风
+			ExplosionEffect.DisplayName: 爆炸效果
+			ExplosionCompactProj.DisplayName: 压缩爆炸
+			FlaskExplosionProj.DisplayName: 烧瓶爆炸
+			JungleSporeProj.DisplayName: 丛林孢子
+			StormStaffProj.DisplayName: 闪电权杖能量弹
+			ShockBandProj.DisplayName: 风暴护符闪电
+			SludgeOrbProj.DisplayName: 剧毒污泥投射物
+			SludgeOrbProj2.DisplayName: 剧毒污泥团
+			SludgeVenomProj.DisplayName: 酸蚀毒泥投射物
+			SludgeVenomProj2.DisplayName: 酸蚀毒泥团
+			ExplosionSporeProj.DisplayName: 爆炸孢子
+			MossStingerProj.DisplayName: 苔藓毒刺
+			GalaticBatAura.DisplayName: 银河球棒光环
+			GalaticBatAuraLarge.DisplayName: 银河球棒大型光环
+			GemAmmoBulletProj.DisplayName: 宝石子弹
+			GlassShardProj.DisplayName: 玻璃碎片
+			GlassShardFlyingProj.DisplayName: 飞行玻璃碎片
+			GlassStaffProj.DisplayName: 玻璃法杖能量球
+			RoseSickleExplosionProj.DisplayName: 玫瑰爆炸
+			RoseSickleBulletProj.DisplayName: 玫瑰子弹
+			CursedSpearBulletProj.DisplayName: 诅咒霰弹枪子弹
 		}
 
 		Tiles: {
@@ -4532,7 +4579,7 @@ Mods: {
 			MusicBoxAridPlaced.MapEntry: 音乐盒
 			MusicBoxStormPlaced.MapEntry: 音乐盒
 			MusicBoxUltimatePlaced.MapEntry: 音乐盒
-			// MusicBoxUltimatePlaced2.MapEntry: Music Box
+			MusicBoxUltimatePlaced2.MapEntry: 音乐盒
 		}
 
 		Configs: {
@@ -4560,8 +4607,8 @@ Mods: {
 				}
 
 				ShakeAmount: {
-					// Tooltip: Change how intense the screenshake effect is, set to zero to disable it (defaults to 5)
-					// Label: Screenshake intensity
+					Tooltip: 调整屏幕震动效果的强度，设为0可禁用（默认值：5）
+					Label: 屏幕震动强度
 				}
 			}
 
@@ -4610,8 +4657,8 @@ Mods: {
 				}
 
 				GlassSoWeak: {
-					// Tooltip: This will make the Glass Weapons and Tools in this mod break in one single hit, for comedic effect
-					// Label: Glass Weapons and Tools break in one hit
+					Tooltip: 这会让本模组中的玻璃武器和工具一击即碎，以达到搞笑效果
+					Label: 玻璃武器和工具一击即碎:D
 				}
 			}
 		}

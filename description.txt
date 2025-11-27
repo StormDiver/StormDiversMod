@@ -28,10 +28,9 @@ Make sure to check the Steam page for the changelog, and the leave any comments 
 Please note that the Chinese localisation is out of date, with some things either not translated or updated
 
 Creator, coder, and main spriter: [c/22DD97:TheStorm]
-Spriter and playtester: [c/EE59E3:Lynxical]
+Some sprites and playtesting: [c/EE59E3:Lynxical]
 Boss Music by: [c/c577dc:MicelTheGuy]
-Some additional sprites by: Charley#0571 
-Chinese Localisation by: by jianjingqiao201314(简境巧)
+(Outdated) Chinese Localisation by: by jianjingqiao201314(简境巧) and "一条鱼"
 
 Also try out Storm's Tweaks Mod, makes a few small configurable changes to Terraria that may be useful
 

@@ -4065,6 +4065,20 @@ Mods: {
 				DisplayName: Broken Armor Shard
 				Tooltip: What did you expect from armor made of glass?
 			}
+
+			ShotgunBlaster: {
+				DisplayName: Jury-Rigged Shotgun
+				Tooltip:
+					'''
+					Becomes more unstable with rapid fire
+					'This doesn't seem safe'
+					'''
+			}
+
+			BulletSuitcase: {
+				DisplayName: Bullet Suitcase
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -4538,7 +4552,7 @@ Mods: {
 			GlassStaffProj.DisplayName: Glass Staff Orb
 			RoseSickleExplosionProj.DisplayName: Rose Explosion
 			RoseSickleBulletProj.DisplayName: Rose Bullet
-			CursedSpearBulletProj.DisplayName: Cursed Spear Bullet Proj
+			CursedSpearBulletProj.DisplayName: Cursed Shotgun Bullet
 		}
 
 		Tiles: {

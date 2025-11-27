@@ -15,7 +15,6 @@ using Steamworks;
 
 namespace StormDiversMod.Projectiles.AmmoProjs
 {
-
     public class C4Proj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -47,7 +46,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         bool stick; //wheter bomb has hit a tile
         bool boomed; //when it is exploding
         int boomtime = 0; //How long until you can actually detonate
-        bool helddet = false; //is the detnator being held?
+        bool helddet = false; //is the detenator being held?
         int dist = 240; //Distance of dust warning radius
         public override bool? CanDamage()
         {
@@ -61,13 +60,12 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             fallThrough = false;
             return true;
         }
-
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
             boomtime++;     
             //warning dust radius
-            if (boomtime > 50)
+            if (boomtime > 30)
             {
                 if (dist < 240) //max size
                     dist += 5;
@@ -132,7 +130,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
             }
             if (player.itemTime == (player.HeldItem.useTime - 1))
             {
-                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && !player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 40) //will go BOOM
+                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && !player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 30) //will go BOOM
                 {
                     if (Projectile.timeLeft > 3)
                     {
@@ -144,7 +142,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                         player.GetModPlayer<MiscFeatures>().screenshaker = true;
                     }
                 }
-                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 40) //disarm bomb
+                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && player.controlUp && player.controlUseTile && player.noThrow == 0 && boomtime > 30) //disarm bomb
                 {
                     SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
@@ -163,7 +161,7 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 }
             }
 
-            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && boomtime > 40)
+            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MineDetonateC4>() && boomtime > 30)
                 helddet = true;
             else
                 helddet = false;
