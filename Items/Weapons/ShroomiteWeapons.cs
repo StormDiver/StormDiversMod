@@ -1,18 +1,19 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using StormDiversMod.Projectiles;
+using System;
+using System.Reflection.Metadata;
+using System.Threading.Channels;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using StormDiversMod.Buffs;
 using static Terraria.ModLoader.ModContent;
-using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Creative;
-using StormDiversMod.Projectiles;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
-using StormDiversMod.Common;
-using System.Reflection.Metadata;
 
 
 namespace StormDiversMod.Items.Weapons
@@ -22,10 +23,9 @@ namespace StormDiversMod.Items.Weapons
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Shroomite Sharpshooter");
-            //Tooltip.SetDefault("33% Chance not to consume Ammo\nBuilds up accuracy over several seconds, dealing extra damage at full accuracy\nRight Click to zoom out");
+            //Tooltip.SetDefault("Damage, velocity, and knockback increases after 50 successive autofire shots\nReleasing the fire key resets the count\nRight Click to zoom out\n33 % Chance not to consume Ammo");
             Item.ResearchUnlockCount = 1;
          
-
             HeldItemLayer.RegisterData(Item.type, new DrawLayerData()
             {
                 Texture = ModContent.Request<Texture2D>(Texture + "_Glow"),

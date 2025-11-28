@@ -4074,11 +4074,6 @@ Mods: {
 					'This doesn't seem safe'
 					'''
 			}
-
-			BulletSuitcase: {
-				DisplayName: Bullet Suitcase
-				Tooltip: ""
-			}
 		}
 
 		NPCs: {

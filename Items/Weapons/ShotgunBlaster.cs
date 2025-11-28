@@ -29,7 +29,6 @@ namespace StormDiversMod.Items.Weapons
             Item.rare = ItemRarityID.LightRed;
 
             Item.useStyle = ItemUseStyleID.Shoot;
-
             Item.useTurn = false;
             Item.autoReuse = true;
 

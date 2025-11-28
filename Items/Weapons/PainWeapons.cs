@@ -127,6 +127,8 @@ namespace StormDiversMod.Items.Weapons
                 Item.DamageType = DamageClass.Generic;
                 classtext = "Generic Pain";
             }
+            Item.SetNameOverride("The Staff of The Painbringer - (" + classtext + ")");
+
             base.UpdateInventory(player);
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -141,10 +143,10 @@ namespace StormDiversMod.Items.Weapons
                     }
                 }
 
-                if (line.Mod == "Terraria" && line.Name == "ItemName")
+                /*if (line.Mod == "Terraria" && line.Name == "ItemName")
                 {
                     line.Text = line.Text + " (" + classtext + ")";
-                }
+                }*/
             }
         }
         public override bool CanUseItem(Player player)
@@ -474,6 +476,8 @@ namespace StormDiversMod.Items.Weapons
                 Item.DamageType = DamageClass.Generic;
                 classtext = "Generic Pain";
             }
+            Item.SetNameOverride("The Staff of The Painbringer - (" + classtext + ")");
+
             base.UpdateInventory(player);
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -488,10 +492,10 @@ namespace StormDiversMod.Items.Weapons
                     }
                 }
 
-                if (line.Mod == "Terraria" && line.Name == "ItemName")
+                /*if (line.Mod == "Terraria" && line.Name == "ItemName")
                 {
                     line.Text = line.Text + " (" + classtext + ")";
-                }
+                }*/
             }
         }
         public override bool CanUseItem(Player player)

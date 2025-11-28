@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 using StormDiversMod.Common;
 
 
-//buff effects for npcs are in NPCEffects.cs, effects for player are in NegativeHealthDrain.cs
+//buff effects for npcs are in NPCEffects.cs, effects for player are here
 namespace StormDiversMod.Buffs
 {
     public class AridSandDebuff : ModBuff
@@ -25,8 +25,6 @@ namespace StormDiversMod.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.lifeRegen = -24;
-            //player.GetModPlayer<NegativeHealthDrain>().sandBurn = true;
-
             if (Main.rand.Next(4) < 3)
             {
                 int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 10, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default, 1f);
@@ -65,10 +63,7 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //player.GetModPlayer<NegativeHealthDrain>().superFrost = true;
-
             player.lifeRegen = -24;
-
 
             if (Main.rand.Next(4) < 3)
             {
@@ -86,7 +81,6 @@ namespace StormDiversMod.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<NPCEffects>().superFrost = true;
-
         }
     }
 
@@ -98,17 +92,13 @@ namespace StormDiversMod.Buffs
             //DisplayName.SetDefault("Marked for target");
             //Description.SetDefault("All your defense has been taken away");
             Main.debuff[Type] = true;
-
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             player.statDefense -= 500;
-
         }
-
     }
-
     //____________________________________________________________
     public class LunarBoulderDebuff : ModBuff
     {
@@ -158,7 +148,6 @@ namespace StormDiversMod.Buffs
         {
             npc.GetGlobalNPC<NPCEffects>().lunarBoulderDB = true;
         }
-
 
     }
 
@@ -222,7 +211,6 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //player.GetModPlayer<NegativeHealthDrain>().superBurn = true;
             player.lifeRegen = -8;
 
             if (Main.rand.Next(4) < 3)
@@ -255,8 +243,6 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //player.GetModPlayer<NegativeHealthDrain>().hellSoulDebuff = true;
-
             player.lifeRegen = -30;
 
             if (Main.rand.Next(4) < 3)
@@ -291,8 +277,6 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //player.GetModPlayer<NegativeHealthDrain>().hellSoulFire = true;
-
             if (Main.rand.Next(4) < 2)
             {
                     var dust = Dust.NewDustDirect(player.position, player.width, player.height, 179, 0, -3 * player.gravDir);
@@ -300,8 +284,6 @@ namespace StormDiversMod.Buffs
                     dust.noGravity = true;
                     dust.velocity *= 0.75f; 
             }
-            //player.GetModPlayer<NegativeHealthDrain>().hellSoulDebuff = true;
-
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
@@ -359,12 +341,10 @@ namespace StormDiversMod.Buffs
             //DisplayName.SetDefault("UltraBurn");
             //Description.SetDefault("This most certainly is NOT fine!!!!");
             Main.debuff[Type] = true;
-
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //player.GetModPlayer<NegativeHealthDrain>().ultraBurn = true;
             player.lifeRegen = -50;
 
             int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 6, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default, 2.5f);
@@ -374,11 +354,7 @@ namespace StormDiversMod.Buffs
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-
             npc.GetGlobalNPC<NPCEffects>().ultraburnDebuff = true;
-
-
-
         }
     }
     //_______________________________________________
@@ -394,24 +370,15 @@ namespace StormDiversMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //player.GetModPlayer<NegativeHealthDrain>().ultraFrost = true;
             player.lifeRegen = -50;
-
-
             int dust = Dust.NewDust(player.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 135, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 0, default, 2.5f);
             Main.dust[dust].noGravity = true;
             Main.dust[dust].velocity *= 1f;
             Main.dust[dust].velocity.Y -= 2f;
-
-
-
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-
             npc.GetGlobalNPC<NPCEffects>().ultrafrostDebuff = true;
-
-
         }
     }
     //_________________________________________________________________

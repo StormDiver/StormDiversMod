@@ -4055,17 +4055,12 @@ Mods: {
 			}
 
 			ShotgunBlaster: {
-				// DisplayName: Jury-Rigged Shotgun
+				DisplayName: 临时改装的霰弹枪
 				/* Tooltip:
 					'''
 					Becomes more unstable with rapid fire
 					'This doesn't seem safe'
 					''' */
-			}
-
-			BulletSuitcase: {
-				// DisplayName: Bullet Suitcase
-				// Tooltip: ""
 			}
 		}
 
