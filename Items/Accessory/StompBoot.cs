@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using StormDiversMod.Common;
 using Terraria.GameContent.Creative;
+using StormDiversMod.Items.Tools;
 
 
 namespace StormDiversMod.Items.Accessory
@@ -89,6 +90,45 @@ namespace StormDiversMod.Items.Accessory
            .Register();
 
            
+        }
+    }
+    //________________________________________________________________________________________________________________________________________________________________________________________________
+    [AutoloadEquip(EquipType.Shoes)]
+    public class StompBootDrill : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Drill Boots");
+            //Tooltip.SetDefault("Allows flight and negates fall damage\nHold DOWN to fall faster and dril through any terrain below you
+            //I don't know if this is stupid or genius\nWhile falling faster you will damage any enemy you fall on and avoid contact damage
+            //");
+            Item.ResearchUnlockCount = 1;
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 30;
+            Item.height = 30;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+
+            Item.defense = 3;
+            Item.accessory = true;
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<EquipmentEffects>().BootDrillItem = Item;
+            player.GetModPlayer<EquipmentEffects>().bootFallDrill = true;
+            //player.rocketBoots = 1;
+            //player.vanityRocketBoots = 1;
+            player.noFallDmg = true;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+           .AddIngredient(ModContent.ItemType<StompBoot>(), 1)
+           .AddIngredient(ModContent.ItemType<FastDrill2>(), 1)
+           .AddTile(TileID.TinkerersWorkbench)
+           .Register();
         }
     }
 }

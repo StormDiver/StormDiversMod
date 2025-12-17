@@ -111,11 +111,9 @@ namespace StormDiversMod.Common
             }
             if (Main.hardMode) //Frost and Arid Shard
             {
-
                 if (!Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneOverworldHeight && Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneSnow)
                 {
                     if (!npc.friendly && npc.lifeMax > 5)
-
                     {
                         if (Main.rand.Next(2) == 0)
                         {
@@ -126,10 +124,8 @@ namespace StormDiversMod.Common
                             else
                             {
                                 Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Materials.IceOre>(), Main.rand.Next(2, 5));
-
                             }
                         }
-
                     }
                 }
 
@@ -152,8 +148,18 @@ namespace StormDiversMod.Common
                         }
                     }
                 }
-
             }
+            if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneRockLayerHeight && Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneDungeon)
+            {
+                if (NPC.downedPlantBoss)
+                {
+                    if (Main.rand.Next(200) == 0)
+                    {
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<VoidSuitcase>());
+                    }
+                }
+            }
+
             if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneDungeon) //Dungeon Stuff
             {
 
@@ -171,9 +177,9 @@ namespace StormDiversMod.Common
                         else if (dropchoice == 1)
                             Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Pets.TwilightPetItem>());
                         else if (dropchoice == 2)
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<EyeofDungeon>());
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<EyeofDungeon>());
                         else if (dropchoice == 3)
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<CursedSkullMinion>());
+                            Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<CursedSkullMinion>());
                         else if (dropchoice == 3)
                             Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<CursedSpearGun>());
                     }
@@ -210,7 +216,6 @@ namespace StormDiversMod.Common
                         Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<Items.Summons.UltimateBossSummoner>());
                     }
                 }
-                
             }
             if ((npc.type == ModContent.NPCType<ThePainSlime>() || npc.type == ModContent.NPCType<TheClaySlime>()) && Main.rand.Next(25) == 0 && NPC.downedMoonlord)
             {
@@ -239,8 +244,6 @@ namespace StormDiversMod.Common
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<TheClaymanMask>());
                 }
             }         
-
-                   
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

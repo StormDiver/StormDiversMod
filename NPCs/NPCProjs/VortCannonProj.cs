@@ -76,8 +76,10 @@ namespace StormDiversMod.NPCs.NPCProjs
             }
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             Projectile.ai[0]++;
-
-            idlePosition = new Vector2(Main.LocalPlayer.Center.X, Main.LocalPlayer.Center.Y + 0);
+            if (Projectile.ai[0] == 40)
+            {
+                idlePosition = new Vector2(Main.LocalPlayer.Center.X, Main.LocalPlayer.Center.Y + 0);
+            }
             Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
             float distanceToIdlePosition = vectorToIdlePosition.Length();
             if (Projectile.ai[0] >= 40 && Projectile.ai[0] <= 100)
@@ -88,7 +90,9 @@ namespace StormDiversMod.NPCs.NPCProjs
                     vectorToIdlePosition.Normalize();
                     vectorToIdlePosition *= speed;
                 }
-                if (Vector2.Distance(idlePosition, Projectile.Center) > 30)
+                if (distanceToIdlePosition < 20)
+                    Projectile.ai[0] = 100;
+                if (Vector2.Distance(idlePosition, Projectile.Center) > 10)
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
             }
 

@@ -428,7 +428,7 @@ namespace StormDiversMod.Common
                     }
                 }
             }
-            if (proj.type == ModContent.ProjectileType<StompBootProj2>() && target.type != NPCID.TargetDummy) //10 frames of immunity
+            if ((proj.type == ModContent.ProjectileType<StompBootProj2>() || proj.type == ModContent.ProjectileType<StompBootDrillProj>()) && target.type != NPCID.TargetDummy) //10 frames of immunity
             {
                 playerimmunetime = 10;
             }

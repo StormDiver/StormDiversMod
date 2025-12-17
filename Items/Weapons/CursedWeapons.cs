@@ -224,7 +224,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (proj.type == ModContent.ProjectileType<CursedSpearBulletProj>() && target.lifeMax > 5 && !target.friendly && target.active == true && target.type != NPCID.TargetDummy) //bullet
+            if (proj.type == ModContent.ProjectileType<CursedSpearBulletProj>() && target.lifeMax > 5 && !target.friendly && target.type != NPCID.TargetDummy) //bullet
             {
                 if (Bulletcount < 12) //Count up each hit 
                     Bulletcount++;

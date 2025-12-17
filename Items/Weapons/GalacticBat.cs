@@ -202,7 +202,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (proj.type == ModContent.ProjectileType<GalaticBatAura>() && target.lifeMax > 5 && !target.friendly && !batHit) //left click, add once charge per swing
+            if (proj.type == ModContent.ProjectileType<GalaticBatAura>() && target.lifeMax > 5 && !target.friendly && !batHit && target.type != NPCID.TargetDummy) //left click, add once charge per swing
             {
                 if (BatCount < 10) //Count up each hit (have to have separate or text counter includes 10 and only shows charge text on 11
                     BatCount++;
@@ -234,7 +234,7 @@ namespace StormDiversMod.Items.Weapons
                 }
                 batHit = true; //only show this effect once
             }
-            if (proj.type == ModContent.ProjectileType<GalaticBatAuraLarge>() && BatCount == 10 && target.lifeMax > 5 && !target.friendly) //hitting with alt attack
+            if (proj.type == ModContent.ProjectileType<GalaticBatAuraLarge>() && BatCount == 10 && target.lifeMax > 5 && !target.friendly ) //hitting with alt attack
             {
                 Player.GetModPlayer<MiscFeatures>().screenshaker = true; //very powerful >:)
 

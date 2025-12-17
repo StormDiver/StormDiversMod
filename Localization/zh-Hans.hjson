@@ -1016,6 +1016,16 @@ Mods: {
 					'''
 			}
 
+			StompBootDrill: {
+				DisplayName: 钻靴
+				Tooltip:
+					'''
+					按住“向下”键可加快下落速度并钻穿下方的大部分地形
+					当下降速度更快时，你会伤害任何你跌倒的敌人并避免接触伤害
+					“我不知道这是天才还是愚蠢”
+					'''
+			}
+
 			StormCoil: {
 				DisplayName: 超载风暴核心
 				Tooltip:
@@ -4062,6 +4072,18 @@ Mods: {
 					'This doesn't seem safe'
 					''' */
 			}
+
+			VoidSuitcase: {
+				DisplayName: Void Suitcase
+				Tooltip:
+					'''
+					蓄力并释放巨大的虚空，吸引并伤害附近的敌人
+					电荷越长，空隙越大、破坏性越大、持续时间越长
+					任何时候只能出现 1 个虚空，召唤另一个虚空会移除最后一个
+					召唤至少需要 60 点法力
+					“让我给你一点点享受……就像这样！”
+					'''
+			}
 		}
 
 		NPCs: {
@@ -4536,6 +4558,10 @@ Mods: {
 			RoseSickleExplosionProj.DisplayName: 玫瑰爆炸
 			RoseSickleBulletProj.DisplayName: 玫瑰子弹
 			CursedSpearBulletProj.DisplayName: 诅咒霰弹枪子弹
+			// StompBootDrillProj.DisplayName: Drill Boot Drills
+			// VoidProj.DisplayName: Giant Void
+			// VoidProj2.DisplayName: Void Proj2
+			// VoidSuitcaseProj.DisplayName: Cunning Void Suitcase
 		}
 
 		Tiles: {

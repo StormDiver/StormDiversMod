@@ -217,7 +217,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (proj.type == ModContent.ProjectileType<RoseAura>() && target.lifeMax > 5 && !target.friendly && target.active == true && target.type != NPCID.TargetDummy && !hashit) //left click, add once charge per swing
+            if (proj.type == ModContent.ProjectileType<RoseAura>() && target.lifeMax > 5 && !target.friendly && target.type != NPCID.TargetDummy && !hashit) //left click, add once charge per swing
             {
                 if (Hitcount < 10) //Count up each hit (have to have separate or text counter includes 10 and only shows charge text on 11
                     Hitcount++;

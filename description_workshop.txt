@@ -27,9 +27,6 @@
 [*] A Super Pain Dummy with multiple variants - [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3299885526][b]this is now available as its own mod[/b][/url]
 [/list]
 
-[h2]Fan translation mods[/h2]
- [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3570843032][b]Russian translation by Arick[/b][/url]
-
 [h2]Links[/h2]
 [url=https://discord.gg/VJvf2HkxtA][b]Join the Discord server[/b][/url]
 [url=https://terrariamods.wiki.gg/wiki/Storm%27s_Additions_Mod][b]Check out the Mod wiki[/b][/url]

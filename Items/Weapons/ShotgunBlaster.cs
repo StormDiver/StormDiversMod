@@ -16,7 +16,7 @@ namespace StormDiversMod.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Jury-Rigged Shotgun");
+            //DisplayName.SetDefault("Overlocked Shotgun");
             //Tooltip.SetDefault("Very fast but conseutive shots greatly reduce accuracy");
             Item.ResearchUnlockCount = 1;
         }
@@ -59,9 +59,9 @@ namespace StormDiversMod.Items.Weapons
             accuracy = (Math.Min(55, Math.Max(5f, accuracy))); //clamp between 5 and 55
 
             if (accuracy > 5)
-                Item.SetNameOverride("Jury-Rigged Shotgun - Weapon Stability: " + Math.Round(100 - ((accuracy - 5) * 2)) + "%");// for each %age lost reduce stability by 2% 
+                Item.SetNameOverride("Overclocked Shotgun - Weapon Stability: " + Math.Round(100 - ((accuracy - 5) * 2)) + "%");// for each %age lost reduce stability by 2% 
             else
-                Item.SetNameOverride("Jury-Rigged Shotgun - " + "Fully Stable!");
+                Item.SetNameOverride("Overclocked Shotgun - " + "Fully Stable!");
         }
         public override Vector2? HoldoutOffset()
         {

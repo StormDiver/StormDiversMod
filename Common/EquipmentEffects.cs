@@ -64,7 +64,8 @@ namespace StormDiversMod.Common
         public bool bootFall; //The player has either heavy boots equipped
 
         public bool bootFallLuck; //The player has the heavy horseshoe boots equipped
-
+       
+        public bool bootFallDrill; //The player has the drill boots equipped
 
         public bool frostCube; //Player has the Summoners Core equipped
 
@@ -173,6 +174,9 @@ namespace StormDiversMod.Common
         public bool bootstompjump; //if jmp boost can be done
         public int bootstompjumptime; //time for jump boost
         public bool bootsound; //sound for boot stomp
+        public bool bootdrillmining; //Are the Drill boots mining?
+        public int bootdrillsound; //Sound delay for boot drill
+
         public int ariddegrees; //degrees for the arid emblem dust
         public int ariddistance; //distance for the arid emblem dust
 
@@ -190,6 +194,7 @@ namespace StormDiversMod.Common
         public Item DesertJarItem;
         public Item PrimeSpinItem;
         public Item BootFallItem;
+        public Item BootDrillItem;
         public Item CoralEmblemItem;
         public Item CoralStormItem;
         public Item ShroomAccessItem;
@@ -221,6 +226,7 @@ namespace StormDiversMod.Common
             primeSpin = false;
             bootFall = false;
             bootFallLuck = false;
+            bootFallDrill = false;
 
             frostCube = false;
             spooked = false;     
@@ -366,6 +372,7 @@ namespace StormDiversMod.Common
                 }
             }
         }
+        float painincrease;
         public override void PostUpdateEquips() //Updates every frame
         {
             /*if (Player.sitting.isSitting || Player.controlDown)
@@ -436,6 +443,12 @@ namespace StormDiversMod.Common
                         int proj = Projectile.NewProjectile(Player.GetSource_Accessory(DeathCoreItem), new Vector2(Player.Center.X + xprojpos, Player.Center.Y - yprojpos), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PainCoreProj>(), 0, 0, Main.myPlayer);
                     }
                 }
+            }
+            if (DeathCore)
+            {
+                Player.GetDamage(DamageClass.Generic) += painincrease / 100 / 4;
+                painincrease = (100 - ((float)(Player.statLife) / (float)(Player.statLifeMax2)) * 100);
+                Main.NewText(painincrease / 4, Color.Red);
             }
             //======================================================================================Accessories/other======================================================================================
             //luck
@@ -759,7 +772,6 @@ namespace StormDiversMod.Common
             {
                 if ((Player.velocity.X > 3.5f || Player.velocity.X < -3.5f) || (Player.velocity.Y > 4f || Player.velocity.Y < -4f))
                 {
-
                     dropdust++;
                     if (dropdust >= 3)
                     {
@@ -782,8 +794,6 @@ namespace StormDiversMod.Common
 
                     desertdustspawned = true;
                 }
-
-
             }
             if (!desertJar)//reset bool
             {
@@ -820,12 +830,13 @@ namespace StormDiversMod.Common
             {
 
             }
-            if (bootFall)
+            if (bootFall && !bootFallDrill)
             {
                 //Player.rocketBoots = 1;            
                 //Player.vanityRocketBoots = 1;
                 if ((Player.controlDown) && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
                 {
+                    Player.ignoreWater = true;
                     Player.extraFall += 10;
 
                     Player.grappling[0] = -1; //Remove grapple hooks
@@ -965,8 +976,81 @@ namespace StormDiversMod.Common
                 }*/
 
             }
+            if (bootFallDrill)
+            {
+                //Player.rocketBoots = 1;            
+                //Player.vanityRocketBoots = 1;
+                if ((Player.controlDown) && !Player.controlJump && Player.velocity.Y != 0 && !Player.mount.Active)
+                {
+                    Player.ignoreWater = true;
+                    Player.wet = false;
+                    Player.extraFall += 10;
+
+                    Player.grappling[0] = -1; //Remove grapple hooks
+                    Player.grapCount = 0;
+                    for (int p = 0; p < 1000; p++)
+                    {
+                        if (Main.projectile[p].active && Main.projectile[p].owner == Player.whoAmI && Main.projectile[p].aiStyle == 7)
+                        {
+                            Main.projectile[p].Kill();
+                        }
+                    }
+                    if (!bootdrillmining)
+                    {
+                        Player.maxFallSpeed *= 1.5f;
+                        Player.gravity += 1.2f;
+                    }
+                    else
+                    {
+                        if (!Player.wet)
+                        Player.maxFallSpeed *= 0.33f;//slower falling when drilling
+                        Player.moveSpeed /= 2;
+                        Player.maxRunSpeed -= 1;
+                    }
+                    Player.runAcceleration = 0.25f;
+                    if ((Player.velocity.Y > 0.1f && Player.gravDir == 1) || (Player.velocity.Y < -0.1f && Player.gravDir == -1))
+                    {
+                        if (!falling)
+                        {
+                            SoundEngine.PlaySound(SoundID.Item23 with { Volume = 1f, MaxInstances = 5 }, Player.Center);
+
+                            Player.velocity.X *= 0.5f;
+                            Projectile.NewProjectile(Player.GetSource_Accessory(BootDrillItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootDrillProj>(), 10, 6, Player.whoAmI);
+                        }
+                        //immunity is in miscfeatures.cs
+                        falling = true;
+                        Player.noKnockback = true;
+
+                        //if (bootdmg < 110) //(10-120 damage)
+                        //    bootdmg += 2;
+
+                        //Main.NewText("The damage is: " + bootdmg, 204, 101, 22);
+                    }
+                    if (falling)
+                    {
+                        bootdrillsound++;
+                        if (bootdrillsound > 30)
+                        {
+                            SoundEngine.PlaySound(SoundID.Item22 with { Volume = 1f, MaxInstances = 1 }, Player.Center);
+                            bootdrillsound = 0;
+                        }
+                    }
+                }
+                if (Player.velocity.Y == 0 && falling && (Player.controlDown))
+                {
+                    //SoundEngine.PlaySound(SoundID.Item14, Player.Center);
+                    //bootdmg = 0;
+                    falling = false;
+                }
+                if ((!Player.controlDown) || Player.controlJump || Player.mount.Active || Player.velocity.Y == 0) //cancels stomp
+                {
+                    bootdrillmining = false;
+                    falling = false;
+                    //bootdmg = 0;
+                }
+            }
             //If boots are unequipped then cancel the bool
-            if (!bootFall)
+            if (!bootFall && !bootFallDrill)
             {
                 falling = false;
                 bootstompjump = false;
@@ -1438,6 +1522,8 @@ namespace StormDiversMod.Common
                         if (Main.debuff[Player.buffType[i]] == true && BuffID.Sets.NurseCannotRemoveDebuff[Player.buffType[i]] == false)
                             Player.DelBuff(i);
                     }
+                    Player.ClearBuff(BuffID.PotionSickness);
+                    Player.potionDelay = 0;
                 }
 
                 if (SantaRevivedCooldown > 0)
@@ -1650,6 +1736,8 @@ namespace StormDiversMod.Common
                         if (Main.debuff[Player.buffType[i]] == true && BuffID.Sets.NurseCannotRemoveDebuff[Player.buffType[i]] == false)
                             Player.DelBuff(i);
                     }
+                    Player.ClearBuff(BuffID.PotionSickness);
+                    Player.potionDelay = 0;
                 }
 
                 Suffertext = "Live to suffer another day!";
@@ -1788,6 +1876,11 @@ namespace StormDiversMod.Common
             if (spookyClaws)
             {
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
+            }
+            if (SantaCore)
+            {
+                target.AddBuff(BuffID.Electrified, 180);
+
             }
             //Storm Charm
             if (shockBand || shockBandQuiver || shockDerpEye)
@@ -1949,6 +2042,11 @@ namespace StormDiversMod.Common
             if (spookyClaws && (proj.CountsAsClass(DamageClass.Melee) || ProjectileID.Sets.IsAWhip[proj.type] == true) && proj.owner == Main.myPlayer)
             {
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
+            }
+            if (SantaCore)
+            {
+                target.AddBuff(BuffID.Electrified, 180);
+
             }
             //Storm Charm
             if (shockBand || shockBandQuiver || shockDerpEye)

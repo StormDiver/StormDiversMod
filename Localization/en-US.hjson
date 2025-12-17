@@ -740,6 +740,7 @@ Mods: {
 					Saves you from death once every 2 minutes, granting 5 seconds of immunity
 					Also releases a bunch of homing pain skulls that deal heavy damage each time you're revived
 					Doesn't activate if the killing blow deals over 9999 damage
+					Increases damage deal by up to 25% when losing life
 					'Live to suffer another day'
 					'''
 			}
@@ -995,6 +996,16 @@ Mods: {
 					The shockwave will be larger and deal more damage the further you fall
 					While falling faster you will damage any enemy you fall on and avoid contact damage
 					Jumping immediately after stomping grants a large jump boost
+					'''
+			}
+
+			StompBootDrill: {
+				DisplayName: Drill Boots
+				Tooltip:
+					'''
+					Hold DOWN to fall faster and drill through most terrain below you
+					While falling faster you will damage any enemy you fall on and avoid contact damage
+					'I don't know if this is genius or stupid'
 					'''
 			}
 
@@ -4067,11 +4078,23 @@ Mods: {
 			}
 
 			ShotgunBlaster: {
-				DisplayName: Jury-Rigged Shotgun
+				DisplayName: Overclocked Shotgun
 				Tooltip:
 					'''
 					Becomes more unstable with rapid fire
 					'This doesn't seem safe'
+					'''
+			}
+
+			VoidSuitcase: {
+				DisplayName: Cunning Void Suitcase
+				Tooltip:
+					'''
+					Charge up and release a giant void that pulls in and damages nearby enemies
+					The longer the charge the larger, more damaging, and longer lasting the void will be
+					Only 1 void can be out at anytime, summoning another removes the last one
+					Requries at least 60 mana to summon
+					'Let me give you a little treat... Like this!'
 					'''
 			}
 		}
@@ -4548,6 +4571,10 @@ Mods: {
 			RoseSickleExplosionProj.DisplayName: Rose Explosion
 			RoseSickleBulletProj.DisplayName: Rose Bullet
 			CursedSpearBulletProj.DisplayName: Cursed Shotgun Bullet
+			StompBootDrillProj.DisplayName: Drill Boot Drills
+			VoidProj.DisplayName: Giant Void
+			VoidProj2.DisplayName: Void Proj2
+			VoidSuitcaseProj.DisplayName: Cunning Void Suitcase
 		}
 
 		Tiles: {

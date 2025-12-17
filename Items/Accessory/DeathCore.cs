@@ -18,14 +18,13 @@ namespace StormDiversMod.Items.Accessory
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("The Painmbringers Core");
+            //DisplayName.SetDefault("The Painbringers Core");
             //Tooltip.SetDefault("Saves you from death once every 2 minutes\n'Live to suffer another day'");
             Item.ResearchUnlockCount = 1;
-
         }
         public override void SetDefaults()
         {
-            ItemID.Sets.ItemNoGravity[Item.type] = true;
+            //ItemID.Sets.ItemNoGravity[Item.type] = true;
 
             Item.width = 20;
             Item.height = 25;
