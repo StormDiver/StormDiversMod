@@ -740,7 +740,7 @@ Mods: {
 					Saves you from death once every 2 minutes, granting 5 seconds of immunity
 					Also releases a bunch of homing pain skulls that deal heavy damage each time you're revived
 					Doesn't activate if the killing blow deals over 9999 damage
-					Increases damage deal by up to 25% when losing life
+					Increases damage dealt by up to 25% when losing life
 					'Live to suffer another day'
 					'''
 			}

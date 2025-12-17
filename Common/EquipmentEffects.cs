@@ -448,7 +448,7 @@ namespace StormDiversMod.Common
             {
                 Player.GetDamage(DamageClass.Generic) += painincrease / 100 / 4;
                 painincrease = (100 - ((float)(Player.statLife) / (float)(Player.statLifeMax2)) * 100);
-                Main.NewText(painincrease / 4, Color.Red);
+                //Main.NewText(painincrease / 4, Color.Red);
             }
             //======================================================================================Accessories/other======================================================================================
             //luck
