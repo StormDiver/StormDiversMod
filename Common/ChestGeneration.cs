@@ -26,7 +26,7 @@ namespace StormDiversMod.Common
         public override void PostWorldGen()
         {
             //Make chests appear
-            if (!GetInstance<ConfigurationsGlobal>().NoChestforu)
+            if (!GetInstance<ConfigurationsGlobal>().NoChestforu && !ModLoader.HasMod("AdvancedWorldGen"))
             {
                 //if (!GraniteChestSpawn)
                 {
