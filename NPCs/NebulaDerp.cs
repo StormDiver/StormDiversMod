@@ -85,7 +85,7 @@ namespace StormDiversMod.NPCs
             float distanceX = player.Center.X - NPC.Center.X;
             float distanceY = player.Center.Y - NPC.Center.Y;
             
-            if ((distanceX <= 100f && distanceX >= -100f) && (distanceY <= 0f && distanceY >= -500f) && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
+            if ((distanceX <= 60f && distanceX >= -60f) && (distanceY <= 0f && distanceY >= -500f) && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 //if (shoottime >= 120 )
                 {

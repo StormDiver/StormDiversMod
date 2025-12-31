@@ -146,7 +146,9 @@ namespace StormDiversMod.Items.Armour
             //player.GetDamage(DamageClass.Magic) += 0.06f;
             //player.GetCritChance(DamageClass.Magic) += 4;
             player.maxMinions += 1;
-            player.manaRegenBuff = true;
+            //player.manaRegenBuff = true;
+            player.manaRegenBonus += 100;
+            player.manaRegenDelayBonus += 5;
         }
         public override void AddRecipes()
         {

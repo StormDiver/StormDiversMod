@@ -93,8 +93,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Big Harpy Feather");
-           
+            //DisplayName.SetDefault("Big Harpy Feather");  
         }
 
         public override void SetDefaults()
@@ -127,39 +126,29 @@ namespace StormDiversMod.Projectiles
                 Vector2 position = Projectile.position;
                 dust = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, 202, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                 dust.noGravity = true;
-
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
-            Projectile.damage = (Projectile.damage * 5) / 10;
+            //Projectile.damage = (Projectile.damage * 5) / 10;
             Projectile.velocity.X *= 0.5f;
             Projectile.velocity.Y *= 0.5f;
 
-
             for (int i = 0; i < 10; i++)
             {
-
-                 
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 202);
-                
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 202);   
             }
             SoundEngine.PlaySound(SoundID.NPCHit11, Projectile.Center);
-
         }
         public override void OnKill(int timeLeft)
         {
             //Main.PlaySound(SoundID.NPCKilled, (int)Projectile.position.X, (int)Projectile.position.Y, 6);
             for (int i = 0; i < 10; i++)
             {
-
-                 
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 202);
             }
             SoundEngine.PlaySound(SoundID.NPCHit11, Projectile.Center);
         }
-       
     }
     //_______________________________________________
     public class HarpyArrowProj : ModProjectile

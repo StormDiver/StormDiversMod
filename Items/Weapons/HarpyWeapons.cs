@@ -44,7 +44,7 @@ namespace StormDiversMod.Items.Weapons
             }
             Item.UseSound = SoundID.Item8;
 
-            Item.damage = 12;
+            Item.damage = 13;
          
             Item.knockBack = 1f;
 
@@ -66,7 +66,7 @@ namespace StormDiversMod.Items.Weapons
                 position += muzzleOffset;
             }
             float numberProjectiles = 2;
-            float rotation = MathHelper.ToRadians(6);
+            float rotation = MathHelper.ToRadians(3);
 
             for (int i = 0; i < numberProjectiles; i++)
             {

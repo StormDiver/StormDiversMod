@@ -153,10 +153,10 @@ namespace StormDiversMod.Common
             {
                 if (NPC.downedPlantBoss)
                 {
-                    if (Main.rand.Next(200) == 0)
-                    {
+                    if (Main.rand.Next(300) == 0 && Main.expertMode)
                         Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<VoidSuitcase>());
-                    }
+                    if (Main.rand.Next(400) == 0 && !Main.expertMode)
+                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<VoidSuitcase>());
                 }
             }
 

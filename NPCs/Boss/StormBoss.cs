@@ -1245,7 +1245,7 @@ namespace StormDiversMod.NPCs.Boss
                             NPC.netUpdate = true;
                         }
                     }
-                    if ((NPC.localAI[3] > 30 && !lowlife) || (NPC.localAI[3] > 35 && lowlife)) //Decelerate
+                    if ((NPC.localAI[3] > 30 && !lowlife) || (NPC.localAI[3] > 30 && lowlife)) //Decelerate
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
@@ -1253,7 +1253,7 @@ namespace StormDiversMod.NPCs.Boss
                             NPC.netUpdate = true;
                         }
                     }
-                    if ((NPC.localAI[3] > 60 && !lowlife) || (NPC.localAI[3] > 70 && lowlife)) //Reset dash, slower in phase 2
+                    if ((NPC.localAI[3] > 60 && !lowlife) || (NPC.localAI[3] > 90 && lowlife)) //Reset dash, slower in phase 2
                     {
                         NPC.localAI[3] = 0;
                     }

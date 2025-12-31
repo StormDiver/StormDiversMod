@@ -321,7 +321,7 @@ namespace StormDiversMod.Projectiles
             Projectile.scale = 0.5f + (Projectile.ai[1] / 50) + Main.rand.NextFloat(-0.05f, 0.06f);
             if (!timeleftspawn) //putting this in onspawn doesnt work for stupid reasons
             {
-                Projectile.timeLeft = 120 + (int)Projectile.ai[1] * 3;
+                Projectile.timeLeft = 180 + (int)Projectile.ai[1] * 3;
                 //Main.NewText("Timeleft= " + Projectile.timeLeft, 0, 204, 170); //Inital Scale
                 timeleftspawn = true;
             }

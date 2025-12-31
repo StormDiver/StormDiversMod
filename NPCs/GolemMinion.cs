@@ -175,7 +175,7 @@ namespace StormDiversMod.NPCs
                 NPC.velocity.Y = 8;
             }
 
-            if (Vector2.Distance(player.Center, NPC.Center) <= 700f)
+            if (Vector2.Distance(player.Center, NPC.Center) <= 400f)
             {
                 if (player.GetModPlayer<MiscFeatures>().cursedplayer == true || NPC.downedPlantBoss) //if player puts back item then leave them be
                 {

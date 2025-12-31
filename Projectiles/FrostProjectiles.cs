@@ -696,7 +696,6 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-
             Projectile.damage = (int)player.GetTotalDamage(DamageClass.Magic).ApplyTo(Projectile.originalDamage); //update damage
 
             if (Main.rand.Next(7) == 0)
@@ -740,9 +739,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.Kill();
             }
         }
-
-  
-
         public override bool OnTileCollide(Vector2 oldVelocity)
 
         {
