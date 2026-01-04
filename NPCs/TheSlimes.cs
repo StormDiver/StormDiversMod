@@ -98,14 +98,11 @@ namespace StormDiversMod.NPCs
                         if (shoottime >= 180)
                         {
                             SoundEngine.PlaySound(SoundID.NPCHit1 with { Volume = 1f }, NPC.Center);
+                            Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - 40) - new Vector2(NPC.Center.X, NPC.Center.Y)) * 10;
+                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
 
-                            for (int i = 0; i < 5; i++)
-                            {
-                                Vector2 velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - 40) - new Vector2(NPC.Center.X, NPC.Center.Y)) * 10;
-                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.ThePainSlimeProj>(), 5, 1);
 
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<NPCs.NPCProjs.ThePainSlimeProj>(), 5, 1);
-                            }
                             shoottime = 0;
                         }
                     }

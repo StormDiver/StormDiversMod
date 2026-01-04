@@ -190,32 +190,24 @@ namespace StormDiversMod.Projectiles
            /* spawntime++;
             if (spawntime == 1)
             {
-
                 for (int i = 0; i < 25; i++)
                 {
-
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.width / 2, Projectile.position.Y - Projectile.height / 2), Projectile.width * 2, Projectile.height * 2, 6, 0f, 0f, 0, default, 2f);
 
                     Main.dust[dustIndex].noGravity = true;
                     Main.dust[dustIndex].velocity *= 3f;
-
                 }
             }*/
-          
         }
-
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             Projectile.damage = (Projectile.damage * 9) / 10;
             target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
-
             return false;
         }
         public override void OnKill(int timeLeft)
@@ -223,18 +215,13 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.Item74 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
-
-
                 for (int i = 0; i < 25; i++)
                 {
-
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.width / 2, Projectile.position.Y - Projectile.height / 2), Projectile.width * 2, Projectile.height * 2, 6, 0f, 0f, 0, default, 2f);
 
                     Main.dust[dustIndex].noGravity = true;
                     Main.dust[dustIndex].velocity *= 3f;
-
                 }
-
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -441,7 +428,7 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 34;
             Projectile.height = 34;
             Projectile.friendly = true;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = 4;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 180;
             Projectile.tileCollide = true;
@@ -496,7 +483,7 @@ namespace StormDiversMod.Projectiles
                 if (target)
                 {
                     AdjustMagnitude(ref move);
-                    Projectile.velocity = (10 * Projectile.velocity + move) / 10f;
+                    Projectile.velocity = (11 * Projectile.velocity + move) / 11f;
                     AdjustMagnitude(ref Projectile.velocity);
                 }
             }
@@ -506,9 +493,9 @@ namespace StormDiversMod.Projectiles
         {
             
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-                if (magnitude > 10f)
+                if (magnitude > 11f)
                 {
-                    vector *= 10f / magnitude;
+                    vector *= 11f / magnitude;
                 }
             
         }
@@ -563,7 +550,14 @@ namespace StormDiversMod.Projectiles
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.8f, SpriteEffects.None, 0);
             }
+            Texture2D texture2 = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/CultistTomeProj");
 
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture2, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.8f, SpriteEffects.None, 0);
+            }
             return true;
         }
        

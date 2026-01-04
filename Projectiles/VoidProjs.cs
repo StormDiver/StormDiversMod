@@ -365,7 +365,7 @@ namespace StormDiversMod.Projectiles
             for (int i = 0; i < 200; i++)
             {
                 NPC target = Main.npc[i];
-                if (!target.boss && !target.friendly && target.active && target.lifeMax > 1 && target.type != ModContent.NPCType<DerpMimic>())
+                if (!target.boss && !target.friendly && target.active && target.lifeMax > 1 && target.type != ModContent.NPCType<DerpMimic>() && !target.dontTakeDamage)
                 {
                     float distance = Vector2.Distance(target.Center, Projectile.Center);
                     if (distance < maindistance + 20 && distance > 20 && Collision.CanHitLine(Projectile.Center, 0, 0, target.Center, 1, 1))

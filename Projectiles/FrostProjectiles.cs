@@ -1,23 +1,22 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using StormDiversMod.NPCs;
+using System;
+using System.Linq;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Drawing;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework.Graphics;
-using StormDiversMod.Common;
-using Terraria.Audio;
-using Terraria.GameContent;
-using StormDiversMod.Buffs;
-
-using System.Linq;
-using static Terraria.ModLoader.ModContent;
 using Terraria.ModLoader.Utilities;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
-using Microsoft.CodeAnalysis;
-using Terraria.DataStructures;
-using Terraria.GameContent.Drawing;
+using static Terraria.ModLoader.ModContent;
 
 
 namespace StormDiversMod.Projectiles
@@ -339,21 +338,15 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = -6;
             DrawOriginOffsetY = -6;
-        }
-
-        
+        }        
         public override void AI()
         {
             int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0f, 0f, 100, default, 0.7f);
             Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
             Main.dust[dustIndex].noGravity = true;
 
-
             Projectile.rotation += (float)Projectile.direction * -0.6f;
-
-
             Projectile.tileCollide = true;
-
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -361,25 +354,18 @@ namespace StormDiversMod.Projectiles
             SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
             for (int i = 0; i < 20; i++)
             {
-
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 92, 0f, 0f, 0, new Color(255, 255, 255), 0.7f)];
-
-
             }
+
+            var player = Main.player[Projectile.owner];
+            if (Main.rand.Next(1) == 0) // the chance
             {
-                var player = Main.player[Projectile.owner];
-                if (Main.rand.Next(1) == 0) // the chance
-                {
-                   
-                        target.AddBuff(BuffID.Frostburn2, 300);
-
-                    
-
-                }
+                target.AddBuff(BuffID.Frostburn2, 300);
             }
+
             for (int i = 0; i < 3; i++)
             {
 
@@ -389,7 +375,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + speedX, Projectile.Center.Y + speedY), new Vector2(speedX, speedY), ProjectileID.CrystalShard, (int)(Projectile.damage * 0.33f), 0, Projectile.owner);
             }
             Projectile.Kill();
-
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
@@ -406,12 +391,9 @@ namespace StormDiversMod.Projectiles
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 92, 0f, 0f, 0, new Color(255, 255, 255), 0.7f)];
-
-
             }
             for (int i = 0; i < 3; i++)
             {
-
                 float speedX = Main.rand.NextFloat(-3f, 3f);
                 float speedY = Main.rand.NextFloat(-3f, 3f);
 
@@ -426,15 +408,8 @@ namespace StormDiversMod.Projectiles
         {
             if (Projectile.owner == Main.myPlayer)
             {
-
                 //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
-
-               
-
             }
-
-
-
         }
     }
     //___________________________________________________________________________________________________________________________________
@@ -598,7 +573,6 @@ namespace StormDiversMod.Projectiles
     //___________________________________________________________________________________________________________________________________
     public class FrostAccessProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Frost Fragment");
@@ -626,11 +600,8 @@ namespace StormDiversMod.Projectiles
             Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
             Main.dust[dustIndex].noGravity = true;
 
-
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-
         }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
@@ -645,7 +616,6 @@ namespace StormDiversMod.Projectiles
             if (info.PvP)
                 target.AddBuff(BuffID.Frostburn2, 180);
         }
-
 
         public override bool OnTileCollide(Vector2 oldVelocity)
 
@@ -664,10 +634,8 @@ namespace StormDiversMod.Projectiles
 
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width = 10, Projectile.height = 10, 135);
                 }
-
             }
         }
-       
     }
     //___________________________
     public class FrostCryoArmourProj : ModProjectile
@@ -696,15 +664,15 @@ namespace StormDiversMod.Projectiles
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Magic).ApplyTo(Projectile.originalDamage); //update damage
+            Projectile.damage = (int)player.GetTotalDamage(DamageClass.Summon).ApplyTo(Projectile.originalDamage); //update damage
 
             if (Main.rand.Next(7) == 0)
             {
                 float xpos = (Main.rand.NextFloat(-40, 40));
                 //float ypos = (Main.rand.NextFloat(200, 250));
 
-                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y), new Vector2(xpos * -0.05f, 10), ModContent.ProjectileType<FrostAccessProj>(), Projectile.damage, 0, Projectile.owner, 0, 0, 1);
-
+                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - xpos, Projectile.Center.Y), new Vector2(xpos * -0.01f, 10), ModContent.ProjectileType<FrostAccessProj>(), Projectile.damage, 0, Projectile.owner, 0, 0, 1);
+                Main.projectile[projID].extraUpdates = 1;
                 Main.projectile[projID].DamageType = DamageClass.Magic;
                 Main.projectile[projID].aiStyle = 0;
                 Main.projectile[projID].timeLeft = 60;
@@ -737,6 +705,22 @@ namespace StormDiversMod.Projectiles
             if (player.dead)
             {
                 Projectile.Kill();
+            }
+
+            for (int i = 0; i < 200; i++)
+            {
+                NPC target = Main.npc[i];
+                if (!target.boss && !target.friendly && target.active && target.lifeMax > 1 && target.type != ModContent.NPCType<DerpMimic>())
+                {
+                    float distance = Vector2.Distance(target.Center, Projectile.Center);
+                    /*if (target.Center.X < Projectile.Center.X + 30 && target.Center.X > Projectile.Center.X && Collision.CanHitLine(Projectile.Center, 0, 0, target.Center, 1, 1))
+                        target.velocity.X = -1 * target.knockBackResist;
+                    else if (target.Center.X > Projectile.Center.X - 30 && target.Center.X < Projectile.Center.X && Collision.CanHitLine(Projectile.Center, 0, 0, target.Center, 1, 1))
+                        target.velocity.X = +1 * target.knockBackResist;*/
+
+                    if (target.Center.X < Projectile.Center.X + 40 && target.Center.X > Projectile.Center.X - 40 && target.Center.Y < Projectile.Center.Y + 500 && target.Center.Y > Projectile.Center.Y && Collision.CanHitLine(Projectile.Center, 0, 0, target.Center, 1, 1))
+                        target.velocity.X *= 0.9f;
+                }
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)

@@ -303,15 +303,15 @@ namespace StormDiversMod.NPCs
                         }
                         else //in air lower its speed control
                         {
-                            if (distanceX <= -30)
+                            if (distanceX <= -20)
                             {
                                 NPC.velocity.X = -moveatspeed / 2 + (player.velocity.X * 0.5f);
                             }
-                            if (distanceX >= 30)
+                            if (distanceX >= 20)
                             {
                                 NPC.velocity.X = +moveatspeed / 2 + (player.velocity.X * 0.5f);
                             }
-                            if (distanceX < 40 && distanceX > -40)
+                            if (distanceX < 30 && distanceX > -30)
                             {
                                 NPC.velocity.X *= 0.5f;
                             }

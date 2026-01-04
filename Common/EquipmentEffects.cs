@@ -1695,9 +1695,9 @@ namespace StormDiversMod.Common
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.ThePainMask>())
                 {
                     if (Player.Male)
-                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
                     else
-                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSoundFemale") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSoundFemale") with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
 
                     //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.DeepPink, "ThePain!", false);
 
@@ -1705,9 +1705,9 @@ namespace StormDiversMod.Common
                 if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheClaymanMask>())
                 {
                     if (Player.Male)
-                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
                     else
-                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSoundFemale") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSoundFemale") with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
 
                     //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", false);
 
@@ -1715,7 +1715,7 @@ namespace StormDiversMod.Common
             }
             if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>())
             {
-                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/Gnomed") with { Volume = 1.5f, MaxInstances = -1 }, Player.Center);
+                SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/Gnomed") with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
                 //achievement get
                 ModContent.GetInstance<AchievementGnomed>().AchGnomeCondition.Complete();
                 //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.Red, "Gnomed!", false);

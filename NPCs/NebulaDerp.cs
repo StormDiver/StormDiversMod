@@ -96,7 +96,7 @@ namespace StormDiversMod.NPCs
 
                     firerate++;
 
-                    if (firerate >= 3)
+                    if (firerate >= 5)
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {

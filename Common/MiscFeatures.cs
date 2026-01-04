@@ -1000,7 +1000,6 @@ namespace StormDiversMod.Common
                                         projectile.owner = Main.myPlayer;
                                         projectile.velocity.X *= -1f;
 
-
                                         projectile.velocity.Y *= -1f;
                                         for (int i = 0; i < 1; i++)
                                         {
@@ -1014,7 +1013,6 @@ namespace StormDiversMod.Common
                                         projectile.hostile = false;
                                         //damage is in npceffects
                                         projectile.netUpdate = true;
-
                                     }
                                     reflected = true;
                                 }
@@ -1023,14 +1021,10 @@ namespace StormDiversMod.Common
                                     reflected = true;
                                 }
                             }
-
                         }
-
                     }
                 }
-
             }
         }
-
     }
 }

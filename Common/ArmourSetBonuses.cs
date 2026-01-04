@@ -726,7 +726,7 @@ namespace StormDiversMod.Common
                 int ycursor = (int)(cryocloudpos.Y / 16);
 
                 Tile tile = Main.tile[xcursor, ycursor];
-                if ((tile != null && !tile.HasTile || !Main.tileSolid[tile.TileType]) && StormDiversMod.ArmourSpecialHotkey.JustPressed && cryosetcooldown >= 120 && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) //Activate set bonus
+                if ((tile != null && !tile.HasTile || !Main.tileSolid[tile.TileType]) && StormDiversMod.ArmourSpecialHotkey.JustPressed && cryosetcooldown >= 30 && Collision.CanHitLine(Main.MouseWorld, 1, 1, Player.position, Player.width, Player.height)) //Activate set bonus
                 {
                     if (Player.statMana >= 75)
                     {

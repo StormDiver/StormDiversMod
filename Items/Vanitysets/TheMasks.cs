@@ -52,9 +52,9 @@ namespace StormDiversMod.Items.Vanitysets
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
                 if (player.Male)
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = -1 }, player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
                 else
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSoundFemale") with { Volume = 1.5f, MaxInstances = -1 }, player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSoundFemale") with { Volume = 1.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
             }
             return base.OnPickup(player);
         }
@@ -101,9 +101,9 @@ namespace StormDiversMod.Items.Vanitysets
             if (!GetInstance<ConfigurationsIndividual>().NoPain)
             {
                 if (player.Male)
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = -1 }, player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSound") with { Volume = 1.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
                 else
-                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSoundFemale") with { Volume = 1.5f, MaxInstances = -1 }, player.Center);
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ClayManSoundFemale") with { Volume = 1.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
             }
             return base.OnPickup(player);
         }

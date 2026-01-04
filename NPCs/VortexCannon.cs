@@ -15,7 +15,6 @@ using Terraria.GameContent.ItemDropRules;
 using StormDiversMod.Common;
 
 namespace StormDiversMod.NPCs
-
 {
     public class VortexCannon : ModNPC
     {
@@ -27,7 +26,6 @@ namespace StormDiversMod.NPCs
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
-
         }
         public override void SetDefaults()
         {
@@ -74,13 +72,12 @@ namespace StormDiversMod.NPCs
         {
             if (!GetInstance<ConfigurationsGlobal>().PreventPillarEnemies)
             {
-                return SpawnCondition.VortexTower.Chance * 0.22f;
+                return SpawnCondition.VortexTower.Chance * 0.18f;
             }
             else
             {
                 return SpawnCondition.VortexTower.Chance * 0f;
             }
-
         }
         int shoottime = 0;
         int firerate = 0;
@@ -93,12 +90,12 @@ namespace StormDiversMod.NPCs
            
             if (Vector2.Distance(player.Center, NPC.Center) <= 1200f && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
-                if (shoottime >= 150)
+                if (shoottime >= 210)
                 {
                     NPC.aiStyle = -1;
                     NPC.velocity.X *= 0.75f;
                 }
-                if (shoottime >= 180)
+                if (shoottime >= 240)
                 {
                     //float projectileSpeed = 8f; // The speed of your projectile (in pixels per second).
                     int damage = 50; // The damage your projectile deals.
@@ -109,9 +106,6 @@ namespace StormDiversMod.NPCs
 
                     Vector2 velocity = Vector2.Normalize(new Vector2(player.position.X + player.width / 2, player.position.Y + player.height / 2) -
                    new Vector2(NPC.Center.X, NPC.Center.Y)) * projectileSpeed;
-                   
-
-
                     //int numberProjectiles = 4 + Main.rand.Next(2); // 4 or 5 shots
                     firerate++;
                     if (firerate >= 10)
@@ -129,21 +123,19 @@ namespace StormDiversMod.NPCs
                             firerate = 0;
                         }
                     }
-                    if (shoottime >= 220)
+                    if (shoottime >= 280)
                     {
                         NPC.aiStyle = 3;
                         firerate = 0;
                         shoottime = 0;
                     }
-                }
-               
+                }  
             }
             else
             {
                 shoottime = 100;
                 firerate = 0;
                 NPC.aiStyle = 3;
-
             }
         }
 
@@ -157,10 +149,8 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 3; i++)
             {
-                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y - 10), 20, 20, 229);
                 dust.scale = 0.5f;
-
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
@@ -184,7 +174,7 @@ namespace StormDiversMod.NPCs
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NPCs/VortexCannon_Glow");
 
-            spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, NPC.Center - Main.screenPosition + new Vector2(0, +2), NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -194,7 +184,7 @@ namespace StormDiversMod.NPCs
             //Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, NPC.height * 0.5f);
             for (int k = 0; k < NPC.oldPos.Length; k++)
             {
-                Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-3, -1);
+                Vector2 drawPos = (NPC.oldPos[k] - Main.screenPosition) + NPC.frame.Size() / 2f + new Vector2(-3, 0);
                 Color color = NPC.GetAlpha(drawColor) * ((NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, NPC.frame, color, NPC.rotation, NPC.frame.Size() / 2f, NPC.scale, NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }

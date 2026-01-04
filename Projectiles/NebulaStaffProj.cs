@@ -54,15 +54,12 @@ namespace StormDiversMod.Projectiles
             {
                 if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
                 {
-                    
-                    
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 27, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 2f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= -0.3f;
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 72);
                     //int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1.5f);
                     dust2.noGravity = true;
-                    
                 }
             }
             if (Projectile.ai[0] <= 6)
@@ -79,7 +76,6 @@ namespace StormDiversMod.Projectiles
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     int dust2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 72, perturbedSpeed.X, perturbedSpeed.Y, 130, default, 1f);
                     Main.dust[dust2].noGravity = true; //this make so the dust has no gravity
-
                 }
             }
 
@@ -92,19 +88,15 @@ namespace StormDiversMod.Projectiles
             }
             return;
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (Projectile.damage * 9) / 10;
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.Kill();
             return false;
         }
-
         public override void OnKill(int timeLeft)
         {
             float numberProjectiles = 6 + Main.rand.Next(3);
@@ -176,15 +168,12 @@ namespace StormDiversMod.Projectiles
 
             if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
                 {
-
-
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= -0.3f;
                     int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 27, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust2].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust2].velocity *= -0.3f;
-
                 }
             
             if (Projectile.localAI[0] == 0f)
@@ -193,7 +182,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.localAI[0] = 1f;
             }
             Vector2 move = Vector2.Zero;
-            float distance = 250f;
+            float distance = 300f;
             bool target = false;
             for (int k = 0; k < 200; k++)
             {
