@@ -131,6 +131,8 @@ namespace StormDiversMod.Common
         public int explosionNPCflame; //How long to have flames under the enemy feet after being launched
 
         public int bosssoulcooldown; //cooldown for when a boss can drop a soul again
+        
+
 
         //------------------------------------------------------------------
         public override void ResetEffects(NPC npc)
@@ -178,6 +180,22 @@ namespace StormDiversMod.Common
             ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<SnowmanPizza>()] = 2;
             ContentSamples.NpcBestiaryRarityStars[ModContent.NPCType<VineDerp>()] = 3;
         }
+        bool noQueen;
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            if (npc.type == NPCID.VortexHornet) //Hornets for FTW StormBoss
+            {
+                if (NPC.CountNPCS(ModContent.NPCType<StormBoss>()) > 0)
+                    noQueen = true;
+
+                if (noQueen)
+                {
+                    npc.lifeMax /= 2;
+                    npc.life = npc.lifeMax;
+                    npc.damage /= 2;
+                }
+            }
+        }
         public override void AI(NPC npc)
         {
             /*if (brokenDebuff) //works to reduce, but defense does not return to normal afterwards
@@ -201,8 +219,13 @@ namespace StormDiversMod.Common
             }*/
             //Don't forget to remove
             //npc.dontTakeDamage = false;
-
+            if (npc.type == NPCID.VortexHornet)
+            {
+                if (noQueen)
+                    npc.localAI[0] = 0; //prevents growing to Queen
+            }
             //Debuff immunities
+
             if (npc.type == NPCID.ToxicSludge)
             {
                 npc.buffImmune[(BuffType<SludgedDebuff>())] = true;

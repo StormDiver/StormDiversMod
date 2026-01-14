@@ -37,5 +37,4 @@ Some sprites and playtesting: [b]Lynxical[/b]
 Boss Music by: [b]MicelTheGuy[/b]
 (Outdated) Chinese Localisation by: by jianjingqiao201314(简境巧) and "一条鱼"
 
-Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful.[quote=tModLoader StormDiversMod]
-Developed By TheStorm[/quote]
+Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful.

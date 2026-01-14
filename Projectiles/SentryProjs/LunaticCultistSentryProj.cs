@@ -51,10 +51,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
         public override void AI()
         {
-            summontime ++;
-            if (summontime <3)
+            summontime++;
+            if (summontime < 3)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit55 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCHit55 with { Volume = 0.5f, Pitch = 0.5f }, Projectile.Center);
 
                 for (int i = 0; i < 50; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {
@@ -68,28 +68,16 @@ namespace StormDiversMod.Projectiles.SentryProjs
             if (summontime <= 1)
             {
                 if (Projectile.position.X < player.position.X)
-                {
                     directionright = false;
-                  
-                }
                 else
-                {
                     directionright = true;
-                    
-                }
-
             }
             if (directionright)//Sets one to the left and one to the right of the player
-            {              
                 Projectile.position.X = player.Center.X - 80 - Projectile.width / 2;
- 
-            }
             else
-            {
                 Projectile.position.X = player.Center.X + 80 - Projectile.width / 2;
 
-            }
-            if (player.gravDir == 1) //Wil appear above the player if gravity is flipped
+            if (player.gravDir == 1) //Will appear above the player if gravity is flipped
             {
                 Projectile.position.Y = player.Center.Y - 40 - Projectile.height / 2;
                 Projectile.rotation = 0;
@@ -99,16 +87,11 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Projectile.position.Y = player.Center.Y + 40 - Projectile.height / 2;
                 Projectile.rotation = 3.15f;
             }
+
             if ((player.direction == 1 && player.gravDir == 1) || (player.direction == -1 && player.gravDir == -1)) //Face same direction as player
-            {
                 Projectile.spriteDirection = 1;
-
-            }
             else
-            {
                 Projectile.spriteDirection = -1;
-
-            }
 
             if (Main.rand.Next(3) == 0)
             {
@@ -131,36 +114,28 @@ namespace StormDiversMod.Projectiles.SentryProjs
             //Getting the npc to fire at
             for (int i = 0; i < 200; i++)
             {
-
                 if (player.HasMinionAttackTargetNPC)
-                {
                     target = Main.npc[player.MinionAttackTargetNPC];
-                }
                 else
-                {
                     target = Main.npc[i];
-
-                } 
 
                 if (Vector2.Distance(Projectile.Center, target.Center) <= 800f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.CanBeChasedBy() && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
                     float projspeed = 12;
                     Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
-                   
-                    int damage = (int)player.GetTotalDamage(DamageClass.Generic).ApplyTo(120); 
-                    if (shoottime > 30)
-                    {
 
+                    int damage = (int)player.GetTotalDamage(DamageClass.Generic).ApplyTo(120);
+                    if (shoottime >= 30)
+                    {
                         for (int j = 0; j < 25; j++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                         {
                             int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 10, Projectile.Center.Y - 10), 20, 20, 173, Projectile.velocity.X, Projectile.velocity.Y, 100, default, 1.5f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                             Main.dust[dust].noGravity = true;
                             Main.dust[dust].velocity *= 2f;
                         }
-
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LunaticExpertSentryProj2>(), damage, Projectile.knockBack, Projectile.owner);
-                        SoundEngine.PlaySound(SoundID.Item77 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item77 with { Volume = 0.5f, Pitch = 0.5f }, Projectile.Center);
 
                         shoottime = 0;
                         animateidle = false;
@@ -168,20 +143,15 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                         animateshoot = true;
                     }
-                }            
+                }
             }
-            
-                AnimateProjectile();
-            
-            //Projectile.ai[0] += 1f;
-            if (player.GetModPlayer<EquipmentEffects>().lunaticHood == false || player.dead)
+            AnimateProjectile();
 
+            if (player.GetModPlayer<EquipmentEffects>().lunaticHood == false || player.dead)
             {
-                
                 Projectile.Kill();
                 return;
             }
-            
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -190,8 +160,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void OnKill(int timeLeft)
         {
-
-            SoundEngine.PlaySound(SoundID.NPCDeath59 with{Volume = 0.5f, Pitch = 0.5f}, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.NPCDeath59 with{Volume = 0.33f, Pitch = 0.5f}, Projectile.Center);
 
             for (int i = 0; i < 50; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
             {

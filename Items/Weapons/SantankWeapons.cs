@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Humanizer;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Creative;
-using Terraria.DataStructures;
 using StormDiversMod.Common;
 using StormDiversMod.Items.Materials;
-using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Projectiles;
-using Humanizer;
 using StormDiversMod.Items.Tools;
+using StormDiversMod.Projectiles;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.Items.Weapons
 {
@@ -48,7 +49,6 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
             // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
             player.AddBuff(Item.buffType, 2);
 
@@ -56,14 +56,32 @@ namespace StormDiversMod.Items.Weapons
             player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
             return false;
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+
+                /*if (line.Mod == "Terraria" && line.Name == "Damage")
+                {
+                    line.Text = Item.damage * 1.5f + " summon damage";
+                }*/
+
+            }
+        }
         public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Items.Materials.SantankScrap>(), 18)
             .AddTile(TileID.MythrilAnvil)
             .Register();
-
         }
+        /*public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+            Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Items/Weapons/SantankMinion_Glow");
+
+            spriteBatch.Draw(texture, new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f),
+                new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+        }*/
     }
     //______________________________________________________________________________
     public class SantaShotgun : ModItem

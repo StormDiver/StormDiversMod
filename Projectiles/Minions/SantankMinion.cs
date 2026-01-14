@@ -256,7 +256,6 @@ namespace StormDiversMod.Projectiles.Minions
 							}*/
 						}
 						Projectile.ai[1] = 0;
-
 					}
 
 					if (Projectile.ai[2] >= 90)

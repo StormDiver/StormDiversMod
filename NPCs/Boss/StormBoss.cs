@@ -224,7 +224,7 @@ namespace StormDiversMod.NPCs.Boss
 
             if (Main.getGoodWorld) //defense break barrier for ftw
             {
-                for (int i = 0; i < 50; i++) 
+                for (int i = 0; i < 50; i++)
                 {
                     double deg = Main.rand.Next(0, 360); //The degrees
                     double rad = deg * (Math.PI / 180); //Convert degrees to radians
@@ -239,9 +239,16 @@ namespace StormDiversMod.NPCs.Boss
                         dust.velocity *= 0;
                     }
                 }
-                if (distance < 400)
+                if (distance < 400 && Collision.CanHitLine(NPC.Center, 0, 0, player.Center, 0, 0))
                 {
                     player.AddBuff(ModContent.BuffType<ScanDroneDebuff>(), 2);
+                }
+                if (!deathani && !player.dead)
+                {
+                    if (((Main.rand.Next(900) == 0 && !halflife && !lowlife) || (Main.rand.Next(600) == 0 && (halflife || lowlife))) && NPC.CountNPCS(NPCID.VortexHornet) < 6) //portal attack because why not
+                    {
+                        int ProjID = Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(player.Center.X, player.Center.Y - 150), new Vector2(0, 0), ProjectileID.VortexVortexPortal, 0, 0, Main.myPlayer);
+                    }
                 }
             }
             if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -266,7 +273,6 @@ namespace StormDiversMod.NPCs.Boss
 
             if (distance > 2000 && !player.dead && NPC.ai[3] != 0 && Main.netMode != NetmodeID.MultiplayerClient)//Speed up if too far away
             {
-
                 movespeed *= 1.03f;
                 NPC.netUpdate = true;
 
@@ -1075,7 +1081,7 @@ namespace StormDiversMod.NPCs.Boss
                 {
                     portalamount = 4;
                 }
-                if ( NPC.localAI[0] > 50) //same speed on both phases
+                if ( (NPC.localAI[0] > 50 && !halflife) || (NPC.localAI[0] > 65 && halflife)) //same speed on both phases
                 {
                     //if (Main.netMode != NetmodeID.MultiplayerClient)
                     {

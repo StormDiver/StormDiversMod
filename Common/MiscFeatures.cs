@@ -959,6 +959,14 @@ namespace StormDiversMod.Common
         public override void AI(Projectile projectile)
         {
             var player = Main.LocalPlayer;
+            if (projectile.type == ProjectileID.VortexVortexPortal) //for vortexportal
+            {
+                if (NPC.CountNPCS(ModContent.NPCType<StormBoss>()) > 0 && projectile.ai[0] < 80 && Main.getGoodWorld)
+                {
+                    projectile.position.X = player.Center.X - projectile.width / 2;
+                    projectile.position.Y = player.position.Y - 150;
+                }
+            }
             //var projreflect = Main.projectile[mod.ProjectileType("SelenianBladeProj")];
 
             //if (Main.LocalPlayer.HasBuff(BuffType<SelenianBuff>()))

@@ -133,7 +133,7 @@ namespace StormDiversMod.Projectiles
                             player.statMana -= 1;
                     }
                 }
-                if (player.statMana <= 0) //If the player runs out of mana kill the projectile
+                if (player.statMana <= 0 || player.dead) //If the player runs out of mana kill the projectile
                 {
                     //Projectile.Kill();
                     deathtimer = true;
