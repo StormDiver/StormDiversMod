@@ -569,7 +569,7 @@ namespace StormDiversMod.Common
             //Cultist boss----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             if (npc.type == NPCID.CultistBoss)
             {
-               notExpert.OnSuccess(ItemDropRule.Common(33, ModContent.ItemType<CultistLazor>()));
+               notExpert.OnSuccess(ItemDropRule.Common(20, ModContent.ItemType<CultistLazor>()));
 
                 npcLoot.Add(ItemDropRule.BossBag(ItemID.CultistBossBag));
                 //notExpert.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Weapons.CultistBow>(), ModContent.ItemType<Weapons.CultistSpear>(), ModContent.ItemType<Weapons.CultistTome>(), ModContent.ItemType<Weapons.CultistStaff>()));

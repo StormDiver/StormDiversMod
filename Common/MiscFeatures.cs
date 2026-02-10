@@ -263,7 +263,7 @@ namespace StormDiversMod.Common
             }
             if (Player.GetModPlayer<EquipmentEffects>().bootFall == false)
             {
-                playerimmunetime = 0;
+                //playerimmunetime = 0;
             }
 
             if (explosionflame > 0)
@@ -431,6 +431,18 @@ namespace StormDiversMod.Common
             if ((proj.type == ModContent.ProjectileType<StompBootProj2>() || proj.type == ModContent.ProjectileType<StompBootDrillProj>()) && target.type != NPCID.TargetDummy) //10 frames of immunity
             {
                 playerimmunetime = 10;
+            }
+            if ((proj.type == ModContent.ProjectileType<SantaBoomProj>()) && target.type != NPCID.TargetDummy) //15 frames of immunity
+            {
+                Player.immune = true;
+                Player.immuneTime = 15;
+                //playerimmunetime = 20;
+            }
+            if ((proj.type == ModContent.ProjectileType<SantaBoomProj2>()) && target.type != NPCID.TargetDummy) //20 frames of immunity
+            {
+                Player.immune = true;
+                Player.immuneTime = 20;
+                //playerimmunetime = 20;
             }
             //nine lives
             /*if (proj.type == ModContent.ProjectileType<TheSickleProj>() || proj.type == ModContent.ProjectileType<TheSickleProj2>())
@@ -690,6 +702,10 @@ namespace StormDiversMod.Common
         }
         public override void OnHurt(Player.HurtInfo info)
         {
+            /*int attackdmg = info.Damage / 5; //Int for the damage taken
+            Main.LocalPlayer.statLife += attackdmg;
+            Main.LocalPlayer.HealEffect(attackdmg, true);      */   
+
             //glass armour breaking
             if (Player.armor[0].type == ModContent.ItemType<GlassBHelmet>()) //first helmet
             {

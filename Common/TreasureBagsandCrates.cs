@@ -59,10 +59,11 @@ namespace StormDiversMod.Common
             }
             if (item.type == ItemID.CultistBossBag)
             {
-                itemLoot.Add(ItemDropRule.OneFromOptions(1, ItemType<CultistSpear>(), ItemType<CultistBow>(), ItemType<CultistTome>(), ItemType<CultistStaff>()));
+                //itemLoot.Add(ItemDropRule.OneFromOptions(1, ItemType<CultistSpear>(), ItemType<CultistBow>(), ItemType<CultistTome>(), ItemType<CultistStaff>()));
+                itemLoot.Add(ItemDropRule.FewFromOptions(2, 1, ItemType<CultistSpear>(), ItemType<CultistBow>(), ItemType<CultistTome>(), ItemType<CultistStaff>()));
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessory.LunaticHood>(), 1));
 
-                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<CultistLazor>(), 20));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<CultistLazor>(), 10));
             }
 
             if (item.type == ItemID.LockBox)
