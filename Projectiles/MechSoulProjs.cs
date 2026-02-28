@@ -9,6 +9,7 @@ using Terraria.GameContent;
 using StormDiversMod.Buffs;
 
 using ReLogic.Content;
+using Terraria.DataStructures;
 
 
 namespace StormDiversMod.Projectiles
@@ -311,19 +312,24 @@ namespace StormDiversMod.Projectiles
         int shoottime = 0;
         bool stopspikes = false;//For stopped spinning
         int extendtime;
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.damage /= 2;
+        }
+        //Projectile.ai[0] == 0; //Spinning
+        //Projectile.ai[0] == 1; //Extending
+        //Projectile.ai[0] == 2; //Retracting from max extension
+        //Projectile.ai[0] == 3; //Unused
+        //Projectile.ai[0] == 4; //Retracting from hit wall/on ground
+        //Projectile.ai[0] == 5; //Hit wall
+        //Projectile.ai[0] == 6; //On ground/falling
+        //Projectile.localAI[0]; //Counts up when on ground
+        //Projectile.localAI[1]; //Counts up when spinning
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
-            //if (player.controlUseItem && !stopspikes)
-            {
-                shoottime++;
-            }
-            if (!player.controlUseItem)//When stopped spinning, can no longer fire spikes
-            {
-                stopspikes = true;
-                extendtime++;
-            }
-            if ((shoottime >= 25 && !stopspikes) || (shoottime >= 45 && stopspikes && Projectile.tileCollide) || extendtime == 14)//Fire spikes while spinning
+           
+            if ((Projectile.localAI[1] % 25 == 0 && Projectile.ai[0] == 0) || (Projectile.localAI[0] % 30 == 0 && Projectile.ai[0] == 6 && Projectile.localAI[0] > 0) || Projectile.ai[0] == 2f && !stopspikes)//Fire spikes while spinning
             {
                 float numberProjectiles = 8;
                 float rotation = MathHelper.ToRadians(180);
@@ -333,14 +339,14 @@ namespace StormDiversMod.Projectiles
                     float speedX = 0f;
                     float speedY = 11f;
                     Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    if (!stopspikes)
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.75f), 0.5f, Projectile.owner);
+                    if (Projectile.ai[0] == 0)
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(player.Center.X, player.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 1f), 0.5f, Projectile.owner);
                     else
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 1f), 0.5f, Projectile.owner);
-
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 1.5f), 0.5f, Projectile.owner);
                 }
                 SoundEngine.PlaySound(SoundID.Item17 with{Volume = 1.5f}, Projectile.Center);
-
+                if (Projectile.ai[0] == 2f)//only create spikes once when starting to retract
+                    stopspikes = true;
                 shoottime = 0;
             }
         }
@@ -507,25 +513,6 @@ namespace StormDiversMod.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var player = Main.player[Projectile.owner];
-
-            /*if (firedspike == false && !player.controlUseItem)//Create spikes once when fail is launched
-            {
-
-                float numberProjectiles = 8;
-                float rotation = MathHelper.ToRadians(180);
-                //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-                for (int j = 0; j < numberProjectiles; j++)
-                {
-                    float speedX = 0f;
-                    float speedY = 11f;
-                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DestroyerFlailProj3>(), (int)(Projectile.damage * 0.4f), 0.5f, Projectile.owner);
-                }
-
-                SoundEngine.PlaySound(SoundID.Item17 with{Volume = 1.5f}, Projectile.Center);
-
-                firedspike = true;
-            }*/
         }
         public override void PostDraw(Color lightColor) //glowmask for animated
         {
@@ -540,14 +527,12 @@ namespace StormDiversMod.Projectiles
     //_______________________________________________________________________________________
     public class DestroyerFlailProj2 : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Destroyer Flail Unused");
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 34;
             Projectile.height = 34;
             Projectile.friendly = true;
@@ -559,22 +544,16 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
         }
-
         public override void AI()
         {
             var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
             dust.noGravity = true;
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-           
-
         }
         int bouncesound = 0;
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
             bouncesound++;
             if (Projectile.velocity.X >= 0.3f || Projectile.velocity.Y >= 0.3f)
@@ -583,7 +562,6 @@ namespace StormDiversMod.Projectiles
                 {
                     SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
                 }
-            
             }
             return true;
         }
@@ -592,10 +570,8 @@ namespace StormDiversMod.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
-
                 for (int i = 0; i < 20; i++)
                 {
-
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6);
                     
                     dust2.scale = 1.5f;
@@ -603,23 +579,17 @@ namespace StormDiversMod.Projectiles
                 }
                 for (int i = 0; i < 25; i++)
                 {
-
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 0, default, 1f);
                     Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
                 }
-
             }
         }
         public override void PostDraw(Color lightColor)
         {
-
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/DestroyerFlailProj_Glow");
-
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Center, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-
-
         }
     }
     //_____________________________________________________________________________________________________________________________________________________

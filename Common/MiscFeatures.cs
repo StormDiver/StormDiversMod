@@ -971,6 +971,7 @@ namespace StormDiversMod.Common
         public override bool InstancePerEntity => true;
 
         public bool reflected;
+        bool reflectflash;
         int distance;
         public override void AI(Projectile projectile)
         {
@@ -984,71 +985,90 @@ namespace StormDiversMod.Common
                 }
             }
             //var projreflect = Main.projectile[mod.ProjectileType("SelenianBladeProj")];
-
             //if (Main.LocalPlayer.HasBuff(BuffType<SelenianBuff>()))
+            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>()) //15 frame parry, 2.5 second cooldown
+                distance = 60;
+            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.FrostSpinner>()) //20 frame parry, 2 second cooldown
+                distance = 80;
+            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheScythe>()) //25 frame parry, 1.5 second cooldown
+                distance = 100;
+            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarSolarSpin>()) //30 frame parry, 0.5 second cooldown
+                distance = 120;
             if (projectile.aiStyle != 20)
             {
-
-                if (player.controlUseItem && player.HasBuff(ModContent.BuffType<ReflectedBuff>()))
+                if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>() || player.HeldItem.type == ModContent.ItemType<Items.Weapons.FrostSpinner>() || player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheScythe>() || player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarSolarSpin>())
                 {
-                    if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheSickle>()) //15 frame parry, 2.5 second cooldown
-                        distance = 60;
-                    if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.FrostSpinner>()) //20 frame parry, 2 second cooldown
-                        distance = 80;
-                    if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.TheScythe>()) //25 frame parry, 1.5 second cooldown
-                        distance = 100;
-                    if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.LunarSolarSpin>()) //30 frame parry, 0.5 second cooldown
-                        distance = 120;
-
-                    if (projectile.hostile)
+                    if ((projectile.aiStyle is 0 or 1 or 2 or 3 or 4 or 5 or 8 or 10 or 13 or 14 or 18 or 21 or 23 or 25) && projectile.hostile)
                     {
-                        if (projectile.aiStyle is 0 or 1 or 2 or 3 or 4 or 5 or 8 or 10 or 13 or 14 or 18 or 21 or 23 or 25)
+                        //Player player = Main.player[npc.target];
+                        /*for (int i = 0; i < 1; i++)
                         {
-                            //Player player = Main.player[npc.target];
-                            for (int i = 0; i < 1; i++)
+                            var dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 66, projectile.velocity.X, projectile.velocity.Y);
+                            dust.scale = 0.75f;
+                            dust.noGravity = true;
+                        }*/
+                        if (Main.rand.Next(3) == 0)
+                        {
+                            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
                             {
-                                var dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 66, projectile.velocity.X, projectile.velocity.Y);
-                                dust.scale = 0.8f;
-                                dust.noGravity = true;
-                            }
-
-                            if (Vector2.Distance(player.Center, projectile.Center) <= distance && !reflected)
+                                PositionInWorld = new Vector2(projectile.position.X + Main.rand.Next(0, projectile.width), projectile.position.Y + Main.rand.Next(0, projectile.height)),
+                            }, player.whoAmI);
+                        }
+                        if (player.controlUseItem)
+                        {
+                            if (Vector2.Distance(player.Center, projectile.Center) <= distance * 1.5f && !reflectflash)
                             {
-                                int choice = Main.rand.Next(0, 1);
-                                if (choice == 0)
+                                ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Excalibur, new ParticleOrchestraSettings
                                 {
-                                    SoundEngine.PlaySound(SoundID.Item56, projectile.Center);
-                                    //Projectile.Kill();
-                                    if (!Main.dedServ)
-                                    {
-                                        projectile.owner = Main.myPlayer;
-                                        projectile.velocity.X *= -1f;
-
-                                        projectile.velocity.Y *= -1f;
-                                        for (int i = 0; i < 1; i++)
-                                        {
-                                            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
-                                            {
-                                                PositionInWorld = projectile.Center,
-                                            }, projectile.whoAmI);
-                                        }
-
-                                        projectile.friendly = true;
-                                        projectile.hostile = false;
-                                        //damage is in npceffects
-                                        projectile.netUpdate = true;
-                                    }
-                                    reflected = true;
-                                }
-                                else
-                                {
-                                    reflected = true;
-                                }
+                                    PositionInWorld = new Vector2(player.Center.X + Main.rand.Next(0, 0), player.Top.Y + Main.rand.Next(0, 0)),
+                                }, player.whoAmI);
+                                reflectflash = true;
                             }
                         }
                     }
                 }
-            }
+
+                if (player.controlUseItem && player.HasBuff(ModContent.BuffType<ReflectedBuff>()))
+                {
+                    if (projectile.hostile)
+                    {
+                        if (projectile.aiStyle is 0 or 1 or 2 or 3 or 4 or 5 or 8 or 10 or 13 or 14 or 18 or 21 or 23 or 25)
+                        {
+                            if (Vector2.Distance(player.Center, projectile.Center) <= distance)
+                            {
+                                SoundEngine.PlaySound(SoundID.Item56, projectile.Center);
+                                //Projectile.Kill();
+                                if (!Main.dedServ)
+                                {
+                                    projectile.owner = Main.myPlayer;
+                                    projectile.velocity.X *= -1f;
+
+                                    projectile.velocity.Y *= -1f;
+                                    for (int i = 0; i < 1; i++)
+                                    {
+                                        ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
+                                        {
+                                            PositionInWorld = projectile.Center,
+                                        }, projectile.whoAmI);
+                                    }
+
+                                    projectile.friendly = true;
+                                    projectile.hostile = false;
+                                    //damage is in npceffects
+                                    projectile.netUpdate = true;
+                                }
+                                reflected = true;
+                            }
+                        }
+                    }
+                }
+                if (reflected)
+                {
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 10;
+                }
+            }  
         }
+        //public override color
     }
 }
