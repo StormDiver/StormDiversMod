@@ -28,7 +28,7 @@ namespace StormDiversMod.Items.Ammo
             Item.DamageType = DamageClass.Ranged;
 
 
-            Item.damage = 5;
+            Item.damage = 10;
 
             Item.knockBack = 0f;
             Item.consumable = true;

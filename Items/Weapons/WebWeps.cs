@@ -29,19 +29,19 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 15, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 45;
-            Item.useAnimation = 45;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Magic;
             if (ModLoader.HasMod("TRAEProject"))
             {
-                Item.mana = 15;
+                Item.mana = 12;
             }
             else
             {
-                Item.mana = 10;
+                Item.mana = 8;
             }
             //Item.UseSound = SoundID.Item8;
 
@@ -61,30 +61,18 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 30f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
-            
-            
-                SoundEngine.PlaySound(SoundID.NPCDeath9, player.Center);
 
-                {
-
-
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
-
-
-            }
-
-           
+            SoundEngine.PlaySound(SoundID.NPCDeath9, player.Center);
+            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), type, damage, knockback, player.whoAmI);
             return false;
         }
         //Also generates in web covered chests
-       
     }
     //________________________________
     public class WebWhip : ModItem
@@ -111,7 +99,5 @@ namespace StormDiversMod.Items.Weapons
         {
             return true;
         }   
-
     }
-
 }

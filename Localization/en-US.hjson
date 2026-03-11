@@ -1135,7 +1135,11 @@ Mods: {
 
 			MeteorArrow: {
 				DisplayName: Meteor Arrow
-				Tooltip: Slightly attracted towards enemies
+				Tooltip:
+					'''
+					Gains a large burst of speed in flight
+					Increased damage and pierce after speed burst
+					'''
 			}
 
 			OceanShard: {
@@ -2783,7 +2787,7 @@ Mods: {
 					'''
 					Spins around and knocks enemies in the direction you're facing
 					Inflicts Frostbite on enemies
-					Right Click while spinning to reflect most projectiles, has a 2 second cooldown between uses
+					Right Click while spinning to reflect sparkling projectiles, has a 2 second cooldown between uses
 					'''
 			}
 
@@ -3004,7 +3008,7 @@ Mods: {
 				Tooltip:
 					'''
 					Spins around with the force of a star, knocking enemies in the direction you're facing
-					Right Click while spinning to reflect most projectiles, has a 1 second cooldown between uses
+					Right Click while spinning to reflect sparkling projectiles, has a 1 second cooldown between uses
 					'''
 			}
 
@@ -3109,8 +3113,8 @@ Mods: {
 				DisplayName: Space Bow
 				Tooltip:
 					'''
-					Rains arrows from the sky
-					Allows Meteor Arrows to pass through tiles above the player
+					Fires a group of 3 arrows each shot
+					Makes Meteor Arrows gain the speed burst more quickly
 					'''
 			}
 
@@ -3554,7 +3558,7 @@ Mods: {
 					'''
 					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
 					Right Click to throw both blades in succession
-					Right Click while spinning to reflect most projectiles, has a 2.5 second cooldown between uses
+					Right Click while spinning to reflect sparkling projectiles, has a 2.5 second cooldown between uses
 					Receives extra bonuses from the Reaper's List
 					'Pick it up. Pick. It. Up'
 					'''
@@ -3566,7 +3570,7 @@ Mods: {
 					'''
 					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
 					Right Click to throw both blades in succession, 2 sets can be thrown out at once
-					Right Click while spinning to reflect most projectiles, has a 1.5 second cooldown between uses
+					Right Click while spinning to reflect sparkling projectiles, has a 1.5 second cooldown between uses
 					Receives extra bonuses from the Reaper's List
 					'This is your last chance'
 					'''
@@ -4574,6 +4578,7 @@ Mods: {
 			VoidProj.DisplayName: Giant Void
 			VoidProj2.DisplayName: Void Proj2
 			VoidSuitcaseProj.DisplayName: Cunning Void Suitcase
+			MeteorBowArrowProj.DisplayName: Meteor Bow Arrow Proj
 		}
 
 		Tiles: {

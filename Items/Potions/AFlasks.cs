@@ -45,8 +45,8 @@ namespace StormDiversMod.Items.Potions
         {
             Recipe recipe = Recipe.Create(ModContent.ItemType<AFlaskFrost>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
-            recipe.AddIngredient(ItemID.IceBlock, 5);
-            recipe.AddTile(TileID.Bottles);
+            recipe.AddIngredient(ItemID.IceTorch, 5);
+            recipe.AddTile(TileID.ImbuingStation);
             recipe.Register();
 
         }
@@ -86,7 +86,7 @@ namespace StormDiversMod.Items.Potions
             Recipe recipe = Recipe.Create(ModContent.ItemType<AFlaskExplosive>(), 1);
             recipe.AddIngredient(ItemID.BottledWater);
             recipe.AddIngredient(ItemID.ExplosivePowder, 5);
-            recipe.AddTile(TileID.Bottles);
+            recipe.AddTile(TileID.ImbuingStation);
             recipe.Register();
         }
     }

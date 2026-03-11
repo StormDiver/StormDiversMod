@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;
 using StormDiversMod.Buffs;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles.AmmoProjs
 {
@@ -36,92 +37,76 @@ namespace StormDiversMod.Projectiles.AmmoProjs
 
             Projectile.arrow = true;
             AIType = ProjectileID.WoodenArrowFriendly;
-            //Creates no immunity frames
-           
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
             DrawOffsetX =0;
             DrawOriginOffsetY = 0;
         }
         int hometime;
-        public override void AI()
+        public override void OnSpawn(IEntitySource source)
         {
             var player = Main.player[Projectile.owner];
 
-            if (Projectile.position.Y < (player.position.Y - 200) && player.HeldItem.type == ModContent.ItemType<Items.Weapons.MeteorBow>())
-            {
-                Projectile.tileCollide = false;
-            }
-            else
-            {
-                Projectile.tileCollide = true;
-            }
-
-            int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 0.7f);
-             Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
-             Main.dust[dustIndex].noGravity = true;
-            if (Projectile.localAI[0] == 0f)
-            {
-                AdjustMagnitude(ref Projectile.velocity);
-                Projectile.localAI[0] = 1f;
-            }
-            Vector2 move = Vector2.Zero;
-            float distance = 200f;
-            bool target = false;
-            if (hometime <= 15)
-            {
-                for (int k = 0; k < 200; k++)
-                {
-                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
-                    {
-                        if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
-                        {
-                            Vector2 newMove = Main.npc[k].Center - Projectile.Center;
-                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-                            if (distanceTo < distance)
-                            {
-                                move = newMove;
-                                distance = distanceTo;
-                                target = true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (target && hometime <=15)
-            {
-                hometime++;
-                AdjustMagnitude(ref move);
-                Projectile.velocity = (10 * Projectile.velocity + move) / 10.5f;
-                AdjustMagnitude(ref Projectile.velocity);
-            }
+            if (player.HeldItem.type == ModContent.ItemType<Items.Weapons.MeteorBow>())
+                Projectile.ai[2] = 1;
         }
-
-        private void AdjustMagnitude(ref Vector2 vector)
+        public override void AI()
         {
-            float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-            if (magnitude > 9f)
+            var player = Main.player[Projectile.owner];
+            hometime++;
+            /*if (hometime <= 35)
             {
-                vector *= 9f / magnitude;
+                Projectile.velocity *= 1.04f;
+            }*/
+            if ((hometime == 30 && Projectile.ai[2] == 0) || (hometime == 20 && Projectile.ai[2] == 1))
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
+                    Dust dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 127, perturbedSpeed.X, perturbedSpeed.Y, 0, new Color(255, 255, 255), 1.5f)];
+                    dust.noGravity = true;
+                }
+                SoundEngine.PlaySound(SoundID.Item20, Projectile.position);
+
+                Projectile.aiStyle = 0;
+                Projectile.extraUpdates = 1;
+                Projectile.penetrate = 3;
+                Projectile.velocity *= 1.5f;
+                Projectile.damage = (Projectile.damage *= 12) / 10; // 20% extra
+            }
+
+            if ((hometime >= 30 && Projectile.ai[2] == 0) || (hometime >= 20 && Projectile.ai[2] == 1))
+            {
+                int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 0.7f);
+                Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
+                Main.dust[dustIndex].noGravity = true;
             }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, 180);
+            if (hometime >= 20)
+            {
+                target.AddBuff(BuffID.OnFire, 300);
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(0, -4f).RotatedByRandom(MathHelper.ToRadians(360));
+                Dust dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 0, 0, 127, perturbedSpeed.X, perturbedSpeed.Y, 0, new Color(255, 255, 255), 1.5f)];
+                dust.noGravity = true;
+            }
         }
 
         public override void OnKill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 
-            SoundEngine.PlaySound(SoundID.Tink with { Volume = 0.5f}, Projectile.Center);
-
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-
                 Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
-                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 6, 0f, 0f, 0, new Color(255, 255, 255), 0.7f)];
-                
+                dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 127, Projectile.velocity.X * 0.3f, Projectile.velocity.Y * .3f, 0, new Color(255, 255, 255), 1.5f)];
+                //dust.noGravity = true;
             }
         }
         public override Color? GetAlpha(Color lightColor)

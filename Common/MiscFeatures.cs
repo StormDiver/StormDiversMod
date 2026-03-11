@@ -430,7 +430,7 @@ namespace StormDiversMod.Common
             }
             if ((proj.type == ModContent.ProjectileType<StompBootProj2>() || proj.type == ModContent.ProjectileType<StompBootDrillProj>()) && target.type != NPCID.TargetDummy) //10 frames of immunity
             {
-                playerimmunetime = 10;
+                playerimmunetime = 15;
             }
             if ((proj.type == ModContent.ProjectileType<SantaBoomProj>()) && target.type != NPCID.TargetDummy) //15 frames of immunity
             {
@@ -1014,9 +1014,9 @@ namespace StormDiversMod.Common
                                 PositionInWorld = new Vector2(projectile.position.X + Main.rand.Next(0, projectile.width), projectile.position.Y + Main.rand.Next(0, projectile.height)),
                             }, player.whoAmI);
                         }
-                        if (player.controlUseItem)
+                        /*if (player.controlUseItem)
                         {
-                            if (Vector2.Distance(player.Center, projectile.Center) <= distance * 1.5f && !reflectflash)
+                            if (Vector2.Distance(player.Center, projectile.Center) <= distance * 1.1f && !reflectflash)
                             {
                                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Excalibur, new ParticleOrchestraSettings
                                 {
@@ -1024,7 +1024,7 @@ namespace StormDiversMod.Common
                                 }, player.whoAmI);
                                 reflectflash = true;
                             }
-                        }
+                        }*/
                     }
                 }
 

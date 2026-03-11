@@ -74,8 +74,8 @@ namespace StormDiversMod.Items.Tools
 
             CreateRecipe()
            .AddIngredient(ModContent.ItemType<GlassHandle>(), 1)
-           .AddIngredient(ItemID.Glass, 5)
-           .AddIngredient(ItemID.Gel, 5)
+           .AddIngredient(ItemID.Glass, 3)
+           .AddIngredient(ItemID.Gel, 3)
           .Register();
         }
     }
@@ -139,8 +139,8 @@ namespace StormDiversMod.Items.Tools
 
             CreateRecipe()
          .AddIngredient(ModContent.ItemType<GlassHandle>(), 1)
-         .AddIngredient(ItemID.Glass, 4)
-         .AddIngredient(ItemID.Gel, 4)
+         .AddIngredient(ItemID.Glass, 2)
+         .AddIngredient(ItemID.Gel, 2)
          .Register();
         }
     }
@@ -208,8 +208,8 @@ namespace StormDiversMod.Items.Tools
 
             CreateRecipe()
          .AddIngredient(ModContent.ItemType<GlassHandle>(), 1)
-         .AddIngredient(ItemID.Glass, 4)
-         .AddIngredient(ItemID.Gel, 4)
+         .AddIngredient(ItemID.Glass, 2)
+         .AddIngredient(ItemID.Gel, 2)
          .Register();
         }
     }

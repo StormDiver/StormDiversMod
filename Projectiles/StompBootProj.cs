@@ -27,18 +27,21 @@ namespace StormDiversMod.Projectiles
             //Projectile.magic = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 600;
-            Projectile.extraUpdates = 1;
+            Projectile.extraUpdates = 0;
             Projectile.knockBack = 8f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
             Projectile.DamageType = DamageClass.Generic;
+            Projectile.ArmorPenetration = 10;
         }
 
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
 
-            Projectile.damage = (Projectile.damage * 100) / 101;
+            //Projectile.damage = (Projectile.damage * 100) / 101;
+            Projectile.damage -= 2;
+            //Main.NewText("The shockwave damage is: " + Projectile.damage, 204, 200, 22);
 
             if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
@@ -86,7 +89,6 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.ignoreWater = false;
-            //Projectile.magic = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 9999;
             Projectile.extraUpdates = 0;
@@ -98,9 +100,9 @@ namespace StormDiversMod.Projectiles
 
         public override void AI()
         {
-            if (Projectile.damage < 60) //10-60 damage
+            if (Projectile.damage < 100) //10-120 damage in 55 frames
             {
-                Projectile.damage += 1;
+                Projectile.damage += 2;
             }
             //Main.NewText("The stomp damage is: " + Projectile.damage, 110, 255, 100);
 
@@ -251,9 +253,9 @@ namespace StormDiversMod.Projectiles
                     Projectile.frameCounter = 0;
                 }
 
-                if (Projectile.damage < 60) //10-60 damage
+                if (Projectile.damage < 100) //20-120 damage
                 {
-                    Projectile.damage += 1;
+                    Projectile.damage += 2;
                 }
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, (Projectile.Center.Y - 10) + (20 * player.gravDir)), Projectile.width, 20, 31, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dustIndex].noGravity = true;

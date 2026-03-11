@@ -372,5 +372,4 @@ namespace StormDiversMod.Projectiles
             return color; 
         }
     }
-
 }

@@ -858,17 +858,16 @@ namespace StormDiversMod.Common
                         if (!falling)
                         {
                             Player.velocity.X *= 0.5f;
-                            Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 10, 6, Player.whoAmI);
-
+                            Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootProj2>(), 0, 6, Player.whoAmI);
+                            //stomp damage starts at 20 and goes to 120 in 50 frames
                         }
                         //immunity is in miscfeatures.cs
                         falling = true;
                         Player.noKnockback = true;
 
-                        if (bootdmg < 110) //(10-120 damage)
+                        if (bootdmg < 100) //(0-100 damage in 50 frames)
                             bootdmg += 2;
-
-                        //Main.NewText("The damage is: " + bootdmg, 204, 101, 22);
+                        //Main.NewText("The shockwave damage is: " + bootdmg, 204, 101, 22);
                     }
 
                 }
@@ -905,8 +904,8 @@ namespace StormDiversMod.Common
                         Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 2f;
                     }
                     //Main.NewText(" " + (int) (bootdmg / 10), Color.Red);
-                    Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Right.Y + 2 * Player.gravDir), new Vector2(5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
-                    Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Left.Y + 2 * Player.gravDir), new Vector2(-5, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg + 10, 12f, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Right.Y + 2 * Player.gravDir), new Vector2(10, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg, 12f, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_Accessory(BootFallItem), new Vector2(Player.Center.X, Player.Left.Y + 2 * Player.gravDir), new Vector2(-10, 0), ModContent.ProjectileType<StompBootProj>(), bootdmg, 12f, Player.whoAmI);
 
                     bootstompjump = true;
                     bootstompjumptime = 15; //jump boost, 15 frame buffer after landing
@@ -1015,16 +1014,11 @@ namespace StormDiversMod.Common
                             SoundEngine.PlaySound(SoundID.Item23 with { Volume = 1f, MaxInstances = 5 }, Player.Center);
 
                             Player.velocity.X *= 0.5f;
-                            Projectile.NewProjectile(Player.GetSource_Accessory(BootDrillItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootDrillProj>(), 10, 6, Player.whoAmI);
+                            Projectile.NewProjectile(Player.GetSource_Accessory(BootDrillItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 5), ModContent.ProjectileType<StompBootDrillProj>(), 20, 6, Player.whoAmI);
                         }
                         //immunity is in miscfeatures.cs
                         falling = true;
                         Player.noKnockback = true;
-
-                        //if (bootdmg < 110) //(10-120 damage)
-                        //    bootdmg += 2;
-
-                        //Main.NewText("The damage is: " + bootdmg, 204, 101, 22);
                     }
                     if (falling)
                     {

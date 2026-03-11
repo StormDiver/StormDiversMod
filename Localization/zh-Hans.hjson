@@ -4562,6 +4562,7 @@ Mods: {
 			// VoidProj.DisplayName: Giant Void
 			// VoidProj2.DisplayName: Void Proj2
 			// VoidSuitcaseProj.DisplayName: Cunning Void Suitcase
+			// MeteorBowArrowProj.DisplayName: Meteor Bow Arrow Proj
 		}
 
 		Tiles: {

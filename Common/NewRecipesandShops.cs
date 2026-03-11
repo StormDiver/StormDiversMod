@@ -533,7 +533,6 @@ namespace StormDiversMod.Common
                 shop.Add(ItemID.PartyGirlGrenade); //fine have 2 I really dgaf        
             }
 
-
             if (shop.NpcType == NPCID.Princess)
             {
                 shop.Add(ItemID.PrincessWeapon, Condition.DownedPlantera);          

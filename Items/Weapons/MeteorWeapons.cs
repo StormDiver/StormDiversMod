@@ -105,21 +105,21 @@ namespace StormDiversMod.Items.Weapons
             Item.value = Item.sellPrice(0, 0, 40, 0);
             Item.rare = ItemRarityID.Blue;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
-            Item.useTurn = true;
+            Item.useTime = 35;
+            Item.useAnimation = 35;
+            Item.useTurn = false;
             Item.autoReuse = true;
 
             Item.DamageType = DamageClass.Ranged;
 
-            Item.UseSound = SoundID.Item9;
+            Item.UseSound = SoundID.Item5;
             
-            Item.damage = 20;
+            Item.damage = 12;
             //Item.crit = 4;
             Item.knockBack = 3f;
 
             Item.shoot = ProjectileID.WoodenArrowFriendly;
-            Item.shootSpeed = 15f;
+            Item.shootSpeed = 12;
             Item.useAmmo = AmmoID.Arrow;
 
             Item.noMelee = true; //Does the weapon itself inflict damage?
@@ -139,8 +139,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            
-            for (int index = 0; index < 1; ++index)
+            /*for (int index = 0; index < 1; ++index)
             {
                 Vector2 vector2_1 = new Vector2((float)((double)player.position.X + (double)player.width * 0.5 + (double)(Main.rand.Next(201) * -player.direction) + ((double)Main.mouseX + (double)Main.screenPosition.X - (double)player.position.X)), (float)((double)player.position.Y + (double)player.height * 0.5 - 600.0));   //this defines the projectile width, direction and position
                 vector2_1.X = (float)(((double)vector2_1.X + (double)player.Center.X) / 2.0) + (float)Main.rand.Next(-200, 201);
@@ -153,9 +152,26 @@ namespace StormDiversMod.Items.Weapons
                 float num15 = Item.shootSpeed / num14;
                 float num16 = num12 * num15;
                 float num17 = num13 * num15;
-                float SpeedX = num16 + (float)Main.rand.Next(-20, 20) * 0.02f;  //this defines the projectile X position speed and randomnes
-                float SpeedY = num17 + (float)Main.rand.Next(-20, 20) * 0.02f;  //this defines the projectile Y position speed and randomnes
-                Projectile.NewProjectile(source, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), type, damage, knockback, player.whoAmI, 0.0f, (float)Main.rand.Next(5));
+                float SpeedX = num16 + (float)Main.rand.Next(-25, 26) * 0.02f;  //this defines the projectile X position speed and randomnes
+                float SpeedY = num17 + (float)Main.rand.Next(-25, 26) * 0.02f;  //this defines the projectile Y position speed and randomnes
+                Projectile.NewProjectile(source, new Vector2(vector2_1.X, vector2_1.Y), new Vector2(SpeedX, SpeedY), ModContent.ProjectileType<Projectiles.MeteorBowArrowProj>(), damage, knockback, player.whoAmI, 0.0f, (float)Main.rand.Next(5));
+            }*/
+            //From Clam tea :(
+            Vector2 spawnsource = player.RotatedRelativePoint(player.MountedCenter);
+            float piOver10 = MathHelper.Pi * 0.6f;
+            int totalProjectiles = 3;
+
+            velocity.Normalize();
+            velocity *= Item.shootSpeed;
+            bool canHit = Collision.CanHit(spawnsource, 0, 0, spawnsource + velocity, 0, 0);
+            for (int i = 0; i < totalProjectiles; i++)
+            {
+                Vector2 offset = velocity.RotatedBy(piOver10 * (i - (totalProjectiles - 1f) / 2f));
+                if (!canHit)
+                    offset -= velocity;
+
+                int proj = Projectile.NewProjectile(source, spawnsource.X + offset.X, spawnsource.Y + offset.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+                Main.projectile[proj].noDropItem = true;
             }
             return false;
         }
@@ -166,7 +182,6 @@ namespace StormDiversMod.Items.Weapons
              .AddIngredient(ItemID.MeteoriteBar, 20)
              .AddTile(TileID.Anvils)
              .Register();
-
         }
         public override Color? GetAlpha(Color lightColor)
         {
