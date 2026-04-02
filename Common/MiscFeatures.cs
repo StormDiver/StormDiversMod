@@ -69,6 +69,7 @@ namespace StormDiversMod.Common
 
         public bool cursedplayer;
         public bool soulpickup;
+
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             screenshaker = false;

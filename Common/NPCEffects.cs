@@ -1181,7 +1181,6 @@ namespace StormDiversMod.Common
                             }
                             spacerockwhipcooldown = 0;
                         }
-
                     }
                 }
             }
@@ -1345,6 +1344,26 @@ namespace StormDiversMod.Common
                         chat = "If you're not here to party then GET OUT!";
                         break;
 
+                }
+            }
+
+            if (Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>())
+            {
+                if (Main.rand.Next(4) == 0)
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            chat = "You seem to be in a lot of Legendary Pain.";
+                            break;
+                        case 1:
+                            chat = "Legendary ThePain!!";
+                            break;
+                        case 2:
+                            chat = "How do you handle all that Legendary Pain?";
+                            break;
+
+                    }
                 }
             }
         }

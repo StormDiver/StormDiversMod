@@ -20,6 +20,7 @@ using StormDiversMod.Items.Misc;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Localization;
 using StormDiversMod.Items.Furniture;
+using StormDiversMod.Items.Summons;
 
 namespace StormDiversMod.Common
 {

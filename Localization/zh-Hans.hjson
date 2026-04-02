@@ -4084,6 +4084,40 @@ Mods: {
 					“让我给你一点点享受……就像这样！”
 					'''
 			}
+
+			PainTicket: {
+				// DisplayName: Pain Ticket
+				/* Tooltip:
+					'''
+					Right click to pull
+					You'll have a 1 in 90 chance to get a 50% chance at pulling the Legendary Golden Pain Mask [i:StormDiversMod/TheGoldenPainMask], has a hard pity of 90
+					- Failing the 50% chance, you'll get a regular pain mask but your next Golden Pain is guaranteed
+					Failing that, you'll have a 1 in 10 chance to pull an uncommon item, has a hard pity of 10
+					Failing all the above, you'll get a common item
+					-- Pity count --
+					Golden Pain
+					Guaranteed
+					Uncommon Count
+					''' */
+			}
+
+			TheGoldenPainMask: {
+				// DisplayName: Golden Pain Mask
+				// Tooltip: ""
+			}
+
+			PainCoin: {
+				// DisplayName: Pain Token
+				/* Tooltip:
+					'''
+					Used to craft Pain Tickets
+					-- Current cooldowns --
+					Enemy Drop
+					Enemy Drop Cooldown
+					Boss Drop
+					Boss Drop Cooldown
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -4641,6 +4675,7 @@ Mods: {
 					EnemyMisc: 敌人杂项
 					EnemySpawning: 敌人生成
 					GenMisc: 杂项
+					// AprilFools: April Fools
 				}
 
 				PreventBossStorm: {
@@ -4681,6 +4716,11 @@ Mods: {
 				GlassSoWeak: {
 					Tooltip: 这会让本模组中的玻璃武器和工具一击即碎，以达到搞笑效果
 					Label: 玻璃武器和工具一击即碎:D
+				}
+
+				NoGacha4U: {
+					// Tooltip: This will prevent the Gacha Pain Tokens from dropping and generating in chests (Existing Tokens and Tickets in your inventory can still be used)
+					// Label: Disable Pain Token drops
 				}
 			}
 		}

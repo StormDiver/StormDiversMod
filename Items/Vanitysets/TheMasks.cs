@@ -145,4 +145,49 @@ namespace StormDiversMod.Items.Vanitysets
 
         }
     }
+    [AutoloadEquip(EquipType.Head)]
+    public class TheGoldenPainMask : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            //DisplayName.SetDefault("Golden Pain");
+            //Tooltip.SetDefault("The purest of pain");
+            Item.ResearchUnlockCount = -1;
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                {
+                    if (ItemSlot.ShiftInUse)
+                        line.Text = "[c/efd127:GOLDEN PAIN!!!!]";
+                    else
+                        line.Text = "[c/efd127:The Legendary Pain!]";
+                }
+            }
+        }
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.sellPrice(0, 0, 0, 0);
+            Item.rare = ItemRarityID.Yellow;
+            Item.vanity = true;
+        }
+
+        public override bool OnPickup(Player player)
+        {
+            if (!GetInstance<ConfigurationsIndividual>().NoPain)
+            {
+                if (player.Male)
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+                else
+                    SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSoundFemale") with { Volume = 1.5f, MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew }, player.Center);
+            }
+            return base.OnPickup(player);
+        }
+
+    }
 }

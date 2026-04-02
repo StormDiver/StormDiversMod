@@ -1,11 +1,23 @@
+using Microsoft.Build.Evaluation;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using NVorbis.Contracts;
 using ReLogic.Graphics;
+using StormDiversMod.Assets.Achievements;
+using StormDiversMod.Buffs;
+using StormDiversMod.Items.Accessory;
+using StormDiversMod.Items.Weapons;
+using StormDiversMod.NPCs;
+using StormDiversMod.Projectiles;
 using System;
 using System.Collections.Generic;
 using System.IO;
-
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Terraria.GameContent.Dyes;
 using Terraria.GameContent.UI;
 using Terraria.Graphics.Effects;
@@ -15,19 +27,6 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Buffs;
-using StormDiversMod.NPCs;
-using StormDiversMod.Projectiles;
-
-using Terraria.DataStructures;
-using Terraria.Audio;
-using NVorbis.Contracts;
-using Terraria.GameContent.Drawing;
-using Microsoft.CodeAnalysis;
-using StormDiversMod.Items.Weapons;
-using StormDiversMod.Items.Accessory;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using StormDiversMod.Assets.Achievements;
 
 namespace StormDiversMod.Common
 {
@@ -375,6 +374,16 @@ namespace StormDiversMod.Common
         float painincrease;
         public override void PostUpdateEquips() //Updates every frame
         {
+            if (Main.rand.Next(4) == 0)
+            {
+                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>())
+                {
+                    ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
+                    {
+                        PositionInWorld = new Vector2(Player.position.X + Main.rand.Next(0, Player.width), Player.position.Y + Main.rand.Next(0, Player.height)),
+                    }, Player.whoAmI);
+                }
+            }
             /*if (Player.sitting.isSitting || Player.controlDown)
             {
                 Player.hasFloatingTube = false;
@@ -1705,6 +1714,15 @@ namespace StormDiversMod.Common
 
                     //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", false);
 
+                }
+                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>())
+                {
+                    if (Player.Male)
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
+                    else
+                        SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSoundFemale") with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);
+
+                    CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.Gold, "ThePain!", true);
                 }
             }
             if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.GnomedHat>())

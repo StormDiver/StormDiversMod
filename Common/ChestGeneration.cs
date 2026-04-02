@@ -1179,6 +1179,160 @@ namespace StormDiversMod.Common
 
                 }
 
+
+                //GACHA CHESTS
+                if (!GetInstance<ConfigurationsGlobal>().NoGacha4U)
+                {
+                    int[] ChestGachaPainToken = { ItemType<PainCoin>() };
+                    int ChestGachaPainTokenCount = 0;
+                    //Wooden Chests = 10
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && (Main.tile[chest.x, chest.y].TileFrameX == 0 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 12 * 36)) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 10;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                    //Gold/Ice/Desert/Jungle Chests = 20
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && (Main.tile[chest.x, chest.y].TileFrameX == 1 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 8 * 36 ||
+                        Main.tile[chest.x, chest.y].TileFrameX == 10 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 20;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                    //Gold/Ice/Desert Chests = 20
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 20;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                    //Granite/marble/Mushroom/Water/Skyware/Webbed Chests = 30
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && (Main.tile[chest.x, chest.y].TileFrameX == 50 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 51 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 32 * 36 ||
+                        Main.tile[chest.x, chest.y].TileFrameX == 17 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 13 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 15 * 36)) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 30;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                    //Locked Gold Chests = 25
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && (Main.tile[chest.x, chest.y].TileFrameX == 2 * 36)) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 25;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                    //Shadow Chests = 50
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 4 * 36) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 50;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                    //Lizard Chests = 100
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 16 * 36) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 100;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                    //Biome Chests = 200
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && (Main.tile[chest.x, chest.y].TileFrameX == 24 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 25 * 36
+                        || Main.tile[chest.x, chest.y].TileFrameX == 26 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 27 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 28 * 36)) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 200;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                    //Biome Chest = 200
+                    if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 13 * 36) //Look in Tiles_467 for the tile, start from 0
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                        {
+                            if (chest.item[inventoryIndex].type == ItemID.None)
+                            {
+                                chest.item[inventoryIndex].SetDefaults(Main.rand.Next(ChestGachaPainToken));
+                                chest.item[inventoryIndex].stack = 200;
+                                ChestGachaPainTokenCount = (ChestGachaPainTokenCount + 1) % ChestGachaPainToken.Length;
+                                inventoryIndex++;
+
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

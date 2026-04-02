@@ -100,5 +100,14 @@ namespace StormDiversMod.Common
         [DefaultValue(false)]
         [BackgroundColor(27, 130, 114)]
         public bool GlassSoWeak { get; set; }
+
+        [Header("AprilFools")]
+
+        //[Label("Disable Pain token Drops")]
+        //[Tooltip("This will prevent the Gacha Pain Tokens from dropping and generating in chests")]
+        [ReloadRequired] //Yes
+        [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
+        public bool NoGacha4U { get; set; }
     }
 }

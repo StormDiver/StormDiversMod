@@ -1,31 +1,31 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System.Linq;
-using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.ModLoader.Utilities;
-using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
+using Steamworks;
+using StormDiversMod.Buffs;
 using StormDiversMod.Common;
-using Terraria.DataStructures;
 using StormDiversMod.Items.BossTrophy;
+using StormDiversMod.Items.Materials;
+using StormDiversMod.Items.Pets;
 using StormDiversMod.Items.Weapons;
 using StormDiversMod.NPCs;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using Terraria.GameContent.Generation;
-using Terraria.Localization;
-using Terraria.ModLoader.IO;
-using StormDiversMod.Buffs;
-
-using StormDiversMod.Items.Pets;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using Steamworks;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Generation;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using Terraria.ModLoader.Utilities;
+using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.NPCs.Boss
 {
@@ -1371,7 +1371,10 @@ namespace StormDiversMod.NPCs.Boss
             }
         }
         public override void OnKill()
-        { 
+        {
+            if (!StormWorld.aridBossDown && !GetInstance<ConfigurationsGlobal>().NoGacha4U)
+                Item.NewItem(new EntitySource_Loot(null), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ItemType<PainCoin>(), 200);
+
             /*if (StormWorld.airdBossDown == false)
             {
                 StormWorld.aridBossDown = true;
