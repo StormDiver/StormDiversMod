@@ -376,7 +376,7 @@ namespace StormDiversMod.Common
         {
             if (Main.rand.Next(4) == 0)
             {
-                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>())
+                if (Player.armor[0].type == ModContent.ItemType<AprilFools.TheGoldenPainMask>() || Player.armor[10].type == ModContent.ItemType<AprilFools.TheGoldenPainMask>())
                 {
                     ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
                     {
@@ -1715,7 +1715,7 @@ namespace StormDiversMod.Common
                     //CombatText.NewText(new Rectangle((int)Player.Center.X, (int)Player.Center.Y, 12, 4), Color.PeachPuff, "Clayman!", false);
 
                 }
-                if (Player.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>() || Player.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>())
+                if (Player.armor[0].type == ModContent.ItemType<AprilFools.TheGoldenPainMask>() || Player.armor[10].type == ModContent.ItemType<AprilFools.TheGoldenPainMask>())
                 {
                     if (Player.Male)
                         SoundEngine.PlaySound(new SoundStyle("StormDiversMod/Assets/Sounds/ThePainSound") with { Volume = 1.5f, MaxInstances = 1 }, Player.Center);

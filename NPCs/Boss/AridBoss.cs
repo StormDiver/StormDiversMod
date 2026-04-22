@@ -7,6 +7,7 @@ using StormDiversMod.Items.BossTrophy;
 using StormDiversMod.Items.Materials;
 using StormDiversMod.Items.Pets;
 using StormDiversMod.Items.Weapons;
+using StormDiversMod.AprilFools;
 using StormDiversMod.NPCs;
 using System;
 using System.Collections.Generic;
@@ -1372,7 +1373,7 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void OnKill()
         {
-            if (!StormWorld.aridBossDown && !GetInstance<ConfigurationsGlobal>().NoGacha4U)
+            if (!StormWorld.aridBossDown && GetInstance<ConfigurationsGlobal>().AFGacha)
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ItemType<PainCoin>(), 200);
 
             /*if (StormWorld.airdBossDown == false)

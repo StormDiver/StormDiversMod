@@ -246,32 +246,6 @@ namespace StormDiversMod.Common
                     Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<TheClaymanMask>());
                 }
             }
-            //Pain Tickets and coins
-            if (!GetInstance<ConfigurationsGlobal>().NoGacha4U)
-            {
-                if (npc.lifeMax > 5 && !npc.boss && !npc.SpawnedFromStatue && Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<PlayerUpgrades>().GachaCoinDropCount < 30) //30 limit, resets every minute
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<PainCoin>());
-                    Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<PlayerUpgrades>().GachaCoinDropCount++;
-                }
-                if (npc.boss)
-                {
-                    if (Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<PlayerUpgrades>().GachaCoinDropBossCount < 3) //3 limit, resets every 5 minutes
-                    {
-                        Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.position.X, npc.position.Y), new Vector2(npc.width, npc.height), ModContent.ItemType<PainCoin>(), 60);
-                        Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<PlayerUpgrades>().GachaCoinDropBossCount++; // 1 minute cooldown
-                    }
-                }
-                //200 from most bosses first time
-                if ((npc.type == NPCID.EyeofCthulhu && !NPC.downedBoss1) || (npc.type == NPCID.BrainofCthulhu && !NPC.downedBoss2) || (npc.type == NPCID.SkeletronHead && !NPC.downedBoss3) ||
-                    (npc.type == NPCID.QueenBee && !NPC.downedQueenBee) || (npc.type == NPCID.KingSlime && !NPC.downedSlimeKing) || (npc.type == NPCID.WallofFlesh && !Main.hardMode) ||
-                    (npc.type == NPCID.TheDestroyer && !NPC.downedMechBoss1) || (npc.type == NPCID.Retinazer && !NPC.downedMechBoss2) || (npc.type == NPCID.SkeletronPrime && !NPC.downedMechBoss3) ||
-                    (npc.type == NPCID.Plantera && !NPC.downedPlantBoss) || (npc.type == NPCID.Golem && !NPC.downedGolemBoss) || (npc.type == NPCID.HallowBoss && !NPC.downedEmpressOfLight) ||
-                     (npc.type == NPCID.QueenSlimeBoss && !NPC.downedQueenSlime) || (npc.type == NPCID.CultistBoss && !NPC.downedAncientCultist) || (npc.type == NPCID.MoonLordCore && !NPC.downedMoonlord))
-                {
-                    Item.NewItem(new EntitySource_Loot(null), new Vector2(npc.Center.X, npc.Center.Y), new Vector2(0, 0), ModContent.ItemType<PainCoin>(), 200);
-                }
-            }
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

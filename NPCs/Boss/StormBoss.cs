@@ -7,6 +7,7 @@ using StormDiversMod.Items.BossTrophy;
 using StormDiversMod.Items.Materials;
 using StormDiversMod.Items.Pets;
 using StormDiversMod.Items.Weapons;
+using StormDiversMod.AprilFools;
 using StormDiversMod.NPCs;
 using StormDiversMod.Projectiles;
 using System;
@@ -1467,7 +1468,7 @@ namespace StormDiversMod.NPCs.Boss
                 Item.NewItem(NPC.GetSource_Loot(), (int)NPC.Center.X, (int)NPC.Center.Y, NPC.width, NPC.height, ItemID.TempleKey);
 
             }
-            if (!StormWorld.stormBossDown && !GetInstance<ConfigurationsGlobal>().NoGacha4U)
+            if (!StormWorld.stormBossDown && GetInstance<ConfigurationsGlobal>().AFGacha)
                 Item.NewItem(new EntitySource_Loot(null), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ItemType<PainCoin>(), 200);
             /*if (StormWorld.stormBossDown == false)
             {

@@ -103,11 +103,17 @@ namespace StormDiversMod.Common
 
         [Header("AprilFools")]
 
-        //[Label("Disable Pain token Drops")]
-        //[Tooltip("This will prevent the Gacha Pain Tokens from dropping and generating in chests")]
+        //[Label("Touch Grass Mode")]
+        //[Tooltip("Alow you to play the Touch Grass mode")]
         [ReloadRequired] //Yes
         [DefaultValue(false)]
         [BackgroundColor(27, 130, 114)]
-        public bool NoGacha4U { get; set; }
+        public bool AFTouchGrass { get; set; }
+        //[Label("Enable Pain Token Drops")]
+        //[Tooltip("This will cause the April Fools Gacha Pain Tokens to dropping and generate in chests")]
+        [ReloadRequired] //Yes
+        [DefaultValue(false)]
+        [BackgroundColor(27, 130, 114)]
+        public bool AFGacha { get; set; }
     }
 }

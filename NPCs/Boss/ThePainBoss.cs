@@ -1283,8 +1283,8 @@ namespace StormDiversMod.NPCs.Boss
         }
         public override void OnKill()
         {
-            if (!StormWorld.ultimateBossDown && !GetInstance<ConfigurationsGlobal>().NoGacha4U)
-                Item.NewItem(new EntitySource_Loot(null), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ItemType<PainTicket>(), 10);
+            if (!StormWorld.ultimateBossDown && GetInstance<ConfigurationsGlobal>().AFGacha)
+                Item.NewItem(new EntitySource_Loot(null), new Vector2(NPC.Center.X, NPC.Center.Y), new Vector2(0, 0), ModContent.ItemType<AprilFools.PainTicket>(), 10);
             NPC.SetEventFlagCleared(ref StormWorld.ultimateBossDown, -1); //set boss downed      
         }
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)

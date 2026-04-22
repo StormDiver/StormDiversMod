@@ -1347,7 +1347,7 @@ namespace StormDiversMod.Common
                 }
             }
 
-            if (Main.LocalPlayer.armor[0].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<Items.Vanitysets.TheGoldenPainMask>())
+            if (Main.LocalPlayer.armor[0].type == ModContent.ItemType<AprilFools.TheGoldenPainMask>() || Main.LocalPlayer.armor[10].type == ModContent.ItemType<AprilFools.TheGoldenPainMask>())
             {
                 if (Main.rand.Next(4) == 0)
                 {

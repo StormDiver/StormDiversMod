@@ -3952,7 +3952,6 @@ Mods: {
 					Standing on grass will also grant many buffs
 					Hold shift to view buffs
 					This cannot be undone, use at your own risk!
-					(Currently removed from the mod)
 					'''
 			}
 
@@ -4691,7 +4690,7 @@ Mods: {
 					EnemyMisc: Enemy Misc
 					EnemySpawning: Enemy Spawning
 					GenMisc: Misc
-					AprilFools: April Fools
+					AprilFools: April Fools Events
 				}
 
 				PreventBossStorm: {
@@ -4734,9 +4733,14 @@ Mods: {
 					Label: Glass Weapons and Tools break in one hit
 				}
 
-				NoGacha4U: {
-					Tooltip: This will prevent the Gacha Pain Tokens from dropping and generating in chests (Existing Tokens and Tickets in your inventory can still be used)
-					Label: Disable Pain Token drops
+				AFTouchGrass: {
+					Tooltip: Allows you to craft the Special Grass Seed to activate Touch Grass Mode, disable this config to deactivate Touch Grass Mode in your world
+					Label: (2025) Touch Grass Mode (Very Unbalanced and not playtested)
+				}
+
+				AFGacha: {
+					Tooltip: This will make the Gacha Pain Tokens drop and generate in chests, allowing you to pull for the Golden Pain Mask, pity count and cooldowns won't reset if disabled
+					Label: (2026) Golden Pain Mask Gacha System
 				}
 			}
 		}
