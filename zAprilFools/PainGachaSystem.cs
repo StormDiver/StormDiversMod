@@ -9,7 +9,7 @@ using StormDiversMod.Items.Pets;
 using StormDiversMod.Items.Tools;
 using StormDiversMod.Items.Vanitysets;
 using StormDiversMod.Items.Weapons; 
-using StormDiversMod.AprilFools; 
+using StormDiversMod.zAprilFools; 
 using StormDiversMod.NPCs;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ using Terraria.UI;
 using static System.Net.Mime.MediaTypeNames;
 using static Terraria.ModLoader.ModContent;
 
-namespace StormDiversMod.AprilFools
+namespace StormDiversMod.zAprilFools
 {
     //Overall save system
     public class GachaTimers : ModPlayer

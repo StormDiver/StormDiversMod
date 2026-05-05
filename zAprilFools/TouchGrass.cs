@@ -40,7 +40,7 @@ using Terraria.WorldBuilding;
 using static System.Net.WebRequestMethods;
 using static Terraria.ModLoader.ModContent;
 
-namespace StormDiversMod.AprilFools
+namespace StormDiversMod.zAprilFools
 {
     //saves
     public class TouchGrassEnabled : ModSystem

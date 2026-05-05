@@ -37,4 +37,12 @@ Some sprites and playtesting: [b]Lynxical[/b]
 Boss Music by: [b]MicelTheGuy[/b]
 (Outdated) Chinese Localisation by: by jianjingqiao201314(简境巧) and "一条鱼"
 
+[h2]FAQ:[/h2]
+[list]
+[*]Q: Is this mod compatible with X
+A: The mod shouldn't have any conflicts with mods due to it being content only, but for mods that modify a lot of terrain make sure to enabled the "Prevent Extra Granite, Marble, and Mushroom chests from generating" config
+[*]Q: Does this mod work on multiplayer
+A: It works as well as it can with how broken tmod multiplayer is
+[/list]
+
 Also try out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2907393250]Storm's Tweaks Mod[/url], makes a few small configurable changes to Terraria that may be useful.

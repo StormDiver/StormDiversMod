@@ -7,7 +7,7 @@ using StormDiversMod.Items.BossTrophy;
 using StormDiversMod.Items.Materials;
 using StormDiversMod.Items.Pets;
 using StormDiversMod.Items.Weapons;
-using StormDiversMod.AprilFools;
+using StormDiversMod.zAprilFools;
 using StormDiversMod.NPCs;
 using StormDiversMod.Projectiles;
 using System;
