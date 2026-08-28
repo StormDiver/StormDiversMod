@@ -43,6 +43,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             return false;
         }
         int shoottime = 0;
+        int shoottime2 = 0;
         int summontime = 0;
         bool directionright;
         bool animateidle = true;
@@ -124,7 +125,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     float projspeed = 12;
                     Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                    int damage = (int)player.GetTotalDamage(DamageClass.Generic).ApplyTo(120);
+                    int damage = (int)player.GetTotalDamage(DamageClass.Generic).ApplyTo(100);
                     if (shoottime >= 30)
                     {
                         for (int j = 0; j < 25; j++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
@@ -135,7 +136,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         }
                         Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LunaticExpertSentryProj2>(), damage, Projectile.knockBack, Projectile.owner);
-                        SoundEngine.PlaySound(SoundID.Item77 with { Volume = 0.5f, Pitch = 0.5f }, Projectile.Center);
+                        SoundEngine.PlaySound(SoundID.Item77 with { Volume = 0.3f, Pitch = 0.75f, MaxInstances = -1 }, Projectile.Center);
 
                         shoottime = 0;
                         animateidle = false;
@@ -145,6 +146,39 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     }
                 }
             }
+            shoottime2++;
+            //secondary shot
+            if ((!player.channel && (player.itemAnimation == player.itemAnimationMax) || (player.HeldItem.channel && player.channel)) && player.HeldItem.damage > 1)
+            {
+                if (shoottime2 >= 45 && player.itemAnimation != 0)
+                {
+                    float projspeed = 12;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+
+                    int damage = (int)player.GetTotalDamage(DamageClass.Generic).ApplyTo(100);
+
+                    for (int j = 0; j < 25; j++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
+                    {
+                        int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 10, Projectile.Center.Y - 10), 20, 20, 173, Projectile.velocity.X, Projectile.velocity.Y, 100, default, 1.5f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].velocity *= 2f;
+                    }
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+                    int fastproj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<LunaticExpertSentryProj2>(), damage, Projectile.knockBack, Projectile.owner, 0, 0, 1);
+                    Main.projectile[fastproj].scale = 0.75f;
+                    Main.projectile[fastproj].extraUpdates = 1;
+                    Main.projectile[fastproj].penetrate = 2;
+                    //Main.projectile[fastproj].tileCollide = false;
+
+                    SoundEngine.PlaySound(SoundID.Item77 with { Volume = 0.4f, Pitch = 1, MaxInstances= -1 }, Projectile.Center);
+                    shoottime2 = 0;
+                    animateidle = false;
+                    Projectile.frame = 4;
+
+                    animateshoot = true;
+                }
+            }
+
             AnimateProjectile();
 
             if (player.GetModPlayer<EquipmentEffects>().lunaticHood == false || player.dead)
@@ -202,19 +236,13 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
             }
         }
-
-
         /*public override Color? GetAlpha(Color lightColor)
         {
-
             Color color = Color.White;
             color.A = 150;
             return color;
-
         }*/
     }
-
-
     //____________________________________________________________
     public class LunaticExpertSentryProj2 : ModProjectile
     {
@@ -225,7 +253,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-
         }
         public override void SetDefaults()
         {
@@ -244,14 +271,17 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.DamageType = DamageClass.Summon;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-
-            
         }
         int dusttime = 0;
         int rotate;
         Vector2 newMove;
+        float dustscale;
         public override void AI()
         {
+            if (Projectile.ai[2] == 0) //homing varient
+                dustscale = 2;
+            else //non homing
+                dustscale = 1.5f;
 
             rotate += 3;
             Projectile.rotation = rotate * 0.1f;
@@ -263,51 +293,49 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     float X = Projectile.Center.X * (float)i;
                     float Y = Projectile.Center.Y * (float)i;
 
-
-                    int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 173, 0, 0, 100, default, 2f);
+                    int dust = Dust.NewDust(new Vector2(X, Y), 1, 1, 173, 0, 0, 100, default, dustscale);
                     Main.dust[dust].position.X = X;
                     Main.dust[dust].position.Y = Y;
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 0f;
-
                 }
             }
 
-            if (Main.rand.Next (3)== 0)
+            if (Main.rand.Next(3) == 0)
             {
-                
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 173, Projectile.velocity.X, Projectile.velocity.Y, 100, default, 2f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1f;
-               
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 173, Projectile.velocity.X, Projectile.velocity.Y, 100, default, dustscale);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 1f;
             }
 
             if (Projectile.localAI[0] == 0f)
-                {
-                    AdjustMagnitude(ref Projectile.velocity);
-                    Projectile.localAI[0] = 1f;
-                }
+            {
+                AdjustMagnitude(ref Projectile.velocity);
+                Projectile.localAI[0] = 1f;
+            }
             Player player = Main.player[Projectile.owner];
 
             Vector2 move = Vector2.Zero;
-                float distance = 300f;
-                bool target = false;
+            float distance = 300f;
+            bool target = false;
+            if (Projectile.ai[2] == 0) //no homing for manual shots
+            {
                 for (int k = 0; k < 200; k++)
                 {
                     if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && Main.npc[k].CanBeChasedBy())
                     {
                         if (Collision.CanHit(Projectile.Center, 0, 0, Main.npc[k].Center, 0, 0))
                         {
-                        if (player.HasMinionAttackTargetNPC)
-                        {
+                            if (player.HasMinionAttackTargetNPC)
+                            {
 
-                            newMove = Main.npc[player.MinionAttackTargetNPC].Center - Projectile.Center;
-                        }
-                        else
-                        {
-                            newMove = Main.npc[k].Center - Projectile.Center;
-                        }
-                        float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                                newMove = Main.npc[player.MinionAttackTargetNPC].Center - Projectile.Center;
+                            }
+                            else
+                            {
+                                newMove = Main.npc[k].Center - Projectile.Center;
+                            }
+                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
                             if (distanceTo < distance)
                             {
                                 move = newMove;
@@ -324,39 +352,35 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     AdjustMagnitude(ref Projectile.velocity);
                 }
             }
-        
+        }
+
         private void AdjustMagnitude(ref Vector2 vector)
         {
-            
+            if (Projectile.ai[2] == 0) //no homing for manual shots
+            {
                 float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
                 if (magnitude > 14f)
                 {
                     vector *= 14f / magnitude;
                 }
-            
+            }
         }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
-            
+   
         }
-
         public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath6 with{Volume = 0.3f}, Projectile.Center);
-
                 for (int i = 0; i < 20; i++) //this i a for loop tham make the dust spawn , the higher is the value the more dust will spawn
                 {
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 173, 0, 0, 120, default, 2f);   //this make so when this projectile disappear will spawn dust, change PinkPlame to what dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true;
                     
-
                     Main.dust[dust].velocity *= 1.5f;
                 }
-
             }
         }
 
@@ -374,22 +398,12 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
 
             return true;
-
         }
-
         public override Color? GetAlpha(Color lightColor)
         {
-
-
-
             Color color = Color.White;
             color.A = 150;
             return color;
-
-
-
         }
-
     }
-    
 }

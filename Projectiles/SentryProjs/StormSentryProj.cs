@@ -8,6 +8,7 @@ using Terraria.GameContent;
 using Microsoft.Xna.Framework.Graphics;
 
 using Terraria.Utilities;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
@@ -47,27 +48,22 @@ namespace StormDiversMod.Projectiles.SentryProjs
         NPC target;
         NPC currenttarget = null; //Currently targetted enemy. uses so sentry looks at the correct one
         bool floatup = true;
-        
+        public override void OnSpawn(IEntitySource source)
+        {
+            for (int i = 0; i < 25; i++)
+            {
+                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 229, 0f, 0f, 0, default, 1.5f);
+                Main.dust[dustIndex].velocity *= 2;
+
+                Main.dust[dustIndex].noGravity = true;
+            }
+            Projectile.rotation = 1.57f;//Face down when first spawned
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 
             player.UpdateMaxTurrets();
-
-            Projectile.ai[0]++;//spawntime
-            if (Projectile.ai[0] == 1)
-            {
-                for (int i = 0; i < 25; i++)
-                {
-                    int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 229, 0f, 0f, 0, default, 1.5f);
-                    Main.dust[dustIndex].velocity *= 2;
-
-                    Main.dust[dustIndex].noGravity = true;
-                }
-                Projectile.rotation = 1.57f;//Face down when first spawned
-
-            }
-
     
             if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
@@ -131,8 +127,10 @@ namespace StormDiversMod.Projectiles.SentryProjs
                         float rotation = MathHelper.ToRadians(4);
                         for (int l = 0; l < numberProjectiles; l++)
                         {
-
-                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, l / (numberProjectiles - 1)));
+                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6));
+                            float scale = 1f - (Main.rand.NextFloat() * .3f);
+                            perturbedSpeed = perturbedSpeed * scale;
+                            //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, l / (numberProjectiles - 1)));
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
                                 ModContent.ProjectileType<StormSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         }
@@ -196,11 +194,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-
             }
             if (Projectile.frame == 5)
             {
-
                 Projectile.frame = 0;
                 animate = false;
             }
@@ -213,11 +209,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
        
         public override void OnKill(int timeLeft)
         {
-
             SoundEngine.PlaySound(SoundID.Item122, Projectile.Center);
             for (int i = 0; i < 50; i++)
             {
-
                 int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229, 0f, 0f, 0, default, 1.5f);
                 Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.4f;
                 Main.dust[dustIndex].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
@@ -247,14 +241,13 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 14;
             Projectile.height = 14;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 3;
             Projectile.timeLeft = 200;
       
             Projectile.scale = 1;
@@ -262,44 +255,34 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 1;
+            Projectile.ArmorPenetration = 5;
         }
-
         public override void AI()
         {
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 
-          
             if (Projectile.ai[0] > 0f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
                 {
-
-
                     int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 110, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= -0.3f;
-   
-
                 }
             }
             else
             {
                 Projectile.ai[0] += 1f;
             }
-           
-
         }
-    
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.damage -= (Projectile.damage / 10);
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             return true;
         }
-
         public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 15; i++)
@@ -324,9 +307,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
-
             return true;
-
         }
         public override Color? GetAlpha(Color lightColor)
         {

@@ -1,13 +1,15 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using SteelSeries.GameSense.DeviceZone;
+using StormDiversMod.Projectiles.Minions;
+using StormDiversMod.Projectiles.SentryProjs;
+using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
-
-using Terraria.GameContent.Creative;
 
 
 namespace StormDiversMod.Items.Tools
@@ -85,7 +87,10 @@ namespace StormDiversMod.Items.Tools
      
     }
     public class Sentrykill : GlobalProjectile
-    {    
+    {
+        public override bool InstancePerEntity => true;
+
+        int shoottime;
         public override void AI(Projectile projectile)
         {
             var player = Main.player[projectile.owner];
@@ -124,7 +129,37 @@ namespace StormDiversMod.Items.Tools
                     }
                     projectile.Kill();
                 }
+                /*
+                if (shoottime < 10) //Maybe for 1.4.5
+                    shoottime++;
+                if (player.controlUseTile && shoottime >= 10 && player.HeldItem.type == ModContent.ItemType<Items.Tools.SentryKiller>())
+                {
+                    float projspeed = 25;
+                    Vector2 velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(projectile.Center.X, projectile.Center.Y)) * projspeed;
+                    for (int j = 0; j < 10; j++)
+                    {
+                        int dust2 = Dust.NewDust(projectile.Center, 0, 0, 70, velocity.X / 5, velocity.Y / 5, 0, default, 1f);
+                        Main.dust[dust2].noGravity = true;
+                    }
+                    SoundEngine.PlaySound(SoundID.Item38, projectile.position);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(velocity.X, velocity.Y),
+                           ModContent.ProjectileType<SantankMinionProj3>(), projectile.damage, projectile.knockBack, projectile.owner);
+                    shoottime = 0;
+                }*/
             }
+        }
+        public override bool PreDraw(Projectile projectile, ref Color lightColor)
+        {
+            var player = Main.player[projectile.owner];
+
+            if (projectile.sentry && player.HeldItem.type == ModContent.ItemType<Items.Tools.SentryKiller>())
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), Color.Red, Color.Transparent, 3);
+                }
+            }
+            return true;
         }
     }
 }

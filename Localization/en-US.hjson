@@ -778,11 +778,7 @@ Mods: {
 
 			DesertJar: {
 				DisplayName: Pharaoh's Urn
-				Tooltip:
-					'''
-					Two sand particles will orbit you at close range, damaging enemies
-					Leaves behind a damaging trail of sand when moving fast enough
-					'''
+				Tooltip: Leaves behind a damaging trail of sand when moving fast enough which rains down after a delay
 			}
 
 			EyeofDungeon: {
@@ -819,8 +815,7 @@ Mods: {
 					'''
 					Multiple frost spikes explode out of you when taking more than 1 damage
 					Increases critical strike chance and movement speed for 6 seconds afterwards
-					Two frost particles will orbit you at close range, damaging enemies
-					Leaves behind a damaging trail of frost when moving fast enough
+					Leaves behind a damaging trail of frost when moving fast enough which rains down after a delay
 					'''
 			}
 
@@ -879,7 +874,11 @@ Mods: {
 
 			LunaticHood: {
 				DisplayName: Lunatic Hood of Command
-				Tooltip: Summons 2 mini cultists minions that fly next to you and fire shadow fireballs at enemies
+				Tooltip:
+					'''
+					Summons 2 mini cultists minions that fly next to you and fire homing shadow fireballs at enemies
+					Also fires additional non homing fireballs at the cursor when using any weapon
+					'''
 			}
 
 			PrimeAccess: {
@@ -905,11 +904,7 @@ Mods: {
 
 			ShroomAccessory: {
 				DisplayName: Shroomite Launcher Attachment
-				Tooltip:
-					'''
-					Makes all guns fire out mini shroomite rockets
-					Creates a laser sight line when holding right click while holding a gun
-					'''
+				Tooltip: Makes all guns fire out mini shroomite rockets
 			}
 
 			ShroomAccessorySnipe: {
@@ -917,7 +912,6 @@ Mods: {
 				Tooltip:
 					'''
 					Makes all guns fire out mini shroomite rockets
-					Creates a laser sight line when holding right click while holding a gun
 					Increases view range for guns (Right click to zoom out)
 					10% increased ranged damage and critical strike chance
 					'''
@@ -3526,10 +3520,10 @@ Mods: {
 			}
 
 			StormSentryStaff: {
-				DisplayName: Overloaded Staff
+				DisplayName: Scandrone Staff
 				Tooltip:
 					'''
-					Summons a Scandrone sentry that fires a spread of 3 scandrone bolts at enemies
+					Summons a Scandrone sentry that fires 3 piercing scandrone bolts at enemies
 					Right click to target a specific enemy
 					'''
 			}

@@ -8,6 +8,7 @@ using Terraria.GameContent;
 using Microsoft.Xna.Framework.Graphics;
 
 using Terraria.Utilities;
+using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
@@ -43,26 +44,23 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         NPC target;
         NPC currenttarget = null; //Currently targetted enemy. uses so sentry looks at the correct one
-        
+        public override void OnSpawn(IEntitySource source)
+        {
+            for (int i = 0; i < 25; i++)
+            {
+                int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 115, 0f, 0f, 0, default, 1.5f);
+                Main.dust[dustIndex].velocity *= 2;
+
+                Main.dust[dustIndex].noGravity = true;
+            }
+            Projectile.rotation = 1.57f;//Face down when first spawned
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 
             player.UpdateMaxTurrets();
 
-            Projectile.ai[0]++;//spawntime
-            if (Projectile.ai[0] == 1)
-            {
-                for (int i = 0; i < 25; i++)
-                {
-                    int dustIndex = Dust.NewDust(Projectile.Center, 0, 0, 115, 0f, 0f, 0, default, 1.5f);
-                    Main.dust[dustIndex].velocity *= 2;
-
-                    Main.dust[dustIndex].noGravity = true;
-                }
-                Projectile.rotation = 1.57f;//Face down when first spawned
-
-            } 
             if (Main.rand.Next(5) == 0)     //this defines how many dust to spawn
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 12, Projectile.Center.Y - 12), 24, 24, 115);
@@ -84,7 +82,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 else
                 {
                     target = Main.npc[i];
-
                 }
                 target.TargetClosest(true);
             
@@ -93,18 +90,16 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     if (Projectile.ai[1] > 15)
                     {
                         currenttarget = target;
-                        float projspeed = 12;
+                        float projspeed = 16;
                         Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;                  
                         for (int j = 0; j < 10; j++)
                         {
-
-
                             int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 115, velocity.X, velocity.Y, 0, default, 1f);
                             Main.dust[dust2].noGravity = true;
                         }                   
                         SoundEngine.PlaySound(SoundID.NPCHit9, Projectile.position);
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y),
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X + target.velocity.X / 2, velocity.Y + target.velocity.X / 2),
                             ModContent.ProjectileType<BloodySentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         Projectile.ai[1] = 0;
                     }
@@ -177,7 +172,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 75;
+            Projectile.timeLeft = 50;
       
             Projectile.scale = 1;
             Projectile.usesLocalNPCImmunity = true;

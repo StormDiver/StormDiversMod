@@ -109,7 +109,6 @@ namespace StormDiversMod.zAprilFools
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 6));
             Item.ResearchUnlockCount = -1;
-            ItemID.Sets.ShimmerTransformToItem[Item.type] = ItemID.SilverCoin;
         }
         public override void SetDefaults()
         {
@@ -170,7 +169,7 @@ namespace StormDiversMod.zAprilFools
             {
                 Recipe recipe = Recipe.Create(ModContent.ItemType<PainCoin>(), 5);
                 recipe.AddIngredient(ItemID.GoldCoin, 1);
-
+                recipe.DisableDecraft();
                 recipe.Register();
             }
         }
@@ -431,6 +430,7 @@ namespace StormDiversMod.zAprilFools
         {
             CreateRecipe()
          .AddIngredient(ModContent.ItemType<PainCoin>(), 160)
+         .DisableDecraft()
          .Register();
         }
     }

@@ -308,7 +308,6 @@ namespace StormDiversMod.Items.Weapons
             Item.sentry = true;
             Item.mana = 10;
             //Item.UseSound = SoundID.Item122;
-
             Item.damage = 40;
 
             Item.knockBack = 1f;
@@ -316,8 +315,6 @@ namespace StormDiversMod.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.SentryProjs.StormSentryProj>();
 
             Item.shootSpeed = 1f;
-
-
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
         public override Vector2? HoldoutOffset()

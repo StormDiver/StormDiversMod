@@ -91,7 +91,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 }
 
-                if (Vector2.Distance(Projectile.Center, target.Center) <= 500f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (Vector2.Distance(Projectile.Center, target.Center) <= 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
                     float projspeed = 8;
                     Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
@@ -99,7 +99,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     if (Projectile.ai[1] > 12)
                     {
 
-                        Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(8));
+                        Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<IceSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
 
@@ -122,7 +122,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     }
                 }
             }
-
 
             if (Projectile.localAI[1] == 1)//For opening the core
             {
@@ -159,7 +158,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             if (Projectile.localAI[1] == 0) //Core closed
             {              
                     Projectile.frame = 0;
-             
             }
 
             if (floatup) //Floating upwards
@@ -192,7 +190,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 else //Halfway through it slows down
                 {
                     Projectile.velocity.Y -= 0.01f;
-
                 }
                 if (Projectile.localAI[0] >= 60)
                 {
@@ -201,9 +198,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
             }
         }
-        
-
-
         public override void OnKill(int timeLeft)
         {
 
@@ -248,6 +242,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.DamageType = DamageClass.Summon;
+            Projectile.ArmorPenetration = 5;
         }
 
         public override void AI()
@@ -255,7 +250,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             if (!Main.dedServ)
             {
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
-
             }
             if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
@@ -264,7 +258,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Main.dust[dust].velocity *= 2.5f;
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 187, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
             }
-        
             return;
         }
 
@@ -273,7 +266,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.damage = (Projectile.damage * 9) / 10;
 
             target.AddBuff(ModContent.BuffType<UltraFrostDebuff>(), 180);
-
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
@@ -287,5 +279,4 @@ namespace StormDiversMod.Projectiles.SentryProjs
             return false;
         }
     }
-
 }

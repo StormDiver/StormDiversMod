@@ -165,7 +165,7 @@ namespace StormDiversMod.Common
         public int coralstormdrop; //Cooldown for Eye of Storm projs with channeling weapons
         public int coralstormcount; //make Eye of the Storm shoot every other shot
         public bool stormBossProj; // wheter the projectile for the storm coil has been spawned
-        public int shroomtime; //For cahnneling ranged weapons with Shroomite launcher
+        public int shroomtime; //For channeling ranged weapons with Shroomite launcher
         public int paintime; //Cooldown for reliving pain
         public int SantaRevivedCooldown;
         public bool SantaRevived;
@@ -772,9 +772,7 @@ namespace StormDiversMod.Common
                             target.AddBuff(ModContent.BuffType<SpookedDebuff>(), 2);
                         }
                     }
-
                 }
-
             }
             //for Pharoh Urn
             if (desertJar)
@@ -790,7 +788,7 @@ namespace StormDiversMod.Common
                         //Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(180));
                         //float scale = 1f - (Main.rand.NextFloat() * .5f);
                         //perturbedSpeed = perturbedSpeed * scale;
-                        Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.DesertJarProj>(), 40, 0, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), new Vector2(Player.Center.X, Player.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<Projectiles.DesertJarProj>(), 30, 0, Player.whoAmI);
                         dropdust = 0;
 
                         //Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 13);
@@ -798,8 +796,8 @@ namespace StormDiversMod.Common
                 }
                 if (!desertdustspawned) //spawn the 2 orbiting orojs
                 {
-                    Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 0);
-                    Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 180);
+                    //Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 0);
+                    //Projectile.NewProjectile(Player.GetSource_Accessory(DesertJarItem), Player.Center, new Vector2(0, 0), ModContent.ProjectileType<DesertJarProj2>(), 40, 0f, Player.whoAmI, 0, 180);
 
                     desertdustspawned = true;
                 }
@@ -2256,7 +2254,7 @@ namespace StormDiversMod.Common
         {
             if (!Main.dedServ)
             {
-                if (shroomaccess)
+                /*if (shroomaccess)
                 {
                     if (Player.HeldItem.CountsAsClass(DamageClass.Ranged) && Player.HeldItem.useAmmo == AmmoID.Bullet && (Player.controlUseTile) && Player.noThrow == 0)
                     {
@@ -2288,7 +2286,7 @@ namespace StormDiversMod.Common
                             Utils.DrawLine(Main.spriteBatch, new Vector2(Player.Center.X, Player.Center.Y), new Vector2(Player.Center.X + velocity.X, Player.Center.Y + velocity.Y), Color.DeepSkyBlue, Color.Transparent, 2f);
                         }
                     }
-                }
+                }*/
             }
             base.DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);
         }

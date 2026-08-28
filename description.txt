@@ -29,6 +29,7 @@ Creator, coder, and main spriter: [c/22DD97:TheStorm]
 Some sprites and playtesting: [c/EE59E3:Lynxical]
 Boss Music by: [c/c577dc:MicelTheGuy]
 (Outdated) Chinese Localisation by: by jianjingqiao201314(简境巧) and "一条鱼"
+Russian Localisation by: Arick
 
 Also try out Storm's Tweaks Mod, makes a few small configurable changes to Terraria that may be useful
 
