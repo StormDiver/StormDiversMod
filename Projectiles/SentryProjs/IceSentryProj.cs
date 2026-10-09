@@ -1,12 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Buffs;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
@@ -41,18 +42,35 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
+        bool remotecontrol;
+        int shootrange = 600;
         int opacity = 255;
         //bool animate1 = false; //For making the core open up
         //bool animate2 = false; //This bool is used to indicate that the core is open
         //bool animate3 = false; //For closing the core
         bool floatup = true;
         NPC target;
+        Vector2 velocity = new Vector2(0, 0);
         public override void AI()
         {
-            
+            Projectile.ai[2] = 127; //This is so the targetting control knows this is a modded sentry
+
+            Player player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<MiscFeatures>().sentryControl && Vector2.Distance(Projectile.Center, Main.MouseWorld) <= shootrange + 100 && Collision.CanHitLine(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0)) //manual control
+            {
+                remotecontrol = true;
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    Projectile.extraUpdates = 2;
+            }
+            else
+            {
+                remotecontrol = false;
+                Projectile.extraUpdates = 0;
+            }
+
             if (opacity > 0)
             {
                 opacity -= 10;
@@ -73,52 +91,63 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 187, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);
             }
-            
 
-            Player player = Main.player[Projectile.owner];
             Projectile.ai[1]++; //shoottime
-            //Getting the npc to fire at
-            for (int i = 0; i < 200; i++)
+
+            if (remotecontrol)
             {
-
-                if (player.HasMinionAttackTargetNPC)
-                {
-                    target = Main.npc[player.MinionAttackTargetNPC];
-                }
-                else
-                {
-                    target = Main.npc[i];
-
-                }
-
-                if (Vector2.Distance(Projectile.Center, target.Center) <= 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
-                {
-                    float projspeed = 8;
-                    Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
-
-                    if (Projectile.ai[1] > 12)
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    if (Main.rand.Next(5) == 0)
                     {
+                        int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 15, Projectile.Center.Y - 2), 30, 2, 182, 0, -3, 100, default, 1f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].velocity *= 0.75f;
+                    }
+                float projspeed = 8;
+                velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                target = Main.npc[player.MinionAttackTargetNPC];  
 
-                        Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<IceSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
+                Shoot();
 
-                        Projectile.ai[1] = 0;
+                if (Projectile.localAI[1] != 2)//If the core isn't already open it'll activate the opening bool
+                {
+                    Projectile.localAI[1] = 1;
+                }
+            }
+            else
+            {
+                //Getting the npc to fire at
+                for (int i = 0; i < 200; i++)
+                {
+                    if (player.HasMinionAttackTargetNPC && Vector2.Distance(Projectile.Center, Main.npc[player.MinionAttackTargetNPC].Center) <= shootrange && Collision.CanHitLine(Projectile.Center, 0, 0, Main.npc[player.MinionAttackTargetNPC].Center, 0, 0))
+                    {
+                        target = Main.npc[player.MinionAttackTargetNPC];
+                    }
+                    else
+                    {
+                        target = Main.npc[i];
                     }
 
-                    //localai[1] , 0 = core closes, 1 = Open core, 2 = Keep core open, 3= close core
+                    if (Vector2.Distance(Projectile.Center, target.Center) <= shootrange && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                    {
+                        float projspeed = 8;
+                        velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                    if (Projectile.localAI[1] != 2)//If the core isn't already open it'll activate the opening bool
-                    {
-                        Projectile.localAI[1] = 1;
+                        Shoot();
+
+                        //localai[1] , 0 = core closes, 1 = Open core, 2 = Keep core open, 3= close core
+
+                        if (Projectile.localAI[1] != 2)//If the core isn't already open it'll activate the opening bool
+                        {
+                            Projectile.localAI[1] = 1;
+                        }
                     }
-                }
-                else
-                {
-                    if (Projectile.localAI[1] == 2) //If there are no nearby enemies and the core is open, it'll then activate the closing bool
+                    else
                     {
-                        Projectile.localAI[1] = 3; //Activates the closing bool
-                        
+                        if (Projectile.localAI[1] == 2) //If there are no nearby enemies and the core is open, it'll then activate the closing bool
+                        {
+                            Projectile.localAI[1] = 3; //Activates the closing bool
+                        }
                     }
                 }
             }
@@ -198,14 +227,23 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
             }
         }
+
+        public void Shoot()
+        {
+            if (Projectile.ai[1] > 12)
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(5));
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y + 5), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<IceSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
+
+                Projectile.ai[1] = 0;
+            }
+        }
         public override void OnKill(int timeLeft)
         {
-
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
             for (int i = 0; i < 50; i++)
             {
-
-                 
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 187);
                 dust2.noGravity = true;
             }
@@ -218,6 +256,31 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
                 Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+
+            if (remotecontrol)
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y + 5), new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), Color.SkyBlue, Color.LightBlue, 1.5f);
+                }
+            }
+            return true;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (remotecontrol && !player.GetModPlayer<MiscFeatures>().wrangler)
+            {
+                Color color = Color.OrangeRed;
+                color.A = 200;
+                return color;
+            }
+            else
+                return null;
         }
     }
     //_____________________________________________________________________________________________________

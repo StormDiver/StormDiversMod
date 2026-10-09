@@ -70,10 +70,15 @@ namespace StormDiversMod.Common
         public bool cursedplayer;
         public bool soulpickup;
 
+        public bool wrangler; //Player has the Sentry Controller equipped
+        public bool sentryControl; //sentrys being manually controlled
+        bool sentrytarget; //has sentry target been summoned?
+
         public override void ResetEffects() //Resets bools if the item is unequipped
         {
             screenshaker = false;
             //soulpickup = false;
+            wrangler = false;
         }
         public override void UpdateDead()//Reset all ints and bools if dead======================
         {
@@ -84,6 +89,8 @@ namespace StormDiversMod.Common
             explosionfall = false;
 
             cursedplayer = false;
+            sentrytarget = false;
+            sentryControl = false;
         }
 
         //===============================================================================================================
@@ -287,7 +294,6 @@ namespace StormDiversMod.Common
             }
             if (explosionfall)//Correct fall damage when launched via sticky bomb
             {
-
                 if (Player.velocity.Y > 0)
                 {
                     Player.fallStart = (int)Player.tileTargetY;
@@ -309,6 +315,43 @@ namespace StormDiversMod.Common
                 //achievement get
                 ModContent.GetInstance<AchievementThePets>().AchPetCondition.Complete();
             }
+
+            //Remote Sentry Controller
+            if ((Player.HeldItem.type == ModContent.ItemType<Items.Tools.Wrangler>() && Player.controlUseItem) || wrangler) //when using the wrangler either as an item or when equipped
+                sentryControl = true; //For modded sentries
+            else
+                sentryControl = false;
+
+            if (sentryControl)
+            {
+                if (!sentrytarget) //basically summons an NPC that is immune to damage and flows the cursor and has the target set on it
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        int npcIndex = NPC.NewNPC(null, (int)Math.Round(Main.MouseWorld.X), (int)Math.Round(Main.MouseWorld.Y), ModContent.NPCType<XSentryTarget>(), 0);
+                    }
+                    SoundEngine.PlaySound(SoundID.Zombie67 with { Volume = 0.5f, Pitch = 0 }, Player.Center);
+
+                    sentrytarget = true;
+                }
+                if (NPC.CountNPCS(ModContent.NPCType<XSentryTarget>()) < 1) //if the NPC somehow dies summon another
+                    sentrytarget = false;
+                if (wrangler) //extra effects when item is equipped
+                {
+                    if (Main.rand.Next(5) == 0)
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, -1f).RotatedByRandom(MathHelper.ToRadians(360));
+                        var dust = Dust.NewDustDirect(new Vector2(Player.Center.X - (13 * Player.direction) - 2, Player.Center.Y - (26 * Player.gravDir) - 2), 0, 0, 182, perturbedSpeed.X, perturbedSpeed.Y);
+                        dust.noGravity = true;
+                        dust.scale = 0.8f;
+                    }
+                    Dust dust2;
+                    dust2 = Dust.NewDustPerfect(new Vector2(Player.Center.X - (13 * Player.direction), Player.Center.Y - (26 * Player.gravDir)), 182, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+                    dust2.noGravity = true;
+                }
+            }
+            else
+                sentrytarget = false;
         }
         int whackcount;
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
@@ -620,7 +663,6 @@ namespace StormDiversMod.Common
                         else if (Main.netMode == 0) // Single Player
                             Main.NewText(Paintext, Color.DeepPink);
                     }
-
                 }
             }
         }
@@ -703,10 +745,12 @@ namespace StormDiversMod.Common
         }
         public override void OnHurt(Player.HurtInfo info)
         {
-            /*int attackdmg = info.Damage / 5; //Int for the damage taken
+            //interesting effect
+            /*
+            int attackdmg = info.Damage / 5; //Int for the damage taken
             Main.LocalPlayer.statLife += attackdmg;
-            Main.LocalPlayer.HealEffect(attackdmg, true);      */   
-
+            Main.LocalPlayer.HealEffect(attackdmg, true);
+            */
             //glass armour breaking
             if (Player.armor[0].type == ModContent.ItemType<GlassBHelmet>()) //first helmet
             {

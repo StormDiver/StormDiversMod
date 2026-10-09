@@ -1,11 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using StormDiversMod.NPCs;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Buffs;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
@@ -39,12 +41,30 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             return false;
         }
+        bool remotecontrol;
+
         int opacity = 255;
         bool animate = false;
-
+        int shootrange = 260;
         bool floatup = true;
         public override void AI()
         {
+            Projectile.ai[2] = 127; //This is so the targetting control knows this is a modded sentry
+
+            Player player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<MiscFeatures>().sentryControl && Vector2.Distance(Projectile.Center, Main.MouseWorld) <= shootrange * 3 && Collision.CanHitLine(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0)) //manual control
+            {
+                remotecontrol = true;
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    Projectile.extraUpdates = 2;
+            }
+            else
+            {
+                remotecontrol = false;
+                Projectile.extraUpdates = 0;
+            }
+
             if (opacity > 0)
             {
                 opacity -= 10;
@@ -66,37 +86,30 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 54, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
                 }
             }
+
             Projectile.ai[1]++; //shoottime
-            //Getting the npc to fire at
-            for (int i = 0; i < 200; i++)
+                                //Getting the npc to fire at
+            if (remotecontrol)
             {
-                NPC target = Main.npc[i];
-                if (Vector2.Distance(Projectile.Center, target.Center) <= 260f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
-                {
-                    if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    if (Main.rand.Next(5) == 0)
                     {
-                        if (Projectile.ai[1] > 40)
+                        int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 15, Projectile.Center.Y - 2), 30, 2, 182, 0, -3, 100, default, 1f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].velocity *= 0.75f;
+                    }
+                Shoot();
+            }
+            else
+            {
+                for (int i = 0; i < 200; i++)
+                {
+                    NPC target = Main.npc[i];
+                    if (Vector2.Distance(Projectile.Center, target.Center) <= shootrange && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
+                    {
+                        if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                         {
-                            AnimateProjectile();
-
-                            float numberProjectiles = 12;
-                            float rotation = MathHelper.ToRadians(180);
-                            //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-                            for (int j = 0; j < numberProjectiles; j++) //visual effect
-                            {
-                                float speedX = 0f;
-                                float speedY = 3.5f;
-                                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertStaffProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                            }
-
-                            //Invisible expanding projectile deals damage
-                            int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
-                                    ModContent.ProjectileType<DesertStaffProj3>(), Projectile.damage, .5f, Projectile.owner, 0);
-
-                            SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
-                            animate = true;
-                            Projectile.ai[1] = 0;
+                            Shoot();
                         }
                     }
                 }
@@ -144,9 +157,35 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
             }
         }
+        public void Shoot()
+        {
+            if (Projectile.ai[1] > 40)
+            {
+                AnimateProjectile();
+
+                float numberProjectiles = 12;
+                float rotation = MathHelper.ToRadians(180);
+                //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
+                for (int j = 0; j < numberProjectiles; j++) //visual effect
+                {
+                    float speedX = 0f;
+                    float speedY = 3.5f;
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<DesertStaffProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+
+                //Invisible expanding projectile deals damage
+                int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
+                        ModContent.ProjectileType<DesertStaffProj3>(), Projectile.damage, .5f, Projectile.owner, 0);
+
+                SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
+                animate = true;
+                Projectile.ai[1] = 0;
+            }
+        }
         public void AnimateProjectile() // Call this every frame, for example in the AI method.
         {
-                Projectile.frameCounter++;
+            Projectile.frameCounter++;
             if (Projectile.frameCounter >= 5) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
             {
                 Projectile.frame++;
@@ -155,10 +194,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
             if (Projectile.frame == 8)
             {
-
                 Projectile.frame = 0;
                 animate = false;
-            }   
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -171,17 +209,38 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void OnKill(int timeLeft)
         {
-
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
             for (int i = 0; i < 50; i++)
-            {
-
-                 
+            { 
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 54);
                 dust2.noGravity = true;
             }
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
 
+            if (remotecontrol)
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(Projectile.Center.X, Projectile.Center.Y), Color.Yellow, Color.Transparent, 1.5f);
+                }
+            }
+            return true;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (remotecontrol && !player.GetModPlayer<MiscFeatures>().wrangler)
+            {
+                Color color = Color.OrangeRed;
+                color.A = 200;
+                return color;
+            }
+            else
+                return null;
+        }
     }
     //_____________________________________________________________________________________________________
     public class DesertStaffProj2 : ModProjectile
@@ -293,7 +352,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (Collision.CanHitLine(Projectile.Center, 0, 0, target.position, target.width, target.height) && !target.friendly)
+            if (Collision.CanHitLine(Projectile.Center, 0, 0, target.position, target.width, target.height) && !target.friendly && target.type != ModContent.NPCType<XSentryTarget>())
             {
                 return true;
             }

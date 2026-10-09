@@ -68,6 +68,13 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.Kill();
             }
+            Projectile.ai[2]++;
+            if (Projectile.ai[2] % 2 == 0)
+            {
+                int goreIndex = Gore.NewGore(player.GetSource_Accessory(player.GetModPlayer<EquipmentEffects>().BootFallItem), new Vector2(Projectile.Center.X, Projectile.Center.Y), default(Vector2), Main.rand.Next(61, 64), 0.8f);
+                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f * Projectile.direction;
+                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

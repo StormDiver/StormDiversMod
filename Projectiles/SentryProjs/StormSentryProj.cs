@@ -1,18 +1,17 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Common;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Microsoft.Xna.Framework.Graphics;
-
 using Terraria.Utilities;
-using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
- 
     public class StormSentryProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -23,7 +22,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-      
             Projectile.width = 34;
             Projectile.height = 34;
             Projectile.friendly = true;
@@ -44,10 +42,13 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             return false;
         }
+        bool remotecontrol;
         bool animate; //Animate every shot
         NPC target;
         NPC currenttarget = null; //Currently targetted enemy. uses so sentry looks at the correct one
         bool floatup = true;
+        Vector2 velocity = new Vector2(0, 0);
+        int shootrange = 850;
         public override void OnSpawn(IEntitySource source)
         {
             for (int i = 0; i < 25; i++)
@@ -61,7 +62,21 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void AI()
         {
+            Projectile.ai[2] = 127; //This is so the targetting control knows this is a modded sentry
+
             Player player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<MiscFeatures>().sentryControl && Vector2.Distance(Projectile.Center, Main.MouseWorld) <= shootrange + 200 && Collision.CanHitLine(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0)) //manual control
+            {
+                remotecontrol = true;
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    Projectile.extraUpdates = 2;
+            }
+            else
+            {
+                remotecontrol = false;
+                Projectile.extraUpdates = 0;
+            }
 
             player.UpdateMaxTurrets();
     
@@ -74,74 +89,55 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
         
             Projectile.ai[1]++;//Shoottime
-            
-            
 
-            //Getting the npc to fire at
-            for (int i = 0; i < Main.maxNPCs; i++)
+            if (remotecontrol)
             {
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    if (Main.rand.Next(5) == 0)
+                    {
+                        int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 15, Projectile.Center.Y - 2), 30, 2, 182, 0, -3, 100, default, 1f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].velocity *= 0.75f;
+                    }
+                animate = true;
+                float projspeed = 18;
+                velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                target = Main.npc[player.MinionAttackTargetNPC];  
 
-                if (player.HasMinionAttackTargetNPC)
-                {
-                    target = Main.npc[player.MinionAttackTargetNPC];
-                    Projectile.rotation = ((target.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
+                Shoot();
 
-                }
-                else
+                Projectile.rotation = ((Main.MouseWorld - Projectile.Center) / 360).ToRotation();//Look at the mouse
+            }
+            else
+            {
+                //Getting the npc to fire at
+                for (int i = 0; i < Main.maxNPCs; i++)
                 {
-                    target = Main.npc[i];
+                    if (player.HasMinionAttackTargetNPC && Vector2.Distance(Projectile.Center, Main.npc[player.MinionAttackTargetNPC].Center) <= shootrange && Collision.CanHitLine(Projectile.Center, 0, 0, Main.npc[player.MinionAttackTargetNPC].Center, 0, 0))
+                    {
+                        target = Main.npc[player.MinionAttackTargetNPC];
+                        Projectile.rotation = ((target.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
+                    }
+                    else
+                    {
+                        target = Main.npc[i];
+                    }
+                    target.TargetClosest(true);
 
-                }
-                target.TargetClosest(true);
-           
-                if (Vector2.Distance(Projectile.Center, target.Center) <= 900f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
-                {
-                   
-                    if (Projectile.ai[1] > 45)
+                    if (Vector2.Distance(Projectile.Center, target.Center) <= shootrange && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
                         currenttarget = target;
-                        animate = true;
                         float projspeed = 18;
-                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
-                      
-                        for (int j = 0; j < 60; j++)
+                        velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+
+                        Shoot();
+
+                        if (currenttarget != null)
                         {
-                            float speedY = -3.5f;
-
-                            Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
-
-                            int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 110, dustspeed.X, dustspeed.Y, 229, default, 1f);
-                            Main.dust[dust2].noGravity = true;
+                            Projectile.rotation = ((currenttarget.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
                         }
-                        for (int k = 0; k < 10; k++)
-                        {
-                            Dust dust;
-
-                            dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 111, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2f);
-                            dust.noGravity = true;
-
-                        }
-
-                        SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
-                        float numberProjectiles = 3;
-                        float rotation = MathHelper.ToRadians(4);
-                        for (int l = 0; l < numberProjectiles; l++)
-                        {
-                            Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6));
-                            float scale = 1f - (Main.rand.NextFloat() * .3f);
-                            perturbedSpeed = perturbedSpeed * scale;
-                            //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, l / (numberProjectiles - 1)));
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
-                                ModContent.ProjectileType<StormSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        }
-                       
-                        Projectile.ai[1] = 0;
                     }
-                    if (currenttarget != null)
-                    {
-                        Projectile.rotation = ((currenttarget.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
-                    }                 
-                }            
+                }
             }
             if (animate)
             {
@@ -187,6 +183,43 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 }
             }
         }
+        public void Shoot() //code to shoot projs, called in both manual and auto target
+        {
+            if (Projectile.ai[1] > 45)
+            {
+                animate = true;
+                for (int j = 0; j < 60; j++)
+                {
+                    float speedY = -3.5f;
+
+                    Vector2 dustspeed = new Vector2(0, speedY).RotatedByRandom(MathHelper.ToRadians(360));
+
+                    int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 110, dustspeed.X, dustspeed.Y, 229, default, 1f);
+                    Main.dust[dust2].noGravity = true;
+                }
+                for (int k = 0; k < 10; k++)
+                {
+                    Dust dust;
+
+                    dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 111, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2f);
+                    dust.noGravity = true;
+                }
+
+                SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+                float numberProjectiles = 3;
+                float rotation = MathHelper.ToRadians(4);
+                for (int l = 0; l < numberProjectiles; l++)
+                {
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(6));
+                    float scale = 1f - (Main.rand.NextFloat() * .3f);
+                    perturbedSpeed = perturbedSpeed * scale;
+                    //Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, l / (numberProjectiles - 1)));
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+                        ModContent.ProjectileType<StormSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+                Projectile.ai[1] = 0;
+            }
+        }
         public void AnimateProjectile() 
         {
             Projectile.frameCounter++;
@@ -226,6 +259,31 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
                 Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+
+            if (remotecontrol)
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), Color.Turquoise, Color.Cyan, 1.5f);
+                }
+            }
+            return true;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (remotecontrol && !player.GetModPlayer<MiscFeatures>().wrangler)
+            {
+                Color color = Color.OrangeRed;
+                color.A = 200;
+                return color;
+            }
+            else
+                return null;
         }
     }
     //_____________________________________________ Proj

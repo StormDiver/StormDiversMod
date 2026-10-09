@@ -253,7 +253,7 @@ namespace StormDiversMod.Projectiles
             //all occurs at 59 frames left for 1 second of closing
         }
         float thescale = 0.1f;
-        public override void PostDraw(Color lightColor) //draw samll void on end of barrel
+        public override void PostDraw(Color lightColor) //draw small void on end of barrel
         {
             if (thescale < 0.75f)
             thescale += 0.01f;

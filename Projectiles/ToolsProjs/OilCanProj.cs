@@ -1,7 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using StormDiversMod.Common;
+using StormDiversMod.NPCs;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -40,10 +41,8 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
         public override void AI()
         {
-
             if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
             {
-
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 240, 0f, 0f, 0, default, 1);
 
@@ -67,7 +66,7 @@ namespace StormDiversMod.Projectiles.ToolsProjs
 
                 float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
 
-                if (npcdistance <= Projectile.width / 2 + target.width / 2 && target.active && target.lifeMax >= 5 && !target.dontTakeDamage)
+                if (npcdistance <= Projectile.width / 2 + target.width / 2 && target.active && target.lifeMax >= 5 && !target.dontTakeDamage && target.type != ModContent.NPCType<XSentryTarget>())
                 {
                     target.AddBuff(BuffID.Oiled, Main.rand.Next(900, 1201)); //15-20 seconds
                     Projectile.Kill();

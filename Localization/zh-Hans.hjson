@@ -616,6 +616,11 @@ Mods: {
 				DisplayName: 玫瑰花瓣
 				Description: 玫瑰花瓣会吸干你的生命
 			}
+
+			SpikedDebuff: {
+				// DisplayName: Spiked
+				// Description: Sharp spikes are embedded in you
+			}
 		}
 
 		Items: {
@@ -4118,6 +4123,21 @@ Mods: {
 					Boss Drop Cooldown
 					''' */
 			}
+
+			Wrangler: {
+				// DisplayName: Remote Sentry Controller
+				/* Tooltip:
+					'''
+					Can be used to manually aim and fire all placed sentries within range, modded sentries will have increased targetting range
+					When used as an item:
+						Overclocks sentries making them fire 3 times as fast, "AoE" sentires will hit 3 times as fast
+					When equipped as an accessory:
+						Sentries will automatically fire at the cursor when in range
+						Increases maximum sentries by 1
+					Minions and other auto-aiming items can also be manually aimed, but do not get overclocked
+					Cannot be used as an item if one is already equipped
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -4190,6 +4210,7 @@ Mods: {
 			SnowmanBomb.DisplayName: 雪人爆破手
 			ThePainBoss.DisplayName: 痛苦使者
 			HellSkull.DisplayName: 地狱颅骨
+			// XSentryTarget.DisplayName: Sentry Target
 		}
 
 		Projectiles: {

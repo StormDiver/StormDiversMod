@@ -481,7 +481,6 @@ namespace StormDiversMod.Projectiles
                 dust1.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
                 dust1.noGravity = true;
             }
-
             if (Main.rand.Next(1) == 0)
             {
                 Dust dust2 = Dust.NewDustPerfect(dustPosition, 5, dustVelocity * 2, 100, Color.White, 1.2f * Projectile.Opacity);

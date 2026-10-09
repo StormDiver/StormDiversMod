@@ -1,15 +1,15 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Buffs;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
-   
     public class JungleSentryProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -41,8 +41,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             return false;
         }
-      
+        bool remotecontrol;
         bool animate = false;
+        int shootrange = 300;
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
@@ -51,6 +52,21 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void AI()
         {
+            Projectile.ai[2] = 127; //This is so the targetting control knows this is a modded sentry
+            Player player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<MiscFeatures>().sentryControl && Vector2.Distance(Projectile.Center, Main.MouseWorld) <= shootrange * 2.5f && Collision.CanHitLine(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0)) //manual control
+            {
+                remotecontrol = true;
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    Projectile.extraUpdates = 2;
+            }
+            else
+            {
+                remotecontrol = false;
+                Projectile.extraUpdates = 0;
+            }
+
             if (Projectile.velocity.Y < 20)
             {
                 Projectile.velocity.Y += 0.5f;
@@ -74,88 +90,94 @@ namespace StormDiversMod.Projectiles.SentryProjs
             //Projectile.rotation += (float)Projectile.direction * -0.1f;
             Main.player[Projectile.owner].UpdateMaxTurrets();
 
+            if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
-                if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - 20, Projectile.position.Y), 52, Projectile.height, 40, 0, 0, 130, default, 1f);
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X - 20, Projectile.position.Y), 52, Projectile.height, 40, 0, 0, 130, default, 1f);
 
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 0.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X - 20, Projectile.position.Y), 52, Projectile.height, 78, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
-                }
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                Main.dust[dust].velocity *= 0.5f;
+                int dust2 = Dust.NewDust(new Vector2(Projectile.position.X - 20, Projectile.position.Y), 52, Projectile.height, 78, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
             }
 
-           
             Projectile.ai[1]++; //shoottime
-            //Getting the npc to fire at
-            for (int i = 0; i < 200; i++)
+                                //Getting the npc to fire at
+            if (remotecontrol)
             {
-
-                NPC target = Main.npc[i];
-          
-                if (Vector2.Distance(Projectile.Center, target.Center) <= 300f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
-                {
-
-                    if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    if (Main.rand.Next(5) == 0)
                     {
-                        if (Projectile.ai[1] > 100)
+                        int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 15, Projectile.Center.Y - 15), 30, 2, 182, 0, -3, 100, default, 1f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].velocity *= 0.75f;
+                    }
+                Shoot();
+            }
+            else
+            {
+                for (int i = 0; i < 200; i++)
+                {
+                    NPC target = Main.npc[i];
+
+                    if (Vector2.Distance(Projectile.Center, target.Center) <= shootrange && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
+                    {
+                        if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                         {
-                            animate = true;
-
-                        }
-                        if (Projectile.ai[1] > 120)
-                        {
-                            for (int j = 0; j < 50; j++)
-                            {
-                                int dust = Dust.NewDust(new Vector2(Projectile.position.X - 20, Projectile.position.Y), 52, Projectile.height, 40, 0, -2, 130, default, 1f);
-
-                                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                                Main.dust[dust].velocity *= 0.5f;
-                            }
-                            float numberProjectiles = 6;
-                            float rotation = MathHelper.ToRadians(40);
-                            //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
-                            for (int j = 0; j < numberProjectiles; j++)
-                            {
-                                float speedX = 0f;
-                                float speedY = -6f;
-                                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles) + 0.08f));
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<JungleSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                            }
-
-                            SoundEngine.PlaySound(SoundID.Item65, Projectile.Center);
-                            Projectile.ai[1] = 0;
+                            Shoot();
                         }
                     }
-
                 }
             }
-            Projectile.ai[0] += 1f;
-
 
             if (animate)
             {
                 AnimateProjectile();
             }
         }
+        public void Shoot()
+        {
+            if (Projectile.ai[1] > 100)
+            {
+                animate = true;
+            }
+            if (Projectile.ai[1] > 120)
+            {
+                for (int j = 0; j < 50; j++)
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X - 20, Projectile.position.Y), 52, Projectile.height, 40, 0, -2, 130, default, 1f);
+
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 0.5f;
+                }
+                float numberProjectiles = 6;
+                float rotation = MathHelper.ToRadians(40);
+                //position += Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
+                for (int j = 0; j < numberProjectiles; j++)
+                {
+                    float speedX = 0f;
+                    float speedY = -6f;
+                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles) + 0.08f));
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<JungleSentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+
+                SoundEngine.PlaySound(SoundID.Item65, Projectile.Center);
+                Projectile.ai[1] = 0;
+            }
+        }
         public void AnimateProjectile() // Call this every frame, for example in the AI method.
         {
-            
-                Projectile.frameCounter++;
-                if (Projectile.frameCounter >= 6)
-                {
-                    Projectile.frame++;
-                    //Projectile.frame %= 6; // Will reset to the first frame if you've gone through them all.
-                    Projectile.frameCounter = 0;
-                    
-                }
-                if (Projectile.frame == 6)
-                {
-                    
-                    Projectile.frame = 0;
-                    animate = false;
-                }
-            
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= 6)
+            {
+                Projectile.frame++;
+                //Projectile.frame %= 6; // Will reset to the first frame if you've gone through them all.
+                Projectile.frameCounter = 0;
+
+            }
+            if (Projectile.frame == 6)
+            {
+                Projectile.frame = 0;
+                animate = false;
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -170,21 +192,42 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void OnKill(int timeLeft)
         {
-
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
             for (int i = 0; i < 50; i++)
             {
-
                 var dust2 = Dust.NewDustDirect(new Vector2(Projectile.position.X - 20, Projectile.position.Y), 52, Projectile.height, 40);
                 dust2.noGravity = true;
             }
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
 
+            if (remotecontrol)
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), new Vector2(Projectile.Center.X, Projectile.Center.Y), Color.DarkOliveGreen, Color.Transparent, 1.5f);
+                }
+            }
+            return true;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (remotecontrol && !player.GetModPlayer<MiscFeatures>().wrangler)
+            {
+                Color color = Color.OrangeRed;
+                color.A = 200;
+                return color;
+            }
+            else
+                return null;
+        }
     }
     //_____________________________________________________________________________________________________
     public class JungleSentryProj2 : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Jungle Thorn ball");
@@ -193,7 +236,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 22;
             Projectile.height = 22;
             Projectile.friendly = true;
@@ -214,17 +256,12 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 dust.scale = 0.8f;
             }
         }
-
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
-
         {
-            
             return true;
         }
         public override void OnKill(int timeLeft)
@@ -235,21 +272,15 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
                 for (int i = 0; i < 20; i++)
                 {
-
                     var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 40);
-
                 }
                 for (int i = 0; i < 25; i++)
                 {
-
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 78, 0f, 0f, 0, default, 1f);
                    
                     Main.dust[dustIndex].noGravity = true;
                 }
-
             }
-        }
-       
+        }  
     }
-
 }

@@ -33,7 +33,6 @@ namespace StormDiversMod.Common
         }
         public override void PostItemCheck()
         {
-
             if (justHit != null)
             {
                 justHit.GetGlobalNPC<BladeImmune>().immune[Player.whoAmI] = justHit.immune[Player.whoAmI];

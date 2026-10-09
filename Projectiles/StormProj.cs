@@ -1,16 +1,16 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Common;
-
-using Terraria.Utilities;
 using StormDiversMod.Items.Accessory;
+using StormDiversMod.NPCs;
+using System;
 using System.Security.Policy;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace StormDiversMod.Projectiles
 {
@@ -911,7 +911,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (target.GetGlobalNPC<NPCEffects>().stormimmunetime > 0 || target.friendly) //Npcs immune to explosion when activating it
+            if (target.GetGlobalNPC<NPCEffects>().stormimmunetime > 0 || target.friendly || target.type == ModContent.NPCType<XSentryTarget>()) //Npcs immune to explosion when activating it
             {
                 return false;
             }

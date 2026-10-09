@@ -63,6 +63,10 @@ namespace StormDiversMod.Items.Weapons
             else
                 Item.SetNameOverride("Overclocked Shotgun - " + "Fully Stable!");
         }
+        public override void HoldItem(Player player)
+        {
+            accuracy = (Math.Min(55, Math.Max(5f, accuracy))); //clamp between 5 and 55
+        }
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);

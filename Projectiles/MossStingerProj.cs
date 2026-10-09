@@ -26,13 +26,11 @@ namespace StormDiversMod.Projectiles
             Projectile.height = 10;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 360;
             Projectile.penetrate = -1;
-            Projectile.arrow = true;
             Projectile.tileCollide = true;
             Projectile.knockBack = 0f;
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.arrow = true;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.extraUpdates = 1;
 
             Projectile.usesLocalNPCImmunity = true;
@@ -41,7 +39,7 @@ namespace StormDiversMod.Projectiles
         }
         //bool sticktarget;
         int stickTimer;
-        int sticktime = 300;
+        int sticktime = 360;
         public int TargetWhoAmI
         {
             get => (int)Projectile.ai[1];
@@ -61,7 +59,6 @@ namespace StormDiversMod.Projectiles
             if (Main.rand.Next(2) == 0 && !sticktarget) // the chance
             {
                 Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = Projectile.position;
                 dust = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, 85, 0f, 0f, 0, new Color(255, 255, 255), 0.8f);
                 dust.noGravity = true;
@@ -119,7 +116,6 @@ namespace StormDiversMod.Projectiles
         {
             for (int i = 0; i < 10; i++)
             {
-
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 85);
                 dust.noGravity = true;
             }

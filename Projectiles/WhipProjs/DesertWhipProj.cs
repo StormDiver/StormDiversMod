@@ -1,14 +1,15 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using StormDiversMod.Buffs;
 using StormDiversMod.Common;
-using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.NPCs;
+using System;
 using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace StormDiversMod.Projectiles.WhipProjs
@@ -185,7 +186,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
 		
 		public override bool? CanHitNPC(NPC target)
 		{
-			if (target.GetGlobalNPC<NPCEffects>().forbiddenimmunetime > 0 || target.friendly) //Npcs immune to explosion when activating it
+			if (target.GetGlobalNPC<NPCEffects>().forbiddenimmunetime > 0 || target.friendly || target.type == ModContent.NPCType<XSentryTarget>()) //Npcs immune to explosion when activating it
 			{
 				return false;
 			}

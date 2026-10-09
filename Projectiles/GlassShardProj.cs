@@ -25,7 +25,7 @@ namespace StormDiversMod.Projectiles
         {
             Projectile.width = 8;
             Projectile.height = 8;
-            Projectile.aiStyle = 2;
+            Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.timeLeft = 300;
             Projectile.penetrate = -1;
@@ -47,8 +47,8 @@ namespace StormDiversMod.Projectiles
         }
         public bool sticktarget
         {
-            get => Projectile.ai[2] == 1f;
-            set => Projectile.ai[2] = value ? 1f : 0f;
+            get => Projectile.ai[0] == 1f;
+            set => Projectile.ai[0] = value ? 1f : 0f;
         }
         Vector2 projoffest;
 
@@ -82,8 +82,15 @@ namespace StormDiversMod.Projectiles
                     Projectile.Kill();
                 }
             }
-           // else
-             //   Projectile.velocity.Y = 3; //prevent glitch where they can remain in the air
+            else
+            {
+                Projectile.ai[2]++;
+                if (Projectile.velocity.Y < 20 && Projectile.ai[2] > 20)
+                {
+                    Projectile.velocity.Y += ((Projectile.ai[2] - 20) * 0.03f); //gradule increase in fall speed (an extra +0.03 per frame until max speed is reached)
+                    Projectile.velocity.X *= 0.97f; 
+                }
+            }
         }
         private const int maxShards = 10; //10 max shards
         private readonly Point[] stickingShards = new Point[maxShards]; 

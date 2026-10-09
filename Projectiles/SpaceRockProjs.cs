@@ -534,7 +534,7 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.aiStyle = 0;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 3;
             Projectile.timeLeft = 200;
             Projectile.light = 0.4f;
             Projectile.scale = 1;
@@ -544,7 +544,6 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
             Projectile.extraUpdates = 1;
-
         }
         int rotate;
         public override void AI()
@@ -599,7 +598,6 @@ namespace StormDiversMod.Projectiles
                 AdjustMagnitude(ref Projectile.velocity);
             }
 
-
             if (Main.rand.Next(2) == 0)
             {
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
@@ -610,22 +608,37 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dust2].velocity *= -0.3f;
 
             }
-
+            if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 6)
+            {
+                Projectile.velocity.X = 0f;
+                Projectile.velocity.Y = 0f;
+                Projectile.tileCollide = false;
+                // Set to transparent. This projectile technically lives as  transparent for about 3 frames
+                Projectile.alpha = 255;
+                // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
+                Projectile.position = Projectile.Center;
+                Projectile.width = 60;
+                Projectile.height = 60;
+                Projectile.Center = Projectile.position;
+            }
         }
         private void AdjustMagnitude(ref Vector2 vector)
         {
-
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
             if (magnitude > 10f)
             {
                 vector *= 11f / magnitude;
             }
-
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.damage = Projectile.damage * 6 / 10;
+            if (Projectile.timeLeft > 3)
+            {
+                Projectile.timeLeft = 3;
+            }
+
+            //Projectile.damage = Projectile.damage * 6 / 10;
 
             for (int i = 0; i < 10; i++) //Flame particles
             {
@@ -638,11 +651,18 @@ namespace StormDiversMod.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.Kill();
+            if (Projectile.timeLeft > 3)
+            {
+                Projectile.timeLeft = 3;
+            }
             return false;
         }
         public override void OnKill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item14 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
+            int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<ExplosionCompactProj>(), 0, 0, Projectile.owner);
+            Main.projectile[proj].scale = 1f;
+
             for (int i = 0; i < 20; i++)
             {
                 float speedX = -Projectile.velocity.X * Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-8f, 8f);

@@ -83,6 +83,9 @@ namespace StormDiversMod.Common
 
         public bool roseDOTdebuff; //Cresent Rifle Debuff drain
 
+        public bool spikeddebuff; //for the spiked debuff
+
+
         //All this for a speen----------------------------------------------
 
         public bool derplaunched; //If the npc has been launched by the Derpling armour
@@ -159,6 +162,7 @@ namespace StormDiversMod.Common
             glasssharddebuff = false;
             //rosedebuff = false;
             roseDOTdebuff = false;
+            spikeddebuff = false;
             WhiptagWeb = false;
             WhiptagBlood = false;
             WhiptagForbidden = false;
@@ -266,7 +270,7 @@ namespace StormDiversMod.Common
                 npc.velocity.X *= 0.93f;
             
             //summon projectiles for shield killer
-            var player = Main.LocalPlayer;         
+            var player = Main.LocalPlayer;
 
             if (player.HeldItem.type == ModContent.ItemType<Items.Tools.ShieldKiller>() && player.itemAnimation == player.itemAnimationMax - 1)
             {
@@ -307,9 +311,9 @@ namespace StormDiversMod.Common
                         }
                         spun = true;
                     }
-                    npc.rotation += (0.2f * direction); //Speen speed and direction
+                    npc.rotation += (0.3f * direction); //Speen speed and direction
 
-                    if (npc.velocity.Y == 0)
+                    if (npc.velocity.Y == 0 || (npc.type is NPCID.VortexRifleman && npc.ai[2] == 1) || (npc.type is NPCID.VortexHornetQueen && npc.ai[2] >= 1))
                     {
                         npc.rotation = 0; //reset the rotation to 0 for 1 frame
                         derplaunched = false;
@@ -555,16 +559,16 @@ namespace StormDiversMod.Common
                 int shardCount = 0;
                 foreach (var p in Main.ActiveProjectiles)
                 {
-                    if (p.type == ModContent.ProjectileType<GlassShardProj>() && p.ai[2] == 1f && p.ai[1] == npc.whoAmI) //ai 2 is the bool for it being stuck, ai 1 is for the target
+                    if (p.type == ModContent.ProjectileType<GlassShardProj>() && p.ai[0] == 1f && p.ai[1] == npc.whoAmI) //ai 0 is the bool for it being stuck, ai 1 is for the target
                     {
                         shardCount++;
                     }
                 }
                 npc.lifeRegen -= shardCount * 4; // 2 dps per shard, 10 max, up to 20dps
-                damage = shardCount * 2;
-                if (damage < shardCount * 2)
+                damage = shardCount * 1;
+                if (damage < shardCount * 1)
                 {
-                    damage = shardCount * 2;
+                    damage = shardCount * 1;
                 }
             }
             if (brokenDebuff)
@@ -590,6 +594,28 @@ namespace StormDiversMod.Common
                 {
                     npc.lifeRegen -= 30;
                     damage = 5;
+                }
+            }
+            if (spikeddebuff)
+            {
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
+                // Count how many projs are attached to this npc.
+                int spikeCount = 0;
+                foreach (var p in Main.ActiveProjectiles)
+                {
+                    if (p.type == ModContent.ProjectileType<SpikeBombProj2>() && p.ai[0] == 1f && p.ai[1] == npc.whoAmI) //ai 0 is the bool for it being stuck, ai 1 is for the target
+                    {
+                        spikeCount++;
+                    }
+                }
+                npc.lifeRegen -= spikeCount * 6; // 3 dps per shard, 10 max, up to 30dps
+                damage = spikeCount * 2;
+                if (damage < spikeCount * 2)
+                {
+                    damage = spikeCount * 2;
                 }
             }
             if (sandBurn)
@@ -660,7 +686,6 @@ namespace StormDiversMod.Common
                 {
                     npc.lifeRegen = 0;
                 }
-                // Count how many ExampleJavelinProjectile are attached to this npc.
                 int stingerCount = 0;
                 foreach (var p in Main.ActiveProjectiles)
                 {
@@ -960,7 +985,7 @@ namespace StormDiversMod.Common
                 drawColor = Color.SkyBlue;
 
             }
-            if (glasssharddebuff)
+            if (glasssharddebuff || spikeddebuff)
             {
                 if (Main.rand.Next(4) < 1)
                 {
@@ -1171,20 +1196,14 @@ namespace StormDiversMod.Common
                     {
                         if (spacerockwhipcooldown >= 25)
                         {
-                            if (Main.rand.Next(2) == 0)
-                            {
-                                Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X + 200, npc.Center.Y - 300), new Vector2(-15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
-                            }
-                            else
-                            {
-                                Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X - 200, npc.Center.Y - 300), new Vector2(15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
-                            }
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X + 200, npc.Center.Y - 300), new Vector2(-15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X - 200, npc.Center.Y - 300), new Vector2(15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
                             spacerockwhipcooldown = 0;
                         }
                     }
                 }
             }
-
+            
             if (player.GetModPlayer<EquipmentEffects>().aridCritChest == true)
             {
                 //damage = (int)(damage * 1.1f);

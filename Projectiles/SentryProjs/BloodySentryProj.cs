@@ -1,14 +1,15 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Common;
+using System;
+using System.Reflection.Metadata.Ecma335;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Microsoft.Xna.Framework.Graphics;
-
 using Terraria.Utilities;
-using Terraria.DataStructures;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
@@ -39,11 +40,14 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
+        int shootrange = 750;
+        bool remotecontrol;
         NPC target;
         NPC currenttarget = null; //Currently targetted enemy. uses so sentry looks at the correct one
+        Vector2 velocity = new Vector2(0, 0);
+
         public override void OnSpawn(IEntitySource source)
         {
             for (int i = 0; i < 25; i++)
@@ -57,7 +61,20 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void AI()
         {
+            Projectile.ai[2] = 127; //This is so the targetting control knows this is a modded sentry
             Player player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<MiscFeatures>().sentryControl && Vector2.Distance(Projectile.Center, Main.MouseWorld) <= shootrange + 100 && Collision.CanHitLine(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0)) //manual control
+            {
+                remotecontrol = true;
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    Projectile.extraUpdates = 2;
+            }
+            else
+            {
+                remotecontrol = false;
+                Projectile.extraUpdates = 0;
+            }
 
             player.UpdateMaxTurrets();
 
@@ -69,47 +86,54 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Main.dust[dust].velocity *= 0.5f;
             }
         
-            Projectile.ai[1]++;//Shoottime                     
-            //Getting the npc to fire at
-            for (int i = 0; i < Main.maxNPCs; i++)
+            Projectile.ai[1]++;//Shoottime
+                               
+            if (remotecontrol)
             {
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    if (Main.rand.Next(5) == 0)
+                    {
+                        int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 15, Projectile.Center.Y - 2), 30, 2, 182, 0, -3, 100, default, 1f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].velocity *= 0.75f;
+                    }
+                float projspeed = 16;
+                velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                target = Main.npc[player.MinionAttackTargetNPC];  //(uses targets velocity in shoot)
+                Shoot();
+                Projectile.rotation = ((Main.MouseWorld - Projectile.Center) / 360).ToRotation();//Look at the mouse
+            }
+            else
+            {
+                //Getting the npc to fire at
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (player.HasMinionAttackTargetNPC && Vector2.Distance(Projectile.Center, Main.npc[player.MinionAttackTargetNPC].Center) <= shootrange && Collision.CanHit(Projectile.Center, 0, 0, Main.npc[player.MinionAttackTargetNPC].Center, 0, 0))
+                    {
+                        target = Main.npc[player.MinionAttackTargetNPC];
+                        Projectile.rotation = ((target.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
+                    }
+                    else
+                    {
+                        target = Main.npc[i];
+                    }
+                    target.TargetClosest(true);
 
-                if (player.HasMinionAttackTargetNPC)
-                {
-                    target = Main.npc[player.MinionAttackTargetNPC];
-                    Projectile.rotation = ((target.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
-                }
-                else
-                {
-                    target = Main.npc[i];
-                }
-                target.TargetClosest(true);
-            
-                if (Vector2.Distance(Projectile.Center, target.Center) <= 600f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.CanBeChasedBy() && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
-                {
-                    if (Projectile.ai[1] > 15)
+                    if (Vector2.Distance(Projectile.Center, target.Center) <= shootrange && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && target.CanBeChasedBy() && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                     {
                         currenttarget = target;
                         float projspeed = 16;
-                        Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;                  
-                        for (int j = 0; j < 10; j++)
-                        {
-                            int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 115, velocity.X, velocity.Y, 0, default, 1f);
-                            Main.dust[dust2].noGravity = true;
-                        }                   
-                        SoundEngine.PlaySound(SoundID.NPCHit9, Projectile.position);
+                        velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
 
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X + target.velocity.X / 2, velocity.Y + target.velocity.X / 2),
-                            ModContent.ProjectileType<BloodySentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        Projectile.ai[1] = 0;
+                        Shoot();
+
+                        if (currenttarget != null)
+                        {
+                            Projectile.rotation = ((currenttarget.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
+                        }
                     }
-                    if (currenttarget != null)
-                    {
-                        Projectile.rotation = ((currenttarget.Center - Projectile.Center) / 360).ToRotation();//Look at the enemy
-                    }  
                 }
             }
-                    
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 6)
             {
@@ -124,7 +148,22 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             }
         }
+        public void Shoot() //code to shoot projs, called in both manual and auto target
+        {
+            if (Projectile.ai[1] > 15)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 115, velocity.X, velocity.Y, 0, default, 1f);
+                    Main.dust[dust2].noGravity = true;
+                }
+                SoundEngine.PlaySound(SoundID.NPCHit9, Projectile.position);
 
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(velocity.X + target.velocity.X / 2, velocity.Y + target.velocity.X / 2),
+                    ModContent.ProjectileType<BloodySentryProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.ai[1] = 0;
+            }
+        }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             return false;
@@ -151,6 +190,31 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
                 Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+
+            if (remotecontrol)
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), Color.DarkRed, Color.Red, 1.5f);
+                }
+            }
+            return true;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (remotecontrol && !player.GetModPlayer<MiscFeatures>().wrangler)
+            {
+                Color color = Color.OrangeRed;
+                color.A = 200;
+                return color;
+            }
+            else
+                return null;
         }
     }
     //_____________________________________________ Proj

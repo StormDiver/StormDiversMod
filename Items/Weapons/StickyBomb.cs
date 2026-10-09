@@ -26,19 +26,20 @@ namespace StormDiversMod.Items.Weapons
             Item.rare = ItemRarityID.Orange;
             Item.useTime = 40;
             Item.useAnimation = 40;
+            Item.autoReuse = true;
             Item.noUseGraphic = true;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useStyle = ItemUseStyleID.Swing;
 
             Item.DamageType = DamageClass.Ranged;
     
-            Item.damage = 40;
+            Item.damage = 60;
 
             Item.knockBack = 2f;
             Item.consumable = true;
             Item.UseSound = SoundID.Item1;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.SpikeBombProj>();
-            Item.shootSpeed = 5f;
+            Item.shootSpeed = 8f;
         }
 
         public override void AddRecipes()

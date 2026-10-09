@@ -10,10 +10,8 @@ using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles
 {
-    
     public class TombProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("TombStone");

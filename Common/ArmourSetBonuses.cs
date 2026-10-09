@@ -509,8 +509,8 @@ namespace StormDiversMod.Common
 
             if (derpJump)
             {
-                int derpdamage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(120);
-                if (derplinglaunchcooldown < 45)
+                int derpdamage = (int)Player.GetTotalDamage(DamageClass.Generic).ApplyTo(130);
+                if (derplinglaunchcooldown < 30)
                 {
                     derplinglaunchcooldown++;
                 }
@@ -529,7 +529,7 @@ namespace StormDiversMod.Common
 
                 }
                 //Creates the wave upon jumping
-                if (Player.velocity.Y == 0 && derplinglaunchcooldown >= 45 && !Player.mount.Active)
+                if (Player.velocity.Y == 0 && derplinglaunchcooldown >= 30 && !Player.mount.Active)
                 {
                     Player.AddBuff(ModContent.BuffType<DerpBuff>(), 2);
 
@@ -556,7 +556,7 @@ namespace StormDiversMod.Common
                             dust2.noGravity = true;
                             dust2.velocity *= 2;
                         }
-                        for (int i = 0; i < 2; i++)
+                        for (int i = 0; i < 4; i++)
                         {
                             int goreIndex = Gore.NewGore(Player.GetSource_FromThis(SetBonus_Derp), new Vector2(Player.position.X - 4, Player.Bottom.Y - 4f), default(Vector2), Main.rand.Next(61, 64), 1f);
                             Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 2f;

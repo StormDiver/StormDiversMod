@@ -25,19 +25,19 @@ namespace StormDiversMod.Projectiles
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 75;
             Projectile.extraUpdates = 1;
             Projectile.knockBack = 8f;
             Projectile.usesLocalNPCImmunity = true;            
             Projectile.localNPCHitCooldown = 30;
             Projectile.tileCollide = false;
         }
-        float airknock = 13;
+        float airknock = 13; //how high to get knocked in the air
         public override void AI()
         {
             //Projectile.damage = (Projectile.damage * 99) / 100;
             Projectile.damage -= 2;
-            airknock -= 0.14f;
+            airknock -= 0.13f; //height knocked in the air is lower the further away the projectile
 
             var player = Main.player[Projectile.owner];
             //increase in height
@@ -58,6 +58,22 @@ namespace StormDiversMod.Projectiles
                 Main.dust[dustIndex].noGravity = true;
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 203);
                 dust2.noGravity = true;
+            }
+            Projectile.ai[2]++;
+            if (Projectile.ai[2] % 4 == 0)
+            {
+                if (player.gravDir == 1)
+                {
+                    int goreIndex = Gore.NewGore(player.GetSource_FromThis(player.GetModPlayer<ArmourSetBonuses>().SetBonus_Derp), new Vector2(Projectile.Center.X, Projectile.Bottom.Y - 30), default(Vector2), Main.rand.Next(61, 64), 0.8f);
+                    Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1f * Projectile.direction;
+                    Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1f;
+                }
+                else
+                {
+                    int goreIndex2 = Gore.NewGore(player.GetSource_FromThis(player.GetModPlayer<ArmourSetBonuses>().SetBonus_Derp), new Vector2(Projectile.Center.X, Projectile.Top.Y + 10), default(Vector2), Main.rand.Next(61, 64), 0.8f);
+                    Main.gore[goreIndex2].velocity.X = Main.gore[goreIndex2].velocity.X + 1f * Projectile.direction;
+                    Main.gore[goreIndex2].velocity.Y = Main.gore[goreIndex2].velocity.Y + 1f;
+                }
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

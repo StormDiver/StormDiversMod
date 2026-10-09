@@ -30,7 +30,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override void SetDefaults()
         {
-            Item.damage = 24;
+            Item.damage = 48;
             Item.knockBack = 2f;
             Item.mana = 10;
             Item.width = 32;
@@ -138,6 +138,10 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool CanUseItem(Player player)
         {
+            if (Item.useAnimation > 30)
+            {
+                Item.useAnimation = 30;
+            }
             if (player.altFunctionUse == 2) //right click
             {
                 Item.useTime = 30;
@@ -148,6 +152,7 @@ namespace StormDiversMod.Items.Weapons
                 Item.useTime = 15;
                 return true;
             }
+           
         }
         bool shot;
         public override void HoldItem(Player player)

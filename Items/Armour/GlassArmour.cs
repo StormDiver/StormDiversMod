@@ -70,7 +70,7 @@ namespace StormDiversMod.Items.Armour
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<GlassArmourShard>(), 1)
             .AddIngredient(ItemID.Glass, 5)
-            .AddIngredient(ItemID.Gel, 5)
+            .AddIngredient(ItemID.Gel, 1)
             .Register();
         }
     }
@@ -107,7 +107,7 @@ namespace StormDiversMod.Items.Armour
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<GlassArmourShard>(), 1)
             .AddIngredient(ItemID.Glass, 8)
-            .AddIngredient(ItemID.Gel, 8)
+            .AddIngredient(ItemID.Gel, 1)
             .Register();
         }
     }
@@ -144,7 +144,7 @@ namespace StormDiversMod.Items.Armour
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<GlassArmourShard>(), 1)
             .AddIngredient(ItemID.Glass, 6)
-            .AddIngredient(ItemID.Gel, 6)
+            .AddIngredient(ItemID.Gel, 1)
             .Register();
         }
     }

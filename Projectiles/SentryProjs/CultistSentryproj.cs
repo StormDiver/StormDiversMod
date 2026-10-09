@@ -1,12 +1,12 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Common;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
-using Microsoft.Xna.Framework.Graphics;
-
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.Utilities;
 
 namespace StormDiversMod.Projectiles.SentryProjs
@@ -22,7 +22,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-      
             Projectile.width = 64;
             Projectile.height = 64;
             Projectile.friendly = true;
@@ -39,16 +38,35 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
+        bool remotecontrol;
+
         NPC target;
+        Vector2 velocity = new Vector2(0, 0);
+		int shootrange = 900;
+
         public override void AI()
         {
+            Projectile.ai[2] = 127; //This is so the targetting control knows this is a modded sentry
+
+            Player player = Main.player[Projectile.owner];
+
+			if (player.GetModPlayer<MiscFeatures>().sentryControl && Vector2.Distance(Projectile.Center, Main.MouseWorld) <= shootrange + 300 && Collision.CanHitLine(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0)) //manual control
+            {
+                remotecontrol = true;
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    Projectile.extraUpdates = 2;
+            }
+            else
+            {
+                remotecontrol = false;
+                Projectile.extraUpdates = 0;
+            }
+
             if (Projectile.alpha == 255)
             {
                 SoundEngine.PlaySound(SoundID.Item121, Projectile.Center);
-
             }
             if (Projectile.alpha > 5)
             {
@@ -82,94 +100,104 @@ namespace StormDiversMod.Projectiles.SentryProjs
 				Main.dust[dust].noGravity = true; //this make so the dust has no gravity
 				Main.dust[dust].velocity *= 0.5f;
 			}     
-     
             if (Projectile.alpha < 10)
             {
                 Projectile.ai[1]++; //Shoottime
             }
-            Player player = Main.player[Projectile.owner];
-            //Getting the npc to fire at
-            for (int i = 0; i < 200; i++)
-            {
-                if (player.HasMinionAttackTargetNPC)
-                {
-                    target = Main.npc[player.MinionAttackTargetNPC];
-                }
-                else
-                {
-                    target = Main.npc[i];
+			//Getting the npc to fire at
+			if (remotecontrol)
+			{
+				if (!player.GetModPlayer<MiscFeatures>().wrangler)
+					if (Main.rand.Next(5) == 0)
+					{
+						int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 15, Projectile.Center.Y - 2), 30, 2, 182, 0, -3, 100, default, 1f);
+						Main.dust[dust].noGravity = true;
+						Main.dust[dust].velocity *= 0.75f;
+					}
+                float projspeed = 7;
+                velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                target = Main.npc[player.MinionAttackTargetNPC];  
 
-                }
-
-                if (Vector2.Distance(Projectile.Center, target.Center) <= 900f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
-                {
-                    if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
-                    {
-                        target.TargetClosest(true);
-                        
-                        if (Projectile.ai[1] > 35)
-                        {
-                            float projspeed = 7;
-                            Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
-                           
-                            for (int j = 0; j < 30; j++)
-                            {
-                                int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 16, Projectile.Center.Y - 16), 32, 32, 226, 0, 0, 130, default, 0.5f);
-
-                                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                                Main.dust[dust].velocity *= 2f;
-                            }
-                            for (int k = 0; k < 10; k++)
-                            {
-                                Dust dust;
-                                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                                
-                                dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 111, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2.5f);
-                                dust.noGravity = true;
-
-                            }                         
-                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-
-                                //Projectile.NewProjectile(Projectile.Center.X, Projectile.Top.Y + 14, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("MagmaSentryProj2"), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-                                SoundEngine.PlaySound(SoundID.Item122 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
-
-                                float ai = Main.rand.Next(100);
-                                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), 
-									ModContent.ProjectileType<CultistSentryProj2>(), Projectile.damage, .5f, Projectile.owner, perturbedSpeed.ToRotation(), ai);
-                            Main.projectile[projID].timeLeft = 190;
-
-                            /* Main.projectile[projID].hostile = false;
-                             Main.projectile[projID].friendly = true;
-                             Main.projectile[projID].penetrate = 10;
-                             Main.projectile[projID].usesLocalNPCImmunity = true;
-                             Main.projectile[projID].localNPCHitCooldown = -1;
-                             Main.projectile[projID].scale = 0.75f;
-                             Main.projectile[projID].timeLeft = 180;
-                             Main.projectile[projID].DamageType = DamageClass.Summon;*/
-
-                            Projectile.ai[1] = 0;
-                        }
-                    }
-
-                }
+                Shoot();
             }
+			else
+			{
+				for (int i = 0; i < 200; i++)
+				{
+					if (player.HasMinionAttackTargetNPC && Vector2.Distance(Projectile.Center, Main.npc[player.MinionAttackTargetNPC].Center) <= shootrange && Collision.CanHitLine(Projectile.Center, 0, 0, Main.npc[player.MinionAttackTargetNPC].Center, 0, 0))
+					{
+						target = Main.npc[player.MinionAttackTargetNPC];
+					}
+					else
+					{
+						target = Main.npc[i];
+					}
 
+					if (Vector2.Distance(Projectile.Center, target.Center) <= shootrange && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
+					{
+						if (Collision.CanHitLine(Projectile.Center, 0, 0, target.Center, 0, 0))
+						{
+							target.TargetClosest(true);
+                            float projspeed = 7;
+                            velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+							Shoot();
+						}
+					}
+				}
+			}
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= 6)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-
             }
             if (Projectile.frame >= 3)
             {
-
                 Projectile.frame = 0;
             }
-
-
         }
-        
+		public void Shoot() //code to shoot projs, called in both manual and auto target
+		{
+            if (Projectile.ai[1] > 35)
+            {
+                for (int j = 0; j < 30; j++)
+                {
+                    int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 16, Projectile.Center.Y - 16), 32, 32, 226, 0, 0, 130, default, 0.5f);
+
+                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                    Main.dust[dust].velocity *= 2f;
+                }
+                for (int k = 0; k < 10; k++)
+                {
+                    Dust dust;
+                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+
+                    dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 111, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2.5f);
+                    dust.noGravity = true;
+
+                }
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+
+                //Projectile.NewProjectile(Projectile.Center.X, Projectile.Top.Y + 14, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("MagmaSentryProj2"), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
+                SoundEngine.PlaySound(SoundID.Item122 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
+
+                float ai = Main.rand.Next(100);
+                int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
+                    ModContent.ProjectileType<CultistSentryProj2>(), Projectile.damage, .5f, Projectile.owner, perturbedSpeed.ToRotation(), ai);
+                Main.projectile[projID].timeLeft = 190;
+
+                /* Main.projectile[projID].hostile = false;
+                 Main.projectile[projID].friendly = true;
+                 Main.projectile[projID].penetrate = 10;
+                 Main.projectile[projID].usesLocalNPCImmunity = true;
+                 Main.projectile[projID].localNPCHitCooldown = -1;
+                 Main.projectile[projID].scale = 0.75f;
+                 Main.projectile[projID].timeLeft = 180;
+                 Main.projectile[projID].DamageType = DamageClass.Summon;*/
+
+                Projectile.ai[1] = 0;
+            }
+        }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -191,7 +219,13 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override Color? GetAlpha(Color lightColor)
         {
-            if (Projectile.alpha <= 5)
+            if (remotecontrol)
+            {
+                Color color = Color.OrangeRed;
+                color.A = 100;
+                return color;
+            }
+            else if (Projectile.alpha <= 5)
             {
                 Color color = Color.White;
                 color.A = 150;
@@ -201,6 +235,18 @@ namespace StormDiversMod.Projectiles.SentryProjs
             {
                 return null;
             }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (remotecontrol && !player.GetModPlayer<MiscFeatures>().wrangler)
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), Color.LightBlue, Color.White, 1.5f);
+                }
+            }
+            return true;
         }
     }
 	//_____________________________________________ Lightning

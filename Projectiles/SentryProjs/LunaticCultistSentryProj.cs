@@ -12,17 +12,14 @@ using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
-    
     public class LunaticExpertSentryProj : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Cultist Sentry");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 28;
@@ -35,11 +32,9 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.ignoreWater = true;
-
         }
         public override bool? CanDamage()
         {
-
             return false;
         }
         int shoottime = 0;
@@ -115,7 +110,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
             //Getting the npc to fire at
             for (int i = 0; i < 200; i++)
             {
-                if (player.HasMinionAttackTargetNPC)
+                if (player.HasMinionAttackTargetNPC && Vector2.Distance(Projectile.Center, Main.npc[player.MinionAttackTargetNPC].Center) <= 800 && Collision.CanHitLine(Projectile.Center, 0, 0, Main.npc[player.MinionAttackTargetNPC].Center, 0, 0))
                     target = Main.npc[player.MinionAttackTargetNPC];
                 else
                     target = Main.npc[i];

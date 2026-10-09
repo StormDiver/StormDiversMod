@@ -1,15 +1,15 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
 using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using StormDiversMod.Items.Weapons;
+using StormDiversMod.NPCs;
+using System;
+using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Buffs;
-using StormDiversMod.Items.Weapons;
-using StormDiversMod.Common;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace StormDiversMod.Projectiles
 {
@@ -150,7 +150,7 @@ namespace StormDiversMod.Projectiles
         }
         public override bool? CanHitNPC(NPC target)
         {
-            if (target.GetGlobalNPC<NPCEffects>().bloodimmunetime > 0 || target.friendly) //Npcs immune to blood created from them
+            if (target.GetGlobalNPC<NPCEffects>().bloodimmunetime > 0 || target.friendly || target.type == ModContent.NPCType<XSentryTarget>()) //Npcs immune to blood created from them
                 return false;
             
             else

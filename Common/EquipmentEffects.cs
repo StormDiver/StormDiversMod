@@ -455,8 +455,8 @@ namespace StormDiversMod.Common
             }
             if (DeathCore)
             {
-                Player.GetDamage(DamageClass.Generic) += painincrease / 100 / 4;
                 painincrease = (100 - ((float)(Player.statLife) / (float)(Player.statLifeMax2)) * 100);
+                Player.GetDamage(DamageClass.Generic) += painincrease / 100 / 3;
                 //Main.NewText(painincrease / 4, Color.Red);
             }
             //======================================================================================Accessories/other======================================================================================
@@ -1550,8 +1550,8 @@ namespace StormDiversMod.Common
                             dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                             dust.fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
                         }
-                        SantaRevivedCooldown = 18000; // 5 minutes (300 seconds)
-                        Player.AddBuff(ModContent.BuffType<SantaReviveDebuff>(), 18000);
+                        SantaRevivedCooldown = 180 * 60; // 3 minutes (180 seconds)
+                        Player.AddBuff(ModContent.BuffType<SantaReviveDebuff>(), 180 * 60);
                         SantaRevived = false;
                     }
                 }
@@ -1799,7 +1799,6 @@ namespace StormDiversMod.Common
                 Player.immuneTime = 300;
                 Player.ClearBuff(ModContent.BuffType<PainBuff>()); //Buff will go away on its own after 1 frame, allows it to satck with Pain boss
                 Player.AddBuff(ModContent.BuffType<PainlessDebuff>(), 7200);
-
                 paintime = 7200; // 2 minutes (120 seconds)
                 return false;
             }
@@ -1843,7 +1842,6 @@ namespace StormDiversMod.Common
                 Player.immune = true;
                 Player.immuneTime = 600;
                 Player.statLife = 1; //restore life
-                //Player.statLife = 1; //restore life
 
                 SantaRevived = true;
                 return false;
@@ -1887,10 +1885,9 @@ namespace StormDiversMod.Common
             {
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
             }
-            if (SantaCore)
+            if (SantaCore && Player.HasBuff(ModContent.BuffType<SantaReviveDebuff>()))
             {
-                target.AddBuff(BuffID.Electrified, 180);
-
+                //target.AddBuff(BuffID.Electrified, 180);
             }
             //Storm Charm
             if (shockBand || shockBandQuiver || shockDerpEye)
@@ -2053,10 +2050,9 @@ namespace StormDiversMod.Common
             {
                 target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 450);
             }
-            if (SantaCore)
+            if (SantaCore && Player.HasBuff(ModContent.BuffType<SantaReviveDebuff>()))
             {
-                target.AddBuff(BuffID.Electrified, 180);
-
+                //target.AddBuff(BuffID.Confused, 180);
             }
             //Storm Charm
             if (shockBand || shockBandQuiver || shockDerpEye)

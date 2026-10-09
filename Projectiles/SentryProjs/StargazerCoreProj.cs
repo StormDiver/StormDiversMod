@@ -1,12 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using System;
+using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
-using StormDiversMod.Buffs;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace StormDiversMod.Projectiles.SentryProjs
 {
@@ -21,7 +22,7 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-       
+
             Projectile.width = 38;
             Projectile.height = 38;
             Projectile.friendly = true;
@@ -40,15 +41,30 @@ namespace StormDiversMod.Projectiles.SentryProjs
 
             return false;
         }
-        
-        int firerate = 0;
+        int shootrange = 1200;
+        bool remotecontrol;
         int stopfire = 0;
         int opacity = 255;
         NPC target;
-
+        Vector2 velocity = new Vector2(0, 0);
 
         public override void AI()
         {
+            Projectile.ai[2] = 127; //This is so the targetting control knows this is a modded sentry
+            Player player = Main.player[Projectile.owner];
+
+            if (player.GetModPlayer<MiscFeatures>().sentryControl && Vector2.Distance(Projectile.Center, Main.MouseWorld) <= shootrange + 300 && Collision.CanHitLine(Projectile.Center, 0, 0, Main.MouseWorld, 0, 0)) //manual control
+            {
+                remotecontrol = true;
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    Projectile.extraUpdates = 2;
+            }
+            else
+            {
+                remotecontrol = false;
+                Projectile.extraUpdates = 0;
+            }
+
             if (opacity > 150)
             {
                 opacity -= 10;
@@ -67,8 +83,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 Lighting.AddLight(Projectile.Center, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f, ((255 - Projectile.alpha) * 0.1f) / 255f);   //this is the light colors
             }
             Main.player[Projectile.owner].UpdateMaxTurrets();
-
-
             {
                 if (Main.rand.Next(1) == 0)     //this defines how many dust to spawn
                 {
@@ -79,80 +93,94 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
                 }
             }
-
-
-            Player player = Main.player[Projectile.owner];
             Projectile.ai[1]++;//shootime
-            if (Projectile.ai[1] > 90)
+            if (remotecontrol)
             {
-                stopfire++;
-                firerate++;
-            }
-            for (int i = 0; i < 200; i++)
-            {
-                if (player.HasMinionAttackTargetNPC)
-                {
-                    target = Main.npc[player.MinionAttackTargetNPC];
-                }
-                else
-                {
-                    target = Main.npc[i];
-
-                }
-
-                if (Vector2.Distance(Projectile.Center, target.Center) <= 750f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
-                {
-                    if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (!player.GetModPlayer<MiscFeatures>().wrangler)
+                    if (Main.rand.Next(5) == 0)
                     {
-                        if (Projectile.ai[1] > 90)
+                        int dust = Dust.NewDust(new Vector2(Projectile.Center.X - 15, Projectile.Center.Y - 2), 30, 2, 182, 0, -3, 100, default, 1f);
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].velocity *= 0.75f;
+                    }
+                float projspeed = 30;
+                velocity = Vector2.Normalize(new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                target = Main.npc[player.MinionAttackTargetNPC];  
+
+                Shoot();
+            }
+            else
+            {
+                for (int i = 0; i < 200; i++)
+                {
+                    if (player.HasMinionAttackTargetNPC && Vector2.Distance(Projectile.Center, Main.npc[player.MinionAttackTargetNPC].Center) <= shootrange && Collision.CanHitLine(Projectile.Center, 0, 0, Main.npc[player.MinionAttackTargetNPC].Center, 0, 0))
+                    {
+                        target = Main.npc[player.MinionAttackTargetNPC];
+                    }
+                    else
+                    {
+                        target = Main.npc[i];
+                    }
+
+                    if (Vector2.Distance(Projectile.Center, target.Center) <= shootrange && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.CanBeChasedBy() && target.type != NPCID.TargetDummy)
+                    {
+                        if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                         {
-                            float projspeed = 25;
-                            Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
-                                               
-                            if (firerate >= 5)
-                            {
-                                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
-
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StargazerCoreProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                                for (int j = 0; j < 20; j++)     //this defines how many dust to spawn
-                                {
-                                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
-
-                                    Main.dust[dust].velocity *= 0.5f;
-                                }
-                                firerate = 0;
-                            }
-                            //Main.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 60);
-                            if (stopfire >= 25)
-                            {
-                                Projectile.ai[1] = 0;
-                                stopfire = 0;
-                                firerate = 0;
-
-                            }
+                            float projspeed = 30;
+                            velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
+                            Shoot();
                         }
                     }
                 }
-               
+            }
+        }
+        public void Shoot()
+        {
+            if (Projectile.ai[1] > 90)
+            {
+                if (Projectile.ai[1] % 5 == 0)
+                {
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(0));
+
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<StargazerCoreProj2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    for (int j = 0; j < 20; j++)     //this defines how many dust to spawn
+                    {
+                        int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);
+
+                        Main.dust[dust].velocity *= 0.5f;
+                    }
+                    stopfire++;
+                }
+                //Main.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 60);
+                if (stopfire >= 5)
+                {
+                    Projectile.ai[1] = 0;
+                    stopfire = 0;
+                }
             }
         }
         public override void OnKill(int timeLeft)
         {
-
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
             for (int i = 0; i < 50; i++)
             {
 
-          
+
                 var dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 111);
                 dust2.noGravity = true;
             }
         }
         public override Color? GetAlpha(Color lightColor)
         {
-            if (opacity <= 150)
+            Player player = Main.player[Projectile.owner];
+            if (remotecontrol && !player.GetModPlayer<MiscFeatures>().wrangler)
             {
-
+                Color color = Color.OrangeRed;
+                color.A = 100;
+                return color;
+            }
+            else if (opacity <= 150)
+            {
                 Color color = Color.White;
                 color.A = 150;
                 return color;
@@ -162,7 +190,20 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 return null;
             }
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+
+            if (remotecontrol)
+            {
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    Utils.DrawLine(Main.spriteBatch, new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), Color.LightBlue, Color.White, 1.5f);
+                }
+            }
+            return true;
         }
+    }
     //_____________________________________________________________________________________________________
     public class StargazerCoreProj2 : ModProjectile
     {
@@ -176,7 +217,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 22;
             Projectile.height = 22;
             Projectile.friendly = true;
@@ -197,26 +237,22 @@ namespace StormDiversMod.Projectiles.SentryProjs
             }
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             visible++;
-            
-                if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
-                {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, 0, 0, 130, default, 1.5f);
 
-                    Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-                    Main.dust[dust].velocity *= 0.5f;
-                }
-            
-           
+            if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
+            {
+                int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 111, 0, 0, 130, default, 1.5f);
+
+                Main.dust[dust].noGravity = true; //this make so the dust has no gravity
+                Main.dust[dust].velocity *= 0.5f;
+            }
+
             if (visible <= 3)
             {
                 Projectile.alpha = 255;
             }
-           
+
             return;
         }
-
-        
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.Kill();
@@ -243,7 +279,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 2.5f;
                 }
-
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -264,22 +299,16 @@ namespace StormDiversMod.Projectiles.SentryProjs
         }
         public override Color? GetAlpha(Color lightColor)
         {
-
-
             if (visible > 3)
             {
-
                 Color color = Color.White;
                 color.A = 150;
                 return color;
-
             }
             else
             {
                 return null;
             }
-
         }
     }
-
 }

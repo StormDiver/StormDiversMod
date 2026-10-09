@@ -232,11 +232,6 @@ namespace StormDiversMod.Projectiles
             else
                 return true;
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            var player = Main.player[Projectile.owner];
-           
-        }
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
@@ -277,6 +272,10 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.frame >= 4)
                 Projectile.Kill();
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 300);
         }
         public override Color? GetAlpha(Color lightColor)
         {
@@ -319,19 +318,6 @@ namespace StormDiversMod.Projectiles
             else
                 return true;
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            var player = Main.player[Projectile.owner];
-            //consume 1 extra ammo
-            int projToShoot = player.HeldItem.shoot; //need all this otherwise it has a fit
-            int usedAmmoItemID = player.HeldItem.useAmmo;
-            float speed = player.HeldItem.shootSpeed;
-            int Damage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
-            float KnockBack = player.inventory[player.selectedItem].knockBack;
-
-            player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out usedAmmoItemID, false);
-        }
-            
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
@@ -371,6 +357,10 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.frame >= 4)
                 Projectile.Kill();
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<UltraBurnDebuff>(), 600);
         }
         public override Color? GetAlpha(Color lightColor)
         {

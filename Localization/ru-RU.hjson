@@ -616,6 +616,11 @@ Mods: {
 				DisplayName: Лепестки роз
 				Description: Лепестки роз высасывают из тебя жизнь
 			}
+
+			SpikedDebuff: {
+				// DisplayName: Spiked
+				// Description: Sharp spikes are embedded in you
+			}
 		}
 
 		Items: {
@@ -4133,6 +4138,21 @@ Mods: {
 					Boss Drop Cooldown
 					''' */
 			}
+
+			Wrangler: {
+				// DisplayName: Remote Sentry Controller
+				/* Tooltip:
+					'''
+					Can be used to manually aim and fire all placed sentries within range, modded sentries will have increased targetting range
+					When used as an item:
+						Overclocks sentries making them fire 3 times as fast, "AoE" sentires will hit 3 times as fast
+					When equipped as an accessory:
+						Sentries will automatically fire at the cursor when in range
+						Increases maximum sentries by 1
+					Minions and other auto-aiming items can also be manually aimed, but do not get overclocked
+					Cannot be used as an item if one is already equipped
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -4205,6 +4225,7 @@ Mods: {
 			SnowmanBomb.DisplayName: Снеговик-бомбардир
 			ThePainBoss.DisplayName: Высшая боль
 			HellSkull.DisplayName: Адский череп
+			// XSentryTarget.DisplayName: Sentry Target
 		}
 
 		Projectiles: {

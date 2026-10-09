@@ -14,12 +14,12 @@ using SteelSeries.GameSense.DeviceZone;
 
 namespace StormDiversMod.Projectiles
 {
-
     public class StickyBombProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             //DisplayName.SetDefault("Spiky Bomb");
+            Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
         {
@@ -43,8 +43,8 @@ namespace StormDiversMod.Projectiles
         bool stick; //wheter bomb has hit a tile
         bool boomed; //when it is exploding
         int boomtime = 0; //How long until you can actually detonate
-        bool unstick; //Bool for if you unstick the bombs
-        int dettime;
+        bool unstick; //Bool for if you unstick the bombs (UNUSED)
+        int dettime; //How long to hold before all of them detonate
         public override bool? CanDamage()
         {
             if (unstick || boomed)
@@ -149,7 +149,6 @@ namespace StormDiversMod.Projectiles
                     dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0f, 0f, 100, default, 1f);
                     Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
-
                 }
             }
 
@@ -158,14 +157,12 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
                 Projectile.knockBack = 0;
-
             }
-
             //Projectile.damage = (int)player.GetTotalDamage(DamageClass.Ranged).ApplyTo(Projectile.originalDamage);
             //^Ignores ammo damage sadly
 
-            //If cursor is near and right click, or if holding right click for 30 frames, and after 30 fraems of fire time and not using a tile for either, or if player dies, explode
-            if ((((Vector2.Distance(Main.MouseWorld, Projectile.Center) <= 200 && player.controlUseTile) || dettime > 30) && boomtime > 30 && player.noThrow == 0) || player.dead) //will go BOOM
+            //If cursor is near and right click, or if holding right click for 30 frames, and after 30 frames of fire time and not using a tile for either, or if player dies, explode
+            if ((((Vector2.Distance(Main.MouseWorld, Projectile.Center) <= 250 && player.controlUseTile) || dettime > 20) && boomtime > 30 && player.noThrow == 0) || player.dead) //will go BOOM
             {
                 if (Projectile.timeLeft > 3)
                 {
@@ -178,16 +175,20 @@ namespace StormDiversMod.Projectiles
                     player.GetModPlayer<MiscFeatures>().screenshaker = true;
                 }
             }
-            if ((Vector2.Distance(Main.MouseWorld, Projectile.Center ) <= 200 || dettime >= 10) && boomtime > 30)
+            if ((Vector2.Distance(Main.MouseWorld, Projectile.Center ) <= 250 || dettime >= 10) && boomtime > 30) //visual effects for when ready to detonate
             {
                 if (Projectile.timeLeft > 3)
                 {
-                    int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 235, 0f, 0f, 100, default, 1f);
-                    Main.dust[dustIndex].noGravity = true;
+                    //int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 235, 0f, 0f, 100, default, 1f);
+                    //Main.dust[dustIndex].noGravity = true;
+                    Projectile.frame = 1; //white outline
                 }
+                else
+                    Projectile.frame = 0;
             }
             else
             {
+                Projectile.frame = 0;
             }
             /*if (player.controlUseTile && player.noThrow == 0 && player.controlUp && !unstick && stick) //will unstick
             {
@@ -298,6 +299,17 @@ namespace StormDiversMod.Projectiles
             }
             return true;
         }
+        public override void PostDraw(Color lightColor) //glowmask for animated / more frames)
+        {
+            if (Projectile.timeLeft > 3)
+            {
+                Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("Projectiles/StickyBombProj_Glow");
+
+                Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f + 7);
+
+                Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * (texture.Height / Main.projFrames[Projectile.type]), texture.Width, texture.Height / Main.projFrames[Projectile.type]),
+                Color.White, Projectile.rotation, drawOrigin, Projectile.scale, Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+        }
     }
-   
 }

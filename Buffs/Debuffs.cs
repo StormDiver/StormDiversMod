@@ -764,4 +764,23 @@ namespace StormDiversMod.Buffs
             npc.GetGlobalNPC<NPCEffects>().roseDOTdebuff = true;
         }
     }
+
+    //_____________________________________________
+    public class SpikedDebuff : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Spiked");
+            //Description.SetDefault("Sharp spikes are embedded in you");
+            Main.debuff[Type] = true;
+        }
+        public override void Update(Player player, ref int buffIndex)
+        {
+
+        }
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<NPCEffects>().spikeddebuff = true;
+        }
+    }
 }

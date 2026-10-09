@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace StormDiversMod.Projectiles
 {
-    public class RoseSickleExplosionProj : ModProjectile
+    public class RoseSickleExplosionProj : ModProjectile //unused
     {
         public override void SetStaticDefaults()
         {

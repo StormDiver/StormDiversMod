@@ -94,7 +94,7 @@ namespace StormDiversMod.Items.Weapons
             CreateRecipe()
            .AddIngredient(ModContent.ItemType<GlassSwordBroken>(), 1)
            .AddIngredient(ItemID.Glass, 2)
-           .AddIngredient(ItemID.Gel, 2)
+           .AddIngredient(ItemID.Gel, 1)
            .Register();
         }
     }
@@ -234,7 +234,7 @@ namespace StormDiversMod.Items.Weapons
             CreateRecipe()
            .AddIngredient(ModContent.ItemType<GlassBowBroken>(), 1)
            .AddIngredient(ItemID.Glass, 2)
-           .AddIngredient(ItemID.Gel, 2)
+           .AddIngredient(ItemID.Gel, 1)
            .Register();
         }
     }
@@ -375,7 +375,7 @@ namespace StormDiversMod.Items.Weapons
             CreateRecipe()
            .AddIngredient(ModContent.ItemType<GlassStaffBroken>(), 1)
            .AddIngredient(ItemID.Glass, 3)
-           .AddIngredient(ItemID.Gel, 3)
+           .AddIngredient(ItemID.Gel, 1)
            .Register();
         }
     }

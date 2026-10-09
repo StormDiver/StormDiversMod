@@ -31,7 +31,6 @@ namespace StormDiversMod.Items.Accessory
             Item.height = 30;
             Item.value = Item.sellPrice(0, 15, 0, 0);
             Item.rare = ItemRarityID.Red;
-           
             Item.accessory = true;
         }
 

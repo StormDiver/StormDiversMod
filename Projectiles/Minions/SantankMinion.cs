@@ -188,11 +188,7 @@ namespace StormDiversMod.Projectiles.Minions
 					}
 				}
 			}
-
-
 			Projectile.friendly = foundTarget;
-
-
 			// Default movement parameters (here for attacking)
 
 			if (Projectile.ai[0] <= 6)
@@ -211,8 +207,8 @@ namespace StormDiversMod.Projectiles.Minions
 					Projectile.ai[1]++; //Shoottime
 					Projectile.ai[2]++; //Missile time
 				}
-				// Minion has a target: attack (here, fly towards the enemy)
-				if (Vector2.Distance(Projectile.Center, targetCenter) > 30f || Projectile.ai[0] <= 5)
+                // Minion has a target: attack (here, fly towards the enemy)
+                if (Vector2.Distance(Projectile.Center, targetCenter) > 30f || Projectile.ai[0] <= 5)
 				{
 					// The immediate range around the target (so it doesn't latch onto it when close)
 					Vector2 direction = targetCenter - Projectile.Center;
@@ -237,14 +233,14 @@ namespace StormDiversMod.Projectiles.Minions
 				{
 					if (Projectile.ai[1] >= 15)
 					{
-                        SoundEngine.PlaySound(SoundID.Item11 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
+						SoundEngine.PlaySound(SoundID.Item11 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
 
-                        if (!Main.dedServ)
+						if (!Main.dedServ)
 						{
 							Vector2 velocity = Vector2.Normalize(new Vector2(targetNPC.X, targetNPC.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)).RotatedByRandom(MathHelper.ToRadians(1)) * 15;
 
-							int ProjID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + 10 * Projectile.spriteDirection, Projectile.Center.Y ), new Vector2(velocity.X, velocity.Y), 
-								ModContent.ProjectileType<SantankMinionProj3>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+							int ProjID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + 10 * Projectile.spriteDirection, Projectile.Center.Y), new Vector2(velocity.X, velocity.Y),
+								ModContent.ProjectileType<SantankMinionProj3>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
 							Main.projectile[ProjID].DamageType = DamageClass.Summon;
 
 							/*for (int i = 0; i < 10; i++)
@@ -263,8 +259,8 @@ namespace StormDiversMod.Projectiles.Minions
 						if (!Main.dedServ)
 						{
 							Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(15));
-							Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - 10 * Projectile.spriteDirection, Projectile.Center.Y - 5), 
-								new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMinionProj2>(), (int)(Projectile.damage * 1.5f), Projectile.knockBack * 2, Projectile.owner);
+							Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X - 10 * Projectile.spriteDirection, Projectile.Center.Y - 5),
+								new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<SantankMinionProj2>(), (int)(Projectile.damage * 1f), Projectile.knockBack * 2, Projectile.owner);
 							SoundEngine.PlaySound(SoundID.Item92 with { Volume = 0.5f, Pitch = 0f }, Projectile.Center);
 
 							for (int i = 0; i < 25; i++)
@@ -282,11 +278,14 @@ namespace StormDiversMod.Projectiles.Minions
 			}
 			else
 			{
-				if (Projectile.position.X < player.position.X)
+				//adds a little randomness to their attacks when there's multiple
+                Projectile.ai[1] = Main.rand.Next(0, 15);
+                Projectile.ai[2] = Main.rand.Next(0, 30);
+
+                if (Projectile.position.X < player.position.X)
                     Projectile.spriteDirection = 1;
 				else
                     Projectile.spriteDirection = -1;
-
 
                 shooting = false;
 

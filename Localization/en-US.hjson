@@ -616,6 +616,11 @@ Mods: {
 				DisplayName: Rose Petals
 				Description: The rose petals drain your life
 			}
+
+			SpikedDebuff: {
+				DisplayName: Spiked
+				Description: Sharp spikes are embedded in you
+			}
 		}
 
 		Items: {
@@ -740,7 +745,7 @@ Mods: {
 					Saves you from death once every 2 minutes, granting 5 seconds of immunity
 					Also releases a bunch of homing pain skulls that deal heavy damage each time you're revived
 					Doesn't activate if the killing blow deals over 9999 damage
-					Increases damage dealt by up to 25% when losing life
+					Increases damage dealt by up to 33% when losing life
 					'Live to suffer another day'
 					'''
 			}
@@ -897,7 +902,7 @@ Mods: {
 					You will be shocked back to life after taking lethal damage, granting a 10 second grace period
 					During the period you are immune to damage and deal extra damage
 					After 10 seconds you will die unless you heal to above 33% life
-					Has a 5 minute cooldown if you survive between uses
+					Has a 3 minute cooldown if you survive between uses
 					Won't save you if the attacks deals more damage than your max life
 					'''
 			}
@@ -3019,7 +3024,8 @@ Mods: {
 				DisplayName: Stargazer Core
 				Tooltip:
 					'''
-					Summons a floating Stardust Portal that fires piercing projectiles at nearby enemies in bursts
+					Summons a floating Stardust Portal that fires piercing projectiles at nearby enemies in a burst of 5
+					Each projectiles in a burst can target a different enemy
 					Right click to target a specific enemy
 					'''
 			}
@@ -3463,7 +3469,7 @@ Mods: {
 				DisplayName: Spike Bomb
 				Tooltip:
 					'''
-					Explodes into many damaging spikes
+					Explodes into many damaging spikes that embed into enemies
 					Does not destroy tiles
 					'''
 			}
@@ -3474,7 +3480,6 @@ Mods: {
 					'''
 					Fires out up to 16 Spiky Bombs that stick to surfaces, the oldest bomb will automatically explode upon firing a 17th one
 					Bombs near the cursor can be detonated by pressing right click, holding down right click while holding the weapon will detonate all bombs
-					Bombs are shot further depending on your cursor distance from you
 					Can be used to launch yourself into the air, also works on enemies and Town NPCs
 					Uses rockets as ammo
 					'''
@@ -4127,6 +4132,21 @@ Mods: {
 					Boss Drop Cooldown
 					'''
 			}
+
+			Wrangler: {
+				DisplayName: Remote Sentry Controller
+				Tooltip:
+					'''
+					Can be used to manually aim and fire all placed sentries within range, modded sentries will have increased targetting range
+					When used as an item:
+						Overclocks sentries making them fire 3 times as fast, "AoE" sentires will hit 3 times as fast
+					When equipped as an accessory:
+						Sentries will automatically fire at the cursor when in range
+						Increases maximum sentries by 1
+					Minions and other auto-aiming items can also be manually aimed, but do not get overclocked
+					Cannot be used as an item if one is already equipped
+					'''
+			}
 		}
 
 		NPCs: {
@@ -4199,6 +4219,7 @@ Mods: {
 			SnowmanBomb.DisplayName: Snowman Bomber
 			ThePainBoss.DisplayName: Ultimate Pain
 			HellSkull.DisplayName: Hell Skull
+			XSentryTarget.DisplayName: Sentry Target
 		}
 
 		Projectiles: {

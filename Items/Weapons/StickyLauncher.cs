@@ -49,7 +49,7 @@ namespace StormDiversMod.Items.Weapons
             Item.damage = 100;
             //Item.crit = 4;
             Item.knockBack = 3f;
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 16;
             Item.noMelee = true; //Does the weapon itself inflict damage?
         }
 
@@ -69,8 +69,9 @@ namespace StormDiversMod.Items.Weapons
             return true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {        
-            shootvelo = Vector2.Distance(Main.MouseWorld, player.Center) / 500f + 0.2f; //Faster shoot speed at further distances
+        {
+            shootvelo = 1;
+            /*shootvelo = Vector2.Distance(Main.MouseWorld, player.Center) / 500f + 0.2f; //Faster shoot speed at further distances
             if (shootvelo > 2f) //Caps the speed multipler at 2x
             {
                 shootvelo = 2f;
@@ -78,7 +79,7 @@ namespace StormDiversMod.Items.Weapons
             if (shootvelo < 0.5f) // Caps low end at 0.5x
             {
                 shootvelo = 0.5f;
-            }
+            }*/
             for (int i = 0; i < 1; i++)
             {
                 Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(velocity.X * shootvelo, velocity.Y * shootvelo), ModContent.ProjectileType<StickyBombProj>(), damage, knockback, player.whoAmI);
