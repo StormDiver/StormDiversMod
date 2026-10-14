@@ -44,19 +44,15 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 20;
             Projectile.timeLeft = 9999999;
         }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
-            for (int i = 0; i < 10; i++)
-            {
-                var dust = Dust.NewDustDirect(target.position, target.width, target.height, 27);
-                dust.scale = 1.25f;
-                dust.noGravity = true;
-            }
-        }
         bool parry;
         int parrytime = 90;
         int parrycooldown = 90;
+
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * 0.75f;
+        }
         public override void AI()
         {           
             Player player = Main.player[Projectile.owner];
@@ -133,6 +129,7 @@ namespace StormDiversMod.Projectiles
             player.itemTime = 2;
             player.itemAnimation = 2;
             player.itemRotation = Projectile.rotation;
+            Projectile.knockBack = 0;
 
             //-------------------------------------------------------------Sound-------------------------------------------------------
             if (!parry)
@@ -144,6 +141,27 @@ namespace StormDiversMod.Projectiles
             {
                 SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2f, Pitch = -0.5f, MaxInstances = 5 }, Projectile.Center);
                 Projectile.soundDelay = 30;
+            }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            SoundEngine.PlaySound(SoundID.Item71 with { Volume = 1f, Pitch = 0.5f }, Projectile.Center);
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(target.position, target.width, target.height, 27);
+                dust.scale = 1.25f;
+                dust.noGravity = true;
+            }
+            //custom knockback
+            if (target.knockBackResist > 0)
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchvelocity.Y;
             }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same

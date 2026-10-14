@@ -1,13 +1,15 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Common;
+using StormDiversMod.NPCs;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.GameContent.Creative;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
 
 
 namespace StormDiversMod.Projectiles.Minions
@@ -91,10 +93,15 @@ namespace StormDiversMod.Projectiles.Minions
 			return true;
 		}
 		bool mouthopen;
-		public override void AI()
+        public override void OnSpawn(IEntitySource source)
+        {
+            Player player = Main.player[Projectile.owner]; //skip the check that prevents it from being still one spawn as the wrnagler breaks it for some reason
+			if (player.GetModPlayer<MiscFeatures>().wrangler)
+				Projectile.ai[0] = 6;
+        }
+        public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-
 
 			// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
 			if (player.dead || !player.active)
@@ -187,9 +194,7 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 
-
 			Projectile.friendly = foundTarget;
-
 
 			// Default movement parameters (here for attacking)
 			float speed = 16f;
@@ -210,13 +215,10 @@ namespace StormDiversMod.Projectiles.Minions
 					direction.Normalize();
 					direction *= speed;
 					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-
-
 				}
 				else
 				{
 					Projectile.velocity *= 1.02f;
-					
 				}
 			}
 			else
@@ -225,14 +227,12 @@ namespace StormDiversMod.Projectiles.Minions
 				// Minion doesn't have a target: return to player and idle
 				if (distanceToIdlePosition > 300f)
 				{
-
 					// Speed up the minion if it's away from the player
 					speed = 12f;
 					inertia = 50f;
 				}
 				else
 				{
-
 					// Slow down the minion if closer to the player
 					speed = 4f;
 					inertia = 60f;

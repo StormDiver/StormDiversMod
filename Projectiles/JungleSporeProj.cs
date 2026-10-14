@@ -71,7 +71,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 60;
                 Projectile.Center = new Vector2(Projectile.position.X, Projectile.position.Y);
 
-                Projectile.knockBack = 0f;
+                Projectile.knockBack = 0f; //explosion does no deal knockback
             }
            
             Projectile.frameCounter++;

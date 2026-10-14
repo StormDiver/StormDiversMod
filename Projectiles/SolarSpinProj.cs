@@ -37,24 +37,7 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             Projectile.localNPCHitCooldown = 20;
             Projectile.timeLeft = 9999999;
         }
-        public override void OnSpawn(IEntitySource source)
-        {
-            Player player = Main.player[Projectile.owner];
-
-        }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(BuffID.Daybreak, 600);
-
-            for (int i = 0; i < 10; i++)
-            {
-
-                var dust = Dust.NewDustDirect(target.position, target.width, target.height, 6);
-                dust.scale = 2f;
-                dust.noGravity = true;
-                SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
-            }
-        }
+      
         Vector2 dustposition;
         Vector2 dustposition2;
         bool parry;
@@ -63,6 +46,13 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
 
         double degrees;
         double dist = 5;
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            Player player = Main.player[Projectile.owner];
+            knockbackamount = Projectile.knockBack * 0.75f;
+
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -193,12 +183,36 @@ namespace StormDiversMod.Projectiles     //We need this to basically indicate th
             player.itemTime = 2;
             player.itemAnimation = 2;
             player.itemRotation = Projectile.rotation;
+            Projectile.knockBack = 0;
 
             int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);  //this is the dust that this projectile will spawn
             Main.dust[dust2].velocity /= 1f;
             Main.dust[dust2].scale = 2f;
             Main.dust[dust2].noGravity = true;
             
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Daybreak, 600);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var dust = Dust.NewDustDirect(target.position, target.width, target.height, 6);
+                dust.scale = 2f;
+                dust.noGravity = true;
+                SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
+            }
+            //custom knockback
+            if (target.knockBackResist > 0)
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchvelocity.Y;
+            }
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {

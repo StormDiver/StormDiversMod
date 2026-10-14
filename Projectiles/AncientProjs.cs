@@ -45,7 +45,11 @@ namespace StormDiversMod.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
         }
-
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         { 
             Projectile.velocity.X *= 0;
@@ -67,8 +71,6 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft == 20)
             {
-                Projectile.alpha = 0;
-
                 Projectile.velocity.X = 0f;
                 Projectile.velocity.Y = 0f;
                 Projectile.tileCollide = false;
@@ -98,12 +100,12 @@ namespace StormDiversMod.Projectiles
                     var dust = Dust.NewDustDirect(Projectile.Center, 0, 0, 138, perturbedSpeed.X, perturbedSpeed.Y);
                     dust.noGravity = true;
                     dust.scale = 1.5f;
-
                 }
-
             }
-            if (Projectile.timeLeft <= 20)
+            if (Projectile.timeLeft < 20)
             {
+                Projectile.alpha = 0;
+
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter >= 3) // This will change the sprite every 8 frames (0.13 seconds). Feel free to experiment.
                 {
@@ -127,6 +129,16 @@ namespace StormDiversMod.Projectiles
         {
             //target.AddBuff(mod.BuffType("AridSandDebuff"), 180);
             target.AddBuff(BuffID.OnFire, 180);
+            if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
@@ -404,7 +416,6 @@ namespace StormDiversMod.Projectiles
 
             Projectile.tileCollide = true;
             Projectile.scale = 1f;
-            Projectile.knockBack = 0;
            
             Projectile.aiStyle = -1;
             Projectile.usesLocalNPCImmunity = true;
@@ -427,6 +438,11 @@ namespace StormDiversMod.Projectiles
             {
                 return true;
             }
+        }
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
         }
         public override void AI()
         {
@@ -453,7 +469,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 150;
                 Projectile.Center = Projectile.position;
 
-                Projectile.knockBack = 6f;
+                Projectile.knockBack = 0;
 
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
 
@@ -489,7 +505,7 @@ namespace StormDiversMod.Projectiles
                     dust.scale = 1f;
                 }*/
             }
-            if (Projectile.timeLeft <= 20)
+            /*if (Projectile.timeLeft <= 20)
             {
                 Projectile.knockBack = 6f;
                 Projectile.frameCounter++;
@@ -498,13 +514,23 @@ namespace StormDiversMod.Projectiles
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
                 }
-            }
+            }*/
         }
     
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             //target.AddBuff(mod.BuffType("AridSandDebuff"), 180);
             target.AddBuff(BuffID.OnFire, 180);
+            if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {

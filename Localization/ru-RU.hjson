@@ -2154,6 +2154,15 @@ Mods: {
 				Tooltip: Выпускает 3 поплавка за раз
 			}
 
+			FishingRodDerplingGold: {
+				// DisplayName: Golden Derpling Fishing Rod
+				/* Tooltip:
+					'''
+					Casts 3 lines at once
+					'For when 45% power isn't enough'
+					''' */
+			}
+
 			FishingRodLunar: {
 				DisplayName: Небесный спиннинг
 				Tooltip:
@@ -4518,11 +4527,8 @@ Mods: {
 			OilCanProj.DisplayName: Oil Blob
 			BobberCoral.DisplayName: Coral Bobber
 			BobberDerpling.DisplayName: Derpling Bobber
+			// BobberDerplingGold.DisplayName: Golden Derpling Bobber
 			BobberLunar.DisplayName: Lunar Bobber
-			BobberLunarNebula.DisplayName: Bobber Lunar Nebula
-			BobberLunarSolar.DisplayName: Bobber Lunar Solar
-			BobberLunarStardust.DisplayName: Bobber Lunar Stardust
-			BobberLunarVortex.DisplayName: Bobber Lunar Vortex
 			DerpChainProj.DisplayName: Derpling Chainsaw
 			DerpDrillProj.DisplayName: Derpling Drill
 			DerpJackProj.DisplayName: Derpling Jackhammer

@@ -1,13 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
-using Terraria.GameContent;
-using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles
 {   
@@ -123,16 +123,10 @@ namespace StormDiversMod.Projectiles
                 int numberProjectiles = 6 + Main.rand.Next(3);
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-
-
-                    // Calculate new speeds for other projectiles.
-                    // Rebound at 40% to 70% speed, plus a random amount between -8 and 8
-                    //float speedX = -Projectile.velocity.X * Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-16f, 16f);
-                    //float speedY = -Projectile.velocity.Y * Main.rand.NextFloat(.4f, .7f) + Main.rand.NextFloat(-16f, 16f);
                     Vector2 perturbedSpeed = new Vector2(0, -12).RotatedByRandom(MathHelper.ToRadians(360));
 
                     int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
-                        ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), 1, Projectile.owner);
+                        ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), 0, Projectile.owner);
                     Main.projectile[projID].ArmorPenetration = 15;
 
                 }
@@ -245,7 +239,7 @@ namespace StormDiversMod.Projectiles
                     Vector2 perturbedSpeed = new Vector2(0, -12).RotatedByRandom(MathHelper.ToRadians(360));
 
                    int projID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y),
-                        ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), 1, Projectile.owner);
+                        ModContent.ProjectileType<ShroomMush>(), (int)(Projectile.damage * 0.4f), 0, Projectile.owner);
                     Main.projectile[projID].ArmorPenetration = 15;
                 }
             }
@@ -348,6 +342,11 @@ namespace StormDiversMod.Projectiles
             //aiType = ProjectileID.Bullet;
         }
         // int dusttime = 10;
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         {
             /*  Dust dust;
@@ -389,9 +388,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 150;
                 Projectile.Center = Projectile.position;
 
-
-                Projectile.knockBack = 3f;
-
+                Projectile.knockBack = 0;
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -404,10 +401,19 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
+            }
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
             }
         }
 

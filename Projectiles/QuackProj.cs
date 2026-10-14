@@ -104,7 +104,6 @@ namespace StormDiversMod.Projectiles
         {
             //DisplayName.SetDefault("Mini Solar Duck");
         }
-
         public override void SetDefaults()
         {
             Projectile.width = 18;
@@ -120,10 +119,13 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
-
         }
-
         int speedup = 0;
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         {
             speedup++;
@@ -138,8 +140,6 @@ namespace StormDiversMod.Projectiles
             }
             if (Main.rand.Next(2) == 0)     //this defines how many dust to spawn
             {
-
-
                 int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 174, Projectile.velocity.X, Projectile.velocity.Y, 130, default, 0.5f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
                 Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                 Main.dust[dust].velocity *= -0.3f;
@@ -166,12 +166,8 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 160;
                 Projectile.Center = Projectile.position;
 
-
-                Projectile.knockBack = 6f;
-
+                Projectile.knockBack = 0;
             }
-
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -188,9 +184,17 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
         }
-
-
         public override void OnKill(int timeLeft)
         {
 

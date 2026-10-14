@@ -117,7 +117,7 @@ namespace StormDiversMod.Items.Potions
                     if (!target.friendly && target.lifeMax > 5 && !item.GetGlobalItem<FlaskExplosivesItem>().exploded)
                     {
                         target.GetGlobalNPC<NPCEffects>().flaskexplosivetime = 10; //target immune to explosion for 10 frames
-                        Projectile.NewProjectile(Player.GetSource_FromThis(FlaskExplosive), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<FlaskExplosionProj>(), (int)(damageDone / 2), 0, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromThis(FlaskExplosive), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<FlaskExplosionProj>(), (int)(damageDone / 2), 4, Player.whoAmI);
                         item.GetGlobalItem<FlaskExplosivesItem>().exploded = true;
                     }
                 }
@@ -136,7 +136,7 @@ namespace StormDiversMod.Items.Potions
                     if (!target.friendly && target.lifeMax > 5 && proj.type != ModContent.ProjectileType<FlaskExplosionProj>() && !proj.GetGlobalProjectile<FlaskExplosivesProj>().exploded)
                     {
                         target.GetGlobalNPC<NPCEffects>().flaskexplosivetime = 10; //target immune to explosion for 10 frames
-                        Projectile.NewProjectile(Player.GetSource_FromThis(FlaskExplosive), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<FlaskExplosionProj>(), (int)(damageDone / 2), 0, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromThis(FlaskExplosive), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<FlaskExplosionProj>(), (int)(damageDone / 2), 4, Player.whoAmI);
                         proj.GetGlobalProjectile<FlaskExplosivesProj>().exploded = true;
                     }
                 }

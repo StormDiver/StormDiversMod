@@ -213,7 +213,6 @@ namespace StormDiversMod.Projectiles
             //drawOffsetX = 2;
             //drawOriginOffsetY = -10;
         }
-
         public override void AI()
         {
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
@@ -237,7 +236,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 125;
                 Projectile.Center = Projectile.position;
 
-                //Projectile.knockBack = 6;
+                Projectile.knockBack = 0;
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -256,7 +255,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.timeLeft = 3;
             }
             return false;
-
         }
 
         public override void OnKill(int timeLeft)

@@ -2144,6 +2144,15 @@ Mods: {
 				Tooltip: 一次抛三根线
 			}
 
+			FishingRodDerplingGold: {
+				// DisplayName: Golden Derpling Fishing Rod
+				/* Tooltip:
+					'''
+					Casts 3 lines at once
+					'For when 45% power isn't enough'
+					''' */
+			}
+
 			FishingRodLunar: {
 				DisplayName: 天体之杆
 				Tooltip:
@@ -4503,11 +4512,8 @@ Mods: {
 			OilCanProj.DisplayName: 油滴
 			BobberCoral.DisplayName: 珊瑚浮标
 			BobberDerpling.DisplayName: 跳跳兽浮标
+			// BobberDerplingGold.DisplayName: Golden Derpling Bobber
 			BobberLunar.DisplayName: 月球浮标
-			BobberLunarNebula.DisplayName: 星云月球浮标
-			BobberLunarSolar.DisplayName: 太阳月球浮标
-			BobberLunarStardust.DisplayName: 星尘月球浮标
-			BobberLunarVortex.DisplayName: 星旋月球浮标
 			DerpChainProj.DisplayName: 跳跳兽链锯
 			DerpDrillProj.DisplayName: 跳跳兽钻机
 			DerpJackProj.DisplayName: 跳跳兽冲击钻

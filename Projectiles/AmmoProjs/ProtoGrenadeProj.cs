@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
-using Terraria.GameContent;
-using StormDiversMod.Buffs;
-using Microsoft.CodeAnalysis;
 
 
 namespace StormDiversMod.Projectiles.AmmoProjs
@@ -39,6 +39,11 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         }
 
         int shrapnel = 0;
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         {
             shrapnel++;
@@ -71,13 +76,12 @@ namespace StormDiversMod.Projectiles.AmmoProjs
                 Projectile.height = 60;
                 Projectile.Center = Projectile.position;
 
-                Projectile.knockBack = 3f;
+                Projectile.knockBack = 0f;
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
             }
             else
             {
-
                 if (Main.rand.NextBool())
                 {
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1f);
@@ -102,10 +106,19 @@ namespace StormDiversMod.Projectiles.AmmoProjs
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
+            }
+            else if (target.knockBackResist > 0) //custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
             }
         }
 

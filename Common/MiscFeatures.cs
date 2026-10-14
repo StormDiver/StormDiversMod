@@ -338,20 +338,16 @@ namespace StormDiversMod.Common
                     sentrytarget = false;
                 if (wrangler) //extra effects when item is equipped
                 {
-                    if (Main.rand.Next(5) == 0)
-                    {
-                        Vector2 perturbedSpeed = new Vector2(0, -1f).RotatedByRandom(MathHelper.ToRadians(360));
-                        var dust = Dust.NewDustDirect(new Vector2(Player.Center.X - (13 * Player.direction) - 2, Player.Center.Y - (26 * Player.gravDir) - 2), 0, 0, 182, perturbedSpeed.X, perturbedSpeed.Y);
-                        dust.noGravity = true;
-                        dust.scale = 0.8f;
-                    }
-                    Dust dust2;
-                    dust2 = Dust.NewDustPerfect(new Vector2(Player.Center.X - (13 * Player.direction), Player.Center.Y - (26 * Player.gravDir)), 182, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
-                    dust2.noGravity = true;
+                   
                 }
             }
             else
                 sentrytarget = false;
+
+            if (Player.HeldItem.type == ModContent.ItemType<FishingRodLunar>())
+            {
+                Player.accFishingLine = true; //had to do this to make it work
+            }
         }
         int whackcount;
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
@@ -1056,7 +1052,7 @@ namespace StormDiversMod.Common
                         {
                             ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.SilverBulletSparkle, new ParticleOrchestraSettings
                             {
-                                PositionInWorld = new Vector2(projectile.position.X + Main.rand.Next(0, projectile.width), projectile.position.Y + Main.rand.Next(0, projectile.height)),
+                                PositionInWorld = new Vector2(projectile.position.X + Main.rand.Next(0, projectile.width) + (projectile.velocity.X * 6), projectile.position.Y + Main.rand.Next(0, projectile.height) + (projectile.velocity.Y * 6)),
                             }, player.whoAmI);
                         }
                         /*if (player.controlUseItem)

@@ -545,7 +545,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 160;
                 Projectile.Center = Projectile.position;
 
-                Projectile.knockBack = 3f;
+                Projectile.knockBack = 0f;
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
             }
@@ -569,6 +569,19 @@ namespace StormDiversMod.Projectiles
                 }
                 if (Projectile.frame < 4 || Projectile.frame > 5) //frame 4-5 when about to kaboom
                     Projectile.frame = 4;
+            }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = 3 * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
             }
         }
         public override void OnKill(int timeLeft)

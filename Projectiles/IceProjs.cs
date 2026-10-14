@@ -1,16 +1,16 @@
-using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Common;
-using StormDiversMod.Buffs;
-using Terraria.GameContent.Drawing;
-using Terraria.GameContent;
 
 namespace StormDiversMod.Projectiles
 {
@@ -38,10 +38,12 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
 
             Projectile.timeLeft = 180;
-
         }
-
-
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         {
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
@@ -58,12 +60,10 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
-                Projectile.knockBack = 3f;
-
+                Projectile.knockBack = 0;
             }
             else
             {
-
                 if (Main.rand.NextBool())
                 {
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 187, 0f, 0f, 100, default, 1f);
@@ -75,20 +75,27 @@ namespace StormDiversMod.Projectiles
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            
             return true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
             }
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
             if (Main.rand.Next(1) == 0) // the chance
             {
                 target.AddBuff(BuffID.Frostburn, 600);
-
             }
         }
 

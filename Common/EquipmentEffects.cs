@@ -1167,7 +1167,7 @@ namespace StormDiversMod.Common
                         float velocity = 20f;
                         int type = ModContent.ProjectileType<ShroomSetRocketProj>();
                         int damage = (int)Player.GetTotalDamage(DamageClass.Ranged).ApplyTo((int)(Player.HeldItem.damage * 2f));
-                        Projectile.NewProjectile(Player.GetSource_Accessory(ShroomAccessItem), Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 2f, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(ShroomAccessItem), Player.Center, new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * velocity, type, damage, 3f, Player.whoAmI);
 
                         SoundEngine.PlaySound(SoundID.Item92, Player.Center);
                     }

@@ -546,6 +546,11 @@ namespace StormDiversMod.Projectiles
             Projectile.extraUpdates = 1;
         }
         int rotate;
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         {
             rotate += 2;
@@ -619,6 +624,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.position = Projectile.Center;
                 Projectile.width = 60;
                 Projectile.height = 60;
+                Projectile.knockBack = 0;
                 Projectile.Center = Projectile.position;
             }
         }
@@ -637,7 +643,16 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
 
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
             //Projectile.damage = Projectile.damage * 6 / 10;
 
             for (int i = 0; i < 10; i++) //Flame particles

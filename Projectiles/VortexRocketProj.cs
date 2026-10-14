@@ -1,17 +1,17 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
-using Terraria.GameContent;
-using StormDiversMod.Buffs;
-using Mono.Cecil;
-using static Terraria.ModLoader.PlayerDrawLayer;
-using StormDiversMod.Common;
 using static Terraria.ModLoader.ModContent;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace StormDiversMod.Projectiles
 {
@@ -23,14 +23,12 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("Vortex Rocket");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-
         }
 
         public override void SetDefaults()
         {
             Projectile.width = 14;
             Projectile.height = 14;
-
 
             Projectile.light = 0.6f;
             Projectile.friendly = true;
@@ -46,15 +44,17 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
 
-
             Projectile.extraUpdates = 1;
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
-
-
         int dusttime;
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         {
             dusttime++;
@@ -88,12 +88,8 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 150;
                 Projectile.Center = Projectile.position;
 
-
-                Projectile.knockBack = 6f;
-
+                Projectile.knockBack = 0;
             }
-
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -105,10 +101,19 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
+            }
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
             }
         }
 
@@ -193,8 +198,7 @@ namespace StormDiversMod.Projectiles
             {
                 return false;
             }
-        }
-        
+        }   
     }
 
     //________________________________________________________________________________________________________________________________________________________________________________________________________________
@@ -205,14 +209,12 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("Vortex Rocket");
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
-
         }
 
         public override void SetDefaults()
         {
             Projectile.width = 18;
             Projectile.height = 18;
-
 
             Projectile.light = 0.6f;
             Projectile.friendly = true;
@@ -228,15 +230,17 @@ namespace StormDiversMod.Projectiles
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
 
-
             Projectile.extraUpdates = 2;
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
-
-
         int dusttime;
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         {
             dusttime++;
@@ -270,12 +274,8 @@ namespace StormDiversMod.Projectiles
                 Projectile.height = 200;
                 Projectile.Center = Projectile.position;
 
-
-                Projectile.knockBack = 6f;
-
+                Projectile.knockBack = 0;
             }
-
-
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -287,10 +287,19 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
+            }
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
             }
         }
 

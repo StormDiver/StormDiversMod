@@ -36,9 +36,6 @@ namespace StormDiversMod.NPCs
             
             NPC.defense = 25;
             NPC.lifeMax = 1500;
-
-
-          
             NPC.HitSound = SoundID.NPCHit22;
             NPC.DeathSound = SoundID.NPCDeath25;
             NPC.knockBackResist = 0.3f;
@@ -73,10 +70,11 @@ namespace StormDiversMod.NPCs
         }
         public override void AI()
         {
-           
+            if (NPC.ai[0] == 0)
+                NPC.ShowNameOnHover = false;
+            else
+                NPC.ShowNameOnHover = true;
         }
-
-
         public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
@@ -86,10 +84,7 @@ namespace StormDiversMod.NPCs
             }
             for (int i = 0; i < 3; i++)
             {
-                 
                 var dust = Dust.NewDustDirect(new Vector2(NPC.Center.X - 10, NPC.Center.Y - 10), 20, 20, 3);
-               
-
             }
             if (NPC.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
             {
@@ -98,7 +93,6 @@ namespace StormDiversMod.NPCs
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("VineDerpGore3").Type, 1f);
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("VineDerpGore4").Type, 1f);
 
-                
                 for (int i = 0; i < 30; i++)
                 {
                     var dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 3);
@@ -111,6 +105,5 @@ namespace StormDiversMod.NPCs
             npcLoot.Add(ItemDropRule.Common(ItemID.ChlorophyteOre, 1, 10, 16));
             npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Items.Pets.DerplingVine>(), 3, 2));
         }
-       
     }
 }

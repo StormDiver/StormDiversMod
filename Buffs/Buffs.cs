@@ -299,17 +299,11 @@ namespace StormDiversMod.Buffs
             for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
                 if (player.armor[accesstype].type != ModContent.ItemType<GraniteCoreAccess>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
-                {
                     accesstype++; //if not, check next slot
-                }
                 else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<GraniteCoreAccess>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
-                {
                     nodust = true; //if so, hide dust
-                }
                 else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<GraniteCoreAccess>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
-                {
                     nodust = false;
-                }
             }
             accesstype = 3; //reset to slot 3
 
@@ -343,17 +337,11 @@ namespace StormDiversMod.Buffs
             for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
                 if (player.armor[accesstype].type != ModContent.ItemType<GladiatorAccess>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
-                {
                     accesstype++; //if not, check next slot
-                }
                 else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<GladiatorAccess>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
-                {
                     nodust = true; //if so, hide dust
-                }
                 else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<GladiatorAccess>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
-                {
                     nodust = false;
-                }
             }          
             accesstype = 3; //reset to access 3
 
@@ -453,17 +441,11 @@ namespace StormDiversMod.Buffs
             for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
                 if (player.armor[accesstype].type != ModContent.ItemType<SuperMushroom>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
-                {
                     accesstype++; //if not, check next slot
-                }
                 else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
-                {
                     nodust = true; //if so, hide dust
-                }
                 else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
-                {
                     nodust = false;
-                }
             }
             accesstype = 3; //reset to slot 3
 
@@ -495,17 +477,11 @@ namespace StormDiversMod.Buffs
             for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
                 if (player.armor[accesstype].type != ModContent.ItemType<SuperMushroom>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
-                {
                     accesstype++; //if not, check next slot
-                }
                 else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
-                {
                     nodust = true; //if so, hide dust
-                }
                 else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
-                {
                     nodust = false;
-                }
             }
             accesstype = 3; //reset to slot 3
 
@@ -537,17 +513,11 @@ namespace StormDiversMod.Buffs
             for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
                 if (player.armor[accesstype].type != ModContent.ItemType<SuperMushroom>() && player.armor[accesstype].type != ModContent.ItemType<BiomeCore>()) //is the accessory in the slot?
-                {
                     accesstype++; //if not, check next slot
-                }
                 else if (player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if so, is the slot set to be hidden?
-                {
                     nodust = true; //if so, hide dust
-                }
                 else if (!player.hideVisibleAccessory[accesstype] && (player.armor[accesstype].type == ModContent.ItemType<SuperMushroom>() || player.armor[accesstype].type == ModContent.ItemType<BiomeCore>())) //if not show dust
-                {
                     nodust = false;
-                }
             }
             accesstype = 3; //reset to slot 3
 

@@ -17,6 +17,7 @@ using static Humanizer.In;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using Terraria.ModLoader.Default;
+using Terraria.Utilities.Terraria.Utilities;
 
 namespace StormDiversMod.Projectiles
 {
@@ -358,14 +359,12 @@ namespace StormDiversMod.Projectiles
             //DisplayName.SetDefault("bazooka Missile");
             Main.projFrames[Projectile.type] = 1;
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Projectile.type] = true;
-
         }
 
         public override void SetDefaults()
         {
             Projectile.width = 14;
             Projectile.height = 14;
-
 
             Projectile.friendly = true;
 
@@ -378,9 +377,13 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 10;
             Projectile.hide = true;
         }
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
         public override void AI()
         {
-
             var player = Main.player[Projectile.owner];
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             Projectile.ai[1]++;
@@ -425,7 +428,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.Center = Projectile.position;
 
 
-                Projectile.knockBack = 3f;
+                Projectile.knockBack = 0f;//custom knockback takes over
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
 
@@ -449,10 +452,19 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
+            }
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
             }
         }
 

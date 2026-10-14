@@ -1,15 +1,16 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Common;
+using StormDiversMod.Items.Pets;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Items.Pets;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
-using Terraria.Audio;
-using Terraria.GameContent.Creative;
-using Terraria.GameContent;
 
 
 namespace StormDiversMod.Projectiles.Minions
@@ -92,7 +93,13 @@ namespace StormDiversMod.Projectiles.Minions
         }
 		bool grounded;
 		bool jump = false;
-		public override void AI()
+        public override void OnSpawn(IEntitySource source)
+        {
+            Player player = Main.player[Projectile.owner]; //skip the check that prevents it from being still one spawn as the wrnagler breaks it for some reason
+            if (player.GetModPlayer<MiscFeatures>().wrangler)
+                Projectile.ai[0] = 6;
+        }
+        public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
 			// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
@@ -152,18 +159,13 @@ namespace StormDiversMod.Projectiles.Minions
 
 				if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
 				{
-
 					if (Projectile.position.X < other.position.X) Projectile.velocity.X -= overlapVelocity;
 					else Projectile.velocity.X += overlapVelocity;
 					if (!grounded)
 					{
-
-
 						if (Projectile.position.Y < other.position.Y) Projectile.velocity.Y -= overlapVelocity;
 						else Projectile.velocity.Y += overlapVelocity;
-
 					}
-
 				}
 				if (grounded) //Stop moving left or right when in place
 				{
@@ -172,7 +174,6 @@ namespace StormDiversMod.Projectiles.Minions
 						Projectile.velocity.X = 0f;
 					}
 				}
-
 			}
 
 			// Starting search distance
@@ -221,16 +222,14 @@ namespace StormDiversMod.Projectiles.Minions
 				}
 			}
 
-
 			Projectile.friendly = foundTarget;
-
 
 			// Default movement parameters (here for attacking)
 			float speed = 15f;
 			float inertia = 10f;
 			if (Projectile.ai[0] <= 6)
 			{
-				Projectile.ai[0] += 1; //Fix issue where minion would not moveif summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
+				Projectile.ai[0] += 1; //Fix issue where minion would not move if summoned near an enemy, bonus of making it attack enemies as soon as it's summoned
 			}
 			if (foundTarget)
 			{
@@ -248,7 +247,6 @@ namespace StormDiversMod.Projectiles.Minions
 					direction.Normalize();
 					direction *= speed;
 					Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-
 				}
 			}
 			else
@@ -288,7 +286,6 @@ namespace StormDiversMod.Projectiles.Minions
 					{
 						Projectile.velocity.X = (Projectile.velocity.X * (inertia - 1) + vectorToIdlePosition.X) / inertia;
 
-
 						if (Projectile.velocity.X != 0 && !jump && Projectile.velocity.Y == 0) //Start jump
 						{
 							Projectile.velocity.Y = -6;
@@ -309,19 +306,14 @@ namespace StormDiversMod.Projectiles.Minions
 						if (Projectile.ai[1] > 5) //After 5 frames start falling
 						{
 							jump = false;
-
 						}
 						if (Projectile.velocity.Y == 0) //Reset cooldown
 						{
 							Projectile.ai[1] = 0;
 							//Projectile.velocity.X *= 0;
 						}
-
-
 					}
-
 				}
-
 				else if (Projectile.velocity == Vector2.Zero)
 				{
 					// If there is a case where it's not moving at all, give it a little "poke"
@@ -373,7 +365,6 @@ namespace StormDiversMod.Projectiles.Minions
 					{
 						Projectile.frameCounter = 0;
 						Projectile.frame++;
-						
 					}
 					if (Projectile.frame >= 2)
 					{
@@ -390,11 +381,8 @@ namespace StormDiversMod.Projectiles.Minions
                     {
 						Projectile.frame = 3;
                     }
-				
 				}
 			}
-
-	
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

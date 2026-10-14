@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using Terraria;
-using Terraria.ID;
-using Terraria.GameContent.Creative;
-using Terraria.ModLoader;
-using Terraria.DataStructures;
+using StormDiversMod.Common;
 using StormDiversMod.Projectiles.ToolsProjs;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace StormDiversMod.Items.Tools
 {
@@ -59,18 +60,7 @@ namespace StormDiversMod.Items.Tools
         {
             // Change these two values in order to change the origin of where the line is being drawn.
             lineOriginOffset = new Vector2(43, -25);
-
-            // Sets the fishing line's color. Note that this will be overridden by the colored string accessories.
-            if (bobber.ModProjectile is BobberCoral bobberCoral)
-            {
-                // ExampleBobber has custom code to decide on a line color.
-                lineColor = bobberCoral.FishingLineColor;
-            }
-            else
-            {
-                // If the bobber isn't ExampleBobber, a Fishing Bobber accessory is in effect and we use DiscoColor instead.
-                lineColor = Main.DiscoColor;
-            }
+            lineColor = new Color(128, 95, 74);
         }
 
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
@@ -82,7 +72,6 @@ namespace StormDiversMod.Items.Tools
             .AddIngredient(ItemID.Seashell, 2)
             .AddTile(TileID.WorkBenches)
             .Register();
-
         }
     }
 
@@ -96,21 +85,20 @@ namespace StormDiversMod.Items.Tools
 			Item.ResearchUnlockCount = 1;
 		}
 
-		public override void SetDefaults()
-		{			
-			 Item.width = 24;
-			 Item.height = 28;
-			 Item.useStyle = ItemUseStyleID.Swing;
-			 Item.useAnimation = 8;
-			 Item.useTime = 8;
-			 Item.UseSound = SoundID.Item1;
-			Item.value = Item.sellPrice(0, 5, 0, 0);
-			Item.rare = ItemRarityID.Lime;
-			Item.fishingPole = 45; // Sets the poles fishing power
-			Item.shootSpeed = 15f; // Sets the speed in which the bobbers are launched. Wooden Fishing Pole is 9f and Golden Fishing Rod is 17f.
-			Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.BobberDerpling>(); // The Bobber projectile.
-		}
-
+        public override void SetDefaults()
+        {
+            Item.width = 24;
+            Item.height = 28;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useAnimation = 8;
+            Item.useTime = 8;
+            Item.UseSound = SoundID.Item1;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.rare = ItemRarityID.Lime;
+            Item.fishingPole = 45; // Sets the poles fishing power
+            Item.shootSpeed = 15f; // Sets the speed in which the bobbers are launched. Wooden Fishing Pole is 9f and Golden Fishing Rod is 17f.
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.BobberDerpling>(); // The Bobber projectile.
+        }
 		public override void HoldItem(Player player)//Can make the line never break 
 		{
 			//player.accFishingLine = true;
@@ -135,9 +123,9 @@ namespace StormDiversMod.Items.Tools
         {
             // Change these two values in order to change the origin of where the line is being drawn.
             lineOriginOffset = new Vector2(47, -25);
-
+            lineColor = new Color(0, 191, 255);
             // Sets the fishing line's color. Note that this will be overridden by the colored string accessories.
-            if (bobber.ModProjectile is BobberDerpling bobberDerpling)
+            /*if (bobber.ModProjectile is BobberDerpling bobberDerpling)
             {
                 // ExampleBobber has custom code to decide on a line color.
                 lineColor = bobberDerpling.FishingLineColor;
@@ -146,7 +134,7 @@ namespace StormDiversMod.Items.Tools
             {
                 // If the bobber isn't ExampleBobber, a Fishing Bobber accessory is in effect and we use DiscoColor instead.
                 lineColor = Main.DiscoColor;
-            }
+            }*/
         }
         public override void AddRecipes()
 		{
@@ -157,6 +145,65 @@ namespace StormDiversMod.Items.Tools
 		 .Register();
 		}
 	}
+    internal class FishingRodDerplingGold : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Golden Derpling Fishing Rod");
+            //Tooltip.SetDefault("Fires multiple lines at once");
+            //ItemID.Sets.CanFishInLava[Item.type] = true;
+            Item.ResearchUnlockCount = 1;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 24;
+            Item.height = 28;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useAnimation = 8;
+            Item.useTime = 8;
+            Item.UseSound = SoundID.Item1;
+            Item.value = Item.sellPrice(0, 20, 0, 0);
+            Item.rare = ItemRarityID.Yellow;
+            Item.fishingPole = 50; // Sets the poles fishing power
+            Item.shootSpeed = 18f; // Sets the speed in which the bobbers are launched. Wooden Fishing Pole is 9f and Golden Fishing Rod is 17f.
+            Item.shoot = ModContent.ProjectileType<Projectiles.ToolsProjs.BobberDerplingGold>(); // The Bobber projectile.
+        }
+        public override void HoldItem(Player player)//Can make the line never break 
+        {
+            //player.accFishingLine = true;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) //multiple lines
+        {
+            int bobberAmount = 3; // 3 bobbers
+            float spreadAmount = 60f; // how much the different bobbers are spread out.
+
+            for (int index = 0; index < bobberAmount; ++index)
+            {
+                Vector2 bobberSpeed = velocity + new Vector2(Main.rand.NextFloat(-spreadAmount, spreadAmount) * 0.05f, Main.rand.NextFloat(-spreadAmount, spreadAmount) * 0.05f);
+
+                // Generate new bobbers
+                Projectile.NewProjectile(source, position, bobberSpeed, type, 0, 0f, player.whoAmI);
+            }
+            return false;
+        }
+
+        public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor)
+        {
+            // Change these two values in order to change the origin of where the line is being drawn.
+            lineOriginOffset = new Vector2(47, -25);
+            lineColor = new Color(240, 221, 125);
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+         .AddIngredient(ItemID.GoldenFishingRod, 1)
+         .AddIngredient(ModContent.ItemType<FishingRodDerpling>(), 1)
+         .AddTile(TileID.MythrilAnvil)
+         .Register();
+        }
+    }
 
     internal class FishingRodLunar : ModItem
     {
@@ -185,12 +232,12 @@ namespace StormDiversMod.Items.Tools
 
         public override void HoldItem(Player player)//Can make the line never break 
         {
-            player.accFishingLine = true; //doesn't work :pain:
+            player.accFishingLine = true; //doesn't work but Iit does in MiscFeatures.cs
             player.accFishingBobber = true;
             player.accLavaFishing = true;
             player.accTackleBox = true;
         }
-        int bobberai;
+        int bobberai; //cycles through to make each line a different fragment
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) //multiple lines
         {
@@ -204,6 +251,9 @@ namespace StormDiversMod.Items.Tools
                 // Generate new bobbers
                 Projectile.NewProjectile(source, position, bobberSpeed, type, 0, 0f, player.whoAmI, 0, 0, bobberai);
                 bobberai++;
+
+                if (bobberai > 4)//if a mod adds extra lines then restart cycle
+                    bobberai = 0;
             }
 
             bobberai = 0;
@@ -227,14 +277,15 @@ namespace StormDiversMod.Items.Tools
                 else  //Stardust
                     lineColor = new Color(0, 173, 246, 255);
 
-                //lineColor.A = 0;
+                lineColor.A = 0;
+
                 // ExampleBobber has custom code to decide on a line color.
                 //lineColor = bobberLunar.FishingLineColor;
             }
             else
             {
                 // If the bobber isn't ExampleBobber, a Fishing Bobber accessory is in effect and we use DiscoColor instead.
-                lineColor = Main.DiscoColor;
+                lineColor = new Color(0, 238, 161);
             }
         }
 

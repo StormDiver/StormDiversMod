@@ -10,7 +10,6 @@ using Terraria.GameContent.Creative;
 
 namespace StormDiversMod.Items.Weapons
 {
-    
     public class AncientKnives : ModItem
     {
         public override void SetStaticDefaults()
@@ -156,7 +155,7 @@ namespace StormDiversMod.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<AncientStaffProj>();// mod.ProjectileType("AncientStaffProj");
 
-            Item.shootSpeed = 1f;
+            Item.shootSpeed = 1.5f;
             if (ModLoader.HasMod("TRAEProject"))
             {
                 Item.mana = 15;
@@ -180,7 +179,7 @@ namespace StormDiversMod.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), velocity, type, damage, 0, player.whoAmI);
+            int index = Projectile.NewProjectile(source, new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y), velocity, type, damage, knockback, player.whoAmI);
             Main.projectile[index].originalDamage = Item.damage;
 
             return false;

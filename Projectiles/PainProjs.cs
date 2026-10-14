@@ -55,8 +55,10 @@ namespace StormDiversMod.Projectiles
                 //Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                 Main.dust[dustIndex].noGravity = true;
             }
-            base.OnSpawn(source);
+            knockbackamount = Projectile.knockBack * .75f;
+            base.OnSpawn(source);            
         }
+        float knockbackamount;
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
@@ -69,7 +71,6 @@ namespace StormDiversMod.Projectiles
             else
             {
                 Projectile.tileCollide = false;
-
             }
 
             Projectile.ai[1]++;
@@ -77,7 +78,7 @@ namespace StormDiversMod.Projectiles
             //Dust.NewDust(Projectile.Center + Projectile.velocity, Projectile.width, Projectile.height, 175);
             int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 72, Projectile.velocity.X * -0.2f, Projectile.velocity.Y * -0.2f, 0, default, 1f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add mod.DustType("CustomDustName") for your custom dust
             Main.dust[dust].noGravity = true; //this make so the dust has no gravity
-           
+
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 3)
             {
                 Projectile.velocity.X = 0f;
@@ -85,7 +86,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.tileCollide = false;
                 // Set to transparent. This projectile technically lives as  transparent for about 3 frames
                 Projectile.alpha = 255;
-                
+
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 Projectile.position = Projectile.Center;
 
@@ -94,7 +95,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.Center = Projectile.position;
 
 
-                Projectile.knockBack = 6;
+                Projectile.knockBack = 0;
             }
             if (Projectile.localAI[0] == 0f)
             {
@@ -128,12 +129,10 @@ namespace StormDiversMod.Projectiles
                 Projectile.velocity = (10f * Projectile.velocity + move) / 10f;
                 AdjustMagnitude(ref Projectile.velocity);
             }
-        
-    }
+        }
 
         private void AdjustMagnitude(ref Vector2 vector)
         {
-
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
             if (magnitude > 15f)
             {
@@ -147,7 +146,16 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
-        
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -157,7 +165,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.timeLeft = 3;
             }
             return false;
-
         }
 
         public override void OnKill(int timeLeft)
@@ -247,6 +254,8 @@ namespace StormDiversMod.Projectiles
             else
                 return true;
         }
+        float knockbackamount;
+
         public override void OnSpawn(IEntitySource source)
         {
             for (int i = 0; i < 10; i++)
@@ -254,12 +263,7 @@ namespace StormDiversMod.Projectiles
                 int dustIndex = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, 115, 0f, 0f, 50, default, 1.5f);
                 Main.dust[dustIndex].noGravity = true;
             }
-
-            /*ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.Keybrand, new ParticleOrchestraSettings
-            {
-                PositionInWorld = new Vector2(Projectile.Center.X, Projectile.Center.Y),
-
-            }, Main.myPlayer);*/
+            knockbackamount = Projectile.knockBack * .75f;
             base.OnSpawn(source);
         }
         public override void AI()
@@ -300,7 +304,7 @@ namespace StormDiversMod.Projectiles
                 Projectile.Center = Projectile.position;
 
 
-                Projectile.knockBack = 6;
+                Projectile.knockBack = 0;
             }
             if (Projectile.ai[2] == 0 || Projectile.timeLeft <= 240)
             {
@@ -347,7 +351,6 @@ namespace StormDiversMod.Projectiles
             {
                 vector *= 15f / magnitude;
             }
-
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -355,9 +358,17 @@ namespace StormDiversMod.Projectiles
             {
                 Projectile.timeLeft = 3;
             }
+            else if (target.knockBackResist > 0)//custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
 
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
         }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (Projectile.ai[2] == 1 && Projectile.timeLeft > 240)
@@ -470,7 +481,7 @@ namespace StormDiversMod.Projectiles
 
             for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
             {
-                if (player.armor[accesstype].type != ModContent.ItemType<DeathCore>()) //is the celestial barrier in the slot?
+                if (player.armor[accesstype].type != ModContent.ItemType<DeathCore>()) //is the accessory in the slot?
                 {
                     accesstype++; //if not, check next slot
                 }

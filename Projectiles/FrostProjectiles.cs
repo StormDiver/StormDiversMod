@@ -21,7 +21,6 @@ using static Terraria.ModLoader.ModContent;
 
 namespace StormDiversMod.Projectiles
 {
-
     public class FrostGrenadeProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -34,7 +33,6 @@ namespace StormDiversMod.Projectiles
             Projectile.width = 14;
             Projectile.height = 14;
 
-
             Projectile.light = 0.1f;
             Projectile.friendly = true;
 
@@ -45,9 +43,12 @@ namespace StormDiversMod.Projectiles
             Projectile.DamageType = DamageClass.Ranged;
 
             Projectile.timeLeft = 200;
-
         }
-
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * .75f;
+        }
 
         public override void AI()
         {
@@ -65,26 +66,25 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.velocity.X = 0;
                 Projectile.velocity.Y = 0;
-                Projectile.knockBack = 3f;
-                
+                Projectile.knockBack = 0;
+
             }
             else
             {
-                
                 if (Main.rand.NextBool())
                 {
                     int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 100, default, 1f);
                     Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
-                    
+
                     dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 135, 0f, 0f, 100, default, 1f);
                     Main.dust[dustIndex].scale = 1f + (float)Main.rand.Next(5) * 0.1f;
                     Main.dust[dustIndex].noGravity = true;
-                   
+
                 }
             }
-            }
+        }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (Projectile.timeLeft > 3)
@@ -95,20 +95,24 @@ namespace StormDiversMod.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            
-
             if (Projectile.timeLeft > 3)
             {
                 Projectile.timeLeft = 3;
             }
+            else if (target.knockBackResist > 0) //custom knockback
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
             var player = Main.player[Projectile.owner];
             if (Main.rand.Next(1) == 0) // the chance
             {
-               
-                    target.AddBuff(BuffID.Frostburn2, 300);
-
-                
-
+                target.AddBuff(BuffID.Frostburn2, 300);
             }
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -140,12 +144,8 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
                 dust.scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
                 dust.fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-
             }
-          
-
         }
-
     }
     //___________________________________________________________________________________________________________________________________
     public class FrostSpinProj : ModProjectile
@@ -158,7 +158,6 @@ namespace StormDiversMod.Projectiles
         }
         public override void SetDefaults()
         {
-
             Projectile.width = 126;
             Projectile.height = 126;
             Projectile.friendly = true;
@@ -172,22 +171,14 @@ namespace StormDiversMod.Projectiles
             Projectile.localNPCHitCooldown = 26;
             Projectile.timeLeft = 9999999;
         }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            var player = Main.player[Projectile.owner];
-            if (Main.rand.Next(1) == 0) // the chance
-            {
-                target.AddBuff(BuffID.Frostburn2, 300);
-            }
-        }
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            if (info.PvP)
-                target.AddBuff(BuffID.Frostburn2, 300);
-        }
         bool parry;
         int parrytime = 120; //count down timer
         int parrycooldown = 120; //the cooldown amount
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack * 0.75f;
+        }
 
         public override void AI()
         {
@@ -253,7 +244,6 @@ namespace StormDiversMod.Projectiles
             Projectile.Center = player.MountedCenter;
             Projectile.position.X += player.width / 2 * player.direction;
             Projectile.position.Y += player.height / 10;
-
             Projectile.spriteDirection = player.direction;
 
             if (parry)
@@ -265,7 +255,7 @@ namespace StormDiversMod.Projectiles
             player.itemTime = 2;
             player.itemAnimation = 2;
             player.itemRotation = Projectile.rotation;
-
+            Projectile.knockBack = 0;
 
             //-------------------------------------------------------------Sound-------------------------------------------------------
             if (!parry)
@@ -287,6 +277,30 @@ namespace StormDiversMod.Projectiles
                 }
                 Projectile.soundDelay = 30;
             }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            var player = Main.player[Projectile.owner];
+            if (Main.rand.Next(1) == 0) // the chance
+            {
+                target.AddBuff(BuffID.Frostburn2, 300);
+            }
+            //custom knockback
+            if (target.knockBackResist > 0)
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchvelocity.Y;
+            }
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (info.PvP)
+                target.AddBuff(BuffID.Frostburn2, 300);
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox) //expands the hurt box, but hitbox size remains the same
         {

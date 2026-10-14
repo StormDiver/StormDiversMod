@@ -168,6 +168,7 @@ namespace StormDiversMod.Items.Weapons
             if (choice == 0)
             {
                 type = ModContent.ProjectileType<QuackSolarProj>();
+                knockback *= 3;
             }
             else if (choice == 1)
             {

@@ -1,15 +1,16 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Common;
+using StormDiversMod.Items.Pets;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using StormDiversMod.Items.Pets;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 
 
 namespace StormDiversMod.Projectiles.Minions
@@ -37,8 +38,6 @@ namespace StormDiversMod.Projectiles.Minions
             }
         }
     }
-    
-
     public class SpaceRockMinionProj : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -84,10 +83,14 @@ namespace StormDiversMod.Projectiles.Minions
         }
 
         Vector2 predictivedash;
-
+        public override void OnSpawn(IEntitySource source)
+        {
+            Player player = Main.player[Projectile.owner]; //skip the check that prevents it from being still one spawn as the wrnagler breaks it for some reason
+            if (player.GetModPlayer<MiscFeatures>().wrangler)
+                Projectile.ai[0] = 6;
+        }
         public override void AI()
         {
-
             Player player = Main.player[Projectile.owner];
             // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
             if (player.dead || !player.active)
@@ -106,7 +109,6 @@ namespace StormDiversMod.Projectiles.Minions
             // The index is Projectile.minionPos
             float minionPositionOffsetX = (25 + Projectile.minionPos * 20) * -player.direction;
             idlePosition.X += minionPositionOffsetX; // Go behind the player
-
 
             // Teleport to player if distance is too big
             Vector2 vectorToIdlePosition = idlePosition - Projectile.Center;
@@ -188,7 +190,6 @@ namespace StormDiversMod.Projectiles.Minions
                     }
                 }
             }
-
             Projectile.friendly = foundTarget;
 
             // Default movement parameters (here for attacking)
@@ -202,7 +203,6 @@ namespace StormDiversMod.Projectiles.Minions
             {
                 //Projectile.extraUpdates = 1;
                 // Minion has a target: attack (here, fly towards the enemy)
-
 
                 if (Vector2.Distance(Projectile.Center, targetCenter) > 150f || Projectile.ai[0] <= 5)
                 {
@@ -290,7 +290,6 @@ namespace StormDiversMod.Projectiles.Minions
             }
             if (!Main.dedServ)
             {
-
                 if (Main.rand.Next(dustspeed) == 0)     //this defines how many dust to spawn
                 {
                     for (int i = 0; i < 2; i++)
@@ -305,19 +304,15 @@ namespace StormDiversMod.Projectiles.Minions
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
             if (!Main.dedServ)
             {
                 for (int i = 0; i < 20; i++)
                 {
-
                     var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 6, 0, 0, 130, default, 1.5f);
                     dust.noGravity = true;
                 }
-                
             }
         }
-
         public override void OnKill(int timeLeft)
         {
             if (!Main.dedServ)
@@ -352,7 +347,5 @@ namespace StormDiversMod.Projectiles.Minions
             }
             return true;
         }
-
     }
-    
 }

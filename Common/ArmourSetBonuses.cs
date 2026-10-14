@@ -306,7 +306,7 @@ namespace StormDiversMod.Common
                         float scale = 1f - (Main.rand.NextFloat() * .1f);
                         perturbedSpeed = perturbedSpeed * scale;
 
-                        Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Santank), new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6 * Player.gravDir), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<SantankMissleProj>(), santankdamage, 1f, Player.whoAmI);
+                        Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Santank), new Vector2(Player.Center.X - (15 * Player.direction), Player.Center.Y - 6 * Player.gravDir), new Vector2(perturbedSpeed.X, perturbedSpeed.Y * Player.gravDir), ModContent.ProjectileType<SantankMissleProj>(), santankdamage, 3f, Player.whoAmI);
                     }
                 }
 
@@ -1081,7 +1081,7 @@ namespace StormDiversMod.Common
                 {
                     target.GetGlobalNPC<NPCEffects>().aridimmunetime = 10; //target immune to explosion for 10 frames
 
-                    Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Arid), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damageDone), 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Arid), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damageDone), 5, Player.whoAmI);
                 }
             }
         }
@@ -1189,7 +1189,7 @@ namespace StormDiversMod.Common
                 {
                     target.GetGlobalNPC<NPCEffects>().aridimmunetime = 10; //target immune to explosion for 10 frames
 
-                    Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Arid), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damageDone), 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(SetBonus_Arid), new Vector2(target.Center.X, target.Center.Y), new Vector2(0, 0), ModContent.ProjectileType<AncientArmourProj>(), (int)(damageDone), 5, Player.whoAmI);
                 }
             }
             if (LizardSet)

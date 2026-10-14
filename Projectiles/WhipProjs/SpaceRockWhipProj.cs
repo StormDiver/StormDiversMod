@@ -238,6 +238,7 @@ namespace StormDiversMod.Projectiles.WhipProjs
                 Projectile.width = 60;
                 Projectile.height = 60;
                 Projectile.Center = Projectile.position;
+				Projectile.knockBack = 0;
             }
         }
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -247,7 +248,6 @@ namespace StormDiversMod.Projectiles.WhipProjs
                 Projectile.timeLeft = 3;
             }
         }
-
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
             if (Projectile.timeLeft > 3)

@@ -2,6 +2,7 @@
 using Mono.Cecil;
 using SteelSeries.GameSense.DeviceZone;
 using StormDiversMod.Common;
+using StormDiversMod.Items.Accessory;
 using StormDiversMod.NPCs;
 using StormDiversMod.Projectiles.Minions;
 using StormDiversMod.Projectiles.SentryProjs;
@@ -48,10 +49,36 @@ namespace StormDiversMod.Items.Tools
             Item.DamageType = DamageClass.Summon;
             Item.accessory = true;
         }
+        int accesstype = 3; //start at slot 3 (Accessory 1)
+        bool displaydust = false;
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<MiscFeatures>().wrangler = true;
             player.maxTurrets += 1;
+
+            for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8)
+            {
+                if (player.armor[accesstype].type != ModContent.ItemType<Wrangler>()) //is the accessory in the slot?
+                    accesstype++; //if not, check next slot
+                else if (player.hideVisibleAccessory[accesstype] && player.armor[accesstype].type == ModContent.ItemType<Wrangler>()) //if so, is the slot set to be hidden?
+                    displaydust = false;
+                else if (!player.hideVisibleAccessory[accesstype] && player.armor[accesstype].type == ModContent.ItemType<Wrangler>()) //if not show dust
+                    displaydust = true;
+            }
+            accesstype = 3; //reset to slot 3
+            if (displaydust)
+            {
+                if (Main.rand.Next(5) == 0)
+                {
+                    Vector2 perturbedSpeed = new Vector2(0, -1f).RotatedByRandom(MathHelper.ToRadians(360));
+                    var dust = Dust.NewDustDirect(new Vector2(player.Center.X - (13 * player.direction) - 2, player.Center.Y - (26 * player.gravDir) - 2), 0, 0, 182, perturbedSpeed.X, perturbedSpeed.Y);
+                    dust.noGravity = true;
+                    dust.scale = 0.8f;
+                }
+                Dust dust2;
+                dust2 = Dust.NewDustPerfect(new Vector2(player.Center.X - (13 * player.direction), player.Center.Y - (26 * player.gravDir)), 182, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+                dust2.noGravity = true;
+            }
         }
         public override bool CanUseItem(Player player) => true;
 

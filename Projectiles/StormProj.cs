@@ -7,6 +7,7 @@ using System;
 using System.Security.Policy;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -127,7 +128,7 @@ namespace StormDiversMod.Projectiles
 
                 for (int i = 0; i < 7; i++) //Go through all 7 accessory slots (slot 3 - 8) (only hide in passive mode)
                 {
-                    if (player.armor[accesstype].type != ModContent.ItemType<StormCoil>()) //is the celestial barrier in the slot?
+                    if (player.armor[accesstype].type != ModContent.ItemType<StormCoil>()) //is the accessory in the slot?
                     {
                         accesstype++; //if not, check next slot
                     }
@@ -556,7 +557,7 @@ namespace StormDiversMod.Projectiles
 				
 				//Invisible expanding projectile deals damage
 				int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
-						ModContent.ProjectileType<StormExplosionProj>(), Projectile.damage, .5f, Projectile.owner, extraTime); //add 50 onto the timer for rocket I, 0 for rocket III, and -50 for Mini nukes
+						ModContent.ProjectileType<StormExplosionProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner, extraTime); //add 50 onto the timer for rocket I, 0 for rocket III, and -50 for Mini nukes
 
 				Main.projectile[projID2].extraUpdates = 2;
 				Main.projectile[projID2].DamageType = DamageClass.Ranged;
@@ -623,7 +624,6 @@ namespace StormDiversMod.Projectiles
 			Projectile.localNPCHitCooldown = 60;
 
 		}
-
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			if (Projectile.localAI[1] < 1f)
@@ -634,7 +634,6 @@ namespace StormDiversMod.Projectiles
 			}
 			return false;
 		}
-
 		public override bool? Colliding(Rectangle myRect, Rectangle targetRect)
 		{
 			for (int i = 0; i < Projectile.oldPos.Length && (Projectile.oldPos[i].X != 0f || Projectile.oldPos[i].Y != 0f); i++)
@@ -648,11 +647,8 @@ namespace StormDiversMod.Projectiles
 			}
 			return false;
 		}
-
-
 		public override bool PreDraw(ref Color lightColor)
 		{
-
 			Color color = Lighting.GetColor((int)((double)Projectile.position.X + (double)Projectile.width * 0.5) / 16, (int)(((double)Projectile.position.Y + (double)Projectile.height * 0.5) / 16.0));
 			Vector2 end = Projectile.position + new Vector2(Projectile.width, Projectile.height) / 2f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
 			Texture2D tex = TextureAssets.Projectile[Projectile.type].Value;
@@ -850,11 +846,15 @@ namespace StormDiversMod.Projectiles
 			Projectile.knockBack = 0;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 15;
-
 		}
-
-		public override void AI()
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack;
+        }
+        public override void AI()
 		{
+			Projectile.knockBack = 0;
 			Projectile.velocity.X = 0;
 			Projectile.velocity.Y = 0;
 			//increases size and keeps it in place
@@ -869,10 +869,16 @@ namespace StormDiversMod.Projectiles
                 Projectile.Kill();
             }
 		}
-	
+
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			
+			float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+			float npclaunchspeed = knockbackamount * target.knockBackResist;
+			Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+			target.velocity.X = -npclaunchvelocity.X;
+			target.velocity.Y = -npclaunchspeed / 2;
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{

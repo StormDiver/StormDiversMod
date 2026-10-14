@@ -84,7 +84,7 @@ namespace StormDiversMod.Projectiles
             }
             if (Projectile.timeLeft <= 20)
             {
-                Projectile.knockBack = 6f;
+                Projectile.knockBack = 0;
             }
         }
     

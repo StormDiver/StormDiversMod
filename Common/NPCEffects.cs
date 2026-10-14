@@ -1194,7 +1194,7 @@ namespace StormDiversMod.Common
 
                     if (player.HasMinionAttackTargetNPC && npc == Main.npc[player.MinionAttackTargetNPC]) //summon projectile
                     {
-                        if (spacerockwhipcooldown >= 25)
+                        if (spacerockwhipcooldown >= 30)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X + 200, npc.Center.Y - 300), new Vector2(-15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);
                             Projectile.NewProjectile(npc.GetSource_FromAI(), new Vector2(npc.Center.X - 200, npc.Center.Y - 300), new Vector2(15, 23f), ModContent.ProjectileType<Projectiles.WhipProjs.SpaceRockWhipProj2>(), 60, 0, Main.myPlayer);

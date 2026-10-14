@@ -28,7 +28,6 @@ namespace StormDiversMod.Items.Accessory
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-           
             if (player.statLife >= player.statLifeMax2 * 0.66f)
             {
                 player.AddBuff(ModContent.BuffType<Buffs.GladiatorAccessBuff>(), 2);

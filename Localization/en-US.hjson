@@ -2148,11 +2148,20 @@ Mods: {
 				Tooltip: Casts 3 lines at once
 			}
 
+			FishingRodDerplingGold: {
+				DisplayName: Golden Derpling Fishing Rod
+				Tooltip:
+					'''
+					Casts 3 lines at once
+					'For when 45% power isn't enough'
+					'''
+			}
+
 			FishingRodLunar: {
 				DisplayName: Celestial Pole
 				Tooltip:
 					'''
-					Casts 4 lines at once
+					Casts 4 unbreakable lines at once
 					Allows fishing in lava
 					'''
 			}
@@ -3025,7 +3034,7 @@ Mods: {
 				Tooltip:
 					'''
 					Summons a floating Stardust Portal that fires piercing projectiles at nearby enemies in a burst of 5
-					Each projectiles in a burst can target a different enemy
+					Each projectile in a burst can target a different enemy
 					Right click to target a specific enemy
 					'''
 			}
@@ -4512,11 +4521,8 @@ Mods: {
 			OilCanProj.DisplayName: Oil Blob
 			BobberCoral.DisplayName: Coral Bobber
 			BobberDerpling.DisplayName: Derpling Bobber
+			BobberDerplingGold.DisplayName: Golden Derpling Bobber
 			BobberLunar.DisplayName: Lunar Bobber
-			BobberLunarNebula.DisplayName: Bobber Lunar Nebula
-			BobberLunarSolar.DisplayName: Bobber Lunar Solar
-			BobberLunarStardust.DisplayName: Bobber Lunar Stardust
-			BobberLunarVortex.DisplayName: Bobber Lunar Vortex
 			DerpChainProj.DisplayName: Derpling Chainsaw
 			DerpDrillProj.DisplayName: Derpling Drill
 			DerpJackProj.DisplayName: Derpling Jackhammer

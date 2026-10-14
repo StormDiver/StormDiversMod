@@ -1,14 +1,15 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StormDiversMod.Buffs;
+using StormDiversMod.Common;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using StormDiversMod.Common;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
-using Terraria.GameContent;
-using StormDiversMod.Buffs;
 
 namespace StormDiversMod.Projectiles
 {
@@ -194,6 +195,7 @@ namespace StormDiversMod.Projectiles
 
                 Projectile.width = 80;
                 Projectile.height = 80;
+                Projectile.knockBack = 0; //no knockback
                 Projectile.Center = Projectile.position;
             }   
         }
