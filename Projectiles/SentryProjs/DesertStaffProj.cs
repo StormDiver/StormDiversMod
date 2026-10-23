@@ -5,6 +5,7 @@ using StormDiversMod.NPCs;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -198,15 +199,6 @@ namespace StormDiversMod.Projectiles.SentryProjs
                 animate = false;
             }
         }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
-        }
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            if (info.PvP)
-                target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 300);
-        }
         public override void OnKill(int timeLeft)
         {
             //Main.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 45);
@@ -333,6 +325,11 @@ namespace StormDiversMod.Projectiles.SentryProjs
             Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
         }
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack;
+        }
         public override void AI()
         {
             Projectile.velocity.X = 0;
@@ -365,6 +362,16 @@ namespace StormDiversMod.Projectiles.SentryProjs
         {
             target.AddBuff(ModContent.BuffType<AridSandDebuff>(), 180);       
             Projectile.damage = (Projectile.damage * 20) / 19;
+            if (target.knockBackResist > 0)
+            {
+                float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+                float npclaunchspeed = knockbackamount * target.knockBackResist;
+                Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+                target.velocity.X = -npclaunchvelocity.X;
+                target.velocity.Y = -npclaunchspeed / 2;
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

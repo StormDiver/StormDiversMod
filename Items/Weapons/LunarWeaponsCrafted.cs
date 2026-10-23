@@ -144,6 +144,29 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(-8, 0);
         }
+        Item ammotype;
+        int destroytiles = 0;
+        int explosionsize = 0;
+        public override void UpdateInventory(Player player)
+        {
+            //Have to place here otherwise it reads the next rocket
+            ammotype = player.ChooseAmmo(player.HeldItem);
+            if (ammotype != null)
+            {
+                if (ammotype.type is ItemID.RocketII or ItemID.RocketIV or ItemID.ClusterRocketII or ItemID.MiniNukeII)
+                    destroytiles = 1;
+                else
+                    destroytiles = 0;
+                if (ammotype.type is ItemID.RocketII)
+                    explosionsize = 0;
+                else if (ammotype.type is ItemID.RocketIV)
+                    explosionsize = 1;
+                else if (ammotype.type is ItemID.ClusterRocketII or ItemID.MiniNukeII)
+                    explosionsize = 2;
+                else 
+                    explosionsize = 0;
+            }
+        }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -159,10 +182,9 @@ namespace StormDiversMod.Items.Weapons
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15));
                 float scale = 1f - (Main.rand.NextFloat() * .2f);
                 perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj>(), damage, knockback, player.whoAmI);
-
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.VortexRocketProj>(), damage, knockback, player.whoAmI, 0, destroytiles, explosionsize);
             }
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X * 1f, velocity.Y) * 1f, ModContent.ProjectileType<Projectiles.VortexRocketProj2>(), (int)(damage * 1.5f), knockback, player.whoAmI);
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 3), new Vector2(velocity.X * 1f, velocity.Y) * 1f, ModContent.ProjectileType<Projectiles.VortexRocketProj2>(), (int)(damage * 1.5f), knockback, player.whoAmI, 0, destroytiles, explosionsize);
 
             SoundEngine.PlaySound(SoundID.Item92, player.Center);
 

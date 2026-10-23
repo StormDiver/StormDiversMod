@@ -131,8 +131,25 @@ namespace StormDiversMod.Items.Weapons
         {
             return new Vector2(0, 0);
         }
-        int aiTime = 0;
-
+       
+        Item ammotype;
+        int explosionsize = 0;
+        public override void UpdateInventory(Player player)
+        {
+            //Have to place here otherwise it reads the next rocket
+            ammotype = player.ChooseAmmo(player.HeldItem);
+            if (ammotype != null)
+            {
+                if (ammotype.type is ItemID.RocketI or ItemID.RocketII or ItemID.WetRocket or ItemID.LavaRocket or ItemID.HoneyRocket or ItemID.DryRocket)
+                    explosionsize = 0;
+                else if (ammotype.type is ItemID.RocketIII or ItemID.RocketIV)
+                    explosionsize = 1;
+                else if (ammotype.type is ItemID.ClusterRocketI or ItemID.ClusterRocketII or ItemID.MiniNukeI or ItemID.MiniNukeII)
+                    explosionsize = 2;
+                else
+                    explosionsize = 0;
+            }
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 35f;
@@ -142,20 +159,8 @@ namespace StormDiversMod.Items.Weapons
             }
 
             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(3));
-            if (type == ProjectileID.RocketI || type == ProjectileID.RocketII)//ai 0
-            {
-                aiTime = 0;
-            }
-            else if (type == ProjectileID.RocketIII || type == ProjectileID.RocketIV)//ai 1
-            {
-                aiTime = 1;
-            }
-            else if (type == ProjectileID.MiniNukeGrenadeI || type == ProjectileID.MiniNukeGrenadeII || type == ProjectileID.ClusterRocketI || type == ProjectileID.ClusterRocketII) //ai 2 (Doesn't work)               
-            {
-                aiTime = 2;
-            }
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.StormGrenadeProj>(), damage, knockback, player.whoAmI, 0, aiTime);
-
+           
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<Projectiles.StormGrenadeProj>(), damage, knockback, player.whoAmI, 0, explosionsize);
 
             return false;
         }

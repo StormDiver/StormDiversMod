@@ -157,15 +157,21 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
                 dust.scale = 1f;
             }*/
+            if (Projectile.owner == Main.myPlayer && Projectile.ai[1] == 1)
+            {                                                   // Bomb: 4, Dynamite: 7, Explosives & TNT Barrel: 10
+                int explosionRadius = 3 + (int)Projectile.ai[2]; //Add extra radius for larger projectiles (3-5)
+                int minTileX = (int)(Projectile.Center.X / 16f - explosionRadius);
+                int maxTileX = (int)(Projectile.Center.X / 16f + explosionRadius);
+                int minTileY = (int)(Projectile.Center.Y / 16f - explosionRadius);
+                int maxTileY = (int)(Projectile.Center.Y / 16f + explosionRadius);
 
+                // Ensure that all tile coordinates are within the world bounds
+                Utils.ClampWithinWorld(ref minTileX, ref minTileY, ref maxTileX, ref maxTileY);
 
-            Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
-            Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-            Projectile.width = 16;
-            Projectile.height = 16;
-            Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-            Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
-
+                // These 2 methods handle actually mining the tiles and walls while honoring tile explosion conditions
+                //bool explodeWalls = Projectile.ShouldWallExplode(Projectile.Center, explosionRadius, minTileX, maxTileX, minTileY, maxTileY); //only if you want explosions from the edge of walls
+                Projectile.ExplodeTiles(Projectile.Center, explosionRadius, minTileX, maxTileX, minTileY, maxTileY, true);
+            }
         }
         public override void PostDraw(Color drawColor)
         {
@@ -240,7 +246,9 @@ namespace StormDiversMod.Projectiles
         public override void OnSpawn(IEntitySource source)
         {
             knockbackamount = Projectile.knockBack * .75f;
+            //Main.NewText("Size is: " + Projectile.ai[2] + ", Can explode: " + Projectile.ai[1], Color.Green);
         }
+
         public override void AI()
         {
             dusttime++;
@@ -273,7 +281,6 @@ namespace StormDiversMod.Projectiles
                 Projectile.width = 200;
                 Projectile.height = 200;
                 Projectile.Center = Projectile.position;
-
                 Projectile.knockBack = 0;
             }
         }
@@ -302,7 +309,6 @@ namespace StormDiversMod.Projectiles
                 target.velocity.Y = -npclaunchspeed / 2;
             }
         }
-
         public override void OnKill(int timeLeft)
         {
             //Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
@@ -333,14 +339,22 @@ namespace StormDiversMod.Projectiles
                 dust.noGravity = true;
                 dust.scale = 1.5f;
             }
- 
-            Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
-            Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
-            Projectile.width = 16;
-            Projectile.height = 16;
-            Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
-            Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
+            if (Projectile.owner == Main.myPlayer && Projectile.ai[1] == 1)
+            {
+                int explosionRadius = 5 + (int)Projectile.ai[2]; // (5-7) Bomb: 4, Dynamite: 7, Explosives & TNT Barrel: 10
+                int minTileX = (int)(Projectile.Center.X / 16f - explosionRadius);
+                int maxTileX = (int)(Projectile.Center.X / 16f + explosionRadius);
+                int minTileY = (int)(Projectile.Center.Y / 16f - explosionRadius);
+                int maxTileY = (int)(Projectile.Center.Y / 16f + explosionRadius);
+
+                // Ensure that all tile coordinates are within the world bounds
+                Utils.ClampWithinWorld(ref minTileX, ref minTileY, ref maxTileX, ref maxTileY);
+
+                // These 2 methods handle actually mining the tiles and walls while honoring tile explosion conditions
+                //bool explodeWalls = Projectile.ShouldWallExplode(Projectile.Center, explosionRadius, minTileX, maxTileX, minTileY, maxTileY); //only if you want explosions from the edge of walls
+                Projectile.ExplodeTiles(Projectile.Center, explosionRadius, minTileX, maxTileX, minTileY, maxTileY, true);
+            }
         }
         public override void PostDraw(Color drawColor)
         {
@@ -375,5 +389,4 @@ namespace StormDiversMod.Projectiles
             }
         }
     }
-    
 }

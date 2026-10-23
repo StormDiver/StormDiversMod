@@ -2793,7 +2793,7 @@ Mods: {
 				DisplayName: Frozen Polestar
 				Tooltip:
 					'''
-					Spins around and knocks enemies in the direction you're facing
+					Spins around and knocks enemies away
 					Inflicts Frostbite on enemies
 					Right Click while spinning to reflect sparkling projectiles, has a 2 second cooldown between uses
 					'''
@@ -3015,7 +3015,7 @@ Mods: {
 				DisplayName: Blazing Star
 				Tooltip:
 					'''
-					Spins around with the force of a star, knocking enemies in the direction you're facing
+					Spins around with the force of a star, knocking enemies away
 					Right Click while spinning to reflect sparkling projectiles, has a 1 second cooldown between uses
 					'''
 			}
@@ -3564,7 +3564,7 @@ Mods: {
 				DisplayName: Nine Lives
 				Tooltip:
 					'''
-					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
+					Left Click to use as a spinning weapon, knocking enemies away
 					Right Click to throw both blades in succession
 					Right Click while spinning to reflect sparkling projectiles, has a 2.5 second cooldown between uses
 					Receives extra bonuses from the Reaper's List
@@ -3576,7 +3576,7 @@ Mods: {
 				DisplayName: The Last Chance
 				Tooltip:
 					'''
-					Left Click to use as a spinning weapon, knocking enemies in the direction you're facing
+					Left Click to use as a spinning weapon, knocking enemies away
 					Right Click to throw both blades in succession, 2 sets can be thrown out at once
 					Right Click while spinning to reflect sparkling projectiles, has a 1.5 second cooldown between uses
 					Receives extra bonuses from the Reaper's List

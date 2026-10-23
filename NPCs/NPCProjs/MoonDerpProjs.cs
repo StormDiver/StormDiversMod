@@ -145,6 +145,7 @@ namespace StormDiversMod.NPCs.NPCProjs
                         float projspeed = 9f;
                         Vector2 velocity = Vector2.Normalize(new Vector2(target.Center.X, target.Center.Y) - new Vector2(Projectile.Center.X, Projectile.Center.Y)) * projspeed;
                         //Set the velocities to the shoot values
+                        if (Projectile.position.Y < (target.position.Y - 100))
                         Projectile.velocity.X = velocity.X;
                         if (Projectile.velocity.Y < 6)
                         {

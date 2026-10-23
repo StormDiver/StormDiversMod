@@ -104,7 +104,7 @@ namespace StormDiversMod.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            //DisplayName.SetDefault("Venom Sludge");
+            //DisplayName.SetDefault("Sludge");
             Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
@@ -114,7 +114,7 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 2;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.timeLeft = 360;
+            Projectile.timeLeft = 480;
             Projectile.aiStyle = 2;
             Projectile.ignoreWater = true;
             DrawOffsetX = 0;
@@ -319,7 +319,7 @@ namespace StormDiversMod.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 2;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.timeLeft = 360;
+            Projectile.timeLeft = 480;
             Projectile.aiStyle = 2;
             Projectile.ignoreWater = true;
             DrawOffsetX = 0;

@@ -18,6 +18,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using Terraria.ModLoader.Default;
 using Terraria.Utilities.Terraria.Utilities;
+using JetBrains.Annotations;
 
 namespace StormDiversMod.Projectiles
 {
@@ -53,10 +54,11 @@ namespace StormDiversMod.Projectiles
         int chargetime = 0; //15 frames before weapon actually fires
         int rocketcharge = 0; 
         float sound = -0.6f;
-        //Item ammotype; //custom ammo
+        Item ammotype; //Get ammo used
         //int shoottype; //
         bool released;
         int firetime;
+        float tiledestory; //ai 2, 0 for no, 1 for yes
 
         float extradmg = 1;
         public override void OnSpawn(IEntitySource source)
@@ -167,34 +169,40 @@ namespace StormDiversMod.Projectiles
 
                 if (firetime >= player.HeldItem.useTime / 3) //15 / 3 = 5
                 {
-                    //For custom ammo
-                    /*if (ammotype.type == ItemID.RocketI)
-                        shoottype = ProjectileID.RocketI;
-                    else if (ammotype.type == ItemID.RocketII)
-                        shoottype = ProjectileID.RocketII;
-                    else if (ammotype.type == ItemID.RocketIII)
-                        shoottype = ProjectileID.RocketIII;
-                    else if (ammotype.type == ItemID.RocketIV)
-                        shoottype = ProjectileID.RocketIV;
-                    else if (ammotype.type == ItemID.ClusterRocketI)
-                        shoottype = ProjectileID.ClusterRocketI;
-                    else if (ammotype.type == ItemID.ClusterRocketII)
-                        shoottype = ProjectileID.ClusterRocketII;
-                    else if (ammotype.type == ItemID.MiniNukeI)
-                        shoottype = ProjectileID.MiniNukeRocketI;
-                    else if (ammotype.type == ItemID.MiniNukeII)
-                        shoottype = ProjectileID.MiniNukeRocketII;
-                    else if (ammotype.type == ItemID.WetRocket)
-                        shoottype = ProjectileID.WetRocket;
-                    else if (ammotype.type == ItemID.LavaRocket)
-                        shoottype = ProjectileID.LavaRocket;
-                    else if (ammotype.type == ItemID.HoneyRocket)
-                        shoottype = ProjectileID.HoneyRocket;
-                    else if (ammotype.type == ItemID.DryRocket)
-                        shoottype = ProjectileID.DryRocket;*/
+                    ammotype = player.ChooseAmmo(player.HeldItem);
+                    //Can the rocket destory tiles (unused as it only checks what rocket is in the top most slot, not what has actually been loaded
+                    if (ammotype.type is ItemID.RocketII or ItemID.RocketIV or ItemID.ClusterRocketII or ItemID.MiniNukeII)
+                        tiledestory = 1;
+                    else
+                        tiledestory = 0;
+                        //For custom ammo
+                        /*if (ammotype.type == ItemID.RocketI)
+                            shoottype = ProjectileID.RocketI;
+                        else if (ammotype.type == ItemID.RocketII)
+                            shoottype = ProjectileID.RocketII;
+                        else if (ammotype.type == ItemID.RocketIII)
+                            shoottype = ProjectileID.RocketIII;
+                        else if (ammotype.type == ItemID.RocketIV)
+                            shoottype = ProjectileID.RocketIV;
+                        else if (ammotype.type == ItemID.ClusterRocketI)
+                            shoottype = ProjectileID.ClusterRocketI;
+                        else if (ammotype.type == ItemID.ClusterRocketII)
+                            shoottype = ProjectileID.ClusterRocketII;
+                        else if (ammotype.type == ItemID.MiniNukeI)
+                            shoottype = ProjectileID.MiniNukeRocketI;
+                        else if (ammotype.type == ItemID.MiniNukeII)
+                            shoottype = ProjectileID.MiniNukeRocketII;
+                        else if (ammotype.type == ItemID.WetRocket)
+                            shoottype = ProjectileID.WetRocket;
+                        else if (ammotype.type == ItemID.LavaRocket)
+                            shoottype = ProjectileID.LavaRocket;
+                        else if (ammotype.type == ItemID.HoneyRocket)
+                            shoottype = ProjectileID.HoneyRocket;
+                        else if (ammotype.type == ItemID.DryRocket)
+                            shoottype = ProjectileID.DryRocket;*/
 
-                    //float extradmg = orginaldamage / 20 * rocketcharge; //extra 6% per rocket loaded
-                    extradmg += 0.06f;
+                        //float extradmg = orginaldamage / 20 * rocketcharge; //extra 6% per rocket loaded
+                        extradmg += 0.06f;
                     //Main.NewText("extradmg " + extradmg, 0, 204, 170); //Inital Scale
 
                     Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.66f, Projectile.velocity.Y * 0.66f).RotatedByRandom(MathHelper.ToRadians(6));
@@ -202,13 +210,13 @@ namespace StormDiversMod.Projectiles
 
                     Main.projectile[projID].usesLocalNPCImmunity = true;
                     Main.projectile[projID].localNPCHitCooldown = 10;
+                    Main.projectile[projID].ai[2] = tiledestory;
                     //If projectile is blocked then explode 
                     if (!Collision.CanHitLine(new Vector2(Projectile.Center.X, Projectile.Center.Y), 0, 0, new Vector2(player.Center.X, player.Center.Y), 0, 0))
                     {
                         Main.projectile[projID].timeLeft = 3;
                         Main.projectile[projID].position.X = Projectile.Center.X - 7;
                         Main.projectile[projID].position.Y = Projectile.Center.Y - 7;
-
                     }
                     SoundEngine.PlaySound(SoundID.Item92 with { Volume = 1f, Pitch = 0, MaxInstances = -1 }, Projectile.Center);
                     for (int i = 0; i < 30; i++)
@@ -514,18 +522,32 @@ namespace StormDiversMod.Projectiles
             /*for (int i = 0; i < 200; i++) //test for now rocket damage system
             {
                 NPC target = Main.npc[i];
-                var player = Main.LocalPlayer;
+                //var player = Main.LocalPlayer;
 
                 if (Vector2.Distance(Projectile.Center, target.Center) <= 75 && !target.friendly && !target.dontTakeDamage && target.active)
                 {
-                    int prjdamage = (Math.Min(1, Math.Max(9999999, Projectile.damage - target.defense / 2)));
+                    int prjdamage = (Math.Min(9999999, Math.Max(1, Projectile.damage - target.defense / 2)));
                     target.life -= prjdamage;
 
                     CombatText.NewText(new Rectangle((int)target.Center.X, (int)target.Center.Y, 12, 4), Color.Orange, "" + prjdamage, false);
                     //how to detect crit?
                     //needs KB
                 }
+            }*/
+            /*if (Projectile.owner == Main.myPlayer && Projectile.ai[2] == 1)
+            {
+                int explosionRadius = 4; // Bomb: 4, Dynamite: 7, Explosives & TNT Barrel: 10
+                int minTileX = (int)(Projectile.Center.X / 16f - explosionRadius);
+                int maxTileX = (int)(Projectile.Center.X / 16f + explosionRadius);
+                int minTileY = (int)(Projectile.Center.Y / 16f - explosionRadius);
+                int maxTileY = (int)(Projectile.Center.Y / 16f + explosionRadius);
 
+                // Ensure that all tile coordinates are within the world bounds
+                Utils.ClampWithinWorld(ref minTileX, ref minTileY, ref maxTileX, ref maxTileY);
+
+                // These 2 methods handle actually mining the tiles and walls while honoring tile explosion conditions
+                //bool explodeWalls = Projectile.ShouldWallExplode(Projectile.Center, explosionRadius, minTileX, maxTileX, minTileY, maxTileY); //only if you want explosions from the edge of walls
+                Projectile.ExplodeTiles(Projectile.Center, explosionRadius, minTileX, maxTileX, minTileY, maxTileY, true);
             }*/
         }
     }

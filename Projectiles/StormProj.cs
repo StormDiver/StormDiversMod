@@ -4,6 +4,7 @@ using StormDiversMod.Common;
 using StormDiversMod.Items.Accessory;
 using StormDiversMod.NPCs;
 using System;
+using System.Reflection;
 using System.Security.Policy;
 using Terraria;
 using Terraria.Audio;
@@ -444,7 +445,6 @@ namespace StormDiversMod.Projectiles
 	//_______________________________________________ Grenade
 	public class StormGrenadeProj : ModProjectile
 	{
-
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Overloaded Grenade");
@@ -453,7 +453,6 @@ namespace StormDiversMod.Projectiles
 		}
 		public override void SetDefaults()
 		{
-
 			Projectile.width = 22;
 			Projectile.height = 22;
 			Projectile.friendly = true;
@@ -464,10 +463,15 @@ namespace StormDiversMod.Projectiles
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 10;
 		}
-		int extraTime = 50;
-		float lightningSpeed = 1.4f;
-		int dustYspeed = 10;
-		public override void AI()
+		int extraTime = 50; //Grants extra time for larger explosions (negative values = more time)
+		float lightningSpeed = 1.4f; //Speed to fire out visual lightning
+		int dustYspeed = 10; //dust speed
+        Item ammotype; //custom ammo
+        public override void OnSpawn(IEntitySource source)
+        {
+			//Main.NewText("Size is: " + Projectile.ai[1], Color.Green);
+        }
+        public override void AI()
 		{
 			Projectile.localAI[1]++;
 			if (Main.rand.Next(1) == 0)
@@ -476,7 +480,7 @@ namespace StormDiversMod.Projectiles
 				dust.noGravity = true;
 				dust.scale = 0.75f;
 			}
-			if (Projectile.localAI[1] >= 10)
+			if (Projectile.localAI[1] % 10 == 0)
 			{
 				for (int i = 0; i < 20; i++)
 				{
@@ -487,36 +491,29 @@ namespace StormDiversMod.Projectiles
 					int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 0.75f);
 					Main.dust[dust2].noGravity = true;
 				}
-
-				Projectile.localAI[1] = 0;
 			}
-
-			if (Projectile.ai[1] == 0) //Rockets I/II/Liquids
+			switch (Projectile.ai[1]) //set range here
 			{
-				extraTime = 50;
-				lightningSpeed = 1.2f;
-				dustYspeed = 10;
-			}
-			else if (Projectile.ai[1] == 1) //Rocket III/IV
-			{
-				extraTime = 0;
-				lightningSpeed = 1.5f;
-				dustYspeed = 13;
-
-			}
-			else if (Projectile.ai[1] == 2) //Mini Nukes/ Cluster I
-			{
-				extraTime = -50;
-				lightningSpeed = 1.75f;
-				dustYspeed = 16;
-
-			}
-			else if (Projectile.ai[1] == 3) //Mini Nukes/ Cluster II
-			{
-				extraTime = -100;
-				lightningSpeed = 2f;
-				dustYspeed = 20; 
-
+				case 0:
+					extraTime = 50;
+					lightningSpeed = 1.2f;
+					dustYspeed = 10;
+					break;
+				case 1:
+					extraTime = 0;
+					lightningSpeed = 1.5f;
+					dustYspeed = 12;
+					break;
+				case 2:
+					extraTime = -50;
+					lightningSpeed = 1.75f;
+					dustYspeed = 14;
+					break;
+				case 3: //Unused
+					extraTime = -100;
+					lightningSpeed = 2f;
+					dustYspeed = 16;
+					break;
 			}
 		}
 
@@ -541,7 +538,6 @@ namespace StormDiversMod.Projectiles
 
 				for (int j = 0; j < numberProjectiles; j++) //Lightning is just for visuals
 				{
-
 					Vector2 perturbedSpeed = new Vector2(0, lightningSpeed).RotatedBy(MathHelper.Lerp(-rotation, rotation, j / (numberProjectiles)));
 
 					float ai = Main.rand.Next(100);
@@ -554,7 +550,6 @@ namespace StormDiversMod.Projectiles
                     Main.projectile[projID].DamageType = DamageClass.Ranged;
 				}
 
-				
 				//Invisible expanding projectile deals damage
 				int projID2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Center.Y), new Vector2(0, 0),
 						ModContent.ProjectileType<StormExplosionProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner, extraTime); //add 50 onto the timer for rocket I, 0 for rocket III, and -50 for Mini nukes
@@ -569,9 +564,11 @@ namespace StormDiversMod.Projectiles
 					int dust2 = Dust.NewDust(Projectile.Center, 0, 0, 226, dustspeed.X, dustspeed.Y, 229, default, 1.5f);
 					Main.dust[dust2].noGravity = true;
 				}
-
-			}
-		}
+                
+                Dust dust = Terraria.Dust.NewDustPerfect(Projectile.Center, 226, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);
+                dust.noGravity = true;
+            }
+        }
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return Color.White;
@@ -588,13 +585,78 @@ namespace StormDiversMod.Projectiles
 				Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 				Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 			}
-
 			return true;
-
 		}
 	}
-	//_____________________________________________ Lightning
-	public class StormLightningProj : ModProjectile
+    //____________________________________________Explosion
+    public class StormExplosionProj : ModProjectile //used for damage instead of lightning in explosions
+    {
+        public override void SetStaticDefaults()
+        {
+            //DisplayName.SetDefault("Overloaded Lightning Explosion");
+        }
+        public override void SetDefaults()
+        {
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.aiStyle = -1;
+
+            Projectile.friendly = true;
+
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.scale = 1f;
+            Projectile.knockBack = 0;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 15;
+        }
+        float knockbackamount;
+        public override void OnSpawn(IEntitySource source)
+        {
+            knockbackamount = Projectile.knockBack;
+        }
+        public override void AI()
+        {
+            Projectile.knockBack = 0;
+            Projectile.velocity.X = 0;
+            Projectile.velocity.Y = 0;
+            //increases size and keeps it in place
+            Projectile.width += 8;
+            Projectile.height += 8;
+            Projectile.position.X -= 4f;
+            Projectile.position.Y -= 4f;
+            Projectile.ai[0] += 8;
+            //Projectile.scale += 0.1f;
+            if (Projectile.ai[0] > 250)//kill when timer is reached, when fired from launcher grenades timer starts at 50/0/-50/-100
+            {
+                Projectile.Kill();
+            }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+			if (target.knockBackResist > 0)
+			{
+				float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
+
+				float npclaunchspeed = knockbackamount * target.knockBackResist;
+				Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
+
+				target.velocity.X = -npclaunchvelocity.X;
+				target.velocity.Y = -npclaunchspeed / 2;
+			}
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            return false;
+        }
+        public override void OnKill(int timeLeft)
+        {
+
+        }
+    }
+    //_____________________________________________ Lightning
+    public class StormLightningProj : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -824,69 +886,6 @@ namespace StormDiversMod.Projectiles
 				Main.dust[num3].noGravity = true;
 				Main.dust[num3].scale = 1.2f;
 			}
-		}
-	}
-	public class StormExplosionProj : ModProjectile //used for damage instead of lightning in explosions
-	{
-		public override void SetStaticDefaults()
-		{
-			//DisplayName.SetDefault("Overloaded Lightning Explosion");
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 20;
-			Projectile.height = 20;
-			Projectile.aiStyle = -1;
-		
-			Projectile.friendly = true;
-		
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.scale = 1f;
-			Projectile.knockBack = 0;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 15;
-		}
-        float knockbackamount;
-        public override void OnSpawn(IEntitySource source)
-        {
-            knockbackamount = Projectile.knockBack;
-        }
-        public override void AI()
-		{
-			Projectile.knockBack = 0;
-			Projectile.velocity.X = 0;
-			Projectile.velocity.Y = 0;
-			//increases size and keeps it in place
-			Projectile.width += 8;
-			Projectile.height += 8;
-			Projectile.position.X -= 4f;
-			Projectile.position.Y -= 4f;
-			Projectile.ai[0] += 8;
-			//Projectile.scale += 0.1f;
-			if (Projectile.ai[0] > 250)//kill when timer is reached, when fired from launcher grenades timer starts at 50/0/-50
-            {
-                Projectile.Kill();
-            }
-		}
-
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			float npcdistance = Vector2.Distance(target.Center, Projectile.Center);
-
-			float npclaunchspeed = knockbackamount * target.knockBackResist;
-			Vector2 npclaunchvelocity = Vector2.Normalize(new Vector2(Projectile.Center.X, Projectile.Center.Y) - new Vector2(target.Center.X, target.Center.Y)) * npclaunchspeed;
-
-			target.velocity.X = -npclaunchvelocity.X;
-			target.velocity.Y = -npclaunchspeed / 2;
-		}
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			return false;
-		}
-		public override void OnKill(int timeLeft)
-		{
-
 		}
 	}
 	//_________________________________________________________________
